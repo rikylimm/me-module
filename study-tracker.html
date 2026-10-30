@@ -4364,6 +4364,16 @@ function fileBase(){
   b=b.replace(/\\/g,"/");
   if(!/^(file:|https?:|\.|\/)/.test(b))b="file:///"+b;
   if(!/\/$/.test(b))b+="/";
+  try{
+    if(/^https?:/.test(location.protocol)){
+      var bu=new URL(b), pu=new URL(location.href);
+      // The module files sit beside this page. A saved base that points at a
+      // different path on the same site is a stale leftover from an old layout
+      // (e.g. /me-module/ instead of /study-tracker/); ignore it and use
+      // relative links, which resolve to this folder.
+      if(bu.origin===pu.origin && bu.pathname!==pu.pathname.replace(/[^/]*$/,""))return "";
+    }
+  }catch(e){}
   return b;
 }
 function withBase(href){
