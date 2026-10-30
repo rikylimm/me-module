@@ -2,12 +2,50 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<meta http-equiv="refresh" content="0; url=study-tracker.html">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>Study Tracker</title>
-<script>location.replace('study-tracker.html');</script>
+<link rel="icon" type="image/svg+xml" href="favicon.svg">
+<style>
+  :root{
+    --paper:#F2F3EF; --ink:#16222B; --ink2:#44555F; --line:#D8DCD4;
+    --flux:#2E6F6B; --amber:#C77A06;
+  }
+  @media (prefers-color-scheme: dark){
+    :root{ --paper:#131C22; --ink:#E8EDE9; --ink2:#A8B6BA; --line:#2C3A42;
+           --flux:#6FB8AF; --amber:#E8A33C; }
+  }
+  *{box-sizing:border-box}
+  body{margin:0;min-height:100vh;display:flex;align-items:center;justify-content:center;
+       background:var(--paper);color:var(--ink);
+       font-family:-apple-system,system-ui,"Segoe UI",sans-serif;padding:24px}
+  main{max-width:30rem;text-align:center}
+  .mark{width:64px;height:64px;border-radius:16px;background:var(--flux);
+        display:inline-flex;align-items:center;justify-content:center;margin-bottom:18px}
+  .mark svg{width:36px;height:36px}
+  .mark path{stroke:var(--paper)}
+  h1{font-family:Georgia,serif;font-weight:500;font-size:32px;margin:0 0 6px}
+  p{color:var(--ink2);margin:0 auto 26px;max-width:24rem;line-height:1.55}
+  .row{display:flex;gap:12px;justify-content:center;flex-wrap:wrap}
+  a.btn{display:inline-block;text-decoration:none;font-weight:600;font-size:15px;
+        padding:13px 22px;border-radius:10px;border:1px solid transparent}
+  a.primary{background:var(--flux);color:#F2F3EF}
+  a.secondary{background:transparent;color:var(--ink2);border-color:var(--line)}
+  .note{margin-top:30px;font-size:13px;color:var(--ink2);opacity:.8}
+  code{font-family:ui-monospace,Menlo,monospace;font-size:12.5px}
+</style>
 </head>
 <body>
-<p>Opening the <a href="study-tracker.html">study tracker</a>&hellip;</p>
+<main>
+  <div class="mark" aria-hidden="true">
+    <svg viewBox="0 0 64 64"><path d="M17 33.5 27.5 44 47 22" fill="none" stroke-width="6.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+  </div>
+  <h1>Study Tracker</h1>
+  <p>Your 66-week metabolic-engineering study tracker — modules, problems, notes and ticks, on any device.</p>
+  <div class="row">
+    <a class="btn primary" href="study-tracker.html">Open tracker</a>
+    <a class="btn secondary" href="sync.html">Cloud sync</a>
+  </div>
+  <p class="note">Bookmark this page. Progress stays on each device — use <b>Cloud sync</b> to carry it between them.</p>
+</main>
 </body>
 </html>

@@ -1,0 +1,468 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Cloud sync — study tracker</title>
+<link rel="icon" type="image/svg+xml" href="favicon.svg">
+<style>
+  :root{
+    --paper:#F2F3EF; --card:#FBFBF8; --ink:#16222B; --ink2:#44555F; --ink3:#7A8A91;
+    --line:#D8DCD4; --amber:#C77A06; --amber-soft:#F6E7C9; --flux:#2E6F6B; --warn:#9E3B2F;
+    --r:10px;
+  }
+  @media (prefers-color-scheme: dark){
+    :root{ --paper:#131C22; --card:#1A252C; --ink:#E8EDE9; --ink2:#A8B6BA; --ink3:#71848A;
+           --line:#2C3A42; --amber:#E8A33C; --amber-soft:#3A2D16; --flux:#6FB8AF; --warn:#D8705E; }
+  }
+  *{box-sizing:border-box}
+  body{margin:0;background:var(--paper);color:var(--ink);
+       font-family:-apple-system,system-ui,"Segoe UI",sans-serif;font-size:15px;line-height:1.55}
+  main{max-width:42rem;margin:0 auto;padding:28px 18px 80px}
+  h1{font-family:Georgia,serif;font-weight:500;font-size:28px;margin:0 0 4px}
+  h2{font-family:Georgia,serif;font-weight:500;font-size:17px;margin:22px 0 6px}
+  p{margin:.4em 0}
+  .sub{color:var(--ink2);font-style:italic;font-family:Georgia,serif}
+  .meta{color:var(--ink3);font-size:13px}
+  section{background:var(--card);border:1px solid var(--line);border-radius:var(--r);padding:16px 18px;margin:14px 0}
+  label{display:block;font-size:12.5px;color:var(--ink3);margin:12px 0 4px}
+  input,select{width:100%;font:inherit;font-size:14px;padding:9px 10px;border-radius:8px;
+        border:1px solid var(--line);background:var(--paper);color:var(--ink)}
+  .row{display:flex;gap:8px;flex-wrap:wrap;margin-top:12px}
+  button{font:inherit;font-size:14px;font-weight:600;padding:9px 14px;border-radius:8px;cursor:pointer;
+         background:var(--ink);color:var(--paper);border:1px solid var(--ink)}
+  button.quiet{background:none;color:var(--ink2);border-color:var(--line);font-weight:500}
+  button:disabled{opacity:.45;cursor:default}
+  .primary{background:var(--amber);border-color:var(--amber);color:#1A1208}
+  .warn{background:var(--amber-soft);border:1px solid var(--amber);border-left-width:3px;
+        border-radius:0 8px 8px 0;padding:11px 14px;font-size:13.5px;color:var(--ink)}
+  .status{font-size:13.5px;color:var(--ink2);min-height:1.4em;margin-top:10px}
+  .status.ok{color:var(--flux)}
+  .status.err{color:var(--warn)}
+  code{font-family:ui-monospace,Menlo,monospace;font-size:12.5px;background:var(--paper);
+       border:1px solid var(--line);border-radius:4px;padding:1px 5px}
+  a{color:var(--amber)}
+  .hide{display:none !important}
+</style>
+</head>
+<body>
+<main>
+  <h1>Cloud sync</h1>
+  <p class="sub">Moves the tracker’s progress between devices through either a secret gist or a private repository.</p>
+
+  <section>
+    <h2>Where to store the state</h2>
+    <label for="mode">Storage</label>
+    <select id="mode">
+      <option value="gist">Secret gist — simplest, unlisted but readable by anyone with the URL</option>
+      <option value="repo">Private repository — only you can read it</option>
+    </select>
+
+    <h2>GitHub token</h2>
+    <p class="meta" id="tokenhelp">Fine-grained token → <b>Account permissions → Gists: Read and write</b> (nothing else).</p>
+    <label for="token">Token</label>
+    <input id="token" type="password" autocomplete="off" placeholder="github_pat_…">
+
+    <div id="gistfields">
+      <h2>Gist</h2>
+      <p class="meta">Create a fresh secret gist, or paste one you already made.</p>
+      <label for="gist">Gist id</label>
+      <input id="gist" autocomplete="off" placeholder="e.g. 4f1c9a…">
+      <div class="row"><button id="creategist" class="quiet">Create a secret gist for me</button></div>
+    </div>
+
+    <div id="repofields" class="hide">
+      <h2>Private repository</h2>
+      <p class="meta">Create a <b>private</b> repo (e.g. <code>me-sync</code>). The token needs <b>Contents: Read and write</b>
+        on that repo only.</p>
+      <label for="repo">owner/repo</label>
+      <input id="repo" autocomplete="off" placeholder="yourname/me-sync">
+      <label for="path">File path</label>
+      <input id="path" autocomplete="off" value="tracker-state.json">
+      <div class="row"><button id="checkrepo" class="quiet">Check the repo</button></div>
+    </div>
+
+    <div class="row"><button id="save" class="primary">Save settings</button></div>
+    <p id="setmsg" class="status"></p>
+  </section>
+
+  <section id="panel" class="hide">
+    <h2>Sync</h2>
+    <p class="meta">Close any other tracker tab first — a stale tab would overwrite the merged state. “Sync and open”
+      then loads a fresh tracker with the merged progress.</p>
+    <div class="row">
+      <button id="syncopen" class="primary">Sync and open tracker</button>
+      <button id="sync">Sync only</button>
+    </div>
+    <div class="row">
+      <button id="push" class="quiet">Force: this device → remote</button>
+      <button id="pull" class="quiet">Force: remote → this device</button>
+    </div>
+    <p id="status" class="status"></p>
+    <p id="summary" class="meta"></p>
+    <div class="row"><button id="forget" class="quiet">Forget token and settings</button></div>
+    <p><a href="study-tracker.html">Open the tracker without syncing →</a></p>
+  </section>
+
+  <div class="warn" style="margin-top:18px">
+    <b>Security.</b> The token is stored in this browser for this site. Use a token that can do only what this page needs
+    (gists, or Contents on one private repo). A <b>private repo</b> is genuinely private; a <b>secret gist</b> is unlisted,
+    not encrypted — anyone with its URL can read it.
+  </div>
+
+  <p class="meta" style="margin-top:22px">
+    This page must be opened from the same site as the tracker (both at
+    <code>https://NAME.github.io/study-tracker/</code>), because the two pages share the browser’s local storage.
+    It does not work from a local file.
+  </p>
+</main>
+
+<script>
+/* ============================================================
+   Cloud sync for the metabolic-engineering tracker.
+   Two backends: secret gist, or a file in a private repository.
+   Same origin as the tracker, so it reads/writes the tracker's
+   localStorage key. Merging uses the tracker's own mergeState().
+   ============================================================ */
+
+const LS   = "me-tracker-v2";
+const KEY  = { tok:"me-gist-token", gist:"me-gist-id", repo:"me-repo", path:"me-repo-path", mode:"me-sync-mode" };
+const FILE = "tracker-state.json";
+
+/* ---- state helpers (mirror the tracker) ---- */
+function todayKey(d){
+  const x = d ? new Date(d) : new Date();
+  return x.getFullYear()+"-"+String(x.getMonth()+1).padStart(2,"0")+"-"+String(x.getDate()).padStart(2,"0");
+}
+const DEF = () => ({v:1,fmt:2,rev:0,epoch:0,skipExt:false,profile:"pathway",start:todayKey(),active:1,
+  checks:{},notes:{},port:{},cap:{},work:{},log:{},papers:[],quiz:{byQ:{},days:{}},bench:{t:{},p:{}},exams:{}});
+
+function mergeState(a,b){            // a = remote copy, b = this device  (copied from the tracker)
+  const ea=a.epoch||0, eb=b.epoch||0;
+  if(ea!==eb){
+    const w=ea>eb?a:b;
+    return Object.assign(DEF(),JSON.parse(JSON.stringify(w)),{rev:Math.max(a.rev||0,b.rev||0)});
+  }
+  const m=Object.assign(DEF(),JSON.parse(JSON.stringify(a)));
+  m.checks=Object.assign({},a.checks||{},b.checks||{});
+  ["port","cap","work"].forEach(k=>{m[k]=Object.assign({},a[k]||{},b[k]||{});});
+  m.notes=Object.assign({},a.notes||{});
+  Object.entries(b.notes||{}).forEach(([k,v])=>{
+    if(!(k in m.notes)||String(v).length>=String(m.notes[k]||"").length)m.notes[k]=v;});
+  m.log=Object.assign({},a.log||{});
+  Object.entries(b.log||{}).forEach(([k,v])=>{const o=m.log[k];if(!o||(v.h||0)>(o.h||0))m.log[k]=v;});
+  const ids=new Set((a.papers||[]).map(p=>p.id));
+  m.papers=(a.papers||[]).concat((b.papers||[]).filter(p=>!ids.has(p.id)));
+  m.quiz={byQ:Object.assign({},((a.quiz||{}).byQ)||{}),days:Object.assign({},((a.quiz||{}).days)||{})};
+  Object.entries(((b.quiz||{}).byQ)||{}).forEach(([k,v])=>{
+    const o=m.quiz.byQ[k];
+    if(!o||(v.last||0)>(o.last||0)||((v.last||0)===(o.last||0)&&(v.seen||0)>(o.seen||0)))m.quiz.byQ[k]=v;});
+  Object.entries(((b.quiz||{}).days)||{}).forEach(([k,v])=>{
+    const o=m.quiz.days[k];if(!o||(v.total||0)>(o.total||0))m.quiz.days[k]=v;});
+  (function(){
+    const bt=Object.assign({},((a.bench||{}).t)||{});
+    Object.entries(((b.bench||{}).t)||{}).forEach(function(kv){
+      const k=kv[0],v=kv[1],o=bt[k];
+      if(!o){bt[k]=v;return;}
+      bt[k]={n:Math.max(o.n||0,v.n||0),last:((v.last||"")>(o.last||""))?v.last:o.last,ver:!!(o.ver||v.ver),
+             note:(String(v.note||"").length>=String(o.note||"").length)?v.note:o.note};
+    });
+    const bp=Object.assign({},((a.bench||{}).p)||{});
+    Object.entries(((b.bench||{}).p)||{}).forEach(function(kv){if(kv[1])bp[kv[0]]=kv[1];});
+    m.bench={t:bt,p:bp};
+  })();
+  m.start=(a.start&&b.start)?(a.start<b.start?a.start:b.start):(a.start||b.start);
+  m.active=b.active||a.active;
+  m.profile=b.profile||a.profile;
+  m.skipExt=(b.skipExt!==undefined)?b.skipExt:a.skipExt;
+  m.epoch=ea;
+  m.rev=Math.max(a.rev||0,b.rev||0);
+  return m;
+}
+
+function readLocal(){
+  try{ const t=localStorage.getItem(LS); if(!t) return null; const s=JSON.parse(t); return (s&&s.v)?s:null; }
+  catch(e){ return null; }
+}
+function writeLocal(m){
+  localStorage.setItem(LS, JSON.stringify(m));
+  try{ localStorage.removeItem(LS+":dirty"); }catch(e){}
+}
+const mode = () => localStorage.getItem(KEY.mode) || (localStorage.getItem(KEY.gist) ? "gist" : "repo");
+
+/* ---- GitHub API ---- */
+function headers(extra){
+  return Object.assign({ "Authorization":"Bearer "+(localStorage.getItem(KEY.tok)||""),
+                         "Accept":"application/vnd.github+json" }, extra||{});
+}
+function token(){
+  const t = localStorage.getItem(KEY.tok);
+  if(!t) throw new Error("No token saved.");
+  return t;
+}
+function b64encode(str){
+  const bytes = new TextEncoder().encode(str);
+  let bin=""; bytes.forEach(b=>bin+=String.fromCharCode(b));
+  return btoa(bin);
+}
+function b64decode(b64){
+  const bin = atob(b64.replace(/\s/g,""));
+  const bytes = Uint8Array.from(bin, c=>c.charCodeAt(0));
+  return new TextDecoder().decode(bytes);
+}
+
+/* ---- gist backend ---- */
+async function gistRead(){
+  token();
+  const id = localStorage.getItem(KEY.gist);
+  if(!id) throw new Error("No gist id saved.");
+  const r = await fetch("https://api.github.com/gists/"+encodeURIComponent(id), {headers: headers()});
+  if(r.status===404) throw new Error("Gist not found — check the id, or create a new one.");
+  if(r.status===401) throw new Error("Token rejected (401). Check it has Gists access.");
+  if(r.status===403) throw new Error("Rate limited or forbidden (403).");
+  if(!r.ok) throw new Error("GitHub said "+r.status+" "+r.statusText);
+  const j = await r.json();
+  const f = j.files && (j.files[FILE] || Object.values(j.files)[0]);
+  if(!f) return {state:null};
+  let txt = f.content;
+  if(f.truncated && f.raw_url){
+    const rr = await fetch(f.raw_url, {headers: headers()});
+    txt = await rr.text();
+  }
+  try{ const s=JSON.parse(txt); return {state:(s&&s.v)?s:null}; }catch(e){ return {state:null}; }
+}
+async function gistWrite(state){
+  token();
+  const id = localStorage.getItem(KEY.gist);
+  if(!id) throw new Error("No gist id saved.");
+  const body = { files: { [FILE]: { content: JSON.stringify(state) } } };
+  const r = await fetch("https://api.github.com/gists/"+encodeURIComponent(id),
+    {method:"PATCH", headers: headers({"Content-Type":"application/json"}), body: JSON.stringify(body)});
+  if(!r.ok) throw new Error("Write failed: GitHub said "+r.status+" "+r.statusText);
+}
+async function gistCreate(){
+  token();
+  const r = await fetch("https://api.github.com/gists",
+    {method:"POST", headers: headers({"Content-Type":"application/json"}),
+     body: JSON.stringify({ description:"Metabolic engineering tracker — sync state",
+       public:false, files:{ [FILE]:{ content:"{}" } } })});
+  if(r.status===401) throw new Error("Token rejected (401) — generate one with Gists access.");
+  if(!r.ok) throw new Error("Could not create the gist: "+r.status+" "+r.statusText);
+  const j = await r.json();
+  localStorage.setItem(KEY.gist, j.id);
+  return j.id;
+}
+
+/* ---- private-repo backend ---- */
+function repoParts(){
+  token();
+  const full = (localStorage.getItem(KEY.repo)||"").trim();
+  const m = full.match(/^([\w.-]+)\/([\w.-]+)$/);
+  if(!m) throw new Error("Set owner/repo, e.g. yourname/me-sync");
+  const path = (localStorage.getItem(KEY.path)||FILE).trim().replace(/^\/+/,"")
+                .split("/").map(encodeURIComponent).join("/");
+  return { owner:m[1], name:m[2], path };
+}
+async function repoRead(){
+  const {owner,name,path} = repoParts();
+  const url = "https://api.github.com/repos/"+owner+"/"+name+"/contents/"+path;
+  const r = await fetch(url, {headers: headers()});
+  if(r.status===404) return {state:null, sha:null};          // not created yet
+  if(r.status===401) throw new Error("Token rejected (401).");
+  if(r.status===403) throw new Error("Forbidden (403) — the token needs Contents: read/write on this repo.");
+  if(!r.ok) throw new Error("GitHub said "+r.status+" "+r.statusText);
+  const j = await r.json();
+  let text;
+  if(j.content && j.encoding==="base64"){
+    text = b64decode(j.content);
+  }else{
+    const rr = await fetch(url, {headers: headers({Accept:"application/vnd.github.raw"})});
+    text = await rr.text();
+  }
+  let state=null;
+  try{ const s=JSON.parse(text); if(s&&s.v) state=s; }catch(e){}
+  return {state, sha:j.sha||null};
+}
+async function repoWrite(state, sha){
+  const {owner,name,path} = repoParts();
+  const url = "https://api.github.com/repos/"+owner+"/"+name+"/contents/"+path;
+  const payload = { message:"sync "+new Date().toISOString(), content:b64encode(JSON.stringify(state)) };
+  if(sha) payload.sha = sha;
+  let r = await fetch(url, {method:"PUT", headers: headers({"Content-Type":"application/json"}),
+                            body: JSON.stringify(payload)});
+  if(r.status===409 || r.status===422 || r.status===404){
+    // stale sha or first write — re-read and retry once
+    const cur = await repoRead();
+    payload.sha = cur.sha;
+    r = await fetch(url, {method:"PUT", headers: headers({"Content-Type":"application/json"}),
+                          body: JSON.stringify(payload)});
+  }
+  if(!r.ok) throw new Error("Write failed: GitHub said "+r.status+" "+r.statusText);
+  const j = await r.json();
+  return j.content && j.content.sha;
+}
+async function repoCheck(){
+  const {owner,name} = repoParts();
+  const r = await fetch("https://api.github.com/repos/"+owner+"/"+name, {headers: headers()});
+  if(r.status===404) throw new Error("Repo not found. Is it private, and is the token scoped to it?");
+  if(r.status===401) throw new Error("Token rejected (401).");
+  if(!r.ok) throw new Error("GitHub said "+r.status+" "+r.statusText);
+  const j = await r.json();
+  return { full:j.full_name, priv:!!j.private, write:!!(j.permissions && j.permissions.push) };
+}
+
+/* ---- dispatch ---- */
+async function remoteRead(){
+  return mode()==="gist" ? gistRead() : repoRead();
+}
+async function remoteWrite(state, sha){
+  if(mode()==="gist"){ await gistWrite(state); return null; }
+  return repoWrite(state, sha);
+}
+
+/* ---- sync ---- */
+async function syncBoth(){
+  const {state:g, sha} = await remoteRead();
+  const l = readLocal();
+  let m;
+  if(g && l){ m = mergeState(g,l); m.rev = Math.max(g.rev||0,l.rev||0)+1; }
+  else if(g){ m = Object.assign(DEF(), g); m.rev = (g.rev||0)+1; }
+  else if(l){ m = Object.assign(DEF(), l); m.rev = (l.rev||0)+1; }
+  else throw new Error("Nothing to sync yet — open the tracker and tick a session first.");
+  writeLocal(m);
+  await remoteWrite(m, sha);
+  return m;
+}
+async function pushOnly(){
+  const l = readLocal();
+  if(!l) throw new Error("This device has no tracker state to push.");
+  const {sha} = await remoteRead().catch(()=>({sha:null}));
+  l.rev = (l.rev||0)+1;
+  await remoteWrite(l, sha);
+  writeLocal(l);
+  return l;
+}
+async function pullOnly(){
+  const {state:g} = await remoteRead();
+  if(!g) throw new Error("The remote copy is empty — nothing to pull.");
+  writeLocal(g);
+  return g;
+}
+
+/* ---- UI ---- */
+const $ = id => document.getElementById(id);
+function describe(s){
+  if(!s) return "empty";
+  const c=Object.keys(s.checks||{}).length;
+  const l=Object.keys(s.log||{}).length;
+  const n=Object.keys(s.notes||{}).length;
+  const p=(s.papers||[]).length;
+  const q=Object.keys(((s.quiz||{}).byQ)||{}).length;
+  return c+" ticks · "+l+" session logs · "+n+" notes · "+p+" papers · "+q+" quiz items";
+}
+function setStatus(msg, cls){
+  const el=$("status"); el.textContent=msg; el.className="status"+(cls?" "+cls:"");
+  const el2=$("setmsg"); if(el2){ el2.textContent=msg; el2.className="status"+(cls?" "+cls:""); }
+}
+function toggleFields(){
+  const g = mode()==="gist";
+  $("gistfields").classList.toggle("hide", !g);
+  $("repofields").classList.toggle("hide", g);
+  $("tokenhelp").innerHTML = g
+    ? "Fine-grained token → <b>Account permissions → Gists: Read and write</b> (nothing else)."
+    : "Fine-grained token → <b>Repository access: only this repo</b>, and <b>Contents: Read and write</b>.";
+}
+function showPanel(){
+  const cfg = !!(localStorage.getItem(KEY.tok) &&
+    (mode()==="gist" ? localStorage.getItem(KEY.gist) : localStorage.getItem(KEY.repo)));
+  $("panel").classList.toggle("hide", !cfg);
+  if(cfg){
+    $("summary").textContent = "On this device: "+describe(readLocal());
+    setStatus("Ready. On this device: "+describe(readLocal()));
+  }
+}
+
+$("mode").onchange = ()=>{
+  localStorage.setItem(KEY.mode, $("mode").value);
+  toggleFields();
+};
+$("save").onclick = ()=>{
+  const t=$("token").value.trim();
+  if(t) localStorage.setItem(KEY.tok, t);
+  localStorage.setItem(KEY.mode, $("mode").value);
+  if(mode()==="gist"){
+    const g=$("gist").value.trim();
+    if(g) localStorage.setItem(KEY.gist, g);
+  }else{
+    const r=$("repo").value.trim();
+    if(r) localStorage.setItem(KEY.repo, r);
+    localStorage.setItem(KEY.path, $("path").value.trim() || FILE);
+  }
+  showPanel();
+};
+$("creategist").onclick = async ()=>{
+  const t=$("token").value.trim(); if(t) localStorage.setItem(KEY.tok,t);
+  try{ setStatus("Creating…");
+    const id = await gistCreate();
+    $("gist").value=id;
+    setStatus("Created secret gist "+id+" — settings saved.","ok");
+    showPanel();
+  }catch(e){ setStatus(e.message,"err"); }
+};
+$("checkrepo").onclick = async ()=>{
+  const t=$("token").value.trim(); if(t) localStorage.setItem(KEY.tok,t);
+  localStorage.setItem(KEY.mode,"repo");
+  $("mode").value="repo"; toggleFields();
+  localStorage.setItem(KEY.repo, $("repo").value.trim());
+  localStorage.setItem(KEY.path, $("path").value.trim() || FILE);
+  try{
+    setStatus("Checking the repo…");
+    const r = await repoCheck();
+    if(!r.priv){ setStatus("That repo is PUBLIC — your notes would be visible. Make it private.","err"); return; }
+    if(!r.write){ setStatus("Private ✓ but the token cannot write Contents. Grant Contents: Read and write.","err"); return; }
+    setStatus("Private ✓ and writable ✓ — "+r.full+". Settings saved.","ok");
+    showPanel();
+  }catch(e){ setStatus(e.message,"err"); }
+};
+
+$("syncopen").onclick = async ()=>{
+  try{ setStatus("Syncing…");
+    const m = await syncBoth();
+    setStatus("Synced — "+describe(m)+". Opening the tracker…","ok");
+    setTimeout(()=>{ location.href="study-tracker.html"; }, 700);
+  }catch(e){ setStatus(e.message,"err"); }
+};
+$("sync").onclick = async ()=>{
+  try{ setStatus("Syncing…"); const m=await syncBoth();
+       setStatus("Synced — "+describe(m)+".","ok");
+       $("summary").textContent="On this device: "+describe(m); }
+  catch(e){ setStatus(e.message,"err"); }
+};
+$("push").onclick = async ()=>{
+  if(!confirm("Replace the remote copy with THIS device's state? The other device's unsynced work would be lost.")) return;
+  try{ setStatus("Pushing…"); const m=await pushOnly(); setStatus("Pushed — "+describe(m)+".","ok"); }
+  catch(e){ setStatus(e.message,"err"); }
+};
+$("pull").onclick = async ()=>{
+  if(!confirm("Replace THIS device's state with the remote copy? Unsynced work here would be lost.")) return;
+  try{ setStatus("Pulling…"); const m=await pullOnly(); setStatus("Pulled — "+describe(m)+". Reload the tracker.","ok"); }
+  catch(e){ setStatus(e.message,"err"); }
+};
+$("forget").onclick = ()=>{
+  if(!confirm("Remove the token and settings from this browser?")) return;
+  Object.values(KEY).forEach(k=>localStorage.removeItem(k));
+  $("token").value=""; $("gist").value=""; $("repo").value="";
+  setStatus("Forgotten.","ok"); showPanel();
+};
+
+/* ---- prefill ---- */
+$("mode").value = mode();
+$("token").value = localStorage.getItem(KEY.tok) || "";
+$("gist").value  = localStorage.getItem(KEY.gist) || "";
+$("repo").value  = localStorage.getItem(KEY.repo) || "";
+$("path").value  = localStorage.getItem(KEY.path) || FILE;
+toggleFields();
+showPanel();
+</script>
+</body>
+</html>

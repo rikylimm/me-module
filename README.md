@@ -4,7 +4,10 @@ A self-contained, single-file study tracker for a 66-week curriculum across 19 m
 
 ## What's here
 
+- `index.html` — the landing page.
 - `study-tracker.html` — the app. Open it in any modern browser.
+- `sync.html` — cloud sync (carry your progress between devices).
+- `favicon.svg` — the site icon.
 - `module-01` … `module-19` — the reading modules (PDF).
 - `problems-01` … `problems-05` — the problem sets (PDF).
 - `problem-data/` — CSV data files and the answer key the problems rely on.
@@ -24,21 +27,19 @@ Your ticks/progress are stored in that browser's local storage. They stay on tha
 The tracker is already wired for this. Host this folder once and point every device at it:
 
 1. Host the folder (this repo has GitHub Pages enabled).
-2. Open the hosted `study-tracker.html`.
-3. On each device, find the **"Where your files live"** card in the sidebar, and paste the hosted folder address, for example:
+2. Open the hosted site: `https://<your-user>.github.io/<repo>/` (it shows a landing page).
+3. The PDF links resolve relative to the page, so they load from the same address on every device.
 
-   ```
-   https://<your-user>.github.io/<repo>/
-   ```
+## Cloud sync (carry progress between devices)
 
-   Then every PDF link on every device loads from that address.
+Progress is stored by each browser separately. To move it between devices, open `sync.html` (or click **Cloud sync** on the landing page) and choose one backend:
 
-### Progress does not sync by itself
+- **Secret gist** — simplest. Generate a fine-grained GitHub token with only **Gists: Read and write**, paste it into `sync.html`, and click **Create a secret gist for me**. Then **Sync and open tracker**.
+- **Private repository** — genuinely private. Create a private repo (e.g. `me-sync`), grant the token **Contents: Read and write** on that repo only, enter `owner/repo` in `sync.html`, then sync.
 
-Ticks are stored by each browser separately. When you switch devices:
+The sync page merges two devices' state safely (later edits win per field). Use **Force push/pull** only when you're sure one side should win.
 
-1. On the device you worked on, use **Export backup** at the foot of the page.
-2. On the other device, use **Import backup** with that file.
+> You can still use **Export backup / Import backup** at the foot of the tracker as a manual fallback.
 
 ## Privacy note
 
