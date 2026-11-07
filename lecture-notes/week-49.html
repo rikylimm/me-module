@@ -1,0 +1,2672 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="utf-8"><title>Week 49 — Fermenter design, aeration and mixing — Metabolic engineering</title>
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+
+
+<style>:root{color-scheme:light;--paper:#FAF6EF;--ink:#211A12;--ink-2:#4A3C2C;--ink-3:#8A7458;
+--line:#DFD2BE;--line-2:#EDE4D5;--broth:#9A6B1F;--broth-soft:#F6ECD9;
+--serif:"Newsreader",Georgia,serif;--sans:"Public Sans",system-ui,sans-serif}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--paper:#15120D;--ink:#F1E9DC;--ink-2:#CBBCA6;
+--ink-3:#948872;--line:#352C22;--line-2:#2A231B;--broth:#D7A95C;--broth-soft:#241D14}}
+*{box-sizing:border-box}
+body{margin:0;background:var(--paper);color:var(--ink);font-family:var(--sans);font-size:15.5px;line-height:1.6;
+padding:env(safe-area-inset-top,0) 0 env(safe-area-inset-bottom,0)}
+.wrap{max-width:840px;margin:0 auto;padding:40px 22px 90px}
+h1{font-family:var(--serif);font-size:clamp(28px,5vw,42px);line-height:1.1;font-weight:600;margin:0 0 6px;letter-spacing:-.02em}
+h2{font-family:var(--serif);font-size:26px;font-weight:600;margin:46px 0 10px;letter-spacing:-.01em;padding-bottom:7px;border-bottom:1px solid var(--line)}
+h3{font-family:var(--serif);font-size:20px;font-weight:600;margin:30px 0 4px;color:var(--broth)}
+h4{font-size:14px;font-weight:650;margin:18px 0 4px;color:var(--ink-3);letter-spacing:.02em;text-transform:uppercase}
+p{margin:0 0 12px;max-width:74ch}
+em{color:var(--ink-2)}
+ul{margin:0 0 14px;padding-left:1.15em;max-width:74ch}
+li{margin:.3em 0}li::marker{color:var(--ink-3)}
+hr{border:0;border-top:1px solid var(--line);margin:40px 0}
+strong{font-weight:650}
+table{border-collapse:collapse;width:100%;margin:14px 0 20px;font-size:14px}
+th{text-align:left;font-weight:600;color:var(--ink-3);font-size:12.5px;padding:7px 9px;border-bottom:1.5px solid var(--line)}
+td{padding:8px 9px;border-bottom:1px solid var(--line-2);vertical-align:top}
+tr:nth-child(even) td{background:var(--broth-soft)}
+
+figure.fig{margin:22px 0 26px;padding:0;max-width:100%}
+figure.fig svg{width:100%;height:auto;display:block;background:var(--card);
+  border:1px solid var(--line-2);border-radius:10px;padding:8px 10px}
+figure.fig figcaption{font-size:13px;color:var(--ink-3);margin-top:8px;max-width:74ch;line-height:1.5}
+figure.fig .figtitle{font-family:var(--serif);font-size:15px;color:var(--ink-2);margin-bottom:6px}
+figure.fig .fig-dark{display:none}
+@media (prefers-color-scheme: dark){
+  figure.fig .fig-light{display:none}
+  figure.fig .fig-dark{display:block}
+}
+@media print{figure.fig{break-inside:avoid;page-break-inside:avoid}
+  figure.fig .fig-dark{display:none !important}
+  figure.fig .fig-light{display:block !important}}
+
+@media print{body{background:#fff}.wrap{padding:0;max-width:none}h2,h3{page-break-after:avoid}}</style><script>try{var t=localStorage.getItem("me.theme");if(t&&t!=="auto")document.documentElement.setAttribute("data-theme",t);}catch(e){}</script>
+<meta name="color-scheme" content="light dark">
+<meta name="theme-color" content="#ffffff" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#000000" media="(prefers-color-scheme: dark)">
+<style>
+/* ============================================================
+   COURSE LIBRARY — Apple document shell
+   ============================================================ */
+:root{
+  color-scheme:light;
+  --paper:#FFFFFF;--surface:#F5F5F7;--card:#FFFFFF;--fill:#F5F5F7;
+  --ink:#1D1D1F;--ink-2:#6E6E73;--ink-3:#6E6E73;
+  --line:rgba(0,0,0,.14);--line-2:rgba(0,0,0,.08);
+  --broth:#0071E3;--broth-soft:rgba(0,113,227,.10);
+  --nav-bg:rgba(255,255,255,.84);
+  --sans:-apple-system,BlinkMacSystemFont,"SF Pro Text","SF Pro Display","Helvetica Neue",Arial,sans-serif;
+  --mono:ui-monospace,"SF Mono",Menlo,Consolas,monospace;
+  --serif:var(--sans);
+}
+@media (prefers-color-scheme:dark){
+  :root:not([data-theme="light"]){
+    color-scheme:dark;
+    --paper:#000000;--surface:#1C1C1E;--card:#2C2C2E;--fill:#2C2C2E;
+    --ink:#F5F5F7;--ink-2:#A1A1A6;--ink-3:#8E8E93;
+    --line:rgba(255,255,255,.16);--line-2:rgba(255,255,255,.09);
+    --broth:#5AA9FF;--broth-soft:rgba(10,132,255,.18);
+    --nav-bg:rgba(0,0,0,.74);
+  }
+}
+:root[data-theme="dark"]{
+  color-scheme:dark;
+  --paper:#000000;--surface:#1C1C1E;--card:#2C2C2E;--fill:#2C2C2E;
+  --ink:#F5F5F7;--ink-2:#A1A1A6;--ink-3:#8E8E93;
+  --line:rgba(255,255,255,.16);--line-2:rgba(255,255,255,.09);
+  --broth:#5AA9FF;--broth-soft:rgba(10,132,255,.18);
+  --nav-bg:rgba(0,0,0,.74);
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth;scroll-padding-top:72px;-webkit-text-size-adjust:100%}
+body{
+  margin:0;background:var(--paper);color:var(--ink);
+  font-family:var(--sans);font-size:17px;line-height:1.62;letter-spacing:-.011em;
+  padding:0;
+}
+.docbar{
+  position:sticky;top:0;z-index:80;display:flex;align-items:center;justify-content:space-between;gap:12px;
+  padding:8px max(24px,calc((100vw - 1180px)/2));
+  background:var(--nav-bg);
+  -webkit-backdrop-filter:saturate(180%) blur(20px);backdrop-filter:saturate(180%) blur(20px);
+  border-bottom:1px solid var(--line-2);
+}
+.docback{display:inline-flex;align-items:center;gap:6px;color:var(--ink-2);font-size:13px;font-weight:500;text-decoration:none;white-space:nowrap}
+.docback:hover{color:var(--broth)}
+.appearance{display:inline-flex;gap:2px;padding:2px;background:var(--fill);border-radius:980px}
+.appearance button{border:0;background:none;color:var(--ink-2);font:inherit;font-size:12px;font-weight:500;line-height:1;padding:6px 11px;border-radius:980px;cursor:pointer}
+.appearance button[aria-pressed="true"]{background:var(--card);color:var(--ink);box-shadow:0 1px 2px rgba(0,0,0,.08)}
+.wrap{max-width:900px;margin:0 auto;padding:64px 24px 96px}
+body h1{
+  font-family:var(--sans);font-size:clamp(42px,6.2vw,64px);line-height:1.04;letter-spacing:-.04em;
+  font-weight:700;margin:0 0 16px;max-width:18ch;color:var(--ink);
+}
+.doc-kicker{font-size:13px;font-weight:500;letter-spacing:0;color:var(--ink-2);margin:0 0 12px}
+body h1 + p{font-size:20px;line-height:1.55;color:var(--ink-2);max-width:68ch;margin:0 0 18px}
+body h1 + p strong{color:var(--ink);font-weight:600}
+body h2{
+  font-family:var(--sans);font-size:32px;line-height:1.15;letter-spacing:-.03em;font-weight:600;
+  color:var(--ink);margin:64px 0 14px;padding:0;border:0;
+}
+body h3{font-family:var(--sans);font-size:22px;line-height:1.25;letter-spacing:-.02em;font-weight:600;color:var(--ink);margin:36px 0 8px}
+body h4{font-size:14px;line-height:1.4;font-weight:600;letter-spacing:0;text-transform:none;color:var(--ink-2);margin:24px 0 6px}
+body p{margin:0 0 14px;max-width:72ch}
+body ul,body ol{margin:0 0 16px;padding-left:1.25em;max-width:72ch}
+body li{margin:.32em 0}
+body li::marker{color:var(--ink-3)}
+body strong{font-weight:600;color:var(--ink)}
+body em{color:var(--ink)}
+body a{color:var(--broth);text-decoration:underline;text-underline-offset:2px}
+body a:hover{text-decoration:underline}
+body hr{border:0;border-top:1px solid var(--line-2);margin:56px 0}
+body table{border-collapse:collapse;width:100%;margin:22px 0 30px;font-size:15px;line-height:1.45}
+body th{text-align:left;font-weight:600;font-size:12.5px;color:var(--ink-2);padding:10px 12px;background:var(--surface);border-bottom:1px solid var(--line)}
+body td{padding:11px 12px;border-bottom:1px solid var(--line-2);vertical-align:top}
+body tr:nth-child(even) td{background:transparent}
+body figure.fig{margin:32px 0 36px;padding:0;max-width:100%}
+body figure.fig svg{width:100%;height:auto;display:block;background:var(--surface);border:0;border-radius:20px;padding:18px}
+body figure.fig figcaption{font-size:13px;color:var(--ink-2);margin-top:10px;max-width:72ch;line-height:1.5}
+body figure.fig .figtitle{font-family:var(--sans);font-size:14px;font-weight:600;color:var(--ink);margin-bottom:6px}
+body pre{background:var(--surface);border:1px solid var(--line-2);border-radius:16px;padding:18px;overflow:auto;font-family:var(--mono);font-size:13.5px;line-height:1.55;margin:20px 0 24px}
+body code{font-family:var(--mono);font-size:.88em;background:var(--surface);border-radius:6px;padding:.12em .35em}
+body pre code{background:none;padding:0;font-size:inherit}
+body blockquote{margin:24px 0;padding:2px 0 2px 18px;border-left:3px solid var(--broth);color:var(--ink-2)}
+:root[data-theme="dark"] .fig-light{display:none!important}
+:root[data-theme="dark"] .fig-dark{display:block!important}
+:root[data-theme="light"] .fig-dark{display:none!important}
+:root[data-theme="light"] .fig-light{display:block!important}
+.docfoot{max-width:900px;margin:0 auto;padding:24px 24px 64px;border-top:1px solid var(--line-2);display:flex;justify-content:space-between;gap:12px;font-size:12.5px;color:var(--ink-3)}
+.docfoot a{color:var(--ink-2);text-decoration:none}
+.docfoot a:hover{color:var(--broth)}
+@media (max-width:700px){
+  .docbar{padding:8px 16px}
+  .wrap{padding:40px 18px 80px}
+  body h1{font-size:clamp(38px,11vw,48px)}
+  body h1 + p{font-size:18px}
+  body h2{font-size:28px;margin-top:52px}
+  body h3{font-size:20px}
+  body p,body li{font-size:16.5px}
+  body table{font-size:14px}
+  body th,body td{padding:9px 9px}
+  .docfoot{padding:20px 18px 50px;flex-direction:column;gap:6px}
+}
+@media print{
+  .docbar,.appearance,.docfoot{display:none!important}
+  body{background:#fff;color:#000;font-size:11pt}
+  .wrap{max-width:none;padding:0}
+  body h1{font-size:28pt;max-width:none}
+  body h2{font-size:16pt;page-break-after:avoid}
+  body h3{font-size:13pt;page-break-after:avoid}
+  body a{color:#000;text-decoration:none}
+  body table,body figure{break-inside:avoid}
+}
+
+
+.index-actions{margin:18px 0 36px;display:flex;flex-wrap:wrap;gap:16px;align-items:center}
+.index-actions a{font-size:14px;font-weight:500;color:var(--broth);text-decoration:none}
+.index-actions a:hover{text-decoration:underline}
+.phaseh{display:flex;align-items:baseline;justify-content:space-between;gap:14px;font-size:24px!important;margin:52px 0 2px!important;letter-spacing:-.02em}
+.phaseh span{font-size:12px;font-weight:400;color:var(--ink-3);letter-spacing:0;white-space:nowrap}
+.weeklist{border-top:1px solid var(--line-2);margin-bottom:8px}
+.weekrow{display:flex;align-items:center;gap:14px;min-height:50px;padding:10px 4px;border-bottom:1px solid var(--line-2);text-decoration:none;color:var(--ink)}
+.weekrow:hover{background:var(--surface)}
+.wnum{width:28px;flex:none;font-size:12px;font-weight:600;color:var(--broth);font-variant-numeric:tabular-nums}
+.wtitle{flex:1;font-size:16.5px;font-weight:500;line-height:1.35}
+.warrow{flex:none;color:var(--ink-3);font-size:16px}
+.weeknav{display:flex;align-items:center;justify-content:space-between;gap:14px;margin:52px 0 0;padding-top:22px;border-top:1px solid var(--line-2);font-size:14px}
+.weeknav a{color:var(--broth);text-decoration:none;font-weight:500}
+.weeknav a:hover{text-decoration:underline}
+.weeknav .idx{color:var(--ink-2);font-weight:400}
+.weeknav .empty{visibility:hidden}
+.case-h{max-width:22ch}
+.protocol{max-width:72ch}
+.protocol li{margin:.55em 0}
+.protocol h2{margin-top:38px}
+@media (max-width:700px){.phaseh{font-size:21px!important;margin-top:42px!important}.wtitle{font-size:15.5px}.weeknav{font-size:13px;gap:8px}}
+@media print{.weeknav,.index-actions{display:none!important}}
+</style>
+<style>.sr-only{position:absolute!important;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap;border:0}</style>
+</head><body>
+<header class="docbar"><a class="docback" href="index.html">&#8592; Lecture index</a><div class="appearance" role="group" aria-label="Appearance">
+<button type="button" data-appearance="auto" aria-pressed="true">Auto</button>
+<button type="button" data-appearance="light" aria-pressed="false">Light</button>
+<button type="button" data-appearance="dark" aria-pressed="false">Dark</button>
+</div></header>
+<main class="wrap">
+<p class="doc-kicker">Week 49 of 55 &middot; Process, economics and the application &middot; <strong class="tier-badge">Core</strong></p>
+<h1>Fermenter design, aeration and mixing</h1>
+<h2 class="sr-only">Week content</h2>
+<p>Sizing a vessel is one calculation run until it closes, and the week&#x27;s content is which constraint stops it. The chain is short — strain physiology gives an oxygen uptake rate, the uptake rate gives a required k_L a, the required k_L a gives a power input, the power input gives a heat load, and the heat load gives a cooling duty — and at production scale it does not close on air at atmospheric pressure. The honest part of this week is the uncertainty: Doran&#x27;s own k_L a correlation states that it was derived in vessels up to 4.4 m³, agrees to within 20-40%, and overestimates transfer in vessels up to 25 m³ by about 100%, so a 50 m³ design is outside the correlation&#x27;s range altogether. The right response is not a better correlation. It is to notice that the uncertainty in k_L a is larger than the difference between the design options, and to choose on the things that are certain — the oxygen balance, the heat balance, and Shuler&#x27;s Table 10.2, which is arithmetic rather than correlation.</p>
+<h3>Core ideas</h3>
+<p><strong>1. The vessel&#x27;s geometry is mostly fixed, and the ratios are the specification</strong></p>
+<p>Shuler §10.2.4 states the convention: fermenters maintain a height-to-diameter ratio of 2:1 or 3:1. Stanbury Ch 7 fills in the rest under its named sections — basic functions of a fermenter for microbial or animal cell culture, aseptic operation and containment, body construction, aeration and agitation, the achievement and maintenance of aseptic conditions, valves and steam traps, other fermentation vessels, animal cell culture. The agitator subsection and the sparger subsections are the design content: impeller diameter typically a third of the tank diameter, four baffles at a tenth of the diameter to break solid-body rotation, and spargers in four kinds — porous, orifice, nozzle, combined sparger-agitator — whose difference is bubble size at source and therefore interfacial area before the impeller touches it. Two things in that chapter are easy to skip and should not be. The valves-and-steam-traps section is twenty pages because aseptic failure is a valve problem; week 47&#x27;s contamination risk is spent here rather than in the autoclave. And the H:D ratio has a consequence Shuler draws out explicitly — if H:D is held constant, surface-to-volume falls steeply on scale-up, so surface aeration, which is irrelevant for a bacterial fermentation, becomes critical for shear-sensitive cultures where stirring and sparging are both restricted.</p>
+<p><strong>2. Power input: ungassed first, because that is the larger number</strong></p>
+<p>Rushton&#x27;s result as Stanbury gives it: in the turbulent regime P = c ρ N³ D⁵, and in the viscous regime P = c µ N² D³. The turbulent form is the one that matters and its exponents are the whole of the scale-up problem — power goes as the cube of speed and the fifth power of diameter, so nothing about power scales with anything else about the vessel. Aeration reduces the draw, because an aerated liquid is less dense and the gas cavities behind the blades cut hydrodynamic resistance; Stanbury gives Michel and Miller&#x27;s widely used correlation P_g = k(P²ND³/Q^0.56)^0.45 and Hughmark&#x27;s later one, fitted to 248 published data sets, as P_g/P = 0.1(Q/NV)^−0.25(N²D⁴/gW V^0.67)^−0.2. The operational point Stanbury draws from this is the one that gets forgotten in design and bites in commissioning: in non-mycelial fermentations the greatest power demand occurs when the system is not gassed — during in-situ sterilisation of the medium, or if the air supply fails — so the motor must be sized for the ungassed draw and, for a fixed-speed motor, the operating speed specified against it. Gassed power is what you pay for; ungassed power is what you buy.</p>
+<p><strong>3. Non-Newtonian broths break the correlations, and Metzner-Otto is the patch</strong></p>
+<p>Stanbury is explicit that the power correlations apply to Newtonian fluids and are not directly applicable to non-Newtonian systems, because viscosity is not constant and therefore the impeller Reynolds number cannot be evaluated. If the agitation can hold fully turbulent conditions the problem disappears, since power is then independent of Reynolds number — but the chapter says plainly that the high viscosities of most mycelial broths make fully turbulent conditions impossible or extremely difficult, so those fermentations sit in the transitional regime and need a full power curve rather than an exponent. Metzner and Otto&#x27;s 1957 device is to define an average shear rate proportional to the shaft speed, γ = kN, with k determined as 13 for pseudoplastic fluids in baffled reactors with single turbines; later work puts k between about 10 and 13 and Metzner et al. (1961) suggest 11 as a compromise with little loss of accuracy. With k you get an apparent viscosity, hence a Reynolds number, hence a point on the power curve. The reason to know this is not to use it — Stanbury notes the approach has not been widely applied — but to recognise when a quoted k_L a cannot mean what it says. Stanbury&#x27;s own example makes it concrete: a Streptomyces aureofaciens broth on starch began as a Bingham plastic at about 18 pseudopoise, fell to a few pseudopoise and became Newtonian by 22 hours as the starch was degraded, then rose to about 90 pseudopoise and increasingly pseudoplastic as the mycelium developed. One number for one broth describes none of that.</p>
+<p><strong>4. k_L a against OUR, and the two concentrations that set the driving force</strong></p>
+<p>The balance is OTR = k_L a(C<em> − C_L) and it has to equal OUR = q_O2 X at steady state. Both concentrations deserve a number rather than a symbol. C</em> is the saturation concentration at the operating temperature and oxygen partial pressure, about 7.0 g m⁻³ for water under air at 30 °C, and Doran §9.8 is the section on estimating it with solute corrections. C_L is a setpoint, and the floor under it is Stanbury&#x27;s Table 9.3 of critical dissolved oxygen concentrations: Azotobacter 0.018, E. coli 0.008, Saccharomyces 0.004 and Penicillium chrysogenum 0.022 mmol dm⁻³ at their stated temperatures — for E. coli that is 0.26 g m⁻³, under 4% of saturation. The gap between the critical concentration and a typical 20-30% setpoint is the whole of the margin, and the margin exists because the measured bulk concentration is not the concentration at the cell in a vessel with mixing time in the tens of seconds. Stanbury also carries the more interesting case, Hirose and Shibai&#x27;s work on Brevibacterium flavum, where oxygen satisfaction below 1.0 harmed the glutamate and aspartate families but phenylalanine, valine and leucine peaked at satisfaction of 0.55, 0.60 and 0.85 — because the former come from TCA intermediates and the latter from pyruvate and PEP, so partial oxygen limitation moves carbon from one to the other. The critical dissolved oxygen for product formation is not the critical concentration for growth, and for some products it is below 1.</p>
+<p><strong>5. Mixing time and circulation time, and the comparison that matters</strong></p>
+<p>Doran §7.9 and §7.10 cover mixing and its power requirement, §7.11 the scale-up of mixing systems, §7.12 improving mixing in fermenters, §7.13 the effect of rheological properties on mixing and §7.14 the role of shear. The number to extract is the circulation time, the mean time for a parcel of liquid to make one pass through the impeller zone and back, and the comparison to make is against the strain&#x27;s metabolic response time rather than against another vessel. In a 50 m³ vessel the circulation time is of the order of 20-60 s. Glucose uptake and the acetate overflow response, from weeks 40 and 42, operate on timescales of seconds. So a cell in a fed-batch vessel sees a glucose concentration that oscillates over its own response time — high near the feed point, depleted at the far wall — and responds to each excursion. That is the physical content of the scale-down experiment week 50 designs, and it is why the question &#x27;what is the mixing time&#x27; is only interesting relative to &#x27;what does the strain do in that long&#x27;. Doran §7.14&#x27;s shear treatment gives the complementary comparison: tip speed πND, which is the quantity cells actually experience, against the host class&#x27;s tolerance — filamentous fungi fragment, plant and animal cells lyse, bacteria mostly do not care.</p>
+<p><strong>6. Scale-up: four criteria, and Shuler&#x27;s table proves they cannot be reconciled</strong></p>
+<figure class="fig"><div class="figtitle">Figure 49.6 — The four scale-up criteria as printed, and the driving force that chooses between designs</div><div class="fig-light"><svg role="img" aria-label="Left: Shuler's Table 10.2 on a log axis makes the point the table makes in prose — each criterion holds one row at 1.0 and moves the others by up to four orders. Right: the required kₗa on air is roughly twice what a 50 m³ vessel delivers, and both fixes raise C* rather than the coefficient, because the deficit is in the driving force." xmlns:xlink="http://www.w3.org/1999/xlink" width="689.029547pt" height="247.666141pt" viewBox="0 0 689.029547 247.666141" xmlns="http://www.w3.org/2000/svg" version="1.1">
+ <metadata>
+  <rdf:RDF xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:cc="http://creativecommons.org/ns#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+   <cc:Work>
+    <dc:type rdf:resource="http://purl.org/dc/dcmitype/StillImage"/>
+    <dc:date>2026-11-02T23:57:57.591726</dc:date>
+    <dc:format>image/svg+xml</dc:format>
+    <dc:creator>
+     <cc:Agent>
+      <dc:title>Matplotlib v3.10.8, https://matplotlib.org/</dc:title>
+     </cc:Agent>
+    </dc:creator>
+   </cc:Work>
+  </rdf:RDF>
+ </metadata>
+ <defs>
+  <style type="text/css">*{stroke-linejoin: round; stroke-linecap: butt}</style>
+ </defs>
+ <g id="figure_1">
+  <g id="patch_1">
+   <path d="M 0 247.666141 
+L 689.029547 247.666141 
+L 689.029547 0 
+L 0 0 
+L 0 247.666141 
+z
+" style="fill: none"/>
+  </g>
+  <g id="axes_1">
+   <g id="patch_2">
+    <path d="M 65.9664 186.18 
+L 258.469897 186.18 
+L 258.469897 19.86 
+L 65.9664 19.86 
+L 65.9664 186.18 
+z
+" style="fill: none"/>
+   </g>
+   <g id="patch_3">
+    <path d="M 74.716559 28884.120364 
+L 86.753815 28884.120364 
+L 86.753815 99.82712 
+L 74.716559 99.82712 
+z
+" clip-path="url(#p01aa4760dc)" style="fill: #1f6f62; opacity: 0.32; stroke: #1f6f62; stroke-width: 1.1; stroke-linejoin: miter"/>
+   </g>
+   <g id="patch_4">
+    <path d="M 121.013696 28884.120364 
+L 133.050952 28884.120364 
+L 133.050952 59.588405 
+L 121.013696 59.588405 
+z
+" clip-path="url(#p01aa4760dc)" style="fill: #1f6f62; opacity: 0.32; stroke: #1f6f62; stroke-width: 1.1; stroke-linejoin: miter"/>
+   </g>
+   <g id="patch_5">
+    <path d="M 167.310833 28884.120364 
+L 179.348089 28884.120364 
+L 179.348089 119.946478 
+L 167.310833 119.946478 
+z
+" clip-path="url(#p01aa4760dc)" style="fill: #1f6f62; opacity: 0.32; stroke: #1f6f62; stroke-width: 1.1; stroke-linejoin: miter"/>
+   </g>
+   <g id="patch_6">
+    <path d="M 213.607971 28884.120364 
+L 225.645226 28884.120364 
+L 225.645226 180.304551 
+L 213.607971 180.304551 
+z
+" clip-path="url(#p01aa4760dc)" style="fill: #1f6f62; opacity: 0.32; stroke: #1f6f62; stroke-width: 1.1; stroke-linejoin: miter"/>
+   </g>
+   <g id="patch_7">
+    <path d="M 86.753815 28884.120364 
+L 98.79107 28884.120364 
+L 98.79107 113.313169 
+L 86.753815 113.313169 
+z
+" clip-path="url(#p01aa4760dc)" style="fill: #8a5f1b; opacity: 0.32; stroke: #8a5f1b; stroke-width: 1.1; stroke-linejoin: miter"/>
+   </g>
+   <g id="patch_8">
+    <path d="M 133.050952 28884.120364 
+L 145.088207 28884.120364 
+L 145.088207 99.82712 
+L 133.050952 99.82712 
+z
+" clip-path="url(#p01aa4760dc)" style="fill: #8a5f1b; opacity: 0.32; stroke: #8a5f1b; stroke-width: 1.1; stroke-linejoin: miter"/>
+   </g>
+   <g id="patch_9">
+    <path d="M 179.348089 28884.120364 
+L 191.385345 28884.120364 
+L 191.385345 119.946478 
+L 179.348089 119.946478 
+z
+" clip-path="url(#p01aa4760dc)" style="fill: #8a5f1b; opacity: 0.32; stroke: #8a5f1b; stroke-width: 1.1; stroke-linejoin: miter"/>
+   </g>
+   <g id="patch_10">
+    <path d="M 225.645226 28884.120364 
+L 237.682482 28884.120364 
+L 237.682482 140.065835 
+L 225.645226 140.065835 
+z
+" clip-path="url(#p01aa4760dc)" style="fill: #8a5f1b; opacity: 0.32; stroke: #8a5f1b; stroke-width: 1.1; stroke-linejoin: miter"/>
+   </g>
+   <g id="patch_11">
+    <path d="M 98.79107 28884.120364 
+L 110.828326 28884.120364 
+L 110.828326 93.193811 
+L 98.79107 93.193811 
+z
+" clip-path="url(#p01aa4760dc)" style="fill: #a4503a; opacity: 0.32; stroke: #a4503a; stroke-width: 1.1; stroke-linejoin: miter"/>
+   </g>
+   <g id="patch_12">
+    <path d="M 145.088207 28884.120364 
+L 157.125463 28884.120364 
+L 157.125463 79.707763 
+L 145.088207 79.707763 
+z
+" clip-path="url(#p01aa4760dc)" style="fill: #a4503a; opacity: 0.32; stroke: #a4503a; stroke-width: 1.1; stroke-linejoin: miter"/>
+   </g>
+   <g id="patch_13">
+    <path d="M 191.385345 28884.120364 
+L 203.4226 28884.120364 
+L 203.4226 99.82712 
+L 191.385345 99.82712 
+z
+" clip-path="url(#p01aa4760dc)" style="fill: #a4503a; opacity: 0.32; stroke: #a4503a; stroke-width: 1.1; stroke-linejoin: miter"/>
+   </g>
+   <g id="patch_14">
+    <path d="M 237.682482 28884.120364 
+L 249.719738 28884.120364 
+L 249.719738 119.946478 
+L 237.682482 119.946478 
+z
+" clip-path="url(#p01aa4760dc)" style="fill: #a4503a; opacity: 0.32; stroke: #a4503a; stroke-width: 1.1; stroke-linejoin: miter"/>
+   </g>
+   <g id="matplotlib.axis_1">
+    <g id="xtick_1">
+     <g id="line2d_1">
+      <defs>
+       <path id="m5ba1b33048" d="M 0 0 
+L 0 3.5 
+" style="stroke: #8a7458; stroke-width: 0.9"/>
+      </defs>
+      <g>
+       <use xlink:href="#m5ba1b33048" x="92.772442" y="186.18" style="fill: #8a7458; stroke: #8a7458; stroke-width: 0.9"/>
+      </g>
+     </g>
+     <g id="text_1">
+      <text style="font-size: 8.2px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; fill: #8a7458" transform="translate(74.949614 199.410719)">constant</text>
+      <!-- $P_0/V$ -->
+      <g style="fill: #8a7458" transform="translate(84.162442 208.592925)">
+       <text>
+        <tspan x="0" y="-0.171875" style="font-style: oblique; font-size: 8.2px; font-family: 'Public Sans, Helvetica, Arial, sans-serif'; fill: #8a7458">P</tspan>
+        <tspan x="11.647498" y="-0.171875" style="font-style: oblique; font-size: 8.2px; font-family: 'Public Sans, Helvetica, Arial, sans-serif'; fill: #8a7458">V</tspan>
+        <tspan x="4.974976" y="1.140625" style="font-size: 5.74px; font-family: 'Public Sans, Helvetica, Arial, sans-serif'; fill: #8a7458">0</tspan>
+        <tspan x="8.867957" y="-0.171875" style="font-size: 8.2px; font-family: 'Public Sans, Helvetica, Arial, sans-serif'; fill: #8a7458">/</tspan>
+       </text>
+      </g>
+     </g>
+    </g>
+    <g id="xtick_2">
+     <g id="line2d_2">
+      <g>
+       <use xlink:href="#m5ba1b33048" x="139.06958" y="186.18" style="fill: #8a7458; stroke: #8a7458; stroke-width: 0.9"/>
+      </g>
+     </g>
+     <g id="text_2">
+      <text style="font-size: 8.2px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; fill: #8a7458" transform="translate(121.246752 199.410719)">constant</text>
+      <!-- $N$ -->
+      <g style="fill: #8a7458" transform="translate(135.99458 208.592925)">
+       <text>
+        <tspan x="0" y="-0.171875" style="font-style: oblique; font-size: 8.2px; font-family: 'Public Sans, Helvetica, Arial, sans-serif'; fill: #8a7458">N</tspan>
+       </text>
+      </g>
+     </g>
+    </g>
+    <g id="xtick_3">
+     <g id="line2d_3">
+      <g>
+       <use xlink:href="#m5ba1b33048" x="185.366717" y="186.18" style="fill: #8a7458; stroke: #8a7458; stroke-width: 0.9"/>
+      </g>
+     </g>
+     <g id="text_3">
+      <text style="font-size: 8.2px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; fill: #8a7458" transform="translate(167.543889 199.410719)">constant</text>
+      <!-- $N\!\cdot\!D_i$ -->
+      <g style="fill: #8a7458" transform="translate(176.633717 208.592925)">
+       <text>
+        <tspan x="0" y="-0.171875" style="font-style: oblique; font-size: 8.2px; font-family: 'Public Sans, Helvetica, Arial, sans-serif'; fill: #8a7458">N</tspan>
+        <tspan x="9.329536" y="-0.171875" style="font-style: oblique; font-size: 8.2px; font-family: 'Public Sans, Helvetica, Arial, sans-serif'; fill: #8a7458">D</tspan>
+        <tspan x="6.439243" y="-0.171875" style="font-size: 8.2px; font-family: 'Public Sans, Helvetica, Arial, sans-serif'; fill: #8a7458">⋅</tspan>
+        <tspan x="15.682197" y="1.140625" style="font-style: oblique; font-size: 5.74px; font-family: 'Public Sans, Helvetica, Arial, sans-serif'; fill: #8a7458">i</tspan>
+       </text>
+      </g>
+     </g>
+    </g>
+    <g id="xtick_4">
+     <g id="line2d_4">
+      <g>
+       <use xlink:href="#m5ba1b33048" x="231.663854" y="186.18" style="fill: #8a7458; stroke: #8a7458; stroke-width: 0.9"/>
+      </g>
+     </g>
+     <g id="text_4">
+      <text style="font-size: 8.2px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; fill: #8a7458" transform="translate(213.841026 199.410719)">constant</text>
+      <!-- $Re$ -->
+      <g style="fill: #8a7458" transform="translate(226.251854 208.592925)">
+       <text>
+        <tspan x="0" y="-0.171875" style="font-style: oblique; font-size: 8.2px; font-family: 'Public Sans, Helvetica, Arial, sans-serif'; fill: #8a7458">R</tspan>
+        <tspan x="5.7323" y="-0.171875" style="font-style: oblique; font-size: 8.2px; font-family: 'Public Sans, Helvetica, Arial, sans-serif'; fill: #8a7458">e</tspan>
+       </text>
+      </g>
+     </g>
+    </g>
+   </g>
+   <g id="matplotlib.axis_2">
+    <g id="ytick_1">
+     <g id="line2d_5">
+      <path d="M 65.9664 186.18 
+L 258.469897 186.18 
+" clip-path="url(#p01aa4760dc)" style="fill: none; stroke: #e6dccb; stroke-opacity: 0.5; stroke-width: 0.5; stroke-linecap: square"/>
+     </g>
+     <g id="line2d_6">
+      <defs>
+       <path id="m26beff0c60" d="M 0 0 
+L -3.5 0 
+" style="stroke: #8a7458; stroke-width: 0.9"/>
+      </defs>
+      <g>
+       <use xlink:href="#m26beff0c60" x="65.9664" y="186.18" style="fill: #8a7458; stroke: #8a7458; stroke-width: 0.9"/>
+      </g>
+     </g>
+     <g id="text_5">
+      <!-- $\mathdefault{10^{-3}}$ -->
+      <g style="fill: #8a7458" transform="translate(36.6414 189.789258)">
+       <text>
+        <tspan x="0" y="-0.976562" style="font-size: 9.5px; font-family: 'Public Sans, Helvetica, Arial, sans-serif'; fill: #8a7458">1</tspan>
+        <tspan x="6.044189" y="-0.976562" style="font-size: 9.5px; font-family: 'Public Sans, Helvetica, Arial, sans-serif'; fill: #8a7458">0</tspan>
+        <tspan x="12.184082" y="-4.804688" style="font-size: 6.65px; font-family: 'Public Sans, Helvetica, Arial, sans-serif'; fill: #8a7458">−</tspan>
+        <tspan x="17.756055" y="-4.804688" style="font-size: 6.65px; font-family: 'Public Sans, Helvetica, Arial, sans-serif'; fill: #8a7458">3</tspan>
+       </text>
+      </g>
+     </g>
+    </g>
+    <g id="ytick_2">
+     <g id="line2d_7">
+      <path d="M 65.9664 157.395707 
+L 258.469897 157.395707 
+" clip-path="url(#p01aa4760dc)" style="fill: none; stroke: #e6dccb; stroke-opacity: 0.5; stroke-width: 0.5; stroke-linecap: square"/>
+     </g>
+     <g id="line2d_8">
+      <g>
+       <use xlink:href="#m26beff0c60" x="65.9664" y="157.395707" style="fill: #8a7458; stroke: #8a7458; stroke-width: 0.9"/>
+      </g>
+     </g>
+     <g id="text_6">
+      <!-- $\mathdefault{10^{-2}}$ -->
+      <g style="fill: #8a7458" transform="translate(36.6414 161.004965)">
+       <text>
+        <tspan x="0" y="-0.976562" style="font-size: 9.5px; font-family: 'Public Sans, Helvetica, Arial, sans-serif'; fill: #8a7458">1</tspan>
+        <tspan x="6.044189" y="-0.976562" style="font-size: 9.5px; font-family: 'Public Sans, Helvetica, Arial, sans-serif'; fill: #8a7458">0</tspan>
+        <tspan x="12.184082" y="-4.804688" style="font-size: 6.65px; font-family: 'Public Sans, Helvetica, Arial, sans-serif'; fill: #8a7458">−</tspan>
+        <tspan x="17.756055" y="-4.804688" style="font-size: 6.65px; font-family: 'Public Sans, Helvetica, Arial, sans-serif'; fill: #8a7458">2</tspan>
+       </text>
+      </g>
+     </g>
+    </g>
+    <g id="ytick_3">
+     <g id="line2d_9">
+      <path d="M 65.9664 128.611414 
+L 258.469897 128.611414 
+" clip-path="url(#p01aa4760dc)" style="fill: none; stroke: #e6dccb; stroke-opacity: 0.5; stroke-width: 0.5; stroke-linecap: square"/>
+     </g>
+     <g id="line2d_10">
+      <g>
+       <use xlink:href="#m26beff0c60" x="65.9664" y="128.611414" style="fill: #8a7458; stroke: #8a7458; stroke-width: 0.9"/>
+      </g>
+     </g>
+     <g id="text_7">
+      <!-- $\mathdefault{10^{-1}}$ -->
+      <g style="fill: #8a7458" transform="translate(36.6414 132.220671)">
+       <text>
+        <tspan x="0" y="-0.064063" style="font-size: 9.5px; font-family: 'Public Sans, Helvetica, Arial, sans-serif'; fill: #8a7458">1</tspan>
+        <tspan x="6.044189" y="-0.064063" style="font-size: 9.5px; font-family: 'Public Sans, Helvetica, Arial, sans-serif'; fill: #8a7458">0</tspan>
+        <tspan x="12.184082" y="-3.892188" style="font-size: 6.65px; font-family: 'Public Sans, Helvetica, Arial, sans-serif'; fill: #8a7458">−</tspan>
+        <tspan x="17.756055" y="-3.892188" style="font-size: 6.65px; font-family: 'Public Sans, Helvetica, Arial, sans-serif'; fill: #8a7458">1</tspan>
+       </text>
+      </g>
+     </g>
+    </g>
+    <g id="ytick_4">
+     <g id="line2d_11">
+      <path d="M 65.9664 99.82712 
+L 258.469897 99.82712 
+" clip-path="url(#p01aa4760dc)" style="fill: none; stroke: #e6dccb; stroke-opacity: 0.5; stroke-width: 0.5; stroke-linecap: square"/>
+     </g>
+     <g id="line2d_12">
+      <g>
+       <use xlink:href="#m26beff0c60" x="65.9664" y="99.82712" style="fill: #8a7458; stroke: #8a7458; stroke-width: 0.9"/>
+      </g>
+     </g>
+     <g id="text_8">
+      <!-- $\mathdefault{10^{0}}$ -->
+      <g style="fill: #8a7458" transform="translate(42.2464 103.436378)">
+       <text>
+        <tspan x="0" y="-0.976562" style="font-size: 9.5px; font-family: 'Public Sans, Helvetica, Arial, sans-serif'; fill: #8a7458">1</tspan>
+        <tspan x="6.044189" y="-0.976562" style="font-size: 9.5px; font-family: 'Public Sans, Helvetica, Arial, sans-serif'; fill: #8a7458">0</tspan>
+        <tspan x="12.184082" y="-4.804688" style="font-size: 6.65px; font-family: 'Public Sans, Helvetica, Arial, sans-serif'; fill: #8a7458">0</tspan>
+       </text>
+      </g>
+     </g>
+    </g>
+    <g id="ytick_5">
+     <g id="line2d_13">
+      <path d="M 65.9664 71.042827 
+L 258.469897 71.042827 
+" clip-path="url(#p01aa4760dc)" style="fill: none; stroke: #e6dccb; stroke-opacity: 0.5; stroke-width: 0.5; stroke-linecap: square"/>
+     </g>
+     <g id="line2d_14">
+      <g>
+       <use xlink:href="#m26beff0c60" x="65.9664" y="71.042827" style="fill: #8a7458; stroke: #8a7458; stroke-width: 0.9"/>
+      </g>
+     </g>
+     <g id="text_9">
+      <!-- $\mathdefault{10^{1}}$ -->
+      <g style="fill: #8a7458" transform="translate(42.2464 74.652085)">
+       <text>
+        <tspan x="0" y="-0.064063" style="font-size: 9.5px; font-family: 'Public Sans, Helvetica, Arial, sans-serif'; fill: #8a7458">1</tspan>
+        <tspan x="6.044189" y="-0.064063" style="font-size: 9.5px; font-family: 'Public Sans, Helvetica, Arial, sans-serif'; fill: #8a7458">0</tspan>
+        <tspan x="12.184082" y="-3.892188" style="font-size: 6.65px; font-family: 'Public Sans, Helvetica, Arial, sans-serif'; fill: #8a7458">1</tspan>
+       </text>
+      </g>
+     </g>
+    </g>
+    <g id="ytick_6">
+     <g id="line2d_15">
+      <path d="M 65.9664 42.258534 
+L 258.469897 42.258534 
+" clip-path="url(#p01aa4760dc)" style="fill: none; stroke: #e6dccb; stroke-opacity: 0.5; stroke-width: 0.5; stroke-linecap: square"/>
+     </g>
+     <g id="line2d_16">
+      <g>
+       <use xlink:href="#m26beff0c60" x="65.9664" y="42.258534" style="fill: #8a7458; stroke: #8a7458; stroke-width: 0.9"/>
+      </g>
+     </g>
+     <g id="text_10">
+      <!-- $\mathdefault{10^{2}}$ -->
+      <g style="fill: #8a7458" transform="translate(42.2464 45.867792)">
+       <text>
+        <tspan x="0" y="-0.976562" style="font-size: 9.5px; font-family: 'Public Sans, Helvetica, Arial, sans-serif'; fill: #8a7458">1</tspan>
+        <tspan x="6.044189" y="-0.976562" style="font-size: 9.5px; font-family: 'Public Sans, Helvetica, Arial, sans-serif'; fill: #8a7458">0</tspan>
+        <tspan x="12.184082" y="-4.804688" style="font-size: 6.65px; font-family: 'Public Sans, Helvetica, Arial, sans-serif'; fill: #8a7458">2</tspan>
+       </text>
+      </g>
+     </g>
+    </g>
+    <g id="ytick_7">
+     <g id="line2d_17">
+      <path d="M 65.9664 177.515064 
+L 258.469897 177.515064 
+" clip-path="url(#p01aa4760dc)" style="fill: none; stroke: #e6dccb; stroke-opacity: 0.5; stroke-width: 0.5; stroke-linecap: square"/>
+     </g>
+     <g id="line2d_18">
+      <defs>
+       <path id="md5926c8368" d="M 0 0 
+L -2 0 
+" style="stroke: #8a7458; stroke-width: 0.6"/>
+      </defs>
+      <g>
+       <use xlink:href="#md5926c8368" x="65.9664" y="177.515064" style="fill: #8a7458; stroke: #8a7458; stroke-width: 0.6"/>
+      </g>
+     </g>
+    </g>
+    <g id="ytick_8">
+     <g id="line2d_19">
+      <path d="M 65.9664 172.446402 
+L 258.469897 172.446402 
+" clip-path="url(#p01aa4760dc)" style="fill: none; stroke: #e6dccb; stroke-opacity: 0.5; stroke-width: 0.5; stroke-linecap: square"/>
+     </g>
+     <g id="line2d_20">
+      <g>
+       <use xlink:href="#md5926c8368" x="65.9664" y="172.446402" style="fill: #8a7458; stroke: #8a7458; stroke-width: 0.6"/>
+      </g>
+     </g>
+    </g>
+    <g id="ytick_9">
+     <g id="line2d_21">
+      <path d="M 65.9664 168.850129 
+L 258.469897 168.850129 
+" clip-path="url(#p01aa4760dc)" style="fill: none; stroke: #e6dccb; stroke-opacity: 0.5; stroke-width: 0.5; stroke-linecap: square"/>
+     </g>
+     <g id="line2d_22">
+      <g>
+       <use xlink:href="#md5926c8368" x="65.9664" y="168.850129" style="fill: #8a7458; stroke: #8a7458; stroke-width: 0.6"/>
+      </g>
+     </g>
+    </g>
+    <g id="ytick_10">
+     <g id="line2d_23">
+      <path d="M 65.9664 166.060642 
+L 258.469897 166.060642 
+" clip-path="url(#p01aa4760dc)" style="fill: none; stroke: #e6dccb; stroke-opacity: 0.5; stroke-width: 0.5; stroke-linecap: square"/>
+     </g>
+     <g id="line2d_24">
+      <g>
+       <use xlink:href="#md5926c8368" x="65.9664" y="166.060642" style="fill: #8a7458; stroke: #8a7458; stroke-width: 0.6"/>
+      </g>
+     </g>
+    </g>
+    <g id="ytick_11">
+     <g id="line2d_25">
+      <path d="M 65.9664 163.781466 
+L 258.469897 163.781466 
+" clip-path="url(#p01aa4760dc)" style="fill: none; stroke: #e6dccb; stroke-opacity: 0.5; stroke-width: 0.5; stroke-linecap: square"/>
+     </g>
+     <g id="line2d_26">
+      <g>
+       <use xlink:href="#md5926c8368" x="65.9664" y="163.781466" style="fill: #8a7458; stroke: #8a7458; stroke-width: 0.6"/>
+      </g>
+     </g>
+    </g>
+    <g id="ytick_12">
+     <g id="line2d_27">
+      <path d="M 65.9664 161.85445 
+L 258.469897 161.85445 
+" clip-path="url(#p01aa4760dc)" style="fill: none; stroke: #e6dccb; stroke-opacity: 0.5; stroke-width: 0.5; stroke-linecap: square"/>
+     </g>
+     <g id="line2d_28">
+      <g>
+       <use xlink:href="#md5926c8368" x="65.9664" y="161.85445" style="fill: #8a7458; stroke: #8a7458; stroke-width: 0.6"/>
+      </g>
+     </g>
+    </g>
+    <g id="ytick_13">
+     <g id="line2d_29">
+      <path d="M 65.9664 160.185193 
+L 258.469897 160.185193 
+" clip-path="url(#p01aa4760dc)" style="fill: none; stroke: #e6dccb; stroke-opacity: 0.5; stroke-width: 0.5; stroke-linecap: square"/>
+     </g>
+     <g id="line2d_30">
+      <g>
+       <use xlink:href="#md5926c8368" x="65.9664" y="160.185193" style="fill: #8a7458; stroke: #8a7458; stroke-width: 0.6"/>
+      </g>
+     </g>
+    </g>
+    <g id="ytick_14">
+     <g id="line2d_31">
+      <path d="M 65.9664 158.712804 
+L 258.469897 158.712804 
+" clip-path="url(#p01aa4760dc)" style="fill: none; stroke: #e6dccb; stroke-opacity: 0.5; stroke-width: 0.5; stroke-linecap: square"/>
+     </g>
+     <g id="line2d_32">
+      <g>
+       <use xlink:href="#md5926c8368" x="65.9664" y="158.712804" style="fill: #8a7458; stroke: #8a7458; stroke-width: 0.6"/>
+      </g>
+     </g>
+    </g>
+    <g id="ytick_15">
+     <g id="line2d_33">
+      <path d="M 65.9664 148.730771 
+L 258.469897 148.730771 
+" clip-path="url(#p01aa4760dc)" style="fill: none; stroke: #e6dccb; stroke-opacity: 0.5; stroke-width: 0.5; stroke-linecap: square"/>
+     </g>
+     <g id="line2d_34">
+      <g>
+       <use xlink:href="#md5926c8368" x="65.9664" y="148.730771" style="fill: #8a7458; stroke: #8a7458; stroke-width: 0.6"/>
+      </g>
+     </g>
+    </g>
+    <g id="ytick_16">
+     <g id="line2d_35">
+      <path d="M 65.9664 143.662109 
+L 258.469897 143.662109 
+" clip-path="url(#p01aa4760dc)" style="fill: none; stroke: #e6dccb; stroke-opacity: 0.5; stroke-width: 0.5; stroke-linecap: square"/>
+     </g>
+     <g id="line2d_36">
+      <g>
+       <use xlink:href="#md5926c8368" x="65.9664" y="143.662109" style="fill: #8a7458; stroke: #8a7458; stroke-width: 0.6"/>
+      </g>
+     </g>
+    </g>
+    <g id="ytick_17">
+     <g id="line2d_37">
+      <path d="M 65.9664 140.065835 
+L 258.469897 140.065835 
+" clip-path="url(#p01aa4760dc)" style="fill: none; stroke: #e6dccb; stroke-opacity: 0.5; stroke-width: 0.5; stroke-linecap: square"/>
+     </g>
+     <g id="line2d_38">
+      <g>
+       <use xlink:href="#md5926c8368" x="65.9664" y="140.065835" style="fill: #8a7458; stroke: #8a7458; stroke-width: 0.6"/>
+      </g>
+     </g>
+    </g>
+    <g id="ytick_18">
+     <g id="line2d_39">
+      <path d="M 65.9664 137.276349 
+L 258.469897 137.276349 
+" clip-path="url(#p01aa4760dc)" style="fill: none; stroke: #e6dccb; stroke-opacity: 0.5; stroke-width: 0.5; stroke-linecap: square"/>
+     </g>
+     <g id="line2d_40">
+      <g>
+       <use xlink:href="#md5926c8368" x="65.9664" y="137.276349" style="fill: #8a7458; stroke: #8a7458; stroke-width: 0.6"/>
+      </g>
+     </g>
+    </g>
+    <g id="ytick_19">
+     <g id="line2d_41">
+      <path d="M 65.9664 134.997173 
+L 258.469897 134.997173 
+" clip-path="url(#p01aa4760dc)" style="fill: none; stroke: #e6dccb; stroke-opacity: 0.5; stroke-width: 0.5; stroke-linecap: square"/>
+     </g>
+     <g id="line2d_42">
+      <g>
+       <use xlink:href="#md5926c8368" x="65.9664" y="134.997173" style="fill: #8a7458; stroke: #8a7458; stroke-width: 0.6"/>
+      </g>
+     </g>
+    </g>
+    <g id="ytick_20">
+     <g id="line2d_43">
+      <path d="M 65.9664 133.070157 
+L 258.469897 133.070157 
+" clip-path="url(#p01aa4760dc)" style="fill: none; stroke: #e6dccb; stroke-opacity: 0.5; stroke-width: 0.5; stroke-linecap: square"/>
+     </g>
+     <g id="line2d_44">
+      <g>
+       <use xlink:href="#md5926c8368" x="65.9664" y="133.070157" style="fill: #8a7458; stroke: #8a7458; stroke-width: 0.6"/>
+      </g>
+     </g>
+    </g>
+    <g id="ytick_21">
+     <g id="line2d_45">
+      <path d="M 65.9664 131.4009 
+L 258.469897 131.4009 
+" clip-path="url(#p01aa4760dc)" style="fill: none; stroke: #e6dccb; stroke-opacity: 0.5; stroke-width: 0.5; stroke-linecap: square"/>
+     </g>
+     <g id="line2d_46">
+      <g>
+       <use xlink:href="#md5926c8368" x="65.9664" y="131.4009" style="fill: #8a7458; stroke: #8a7458; stroke-width: 0.6"/>
+      </g>
+     </g>
+    </g>
+    <g id="ytick_22">
+     <g id="line2d_47">
+      <path d="M 65.9664 129.928511 
+L 258.469897 129.928511 
+" clip-path="url(#p01aa4760dc)" style="fill: none; stroke: #e6dccb; stroke-opacity: 0.5; stroke-width: 0.5; stroke-linecap: square"/>
+     </g>
+     <g id="line2d_48">
+      <g>
+       <use xlink:href="#md5926c8368" x="65.9664" y="129.928511" style="fill: #8a7458; stroke: #8a7458; stroke-width: 0.6"/>
+      </g>
+     </g>
+    </g>
+    <g id="ytick_23">
+     <g id="line2d_49">
+      <path d="M 65.9664 119.946478 
+L 258.469897 119.946478 
+" clip-path="url(#p01aa4760dc)" style="fill: none; stroke: #e6dccb; stroke-opacity: 0.5; stroke-width: 0.5; stroke-linecap: square"/>
+     </g>
+     <g id="line2d_50">
+      <g>
+       <use xlink:href="#md5926c8368" x="65.9664" y="119.946478" style="fill: #8a7458; stroke: #8a7458; stroke-width: 0.6"/>
+      </g>
+     </g>
+    </g>
+    <g id="ytick_24">
+     <g id="line2d_51">
+      <path d="M 65.9664 114.877815 
+L 258.469897 114.877815 
+" clip-path="url(#p01aa4760dc)" style="fill: none; stroke: #e6dccb; stroke-opacity: 0.5; stroke-width: 0.5; stroke-linecap: square"/>
+     </g>
+     <g id="line2d_52">
+      <g>
+       <use xlink:href="#md5926c8368" x="65.9664" y="114.877815" style="fill: #8a7458; stroke: #8a7458; stroke-width: 0.6"/>
+      </g>
+     </g>
+    </g>
+    <g id="ytick_25">
+     <g id="line2d_53">
+      <path d="M 65.9664 111.281542 
+L 258.469897 111.281542 
+" clip-path="url(#p01aa4760dc)" style="fill: none; stroke: #e6dccb; stroke-opacity: 0.5; stroke-width: 0.5; stroke-linecap: square"/>
+     </g>
+     <g id="line2d_54">
+      <g>
+       <use xlink:href="#md5926c8368" x="65.9664" y="111.281542" style="fill: #8a7458; stroke: #8a7458; stroke-width: 0.6"/>
+      </g>
+     </g>
+    </g>
+    <g id="ytick_26">
+     <g id="line2d_55">
+      <path d="M 65.9664 108.492056 
+L 258.469897 108.492056 
+" clip-path="url(#p01aa4760dc)" style="fill: none; stroke: #e6dccb; stroke-opacity: 0.5; stroke-width: 0.5; stroke-linecap: square"/>
+     </g>
+     <g id="line2d_56">
+      <g>
+       <use xlink:href="#md5926c8368" x="65.9664" y="108.492056" style="fill: #8a7458; stroke: #8a7458; stroke-width: 0.6"/>
+      </g>
+     </g>
+    </g>
+    <g id="ytick_27">
+     <g id="line2d_57">
+      <path d="M 65.9664 106.21288 
+L 258.469897 106.21288 
+" clip-path="url(#p01aa4760dc)" style="fill: none; stroke: #e6dccb; stroke-opacity: 0.5; stroke-width: 0.5; stroke-linecap: square"/>
+     </g>
+     <g id="line2d_58">
+      <g>
+       <use xlink:href="#md5926c8368" x="65.9664" y="106.21288" style="fill: #8a7458; stroke: #8a7458; stroke-width: 0.6"/>
+      </g>
+     </g>
+    </g>
+    <g id="ytick_28">
+     <g id="line2d_59">
+      <path d="M 65.9664 104.285864 
+L 258.469897 104.285864 
+" clip-path="url(#p01aa4760dc)" style="fill: none; stroke: #e6dccb; stroke-opacity: 0.5; stroke-width: 0.5; stroke-linecap: square"/>
+     </g>
+     <g id="line2d_60">
+      <g>
+       <use xlink:href="#md5926c8368" x="65.9664" y="104.285864" style="fill: #8a7458; stroke: #8a7458; stroke-width: 0.6"/>
+      </g>
+     </g>
+    </g>
+    <g id="ytick_29">
+     <g id="line2d_61">
+      <path d="M 65.9664 102.616607 
+L 258.469897 102.616607 
+" clip-path="url(#p01aa4760dc)" style="fill: none; stroke: #e6dccb; stroke-opacity: 0.5; stroke-width: 0.5; stroke-linecap: square"/>
+     </g>
+     <g id="line2d_62">
+      <g>
+       <use xlink:href="#md5926c8368" x="65.9664" y="102.616607" style="fill: #8a7458; stroke: #8a7458; stroke-width: 0.6"/>
+      </g>
+     </g>
+    </g>
+    <g id="ytick_30">
+     <g id="line2d_63">
+      <path d="M 65.9664 101.144217 
+L 258.469897 101.144217 
+" clip-path="url(#p01aa4760dc)" style="fill: none; stroke: #e6dccb; stroke-opacity: 0.5; stroke-width: 0.5; stroke-linecap: square"/>
+     </g>
+     <g id="line2d_64">
+      <g>
+       <use xlink:href="#md5926c8368" x="65.9664" y="101.144217" style="fill: #8a7458; stroke: #8a7458; stroke-width: 0.6"/>
+      </g>
+     </g>
+    </g>
+    <g id="ytick_31">
+     <g id="line2d_65">
+      <path d="M 65.9664 91.162185 
+L 258.469897 91.162185 
+" clip-path="url(#p01aa4760dc)" style="fill: none; stroke: #e6dccb; stroke-opacity: 0.5; stroke-width: 0.5; stroke-linecap: square"/>
+     </g>
+     <g id="line2d_66">
+      <g>
+       <use xlink:href="#md5926c8368" x="65.9664" y="91.162185" style="fill: #8a7458; stroke: #8a7458; stroke-width: 0.6"/>
+      </g>
+     </g>
+    </g>
+    <g id="ytick_32">
+     <g id="line2d_67">
+      <path d="M 65.9664 86.093522 
+L 258.469897 86.093522 
+" clip-path="url(#p01aa4760dc)" style="fill: none; stroke: #e6dccb; stroke-opacity: 0.5; stroke-width: 0.5; stroke-linecap: square"/>
+     </g>
+     <g id="line2d_68">
+      <g>
+       <use xlink:href="#md5926c8368" x="65.9664" y="86.093522" style="fill: #8a7458; stroke: #8a7458; stroke-width: 0.6"/>
+      </g>
+     </g>
+    </g>
+    <g id="ytick_33">
+     <g id="line2d_69">
+      <path d="M 65.9664 82.497249 
+L 258.469897 82.497249 
+" clip-path="url(#p01aa4760dc)" style="fill: none; stroke: #e6dccb; stroke-opacity: 0.5; stroke-width: 0.5; stroke-linecap: square"/>
+     </g>
+     <g id="line2d_70">
+      <g>
+       <use xlink:href="#md5926c8368" x="65.9664" y="82.497249" style="fill: #8a7458; stroke: #8a7458; stroke-width: 0.6"/>
+      </g>
+     </g>
+    </g>
+    <g id="ytick_34">
+     <g id="line2d_71">
+      <path d="M 65.9664 79.707763 
+L 258.469897 79.707763 
+" clip-path="url(#p01aa4760dc)" style="fill: none; stroke: #e6dccb; stroke-opacity: 0.5; stroke-width: 0.5; stroke-linecap: square"/>
+     </g>
+     <g id="line2d_72">
+      <g>
+       <use xlink:href="#md5926c8368" x="65.9664" y="79.707763" style="fill: #8a7458; stroke: #8a7458; stroke-width: 0.6"/>
+      </g>
+     </g>
+    </g>
+    <g id="ytick_35">
+     <g id="line2d_73">
+      <path d="M 65.9664 77.428586 
+L 258.469897 77.428586 
+" clip-path="url(#p01aa4760dc)" style="fill: none; stroke: #e6dccb; stroke-opacity: 0.5; stroke-width: 0.5; stroke-linecap: square"/>
+     </g>
+     <g id="line2d_74">
+      <g>
+       <use xlink:href="#md5926c8368" x="65.9664" y="77.428586" style="fill: #8a7458; stroke: #8a7458; stroke-width: 0.6"/>
+      </g>
+     </g>
+    </g>
+    <g id="ytick_36">
+     <g id="line2d_75">
+      <path d="M 65.9664 75.50157 
+L 258.469897 75.50157 
+" clip-path="url(#p01aa4760dc)" style="fill: none; stroke: #e6dccb; stroke-opacity: 0.5; stroke-width: 0.5; stroke-linecap: square"/>
+     </g>
+     <g id="line2d_76">
+      <g>
+       <use xlink:href="#md5926c8368" x="65.9664" y="75.50157" style="fill: #8a7458; stroke: #8a7458; stroke-width: 0.6"/>
+      </g>
+     </g>
+    </g>
+    <g id="ytick_37">
+     <g id="line2d_77">
+      <path d="M 65.9664 73.832313 
+L 258.469897 73.832313 
+" clip-path="url(#p01aa4760dc)" style="fill: none; stroke: #e6dccb; stroke-opacity: 0.5; stroke-width: 0.5; stroke-linecap: square"/>
+     </g>
+     <g id="line2d_78">
+      <g>
+       <use xlink:href="#md5926c8368" x="65.9664" y="73.832313" style="fill: #8a7458; stroke: #8a7458; stroke-width: 0.6"/>
+      </g>
+     </g>
+    </g>
+    <g id="ytick_38">
+     <g id="line2d_79">
+      <path d="M 65.9664 72.359924 
+L 258.469897 72.359924 
+" clip-path="url(#p01aa4760dc)" style="fill: none; stroke: #e6dccb; stroke-opacity: 0.5; stroke-width: 0.5; stroke-linecap: square"/>
+     </g>
+     <g id="line2d_80">
+      <g>
+       <use xlink:href="#md5926c8368" x="65.9664" y="72.359924" style="fill: #8a7458; stroke: #8a7458; stroke-width: 0.6"/>
+      </g>
+     </g>
+    </g>
+    <g id="ytick_39">
+     <g id="line2d_81">
+      <path d="M 65.9664 62.377891 
+L 258.469897 62.377891 
+" clip-path="url(#p01aa4760dc)" style="fill: none; stroke: #e6dccb; stroke-opacity: 0.5; stroke-width: 0.5; stroke-linecap: square"/>
+     </g>
+     <g id="line2d_82">
+      <g>
+       <use xlink:href="#md5926c8368" x="65.9664" y="62.377891" style="fill: #8a7458; stroke: #8a7458; stroke-width: 0.6"/>
+      </g>
+     </g>
+    </g>
+    <g id="ytick_40">
+     <g id="line2d_83">
+      <path d="M 65.9664 57.309229 
+L 258.469897 57.309229 
+" clip-path="url(#p01aa4760dc)" style="fill: none; stroke: #e6dccb; stroke-opacity: 0.5; stroke-width: 0.5; stroke-linecap: square"/>
+     </g>
+     <g id="line2d_84">
+      <g>
+       <use xlink:href="#md5926c8368" x="65.9664" y="57.309229" style="fill: #8a7458; stroke: #8a7458; stroke-width: 0.6"/>
+      </g>
+     </g>
+    </g>
+    <g id="ytick_41">
+     <g id="line2d_85">
+      <path d="M 65.9664 53.712956 
+L 258.469897 53.712956 
+" clip-path="url(#p01aa4760dc)" style="fill: none; stroke: #e6dccb; stroke-opacity: 0.5; stroke-width: 0.5; stroke-linecap: square"/>
+     </g>
+     <g id="line2d_86">
+      <g>
+       <use xlink:href="#md5926c8368" x="65.9664" y="53.712956" style="fill: #8a7458; stroke: #8a7458; stroke-width: 0.6"/>
+      </g>
+     </g>
+    </g>
+    <g id="ytick_42">
+     <g id="line2d_87">
+      <path d="M 65.9664 50.923469 
+L 258.469897 50.923469 
+" clip-path="url(#p01aa4760dc)" style="fill: none; stroke: #e6dccb; stroke-opacity: 0.5; stroke-width: 0.5; stroke-linecap: square"/>
+     </g>
+     <g id="line2d_88">
+      <g>
+       <use xlink:href="#md5926c8368" x="65.9664" y="50.923469" style="fill: #8a7458; stroke: #8a7458; stroke-width: 0.6"/>
+      </g>
+     </g>
+    </g>
+    <g id="ytick_43">
+     <g id="line2d_89">
+      <path d="M 65.9664 48.644293 
+L 258.469897 48.644293 
+" clip-path="url(#p01aa4760dc)" style="fill: none; stroke: #e6dccb; stroke-opacity: 0.5; stroke-width: 0.5; stroke-linecap: square"/>
+     </g>
+     <g id="line2d_90">
+      <g>
+       <use xlink:href="#md5926c8368" x="65.9664" y="48.644293" style="fill: #8a7458; stroke: #8a7458; stroke-width: 0.6"/>
+      </g>
+     </g>
+    </g>
+    <g id="ytick_44">
+     <g id="line2d_91">
+      <path d="M 65.9664 46.717277 
+L 258.469897 46.717277 
+" clip-path="url(#p01aa4760dc)" style="fill: none; stroke: #e6dccb; stroke-opacity: 0.5; stroke-width: 0.5; stroke-linecap: square"/>
+     </g>
+     <g id="line2d_92">
+      <g>
+       <use xlink:href="#md5926c8368" x="65.9664" y="46.717277" style="fill: #8a7458; stroke: #8a7458; stroke-width: 0.6"/>
+      </g>
+     </g>
+    </g>
+    <g id="ytick_45">
+     <g id="line2d_93">
+      <path d="M 65.9664 45.04802 
+L 258.469897 45.04802 
+" clip-path="url(#p01aa4760dc)" style="fill: none; stroke: #e6dccb; stroke-opacity: 0.5; stroke-width: 0.5; stroke-linecap: square"/>
+     </g>
+     <g id="line2d_94">
+      <g>
+       <use xlink:href="#md5926c8368" x="65.9664" y="45.04802" style="fill: #8a7458; stroke: #8a7458; stroke-width: 0.6"/>
+      </g>
+     </g>
+    </g>
+    <g id="ytick_46">
+     <g id="line2d_95">
+      <path d="M 65.9664 43.575631 
+L 258.469897 43.575631 
+" clip-path="url(#p01aa4760dc)" style="fill: none; stroke: #e6dccb; stroke-opacity: 0.5; stroke-width: 0.5; stroke-linecap: square"/>
+     </g>
+     <g id="line2d_96">
+      <g>
+       <use xlink:href="#md5926c8368" x="65.9664" y="43.575631" style="fill: #8a7458; stroke: #8a7458; stroke-width: 0.6"/>
+      </g>
+     </g>
+    </g>
+    <g id="ytick_47">
+     <g id="line2d_97">
+      <path d="M 65.9664 33.593598 
+L 258.469897 33.593598 
+" clip-path="url(#p01aa4760dc)" style="fill: none; stroke: #e6dccb; stroke-opacity: 0.5; stroke-width: 0.5; stroke-linecap: square"/>
+     </g>
+     <g id="line2d_98">
+      <g>
+       <use xlink:href="#md5926c8368" x="65.9664" y="33.593598" style="fill: #8a7458; stroke: #8a7458; stroke-width: 0.6"/>
+      </g>
+     </g>
+    </g>
+    <g id="ytick_48">
+     <g id="line2d_99">
+      <path d="M 65.9664 28.524936 
+L 258.469897 28.524936 
+" clip-path="url(#p01aa4760dc)" style="fill: none; stroke: #e6dccb; stroke-opacity: 0.5; stroke-width: 0.5; stroke-linecap: square"/>
+     </g>
+     <g id="line2d_100">
+      <g>
+       <use xlink:href="#md5926c8368" x="65.9664" y="28.524936" style="fill: #8a7458; stroke: #8a7458; stroke-width: 0.6"/>
+      </g>
+     </g>
+    </g>
+    <g id="ytick_49">
+     <g id="line2d_101">
+      <path d="M 65.9664 24.928662 
+L 258.469897 24.928662 
+" clip-path="url(#p01aa4760dc)" style="fill: none; stroke: #e6dccb; stroke-opacity: 0.5; stroke-width: 0.5; stroke-linecap: square"/>
+     </g>
+     <g id="line2d_102">
+      <g>
+       <use xlink:href="#md5926c8368" x="65.9664" y="24.928662" style="fill: #8a7458; stroke: #8a7458; stroke-width: 0.6"/>
+      </g>
+     </g>
+    </g>
+    <g id="ytick_50">
+     <g id="line2d_103">
+      <path d="M 65.9664 22.139176 
+L 258.469897 22.139176 
+" clip-path="url(#p01aa4760dc)" style="fill: none; stroke: #e6dccb; stroke-opacity: 0.5; stroke-width: 0.5; stroke-linecap: square"/>
+     </g>
+     <g id="line2d_104">
+      <g>
+       <use xlink:href="#md5926c8368" x="65.9664" y="22.139176" style="fill: #8a7458; stroke: #8a7458; stroke-width: 0.6"/>
+      </g>
+     </g>
+    </g>
+    <g id="ytick_51">
+     <g id="line2d_105">
+      <path d="M 65.9664 19.86 
+L 258.469897 19.86 
+" clip-path="url(#p01aa4760dc)" style="fill: none; stroke: #e6dccb; stroke-opacity: 0.5; stroke-width: 0.5; stroke-linecap: square"/>
+     </g>
+     <g id="line2d_106">
+      <g>
+       <use xlink:href="#md5926c8368" x="65.9664" y="19.86" style="fill: #8a7458; stroke: #8a7458; stroke-width: 0.6"/>
+      </g>
+     </g>
+    </g>
+    <g id="text_11">
+     <text style="font-size: 9.5px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: middle; fill: #4a3c2c" x="30.665697" y="103.02" transform="rotate(-90 30.665697 103.02)">ratio, large vessel / small</text>
+    </g>
+   </g>
+   <g id="line2d_107">
+    <path d="M 65.9664 99.82712 
+L 258.469897 99.82712 
+" clip-path="url(#p01aa4760dc)" style="fill: none; stroke-dasharray: 3.6,2.7; stroke-dashoffset: 0; stroke: #8a7458; stroke-width: 0.9"/>
+   </g>
+   <g id="patch_15">
+    <path d="M 65.9664 186.18 
+L 65.9664 19.86 
+" style="fill: none; stroke: #dfd2be; stroke-width: 0.9; stroke-linejoin: miter; stroke-linecap: square"/>
+   </g>
+   <g id="patch_16">
+    <path d="M 65.9664 186.18 
+L 258.469897 186.18 
+" style="fill: none; stroke: #dfd2be; stroke-width: 0.9; stroke-linejoin: miter; stroke-linecap: square"/>
+   </g>
+   <g id="text_12">
+    <text style="font-size: 9px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: start; fill: #8a7458" x="65.9664" y="13.86" transform="rotate(-0 65.9664 13.86)">80 L → 10,000 L, as printed in Shuler Table 10.2</text>
+   </g>
+   <g id="legend_1">
+    <g id="patch_17">
+     <path d="M 73.1664 33.13875 
+L 89.1664 33.13875 
+L 89.1664 27.53875 
+L 73.1664 27.53875 
+z
+" style="fill: #1f6f62; opacity: 0.32; stroke: #1f6f62; stroke-width: 1.1; stroke-linejoin: miter"/>
+    </g>
+    <g id="text_13">
+     <!-- $P_0/V$ -->
+     <g style="fill: #4a3c2c" transform="translate(95.5664 33.13875)">
+      <text>
+       <tspan x="0" y="-0.171875" style="font-style: oblique; font-size: 8px; font-family: 'Public Sans, Helvetica, Arial, sans-serif'; fill: #4a3c2c">P</tspan>
+       <tspan x="11.301172" y="-0.171875" style="font-style: oblique; font-size: 8px; font-family: 'Public Sans, Helvetica, Arial, sans-serif'; fill: #4a3c2c">V</tspan>
+       <tspan x="4.824219" y="1.140625" style="font-size: 5.6px; font-family: 'Public Sans, Helvetica, Arial, sans-serif'; fill: #4a3c2c">0</tspan>
+       <tspan x="8.605859" y="-0.171875" style="font-size: 8px; font-family: 'Public Sans, Helvetica, Arial, sans-serif'; fill: #4a3c2c">/</tspan>
+      </text>
+     </g>
+    </g>
+    <g id="patch_18">
+     <path d="M 118.7664 33.13875 
+L 134.7664 33.13875 
+L 134.7664 27.53875 
+L 118.7664 27.53875 
+z
+" style="fill: #8a5f1b; opacity: 0.32; stroke: #8a5f1b; stroke-width: 1.1; stroke-linejoin: miter"/>
+    </g>
+    <g id="text_14">
+     <!-- $Q/V$ -->
+     <g style="fill: #4a3c2c" transform="translate(141.1664 33.13875)">
+      <text>
+       <tspan x="0" y="-0.0625" style="font-style: oblique; font-size: 8px; font-family: 'Public Sans, Helvetica, Arial, sans-serif'; fill: #4a3c2c">Q</tspan>
+       <tspan x="8.992188" y="-0.0625" style="font-style: oblique; font-size: 8px; font-family: 'Public Sans, Helvetica, Arial, sans-serif'; fill: #4a3c2c">V</tspan>
+       <tspan x="6.296875" y="-0.0625" style="font-size: 8px; font-family: 'Public Sans, Helvetica, Arial, sans-serif'; fill: #4a3c2c">/</tspan>
+      </text>
+     </g>
+    </g>
+    <g id="patch_19">
+     <path d="M 162.0464 33.13875 
+L 178.0464 33.13875 
+L 178.0464 27.53875 
+L 162.0464 27.53875 
+z
+" style="fill: #a4503a; opacity: 0.32; stroke: #a4503a; stroke-width: 1.1; stroke-linejoin: miter"/>
+    </g>
+    <g id="text_15">
+     <!-- $N\!\cdot\!D_i$ -->
+     <g style="fill: #4a3c2c" transform="translate(184.4464 33.13875)">
+      <text>
+       <tspan x="0" y="-0.171875" style="font-style: oblique; font-size: 8px; font-family: 'Public Sans, Helvetica, Arial, sans-serif'; fill: #4a3c2c">N</tspan>
+       <tspan x="9.046823" y="-0.171875" style="font-style: oblique; font-size: 8px; font-family: 'Public Sans, Helvetica, Arial, sans-serif'; fill: #4a3c2c">D</tspan>
+       <tspan x="6.244115" y="-0.171875" style="font-size: 8px; font-family: 'Public Sans, Helvetica, Arial, sans-serif'; fill: #4a3c2c">⋅</tspan>
+       <tspan x="15.206979" y="1.140625" style="font-style: oblique; font-size: 5.6px; font-family: 'Public Sans, Helvetica, Arial, sans-serif'; fill: #4a3c2c">i</tspan>
+      </text>
+     </g>
+    </g>
+   </g>
+  </g>
+  <g id="axes_2">
+   <g id="patch_20">
+    <path d="M 318.46682 186.18 
+L 478.8864 186.18 
+L 478.8864 19.86 
+L 318.46682 19.86 
+L 318.46682 186.18 
+z
+" style="fill: none"/>
+   </g>
+   <g id="patch_21">
+    <path d="M 318.46682 150.023478 
+L 442.631332 150.023478 
+L 442.631332 125.91913 
+L 318.46682 125.91913 
+z
+" clip-path="url(#pa0748d9c3a)" style="fill: #a4503a; opacity: 0.32; stroke: #a4503a; stroke-width: 1.1; stroke-linejoin: miter"/>
+   </g>
+   <g id="patch_22">
+    <path d="M 318.46682 101.814783 
+L 372.308068 101.814783 
+L 372.308068 77.710435 
+L 318.46682 77.710435 
+z
+" clip-path="url(#pa0748d9c3a)" style="fill: #1f6f62; opacity: 0.32; stroke: #1f6f62; stroke-width: 1.1; stroke-linejoin: miter"/>
+   </g>
+   <g id="patch_23">
+    <path d="M 318.46682 53.606087 
+L 369.593384 53.606087 
+L 369.593384 29.501739 
+L 318.46682 29.501739 
+z
+" clip-path="url(#pa0748d9c3a)" style="fill: #1f6f62; opacity: 0.32; stroke: #1f6f62; stroke-width: 1.1; stroke-linejoin: miter"/>
+   </g>
+   <g id="matplotlib.axis_3">
+    <g id="xtick_5">
+     <g id="line2d_108">
+      <path d="M 318.46682 186.18 
+L 318.46682 19.86 
+" clip-path="url(#pa0748d9c3a)" style="fill: none; stroke: #e6dccb; stroke-opacity: 0.7; stroke-width: 0.6; stroke-linecap: square"/>
+     </g>
+     <g id="line2d_109">
+      <g>
+       <use xlink:href="#m5ba1b33048" x="318.46682" y="186.18" style="fill: #8a7458; stroke: #8a7458; stroke-width: 0.9"/>
+      </g>
+     </g>
+     <g id="text_16">
+      <text style="font-size: 9.5px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: middle; fill: #8a7458" x="318.46682" y="200.398516" transform="rotate(-0 318.46682 200.398516)">0</text>
+     </g>
+    </g>
+    <g id="xtick_6">
+     <g id="line2d_110">
+      <path d="M 377.881479 186.18 
+L 377.881479 19.86 
+" clip-path="url(#pa0748d9c3a)" style="fill: none; stroke: #e6dccb; stroke-opacity: 0.7; stroke-width: 0.6; stroke-linecap: square"/>
+     </g>
+     <g id="line2d_111">
+      <g>
+       <use xlink:href="#m5ba1b33048" x="377.881479" y="186.18" style="fill: #8a7458; stroke: #8a7458; stroke-width: 0.9"/>
+      </g>
+     </g>
+     <g id="text_17">
+      <text style="font-size: 9.5px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: middle; fill: #8a7458" x="377.881479" y="200.398516" transform="rotate(-0 377.881479 200.398516)">500</text>
+     </g>
+    </g>
+    <g id="xtick_7">
+     <g id="line2d_112">
+      <path d="M 437.296138 186.18 
+L 437.296138 19.86 
+" clip-path="url(#pa0748d9c3a)" style="fill: none; stroke: #e6dccb; stroke-opacity: 0.7; stroke-width: 0.6; stroke-linecap: square"/>
+     </g>
+     <g id="line2d_113">
+      <g>
+       <use xlink:href="#m5ba1b33048" x="437.296138" y="186.18" style="fill: #8a7458; stroke: #8a7458; stroke-width: 0.9"/>
+      </g>
+     </g>
+     <g id="text_18">
+      <text style="font-size: 9.5px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: middle; fill: #8a7458" x="437.296138" y="200.398516" transform="rotate(-0 437.296138 200.398516)">1000</text>
+     </g>
+    </g>
+    <g id="text_19">
+     <!-- $k_La$ required  (h$^{-1}$) -->
+     <g style="fill: #4a3c2c" transform="translate(354.59661 214.924219)">
+      <text>
+       <tspan x="0" y="-0.064063" style="font-style: oblique; font-size: 9.5px; font-family: 'Public Sans, Helvetica, Arial, sans-serif'; fill: #4a3c2c">k</tspan>
+       <tspan x="9.47981" y="-0.064063" style="font-style: oblique; font-size: 9.5px; font-family: 'Public Sans, Helvetica, Arial, sans-serif'; fill: #4a3c2c">a</tspan>
+       <tspan x="5.501465" y="1.576562" style="font-style: oblique; font-size: 6.65px; font-family: 'Public Sans, Helvetica, Arial, sans-serif'; fill: #4a3c2c">L</tspan>
+       <tspan x="15.301343" y="-0.064063" style="font-size: 9.5px; font-family: 'Public Sans, Helvetica, Arial, sans-serif'; fill: #4a3c2c"> </tspan>
+       <tspan x="18.321118" y="-0.064063" style="font-size: 9.5px; font-family: 'Public Sans, Helvetica, Arial, sans-serif'; fill: #4a3c2c">r</tspan>
+       <tspan x="22.22688" y="-0.064063" style="font-size: 9.5px; font-family: 'Public Sans, Helvetica, Arial, sans-serif'; fill: #4a3c2c">e</tspan>
+       <tspan x="28.071606" y="-0.064063" style="font-size: 9.5px; font-family: 'Public Sans, Helvetica, Arial, sans-serif'; fill: #4a3c2c">q</tspan>
+       <tspan x="34.10188" y="-0.064063" style="font-size: 9.5px; font-family: 'Public Sans, Helvetica, Arial, sans-serif'; fill: #4a3c2c">u</tspan>
+       <tspan x="40.122876" y="-0.064063" style="font-size: 9.5px; font-family: 'Public Sans, Helvetica, Arial, sans-serif'; fill: #4a3c2c">i</tspan>
+       <tspan x="42.76228" y="-0.064063" style="font-size: 9.5px; font-family: 'Public Sans, Helvetica, Arial, sans-serif'; fill: #4a3c2c">r</tspan>
+       <tspan x="46.668042" y="-0.064063" style="font-size: 9.5px; font-family: 'Public Sans, Helvetica, Arial, sans-serif'; fill: #4a3c2c">e</tspan>
+       <tspan x="52.512769" y="-0.064063" style="font-size: 9.5px; font-family: 'Public Sans, Helvetica, Arial, sans-serif'; fill: #4a3c2c">d</tspan>
+       <tspan x="58.543042" y="-0.064063" style="font-size: 9.5px; font-family: 'Public Sans, Helvetica, Arial, sans-serif'; fill: #4a3c2c"> </tspan>
+       <tspan x="61.562817" y="-0.064063" style="font-size: 9.5px; font-family: 'Public Sans, Helvetica, Arial, sans-serif'; fill: #4a3c2c"> </tspan>
+       <tspan x="64.582593" y="-0.064063" style="font-size: 9.5px; font-family: 'Public Sans, Helvetica, Arial, sans-serif'; fill: #4a3c2c">(</tspan>
+       <tspan x="68.288892" y="-0.064063" style="font-size: 9.5px; font-family: 'Public Sans, Helvetica, Arial, sans-serif'; fill: #4a3c2c">h</tspan>
+       <tspan x="84.481934" y="-0.064063" style="font-size: 9.5px; font-family: 'Public Sans, Helvetica, Arial, sans-serif'; fill: #4a3c2c">)</tspan>
+       <tspan x="74.405591" y="-3.892188" style="font-size: 6.65px; font-family: 'Public Sans, Helvetica, Arial, sans-serif'; fill: #4a3c2c">−</tspan>
+       <tspan x="79.977563" y="-3.892188" style="font-size: 6.65px; font-family: 'Public Sans, Helvetica, Arial, sans-serif'; fill: #4a3c2c">1</tspan>
+      </text>
+     </g>
+    </g>
+   </g>
+   <g id="matplotlib.axis_4">
+    <g id="ytick_52">
+     <g id="line2d_114">
+      <g>
+       <use xlink:href="#m26beff0c60" x="318.46682" y="137.971304" style="fill: #8a7458; stroke: #8a7458; stroke-width: 0.9"/>
+      </g>
+     </g>
+     <g id="text_20">
+      <text style="font-size: 8.4px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: end; fill: #8a7458" x="311.46682" y="141.162648" transform="rotate(-0 311.46682 141.162648)">air, 1 bar</text>
+     </g>
+    </g>
+    <g id="ytick_53">
+     <g id="line2d_115">
+      <g>
+       <use xlink:href="#m26beff0c60" x="318.46682" y="89.762609" style="fill: #8a7458; stroke: #8a7458; stroke-width: 0.9"/>
+      </g>
+     </g>
+     <g id="text_21">
+      <text style="font-size: 8.4px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: end; fill: #8a7458" x="311.46682" y="92.953952" transform="rotate(-0 311.46682 92.953952)">40% O₂</text>
+     </g>
+    </g>
+    <g id="ytick_54">
+     <g id="line2d_116">
+      <g>
+       <use xlink:href="#m26beff0c60" x="318.46682" y="41.553913" style="fill: #8a7458; stroke: #8a7458; stroke-width: 0.9"/>
+      </g>
+     </g>
+     <g id="text_22">
+      <text style="font-size: 8.4px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: end; fill: #8a7458" x="311.46682" y="44.745257" transform="rotate(-0 311.46682 44.745257)">air, 2 bar</text>
+     </g>
+    </g>
+   </g>
+   <g id="line2d_117">
+    <path d="M 377.881479 186.18 
+L 377.881479 19.86 
+" clip-path="url(#pa0748d9c3a)" style="fill: none; stroke-dasharray: 4.4,3.3; stroke-dashoffset: 0; stroke: #8a7458; stroke-width: 1.1"/>
+   </g>
+   <g id="patch_24">
+    <path d="M 318.46682 186.18 
+L 318.46682 19.86 
+" style="fill: none; stroke: #dfd2be; stroke-width: 0.9; stroke-linejoin: miter; stroke-linecap: square"/>
+   </g>
+   <g id="patch_25">
+    <path d="M 318.46682 186.18 
+L 478.8864 186.18 
+" style="fill: none; stroke: #dfd2be; stroke-width: 0.9; stroke-linejoin: miter; stroke-linecap: square"/>
+   </g>
+   <g id="text_23">
+    <text style="font-weight: 700; font-size: 8.4px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: start; fill: #a4503a" x="445.602065" y="140.289179" transform="rotate(-0 445.602065 140.289179)">1,045</text>
+   </g>
+   <g id="text_24">
+    <text style="font-weight: 700; font-size: 8.4px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: start; fill: #1f6f62" x="375.278801" y="92.080484" transform="rotate(-0 375.278801 92.080484)">453</text>
+   </g>
+   <g id="text_25">
+    <text style="font-weight: 700; font-size: 8.4px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: start; fill: #1f6f62" x="372.564117" y="43.871788" transform="rotate(-0 372.564117 43.871788)">430</text>
+   </g>
+   <g id="text_26">
+    <text style="font-size: 8px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: start; fill: #8a7458" x="379.663919" y="179.430783" transform="rotate(-0 379.663919 179.430783)">achievable at 50 m³</text>
+   </g>
+   <g id="text_27">
+    <!-- 40 g L$^{-1}$ at 4 mmol O$_2$ g$^{-1}$ h$^{-1}$ -->
+    <g style="fill: #8a7458" transform="translate(318.46682 13.86)">
+     <text>
+      <tspan x="0" y="-0.960938" style="font-size: 9px; font-family: 'Public Sans, Helvetica, Arial, sans-serif'; fill: #8a7458">4</tspan>
+      <tspan x="5.726074" y="-0.960938" style="font-size: 9px; font-family: 'Public Sans, Helvetica, Arial, sans-serif'; fill: #8a7458">0</tspan>
+      <tspan x="11.452148" y="-0.960938" style="font-size: 9px; font-family: 'Public Sans, Helvetica, Arial, sans-serif'; fill: #8a7458"> </tspan>
+      <tspan x="14.312988" y="-0.960938" style="font-size: 9px; font-family: 'Public Sans, Helvetica, Arial, sans-serif'; fill: #8a7458">g</tspan>
+      <tspan x="20.025879" y="-0.960938" style="font-size: 9px; font-family: 'Public Sans, Helvetica, Arial, sans-serif'; fill: #8a7458"> </tspan>
+      <tspan x="22.886719" y="-0.960938" style="font-size: 9px; font-family: 'Public Sans, Helvetica, Arial, sans-serif'; fill: #8a7458">L</tspan>
+      <tspan x="37.520068" y="-0.960938" style="font-size: 9px; font-family: 'Public Sans, Helvetica, Arial, sans-serif'; fill: #8a7458"> </tspan>
+      <tspan x="40.380908" y="-0.960938" style="font-size: 9px; font-family: 'Public Sans, Helvetica, Arial, sans-serif'; fill: #8a7458">a</tspan>
+      <tspan x="45.896045" y="-0.960938" style="font-size: 9px; font-family: 'Public Sans, Helvetica, Arial, sans-serif'; fill: #8a7458">t</tspan>
+      <tspan x="49.424854" y="-0.960938" style="font-size: 9px; font-family: 'Public Sans, Helvetica, Arial, sans-serif'; fill: #8a7458"> </tspan>
+      <tspan x="52.285693" y="-0.960938" style="font-size: 9px; font-family: 'Public Sans, Helvetica, Arial, sans-serif'; fill: #8a7458">4</tspan>
+      <tspan x="58.011768" y="-0.960938" style="font-size: 9px; font-family: 'Public Sans, Helvetica, Arial, sans-serif'; fill: #8a7458"> </tspan>
+      <tspan x="60.872607" y="-0.960938" style="font-size: 9px; font-family: 'Public Sans, Helvetica, Arial, sans-serif'; fill: #8a7458">m</tspan>
+      <tspan x="69.639697" y="-0.960938" style="font-size: 9px; font-family: 'Public Sans, Helvetica, Arial, sans-serif'; fill: #8a7458">m</tspan>
+      <tspan x="78.406787" y="-0.960938" style="font-size: 9px; font-family: 'Public Sans, Helvetica, Arial, sans-serif'; fill: #8a7458">o</tspan>
+      <tspan x="83.913135" y="-0.960938" style="font-size: 9px; font-family: 'Public Sans, Helvetica, Arial, sans-serif'; fill: #8a7458">l</tspan>
+      <tspan x="86.413623" y="-0.960938" style="font-size: 9px; font-family: 'Public Sans, Helvetica, Arial, sans-serif'; fill: #8a7458"> </tspan>
+      <tspan x="89.274463" y="-0.960938" style="font-size: 9px; font-family: 'Public Sans, Helvetica, Arial, sans-serif'; fill: #8a7458">O</tspan>
+      <tspan x="100.698926" y="-0.960938" style="font-size: 9px; font-family: 'Public Sans, Helvetica, Arial, sans-serif'; fill: #8a7458"> </tspan>
+      <tspan x="103.559766" y="-0.960938" style="font-size: 9px; font-family: 'Public Sans, Helvetica, Arial, sans-serif'; fill: #8a7458">g</tspan>
+      <tspan x="118.891846" y="-0.960938" style="font-size: 9px; font-family: 'Public Sans, Helvetica, Arial, sans-serif'; fill: #8a7458"> </tspan>
+      <tspan x="121.752686" y="-0.960938" style="font-size: 9px; font-family: 'Public Sans, Helvetica, Arial, sans-serif'; fill: #8a7458">h</tspan>
+      <tspan x="27.987012" y="-4.40625" style="font-size: 6.3px; font-family: 'Public Sans, Helvetica, Arial, sans-serif'; fill: #8a7458">−</tspan>
+      <tspan x="33.265723" y="-4.40625" style="font-size: 6.3px; font-family: 'Public Sans, Helvetica, Arial, sans-serif'; fill: #8a7458">1</tspan>
+      <tspan x="96.44458" y="0.515625" style="font-size: 6.3px; font-family: 'Public Sans, Helvetica, Arial, sans-serif'; fill: #8a7458">2</tspan>
+      <tspan x="109.358789" y="-4.40625" style="font-size: 6.3px; font-family: 'Public Sans, Helvetica, Arial, sans-serif'; fill: #8a7458">−</tspan>
+      <tspan x="114.6375" y="-4.40625" style="font-size: 6.3px; font-family: 'Public Sans, Helvetica, Arial, sans-serif'; fill: #8a7458">1</tspan>
+      <tspan x="127.54292" y="-4.40625" style="font-size: 6.3px; font-family: 'Public Sans, Helvetica, Arial, sans-serif'; fill: #8a7458">−</tspan>
+      <tspan x="132.821631" y="-4.40625" style="font-size: 6.3px; font-family: 'Public Sans, Helvetica, Arial, sans-serif'; fill: #8a7458">1</tspan>
+     </text>
+    </g>
+   </g>
+  </g>
+  <g id="text_28">
+   <text style="font-size: 8.3px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: start; fill: #8a7458" x="5.76" y="240.18" transform="rotate(-0 5.76 240.18)">Right panel from the oxygen balance alone: OUR 5.12 kg m⁻³ h⁻¹, dissolved oxygen held at 2.1 g m⁻³, C* scaling with absolute pressure and oxygen mole fraction.</text>
+  </g>
+ </g>
+ <defs>
+  <clipPath id="p01aa4760dc">
+   <rect x="65.9664" y="19.86" width="192.503497" height="166.32"/>
+  </clipPath>
+  <clipPath id="pa0748d9c3a">
+   <rect x="318.46682" y="19.86" width="160.41958" height="166.32"/>
+  </clipPath>
+ </defs>
+</svg>
+</div><div class="fig-dark"><svg role="img" aria-label="Left: Shuler's Table 10.2 on a log axis makes the point the table makes in prose — each criterion holds one row at 1.0 and moves the others by up to four orders. Right: the required kₗa on air is roughly twice what a 50 m³ vessel delivers, and both fixes raise C* rather than the coefficient, because the deficit is in the driving force." xmlns:xlink="http://www.w3.org/1999/xlink" width="689.029547pt" height="247.666141pt" viewBox="0 0 689.029547 247.666141" xmlns="http://www.w3.org/2000/svg" version="1.1">
+ <metadata>
+  <rdf:RDF xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:cc="http://creativecommons.org/ns#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+   <cc:Work>
+    <dc:type rdf:resource="http://purl.org/dc/dcmitype/StillImage"/>
+    <dc:date>2026-11-02T23:57:57.914252</dc:date>
+    <dc:format>image/svg+xml</dc:format>
+    <dc:creator>
+     <cc:Agent>
+      <dc:title>Matplotlib v3.10.8, https://matplotlib.org/</dc:title>
+     </cc:Agent>
+    </dc:creator>
+   </cc:Work>
+  </rdf:RDF>
+ </metadata>
+ <defs>
+  <style type="text/css">*{stroke-linejoin: round; stroke-linecap: butt}</style>
+ </defs>
+ <g id="figure_1">
+  <g id="patch_1">
+   <path d="M 0 247.666141 
+L 689.029547 247.666141 
+L 689.029547 0 
+L 0 0 
+L 0 247.666141 
+z
+" style="fill: none"/>
+  </g>
+  <g id="axes_1">
+   <g id="patch_2">
+    <path d="M 65.9664 186.18 
+L 258.469897 186.18 
+L 258.469897 19.86 
+L 65.9664 19.86 
+L 65.9664 186.18 
+z
+" style="fill: none"/>
+   </g>
+   <g id="patch_3">
+    <path d="M 74.716559 28884.120364 
+L 86.753815 28884.120364 
+L 86.753815 99.82712 
+L 74.716559 99.82712 
+z
+" clip-path="url(#p2e58e755bf)" style="fill: #6dbdac; opacity: 0.32; stroke: #6dbdac; stroke-width: 1.1; stroke-linejoin: miter"/>
+   </g>
+   <g id="patch_4">
+    <path d="M 121.013696 28884.120364 
+L 133.050952 28884.120364 
+L 133.050952 59.588405 
+L 121.013696 59.588405 
+z
+" clip-path="url(#p2e58e755bf)" style="fill: #6dbdac; opacity: 0.32; stroke: #6dbdac; stroke-width: 1.1; stroke-linejoin: miter"/>
+   </g>
+   <g id="patch_5">
+    <path d="M 167.310833 28884.120364 
+L 179.348089 28884.120364 
+L 179.348089 119.946478 
+L 167.310833 119.946478 
+z
+" clip-path="url(#p2e58e755bf)" style="fill: #6dbdac; opacity: 0.32; stroke: #6dbdac; stroke-width: 1.1; stroke-linejoin: miter"/>
+   </g>
+   <g id="patch_6">
+    <path d="M 213.607971 28884.120364 
+L 225.645226 28884.120364 
+L 225.645226 180.304551 
+L 213.607971 180.304551 
+z
+" clip-path="url(#p2e58e755bf)" style="fill: #6dbdac; opacity: 0.32; stroke: #6dbdac; stroke-width: 1.1; stroke-linejoin: miter"/>
+   </g>
+   <g id="patch_7">
+    <path d="M 86.753815 28884.120364 
+L 98.79107 28884.120364 
+L 98.79107 113.313169 
+L 86.753815 113.313169 
+z
+" clip-path="url(#p2e58e755bf)" style="fill: #d7a95c; opacity: 0.32; stroke: #d7a95c; stroke-width: 1.1; stroke-linejoin: miter"/>
+   </g>
+   <g id="patch_8">
+    <path d="M 133.050952 28884.120364 
+L 145.088207 28884.120364 
+L 145.088207 99.82712 
+L 133.050952 99.82712 
+z
+" clip-path="url(#p2e58e755bf)" style="fill: #d7a95c; opacity: 0.32; stroke: #d7a95c; stroke-width: 1.1; stroke-linejoin: miter"/>
+   </g>
+   <g id="patch_9">
+    <path d="M 179.348089 28884.120364 
+L 191.385345 28884.120364 
+L 191.385345 119.946478 
+L 179.348089 119.946478 
+z
+" clip-path="url(#p2e58e755bf)" style="fill: #d7a95c; opacity: 0.32; stroke: #d7a95c; stroke-width: 1.1; stroke-linejoin: miter"/>
+   </g>
+   <g id="patch_10">
+    <path d="M 225.645226 28884.120364 
+L 237.682482 28884.120364 
+L 237.682482 140.065835 
+L 225.645226 140.065835 
+z
+" clip-path="url(#p2e58e755bf)" style="fill: #d7a95c; opacity: 0.32; stroke: #d7a95c; stroke-width: 1.1; stroke-linejoin: miter"/>
+   </g>
+   <g id="patch_11">
+    <path d="M 98.79107 28884.120364 
+L 110.828326 28884.120364 
+L 110.828326 93.193811 
+L 98.79107 93.193811 
+z
+" clip-path="url(#p2e58e755bf)" style="fill: #d98c72; opacity: 0.32; stroke: #d98c72; stroke-width: 1.1; stroke-linejoin: miter"/>
+   </g>
+   <g id="patch_12">
+    <path d="M 145.088207 28884.120364 
+L 157.125463 28884.120364 
+L 157.125463 79.707763 
+L 145.088207 79.707763 
+z
+" clip-path="url(#p2e58e755bf)" style="fill: #d98c72; opacity: 0.32; stroke: #d98c72; stroke-width: 1.1; stroke-linejoin: miter"/>
+   </g>
+   <g id="patch_13">
+    <path d="M 191.385345 28884.120364 
+L 203.4226 28884.120364 
+L 203.4226 99.82712 
+L 191.385345 99.82712 
+z
+" clip-path="url(#p2e58e755bf)" style="fill: #d98c72; opacity: 0.32; stroke: #d98c72; stroke-width: 1.1; stroke-linejoin: miter"/>
+   </g>
+   <g id="patch_14">
+    <path d="M 237.682482 28884.120364 
+L 249.719738 28884.120364 
+L 249.719738 119.946478 
+L 237.682482 119.946478 
+z
+" clip-path="url(#p2e58e755bf)" style="fill: #d98c72; opacity: 0.32; stroke: #d98c72; stroke-width: 1.1; stroke-linejoin: miter"/>
+   </g>
+   <g id="matplotlib.axis_1">
+    <g id="xtick_1">
+     <g id="line2d_1">
+      <defs>
+       <path id="m15f698f4fe" d="M 0 0 
+L 0 3.5 
+" style="stroke: #9a8872; stroke-width: 0.9"/>
+      </defs>
+      <g>
+       <use xlink:href="#m15f698f4fe" x="92.772442" y="186.18" style="fill: #9a8872; stroke: #9a8872; stroke-width: 0.9"/>
+      </g>
+     </g>
+     <g id="text_1">
+      <text style="font-size: 8.2px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; fill: #9a8872" transform="translate(74.949614 199.410719)">constant</text>
+      <!-- $P_0/V$ -->
+      <g style="fill: #9a8872" transform="translate(84.162442 208.592925)">
+       <text>
+        <tspan x="0" y="-0.171875" style="font-style: oblique; font-size: 8.2px; font-family: 'Public Sans, Helvetica, Arial, sans-serif'; fill: #9a8872">P</tspan>
+        <tspan x="11.647498" y="-0.171875" style="font-style: oblique; font-size: 8.2px; font-family: 'Public Sans, Helvetica, Arial, sans-serif'; fill: #9a8872">V</tspan>
+        <tspan x="4.974976" y="1.140625" style="font-size: 5.74px; font-family: 'Public Sans, Helvetica, Arial, sans-serif'; fill: #9a8872">0</tspan>
+        <tspan x="8.867957" y="-0.171875" style="font-size: 8.2px; font-family: 'Public Sans, Helvetica, Arial, sans-serif'; fill: #9a8872">/</tspan>
+       </text>
+      </g>
+     </g>
+    </g>
+    <g id="xtick_2">
+     <g id="line2d_2">
+      <g>
+       <use xlink:href="#m15f698f4fe" x="139.06958" y="186.18" style="fill: #9a8872; stroke: #9a8872; stroke-width: 0.9"/>
+      </g>
+     </g>
+     <g id="text_2">
+      <text style="font-size: 8.2px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; fill: #9a8872" transform="translate(121.246752 199.410719)">constant</text>
+      <!-- $N$ -->
+      <g style="fill: #9a8872" transform="translate(135.99458 208.592925)">
+       <text>
+        <tspan x="0" y="-0.171875" style="font-style: oblique; font-size: 8.2px; font-family: 'Public Sans, Helvetica, Arial, sans-serif'; fill: #9a8872">N</tspan>
+       </text>
+      </g>
+     </g>
+    </g>
+    <g id="xtick_3">
+     <g id="line2d_3">
+      <g>
+       <use xlink:href="#m15f698f4fe" x="185.366717" y="186.18" style="fill: #9a8872; stroke: #9a8872; stroke-width: 0.9"/>
+      </g>
+     </g>
+     <g id="text_3">
+      <text style="font-size: 8.2px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; fill: #9a8872" transform="translate(167.543889 199.410719)">constant</text>
+      <!-- $N\!\cdot\!D_i$ -->
+      <g style="fill: #9a8872" transform="translate(176.633717 208.592925)">
+       <text>
+        <tspan x="0" y="-0.171875" style="font-style: oblique; font-size: 8.2px; font-family: 'Public Sans, Helvetica, Arial, sans-serif'; fill: #9a8872">N</tspan>
+        <tspan x="9.329536" y="-0.171875" style="font-style: oblique; font-size: 8.2px; font-family: 'Public Sans, Helvetica, Arial, sans-serif'; fill: #9a8872">D</tspan>
+        <tspan x="6.439243" y="-0.171875" style="font-size: 8.2px; font-family: 'Public Sans, Helvetica, Arial, sans-serif'; fill: #9a8872">⋅</tspan>
+        <tspan x="15.682197" y="1.140625" style="font-style: oblique; font-size: 5.74px; font-family: 'Public Sans, Helvetica, Arial, sans-serif'; fill: #9a8872">i</tspan>
+       </text>
+      </g>
+     </g>
+    </g>
+    <g id="xtick_4">
+     <g id="line2d_4">
+      <g>
+       <use xlink:href="#m15f698f4fe" x="231.663854" y="186.18" style="fill: #9a8872; stroke: #9a8872; stroke-width: 0.9"/>
+      </g>
+     </g>
+     <g id="text_4">
+      <text style="font-size: 8.2px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; fill: #9a8872" transform="translate(213.841026 199.410719)">constant</text>
+      <!-- $Re$ -->
+      <g style="fill: #9a8872" transform="translate(226.251854 208.592925)">
+       <text>
+        <tspan x="0" y="-0.171875" style="font-style: oblique; font-size: 8.2px; font-family: 'Public Sans, Helvetica, Arial, sans-serif'; fill: #9a8872">R</tspan>
+        <tspan x="5.7323" y="-0.171875" style="font-style: oblique; font-size: 8.2px; font-family: 'Public Sans, Helvetica, Arial, sans-serif'; fill: #9a8872">e</tspan>
+       </text>
+      </g>
+     </g>
+    </g>
+   </g>
+   <g id="matplotlib.axis_2">
+    <g id="ytick_1">
+     <g id="line2d_5">
+      <path d="M 65.9664 186.18 
+L 258.469897 186.18 
+" clip-path="url(#p2e58e755bf)" style="fill: none; stroke: #2e251c; stroke-opacity: 0.5; stroke-width: 0.5; stroke-linecap: square"/>
+     </g>
+     <g id="line2d_6">
+      <defs>
+       <path id="m2a2b998fa2" d="M 0 0 
+L -3.5 0 
+" style="stroke: #9a8872; stroke-width: 0.9"/>
+      </defs>
+      <g>
+       <use xlink:href="#m2a2b998fa2" x="65.9664" y="186.18" style="fill: #9a8872; stroke: #9a8872; stroke-width: 0.9"/>
+      </g>
+     </g>
+     <g id="text_5">
+      <!-- $\mathdefault{10^{-3}}$ -->
+      <g style="fill: #9a8872" transform="translate(36.6414 189.789258)">
+       <text>
+        <tspan x="0" y="-0.976562" style="font-size: 9.5px; font-family: 'Public Sans, Helvetica, Arial, sans-serif'; fill: #9a8872">1</tspan>
+        <tspan x="6.044189" y="-0.976562" style="font-size: 9.5px; font-family: 'Public Sans, Helvetica, Arial, sans-serif'; fill: #9a8872">0</tspan>
+        <tspan x="12.184082" y="-4.804688" style="font-size: 6.65px; font-family: 'Public Sans, Helvetica, Arial, sans-serif'; fill: #9a8872">−</tspan>
+        <tspan x="17.756055" y="-4.804688" style="font-size: 6.65px; font-family: 'Public Sans, Helvetica, Arial, sans-serif'; fill: #9a8872">3</tspan>
+       </text>
+      </g>
+     </g>
+    </g>
+    <g id="ytick_2">
+     <g id="line2d_7">
+      <path d="M 65.9664 157.395707 
+L 258.469897 157.395707 
+" clip-path="url(#p2e58e755bf)" style="fill: none; stroke: #2e251c; stroke-opacity: 0.5; stroke-width: 0.5; stroke-linecap: square"/>
+     </g>
+     <g id="line2d_8">
+      <g>
+       <use xlink:href="#m2a2b998fa2" x="65.9664" y="157.395707" style="fill: #9a8872; stroke: #9a8872; stroke-width: 0.9"/>
+      </g>
+     </g>
+     <g id="text_6">
+      <!-- $\mathdefault{10^{-2}}$ -->
+      <g style="fill: #9a8872" transform="translate(36.6414 161.004965)">
+       <text>
+        <tspan x="0" y="-0.976562" style="font-size: 9.5px; font-family: 'Public Sans, Helvetica, Arial, sans-serif'; fill: #9a8872">1</tspan>
+        <tspan x="6.044189" y="-0.976562" style="font-size: 9.5px; font-family: 'Public Sans, Helvetica, Arial, sans-serif'; fill: #9a8872">0</tspan>
+        <tspan x="12.184082" y="-4.804688" style="font-size: 6.65px; font-family: 'Public Sans, Helvetica, Arial, sans-serif'; fill: #9a8872">−</tspan>
+        <tspan x="17.756055" y="-4.804688" style="font-size: 6.65px; font-family: 'Public Sans, Helvetica, Arial, sans-serif'; fill: #9a8872">2</tspan>
+       </text>
+      </g>
+     </g>
+    </g>
+    <g id="ytick_3">
+     <g id="line2d_9">
+      <path d="M 65.9664 128.611414 
+L 258.469897 128.611414 
+" clip-path="url(#p2e58e755bf)" style="fill: none; stroke: #2e251c; stroke-opacity: 0.5; stroke-width: 0.5; stroke-linecap: square"/>
+     </g>
+     <g id="line2d_10">
+      <g>
+       <use xlink:href="#m2a2b998fa2" x="65.9664" y="128.611414" style="fill: #9a8872; stroke: #9a8872; stroke-width: 0.9"/>
+      </g>
+     </g>
+     <g id="text_7">
+      <!-- $\mathdefault{10^{-1}}$ -->
+      <g style="fill: #9a8872" transform="translate(36.6414 132.220671)">
+       <text>
+        <tspan x="0" y="-0.064063" style="font-size: 9.5px; font-family: 'Public Sans, Helvetica, Arial, sans-serif'; fill: #9a8872">1</tspan>
+        <tspan x="6.044189" y="-0.064063" style="font-size: 9.5px; font-family: 'Public Sans, Helvetica, Arial, sans-serif'; fill: #9a8872">0</tspan>
+        <tspan x="12.184082" y="-3.892188" style="font-size: 6.65px; font-family: 'Public Sans, Helvetica, Arial, sans-serif'; fill: #9a8872">−</tspan>
+        <tspan x="17.756055" y="-3.892188" style="font-size: 6.65px; font-family: 'Public Sans, Helvetica, Arial, sans-serif'; fill: #9a8872">1</tspan>
+       </text>
+      </g>
+     </g>
+    </g>
+    <g id="ytick_4">
+     <g id="line2d_11">
+      <path d="M 65.9664 99.82712 
+L 258.469897 99.82712 
+" clip-path="url(#p2e58e755bf)" style="fill: none; stroke: #2e251c; stroke-opacity: 0.5; stroke-width: 0.5; stroke-linecap: square"/>
+     </g>
+     <g id="line2d_12">
+      <g>
+       <use xlink:href="#m2a2b998fa2" x="65.9664" y="99.82712" style="fill: #9a8872; stroke: #9a8872; stroke-width: 0.9"/>
+      </g>
+     </g>
+     <g id="text_8">
+      <!-- $\mathdefault{10^{0}}$ -->
+      <g style="fill: #9a8872" transform="translate(42.2464 103.436378)">
+       <text>
+        <tspan x="0" y="-0.976562" style="font-size: 9.5px; font-family: 'Public Sans, Helvetica, Arial, sans-serif'; fill: #9a8872">1</tspan>
+        <tspan x="6.044189" y="-0.976562" style="font-size: 9.5px; font-family: 'Public Sans, Helvetica, Arial, sans-serif'; fill: #9a8872">0</tspan>
+        <tspan x="12.184082" y="-4.804688" style="font-size: 6.65px; font-family: 'Public Sans, Helvetica, Arial, sans-serif'; fill: #9a8872">0</tspan>
+       </text>
+      </g>
+     </g>
+    </g>
+    <g id="ytick_5">
+     <g id="line2d_13">
+      <path d="M 65.9664 71.042827 
+L 258.469897 71.042827 
+" clip-path="url(#p2e58e755bf)" style="fill: none; stroke: #2e251c; stroke-opacity: 0.5; stroke-width: 0.5; stroke-linecap: square"/>
+     </g>
+     <g id="line2d_14">
+      <g>
+       <use xlink:href="#m2a2b998fa2" x="65.9664" y="71.042827" style="fill: #9a8872; stroke: #9a8872; stroke-width: 0.9"/>
+      </g>
+     </g>
+     <g id="text_9">
+      <!-- $\mathdefault{10^{1}}$ -->
+      <g style="fill: #9a8872" transform="translate(42.2464 74.652085)">
+       <text>
+        <tspan x="0" y="-0.064063" style="font-size: 9.5px; font-family: 'Public Sans, Helvetica, Arial, sans-serif'; fill: #9a8872">1</tspan>
+        <tspan x="6.044189" y="-0.064063" style="font-size: 9.5px; font-family: 'Public Sans, Helvetica, Arial, sans-serif'; fill: #9a8872">0</tspan>
+        <tspan x="12.184082" y="-3.892188" style="font-size: 6.65px; font-family: 'Public Sans, Helvetica, Arial, sans-serif'; fill: #9a8872">1</tspan>
+       </text>
+      </g>
+     </g>
+    </g>
+    <g id="ytick_6">
+     <g id="line2d_15">
+      <path d="M 65.9664 42.258534 
+L 258.469897 42.258534 
+" clip-path="url(#p2e58e755bf)" style="fill: none; stroke: #2e251c; stroke-opacity: 0.5; stroke-width: 0.5; stroke-linecap: square"/>
+     </g>
+     <g id="line2d_16">
+      <g>
+       <use xlink:href="#m2a2b998fa2" x="65.9664" y="42.258534" style="fill: #9a8872; stroke: #9a8872; stroke-width: 0.9"/>
+      </g>
+     </g>
+     <g id="text_10">
+      <!-- $\mathdefault{10^{2}}$ -->
+      <g style="fill: #9a8872" transform="translate(42.2464 45.867792)">
+       <text>
+        <tspan x="0" y="-0.976562" style="font-size: 9.5px; font-family: 'Public Sans, Helvetica, Arial, sans-serif'; fill: #9a8872">1</tspan>
+        <tspan x="6.044189" y="-0.976562" style="font-size: 9.5px; font-family: 'Public Sans, Helvetica, Arial, sans-serif'; fill: #9a8872">0</tspan>
+        <tspan x="12.184082" y="-4.804688" style="font-size: 6.65px; font-family: 'Public Sans, Helvetica, Arial, sans-serif'; fill: #9a8872">2</tspan>
+       </text>
+      </g>
+     </g>
+    </g>
+    <g id="ytick_7">
+     <g id="line2d_17">
+      <path d="M 65.9664 177.515064 
+L 258.469897 177.515064 
+" clip-path="url(#p2e58e755bf)" style="fill: none; stroke: #2e251c; stroke-opacity: 0.5; stroke-width: 0.5; stroke-linecap: square"/>
+     </g>
+     <g id="line2d_18">
+      <defs>
+       <path id="mbb17fc9233" d="M 0 0 
+L -2 0 
+" style="stroke: #9a8872; stroke-width: 0.6"/>
+      </defs>
+      <g>
+       <use xlink:href="#mbb17fc9233" x="65.9664" y="177.515064" style="fill: #9a8872; stroke: #9a8872; stroke-width: 0.6"/>
+      </g>
+     </g>
+    </g>
+    <g id="ytick_8">
+     <g id="line2d_19">
+      <path d="M 65.9664 172.446402 
+L 258.469897 172.446402 
+" clip-path="url(#p2e58e755bf)" style="fill: none; stroke: #2e251c; stroke-opacity: 0.5; stroke-width: 0.5; stroke-linecap: square"/>
+     </g>
+     <g id="line2d_20">
+      <g>
+       <use xlink:href="#mbb17fc9233" x="65.9664" y="172.446402" style="fill: #9a8872; stroke: #9a8872; stroke-width: 0.6"/>
+      </g>
+     </g>
+    </g>
+    <g id="ytick_9">
+     <g id="line2d_21">
+      <path d="M 65.9664 168.850129 
+L 258.469897 168.850129 
+" clip-path="url(#p2e58e755bf)" style="fill: none; stroke: #2e251c; stroke-opacity: 0.5; stroke-width: 0.5; stroke-linecap: square"/>
+     </g>
+     <g id="line2d_22">
+      <g>
+       <use xlink:href="#mbb17fc9233" x="65.9664" y="168.850129" style="fill: #9a8872; stroke: #9a8872; stroke-width: 0.6"/>
+      </g>
+     </g>
+    </g>
+    <g id="ytick_10">
+     <g id="line2d_23">
+      <path d="M 65.9664 166.060642 
+L 258.469897 166.060642 
+" clip-path="url(#p2e58e755bf)" style="fill: none; stroke: #2e251c; stroke-opacity: 0.5; stroke-width: 0.5; stroke-linecap: square"/>
+     </g>
+     <g id="line2d_24">
+      <g>
+       <use xlink:href="#mbb17fc9233" x="65.9664" y="166.060642" style="fill: #9a8872; stroke: #9a8872; stroke-width: 0.6"/>
+      </g>
+     </g>
+    </g>
+    <g id="ytick_11">
+     <g id="line2d_25">
+      <path d="M 65.9664 163.781466 
+L 258.469897 163.781466 
+" clip-path="url(#p2e58e755bf)" style="fill: none; stroke: #2e251c; stroke-opacity: 0.5; stroke-width: 0.5; stroke-linecap: square"/>
+     </g>
+     <g id="line2d_26">
+      <g>
+       <use xlink:href="#mbb17fc9233" x="65.9664" y="163.781466" style="fill: #9a8872; stroke: #9a8872; stroke-width: 0.6"/>
+      </g>
+     </g>
+    </g>
+    <g id="ytick_12">
+     <g id="line2d_27">
+      <path d="M 65.9664 161.85445 
+L 258.469897 161.85445 
+" clip-path="url(#p2e58e755bf)" style="fill: none; stroke: #2e251c; stroke-opacity: 0.5; stroke-width: 0.5; stroke-linecap: square"/>
+     </g>
+     <g id="line2d_28">
+      <g>
+       <use xlink:href="#mbb17fc9233" x="65.9664" y="161.85445" style="fill: #9a8872; stroke: #9a8872; stroke-width: 0.6"/>
+      </g>
+     </g>
+    </g>
+    <g id="ytick_13">
+     <g id="line2d_29">
+      <path d="M 65.9664 160.185193 
+L 258.469897 160.185193 
+" clip-path="url(#p2e58e755bf)" style="fill: none; stroke: #2e251c; stroke-opacity: 0.5; stroke-width: 0.5; stroke-linecap: square"/>
+     </g>
+     <g id="line2d_30">
+      <g>
+       <use xlink:href="#mbb17fc9233" x="65.9664" y="160.185193" style="fill: #9a8872; stroke: #9a8872; stroke-width: 0.6"/>
+      </g>
+     </g>
+    </g>
+    <g id="ytick_14">
+     <g id="line2d_31">
+      <path d="M 65.9664 158.712804 
+L 258.469897 158.712804 
+" clip-path="url(#p2e58e755bf)" style="fill: none; stroke: #2e251c; stroke-opacity: 0.5; stroke-width: 0.5; stroke-linecap: square"/>
+     </g>
+     <g id="line2d_32">
+      <g>
+       <use xlink:href="#mbb17fc9233" x="65.9664" y="158.712804" style="fill: #9a8872; stroke: #9a8872; stroke-width: 0.6"/>
+      </g>
+     </g>
+    </g>
+    <g id="ytick_15">
+     <g id="line2d_33">
+      <path d="M 65.9664 148.730771 
+L 258.469897 148.730771 
+" clip-path="url(#p2e58e755bf)" style="fill: none; stroke: #2e251c; stroke-opacity: 0.5; stroke-width: 0.5; stroke-linecap: square"/>
+     </g>
+     <g id="line2d_34">
+      <g>
+       <use xlink:href="#mbb17fc9233" x="65.9664" y="148.730771" style="fill: #9a8872; stroke: #9a8872; stroke-width: 0.6"/>
+      </g>
+     </g>
+    </g>
+    <g id="ytick_16">
+     <g id="line2d_35">
+      <path d="M 65.9664 143.662109 
+L 258.469897 143.662109 
+" clip-path="url(#p2e58e755bf)" style="fill: none; stroke: #2e251c; stroke-opacity: 0.5; stroke-width: 0.5; stroke-linecap: square"/>
+     </g>
+     <g id="line2d_36">
+      <g>
+       <use xlink:href="#mbb17fc9233" x="65.9664" y="143.662109" style="fill: #9a8872; stroke: #9a8872; stroke-width: 0.6"/>
+      </g>
+     </g>
+    </g>
+    <g id="ytick_17">
+     <g id="line2d_37">
+      <path d="M 65.9664 140.065835 
+L 258.469897 140.065835 
+" clip-path="url(#p2e58e755bf)" style="fill: none; stroke: #2e251c; stroke-opacity: 0.5; stroke-width: 0.5; stroke-linecap: square"/>
+     </g>
+     <g id="line2d_38">
+      <g>
+       <use xlink:href="#mbb17fc9233" x="65.9664" y="140.065835" style="fill: #9a8872; stroke: #9a8872; stroke-width: 0.6"/>
+      </g>
+     </g>
+    </g>
+    <g id="ytick_18">
+     <g id="line2d_39">
+      <path d="M 65.9664 137.276349 
+L 258.469897 137.276349 
+" clip-path="url(#p2e58e755bf)" style="fill: none; stroke: #2e251c; stroke-opacity: 0.5; stroke-width: 0.5; stroke-linecap: square"/>
+     </g>
+     <g id="line2d_40">
+      <g>
+       <use xlink:href="#mbb17fc9233" x="65.9664" y="137.276349" style="fill: #9a8872; stroke: #9a8872; stroke-width: 0.6"/>
+      </g>
+     </g>
+    </g>
+    <g id="ytick_19">
+     <g id="line2d_41">
+      <path d="M 65.9664 134.997173 
+L 258.469897 134.997173 
+" clip-path="url(#p2e58e755bf)" style="fill: none; stroke: #2e251c; stroke-opacity: 0.5; stroke-width: 0.5; stroke-linecap: square"/>
+     </g>
+     <g id="line2d_42">
+      <g>
+       <use xlink:href="#mbb17fc9233" x="65.9664" y="134.997173" style="fill: #9a8872; stroke: #9a8872; stroke-width: 0.6"/>
+      </g>
+     </g>
+    </g>
+    <g id="ytick_20">
+     <g id="line2d_43">
+      <path d="M 65.9664 133.070157 
+L 258.469897 133.070157 
+" clip-path="url(#p2e58e755bf)" style="fill: none; stroke: #2e251c; stroke-opacity: 0.5; stroke-width: 0.5; stroke-linecap: square"/>
+     </g>
+     <g id="line2d_44">
+      <g>
+       <use xlink:href="#mbb17fc9233" x="65.9664" y="133.070157" style="fill: #9a8872; stroke: #9a8872; stroke-width: 0.6"/>
+      </g>
+     </g>
+    </g>
+    <g id="ytick_21">
+     <g id="line2d_45">
+      <path d="M 65.9664 131.4009 
+L 258.469897 131.4009 
+" clip-path="url(#p2e58e755bf)" style="fill: none; stroke: #2e251c; stroke-opacity: 0.5; stroke-width: 0.5; stroke-linecap: square"/>
+     </g>
+     <g id="line2d_46">
+      <g>
+       <use xlink:href="#mbb17fc9233" x="65.9664" y="131.4009" style="fill: #9a8872; stroke: #9a8872; stroke-width: 0.6"/>
+      </g>
+     </g>
+    </g>
+    <g id="ytick_22">
+     <g id="line2d_47">
+      <path d="M 65.9664 129.928511 
+L 258.469897 129.928511 
+" clip-path="url(#p2e58e755bf)" style="fill: none; stroke: #2e251c; stroke-opacity: 0.5; stroke-width: 0.5; stroke-linecap: square"/>
+     </g>
+     <g id="line2d_48">
+      <g>
+       <use xlink:href="#mbb17fc9233" x="65.9664" y="129.928511" style="fill: #9a8872; stroke: #9a8872; stroke-width: 0.6"/>
+      </g>
+     </g>
+    </g>
+    <g id="ytick_23">
+     <g id="line2d_49">
+      <path d="M 65.9664 119.946478 
+L 258.469897 119.946478 
+" clip-path="url(#p2e58e755bf)" style="fill: none; stroke: #2e251c; stroke-opacity: 0.5; stroke-width: 0.5; stroke-linecap: square"/>
+     </g>
+     <g id="line2d_50">
+      <g>
+       <use xlink:href="#mbb17fc9233" x="65.9664" y="119.946478" style="fill: #9a8872; stroke: #9a8872; stroke-width: 0.6"/>
+      </g>
+     </g>
+    </g>
+    <g id="ytick_24">
+     <g id="line2d_51">
+      <path d="M 65.9664 114.877815 
+L 258.469897 114.877815 
+" clip-path="url(#p2e58e755bf)" style="fill: none; stroke: #2e251c; stroke-opacity: 0.5; stroke-width: 0.5; stroke-linecap: square"/>
+     </g>
+     <g id="line2d_52">
+      <g>
+       <use xlink:href="#mbb17fc9233" x="65.9664" y="114.877815" style="fill: #9a8872; stroke: #9a8872; stroke-width: 0.6"/>
+      </g>
+     </g>
+    </g>
+    <g id="ytick_25">
+     <g id="line2d_53">
+      <path d="M 65.9664 111.281542 
+L 258.469897 111.281542 
+" clip-path="url(#p2e58e755bf)" style="fill: none; stroke: #2e251c; stroke-opacity: 0.5; stroke-width: 0.5; stroke-linecap: square"/>
+     </g>
+     <g id="line2d_54">
+      <g>
+       <use xlink:href="#mbb17fc9233" x="65.9664" y="111.281542" style="fill: #9a8872; stroke: #9a8872; stroke-width: 0.6"/>
+      </g>
+     </g>
+    </g>
+    <g id="ytick_26">
+     <g id="line2d_55">
+      <path d="M 65.9664 108.492056 
+L 258.469897 108.492056 
+" clip-path="url(#p2e58e755bf)" style="fill: none; stroke: #2e251c; stroke-opacity: 0.5; stroke-width: 0.5; stroke-linecap: square"/>
+     </g>
+     <g id="line2d_56">
+      <g>
+       <use xlink:href="#mbb17fc9233" x="65.9664" y="108.492056" style="fill: #9a8872; stroke: #9a8872; stroke-width: 0.6"/>
+      </g>
+     </g>
+    </g>
+    <g id="ytick_27">
+     <g id="line2d_57">
+      <path d="M 65.9664 106.21288 
+L 258.469897 106.21288 
+" clip-path="url(#p2e58e755bf)" style="fill: none; stroke: #2e251c; stroke-opacity: 0.5; stroke-width: 0.5; stroke-linecap: square"/>
+     </g>
+     <g id="line2d_58">
+      <g>
+       <use xlink:href="#mbb17fc9233" x="65.9664" y="106.21288" style="fill: #9a8872; stroke: #9a8872; stroke-width: 0.6"/>
+      </g>
+     </g>
+    </g>
+    <g id="ytick_28">
+     <g id="line2d_59">
+      <path d="M 65.9664 104.285864 
+L 258.469897 104.285864 
+" clip-path="url(#p2e58e755bf)" style="fill: none; stroke: #2e251c; stroke-opacity: 0.5; stroke-width: 0.5; stroke-linecap: square"/>
+     </g>
+     <g id="line2d_60">
+      <g>
+       <use xlink:href="#mbb17fc9233" x="65.9664" y="104.285864" style="fill: #9a8872; stroke: #9a8872; stroke-width: 0.6"/>
+      </g>
+     </g>
+    </g>
+    <g id="ytick_29">
+     <g id="line2d_61">
+      <path d="M 65.9664 102.616607 
+L 258.469897 102.616607 
+" clip-path="url(#p2e58e755bf)" style="fill: none; stroke: #2e251c; stroke-opacity: 0.5; stroke-width: 0.5; stroke-linecap: square"/>
+     </g>
+     <g id="line2d_62">
+      <g>
+       <use xlink:href="#mbb17fc9233" x="65.9664" y="102.616607" style="fill: #9a8872; stroke: #9a8872; stroke-width: 0.6"/>
+      </g>
+     </g>
+    </g>
+    <g id="ytick_30">
+     <g id="line2d_63">
+      <path d="M 65.9664 101.144217 
+L 258.469897 101.144217 
+" clip-path="url(#p2e58e755bf)" style="fill: none; stroke: #2e251c; stroke-opacity: 0.5; stroke-width: 0.5; stroke-linecap: square"/>
+     </g>
+     <g id="line2d_64">
+      <g>
+       <use xlink:href="#mbb17fc9233" x="65.9664" y="101.144217" style="fill: #9a8872; stroke: #9a8872; stroke-width: 0.6"/>
+      </g>
+     </g>
+    </g>
+    <g id="ytick_31">
+     <g id="line2d_65">
+      <path d="M 65.9664 91.162185 
+L 258.469897 91.162185 
+" clip-path="url(#p2e58e755bf)" style="fill: none; stroke: #2e251c; stroke-opacity: 0.5; stroke-width: 0.5; stroke-linecap: square"/>
+     </g>
+     <g id="line2d_66">
+      <g>
+       <use xlink:href="#mbb17fc9233" x="65.9664" y="91.162185" style="fill: #9a8872; stroke: #9a8872; stroke-width: 0.6"/>
+      </g>
+     </g>
+    </g>
+    <g id="ytick_32">
+     <g id="line2d_67">
+      <path d="M 65.9664 86.093522 
+L 258.469897 86.093522 
+" clip-path="url(#p2e58e755bf)" style="fill: none; stroke: #2e251c; stroke-opacity: 0.5; stroke-width: 0.5; stroke-linecap: square"/>
+     </g>
+     <g id="line2d_68">
+      <g>
+       <use xlink:href="#mbb17fc9233" x="65.9664" y="86.093522" style="fill: #9a8872; stroke: #9a8872; stroke-width: 0.6"/>
+      </g>
+     </g>
+    </g>
+    <g id="ytick_33">
+     <g id="line2d_69">
+      <path d="M 65.9664 82.497249 
+L 258.469897 82.497249 
+" clip-path="url(#p2e58e755bf)" style="fill: none; stroke: #2e251c; stroke-opacity: 0.5; stroke-width: 0.5; stroke-linecap: square"/>
+     </g>
+     <g id="line2d_70">
+      <g>
+       <use xlink:href="#mbb17fc9233" x="65.9664" y="82.497249" style="fill: #9a8872; stroke: #9a8872; stroke-width: 0.6"/>
+      </g>
+     </g>
+    </g>
+    <g id="ytick_34">
+     <g id="line2d_71">
+      <path d="M 65.9664 79.707763 
+L 258.469897 79.707763 
+" clip-path="url(#p2e58e755bf)" style="fill: none; stroke: #2e251c; stroke-opacity: 0.5; stroke-width: 0.5; stroke-linecap: square"/>
+     </g>
+     <g id="line2d_72">
+      <g>
+       <use xlink:href="#mbb17fc9233" x="65.9664" y="79.707763" style="fill: #9a8872; stroke: #9a8872; stroke-width: 0.6"/>
+      </g>
+     </g>
+    </g>
+    <g id="ytick_35">
+     <g id="line2d_73">
+      <path d="M 65.9664 77.428586 
+L 258.469897 77.428586 
+" clip-path="url(#p2e58e755bf)" style="fill: none; stroke: #2e251c; stroke-opacity: 0.5; stroke-width: 0.5; stroke-linecap: square"/>
+     </g>
+     <g id="line2d_74">
+      <g>
+       <use xlink:href="#mbb17fc9233" x="65.9664" y="77.428586" style="fill: #9a8872; stroke: #9a8872; stroke-width: 0.6"/>
+      </g>
+     </g>
+    </g>
+    <g id="ytick_36">
+     <g id="line2d_75">
+      <path d="M 65.9664 75.50157 
+L 258.469897 75.50157 
+" clip-path="url(#p2e58e755bf)" style="fill: none; stroke: #2e251c; stroke-opacity: 0.5; stroke-width: 0.5; stroke-linecap: square"/>
+     </g>
+     <g id="line2d_76">
+      <g>
+       <use xlink:href="#mbb17fc9233" x="65.9664" y="75.50157" style="fill: #9a8872; stroke: #9a8872; stroke-width: 0.6"/>
+      </g>
+     </g>
+    </g>
+    <g id="ytick_37">
+     <g id="line2d_77">
+      <path d="M 65.9664 73.832313 
+L 258.469897 73.832313 
+" clip-path="url(#p2e58e755bf)" style="fill: none; stroke: #2e251c; stroke-opacity: 0.5; stroke-width: 0.5; stroke-linecap: square"/>
+     </g>
+     <g id="line2d_78">
+      <g>
+       <use xlink:href="#mbb17fc9233" x="65.9664" y="73.832313" style="fill: #9a8872; stroke: #9a8872; stroke-width: 0.6"/>
+      </g>
+     </g>
+    </g>
+    <g id="ytick_38">
+     <g id="line2d_79">
+      <path d="M 65.9664 72.359924 
+L 258.469897 72.359924 
+" clip-path="url(#p2e58e755bf)" style="fill: none; stroke: #2e251c; stroke-opacity: 0.5; stroke-width: 0.5; stroke-linecap: square"/>
+     </g>
+     <g id="line2d_80">
+      <g>
+       <use xlink:href="#mbb17fc9233" x="65.9664" y="72.359924" style="fill: #9a8872; stroke: #9a8872; stroke-width: 0.6"/>
+      </g>
+     </g>
+    </g>
+    <g id="ytick_39">
+     <g id="line2d_81">
+      <path d="M 65.9664 62.377891 
+L 258.469897 62.377891 
+" clip-path="url(#p2e58e755bf)" style="fill: none; stroke: #2e251c; stroke-opacity: 0.5; stroke-width: 0.5; stroke-linecap: square"/>
+     </g>
+     <g id="line2d_82">
+      <g>
+       <use xlink:href="#mbb17fc9233" x="65.9664" y="62.377891" style="fill: #9a8872; stroke: #9a8872; stroke-width: 0.6"/>
+      </g>
+     </g>
+    </g>
+    <g id="ytick_40">
+     <g id="line2d_83">
+      <path d="M 65.9664 57.309229 
+L 258.469897 57.309229 
+" clip-path="url(#p2e58e755bf)" style="fill: none; stroke: #2e251c; stroke-opacity: 0.5; stroke-width: 0.5; stroke-linecap: square"/>
+     </g>
+     <g id="line2d_84">
+      <g>
+       <use xlink:href="#mbb17fc9233" x="65.9664" y="57.309229" style="fill: #9a8872; stroke: #9a8872; stroke-width: 0.6"/>
+      </g>
+     </g>
+    </g>
+    <g id="ytick_41">
+     <g id="line2d_85">
+      <path d="M 65.9664 53.712956 
+L 258.469897 53.712956 
+" clip-path="url(#p2e58e755bf)" style="fill: none; stroke: #2e251c; stroke-opacity: 0.5; stroke-width: 0.5; stroke-linecap: square"/>
+     </g>
+     <g id="line2d_86">
+      <g>
+       <use xlink:href="#mbb17fc9233" x="65.9664" y="53.712956" style="fill: #9a8872; stroke: #9a8872; stroke-width: 0.6"/>
+      </g>
+     </g>
+    </g>
+    <g id="ytick_42">
+     <g id="line2d_87">
+      <path d="M 65.9664 50.923469 
+L 258.469897 50.923469 
+" clip-path="url(#p2e58e755bf)" style="fill: none; stroke: #2e251c; stroke-opacity: 0.5; stroke-width: 0.5; stroke-linecap: square"/>
+     </g>
+     <g id="line2d_88">
+      <g>
+       <use xlink:href="#mbb17fc9233" x="65.9664" y="50.923469" style="fill: #9a8872; stroke: #9a8872; stroke-width: 0.6"/>
+      </g>
+     </g>
+    </g>
+    <g id="ytick_43">
+     <g id="line2d_89">
+      <path d="M 65.9664 48.644293 
+L 258.469897 48.644293 
+" clip-path="url(#p2e58e755bf)" style="fill: none; stroke: #2e251c; stroke-opacity: 0.5; stroke-width: 0.5; stroke-linecap: square"/>
+     </g>
+     <g id="line2d_90">
+      <g>
+       <use xlink:href="#mbb17fc9233" x="65.9664" y="48.644293" style="fill: #9a8872; stroke: #9a8872; stroke-width: 0.6"/>
+      </g>
+     </g>
+    </g>
+    <g id="ytick_44">
+     <g id="line2d_91">
+      <path d="M 65.9664 46.717277 
+L 258.469897 46.717277 
+" clip-path="url(#p2e58e755bf)" style="fill: none; stroke: #2e251c; stroke-opacity: 0.5; stroke-width: 0.5; stroke-linecap: square"/>
+     </g>
+     <g id="line2d_92">
+      <g>
+       <use xlink:href="#mbb17fc9233" x="65.9664" y="46.717277" style="fill: #9a8872; stroke: #9a8872; stroke-width: 0.6"/>
+      </g>
+     </g>
+    </g>
+    <g id="ytick_45">
+     <g id="line2d_93">
+      <path d="M 65.9664 45.04802 
+L 258.469897 45.04802 
+" clip-path="url(#p2e58e755bf)" style="fill: none; stroke: #2e251c; stroke-opacity: 0.5; stroke-width: 0.5; stroke-linecap: square"/>
+     </g>
+     <g id="line2d_94">
+      <g>
+       <use xlink:href="#mbb17fc9233" x="65.9664" y="45.04802" style="fill: #9a8872; stroke: #9a8872; stroke-width: 0.6"/>
+      </g>
+     </g>
+    </g>
+    <g id="ytick_46">
+     <g id="line2d_95">
+      <path d="M 65.9664 43.575631 
+L 258.469897 43.575631 
+" clip-path="url(#p2e58e755bf)" style="fill: none; stroke: #2e251c; stroke-opacity: 0.5; stroke-width: 0.5; stroke-linecap: square"/>
+     </g>
+     <g id="line2d_96">
+      <g>
+       <use xlink:href="#mbb17fc9233" x="65.9664" y="43.575631" style="fill: #9a8872; stroke: #9a8872; stroke-width: 0.6"/>
+      </g>
+     </g>
+    </g>
+    <g id="ytick_47">
+     <g id="line2d_97">
+      <path d="M 65.9664 33.593598 
+L 258.469897 33.593598 
+" clip-path="url(#p2e58e755bf)" style="fill: none; stroke: #2e251c; stroke-opacity: 0.5; stroke-width: 0.5; stroke-linecap: square"/>
+     </g>
+     <g id="line2d_98">
+      <g>
+       <use xlink:href="#mbb17fc9233" x="65.9664" y="33.593598" style="fill: #9a8872; stroke: #9a8872; stroke-width: 0.6"/>
+      </g>
+     </g>
+    </g>
+    <g id="ytick_48">
+     <g id="line2d_99">
+      <path d="M 65.9664 28.524936 
+L 258.469897 28.524936 
+" clip-path="url(#p2e58e755bf)" style="fill: none; stroke: #2e251c; stroke-opacity: 0.5; stroke-width: 0.5; stroke-linecap: square"/>
+     </g>
+     <g id="line2d_100">
+      <g>
+       <use xlink:href="#mbb17fc9233" x="65.9664" y="28.524936" style="fill: #9a8872; stroke: #9a8872; stroke-width: 0.6"/>
+      </g>
+     </g>
+    </g>
+    <g id="ytick_49">
+     <g id="line2d_101">
+      <path d="M 65.9664 24.928662 
+L 258.469897 24.928662 
+" clip-path="url(#p2e58e755bf)" style="fill: none; stroke: #2e251c; stroke-opacity: 0.5; stroke-width: 0.5; stroke-linecap: square"/>
+     </g>
+     <g id="line2d_102">
+      <g>
+       <use xlink:href="#mbb17fc9233" x="65.9664" y="24.928662" style="fill: #9a8872; stroke: #9a8872; stroke-width: 0.6"/>
+      </g>
+     </g>
+    </g>
+    <g id="ytick_50">
+     <g id="line2d_103">
+      <path d="M 65.9664 22.139176 
+L 258.469897 22.139176 
+" clip-path="url(#p2e58e755bf)" style="fill: none; stroke: #2e251c; stroke-opacity: 0.5; stroke-width: 0.5; stroke-linecap: square"/>
+     </g>
+     <g id="line2d_104">
+      <g>
+       <use xlink:href="#mbb17fc9233" x="65.9664" y="22.139176" style="fill: #9a8872; stroke: #9a8872; stroke-width: 0.6"/>
+      </g>
+     </g>
+    </g>
+    <g id="ytick_51">
+     <g id="line2d_105">
+      <path d="M 65.9664 19.86 
+L 258.469897 19.86 
+" clip-path="url(#p2e58e755bf)" style="fill: none; stroke: #2e251c; stroke-opacity: 0.5; stroke-width: 0.5; stroke-linecap: square"/>
+     </g>
+     <g id="line2d_106">
+      <g>
+       <use xlink:href="#mbb17fc9233" x="65.9664" y="19.86" style="fill: #9a8872; stroke: #9a8872; stroke-width: 0.6"/>
+      </g>
+     </g>
+    </g>
+    <g id="text_11">
+     <text style="font-size: 9.5px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: middle; fill: #cbbca6" x="30.665697" y="103.02" transform="rotate(-90 30.665697 103.02)">ratio, large vessel / small</text>
+    </g>
+   </g>
+   <g id="line2d_107">
+    <path d="M 65.9664 99.82712 
+L 258.469897 99.82712 
+" clip-path="url(#p2e58e755bf)" style="fill: none; stroke-dasharray: 3.6,2.7; stroke-dashoffset: 0; stroke: #9a8872; stroke-width: 0.9"/>
+   </g>
+   <g id="patch_15">
+    <path d="M 65.9664 186.18 
+L 65.9664 19.86 
+" style="fill: none; stroke: #3a3026; stroke-width: 0.9; stroke-linejoin: miter; stroke-linecap: square"/>
+   </g>
+   <g id="patch_16">
+    <path d="M 65.9664 186.18 
+L 258.469897 186.18 
+" style="fill: none; stroke: #3a3026; stroke-width: 0.9; stroke-linejoin: miter; stroke-linecap: square"/>
+   </g>
+   <g id="text_12">
+    <text style="font-size: 9px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: start; fill: #9a8872" x="65.9664" y="13.86" transform="rotate(-0 65.9664 13.86)">80 L → 10,000 L, as printed in Shuler Table 10.2</text>
+   </g>
+   <g id="legend_1">
+    <g id="patch_17">
+     <path d="M 73.1664 33.13875 
+L 89.1664 33.13875 
+L 89.1664 27.53875 
+L 73.1664 27.53875 
+z
+" style="fill: #6dbdac; opacity: 0.32; stroke: #6dbdac; stroke-width: 1.1; stroke-linejoin: miter"/>
+    </g>
+    <g id="text_13">
+     <!-- $P_0/V$ -->
+     <g style="fill: #cbbca6" transform="translate(95.5664 33.13875)">
+      <text>
+       <tspan x="0" y="-0.171875" style="font-style: oblique; font-size: 8px; font-family: 'Public Sans, Helvetica, Arial, sans-serif'; fill: #cbbca6">P</tspan>
+       <tspan x="11.301172" y="-0.171875" style="font-style: oblique; font-size: 8px; font-family: 'Public Sans, Helvetica, Arial, sans-serif'; fill: #cbbca6">V</tspan>
+       <tspan x="4.824219" y="1.140625" style="font-size: 5.6px; font-family: 'Public Sans, Helvetica, Arial, sans-serif'; fill: #cbbca6">0</tspan>
+       <tspan x="8.605859" y="-0.171875" style="font-size: 8px; font-family: 'Public Sans, Helvetica, Arial, sans-serif'; fill: #cbbca6">/</tspan>
+      </text>
+     </g>
+    </g>
+    <g id="patch_18">
+     <path d="M 118.7664 33.13875 
+L 134.7664 33.13875 
+L 134.7664 27.53875 
+L 118.7664 27.53875 
+z
+" style="fill: #d7a95c; opacity: 0.32; stroke: #d7a95c; stroke-width: 1.1; stroke-linejoin: miter"/>
+    </g>
+    <g id="text_14">
+     <!-- $Q/V$ -->
+     <g style="fill: #cbbca6" transform="translate(141.1664 33.13875)">
+      <text>
+       <tspan x="0" y="-0.0625" style="font-style: oblique; font-size: 8px; font-family: 'Public Sans, Helvetica, Arial, sans-serif'; fill: #cbbca6">Q</tspan>
+       <tspan x="8.992188" y="-0.0625" style="font-style: oblique; font-size: 8px; font-family: 'Public Sans, Helvetica, Arial, sans-serif'; fill: #cbbca6">V</tspan>
+       <tspan x="6.296875" y="-0.0625" style="font-size: 8px; font-family: 'Public Sans, Helvetica, Arial, sans-serif'; fill: #cbbca6">/</tspan>
+      </text>
+     </g>
+    </g>
+    <g id="patch_19">
+     <path d="M 162.0464 33.13875 
+L 178.0464 33.13875 
+L 178.0464 27.53875 
+L 162.0464 27.53875 
+z
+" style="fill: #d98c72; opacity: 0.32; stroke: #d98c72; stroke-width: 1.1; stroke-linejoin: miter"/>
+    </g>
+    <g id="text_15">
+     <!-- $N\!\cdot\!D_i$ -->
+     <g style="fill: #cbbca6" transform="translate(184.4464 33.13875)">
+      <text>
+       <tspan x="0" y="-0.171875" style="font-style: oblique; font-size: 8px; font-family: 'Public Sans, Helvetica, Arial, sans-serif'; fill: #cbbca6">N</tspan>
+       <tspan x="9.046823" y="-0.171875" style="font-style: oblique; font-size: 8px; font-family: 'Public Sans, Helvetica, Arial, sans-serif'; fill: #cbbca6">D</tspan>
+       <tspan x="6.244115" y="-0.171875" style="font-size: 8px; font-family: 'Public Sans, Helvetica, Arial, sans-serif'; fill: #cbbca6">⋅</tspan>
+       <tspan x="15.206979" y="1.140625" style="font-style: oblique; font-size: 5.6px; font-family: 'Public Sans, Helvetica, Arial, sans-serif'; fill: #cbbca6">i</tspan>
+      </text>
+     </g>
+    </g>
+   </g>
+  </g>
+  <g id="axes_2">
+   <g id="patch_20">
+    <path d="M 318.46682 186.18 
+L 478.8864 186.18 
+L 478.8864 19.86 
+L 318.46682 19.86 
+L 318.46682 186.18 
+z
+" style="fill: none"/>
+   </g>
+   <g id="patch_21">
+    <path d="M 318.46682 150.023478 
+L 442.631332 150.023478 
+L 442.631332 125.91913 
+L 318.46682 125.91913 
+z
+" clip-path="url(#p2eefd590e9)" style="fill: #d98c72; opacity: 0.32; stroke: #d98c72; stroke-width: 1.1; stroke-linejoin: miter"/>
+   </g>
+   <g id="patch_22">
+    <path d="M 318.46682 101.814783 
+L 372.308068 101.814783 
+L 372.308068 77.710435 
+L 318.46682 77.710435 
+z
+" clip-path="url(#p2eefd590e9)" style="fill: #6dbdac; opacity: 0.32; stroke: #6dbdac; stroke-width: 1.1; stroke-linejoin: miter"/>
+   </g>
+   <g id="patch_23">
+    <path d="M 318.46682 53.606087 
+L 369.593384 53.606087 
+L 369.593384 29.501739 
+L 318.46682 29.501739 
+z
+" clip-path="url(#p2eefd590e9)" style="fill: #6dbdac; opacity: 0.32; stroke: #6dbdac; stroke-width: 1.1; stroke-linejoin: miter"/>
+   </g>
+   <g id="matplotlib.axis_3">
+    <g id="xtick_5">
+     <g id="line2d_108">
+      <path d="M 318.46682 186.18 
+L 318.46682 19.86 
+" clip-path="url(#p2eefd590e9)" style="fill: none; stroke: #2e251c; stroke-opacity: 0.7; stroke-width: 0.6; stroke-linecap: square"/>
+     </g>
+     <g id="line2d_109">
+      <g>
+       <use xlink:href="#m15f698f4fe" x="318.46682" y="186.18" style="fill: #9a8872; stroke: #9a8872; stroke-width: 0.9"/>
+      </g>
+     </g>
+     <g id="text_16">
+      <text style="font-size: 9.5px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: middle; fill: #9a8872" x="318.46682" y="200.398516" transform="rotate(-0 318.46682 200.398516)">0</text>
+     </g>
+    </g>
+    <g id="xtick_6">
+     <g id="line2d_110">
+      <path d="M 377.881479 186.18 
+L 377.881479 19.86 
+" clip-path="url(#p2eefd590e9)" style="fill: none; stroke: #2e251c; stroke-opacity: 0.7; stroke-width: 0.6; stroke-linecap: square"/>
+     </g>
+     <g id="line2d_111">
+      <g>
+       <use xlink:href="#m15f698f4fe" x="377.881479" y="186.18" style="fill: #9a8872; stroke: #9a8872; stroke-width: 0.9"/>
+      </g>
+     </g>
+     <g id="text_17">
+      <text style="font-size: 9.5px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: middle; fill: #9a8872" x="377.881479" y="200.398516" transform="rotate(-0 377.881479 200.398516)">500</text>
+     </g>
+    </g>
+    <g id="xtick_7">
+     <g id="line2d_112">
+      <path d="M 437.296138 186.18 
+L 437.296138 19.86 
+" clip-path="url(#p2eefd590e9)" style="fill: none; stroke: #2e251c; stroke-opacity: 0.7; stroke-width: 0.6; stroke-linecap: square"/>
+     </g>
+     <g id="line2d_113">
+      <g>
+       <use xlink:href="#m15f698f4fe" x="437.296138" y="186.18" style="fill: #9a8872; stroke: #9a8872; stroke-width: 0.9"/>
+      </g>
+     </g>
+     <g id="text_18">
+      <text style="font-size: 9.5px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: middle; fill: #9a8872" x="437.296138" y="200.398516" transform="rotate(-0 437.296138 200.398516)">1000</text>
+     </g>
+    </g>
+    <g id="text_19">
+     <!-- $k_La$ required  (h$^{-1}$) -->
+     <g style="fill: #cbbca6" transform="translate(354.59661 214.924219)">
+      <text>
+       <tspan x="0" y="-0.064063" style="font-style: oblique; font-size: 9.5px; font-family: 'Public Sans, Helvetica, Arial, sans-serif'; fill: #cbbca6">k</tspan>
+       <tspan x="9.47981" y="-0.064063" style="font-style: oblique; font-size: 9.5px; font-family: 'Public Sans, Helvetica, Arial, sans-serif'; fill: #cbbca6">a</tspan>
+       <tspan x="5.501465" y="1.576562" style="font-style: oblique; font-size: 6.65px; font-family: 'Public Sans, Helvetica, Arial, sans-serif'; fill: #cbbca6">L</tspan>
+       <tspan x="15.301343" y="-0.064063" style="font-size: 9.5px; font-family: 'Public Sans, Helvetica, Arial, sans-serif'; fill: #cbbca6"> </tspan>
+       <tspan x="18.321118" y="-0.064063" style="font-size: 9.5px; font-family: 'Public Sans, Helvetica, Arial, sans-serif'; fill: #cbbca6">r</tspan>
+       <tspan x="22.22688" y="-0.064063" style="font-size: 9.5px; font-family: 'Public Sans, Helvetica, Arial, sans-serif'; fill: #cbbca6">e</tspan>
+       <tspan x="28.071606" y="-0.064063" style="font-size: 9.5px; font-family: 'Public Sans, Helvetica, Arial, sans-serif'; fill: #cbbca6">q</tspan>
+       <tspan x="34.10188" y="-0.064063" style="font-size: 9.5px; font-family: 'Public Sans, Helvetica, Arial, sans-serif'; fill: #cbbca6">u</tspan>
+       <tspan x="40.122876" y="-0.064063" style="font-size: 9.5px; font-family: 'Public Sans, Helvetica, Arial, sans-serif'; fill: #cbbca6">i</tspan>
+       <tspan x="42.76228" y="-0.064063" style="font-size: 9.5px; font-family: 'Public Sans, Helvetica, Arial, sans-serif'; fill: #cbbca6">r</tspan>
+       <tspan x="46.668042" y="-0.064063" style="font-size: 9.5px; font-family: 'Public Sans, Helvetica, Arial, sans-serif'; fill: #cbbca6">e</tspan>
+       <tspan x="52.512769" y="-0.064063" style="font-size: 9.5px; font-family: 'Public Sans, Helvetica, Arial, sans-serif'; fill: #cbbca6">d</tspan>
+       <tspan x="58.543042" y="-0.064063" style="font-size: 9.5px; font-family: 'Public Sans, Helvetica, Arial, sans-serif'; fill: #cbbca6"> </tspan>
+       <tspan x="61.562817" y="-0.064063" style="font-size: 9.5px; font-family: 'Public Sans, Helvetica, Arial, sans-serif'; fill: #cbbca6"> </tspan>
+       <tspan x="64.582593" y="-0.064063" style="font-size: 9.5px; font-family: 'Public Sans, Helvetica, Arial, sans-serif'; fill: #cbbca6">(</tspan>
+       <tspan x="68.288892" y="-0.064063" style="font-size: 9.5px; font-family: 'Public Sans, Helvetica, Arial, sans-serif'; fill: #cbbca6">h</tspan>
+       <tspan x="84.481934" y="-0.064063" style="font-size: 9.5px; font-family: 'Public Sans, Helvetica, Arial, sans-serif'; fill: #cbbca6">)</tspan>
+       <tspan x="74.405591" y="-3.892188" style="font-size: 6.65px; font-family: 'Public Sans, Helvetica, Arial, sans-serif'; fill: #cbbca6">−</tspan>
+       <tspan x="79.977563" y="-3.892188" style="font-size: 6.65px; font-family: 'Public Sans, Helvetica, Arial, sans-serif'; fill: #cbbca6">1</tspan>
+      </text>
+     </g>
+    </g>
+   </g>
+   <g id="matplotlib.axis_4">
+    <g id="ytick_52">
+     <g id="line2d_114">
+      <g>
+       <use xlink:href="#m2a2b998fa2" x="318.46682" y="137.971304" style="fill: #9a8872; stroke: #9a8872; stroke-width: 0.9"/>
+      </g>
+     </g>
+     <g id="text_20">
+      <text style="font-size: 8.4px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: end; fill: #9a8872" x="311.46682" y="141.162648" transform="rotate(-0 311.46682 141.162648)">air, 1 bar</text>
+     </g>
+    </g>
+    <g id="ytick_53">
+     <g id="line2d_115">
+      <g>
+       <use xlink:href="#m2a2b998fa2" x="318.46682" y="89.762609" style="fill: #9a8872; stroke: #9a8872; stroke-width: 0.9"/>
+      </g>
+     </g>
+     <g id="text_21">
+      <text style="font-size: 8.4px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: end; fill: #9a8872" x="311.46682" y="92.953952" transform="rotate(-0 311.46682 92.953952)">40% O₂</text>
+     </g>
+    </g>
+    <g id="ytick_54">
+     <g id="line2d_116">
+      <g>
+       <use xlink:href="#m2a2b998fa2" x="318.46682" y="41.553913" style="fill: #9a8872; stroke: #9a8872; stroke-width: 0.9"/>
+      </g>
+     </g>
+     <g id="text_22">
+      <text style="font-size: 8.4px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: end; fill: #9a8872" x="311.46682" y="44.745257" transform="rotate(-0 311.46682 44.745257)">air, 2 bar</text>
+     </g>
+    </g>
+   </g>
+   <g id="line2d_117">
+    <path d="M 377.881479 186.18 
+L 377.881479 19.86 
+" clip-path="url(#p2eefd590e9)" style="fill: none; stroke-dasharray: 4.4,3.3; stroke-dashoffset: 0; stroke: #9a8872; stroke-width: 1.1"/>
+   </g>
+   <g id="patch_24">
+    <path d="M 318.46682 186.18 
+L 318.46682 19.86 
+" style="fill: none; stroke: #3a3026; stroke-width: 0.9; stroke-linejoin: miter; stroke-linecap: square"/>
+   </g>
+   <g id="patch_25">
+    <path d="M 318.46682 186.18 
+L 478.8864 186.18 
+" style="fill: none; stroke: #3a3026; stroke-width: 0.9; stroke-linejoin: miter; stroke-linecap: square"/>
+   </g>
+   <g id="text_23">
+    <text style="font-weight: 700; font-size: 8.4px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: start; fill: #d98c72" x="445.602065" y="140.289179" transform="rotate(-0 445.602065 140.289179)">1,045</text>
+   </g>
+   <g id="text_24">
+    <text style="font-weight: 700; font-size: 8.4px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: start; fill: #6dbdac" x="375.278801" y="92.080484" transform="rotate(-0 375.278801 92.080484)">453</text>
+   </g>
+   <g id="text_25">
+    <text style="font-weight: 700; font-size: 8.4px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: start; fill: #6dbdac" x="372.564117" y="43.871788" transform="rotate(-0 372.564117 43.871788)">430</text>
+   </g>
+   <g id="text_26">
+    <text style="font-size: 8px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: start; fill: #9a8872" x="379.663919" y="179.430783" transform="rotate(-0 379.663919 179.430783)">achievable at 50 m³</text>
+   </g>
+   <g id="text_27">
+    <!-- 40 g L$^{-1}$ at 4 mmol O$_2$ g$^{-1}$ h$^{-1}$ -->
+    <g style="fill: #9a8872" transform="translate(318.46682 13.86)">
+     <text>
+      <tspan x="0" y="-0.960938" style="font-size: 9px; font-family: 'Public Sans, Helvetica, Arial, sans-serif'; fill: #9a8872">4</tspan>
+      <tspan x="5.726074" y="-0.960938" style="font-size: 9px; font-family: 'Public Sans, Helvetica, Arial, sans-serif'; fill: #9a8872">0</tspan>
+      <tspan x="11.452148" y="-0.960938" style="font-size: 9px; font-family: 'Public Sans, Helvetica, Arial, sans-serif'; fill: #9a8872"> </tspan>
+      <tspan x="14.312988" y="-0.960938" style="font-size: 9px; font-family: 'Public Sans, Helvetica, Arial, sans-serif'; fill: #9a8872">g</tspan>
+      <tspan x="20.025879" y="-0.960938" style="font-size: 9px; font-family: 'Public Sans, Helvetica, Arial, sans-serif'; fill: #9a8872"> </tspan>
+      <tspan x="22.886719" y="-0.960938" style="font-size: 9px; font-family: 'Public Sans, Helvetica, Arial, sans-serif'; fill: #9a8872">L</tspan>
+      <tspan x="37.520068" y="-0.960938" style="font-size: 9px; font-family: 'Public Sans, Helvetica, Arial, sans-serif'; fill: #9a8872"> </tspan>
+      <tspan x="40.380908" y="-0.960938" style="font-size: 9px; font-family: 'Public Sans, Helvetica, Arial, sans-serif'; fill: #9a8872">a</tspan>
+      <tspan x="45.896045" y="-0.960938" style="font-size: 9px; font-family: 'Public Sans, Helvetica, Arial, sans-serif'; fill: #9a8872">t</tspan>
+      <tspan x="49.424854" y="-0.960938" style="font-size: 9px; font-family: 'Public Sans, Helvetica, Arial, sans-serif'; fill: #9a8872"> </tspan>
+      <tspan x="52.285693" y="-0.960938" style="font-size: 9px; font-family: 'Public Sans, Helvetica, Arial, sans-serif'; fill: #9a8872">4</tspan>
+      <tspan x="58.011768" y="-0.960938" style="font-size: 9px; font-family: 'Public Sans, Helvetica, Arial, sans-serif'; fill: #9a8872"> </tspan>
+      <tspan x="60.872607" y="-0.960938" style="font-size: 9px; font-family: 'Public Sans, Helvetica, Arial, sans-serif'; fill: #9a8872">m</tspan>
+      <tspan x="69.639697" y="-0.960938" style="font-size: 9px; font-family: 'Public Sans, Helvetica, Arial, sans-serif'; fill: #9a8872">m</tspan>
+      <tspan x="78.406787" y="-0.960938" style="font-size: 9px; font-family: 'Public Sans, Helvetica, Arial, sans-serif'; fill: #9a8872">o</tspan>
+      <tspan x="83.913135" y="-0.960938" style="font-size: 9px; font-family: 'Public Sans, Helvetica, Arial, sans-serif'; fill: #9a8872">l</tspan>
+      <tspan x="86.413623" y="-0.960938" style="font-size: 9px; font-family: 'Public Sans, Helvetica, Arial, sans-serif'; fill: #9a8872"> </tspan>
+      <tspan x="89.274463" y="-0.960938" style="font-size: 9px; font-family: 'Public Sans, Helvetica, Arial, sans-serif'; fill: #9a8872">O</tspan>
+      <tspan x="100.698926" y="-0.960938" style="font-size: 9px; font-family: 'Public Sans, Helvetica, Arial, sans-serif'; fill: #9a8872"> </tspan>
+      <tspan x="103.559766" y="-0.960938" style="font-size: 9px; font-family: 'Public Sans, Helvetica, Arial, sans-serif'; fill: #9a8872">g</tspan>
+      <tspan x="118.891846" y="-0.960938" style="font-size: 9px; font-family: 'Public Sans, Helvetica, Arial, sans-serif'; fill: #9a8872"> </tspan>
+      <tspan x="121.752686" y="-0.960938" style="font-size: 9px; font-family: 'Public Sans, Helvetica, Arial, sans-serif'; fill: #9a8872">h</tspan>
+      <tspan x="27.987012" y="-4.40625" style="font-size: 6.3px; font-family: 'Public Sans, Helvetica, Arial, sans-serif'; fill: #9a8872">−</tspan>
+      <tspan x="33.265723" y="-4.40625" style="font-size: 6.3px; font-family: 'Public Sans, Helvetica, Arial, sans-serif'; fill: #9a8872">1</tspan>
+      <tspan x="96.44458" y="0.515625" style="font-size: 6.3px; font-family: 'Public Sans, Helvetica, Arial, sans-serif'; fill: #9a8872">2</tspan>
+      <tspan x="109.358789" y="-4.40625" style="font-size: 6.3px; font-family: 'Public Sans, Helvetica, Arial, sans-serif'; fill: #9a8872">−</tspan>
+      <tspan x="114.6375" y="-4.40625" style="font-size: 6.3px; font-family: 'Public Sans, Helvetica, Arial, sans-serif'; fill: #9a8872">1</tspan>
+      <tspan x="127.54292" y="-4.40625" style="font-size: 6.3px; font-family: 'Public Sans, Helvetica, Arial, sans-serif'; fill: #9a8872">−</tspan>
+      <tspan x="132.821631" y="-4.40625" style="font-size: 6.3px; font-family: 'Public Sans, Helvetica, Arial, sans-serif'; fill: #9a8872">1</tspan>
+     </text>
+    </g>
+   </g>
+  </g>
+  <g id="text_28">
+   <text style="font-size: 8.3px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: start; fill: #9a8872" x="5.76" y="240.18" transform="rotate(-0 5.76 240.18)">Right panel from the oxygen balance alone: OUR 5.12 kg m⁻³ h⁻¹, dissolved oxygen held at 2.1 g m⁻³, C* scaling with absolute pressure and oxygen mole fraction.</text>
+  </g>
+ </g>
+ <defs>
+  <clipPath id="p2e58e755bf">
+   <rect x="65.9664" y="19.86" width="192.503497" height="166.32"/>
+  </clipPath>
+  <clipPath id="p2eefd590e9">
+   <rect x="318.46682" y="19.86" width="160.41958" height="166.32"/>
+  </clipPath>
+ </defs>
+</svg>
+</div><figcaption>Left: Shuler's Table 10.2 on a log axis makes the point the table makes in prose — each criterion holds one row at 1.0 and moves the others by up to four orders. Right: the required kₗa on air is roughly twice what a 50 m³ vessel delivers, and both fixes raise C* rather than the coefficient, because the deficit is in the driving force.</figcaption></figure>
+<p>Shuler Table 10.2 is the single most useful page in the week, and it is arithmetic rather than correlation, so it carries no uncertainty at all. Take a stirred tank from 80 L to 10,000 L — diameter up by 5, volume up by 125, H:D constant — and hold one of four things constant. Holding P₀/V constant: power rises 125-fold, impeller speed falls to 0.34, pumping rate per volume falls to 0.34, tip speed rises 1.7-fold, Reynolds number rises 8.5-fold. Holding impeller speed N constant: power rises 3,125-fold, P/V rises 25-fold, tip speed rises 5-fold, Re rises 25-fold. Holding tip speed ND_i constant: power rises 25-fold, P/V falls to 0.2, Re rises 5-fold. Holding Reynolds number constant: power falls to 0.2, P/V falls to 0.0016, tip speed falls to 0.2. Shuler&#x27;s framing of what each criterion is for is the part to memorise: constant P/V implies constant oxygen transfer rate, constant Re implies geometrically similar flow patterns, constant N gives constant mixing time, and constant tip speed gives constant shear. Since power goes as N³D⁵ and volume as D³, the dependencies differ and no change of scale can hold more than one. Shuler&#x27;s conclusion is stated as a theorem rather than a caution: the physical conditions in a large fermenter can never exactly duplicate those in a smaller one if geometric similarity is maintained.</p>
+<p><strong>7. Which criterion to hold, decided by which limitation you are in</strong></p>
+<p>The table does not choose; the oxygen balance does. If the process is oxygen-limited — which an aerobic fed-batch above about 20 g L⁻¹ always is — then constant P/V is the only criterion that preserves the thing the process is limited by, and the price is listed in the same column: mixing time gets worse, because N falls to a third, so the glucose gradients that the scale-down experiment is about get longer relative to the strain&#x27;s response time. If the process is shear-limited — filamentous fungi, plant cells, animal cells — constant tip speed is the criterion, and the price is that P/V falls to a fifth, so the oxygen transfer must be bought some other way: enrichment, pressure, or a different vessel geometry altogether. If the process is mixing-limited — a very fast-responding strain, a pH-sensitive product, a feed that must be distributed — constant N is the criterion and the price is a 25-fold rise in P/V, which is a heat load and a shear load and usually unaffordable. Constant Reynolds number is in the table for completeness and is almost never the right answer in a fermenter, because it drops P/V by nearly three orders and oxygen transfer with it. The deliverable for this week is not a criterion; it is a sentence naming the criterion, the limitation it protects, and the quantity you have accepted will degrade, with the factor from Shuler&#x27;s table beside it.</p>
+<p><strong>8. Heat is not a detail, and the arithmetic is one line</strong></p>
+<p>Doran §5.9 gives the result the whole week leans on, in its subsection 5.9.2, Heat of Reaction With Oxygen as Electron Acceptor: about 115 kJ per gmol of electrons transferred, four electrons per O₂, so approximately 460 kJ per gmol of oxygen consumed for aerobic metabolism — a figure Doran notes is verified against Cooney et al.&#x27;s experimental data. That makes the metabolic heat load a direct read-off from the oxygen demand, with no fermentation-specific data required. Doran&#x27;s own Example 8.2 is the template: a 150 m³ vessel at 1.5 kg O₂ m⁻³ h⁻¹ generates 898 kW of metabolic heat, against 150 kW from an agitator at 1 kW m⁻³. The ratio is the point — metabolic heat is six times agitation heat in that case, so a vessel sized for the oxygen demand is heat-limited before it is power-limited, and the cooling surface is what actually constrains large aerobic vessels. Doran Ch 8 is the design side: §8.5 design equations for heat-transfer systems and §8.6 their application, which is where the log-mean temperature difference, the overall coefficient and the jacket-against-coil decision live. At 50 m³ an external jacket cannot carry a megawatt, which is why production vessels have internal coils, which is why they are harder to clean, which is week 47&#x27;s contamination risk reappearing as a heat-transfer decision.</p>
+<p><strong>9. What the correlation can and cannot tell you, stated as a range</strong></p>
+<p>Doran §9.9 gives Eq. (9.46) as the mass-transfer correlation and is unusually honest about its own validity, and the surrounding prose is more useful than the equation — which is fortunate, since the equation is an image in this PDF and its exponent on P/V does not extract, so it is not quoted anywhere in these notes. The stated conditions: derived for non-coalescing, non-viscous media, between 500 and 10,000 W m⁻³, in vessels of 2 × 10⁻³ to 4.4 m³; agrees with data to within 20-40%; overestimates transfer in vessels up to 25 m³ by about 100%; and explicitly does not account for non-Newtonian behaviour, added sugars, antifoam, or the presence of cells. A fermentation broth at 50 m³ violates every one of those: it is larger than the largest vessel in the fit by an order of magnitude, it contains sugars, antifoam and cells by construction, and if the host is filamentous it is non-Newtonian as well. So the correct use of the correlation is to get an order of magnitude and a scaling exponent, not a number — and then to put a measured k_L a from §9.10&#x27;s methods into the design as soon as a pilot vessel exists. Stanbury&#x27;s parallel statement for the gassed power correlations is the same: provided it is remembered that these expressions are not particularly accurate, they may be used to predict power consumption in gassed systems where turbulent flow is known to be operating. Both books say the same thing, which is that at this scale the correlation is a prior and the measurement is the answer.</p>
+<h3>Worked anchor</h3>
+<p>Sizing a 50 m³ vessel from the strain&#x27;s oxygen demand, until it fails, and then the three ways to make it close.</p>
+<p>Basis. Working volume 50 m³, E. coli fed-batch, production phase at 40 g dry weight per litre and µ = 0.12 h⁻¹. Specific oxygen uptake taken as q_O2 = µ/Y_XO + m_O with Y_XO = 1.0 g DW per g O₂ and m_O = 0.01 g O₂ g⁻¹ h⁻¹, giving 0.13 g O₂ g⁻¹ h⁻¹, which is 4.1 mmol g⁻¹ h⁻¹ — the figure used below is 4 mmol g⁻¹ h⁻¹, i.e. 0.128 g g⁻¹ h⁻¹.</p>
+<p>Step 1 — the oxygen uptake rate. OUR = 40 g L⁻¹ × 0.128 g g⁻¹ h⁻¹ = 5.12 g O₂ L⁻¹ h⁻¹ = 5.12 kg m⁻³ h⁻¹. Over 50 m³ that is 256 kg of oxygen per hour, which is 8.0 kmol h⁻¹.</p>
+<p>Step 2 — the required k_L a, on air. Hold dissolved oxygen at 30% of air saturation: C* = 7.0 g m⁻³, C_L = 2.1 g m⁻³, driving force 4.9 g m⁻³. k_L a = 5,120/4.9 = 1,045 h⁻¹ = 0.29 s⁻¹.</p>
+<p>That is the end of the design. Stirred tanks at this scale reach a few hundred per hour; 1,045 h⁻¹ is not available on air at atmospheric pressure, and no choice of impeller fixes it, because the deficit is in the driving force rather than in the coefficient.</p>
+<p>Check the margin before changing anything: Stanbury&#x27;s Table 9.3 puts the critical dissolved oxygen for E. coli at 0.008 mmol dm⁻³, which is 0.26 g m⁻³. The 2.1 g m⁻³ setpoint is eight times critical. Lowering the setpoint to 1.0 g m⁻³ — still four times critical — raises the driving force to 6.0 and drops the requirement to 853 h⁻¹. Not enough, and it spends the whole mixing margin to buy 18%.</p>
+<p>Step 3 — three ways to make it close, each costed against what it buys.</p>
+<p>(i) Head pressure. At 2 bar absolute, C* doubles to 14.0 g m⁻³. Holding C_L at 2.1 g m⁻³ gives a driving force of 11.9 and k_L a = 5,120/11.9 = 430 h⁻¹, which is achievable. Cost: a vessel rated for 2 bar rather than 1, which Stanbury Ch 7&#x27;s body-construction section prices as a wall-thickness and code question, plus compressor duty on the inlet air. Side effect: dissolved CO₂ doubles too, which for a strain sensitive to it is a real penalty and is why pressure is not free.</p>
+<p>(ii) Oxygen enrichment to 40% v/v. C* = 7.0 × 0.40/0.2095 = 13.4 g m⁻³, driving force 11.3, k_L a = 454 h⁻¹. Cost: liquid oxygen, which is a per-kilogram operating cost rather than a capital one, and at 256 kg O₂ h⁻¹ the consumption is not small. Advantage over pressure: it is a dial rather than a design, so it can be turned up only in the production phase.</p>
+<p>(iii) Lower the target. At 25 g L⁻¹ instead of 40, OUR falls to 3.2 kg m⁻³ h⁻¹ and the air requirement to 653 h⁻¹ — still high. At 20 g L⁻¹ it is 522 h⁻¹. So on air the vessel supports roughly 20 g L⁻¹ at this specific uptake rate, which is half the target. The cost is titre, and whether that is acceptable is week 52&#x27;s question rather than this week&#x27;s.</p>
+<p>The arithmetic chooses (i) or (ii) over (iii) unless the product is cheap, and between (i) and (ii) on CO₂ sensitivity and on whether the capital is already spent. State which and why; that sentence is the deliverable.</p>
+<p>Step 4 — the heat load, which is independent of all three choices. Oxygen consumption is 8.0 kmol h⁻¹ regardless of how it got there. At Doran&#x27;s 460 kJ per gmol O₂, metabolic heat is 8,000 × 460/3,600 = 1,022 kW. Agitation at 2 kW m⁻³ adds 100 kW. Total about 1.12 MW to remove from a 50 m³ vessel.</p>
+<p>Cooling water at a 20 °C rise: 1,122 kW / (4.18 kJ kg⁻¹ K⁻¹ × 20 K) = 13.4 kg s⁻¹ = 48 m³ h⁻¹. That is a river&#x27;s worth per vessel, and it is the number that decides jacket against coils: 50 m³ of broth has roughly 70 m² of jacketed surface, so a jacket would need an overall coefficient near 800 W m⁻² K⁻¹ across a log-mean ΔT of 20 K to carry 1.12 MW, which is optimistic for a jacket on a viscous broth. Internal coils, which can supply several hundred m², are the answer, and the consequence is the cleaning and sterilisation problem Stanbury Ch 7 devotes a section to.</p>
+<p>Step 5 — how much of this to believe. The oxygen balance in steps 1 and 2 is stoichiometry and solubility: good to perhaps 10%, the error being mostly in q_O2. The heat balance in step 4 is also stoichiometry, through 460 kJ per gmol O₂: good to the same. The k_L a figures in step 3 are the weak link, because converting 430 h⁻¹ into a power input needs a correlation and Doran §9.9&#x27;s correlation states it overestimates in vessels up to 25 m³ by about 100% and was never fitted above 4.4 m³. A factor of two on the power input is a factor of two on 100 kW of agitation, which is 9% of the heat load and does not change step 4, and it is a factor of two on an operating cost that week 52 will show is small beside raw materials. So the uncertainty that looks worst matters least. The number to get right is q_O2, because it drives the oxygen bill, the heat bill, the vessel rating and the cell density simultaneously — and it is a strain measurement from phase 3, not a correlation.</p>
+<p><strong>Assumptions behind this calculation</strong></p>
+<ul>
+<li>working volume 50 m³ with height-to-diameter 2:1 or 3:1 and geometric similarity preserved on scale-up, per Shuler §10.2.4</li>
+<li>q_O2 = μ/Y_XO + m_O with Y_XO = 1.0 g DW per g O₂ and m_O = 0.01 g O₂ g⁻¹ h⁻¹, giving 4 mmol g⁻¹ h⁻¹ at μ = 0.12 h⁻¹ — a correlation, not a measurement on this strain</li>
+<li>C* = 7.0 g O₂ m⁻³ for water under air at 30 °C, scaling linearly with absolute pressure and with oxygen mole fraction</li>
+<li>dissolved oxygen held at 2.1 g m⁻³, which is 30% of air saturation and eight times Stanbury&#x27;s critical concentration for E. coli</li>
+<li>the vessel treated as well mixed for the oxygen balance, which the same week&#x27;s circulation time of 20–60 s contradicts</li>
+<li>agitation at 2 kW m⁻³ when the heat load is computed, and 460 kJ per gmol O₂ of metabolic heat from Doran §5.9.2</li>
+<li>cooling water available with a 20 K rise and a heat capacity of 4.18 kJ kg⁻¹ K⁻¹</li>
+<li>an achievable k_L a of a few hundred per hour at this scale, which is an engineering judgement rather than a figure from the reading — Doran §9.9&#x27;s correlation is explicitly invalid above 4.4 m³</li>
+<li>no credit taken for surface aeration, which Shuler §10.2.4 says is unimportant for bacterial fermentations at this scale</li>
+</ul>
+<h3>Reading map</h3>
+<table><thead><tr><th>Source</th><th>Treatment</th><th>Why</th></tr></thead><tbody><tr><td>Stanbury Ch 7 — Design of a Fermenter (printed p167), in full</td><td>Read closely</td><td>Named sections, in printed order: introduction; basic functions of a fermenter for microbial or animal cell culture (168); aseptic operation and containment (169, with overall containment categorization 172); body construction (172, with construction materials and temperature control) — note the printed heading is &#x27;body construction&#x27;, not &#x27;fermenter body construction&#x27; as earlier handoffs recorded; aeration and agitation (178, with the agitator, stirrer glands and bearings, baffles, and the four spargers); the achievement and maintenance of aseptic conditions (185); valves and steam traps (192); other fermentation vessels (199); animal cell culture (206). Read the aeration-and-agitation and other-vessels sections closely for the design, and the valves section closely once, because it is where aseptic operation is actually won or lost. This book numbers no sections, so cite by name.</td></tr><tr><td>Stanbury Ch 9 — Aeration and Agitation (printed p243), in full</td><td>Read closely</td><td>Substituted for the curriculum&#x27;s session pointer to &#x27;Ch 9 §9.1-9.4&#x27;, which names numbers this book does not have — see the README. Named sections: introduction; the oxygen requirements of industrial fermentations (243, with Table 9.3&#x27;s critical dissolved oxygen concentrations and the Brevibacterium flavum oxygen-satisfaction data); oxygen supply (246); determination of K_L a values (247, with the sulphite oxidation, static and dynamic gassing-out, and oxygen-balance techniques); fluid rheology (252, with Bingham plastic, pseudoplastic, dilatant and Casson body); factors affecting K_L a values in fermentation vessels (254), whose subsections &#x27;the relationship between K_L a and power consumption&#x27; (257) and &#x27;the relationship between power consumption and operating variables&#x27; (258) are the gassed power draw the week&#x27;s second session asks for; the balance between oxygen supply and demand (267); scale-up and scale-down (269).</td></tr><tr><td>Doran Ch 7 §7.9-7.14 — mixing, power, scale-up, rheology and shear</td><td>Read closely</td><td>§7.9 mixing, §7.10 power requirements for mixing, §7.11 scale-up of mixing systems, §7.12 improving mixing in fermenters, §7.13 effect of rheological properties on mixing, §7.14 role of shear in stirred fermenters. §7.10 is the numbered counterpart of Stanbury&#x27;s named power sections and the one to cite for a power number; §7.13 and §7.14 are where the circulation-time and tip-speed comparisons of core ideas 5 and 7 come from. Reread §7.5, §7.7 and §7.8 from week 44 if the host is filamentous — the rheology they establish is the input to every correlation in this chapter.</td></tr><tr><td>Doran Ch 8 — Heat Transfer (printed p164)</td><td>Read closely</td><td>§8.1 heat-transfer equipment, §8.2 mechanisms, §8.3 conduction, §8.4 heat transfer between fluids, §8.5 design equations for heat-transfer systems (176), §8.6 application of the design equations (184). §8.5 and §8.6 are the week&#x27;s cooling-duty sessions; Example 8.2 (a 150 m³ vessel at 1.5 kg O₂ m⁻³ h⁻¹ giving 898 kW metabolic against 150 kW agitation) is the template to imitate and the clearest statement anywhere in these texts that metabolic heat dominates agitation heat in an aerobic vessel.</td></tr><tr><td>Doran Ch 5 §5.9 — Heat of Reaction For Processes With Biomass Production</td><td>Read closely</td><td>Reread from week 47. Its subsection 5.9.2 is where the 460 kJ per gmol O₂ comes from, derived as four electrons at 115 kJ per gmol electrons and verified against Cooney et al.&#x27;s data. This one number converts the whole week&#x27;s oxygen arithmetic into the heat arithmetic with no further assumption, which is why it is read in both weeks.</td></tr><tr><td>Doran Ch 9 §9.5-9.11 — oxygen uptake, transfer, solubility, correlations and measurement</td><td>Read closely</td><td>§9.5 oxygen uptake in cell cultures, §9.6 oxygen transfer in fermenters, §9.7 measuring dissolved-oxygen concentrations, §9.8 estimating oxygen solubility, §9.9 mass-transfer correlations, §9.10 measurement of k_L a, §9.11 oxygen transfer in large vessels. §9.8 is where C* comes from with solute corrections, §9.10 is the measurement that replaces the correlation once a vessel exists, and §9.9&#x27;s validity statement is the week&#x27;s honesty check — derived for non-coalescing non-viscous media between 500 and 10,000 W m⁻³ in vessels of 2 × 10⁻³ to 4.4 m³, agreeing to 20-40%, overestimating by about 100% in vessels up to 25 m³, and not accounting for non-Newtonian behaviour, sugars, antifoam or cells. Eq. (9.46) itself is an image in this PDF and its P/V exponent does not extract, so it is not quoted here.</td></tr><tr><td>Shuler Ch 10 §10.2 — Scale-up and Its Difficulties (printed p286)</td><td>Read closely</td><td>Substituted for the curriculum&#x27;s §10.1, which is the chapter Introduction — see the README; the search-verified numbering for this chapter was off by one throughout. §10.2.1 introduction, §10.2.2 overview of reactor types, §10.2.3 some considerations on aeration, agitation and heat transfer (292), §10.2.4 scale-up (297), §10.2.5 scale-down (301). Table 10.2 is the week&#x27;s ninth and tenth sessions in one page: 80 L to 10,000 L under four criteria, with every ratio tabulated. §10.2.3 is also the correct answer to the long-standing &#x27;Shuler Ch 6 on oxygen transfer&#x27; pointer — Ch 6 has no oxygen-transfer section and never did.</td></tr><tr><td>Plawsky Ch 3 §3.8 — Diffusion in Liquids (printed p100)</td><td>Skim</td><td>The curriculum&#x27;s pointer, and the right one for one specific job: estimating the liquid-phase diffusivity of oxygen that k_L depends on, by free-volume theory. §3.3.1 viscosity of suspensions is worth reading alongside it for the broth-viscosity question, since it is the theory behind the Vand-equation limit that week 44 recorded from Doran §7.8. Skim rather than read closely — the quantity it produces enters k_L a through a correlation whose own uncertainty is larger.</td></tr><tr><td>Plawsky Ch 4 — 1-D, Steady-State, Diffusive Transport</td><td>Skip</td><td>The curriculum assigns the whole chapter here and it is not needed for this week: §4.4-4.6 are steady diffusion without reaction and without convection, which is week 48&#x27;s background rather than this week&#x27;s. If a Plawsky chapter is wanted for the gas-liquid problem it is Ch 12 or Ch 13 on convective transport, which the curriculum does not assign and which would be a substantial addition rather than a substitution — flagged in the README, not acted on.</td></tr><tr><td>Shuler Ch 9 — Operating Considerations for Bioreactors (printed p245)</td><td>Skip</td><td>The curriculum assigns it here with a parenthetical section list that is wrong in all four entries — the correct list is §9.1 introduction, §9.2 choosing the cultivation method, §9.3 modifying batch and continuous reactors, §9.4 immobilized cell systems, §9.5 solid-state fermentations, §9.6 summary, and there is no &#x27;hybrid bioreactors&#x27; section. The parenthetical&#x27;s substantive claim is right: there is no oxygen-transfer section in Ch 9. §9.4 was week 48&#x27;s material and §9.3.3 fed-batch is week 50&#x27;s, so there is nothing left here for this week. Skip, and read the two named subsections in their own weeks.</td></tr></tbody></table>
+<h3>Common misconceptions</h3>
+<ul>
+<li>That a k_L a requirement that cannot be met means the impeller is wrong. It usually means the driving force is wrong. On air at 1 bar the maximum driving force is about 7 g m⁻³ minus the setpoint, and no agitator changes that ceiling — pressure and enrichment do, by raising C<em>. Check which of the two factors in k_L a(C</em> − C_L) is binding before redesigning the one that is not.</li>
+<li>That holding P/V constant is the scale-up rule. It is one of four and it is the right one only when the process is oxygen-limited. Shuler&#x27;s Table 10.2 shows what it costs: impeller speed and pumping rate per volume both fall to about a third, so mixing time gets substantially worse at the same time as oxygen transfer is preserved. Naming the criterion without naming the quantity you have let degrade is half an answer.</li>
+<li>That agitation heat is the cooling problem. Metabolic heat is the cooling problem: at 460 kJ per gmol of oxygen consumed, Doran&#x27;s own 150 m³ example generates 898 kW of metabolic heat against 150 kW from a 1 kW m⁻³ agitator. Sizing the cooling from the power input alone understates the duty by most of it, and the error grows with cell density, which is the direction every process is being pushed.</li>
+</ul>
+<h3>Check yourself before moving on</h3>
+<p><strong>Q.</strong> Holding P/V constant on scale-up, what happens to mixing time and to k_L a, and which fails first?</p>
+<p><strong>A.</strong> k_L a is approximately preserved, which is the reason the criterion is chosen: Shuler states constant P/V as implying constant oxygen transfer rate, and the correlations have k_L a as a power of P/V with a positive exponent and of superficial gas velocity, so fixing both roughly fixes k_L a. Mixing time gets worse, and Table 10.2 says by how much: going from 80 L to 10,000 L at constant P₀/V, impeller speed falls to 0.34 of the small-scale value and pumping rate per unit volume falls to 0.34 with it, while tip speed rises 1.7-fold. Since mixing time scales roughly as 1/N for a geometrically similar vessel, it lengthens by about a factor of three on top of the lengthening that comes from the vessel simply being bigger. Which fails first depends on the strain, and the comparison is circulation time against metabolic response time rather than mixing time against any absolute number: a fed-batch E. coli responding to glucose and oxygen in seconds fails on mixing, because it experiences the gradients as real excursions; a slow-growing fungus with a 40-minute response does not notice a 60-second circulation time and fails instead on shear, since tip speed went up 1.7-fold. The general answer is that at constant P/V oxygen is protected and homogeneity is sacrificed, and whether that is the right trade is a property of the organism, not of the vessel.</p>
+<p><strong>Q.</strong> Your design needs k_L a = 1,045 h⁻¹ on air and the vessel can deliver 450 h⁻¹. Give three options with their costs, and say which you would reject first.</p>
+<p><strong>A.</strong> Raise C<em> by head pressure: at 2 bar absolute the saturation concentration doubles to about 14 g m⁻³, the driving force goes from 4.9 to 11.9 g m⁻³ and the requirement falls to 430 h⁻¹. Cost is a vessel rated to 2 bar and compressor duty, and the side effect is that dissolved CO₂ doubles as well, which inhibits some strains. Raise C</em> by oxygen enrichment to 40%: C* = 13.4 g m⁻³, requirement 454 h⁻¹, cost is liquid oxygen as an operating line, advantage is that it is a dial rather than a design and can be used only in the production phase. Lower the demand: at 20 g L⁻¹ instead of 40 the requirement is about 520 h⁻¹, cost is half the titre and therefore, by week 51&#x27;s sensitivity, substantially more than half the downstream cost per kilogram. Reject first the option of lowering the dissolved-oxygen setpoint toward the critical concentration — it looks free, but E. coli&#x27;s critical concentration is 0.26 g m⁻³ against a 2.1 g m⁻³ setpoint, and that eight-fold margin is not conservatism, it is the allowance for the fact that the probe reads a bulk average in a vessel whose circulation time is tens of seconds. Spending it buys 18% of driving force and removes the protection against the gradients that week 50&#x27;s scale-down experiment exists to characterise.</p>
+<p><strong>Q.</strong> Why is Doran&#x27;s k_L a correlation of limited use for this vessel, and what do you do instead?</p>
+<p><strong>A.</strong> Because the vessel is outside every condition of the fit. §9.9 states that the correlation was derived for non-coalescing, non-viscous media, at 500 to 10,000 W m⁻³, in vessels from 2 × 10⁻³ to 4.4 m³, that it agrees with data to within 20-40%, that it overestimates transfer in vessels up to 25 m³ by about 100%, and that it does not account for non-Newtonian behaviour, added sugars, antifoam or the presence of cells. A 50 m³ fermentation broth is an order of magnitude beyond the largest vessel in the fit and contains sugars, antifoam and cells by definition. What you do is three things. Use the correlation for its exponents rather than its value, to get the scaling of k_L a with P/V and gas velocity, since the exponents are more robust than the prefactor. Design the oxygen supply from the balance instead, which is stoichiometry and solubility and carries about 10% error — the 460 kJ per gmol O₂ heat figure and the 7 g m⁻³ saturation figure are not correlations. And measure k_L a as soon as a pilot vessel exists, by §9.10&#x27;s methods, since Stanbury makes the same point about the gassed-power correlations: they may be used provided it is remembered that they are not particularly accurate. The constructive conclusion is that the uncertainty in k_L a is larger than the difference between the design options, so the decision should be made on the quantities that are certain.</p>
+<hr>
+
+<section class="study-transfer" aria-label="Week 49 application and teach-back">
+<h3>Apply it to your fermentation experience</h3>
+<p><strong>Transfer prompt.</strong> Relate oxygen transfer and mixing to one fermentation outcome from your work. Which scale-up parameter should be preserved, and what limitation does that choice create?</p>
+<p class="meta">Use your actual thesis methods and results where you remember them. Mark missing information as unknown; do not assume the organisms were co-cultured, that a metabolite was measured, or that a proposed mechanism was demonstrated.</p>
+<h3>Teach it back</h3>
+<p>Explain the week's concept from memory, work one number, and name one boundary. Then use the <a href="teach-back.html">five-minute teach-back protocol</a> and log it in the tracker.</p>
+</section>
+<nav class="weeknav" aria-label="Week navigation"><a href="week-48.html">&#8592; Week 48</a><a class="idx" href="index.html">Lecture index</a><a class="idx" href="case-study.html">Case study</a><a href="week-50.html">Week 50 &#8594;</a></nav>
+</main>
+<footer class="docfoot"><a href="../metabolic-engineering-tracker.html">&#8592; Course tracker</a><span>Metabolic engineering &middot; 55 weeks</span></footer>
+<script>
+(function(){var root=document.documentElement,key="me.theme";var bs=Array.prototype.slice.call(document.querySelectorAll(".appearance button"));
+function paint(v){bs.forEach(function(b){b.setAttribute("aria-pressed",b.getAttribute("data-appearance")===v?"true":"false");});if(v==="auto")root.removeAttribute("data-theme");else root.setAttribute("data-theme",v);}
+var saved="auto";try{saved=localStorage.getItem(key)||"auto";}catch(e){}
+bs.forEach(function(b){b.addEventListener("click",function(){var v=b.getAttribute("data-appearance");paint(v);try{localStorage.setItem(key,v);}catch(e){}});});paint(saved);})();
+</script>
+</body>
+</html>

@@ -1,0 +1,1608 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="utf-8"><title>Week 36 — Dynamic regulation and biosensors — Metabolic engineering</title>
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+
+
+<style>:root{color-scheme:light;--paper:#FAF6EF;--ink:#211A12;--ink-2:#4A3C2C;--ink-3:#8A7458;
+--line:#DFD2BE;--line-2:#EDE4D5;--broth:#9A6B1F;--broth-soft:#F6ECD9;
+--serif:"Newsreader",Georgia,serif;--sans:"Public Sans",system-ui,sans-serif}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--paper:#15120D;--ink:#F1E9DC;--ink-2:#CBBCA6;
+--ink-3:#948872;--line:#352C22;--line-2:#2A231B;--broth:#D7A95C;--broth-soft:#241D14}}
+*{box-sizing:border-box}
+body{margin:0;background:var(--paper);color:var(--ink);font-family:var(--sans);font-size:15.5px;line-height:1.6;
+padding:env(safe-area-inset-top,0) 0 env(safe-area-inset-bottom,0)}
+.wrap{max-width:840px;margin:0 auto;padding:40px 22px 90px}
+h1{font-family:var(--serif);font-size:clamp(28px,5vw,42px);line-height:1.1;font-weight:600;margin:0 0 6px;letter-spacing:-.02em}
+h2{font-family:var(--serif);font-size:26px;font-weight:600;margin:46px 0 10px;letter-spacing:-.01em;padding-bottom:7px;border-bottom:1px solid var(--line)}
+h3{font-family:var(--serif);font-size:20px;font-weight:600;margin:30px 0 4px;color:var(--broth)}
+h4{font-size:14px;font-weight:650;margin:18px 0 4px;color:var(--ink-3);letter-spacing:.02em;text-transform:uppercase}
+p{margin:0 0 12px;max-width:74ch}
+em{color:var(--ink-2)}
+ul{margin:0 0 14px;padding-left:1.15em;max-width:74ch}
+li{margin:.3em 0}li::marker{color:var(--ink-3)}
+hr{border:0;border-top:1px solid var(--line);margin:40px 0}
+strong{font-weight:650}
+table{border-collapse:collapse;width:100%;margin:14px 0 20px;font-size:14px}
+th{text-align:left;font-weight:600;color:var(--ink-3);font-size:12.5px;padding:7px 9px;border-bottom:1.5px solid var(--line)}
+td{padding:8px 9px;border-bottom:1px solid var(--line-2);vertical-align:top}
+tr:nth-child(even) td{background:var(--broth-soft)}
+
+figure.fig{margin:22px 0 26px;padding:0;max-width:100%}
+figure.fig svg{width:100%;height:auto;display:block;background:var(--card);
+  border:1px solid var(--line-2);border-radius:10px;padding:8px 10px}
+figure.fig figcaption{font-size:13px;color:var(--ink-3);margin-top:8px;max-width:74ch;line-height:1.5}
+figure.fig .figtitle{font-family:var(--serif);font-size:15px;color:var(--ink-2);margin-bottom:6px}
+figure.fig .fig-dark{display:none}
+@media (prefers-color-scheme: dark){
+  figure.fig .fig-light{display:none}
+  figure.fig .fig-dark{display:block}
+}
+@media print{figure.fig{break-inside:avoid;page-break-inside:avoid}
+  figure.fig .fig-dark{display:none !important}
+  figure.fig .fig-light{display:block !important}}
+
+@media print{body{background:#fff}.wrap{padding:0;max-width:none}h2,h3{page-break-after:avoid}}</style><script>try{var t=localStorage.getItem("me.theme");if(t&&t!=="auto")document.documentElement.setAttribute("data-theme",t);}catch(e){}</script>
+<meta name="color-scheme" content="light dark">
+<meta name="theme-color" content="#ffffff" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#000000" media="(prefers-color-scheme: dark)">
+<style>
+/* ============================================================
+   COURSE LIBRARY — Apple document shell
+   ============================================================ */
+:root{
+  color-scheme:light;
+  --paper:#FFFFFF;--surface:#F5F5F7;--card:#FFFFFF;--fill:#F5F5F7;
+  --ink:#1D1D1F;--ink-2:#6E6E73;--ink-3:#6E6E73;
+  --line:rgba(0,0,0,.14);--line-2:rgba(0,0,0,.08);
+  --broth:#0071E3;--broth-soft:rgba(0,113,227,.10);
+  --nav-bg:rgba(255,255,255,.84);
+  --sans:-apple-system,BlinkMacSystemFont,"SF Pro Text","SF Pro Display","Helvetica Neue",Arial,sans-serif;
+  --mono:ui-monospace,"SF Mono",Menlo,Consolas,monospace;
+  --serif:var(--sans);
+}
+@media (prefers-color-scheme:dark){
+  :root:not([data-theme="light"]){
+    color-scheme:dark;
+    --paper:#000000;--surface:#1C1C1E;--card:#2C2C2E;--fill:#2C2C2E;
+    --ink:#F5F5F7;--ink-2:#A1A1A6;--ink-3:#8E8E93;
+    --line:rgba(255,255,255,.16);--line-2:rgba(255,255,255,.09);
+    --broth:#5AA9FF;--broth-soft:rgba(10,132,255,.18);
+    --nav-bg:rgba(0,0,0,.74);
+  }
+}
+:root[data-theme="dark"]{
+  color-scheme:dark;
+  --paper:#000000;--surface:#1C1C1E;--card:#2C2C2E;--fill:#2C2C2E;
+  --ink:#F5F5F7;--ink-2:#A1A1A6;--ink-3:#8E8E93;
+  --line:rgba(255,255,255,.16);--line-2:rgba(255,255,255,.09);
+  --broth:#5AA9FF;--broth-soft:rgba(10,132,255,.18);
+  --nav-bg:rgba(0,0,0,.74);
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth;scroll-padding-top:72px;-webkit-text-size-adjust:100%}
+body{
+  margin:0;background:var(--paper);color:var(--ink);
+  font-family:var(--sans);font-size:17px;line-height:1.62;letter-spacing:-.011em;
+  padding:0;
+}
+.docbar{
+  position:sticky;top:0;z-index:80;display:flex;align-items:center;justify-content:space-between;gap:12px;
+  padding:8px max(24px,calc((100vw - 1180px)/2));
+  background:var(--nav-bg);
+  -webkit-backdrop-filter:saturate(180%) blur(20px);backdrop-filter:saturate(180%) blur(20px);
+  border-bottom:1px solid var(--line-2);
+}
+.docback{display:inline-flex;align-items:center;gap:6px;color:var(--ink-2);font-size:13px;font-weight:500;text-decoration:none;white-space:nowrap}
+.docback:hover{color:var(--broth)}
+.appearance{display:inline-flex;gap:2px;padding:2px;background:var(--fill);border-radius:980px}
+.appearance button{border:0;background:none;color:var(--ink-2);font:inherit;font-size:12px;font-weight:500;line-height:1;padding:6px 11px;border-radius:980px;cursor:pointer}
+.appearance button[aria-pressed="true"]{background:var(--card);color:var(--ink);box-shadow:0 1px 2px rgba(0,0,0,.08)}
+.wrap{max-width:900px;margin:0 auto;padding:64px 24px 96px}
+body h1{
+  font-family:var(--sans);font-size:clamp(42px,6.2vw,64px);line-height:1.04;letter-spacing:-.04em;
+  font-weight:700;margin:0 0 16px;max-width:18ch;color:var(--ink);
+}
+.doc-kicker{font-size:13px;font-weight:500;letter-spacing:0;color:var(--ink-2);margin:0 0 12px}
+body h1 + p{font-size:20px;line-height:1.55;color:var(--ink-2);max-width:68ch;margin:0 0 18px}
+body h1 + p strong{color:var(--ink);font-weight:600}
+body h2{
+  font-family:var(--sans);font-size:32px;line-height:1.15;letter-spacing:-.03em;font-weight:600;
+  color:var(--ink);margin:64px 0 14px;padding:0;border:0;
+}
+body h3{font-family:var(--sans);font-size:22px;line-height:1.25;letter-spacing:-.02em;font-weight:600;color:var(--ink);margin:36px 0 8px}
+body h4{font-size:14px;line-height:1.4;font-weight:600;letter-spacing:0;text-transform:none;color:var(--ink-2);margin:24px 0 6px}
+body p{margin:0 0 14px;max-width:72ch}
+body ul,body ol{margin:0 0 16px;padding-left:1.25em;max-width:72ch}
+body li{margin:.32em 0}
+body li::marker{color:var(--ink-3)}
+body strong{font-weight:600;color:var(--ink)}
+body em{color:var(--ink)}
+body a{color:var(--broth);text-decoration:underline;text-underline-offset:2px}
+body a:hover{text-decoration:underline}
+body hr{border:0;border-top:1px solid var(--line-2);margin:56px 0}
+body table{border-collapse:collapse;width:100%;margin:22px 0 30px;font-size:15px;line-height:1.45}
+body th{text-align:left;font-weight:600;font-size:12.5px;color:var(--ink-2);padding:10px 12px;background:var(--surface);border-bottom:1px solid var(--line)}
+body td{padding:11px 12px;border-bottom:1px solid var(--line-2);vertical-align:top}
+body tr:nth-child(even) td{background:transparent}
+body figure.fig{margin:32px 0 36px;padding:0;max-width:100%}
+body figure.fig svg{width:100%;height:auto;display:block;background:var(--surface);border:0;border-radius:20px;padding:18px}
+body figure.fig figcaption{font-size:13px;color:var(--ink-2);margin-top:10px;max-width:72ch;line-height:1.5}
+body figure.fig .figtitle{font-family:var(--sans);font-size:14px;font-weight:600;color:var(--ink);margin-bottom:6px}
+body pre{background:var(--surface);border:1px solid var(--line-2);border-radius:16px;padding:18px;overflow:auto;font-family:var(--mono);font-size:13.5px;line-height:1.55;margin:20px 0 24px}
+body code{font-family:var(--mono);font-size:.88em;background:var(--surface);border-radius:6px;padding:.12em .35em}
+body pre code{background:none;padding:0;font-size:inherit}
+body blockquote{margin:24px 0;padding:2px 0 2px 18px;border-left:3px solid var(--broth);color:var(--ink-2)}
+:root[data-theme="dark"] .fig-light{display:none!important}
+:root[data-theme="dark"] .fig-dark{display:block!important}
+:root[data-theme="light"] .fig-dark{display:none!important}
+:root[data-theme="light"] .fig-light{display:block!important}
+.docfoot{max-width:900px;margin:0 auto;padding:24px 24px 64px;border-top:1px solid var(--line-2);display:flex;justify-content:space-between;gap:12px;font-size:12.5px;color:var(--ink-3)}
+.docfoot a{color:var(--ink-2);text-decoration:none}
+.docfoot a:hover{color:var(--broth)}
+@media (max-width:700px){
+  .docbar{padding:8px 16px}
+  .wrap{padding:40px 18px 80px}
+  body h1{font-size:clamp(38px,11vw,48px)}
+  body h1 + p{font-size:18px}
+  body h2{font-size:28px;margin-top:52px}
+  body h3{font-size:20px}
+  body p,body li{font-size:16.5px}
+  body table{font-size:14px}
+  body th,body td{padding:9px 9px}
+  .docfoot{padding:20px 18px 50px;flex-direction:column;gap:6px}
+}
+@media print{
+  .docbar,.appearance,.docfoot{display:none!important}
+  body{background:#fff;color:#000;font-size:11pt}
+  .wrap{max-width:none;padding:0}
+  body h1{font-size:28pt;max-width:none}
+  body h2{font-size:16pt;page-break-after:avoid}
+  body h3{font-size:13pt;page-break-after:avoid}
+  body a{color:#000;text-decoration:none}
+  body table,body figure{break-inside:avoid}
+}
+
+
+.index-actions{margin:18px 0 36px;display:flex;flex-wrap:wrap;gap:16px;align-items:center}
+.index-actions a{font-size:14px;font-weight:500;color:var(--broth);text-decoration:none}
+.index-actions a:hover{text-decoration:underline}
+.phaseh{display:flex;align-items:baseline;justify-content:space-between;gap:14px;font-size:24px!important;margin:52px 0 2px!important;letter-spacing:-.02em}
+.phaseh span{font-size:12px;font-weight:400;color:var(--ink-3);letter-spacing:0;white-space:nowrap}
+.weeklist{border-top:1px solid var(--line-2);margin-bottom:8px}
+.weekrow{display:flex;align-items:center;gap:14px;min-height:50px;padding:10px 4px;border-bottom:1px solid var(--line-2);text-decoration:none;color:var(--ink)}
+.weekrow:hover{background:var(--surface)}
+.wnum{width:28px;flex:none;font-size:12px;font-weight:600;color:var(--broth);font-variant-numeric:tabular-nums}
+.wtitle{flex:1;font-size:16.5px;font-weight:500;line-height:1.35}
+.warrow{flex:none;color:var(--ink-3);font-size:16px}
+.weeknav{display:flex;align-items:center;justify-content:space-between;gap:14px;margin:52px 0 0;padding-top:22px;border-top:1px solid var(--line-2);font-size:14px}
+.weeknav a{color:var(--broth);text-decoration:none;font-weight:500}
+.weeknav a:hover{text-decoration:underline}
+.weeknav .idx{color:var(--ink-2);font-weight:400}
+.weeknav .empty{visibility:hidden}
+.case-h{max-width:22ch}
+.protocol{max-width:72ch}
+.protocol li{margin:.55em 0}
+.protocol h2{margin-top:38px}
+@media (max-width:700px){.phaseh{font-size:21px!important;margin-top:42px!important}.wtitle{font-size:15.5px}.weeknav{font-size:13px;gap:8px}}
+@media print{.weeknav,.index-actions{display:none!important}}
+</style>
+<style>.sr-only{position:absolute!important;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap;border:0}</style>
+</head><body>
+<header class="docbar"><a class="docback" href="index.html">&#8592; Lecture index</a><div class="appearance" role="group" aria-label="Appearance">
+<button type="button" data-appearance="auto" aria-pressed="true">Auto</button>
+<button type="button" data-appearance="light" aria-pressed="false">Light</button>
+<button type="button" data-appearance="dark" aria-pressed="false">Dark</button>
+</div></header>
+<main class="wrap">
+<p class="doc-kicker">Week 36 of 55 &middot; The molecular toolbox &middot; <strong class="tier-badge">Useful next</strong></p>
+<h1>Dynamic regulation and biosensors</h1>
+<h2 class="sr-only">Week content</h2>
+<p>Feedback control applied to a pathway, which is the clearest place in the course where a chemical engineer arrives already equipped. The content is not the molecular biology of any one sensor but the arithmetic that chooses between them and that places the operating point: a sensor is four numbers — specificity, detection range, sensitivity and reporter dynamic range — and a loop is a gain and a delay. The week&#x27;s hardest idea is that a 110-fold sensor placed at the wrong concentration resolves nothing, so the design decision is where on the transfer curve you sit, not which reporter you fuse.</p>
+<h3>Core ideas</h3>
+<p><strong>1. Static tuning sets one operating point for a process that has several</strong></p>
+<p>Week 34 chose a promoter and a copy number, and those choices are fixed for the run. A fed-batch run is not: substrate falls from 20 g L⁻¹ to near zero, biomass rises two orders of magnitude, oxygen transfer saturates, and a toxic intermediate accumulates only after the pathway is carrying flux. A tuning optimal at inoculation is wrong at harvest, and the growth-production trade-off makes the error systematic rather than random — the expression level that maximises product per cell is below the level that maximises product per litre, because the latter needs the biomass that the former suppresses. Dynamic regulation does not improve on the best static tuning at any single instant; it improves on the fact that no single instant is representative.</p>
+<p><strong>2. There are four sensor classes and they fail differently</strong></p>
+<p>Protein Engineering Ch 2 divides them by what does the sensing. RNA-type riboswitches put an aptamer upstream of an expression platform, so ligand binding changes a secondary structure and the ribosome or terminator reads the consequence; they need no protein and so impose almost no burden, but the aptamer must be selected for each new ligand. DNA-type sensors act through a DNA-binding event rather than a conformational switch. Transcription-factor sensors hand the problem to an evolved allosteric protein, which is why they amplify — a small change in ligand is converted through gene expression into a large change in phenotype — and why they are confined to metabolites some organism already had a reason to sense. Enzyme-type sensors convert the analyte chemically into something visible, as DOPA dioxygenase turns DOPA into the fluorescent pigment betaxanthin; they work on intermediates no regulator recognises, at the cost of consuming the thing being measured.</p>
+<p><strong>3. A sensor is characterised by four numbers, and three of them are not the dynamic range</strong></p>
+<p>§2.4 names specificity, detection range, sensitivity and reporter dynamic range, and they answer different questions. Specificity sets the false-positive rate: the theophylline aptamer binds theophylline about 10,000-fold more tightly than caffeine, which is why a screen built on it returned no false positives across a large library, whereas a transcription factor with a broad effector profile returns hits that respond to something else in the medium. Detection range is the span of analyte concentrations that produce any response at all. Sensitivity is the derivative — the change in output per change in analyte — and it is what decides whether a 30% improvement is visible. Reporter dynamic range is the output span between off and full on, reported as 110-fold for the DOPA sensor. Note that response time is not in this list; §2.4 does not treat it, and a loop analysis needs it, so it has to come from the promoter and maturation literature rather than from this chapter.</p>
+<p><strong>4. Where you place the operating point decides what the sensor can resolve</strong></p>
+<figure class="fig"><div class="figtitle">Figure 36.4 — Illustrative simulation — the operating point, not the dynamic range</div><div class="fig-light"><svg role="img" aria-label="A Hill sensor's logarithmic gain peaks at s = K and collapses either side, so the same reporter resolves a 1.3-fold better clone at four sigma, two sigma or not at all depending on where K sits. Moving K three-fold down does more for the screen than a 24-fold better reporter would." xmlns:xlink="http://www.w3.org/1999/xlink" width="651.606922pt" height="235.036703pt" viewBox="0 0 651.606922 235.036703" xmlns="http://www.w3.org/2000/svg" version="1.1">
+ <metadata>
+  <rdf:RDF xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:cc="http://creativecommons.org/ns#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+   <cc:Work>
+    <dc:type rdf:resource="http://purl.org/dc/dcmitype/StillImage"/>
+    <dc:date>2026-11-02T23:57:50.637423</dc:date>
+    <dc:format>image/svg+xml</dc:format>
+    <dc:creator>
+     <cc:Agent>
+      <dc:title>Matplotlib v3.10.8, https://matplotlib.org/</dc:title>
+     </cc:Agent>
+    </dc:creator>
+   </cc:Work>
+  </rdf:RDF>
+ </metadata>
+ <defs>
+  <style type="text/css">*{stroke-linejoin: round; stroke-linecap: butt}</style>
+ </defs>
+ <g id="figure_1">
+  <g id="patch_1">
+   <path d="M 0 235.036703 
+L 651.606922 235.036703 
+L 651.606922 -0 
+L 0 -0 
+L 0 235.036703 
+z
+" style="fill: none"/>
+  </g>
+  <g id="axes_1">
+   <g id="patch_2">
+    <path d="M 65.9664 179.526563 
+L 249.079482 179.526563 
+L 249.079482 18.750563 
+L 65.9664 18.750563 
+L 65.9664 179.526563 
+z
+" style="fill: none"/>
+   </g>
+   <g id="matplotlib.axis_1">
+    <g id="xtick_1">
+     <g id="line2d_1">
+      <defs>
+       <path id="m19f8c9b6d1" d="M 0 0 
+L 0 3.5 
+" style="stroke: #8a7458; stroke-width: 0.9"/>
+      </defs>
+      <g>
+       <use xlink:href="#m19f8c9b6d1" x="87.150589" y="179.526563" style="fill: #8a7458; stroke: #8a7458; stroke-width: 0.9"/>
+      </g>
+     </g>
+     <g id="text_1">
+      <!-- $\mathdefault{10^{-1}}$ -->
+      <g style="fill: #8a7458" transform="translate(75.988089 193.745078)">
+       <text>
+        <tspan x="0" y="-0.064063" style="font-size: 9.5px; font-family: 'Public Sans, Helvetica, Arial, sans-serif'; fill: #8a7458">1</tspan>
+        <tspan x="6.044189" y="-0.064063" style="font-size: 9.5px; font-family: 'Public Sans, Helvetica, Arial, sans-serif'; fill: #8a7458">0</tspan>
+        <tspan x="12.184082" y="-3.892188" style="font-size: 6.65px; font-family: 'Public Sans, Helvetica, Arial, sans-serif'; fill: #8a7458">−</tspan>
+        <tspan x="17.756055" y="-3.892188" style="font-size: 6.65px; font-family: 'Public Sans, Helvetica, Arial, sans-serif'; fill: #8a7458">1</tspan>
+       </text>
+      </g>
+     </g>
+    </g>
+    <g id="xtick_2">
+     <g id="line2d_2">
+      <g>
+       <use xlink:href="#m19f8c9b6d1" x="157.522941" y="179.526563" style="fill: #8a7458; stroke: #8a7458; stroke-width: 0.9"/>
+      </g>
+     </g>
+     <g id="text_2">
+      <!-- $\mathdefault{10^{0}}$ -->
+      <g style="fill: #8a7458" transform="translate(149.162941 193.745078)">
+       <text>
+        <tspan x="0" y="-0.976562" style="font-size: 9.5px; font-family: 'Public Sans, Helvetica, Arial, sans-serif'; fill: #8a7458">1</tspan>
+        <tspan x="6.044189" y="-0.976562" style="font-size: 9.5px; font-family: 'Public Sans, Helvetica, Arial, sans-serif'; fill: #8a7458">0</tspan>
+        <tspan x="12.184082" y="-4.804688" style="font-size: 6.65px; font-family: 'Public Sans, Helvetica, Arial, sans-serif'; fill: #8a7458">0</tspan>
+       </text>
+      </g>
+     </g>
+    </g>
+    <g id="xtick_3">
+     <g id="line2d_3">
+      <g>
+       <use xlink:href="#m19f8c9b6d1" x="227.895293" y="179.526563" style="fill: #8a7458; stroke: #8a7458; stroke-width: 0.9"/>
+      </g>
+     </g>
+     <g id="text_3">
+      <!-- $\mathdefault{10^{1}}$ -->
+      <g style="fill: #8a7458" transform="translate(219.535293 193.745078)">
+       <text>
+        <tspan x="0" y="-0.064063" style="font-size: 9.5px; font-family: 'Public Sans, Helvetica, Arial, sans-serif'; fill: #8a7458">1</tspan>
+        <tspan x="6.044189" y="-0.064063" style="font-size: 9.5px; font-family: 'Public Sans, Helvetica, Arial, sans-serif'; fill: #8a7458">0</tspan>
+        <tspan x="12.184082" y="-3.892188" style="font-size: 6.65px; font-family: 'Public Sans, Helvetica, Arial, sans-serif'; fill: #8a7458">1</tspan>
+       </text>
+      </g>
+     </g>
+    </g>
+    <g id="xtick_4">
+     <g id="line2d_4">
+      <defs>
+       <path id="m95e994dd17" d="M 0 0 
+L 0 2 
+" style="stroke: #8a7458; stroke-width: 0.6"/>
+      </defs>
+      <g>
+       <use xlink:href="#m95e994dd17" x="65.9664" y="179.526563" style="fill: #8a7458; stroke: #8a7458; stroke-width: 0.6"/>
+      </g>
+     </g>
+    </g>
+    <g id="xtick_5">
+     <g id="line2d_5">
+      <g>
+       <use xlink:href="#m95e994dd17" x="71.538571" y="179.526563" style="fill: #8a7458; stroke: #8a7458; stroke-width: 0.6"/>
+      </g>
+     </g>
+    </g>
+    <g id="xtick_6">
+     <g id="line2d_6">
+      <g>
+       <use xlink:href="#m95e994dd17" x="76.249774" y="179.526563" style="fill: #8a7458; stroke: #8a7458; stroke-width: 0.6"/>
+      </g>
+     </g>
+    </g>
+    <g id="xtick_7">
+     <g id="line2d_7">
+      <g>
+       <use xlink:href="#m95e994dd17" x="80.330803" y="179.526563" style="fill: #8a7458; stroke: #8a7458; stroke-width: 0.6"/>
+      </g>
+     </g>
+    </g>
+    <g id="xtick_8">
+     <g id="line2d_8">
+      <g>
+       <use xlink:href="#m95e994dd17" x="83.930527" y="179.526563" style="fill: #8a7458; stroke: #8a7458; stroke-width: 0.6"/>
+      </g>
+     </g>
+    </g>
+    <g id="xtick_9">
+     <g id="line2d_9">
+      <g>
+       <use xlink:href="#m95e994dd17" x="108.334778" y="179.526563" style="fill: #8a7458; stroke: #8a7458; stroke-width: 0.6"/>
+      </g>
+     </g>
+    </g>
+    <g id="xtick_10">
+     <g id="line2d_10">
+      <g>
+       <use xlink:href="#m95e994dd17" x="120.726734" y="179.526563" style="fill: #8a7458; stroke: #8a7458; stroke-width: 0.6"/>
+      </g>
+     </g>
+    </g>
+    <g id="xtick_11">
+     <g id="line2d_11">
+      <g>
+       <use xlink:href="#m95e994dd17" x="129.518967" y="179.526563" style="fill: #8a7458; stroke: #8a7458; stroke-width: 0.6"/>
+      </g>
+     </g>
+    </g>
+    <g id="xtick_12">
+     <g id="line2d_12">
+      <g>
+       <use xlink:href="#m95e994dd17" x="136.338752" y="179.526563" style="fill: #8a7458; stroke: #8a7458; stroke-width: 0.6"/>
+      </g>
+     </g>
+    </g>
+    <g id="xtick_13">
+     <g id="line2d_13">
+      <g>
+       <use xlink:href="#m95e994dd17" x="141.910923" y="179.526563" style="fill: #8a7458; stroke: #8a7458; stroke-width: 0.6"/>
+      </g>
+     </g>
+    </g>
+    <g id="xtick_14">
+     <g id="line2d_14">
+      <g>
+       <use xlink:href="#m95e994dd17" x="146.622126" y="179.526563" style="fill: #8a7458; stroke: #8a7458; stroke-width: 0.6"/>
+      </g>
+     </g>
+    </g>
+    <g id="xtick_15">
+     <g id="line2d_15">
+      <g>
+       <use xlink:href="#m95e994dd17" x="150.703155" y="179.526563" style="fill: #8a7458; stroke: #8a7458; stroke-width: 0.6"/>
+      </g>
+     </g>
+    </g>
+    <g id="xtick_16">
+     <g id="line2d_16">
+      <g>
+       <use xlink:href="#m95e994dd17" x="154.302879" y="179.526563" style="fill: #8a7458; stroke: #8a7458; stroke-width: 0.6"/>
+      </g>
+     </g>
+    </g>
+    <g id="xtick_17">
+     <g id="line2d_17">
+      <g>
+       <use xlink:href="#m95e994dd17" x="178.70713" y="179.526563" style="fill: #8a7458; stroke: #8a7458; stroke-width: 0.6"/>
+      </g>
+     </g>
+    </g>
+    <g id="xtick_18">
+     <g id="line2d_18">
+      <g>
+       <use xlink:href="#m95e994dd17" x="191.099086" y="179.526563" style="fill: #8a7458; stroke: #8a7458; stroke-width: 0.6"/>
+      </g>
+     </g>
+    </g>
+    <g id="xtick_19">
+     <g id="line2d_19">
+      <g>
+       <use xlink:href="#m95e994dd17" x="199.891319" y="179.526563" style="fill: #8a7458; stroke: #8a7458; stroke-width: 0.6"/>
+      </g>
+     </g>
+    </g>
+    <g id="xtick_20">
+     <g id="line2d_20">
+      <g>
+       <use xlink:href="#m95e994dd17" x="206.711104" y="179.526563" style="fill: #8a7458; stroke: #8a7458; stroke-width: 0.6"/>
+      </g>
+     </g>
+    </g>
+    <g id="xtick_21">
+     <g id="line2d_21">
+      <g>
+       <use xlink:href="#m95e994dd17" x="212.283275" y="179.526563" style="fill: #8a7458; stroke: #8a7458; stroke-width: 0.6"/>
+      </g>
+     </g>
+    </g>
+    <g id="xtick_22">
+     <g id="line2d_22">
+      <g>
+       <use xlink:href="#m95e994dd17" x="216.994478" y="179.526563" style="fill: #8a7458; stroke: #8a7458; stroke-width: 0.6"/>
+      </g>
+     </g>
+    </g>
+    <g id="xtick_23">
+     <g id="line2d_23">
+      <g>
+       <use xlink:href="#m95e994dd17" x="221.075508" y="179.526563" style="fill: #8a7458; stroke: #8a7458; stroke-width: 0.6"/>
+      </g>
+     </g>
+    </g>
+    <g id="xtick_24">
+     <g id="line2d_24">
+      <g>
+       <use xlink:href="#m95e994dd17" x="224.675231" y="179.526563" style="fill: #8a7458; stroke: #8a7458; stroke-width: 0.6"/>
+      </g>
+     </g>
+    </g>
+    <g id="xtick_25">
+     <g id="line2d_25">
+      <g>
+       <use xlink:href="#m95e994dd17" x="249.079482" y="179.526563" style="fill: #8a7458; stroke: #8a7458; stroke-width: 0.6"/>
+      </g>
+     </g>
+    </g>
+    <g id="text_4">
+     <text style="font-size: 9.5px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: middle; fill: #4a3c2c" x="157.522941" y="206.939297" transform="rotate(-0 157.522941 206.939297)">operating point  s / K</text>
+    </g>
+   </g>
+   <g id="matplotlib.axis_2">
+    <g id="ytick_1">
+     <g id="line2d_26">
+      <path d="M 65.9664 179.526563 
+L 249.079482 179.526563 
+" clip-path="url(#p5e2a2b2302)" style="fill: none; stroke: #e6dccb; stroke-opacity: 0.7; stroke-width: 0.6; stroke-linecap: square"/>
+     </g>
+     <g id="line2d_27">
+      <defs>
+       <path id="m8e269c7842" d="M 0 0 
+L -3.5 0 
+" style="stroke: #8a7458; stroke-width: 0.9"/>
+      </defs>
+      <g>
+       <use xlink:href="#m8e269c7842" x="65.9664" y="179.526563" style="fill: #8a7458; stroke: #8a7458; stroke-width: 0.9"/>
+      </g>
+     </g>
+     <g id="text_5">
+      <text style="font-size: 9.5px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: end; fill: #8a7458" x="58.9664" y="183.13582" transform="rotate(-0 58.9664 183.13582)">0.0</text>
+     </g>
+    </g>
+    <g id="ytick_2">
+     <g id="line2d_28">
+      <path d="M 65.9664 141.246563 
+L 249.079482 141.246563 
+" clip-path="url(#p5e2a2b2302)" style="fill: none; stroke: #e6dccb; stroke-opacity: 0.7; stroke-width: 0.6; stroke-linecap: square"/>
+     </g>
+     <g id="line2d_29">
+      <g>
+       <use xlink:href="#m8e269c7842" x="65.9664" y="141.246563" style="fill: #8a7458; stroke: #8a7458; stroke-width: 0.9"/>
+      </g>
+     </g>
+     <g id="text_6">
+      <text style="font-size: 9.5px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: end; fill: #8a7458" x="58.9664" y="144.85582" transform="rotate(-0 58.9664 144.85582)">0.5</text>
+     </g>
+    </g>
+    <g id="ytick_3">
+     <g id="line2d_30">
+      <path d="M 65.9664 102.966563 
+L 249.079482 102.966563 
+" clip-path="url(#p5e2a2b2302)" style="fill: none; stroke: #e6dccb; stroke-opacity: 0.7; stroke-width: 0.6; stroke-linecap: square"/>
+     </g>
+     <g id="line2d_31">
+      <g>
+       <use xlink:href="#m8e269c7842" x="65.9664" y="102.966563" style="fill: #8a7458; stroke: #8a7458; stroke-width: 0.9"/>
+      </g>
+     </g>
+     <g id="text_7">
+      <text style="font-size: 9.5px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: end; fill: #8a7458" x="58.9664" y="106.57582" transform="rotate(-0 58.9664 106.57582)">1.0</text>
+     </g>
+    </g>
+    <g id="ytick_4">
+     <g id="line2d_32">
+      <path d="M 65.9664 64.686563 
+L 249.079482 64.686563 
+" clip-path="url(#p5e2a2b2302)" style="fill: none; stroke: #e6dccb; stroke-opacity: 0.7; stroke-width: 0.6; stroke-linecap: square"/>
+     </g>
+     <g id="line2d_33">
+      <g>
+       <use xlink:href="#m8e269c7842" x="65.9664" y="64.686563" style="fill: #8a7458; stroke: #8a7458; stroke-width: 0.9"/>
+      </g>
+     </g>
+     <g id="text_8">
+      <text style="font-size: 9.5px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: end; fill: #8a7458" x="58.9664" y="68.29582" transform="rotate(-0 58.9664 68.29582)">1.5</text>
+     </g>
+    </g>
+    <g id="ytick_5">
+     <g id="line2d_34">
+      <path d="M 65.9664 26.406563 
+L 249.079482 26.406563 
+" clip-path="url(#p5e2a2b2302)" style="fill: none; stroke: #e6dccb; stroke-opacity: 0.7; stroke-width: 0.6; stroke-linecap: square"/>
+     </g>
+     <g id="line2d_35">
+      <g>
+       <use xlink:href="#m8e269c7842" x="65.9664" y="26.406563" style="fill: #8a7458; stroke: #8a7458; stroke-width: 0.9"/>
+      </g>
+     </g>
+     <g id="text_9">
+      <text style="font-size: 9.5px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: end; fill: #8a7458" x="58.9664" y="30.01582" transform="rotate(-0 58.9664 30.01582)">2.0</text>
+     </g>
+    </g>
+    <g id="text_10">
+     <text style="font-size: 9.5px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: middle; fill: #4a3c2c" x="37.882728" y="99.138563" transform="rotate(-90 37.882728 99.138563)">logarithmic gain  d ln R / d ln s</text>
+    </g>
+   </g>
+   <g id="line2d_36">
+    <path d="M 66.038883 26.790219 
+L 75.991124 27.140721 
+L 83.646694 27.614407 
+L 89.771149 28.202883 
+L 95.130048 28.944906 
+L 99.72339 29.81517 
+L 103.551175 30.757875 
+L 107.37896 31.951644 
+L 110.441187 33.12799 
+L 113.503415 34.540135 
+L 116.565643 36.229059 
+L 119.627871 38.240063 
+L 121.924542 39.988941 
+L 124.221213 41.96782 
+L 126.517884 44.198249 
+L 128.814555 46.701205 
+L 131.111226 49.496202 
+L 133.407896 52.600219 
+L 135.704567 56.026465 
+L 138.001238 59.783029 
+L 141.063466 65.307239 
+L 144.125694 71.402201 
+L 147.187922 78.02059 
+L 151.015707 86.907587 
+L 156.374606 100.091283 
+L 164.030175 119.025538 
+L 167.85796 127.912535 
+L 170.920188 134.530924 
+L 173.982416 140.625886 
+L 177.044644 146.150096 
+L 179.341315 149.90666 
+L 181.637986 153.332906 
+L 183.934656 156.436923 
+L 186.231327 159.23192 
+L 188.527998 161.734876 
+L 190.824669 163.965305 
+L 193.12134 165.944184 
+L 195.418011 167.693062 
+L 198.480239 169.704066 
+L 201.542467 171.39299 
+L 204.604695 172.805135 
+L 207.666922 173.981481 
+L 211.494707 175.17525 
+L 215.322492 176.117955 
+L 219.915834 176.988219 
+L 225.274733 177.730242 
+L 231.399189 178.318718 
+L 238.289201 178.754877 
+L 247.475885 179.102585 
+L 249.006999 179.142906 
+L 249.006999 179.142906 
+" clip-path="url(#p5e2a2b2302)" style="fill: none; stroke: #1f6f62; stroke-width: 1.9; stroke-linecap: square"/>
+   </g>
+   <g id="line2d_37">
+    <path d="M 123.946796 41.719756 
+" clip-path="url(#p5e2a2b2302)" style="fill: none; stroke: #1f6f62; stroke-width: 1.9; stroke-linecap: square"/>
+    <defs>
+     <path id="m56b6089704" d="M 0 2.25 
+C 0.596707 2.25 1.169055 2.012926 1.59099 1.59099 
+C 2.012926 1.169055 2.25 0.596707 2.25 0 
+C 2.25 -0.596707 2.012926 -1.169055 1.59099 -1.59099 
+C 1.169055 -2.012926 0.596707 -2.25 0 -2.25 
+C -0.596707 -2.25 -1.169055 -2.012926 -1.59099 -1.59099 
+C -2.012926 -1.169055 -2.25 -0.596707 -2.25 0 
+C -2.25 0.596707 -2.012926 1.169055 -1.59099 1.59099 
+C -1.169055 2.012926 -0.596707 2.25 0 2.25 
+z
+" style="stroke: #1f6f62"/>
+    </defs>
+    <g clip-path="url(#p5e2a2b2302)">
+     <use xlink:href="#m56b6089704" x="123.946796" y="41.719756" style="fill: #1f6f62; stroke: #1f6f62"/>
+    </g>
+   </g>
+   <g id="line2d_38">
+    <path d="M 157.522941 102.960558 
+" clip-path="url(#p5e2a2b2302)" style="fill: none; stroke: #8a5f1b; stroke-width: 1.9; stroke-linecap: square"/>
+    <defs>
+     <path id="mf9028614b5" d="M 0 2.25 
+C 0.596707 2.25 1.169055 2.012926 1.59099 1.59099 
+C 2.012926 1.169055 2.25 0.596707 2.25 0 
+C 2.25 -0.596707 2.012926 -1.169055 1.59099 -1.59099 
+C 1.169055 -2.012926 0.596707 -2.25 0 -2.25 
+C -0.596707 -2.25 -1.169055 -2.012926 -1.59099 -1.59099 
+C -2.012926 -1.169055 -2.25 -0.596707 -2.25 0 
+C -2.25 0.596707 -2.012926 1.169055 -1.59099 1.59099 
+C -1.169055 2.012926 -0.596707 2.25 0 2.25 
+z
+" style="stroke: #8a5f1b"/>
+    </defs>
+    <g clip-path="url(#p5e2a2b2302)">
+     <use xlink:href="#mf9028614b5" x="157.522941" y="102.960558" style="fill: #8a5f1b; stroke: #8a5f1b"/>
+    </g>
+   </g>
+   <g id="line2d_39">
+    <path d="M 191.099086 164.209415 
+" clip-path="url(#p5e2a2b2302)" style="fill: none; stroke: #a4503a; stroke-width: 1.9; stroke-linecap: square"/>
+    <defs>
+     <path id="m02837c119d" d="M 0 2.25 
+C 0.596707 2.25 1.169055 2.012926 1.59099 1.59099 
+C 2.012926 1.169055 2.25 0.596707 2.25 0 
+C 2.25 -0.596707 2.012926 -1.169055 1.59099 -1.59099 
+C 1.169055 -2.012926 0.596707 -2.25 0 -2.25 
+C -0.596707 -2.25 -1.169055 -2.012926 -1.59099 -1.59099 
+C -2.012926 -1.169055 -2.25 -0.596707 -2.25 0 
+C -2.25 0.596707 -2.012926 1.169055 -1.59099 1.59099 
+C -1.169055 2.012926 -0.596707 2.25 0 2.25 
+z
+" style="stroke: #a4503a"/>
+    </defs>
+    <g clip-path="url(#p5e2a2b2302)">
+     <use xlink:href="#m02837c119d" x="191.099086" y="164.209415" style="fill: #a4503a; stroke: #a4503a"/>
+    </g>
+   </g>
+   <g id="patch_3">
+    <path d="M 65.9664 179.526563 
+L 65.9664 18.750563 
+" style="fill: none; stroke: #dfd2be; stroke-width: 0.9; stroke-linejoin: miter; stroke-linecap: square"/>
+   </g>
+   <g id="patch_4">
+    <path d="M 65.9664 179.526563 
+L 249.079482 179.526563 
+" style="fill: none; stroke: #dfd2be; stroke-width: 0.9; stroke-linejoin: miter; stroke-linecap: square"/>
+   </g>
+   <g id="text_11">
+    <text style="font-size: 8.2px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; fill: #1f6f62" transform="translate(117.26828 21.645006)">K/3</text>
+    <text style="font-size: 8.2px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; fill: #1f6f62" transform="translate(117.426515 30.827212)">1.8</text>
+   </g>
+   <g id="text_12">
+    <text style="font-size: 8.2px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; fill: #8a5f1b" transform="translate(154.834238 82.885808)">K</text>
+    <text style="font-size: 8.2px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; fill: #8a5f1b" transform="translate(151.00266 92.068014)">1.0</text>
+   </g>
+   <g id="text_13">
+    <text style="font-size: 8.2px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; fill: #a4503a" transform="translate(185.801758 144.134665)">3K</text>
+    <text style="font-size: 8.2px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; fill: #a4503a" transform="translate(184.578805 153.316871)">0.2</text>
+   </g>
+  </g>
+  <g id="axes_2">
+   <g id="patch_5">
+    <path d="M 326.292165 179.526563 
+L 478.8864 179.526563 
+L 478.8864 18.750563 
+L 326.292165 18.750563 
+L 326.292165 179.526563 
+z
+" style="fill: none"/>
+   </g>
+   <g id="patch_6">
+    <path d="M 326.292165 55.290563 
+L 431.529568 55.290563 
+L 431.529568 26.058563 
+L 326.292165 26.058563 
+z
+" clip-path="url(#p3785b1eae7)" style="fill: #1f6f62; opacity: 0.3; stroke: #1f6f62; stroke-width: 1.1; stroke-linejoin: miter"/>
+   </g>
+   <g id="patch_7">
+    <path d="M 326.292165 113.754563 
+L 384.762481 113.754563 
+L 384.762481 84.522563 
+L 326.292165 84.522563 
+z
+" clip-path="url(#p3785b1eae7)" style="fill: #a4503a; opacity: 0.3; stroke: #a4503a; stroke-width: 1.1; stroke-linejoin: miter"/>
+   </g>
+   <g id="patch_8">
+    <path d="M 326.292165 172.218563 
+L 337.989242 172.218563 
+L 337.989242 142.986563 
+L 326.292165 142.986563 
+z
+" clip-path="url(#p3785b1eae7)" style="fill: #a4503a; opacity: 0.3; stroke: #a4503a; stroke-width: 1.1; stroke-linejoin: miter"/>
+   </g>
+   <g id="matplotlib.axis_3">
+    <g id="xtick_26">
+     <g id="line2d_40">
+      <path d="M 326.292165 179.526563 
+L 326.292165 18.750563 
+" clip-path="url(#p3785b1eae7)" style="fill: none; stroke: #e6dccb; stroke-opacity: 0.7; stroke-width: 0.6; stroke-linecap: square"/>
+     </g>
+     <g id="line2d_41">
+      <g>
+       <use xlink:href="#m19f8c9b6d1" x="326.292165" y="179.526563" style="fill: #8a7458; stroke: #8a7458; stroke-width: 0.9"/>
+      </g>
+     </g>
+     <g id="text_14">
+      <text style="font-size: 9.5px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: middle; fill: #8a7458" x="326.292165" y="193.745078" transform="rotate(-0 326.292165 193.745078)">0</text>
+     </g>
+    </g>
+    <g id="xtick_27">
+     <g id="line2d_42">
+      <path d="M 359.718438 179.526563 
+L 359.718438 18.750563 
+" clip-path="url(#p3785b1eae7)" style="fill: none; stroke: #e6dccb; stroke-opacity: 0.7; stroke-width: 0.6; stroke-linecap: square"/>
+     </g>
+     <g id="line2d_43">
+      <g>
+       <use xlink:href="#m19f8c9b6d1" x="359.718438" y="179.526563" style="fill: #8a7458; stroke: #8a7458; stroke-width: 0.9"/>
+      </g>
+     </g>
+     <g id="text_15">
+      <text style="font-size: 9.5px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: middle; fill: #8a7458" x="359.718438" y="193.745078" transform="rotate(-0 359.718438 193.745078)">1</text>
+     </g>
+    </g>
+    <g id="xtick_28">
+     <g id="line2d_44">
+      <path d="M 393.144711 179.526563 
+L 393.144711 18.750563 
+" clip-path="url(#p3785b1eae7)" style="fill: none; stroke: #e6dccb; stroke-opacity: 0.7; stroke-width: 0.6; stroke-linecap: square"/>
+     </g>
+     <g id="line2d_45">
+      <g>
+       <use xlink:href="#m19f8c9b6d1" x="393.144711" y="179.526563" style="fill: #8a7458; stroke: #8a7458; stroke-width: 0.9"/>
+      </g>
+     </g>
+     <g id="text_16">
+      <text style="font-size: 9.5px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: middle; fill: #8a7458" x="393.144711" y="193.745078" transform="rotate(-0 393.144711 193.745078)">2</text>
+     </g>
+    </g>
+    <g id="xtick_29">
+     <g id="line2d_46">
+      <path d="M 426.570984 179.526563 
+L 426.570984 18.750563 
+" clip-path="url(#p3785b1eae7)" style="fill: none; stroke: #e6dccb; stroke-opacity: 0.7; stroke-width: 0.6; stroke-linecap: square"/>
+     </g>
+     <g id="line2d_47">
+      <g>
+       <use xlink:href="#m19f8c9b6d1" x="426.570984" y="179.526563" style="fill: #8a7458; stroke: #8a7458; stroke-width: 0.9"/>
+      </g>
+     </g>
+     <g id="text_17">
+      <text style="font-size: 9.5px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: middle; fill: #8a7458" x="426.570984" y="193.745078" transform="rotate(-0 426.570984 193.745078)">3</text>
+     </g>
+    </g>
+    <g id="xtick_30">
+     <g id="line2d_48">
+      <path d="M 459.997257 179.526563 
+L 459.997257 18.750563 
+" clip-path="url(#p3785b1eae7)" style="fill: none; stroke: #e6dccb; stroke-opacity: 0.7; stroke-width: 0.6; stroke-linecap: square"/>
+     </g>
+     <g id="line2d_49">
+      <g>
+       <use xlink:href="#m19f8c9b6d1" x="459.997257" y="179.526563" style="fill: #8a7458; stroke: #8a7458; stroke-width: 0.9"/>
+      </g>
+     </g>
+     <g id="text_18">
+      <text style="font-size: 9.5px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: middle; fill: #8a7458" x="459.997257" y="193.745078" transform="rotate(-0 459.997257 193.745078)">4</text>
+     </g>
+    </g>
+    <g id="text_19">
+     <text style="font-size: 9.5px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: middle; fill: #4a3c2c" x="402.589282" y="206.939297" transform="rotate(-0 402.589282 206.939297)">separation  (assay sigma)</text>
+    </g>
+   </g>
+   <g id="matplotlib.axis_4">
+    <g id="ytick_6">
+     <g id="line2d_50">
+      <g>
+       <use xlink:href="#m8e269c7842" x="326.292165" y="40.674563" style="fill: #8a7458; stroke: #8a7458; stroke-width: 0.9"/>
+      </g>
+     </g>
+     <g id="text_20">
+      <text style="font-size: 8.8px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: end; fill: #8a7458" x="319.292165" y="44.017875" transform="rotate(-0 319.292165 44.017875)">K/3</text>
+     </g>
+    </g>
+    <g id="ytick_7">
+     <g id="line2d_51">
+      <g>
+       <use xlink:href="#m8e269c7842" x="326.292165" y="99.138563" style="fill: #8a7458; stroke: #8a7458; stroke-width: 0.9"/>
+      </g>
+     </g>
+     <g id="text_21">
+      <text style="font-size: 8.8px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: end; fill: #8a7458" x="319.292165" y="102.481875" transform="rotate(-0 319.292165 102.481875)">K</text>
+     </g>
+    </g>
+    <g id="ytick_8">
+     <g id="line2d_52">
+      <g>
+       <use xlink:href="#m8e269c7842" x="326.292165" y="157.602563" style="fill: #8a7458; stroke: #8a7458; stroke-width: 0.9"/>
+      </g>
+     </g>
+     <g id="text_22">
+      <text style="font-size: 8.8px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: end; fill: #8a7458" x="319.292165" y="160.945875" transform="rotate(-0 319.292165 160.945875)">3K</text>
+     </g>
+    </g>
+   </g>
+   <g id="line2d_53">
+    <path d="M 393.144711 179.526563 
+L 393.144711 18.750563 
+" clip-path="url(#p3785b1eae7)" style="fill: none; stroke-dasharray: 3.6,2.7; stroke-dashoffset: 0; stroke: #dfd2be; stroke-width: 0.9"/>
+   </g>
+   <g id="patch_9">
+    <path d="M 326.292165 179.526563 
+L 326.292165 18.750563 
+" style="fill: none; stroke: #dfd2be; stroke-width: 0.9; stroke-linejoin: miter; stroke-linecap: square"/>
+   </g>
+   <g id="patch_10">
+    <path d="M 326.292165 179.526563 
+L 478.8864 179.526563 
+" style="fill: none; stroke: #dfd2be; stroke-width: 0.9; stroke-linejoin: miter; stroke-linecap: square"/>
+   </g>
+   <g id="text_23">
+    <text style="font-weight: 700; font-size: 8.4px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: start; fill: #1f6f62" x="434.872196" y="42.992438" transform="rotate(-0 434.872196 42.992438)">47%  (3.1σ)</text>
+   </g>
+   <g id="text_24">
+    <text style="font-weight: 700; font-size: 8.4px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: start; fill: #a4503a" x="388.105108" y="101.456438" transform="rotate(-0 388.105108 101.456438)">26%  (1.7σ)</text>
+   </g>
+   <g id="text_25">
+    <text style="font-weight: 700; font-size: 8.4px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: start; fill: #a4503a" x="341.33187" y="159.920438" transform="rotate(-0 341.33187 159.920438)">5%  (0.3σ)</text>
+   </g>
+   <g id="text_26">
+    <text style="font-size: 9.2px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: start; fill: #8a7458" x="326.292165" y="12.750563" transform="rotate(-0 326.292165 12.750563)">a 1.3-fold better clone</text>
+   </g>
+  </g>
+  <g id="text_27">
+   <text style="font-size: 8.3px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: start; fill: #8a7458" x="5.76" y="227.550563" transform="rotate(-0 5.76 227.550563)">Hill form, n = 2; assay CV 15% on the population mean, taken as 0.15 in ln units. Reporter amplitude cancels out of a logarithmic gain, so only K matters.</text>
+  </g>
+ </g>
+ <defs>
+  <clipPath id="p5e2a2b2302">
+   <rect x="65.9664" y="18.750563" width="183.113082" height="160.776"/>
+  </clipPath>
+  <clipPath id="p3785b1eae7">
+   <rect x="326.292165" y="18.750563" width="152.594235" height="160.776"/>
+  </clipPath>
+ </defs>
+</svg>
+</div><div class="fig-dark"><svg role="img" aria-label="A Hill sensor's logarithmic gain peaks at s = K and collapses either side, so the same reporter resolves a 1.3-fold better clone at four sigma, two sigma or not at all depending on where K sits. Moving K three-fold down does more for the screen than a 24-fold better reporter would." xmlns:xlink="http://www.w3.org/1999/xlink" width="651.606922pt" height="235.036703pt" viewBox="0 0 651.606922 235.036703" xmlns="http://www.w3.org/2000/svg" version="1.1">
+ <metadata>
+  <rdf:RDF xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:cc="http://creativecommons.org/ns#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+   <cc:Work>
+    <dc:type rdf:resource="http://purl.org/dc/dcmitype/StillImage"/>
+    <dc:date>2026-11-02T23:57:50.797535</dc:date>
+    <dc:format>image/svg+xml</dc:format>
+    <dc:creator>
+     <cc:Agent>
+      <dc:title>Matplotlib v3.10.8, https://matplotlib.org/</dc:title>
+     </cc:Agent>
+    </dc:creator>
+   </cc:Work>
+  </rdf:RDF>
+ </metadata>
+ <defs>
+  <style type="text/css">*{stroke-linejoin: round; stroke-linecap: butt}</style>
+ </defs>
+ <g id="figure_1">
+  <g id="patch_1">
+   <path d="M 0 235.036703 
+L 651.606922 235.036703 
+L 651.606922 -0 
+L 0 -0 
+L 0 235.036703 
+z
+" style="fill: none"/>
+  </g>
+  <g id="axes_1">
+   <g id="patch_2">
+    <path d="M 65.9664 179.526563 
+L 249.079482 179.526563 
+L 249.079482 18.750563 
+L 65.9664 18.750563 
+L 65.9664 179.526563 
+z
+" style="fill: none"/>
+   </g>
+   <g id="matplotlib.axis_1">
+    <g id="xtick_1">
+     <g id="line2d_1">
+      <defs>
+       <path id="ma4f925a697" d="M 0 0 
+L 0 3.5 
+" style="stroke: #9a8872; stroke-width: 0.9"/>
+      </defs>
+      <g>
+       <use xlink:href="#ma4f925a697" x="87.150589" y="179.526563" style="fill: #9a8872; stroke: #9a8872; stroke-width: 0.9"/>
+      </g>
+     </g>
+     <g id="text_1">
+      <!-- $\mathdefault{10^{-1}}$ -->
+      <g style="fill: #9a8872" transform="translate(75.988089 193.745078)">
+       <text>
+        <tspan x="0" y="-0.064063" style="font-size: 9.5px; font-family: 'Public Sans, Helvetica, Arial, sans-serif'; fill: #9a8872">1</tspan>
+        <tspan x="6.044189" y="-0.064063" style="font-size: 9.5px; font-family: 'Public Sans, Helvetica, Arial, sans-serif'; fill: #9a8872">0</tspan>
+        <tspan x="12.184082" y="-3.892188" style="font-size: 6.65px; font-family: 'Public Sans, Helvetica, Arial, sans-serif'; fill: #9a8872">−</tspan>
+        <tspan x="17.756055" y="-3.892188" style="font-size: 6.65px; font-family: 'Public Sans, Helvetica, Arial, sans-serif'; fill: #9a8872">1</tspan>
+       </text>
+      </g>
+     </g>
+    </g>
+    <g id="xtick_2">
+     <g id="line2d_2">
+      <g>
+       <use xlink:href="#ma4f925a697" x="157.522941" y="179.526563" style="fill: #9a8872; stroke: #9a8872; stroke-width: 0.9"/>
+      </g>
+     </g>
+     <g id="text_2">
+      <!-- $\mathdefault{10^{0}}$ -->
+      <g style="fill: #9a8872" transform="translate(149.162941 193.745078)">
+       <text>
+        <tspan x="0" y="-0.976562" style="font-size: 9.5px; font-family: 'Public Sans, Helvetica, Arial, sans-serif'; fill: #9a8872">1</tspan>
+        <tspan x="6.044189" y="-0.976562" style="font-size: 9.5px; font-family: 'Public Sans, Helvetica, Arial, sans-serif'; fill: #9a8872">0</tspan>
+        <tspan x="12.184082" y="-4.804688" style="font-size: 6.65px; font-family: 'Public Sans, Helvetica, Arial, sans-serif'; fill: #9a8872">0</tspan>
+       </text>
+      </g>
+     </g>
+    </g>
+    <g id="xtick_3">
+     <g id="line2d_3">
+      <g>
+       <use xlink:href="#ma4f925a697" x="227.895293" y="179.526563" style="fill: #9a8872; stroke: #9a8872; stroke-width: 0.9"/>
+      </g>
+     </g>
+     <g id="text_3">
+      <!-- $\mathdefault{10^{1}}$ -->
+      <g style="fill: #9a8872" transform="translate(219.535293 193.745078)">
+       <text>
+        <tspan x="0" y="-0.064063" style="font-size: 9.5px; font-family: 'Public Sans, Helvetica, Arial, sans-serif'; fill: #9a8872">1</tspan>
+        <tspan x="6.044189" y="-0.064063" style="font-size: 9.5px; font-family: 'Public Sans, Helvetica, Arial, sans-serif'; fill: #9a8872">0</tspan>
+        <tspan x="12.184082" y="-3.892188" style="font-size: 6.65px; font-family: 'Public Sans, Helvetica, Arial, sans-serif'; fill: #9a8872">1</tspan>
+       </text>
+      </g>
+     </g>
+    </g>
+    <g id="xtick_4">
+     <g id="line2d_4">
+      <defs>
+       <path id="m4e1d0cd623" d="M 0 0 
+L 0 2 
+" style="stroke: #9a8872; stroke-width: 0.6"/>
+      </defs>
+      <g>
+       <use xlink:href="#m4e1d0cd623" x="65.9664" y="179.526563" style="fill: #9a8872; stroke: #9a8872; stroke-width: 0.6"/>
+      </g>
+     </g>
+    </g>
+    <g id="xtick_5">
+     <g id="line2d_5">
+      <g>
+       <use xlink:href="#m4e1d0cd623" x="71.538571" y="179.526563" style="fill: #9a8872; stroke: #9a8872; stroke-width: 0.6"/>
+      </g>
+     </g>
+    </g>
+    <g id="xtick_6">
+     <g id="line2d_6">
+      <g>
+       <use xlink:href="#m4e1d0cd623" x="76.249774" y="179.526563" style="fill: #9a8872; stroke: #9a8872; stroke-width: 0.6"/>
+      </g>
+     </g>
+    </g>
+    <g id="xtick_7">
+     <g id="line2d_7">
+      <g>
+       <use xlink:href="#m4e1d0cd623" x="80.330803" y="179.526563" style="fill: #9a8872; stroke: #9a8872; stroke-width: 0.6"/>
+      </g>
+     </g>
+    </g>
+    <g id="xtick_8">
+     <g id="line2d_8">
+      <g>
+       <use xlink:href="#m4e1d0cd623" x="83.930527" y="179.526563" style="fill: #9a8872; stroke: #9a8872; stroke-width: 0.6"/>
+      </g>
+     </g>
+    </g>
+    <g id="xtick_9">
+     <g id="line2d_9">
+      <g>
+       <use xlink:href="#m4e1d0cd623" x="108.334778" y="179.526563" style="fill: #9a8872; stroke: #9a8872; stroke-width: 0.6"/>
+      </g>
+     </g>
+    </g>
+    <g id="xtick_10">
+     <g id="line2d_10">
+      <g>
+       <use xlink:href="#m4e1d0cd623" x="120.726734" y="179.526563" style="fill: #9a8872; stroke: #9a8872; stroke-width: 0.6"/>
+      </g>
+     </g>
+    </g>
+    <g id="xtick_11">
+     <g id="line2d_11">
+      <g>
+       <use xlink:href="#m4e1d0cd623" x="129.518967" y="179.526563" style="fill: #9a8872; stroke: #9a8872; stroke-width: 0.6"/>
+      </g>
+     </g>
+    </g>
+    <g id="xtick_12">
+     <g id="line2d_12">
+      <g>
+       <use xlink:href="#m4e1d0cd623" x="136.338752" y="179.526563" style="fill: #9a8872; stroke: #9a8872; stroke-width: 0.6"/>
+      </g>
+     </g>
+    </g>
+    <g id="xtick_13">
+     <g id="line2d_13">
+      <g>
+       <use xlink:href="#m4e1d0cd623" x="141.910923" y="179.526563" style="fill: #9a8872; stroke: #9a8872; stroke-width: 0.6"/>
+      </g>
+     </g>
+    </g>
+    <g id="xtick_14">
+     <g id="line2d_14">
+      <g>
+       <use xlink:href="#m4e1d0cd623" x="146.622126" y="179.526563" style="fill: #9a8872; stroke: #9a8872; stroke-width: 0.6"/>
+      </g>
+     </g>
+    </g>
+    <g id="xtick_15">
+     <g id="line2d_15">
+      <g>
+       <use xlink:href="#m4e1d0cd623" x="150.703155" y="179.526563" style="fill: #9a8872; stroke: #9a8872; stroke-width: 0.6"/>
+      </g>
+     </g>
+    </g>
+    <g id="xtick_16">
+     <g id="line2d_16">
+      <g>
+       <use xlink:href="#m4e1d0cd623" x="154.302879" y="179.526563" style="fill: #9a8872; stroke: #9a8872; stroke-width: 0.6"/>
+      </g>
+     </g>
+    </g>
+    <g id="xtick_17">
+     <g id="line2d_17">
+      <g>
+       <use xlink:href="#m4e1d0cd623" x="178.70713" y="179.526563" style="fill: #9a8872; stroke: #9a8872; stroke-width: 0.6"/>
+      </g>
+     </g>
+    </g>
+    <g id="xtick_18">
+     <g id="line2d_18">
+      <g>
+       <use xlink:href="#m4e1d0cd623" x="191.099086" y="179.526563" style="fill: #9a8872; stroke: #9a8872; stroke-width: 0.6"/>
+      </g>
+     </g>
+    </g>
+    <g id="xtick_19">
+     <g id="line2d_19">
+      <g>
+       <use xlink:href="#m4e1d0cd623" x="199.891319" y="179.526563" style="fill: #9a8872; stroke: #9a8872; stroke-width: 0.6"/>
+      </g>
+     </g>
+    </g>
+    <g id="xtick_20">
+     <g id="line2d_20">
+      <g>
+       <use xlink:href="#m4e1d0cd623" x="206.711104" y="179.526563" style="fill: #9a8872; stroke: #9a8872; stroke-width: 0.6"/>
+      </g>
+     </g>
+    </g>
+    <g id="xtick_21">
+     <g id="line2d_21">
+      <g>
+       <use xlink:href="#m4e1d0cd623" x="212.283275" y="179.526563" style="fill: #9a8872; stroke: #9a8872; stroke-width: 0.6"/>
+      </g>
+     </g>
+    </g>
+    <g id="xtick_22">
+     <g id="line2d_22">
+      <g>
+       <use xlink:href="#m4e1d0cd623" x="216.994478" y="179.526563" style="fill: #9a8872; stroke: #9a8872; stroke-width: 0.6"/>
+      </g>
+     </g>
+    </g>
+    <g id="xtick_23">
+     <g id="line2d_23">
+      <g>
+       <use xlink:href="#m4e1d0cd623" x="221.075508" y="179.526563" style="fill: #9a8872; stroke: #9a8872; stroke-width: 0.6"/>
+      </g>
+     </g>
+    </g>
+    <g id="xtick_24">
+     <g id="line2d_24">
+      <g>
+       <use xlink:href="#m4e1d0cd623" x="224.675231" y="179.526563" style="fill: #9a8872; stroke: #9a8872; stroke-width: 0.6"/>
+      </g>
+     </g>
+    </g>
+    <g id="xtick_25">
+     <g id="line2d_25">
+      <g>
+       <use xlink:href="#m4e1d0cd623" x="249.079482" y="179.526563" style="fill: #9a8872; stroke: #9a8872; stroke-width: 0.6"/>
+      </g>
+     </g>
+    </g>
+    <g id="text_4">
+     <text style="font-size: 9.5px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: middle; fill: #cbbca6" x="157.522941" y="206.939297" transform="rotate(-0 157.522941 206.939297)">operating point  s / K</text>
+    </g>
+   </g>
+   <g id="matplotlib.axis_2">
+    <g id="ytick_1">
+     <g id="line2d_26">
+      <path d="M 65.9664 179.526563 
+L 249.079482 179.526563 
+" clip-path="url(#pfaac638631)" style="fill: none; stroke: #2e251c; stroke-opacity: 0.7; stroke-width: 0.6; stroke-linecap: square"/>
+     </g>
+     <g id="line2d_27">
+      <defs>
+       <path id="mbccbfa07b0" d="M 0 0 
+L -3.5 0 
+" style="stroke: #9a8872; stroke-width: 0.9"/>
+      </defs>
+      <g>
+       <use xlink:href="#mbccbfa07b0" x="65.9664" y="179.526563" style="fill: #9a8872; stroke: #9a8872; stroke-width: 0.9"/>
+      </g>
+     </g>
+     <g id="text_5">
+      <text style="font-size: 9.5px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: end; fill: #9a8872" x="58.9664" y="183.13582" transform="rotate(-0 58.9664 183.13582)">0.0</text>
+     </g>
+    </g>
+    <g id="ytick_2">
+     <g id="line2d_28">
+      <path d="M 65.9664 141.246563 
+L 249.079482 141.246563 
+" clip-path="url(#pfaac638631)" style="fill: none; stroke: #2e251c; stroke-opacity: 0.7; stroke-width: 0.6; stroke-linecap: square"/>
+     </g>
+     <g id="line2d_29">
+      <g>
+       <use xlink:href="#mbccbfa07b0" x="65.9664" y="141.246563" style="fill: #9a8872; stroke: #9a8872; stroke-width: 0.9"/>
+      </g>
+     </g>
+     <g id="text_6">
+      <text style="font-size: 9.5px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: end; fill: #9a8872" x="58.9664" y="144.85582" transform="rotate(-0 58.9664 144.85582)">0.5</text>
+     </g>
+    </g>
+    <g id="ytick_3">
+     <g id="line2d_30">
+      <path d="M 65.9664 102.966563 
+L 249.079482 102.966563 
+" clip-path="url(#pfaac638631)" style="fill: none; stroke: #2e251c; stroke-opacity: 0.7; stroke-width: 0.6; stroke-linecap: square"/>
+     </g>
+     <g id="line2d_31">
+      <g>
+       <use xlink:href="#mbccbfa07b0" x="65.9664" y="102.966563" style="fill: #9a8872; stroke: #9a8872; stroke-width: 0.9"/>
+      </g>
+     </g>
+     <g id="text_7">
+      <text style="font-size: 9.5px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: end; fill: #9a8872" x="58.9664" y="106.57582" transform="rotate(-0 58.9664 106.57582)">1.0</text>
+     </g>
+    </g>
+    <g id="ytick_4">
+     <g id="line2d_32">
+      <path d="M 65.9664 64.686563 
+L 249.079482 64.686563 
+" clip-path="url(#pfaac638631)" style="fill: none; stroke: #2e251c; stroke-opacity: 0.7; stroke-width: 0.6; stroke-linecap: square"/>
+     </g>
+     <g id="line2d_33">
+      <g>
+       <use xlink:href="#mbccbfa07b0" x="65.9664" y="64.686563" style="fill: #9a8872; stroke: #9a8872; stroke-width: 0.9"/>
+      </g>
+     </g>
+     <g id="text_8">
+      <text style="font-size: 9.5px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: end; fill: #9a8872" x="58.9664" y="68.29582" transform="rotate(-0 58.9664 68.29582)">1.5</text>
+     </g>
+    </g>
+    <g id="ytick_5">
+     <g id="line2d_34">
+      <path d="M 65.9664 26.406563 
+L 249.079482 26.406563 
+" clip-path="url(#pfaac638631)" style="fill: none; stroke: #2e251c; stroke-opacity: 0.7; stroke-width: 0.6; stroke-linecap: square"/>
+     </g>
+     <g id="line2d_35">
+      <g>
+       <use xlink:href="#mbccbfa07b0" x="65.9664" y="26.406563" style="fill: #9a8872; stroke: #9a8872; stroke-width: 0.9"/>
+      </g>
+     </g>
+     <g id="text_9">
+      <text style="font-size: 9.5px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: end; fill: #9a8872" x="58.9664" y="30.01582" transform="rotate(-0 58.9664 30.01582)">2.0</text>
+     </g>
+    </g>
+    <g id="text_10">
+     <text style="font-size: 9.5px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: middle; fill: #cbbca6" x="37.882728" y="99.138563" transform="rotate(-90 37.882728 99.138563)">logarithmic gain  d ln R / d ln s</text>
+    </g>
+   </g>
+   <g id="line2d_36">
+    <path d="M 66.038883 26.790219 
+L 75.991124 27.140721 
+L 83.646694 27.614407 
+L 89.771149 28.202883 
+L 95.130048 28.944906 
+L 99.72339 29.81517 
+L 103.551175 30.757875 
+L 107.37896 31.951644 
+L 110.441187 33.12799 
+L 113.503415 34.540135 
+L 116.565643 36.229059 
+L 119.627871 38.240063 
+L 121.924542 39.988941 
+L 124.221213 41.96782 
+L 126.517884 44.198249 
+L 128.814555 46.701205 
+L 131.111226 49.496202 
+L 133.407896 52.600219 
+L 135.704567 56.026465 
+L 138.001238 59.783029 
+L 141.063466 65.307239 
+L 144.125694 71.402201 
+L 147.187922 78.02059 
+L 151.015707 86.907587 
+L 156.374606 100.091283 
+L 164.030175 119.025538 
+L 167.85796 127.912535 
+L 170.920188 134.530924 
+L 173.982416 140.625886 
+L 177.044644 146.150096 
+L 179.341315 149.90666 
+L 181.637986 153.332906 
+L 183.934656 156.436923 
+L 186.231327 159.23192 
+L 188.527998 161.734876 
+L 190.824669 163.965305 
+L 193.12134 165.944184 
+L 195.418011 167.693062 
+L 198.480239 169.704066 
+L 201.542467 171.39299 
+L 204.604695 172.805135 
+L 207.666922 173.981481 
+L 211.494707 175.17525 
+L 215.322492 176.117955 
+L 219.915834 176.988219 
+L 225.274733 177.730242 
+L 231.399189 178.318718 
+L 238.289201 178.754877 
+L 247.475885 179.102585 
+L 249.006999 179.142906 
+L 249.006999 179.142906 
+" clip-path="url(#pfaac638631)" style="fill: none; stroke: #6dbdac; stroke-width: 1.9; stroke-linecap: square"/>
+   </g>
+   <g id="line2d_37">
+    <path d="M 123.946796 41.719756 
+" clip-path="url(#pfaac638631)" style="fill: none; stroke: #6dbdac; stroke-width: 1.9; stroke-linecap: square"/>
+    <defs>
+     <path id="m6028cca8a2" d="M 0 2.25 
+C 0.596707 2.25 1.169055 2.012926 1.59099 1.59099 
+C 2.012926 1.169055 2.25 0.596707 2.25 0 
+C 2.25 -0.596707 2.012926 -1.169055 1.59099 -1.59099 
+C 1.169055 -2.012926 0.596707 -2.25 0 -2.25 
+C -0.596707 -2.25 -1.169055 -2.012926 -1.59099 -1.59099 
+C -2.012926 -1.169055 -2.25 -0.596707 -2.25 0 
+C -2.25 0.596707 -2.012926 1.169055 -1.59099 1.59099 
+C -1.169055 2.012926 -0.596707 2.25 0 2.25 
+z
+" style="stroke: #6dbdac"/>
+    </defs>
+    <g clip-path="url(#pfaac638631)">
+     <use xlink:href="#m6028cca8a2" x="123.946796" y="41.719756" style="fill: #6dbdac; stroke: #6dbdac"/>
+    </g>
+   </g>
+   <g id="line2d_38">
+    <path d="M 157.522941 102.960558 
+" clip-path="url(#pfaac638631)" style="fill: none; stroke: #d7a95c; stroke-width: 1.9; stroke-linecap: square"/>
+    <defs>
+     <path id="m087b02e0a1" d="M 0 2.25 
+C 0.596707 2.25 1.169055 2.012926 1.59099 1.59099 
+C 2.012926 1.169055 2.25 0.596707 2.25 0 
+C 2.25 -0.596707 2.012926 -1.169055 1.59099 -1.59099 
+C 1.169055 -2.012926 0.596707 -2.25 0 -2.25 
+C -0.596707 -2.25 -1.169055 -2.012926 -1.59099 -1.59099 
+C -2.012926 -1.169055 -2.25 -0.596707 -2.25 0 
+C -2.25 0.596707 -2.012926 1.169055 -1.59099 1.59099 
+C -1.169055 2.012926 -0.596707 2.25 0 2.25 
+z
+" style="stroke: #d7a95c"/>
+    </defs>
+    <g clip-path="url(#pfaac638631)">
+     <use xlink:href="#m087b02e0a1" x="157.522941" y="102.960558" style="fill: #d7a95c; stroke: #d7a95c"/>
+    </g>
+   </g>
+   <g id="line2d_39">
+    <path d="M 191.099086 164.209415 
+" clip-path="url(#pfaac638631)" style="fill: none; stroke: #d98c72; stroke-width: 1.9; stroke-linecap: square"/>
+    <defs>
+     <path id="ma7ffad58ac" d="M 0 2.25 
+C 0.596707 2.25 1.169055 2.012926 1.59099 1.59099 
+C 2.012926 1.169055 2.25 0.596707 2.25 0 
+C 2.25 -0.596707 2.012926 -1.169055 1.59099 -1.59099 
+C 1.169055 -2.012926 0.596707 -2.25 0 -2.25 
+C -0.596707 -2.25 -1.169055 -2.012926 -1.59099 -1.59099 
+C -2.012926 -1.169055 -2.25 -0.596707 -2.25 0 
+C -2.25 0.596707 -2.012926 1.169055 -1.59099 1.59099 
+C -1.169055 2.012926 -0.596707 2.25 0 2.25 
+z
+" style="stroke: #d98c72"/>
+    </defs>
+    <g clip-path="url(#pfaac638631)">
+     <use xlink:href="#ma7ffad58ac" x="191.099086" y="164.209415" style="fill: #d98c72; stroke: #d98c72"/>
+    </g>
+   </g>
+   <g id="patch_3">
+    <path d="M 65.9664 179.526563 
+L 65.9664 18.750563 
+" style="fill: none; stroke: #3a3026; stroke-width: 0.9; stroke-linejoin: miter; stroke-linecap: square"/>
+   </g>
+   <g id="patch_4">
+    <path d="M 65.9664 179.526563 
+L 249.079482 179.526563 
+" style="fill: none; stroke: #3a3026; stroke-width: 0.9; stroke-linejoin: miter; stroke-linecap: square"/>
+   </g>
+   <g id="text_11">
+    <text style="font-size: 8.2px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; fill: #6dbdac" transform="translate(117.26828 21.645006)">K/3</text>
+    <text style="font-size: 8.2px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; fill: #6dbdac" transform="translate(117.426515 30.827212)">1.8</text>
+   </g>
+   <g id="text_12">
+    <text style="font-size: 8.2px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; fill: #d7a95c" transform="translate(154.834238 82.885808)">K</text>
+    <text style="font-size: 8.2px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; fill: #d7a95c" transform="translate(151.00266 92.068014)">1.0</text>
+   </g>
+   <g id="text_13">
+    <text style="font-size: 8.2px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; fill: #d98c72" transform="translate(185.801758 144.134665)">3K</text>
+    <text style="font-size: 8.2px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; fill: #d98c72" transform="translate(184.578805 153.316871)">0.2</text>
+   </g>
+  </g>
+  <g id="axes_2">
+   <g id="patch_5">
+    <path d="M 326.292165 179.526563 
+L 478.8864 179.526563 
+L 478.8864 18.750563 
+L 326.292165 18.750563 
+L 326.292165 179.526563 
+z
+" style="fill: none"/>
+   </g>
+   <g id="patch_6">
+    <path d="M 326.292165 55.290563 
+L 431.529568 55.290563 
+L 431.529568 26.058563 
+L 326.292165 26.058563 
+z
+" clip-path="url(#p7377c6eecf)" style="fill: #6dbdac; opacity: 0.3; stroke: #6dbdac; stroke-width: 1.1; stroke-linejoin: miter"/>
+   </g>
+   <g id="patch_7">
+    <path d="M 326.292165 113.754563 
+L 384.762481 113.754563 
+L 384.762481 84.522563 
+L 326.292165 84.522563 
+z
+" clip-path="url(#p7377c6eecf)" style="fill: #d98c72; opacity: 0.3; stroke: #d98c72; stroke-width: 1.1; stroke-linejoin: miter"/>
+   </g>
+   <g id="patch_8">
+    <path d="M 326.292165 172.218563 
+L 337.989242 172.218563 
+L 337.989242 142.986563 
+L 326.292165 142.986563 
+z
+" clip-path="url(#p7377c6eecf)" style="fill: #d98c72; opacity: 0.3; stroke: #d98c72; stroke-width: 1.1; stroke-linejoin: miter"/>
+   </g>
+   <g id="matplotlib.axis_3">
+    <g id="xtick_26">
+     <g id="line2d_40">
+      <path d="M 326.292165 179.526563 
+L 326.292165 18.750563 
+" clip-path="url(#p7377c6eecf)" style="fill: none; stroke: #2e251c; stroke-opacity: 0.7; stroke-width: 0.6; stroke-linecap: square"/>
+     </g>
+     <g id="line2d_41">
+      <g>
+       <use xlink:href="#ma4f925a697" x="326.292165" y="179.526563" style="fill: #9a8872; stroke: #9a8872; stroke-width: 0.9"/>
+      </g>
+     </g>
+     <g id="text_14">
+      <text style="font-size: 9.5px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: middle; fill: #9a8872" x="326.292165" y="193.745078" transform="rotate(-0 326.292165 193.745078)">0</text>
+     </g>
+    </g>
+    <g id="xtick_27">
+     <g id="line2d_42">
+      <path d="M 359.718438 179.526563 
+L 359.718438 18.750563 
+" clip-path="url(#p7377c6eecf)" style="fill: none; stroke: #2e251c; stroke-opacity: 0.7; stroke-width: 0.6; stroke-linecap: square"/>
+     </g>
+     <g id="line2d_43">
+      <g>
+       <use xlink:href="#ma4f925a697" x="359.718438" y="179.526563" style="fill: #9a8872; stroke: #9a8872; stroke-width: 0.9"/>
+      </g>
+     </g>
+     <g id="text_15">
+      <text style="font-size: 9.5px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: middle; fill: #9a8872" x="359.718438" y="193.745078" transform="rotate(-0 359.718438 193.745078)">1</text>
+     </g>
+    </g>
+    <g id="xtick_28">
+     <g id="line2d_44">
+      <path d="M 393.144711 179.526563 
+L 393.144711 18.750563 
+" clip-path="url(#p7377c6eecf)" style="fill: none; stroke: #2e251c; stroke-opacity: 0.7; stroke-width: 0.6; stroke-linecap: square"/>
+     </g>
+     <g id="line2d_45">
+      <g>
+       <use xlink:href="#ma4f925a697" x="393.144711" y="179.526563" style="fill: #9a8872; stroke: #9a8872; stroke-width: 0.9"/>
+      </g>
+     </g>
+     <g id="text_16">
+      <text style="font-size: 9.5px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: middle; fill: #9a8872" x="393.144711" y="193.745078" transform="rotate(-0 393.144711 193.745078)">2</text>
+     </g>
+    </g>
+    <g id="xtick_29">
+     <g id="line2d_46">
+      <path d="M 426.570984 179.526563 
+L 426.570984 18.750563 
+" clip-path="url(#p7377c6eecf)" style="fill: none; stroke: #2e251c; stroke-opacity: 0.7; stroke-width: 0.6; stroke-linecap: square"/>
+     </g>
+     <g id="line2d_47">
+      <g>
+       <use xlink:href="#ma4f925a697" x="426.570984" y="179.526563" style="fill: #9a8872; stroke: #9a8872; stroke-width: 0.9"/>
+      </g>
+     </g>
+     <g id="text_17">
+      <text style="font-size: 9.5px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: middle; fill: #9a8872" x="426.570984" y="193.745078" transform="rotate(-0 426.570984 193.745078)">3</text>
+     </g>
+    </g>
+    <g id="xtick_30">
+     <g id="line2d_48">
+      <path d="M 459.997257 179.526563 
+L 459.997257 18.750563 
+" clip-path="url(#p7377c6eecf)" style="fill: none; stroke: #2e251c; stroke-opacity: 0.7; stroke-width: 0.6; stroke-linecap: square"/>
+     </g>
+     <g id="line2d_49">
+      <g>
+       <use xlink:href="#ma4f925a697" x="459.997257" y="179.526563" style="fill: #9a8872; stroke: #9a8872; stroke-width: 0.9"/>
+      </g>
+     </g>
+     <g id="text_18">
+      <text style="font-size: 9.5px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: middle; fill: #9a8872" x="459.997257" y="193.745078" transform="rotate(-0 459.997257 193.745078)">4</text>
+     </g>
+    </g>
+    <g id="text_19">
+     <text style="font-size: 9.5px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: middle; fill: #cbbca6" x="402.589282" y="206.939297" transform="rotate(-0 402.589282 206.939297)">separation  (assay sigma)</text>
+    </g>
+   </g>
+   <g id="matplotlib.axis_4">
+    <g id="ytick_6">
+     <g id="line2d_50">
+      <g>
+       <use xlink:href="#mbccbfa07b0" x="326.292165" y="40.674563" style="fill: #9a8872; stroke: #9a8872; stroke-width: 0.9"/>
+      </g>
+     </g>
+     <g id="text_20">
+      <text style="font-size: 8.8px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: end; fill: #9a8872" x="319.292165" y="44.017875" transform="rotate(-0 319.292165 44.017875)">K/3</text>
+     </g>
+    </g>
+    <g id="ytick_7">
+     <g id="line2d_51">
+      <g>
+       <use xlink:href="#mbccbfa07b0" x="326.292165" y="99.138563" style="fill: #9a8872; stroke: #9a8872; stroke-width: 0.9"/>
+      </g>
+     </g>
+     <g id="text_21">
+      <text style="font-size: 8.8px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: end; fill: #9a8872" x="319.292165" y="102.481875" transform="rotate(-0 319.292165 102.481875)">K</text>
+     </g>
+    </g>
+    <g id="ytick_8">
+     <g id="line2d_52">
+      <g>
+       <use xlink:href="#mbccbfa07b0" x="326.292165" y="157.602563" style="fill: #9a8872; stroke: #9a8872; stroke-width: 0.9"/>
+      </g>
+     </g>
+     <g id="text_22">
+      <text style="font-size: 8.8px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: end; fill: #9a8872" x="319.292165" y="160.945875" transform="rotate(-0 319.292165 160.945875)">3K</text>
+     </g>
+    </g>
+   </g>
+   <g id="line2d_53">
+    <path d="M 393.144711 179.526563 
+L 393.144711 18.750563 
+" clip-path="url(#p7377c6eecf)" style="fill: none; stroke-dasharray: 3.6,2.7; stroke-dashoffset: 0; stroke: #3a3026; stroke-width: 0.9"/>
+   </g>
+   <g id="patch_9">
+    <path d="M 326.292165 179.526563 
+L 326.292165 18.750563 
+" style="fill: none; stroke: #3a3026; stroke-width: 0.9; stroke-linejoin: miter; stroke-linecap: square"/>
+   </g>
+   <g id="patch_10">
+    <path d="M 326.292165 179.526563 
+L 478.8864 179.526563 
+" style="fill: none; stroke: #3a3026; stroke-width: 0.9; stroke-linejoin: miter; stroke-linecap: square"/>
+   </g>
+   <g id="text_23">
+    <text style="font-weight: 700; font-size: 8.4px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: start; fill: #6dbdac" x="434.872196" y="42.992438" transform="rotate(-0 434.872196 42.992438)">47%  (3.1σ)</text>
+   </g>
+   <g id="text_24">
+    <text style="font-weight: 700; font-size: 8.4px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: start; fill: #d98c72" x="388.105108" y="101.456438" transform="rotate(-0 388.105108 101.456438)">26%  (1.7σ)</text>
+   </g>
+   <g id="text_25">
+    <text style="font-weight: 700; font-size: 8.4px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: start; fill: #d98c72" x="341.33187" y="159.920438" transform="rotate(-0 341.33187 159.920438)">5%  (0.3σ)</text>
+   </g>
+   <g id="text_26">
+    <text style="font-size: 9.2px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: start; fill: #9a8872" x="326.292165" y="12.750563" transform="rotate(-0 326.292165 12.750563)">a 1.3-fold better clone</text>
+   </g>
+  </g>
+  <g id="text_27">
+   <text style="font-size: 8.3px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: start; fill: #9a8872" x="5.76" y="227.550563" transform="rotate(-0 5.76 227.550563)">Hill form, n = 2; assay CV 15% on the population mean, taken as 0.15 in ln units. Reporter amplitude cancels out of a logarithmic gain, so only K matters.</text>
+  </g>
+ </g>
+ <defs>
+  <clipPath id="pfaac638631">
+   <rect x="65.9664" y="18.750563" width="183.113082" height="160.776"/>
+  </clipPath>
+  <clipPath id="p7377c6eecf">
+   <rect x="326.292165" y="18.750563" width="152.594235" height="160.776"/>
+  </clipPath>
+ </defs>
+</svg>
+</div><figcaption>A Hill sensor's logarithmic gain peaks at s = K and collapses either side, so the same reporter resolves a 1.3-fold better clone at four sigma, two sigma or not at all depending on where K sits. Moving K three-fold down does more for the screen than a 24-fold better reporter would.</figcaption></figure>
+<p>Model the response as a Hill curve, output = R_min + (R_max − R_min)·sᵃ/(Kᵃ + sᵃ). The useful quantity is the local logarithmic gain, d ln(output)/d ln(s), which for a Hill form peaks near s = K and falls to zero at both ends. With K placed at the wild-type concentration the sensor is maximally sensitive to the improvements you are looking for; with K placed three-fold above it, a candidate sitting at 1.3× wild type moves almost nowhere on the curve, and the 110-fold dynamic range is spent on concentrations no variant in the library reaches. This is why sensor engineering is mostly promoter and operator engineering: moving K, by changing operator affinity or sensor expression level, is the design variable, and widening R_max/R_min is secondary.</p>
+<p><strong>5. Architecture: feedback, feedforward, and the two-stage switch that is neither</strong></p>
+<p>Negative feedback from an accumulating intermediate onto the enzyme that makes it holds the intermediate near a set point and is the architecture the control course predicts. Feedforward from the substrate anticipates rather than corrects, which matters when the lag between sensing and actuation is comparable to the disturbance. The architecture most often actually implemented is neither: a two-stage switch that runs growth to a threshold and then redirects carbon. Lee §18.2.5.3 is the worked case — flux to farnesyl diphosphate is raised while the downstream squalene synthase Erg9 is throttled, so the native ERG9 promoter is replaced with a copper- or methionine-inducible promoter or the glucose-dependent P&lt;i&gt;HXT1&lt;/i&gt;, giving enough Erg9 for biomass in the growth phase and little in the production phase. Alternatives named there are deleting the promoter&#x27;s upstream activation sequence or adding a degradation tag, which move the switch from transcription to protein turnover and change its speed accordingly.</p>
+<p><strong>6. Quorum sensing buys timing without an inducer, and pays in tunability</strong></p>
+<p>An inducible promoter needs someone to add the inducer at the right optical density, which is a manual step in the laboratory and a cost line plus a validation problem at scale. A quorum-sensing circuit makes the switch a function of cell density itself, so the timing is set at design time by the synthase and receptor strengths rather than at run time by an operator. The cost is that the set point is now a property of the construct: changing when the switch fires means rebuilding, and the same circuit fires at a different time in a different medium or vessel because the autoinducer concentration depends on dilution rate and on whether the molecule is stable at the run&#x27;s pH.</p>
+<p><strong>7. Gain and delay, which is the part no assigned text supplies</strong></p>
+<p>A genetic loop oscillates when the loop gain exceeds one at the frequency where the phase lag reaches 180°. Both terms are estimable. The gain is the product of the local logarithmic sensitivities around the loop — sensor gain times promoter gain times the elasticity of the controlled step — and a Hill coefficient of 2 contributes at most 2 to it, which is why cooperativity is what makes a genetic circuit capable of oscillating at all. The delay is the sum of transcription, translation, folding and reporter maturation, tens of minutes in total, against a dilution time set by the growth rate: at μ = 0.6 h⁻¹ the protein half-life by dilution is about 70 minutes, so the delay is a substantial fraction of the loop&#x27;s own time constant. The practical reading is that a high-gain loop with a slow reporter is the configuration that rings, and that lowering the gain — a weaker operator, a less cooperative sensor — is the first fix.</p>
+<p><strong>8. Converting a screen into a selection, and the escape problem</strong></p>
+<p>A screen measures every clone; a selection makes the clone measure itself, which is the only way to reach 10⁸ and above. Coupling titre to growth — the sensor driving an antibiotic resistance gene, or complementing an auxotrophy — converts throughput from a cost into a non-issue, and Protein Engineering Ch 2 notes that resistance markers used in tandem widen the effective dynamic range in units of growth rate and tighten stringency. The failure is specific and predictable: any mutation that produces signal without producing product is selected harder than the phenotype you want, because it is cheaper. Reporter mutation, operator mutation that makes the promoter constitutive, and loss of the sensor&#x27;s repression are all escapes, and all are more probable per cell than the improvement being selected for. The countermeasures are a second orthogonal reporter, periodic reversion of the selection, and sequencing the sensor rather than only the target in every hit.</p>
+<h3>Worked anchor</h3>
+<p>Can a biosensor screen resolve a 30% improvement? Take a transcription-factor sensor for the pathway intermediate, driving GFP, characterised as in §2.4: reporter dynamic range R_max/R_min = 110, Hill coefficient n = 2, and K tunable by operator choice. The wild-type strain sits at s₀. Flow cytometry on 10⁴ events per clone has a coefficient of variation of about 15% on the population mean fluorescence, dominated by expression noise rather than by counting statistics.</p>
+<p>First, the gain at the operating point. For a Hill form the logarithmic gain is d ln R / d ln s = n·Kⁿ/(Kⁿ + sⁿ). At s = K it is n/2 = 1.0; at s = 3K it is 2/(1+9) = 0.2; at s = K/3 it is 2·9/10 = 1.8.</p>
+<p>Now the signal. A 1.3-fold improvement is Δln s = ln 1.3 = 0.262. Placed at K, the output moves by 1.0 × 0.262 = 0.262 in ln units, a 30% rise in fluorescence. Taking the 15% CV as 0.15 in ln units, that is 0.262/0.15 = 1.7 sigma — detectable, marginally, and only with replicates. Placed at 3K the output moves by 0.2 × 0.262 = 0.052, a 5% rise, which is 0.35 sigma and invisible. Placed at K/3 it moves 1.8 × 0.262 = 0.47, a 60% rise and 3.1 sigma, which is comfortable.</p>
+<p>So the sensor does not have a resolution; the sensor plus its operating point does, and the same 110-fold reporter gives either a four-sigma or an undetectable readout depending on a choice about operator affinity. Note also that the 110-fold dynamic range never entered the arithmetic, because the question was a derivative and the dynamic range is a range.</p>
+<p>Second, how many clones. If the improvement sought is present at 1 in 10³ of the library, a plate-based screen of 10³ clones finds about one of them. At the operating point K, a one-tailed threshold set at 1.7 sigma lets through about 4% of unimproved clones, so the same 10³ clones also yield roughly 40 false positives for that one true hit — a confirmation assay on 41 candidates. At K/3 and 3.1 sigma the pass rate is about 0.1%, so the expected false-positive count across the whole plate set is one. The screen&#x27;s real output is therefore not a hit rate but a confirmation workload, and moving K is what sets it.</p>
+<p>Note what did not help. Widening the reporter from 110-fold to 2,000-fold changes nothing at all here, because the logarithmic gain of a Hill form is independent of the amplitude R_max − R_min — the amplitude cancels when the derivative is taken in log units. The only two levers on resolution are K, through operator affinity or sensor expression, and the Hill coefficient n, which sets the maximum gain at n/2. A three-fold shift in K is one round of operator mutagenesis; a change in n means a different sensor protein.</p>
+<p>The stopping decision follows: if no operator variant puts K within about three-fold of the wild-type concentration, the sensor cannot support a screen at this library size and the money belongs in a growth-coupled selection instead, where throughput buys back what resolution cannot.</p>
+<p><strong>Assumptions behind this calculation</strong></p>
+<ul>
+<li>sensor response modelled as a Hill curve with n = 2, so the logarithmic gain is n·Kⁿ/(Kⁿ + sⁿ)</li>
+<li>the 110-fold reporter dynamic range and the Hill coefficient taken as independent of where K sits</li>
+<li>assay coefficient of variation 15% on the population mean of 10⁴ events, dominated by expression noise rather than counting statistics</li>
+<li>output noise taken as multiplicative, so a CV in linear units is a standard deviation in ln units</li>
+<li>fluorescence proportional to the reporter protein and the reporter protein to promoter output, with no maturation lag inside the measurement</li>
+<li>the improvement sought present at 1 in 10³ of the library, which is an assumption about the library and not a measurement</li>
+<li>false-positive rates read off a normal distribution at 1.7 and 3.1 sigma, one-tailed</li>
+<li>K movable by operator mutagenesis over at least a three-fold range, which is the premise the stopping decision tests</li>
+</ul>
+<h3>Reading map</h3>
+<table><thead><tr><th>Source</th><th>Treatment</th><th>Why</th></tr></thead><tbody><tr><td>Protein Engineering Ch 2 — In Vivo Biosensors for Directed Protein Evolution, §2.2–2.4</td><td>Read closely</td><td>The only source in the week that characterises sensors quantitatively: §2.2.1 RNA-type and §2.2.2 DNA-type, §2.3.1 transcription-factor-type and §2.3.2 enzyme-type, then §2.4 on specificity, detection range, sensitivity and reporter dynamic range. Read §2.4 twice; it is the week&#x27;s framework. It does not treat response time, which the loop analysis needs.</td></tr><tr><td>Lee Ch 18 §18.2.5.3 — sesquiterpenes</td><td>Read closely</td><td>The implemented two-stage switch: ERG9 under copper-, methionine- or glucose-dependent control so Erg9 is present for growth and absent for production, with UAS deletion and degradation tags as the alternatives. Four pages, and the only dynamic control in the assigned reading that was actually built. Note that Ch 18 has no dynamic-control section — see the caveat below.</td></tr><tr><td>Lee Ch 11 §11.2.4 — fatty acid pathway</td><td>Skim</td><td>Read for one line: fatty acid ethyl esters at 1.5 g L⁻¹ from glucose in batch by a dynamic sensor-regulated design, citing Zhang, Carothers and Keasling. That single titre is the whole of dynamic regulation in Ch 11, which is organised by product class; the curriculum&#x27;s pointer to a dynamic-regulation section in it does not resolve.</td></tr><tr><td>Alberts Ch 9 — How Genetic Switches Work; The Molecular Genetic Mechanisms That Create Specialized Cell Types</td><td>Skim</td><td>Named sections, not numbered. Read the lambda cI–cro mutual-repression switch and Figure 9-61 on positive feedback creating cell memory, for the principle that two mutually repressing genes give two stable states. The 1994 third edition predates every engineered circuit this week designs and contains no gain, stability or oscillation analysis; treat it as the biological precedent, not the method.</td></tr><tr><td>Zhang, Carothers &amp; Keasling, Nat. Biotechnol. 30(4):354–359 (2012)</td><td>Skim</td><td>The primary source behind Lee&#x27;s one line, and the clearest published example of a metabolite sensor closing a loop on its own pathway. Cited here because the assigned chapters carry the result without the design.</td></tr><tr><td>Elowitz &amp; Leibler, Nature 403:335–338 (2000); Gardner, Cantor &amp; Collins, Nature 403:339–342 (2000)</td><td>Skim</td><td>The repressilator and the toggle switch. Needed because no assigned text covers engineered oscillators or bistability at all, and the week&#x27;s objective on stability and gain has no other source.</td></tr></tbody></table>
+<h3>Common misconceptions</h3>
+<ul>
+<li>That a wide dynamic range makes a sensor sensitive. Dynamic range is the span between off and full on; sensitivity is the slope at the concentration you are actually at. A 110-fold reporter with K three-fold above the operating point resolves a 30% improvement as a 5% signal, which is invisible against a 15% assay CV. Move K, not R_max.</li>
+<li>That negative feedback always stabilises. It stabilises when the loop gain is low and the delay is short. A genetic loop has a delay of tens of minutes from transcription, translation and maturation, and cooperativity raises the gain, so a tightly tuned negative loop is exactly the configuration that oscillates. The chemical engineering intuition transfers, including the part about overshoot.</li>
+<li>That a growth-coupled selection removes the screening problem. It removes the throughput problem and creates an escape problem. Any mutation that produces signal without product is selected harder than the phenotype you want, because it is cheaper to acquire; reporter and operator mutations are more probable per cell than the improvement. A selection without a counter-check is a device for enriching cheats.</li>
+</ul>
+<h3>Check yourself before moving on</h3>
+<p><strong>Q.</strong> What determines whether a genetic feedback loop oscillates, and how would you detect it experimentally?</p>
+<p><strong>A.</strong> Loop gain above one at the frequency where the phase lag reaches 180°. The gain is the product of the logarithmic sensitivities around the loop — sensor, promoter, and the elasticity of the controlled step — with cooperativity contributing up to its Hill coefficient; the lag is transcription plus translation plus folding plus reporter maturation, tens of minutes, against a dilution time of about 70 minutes at μ = 0.6 h⁻¹. Detection needs time-resolved single-cell measurement, because a population average of cells oscillating out of phase is flat: either a microfluidic device with per-cell traces, or synchronisation followed by sampling at intervals short compared with the suspected period. A flat bulk fluorescence trace is not evidence of a settled loop.</p>
+<p><strong>Q.</strong> Your sensor has a 110-fold dynamic range and your best variant gives no measurable signal increase. List the explanations in order of how cheaply you can test them.</p>
+<p><strong>A.</strong> Cheapest first: the operating point is wrong, so test by titrating exogenous analyte across three orders of magnitude and finding where the response curve actually sits relative to the strain&#x27;s concentration. Next, the analyte is not reaching the sensor — compartmentalisation, export, or degradation — tested by measuring the intracellular pool directly. Next, the reporter is saturated at the top rather than the bottom, tested by the same titration read for a plateau. Next, the variant does not in fact make more product, tested by the confirmation assay the screen was supposed to replace. Last and most expensive, the sensor has mutated or the promoter has gone constitutive, tested by sequencing the sensor cassette in the clone. The ordering matters because the first explanation is both the most likely and the only one fixed without new biology.</p>
+<p><strong>Q.</strong> Why would you choose a quorum-sensing switch over an inducible promoter, and what do you give up?</p>
+<p><strong>A.</strong> You give up run-time control and gain process simplicity. An inducible promoter needs an operator to add inducer at the right density, which is a manual step, a cost line and a validation burden at scale, and in a food or pharmaceutical process the inducer may be unacceptable in the product. Quorum sensing makes the switch a function of cell density, so the timing is fixed at design time by synthase and receptor strengths. What you give up is tunability: moving the set point means rebuilding the circuit, and the same construct fires at a different time in a different medium, vessel or dilution rate, because the autoinducer concentration depends on both accumulation and the molecule&#x27;s stability at the run&#x27;s pH. The right question is whether the set point needs to change more often than the construct does.</p>
+<hr>
+
+<section class="study-transfer" aria-label="Week 36 application and teach-back">
+<h3>Apply it to your fermentation experience</h3>
+<p><strong>Transfer prompt.</strong> Imagine a fermentation where product formation should turn on after growth. What signal could a biosensor detect, and how would you check that reporter output tracks the actual intracellular signal?</p>
+<p class="meta">Use your actual thesis methods and results where you remember them. Mark missing information as unknown; do not assume the organisms were co-cultured, that a metabolite was measured, or that a proposed mechanism was demonstrated.</p>
+<h3>Teach it back</h3>
+<p>Explain the week's concept from memory, work one number, and name one boundary. Then use the <a href="teach-back.html">five-minute teach-back protocol</a> and log it in the tracker.</p>
+</section>
+<nav class="weeknav" aria-label="Week navigation"><a href="week-35.html">&#8592; Week 35</a><a class="idx" href="index.html">Lecture index</a><a class="idx" href="case-study.html">Case study</a><a href="week-37.html">Week 37 &#8594;</a></nav>
+</main>
+<footer class="docfoot"><a href="../metabolic-engineering-tracker.html">&#8592; Course tracker</a><span>Metabolic engineering &middot; 55 weeks</span></footer>
+<script>
+(function(){var root=document.documentElement,key="me.theme";var bs=Array.prototype.slice.call(document.querySelectorAll(".appearance button"));
+function paint(v){bs.forEach(function(b){b.setAttribute("aria-pressed",b.getAttribute("data-appearance")===v?"true":"false");});if(v==="auto")root.removeAttribute("data-theme");else root.setAttribute("data-theme",v);}
+var saved="auto";try{saved=localStorage.getItem(key)||"auto";}catch(e){}
+bs.forEach(function(b){b.addEventListener("click",function(){var v=b.getAttribute("data-appearance");paint(v);try{localStorage.setItem(key,v);}catch(e){}});});paint(saved);})();
+</script>
+</body>
+</html>

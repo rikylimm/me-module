@@ -1,0 +1,1556 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="utf-8"><title>Week 47 — Media, sterilisation and inoculum development — Metabolic engineering</title>
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+
+
+<style>:root{color-scheme:light;--paper:#FAF6EF;--ink:#211A12;--ink-2:#4A3C2C;--ink-3:#8A7458;
+--line:#DFD2BE;--line-2:#EDE4D5;--broth:#9A6B1F;--broth-soft:#F6ECD9;
+--serif:"Newsreader",Georgia,serif;--sans:"Public Sans",system-ui,sans-serif}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--paper:#15120D;--ink:#F1E9DC;--ink-2:#CBBCA6;
+--ink-3:#948872;--line:#352C22;--line-2:#2A231B;--broth:#D7A95C;--broth-soft:#241D14}}
+*{box-sizing:border-box}
+body{margin:0;background:var(--paper);color:var(--ink);font-family:var(--sans);font-size:15.5px;line-height:1.6;
+padding:env(safe-area-inset-top,0) 0 env(safe-area-inset-bottom,0)}
+.wrap{max-width:840px;margin:0 auto;padding:40px 22px 90px}
+h1{font-family:var(--serif);font-size:clamp(28px,5vw,42px);line-height:1.1;font-weight:600;margin:0 0 6px;letter-spacing:-.02em}
+h2{font-family:var(--serif);font-size:26px;font-weight:600;margin:46px 0 10px;letter-spacing:-.01em;padding-bottom:7px;border-bottom:1px solid var(--line)}
+h3{font-family:var(--serif);font-size:20px;font-weight:600;margin:30px 0 4px;color:var(--broth)}
+h4{font-size:14px;font-weight:650;margin:18px 0 4px;color:var(--ink-3);letter-spacing:.02em;text-transform:uppercase}
+p{margin:0 0 12px;max-width:74ch}
+em{color:var(--ink-2)}
+ul{margin:0 0 14px;padding-left:1.15em;max-width:74ch}
+li{margin:.3em 0}li::marker{color:var(--ink-3)}
+hr{border:0;border-top:1px solid var(--line);margin:40px 0}
+strong{font-weight:650}
+table{border-collapse:collapse;width:100%;margin:14px 0 20px;font-size:14px}
+th{text-align:left;font-weight:600;color:var(--ink-3);font-size:12.5px;padding:7px 9px;border-bottom:1.5px solid var(--line)}
+td{padding:8px 9px;border-bottom:1px solid var(--line-2);vertical-align:top}
+tr:nth-child(even) td{background:var(--broth-soft)}
+
+figure.fig{margin:22px 0 26px;padding:0;max-width:100%}
+figure.fig svg{width:100%;height:auto;display:block;background:var(--card);
+  border:1px solid var(--line-2);border-radius:10px;padding:8px 10px}
+figure.fig figcaption{font-size:13px;color:var(--ink-3);margin-top:8px;max-width:74ch;line-height:1.5}
+figure.fig .figtitle{font-family:var(--serif);font-size:15px;color:var(--ink-2);margin-bottom:6px}
+figure.fig .fig-dark{display:none}
+@media (prefers-color-scheme: dark){
+  figure.fig .fig-light{display:none}
+  figure.fig .fig-dark{display:block}
+}
+@media print{figure.fig{break-inside:avoid;page-break-inside:avoid}
+  figure.fig .fig-dark{display:none !important}
+  figure.fig .fig-light{display:block !important}}
+
+@media print{body{background:#fff}.wrap{padding:0;max-width:none}h2,h3{page-break-after:avoid}}</style><script>try{var t=localStorage.getItem("me.theme");if(t&&t!=="auto")document.documentElement.setAttribute("data-theme",t);}catch(e){}</script>
+<meta name="color-scheme" content="light dark">
+<meta name="theme-color" content="#ffffff" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#000000" media="(prefers-color-scheme: dark)">
+<style>
+/* ============================================================
+   COURSE LIBRARY — Apple document shell
+   ============================================================ */
+:root{
+  color-scheme:light;
+  --paper:#FFFFFF;--surface:#F5F5F7;--card:#FFFFFF;--fill:#F5F5F7;
+  --ink:#1D1D1F;--ink-2:#6E6E73;--ink-3:#6E6E73;
+  --line:rgba(0,0,0,.14);--line-2:rgba(0,0,0,.08);
+  --broth:#0071E3;--broth-soft:rgba(0,113,227,.10);
+  --nav-bg:rgba(255,255,255,.84);
+  --sans:-apple-system,BlinkMacSystemFont,"SF Pro Text","SF Pro Display","Helvetica Neue",Arial,sans-serif;
+  --mono:ui-monospace,"SF Mono",Menlo,Consolas,monospace;
+  --serif:var(--sans);
+}
+@media (prefers-color-scheme:dark){
+  :root:not([data-theme="light"]){
+    color-scheme:dark;
+    --paper:#000000;--surface:#1C1C1E;--card:#2C2C2E;--fill:#2C2C2E;
+    --ink:#F5F5F7;--ink-2:#A1A1A6;--ink-3:#8E8E93;
+    --line:rgba(255,255,255,.16);--line-2:rgba(255,255,255,.09);
+    --broth:#5AA9FF;--broth-soft:rgba(10,132,255,.18);
+    --nav-bg:rgba(0,0,0,.74);
+  }
+}
+:root[data-theme="dark"]{
+  color-scheme:dark;
+  --paper:#000000;--surface:#1C1C1E;--card:#2C2C2E;--fill:#2C2C2E;
+  --ink:#F5F5F7;--ink-2:#A1A1A6;--ink-3:#8E8E93;
+  --line:rgba(255,255,255,.16);--line-2:rgba(255,255,255,.09);
+  --broth:#5AA9FF;--broth-soft:rgba(10,132,255,.18);
+  --nav-bg:rgba(0,0,0,.74);
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth;scroll-padding-top:72px;-webkit-text-size-adjust:100%}
+body{
+  margin:0;background:var(--paper);color:var(--ink);
+  font-family:var(--sans);font-size:17px;line-height:1.62;letter-spacing:-.011em;
+  padding:0;
+}
+.docbar{
+  position:sticky;top:0;z-index:80;display:flex;align-items:center;justify-content:space-between;gap:12px;
+  padding:8px max(24px,calc((100vw - 1180px)/2));
+  background:var(--nav-bg);
+  -webkit-backdrop-filter:saturate(180%) blur(20px);backdrop-filter:saturate(180%) blur(20px);
+  border-bottom:1px solid var(--line-2);
+}
+.docback{display:inline-flex;align-items:center;gap:6px;color:var(--ink-2);font-size:13px;font-weight:500;text-decoration:none;white-space:nowrap}
+.docback:hover{color:var(--broth)}
+.appearance{display:inline-flex;gap:2px;padding:2px;background:var(--fill);border-radius:980px}
+.appearance button{border:0;background:none;color:var(--ink-2);font:inherit;font-size:12px;font-weight:500;line-height:1;padding:6px 11px;border-radius:980px;cursor:pointer}
+.appearance button[aria-pressed="true"]{background:var(--card);color:var(--ink);box-shadow:0 1px 2px rgba(0,0,0,.08)}
+.wrap{max-width:900px;margin:0 auto;padding:64px 24px 96px}
+body h1{
+  font-family:var(--sans);font-size:clamp(42px,6.2vw,64px);line-height:1.04;letter-spacing:-.04em;
+  font-weight:700;margin:0 0 16px;max-width:18ch;color:var(--ink);
+}
+.doc-kicker{font-size:13px;font-weight:500;letter-spacing:0;color:var(--ink-2);margin:0 0 12px}
+body h1 + p{font-size:20px;line-height:1.55;color:var(--ink-2);max-width:68ch;margin:0 0 18px}
+body h1 + p strong{color:var(--ink);font-weight:600}
+body h2{
+  font-family:var(--sans);font-size:32px;line-height:1.15;letter-spacing:-.03em;font-weight:600;
+  color:var(--ink);margin:64px 0 14px;padding:0;border:0;
+}
+body h3{font-family:var(--sans);font-size:22px;line-height:1.25;letter-spacing:-.02em;font-weight:600;color:var(--ink);margin:36px 0 8px}
+body h4{font-size:14px;line-height:1.4;font-weight:600;letter-spacing:0;text-transform:none;color:var(--ink-2);margin:24px 0 6px}
+body p{margin:0 0 14px;max-width:72ch}
+body ul,body ol{margin:0 0 16px;padding-left:1.25em;max-width:72ch}
+body li{margin:.32em 0}
+body li::marker{color:var(--ink-3)}
+body strong{font-weight:600;color:var(--ink)}
+body em{color:var(--ink)}
+body a{color:var(--broth);text-decoration:underline;text-underline-offset:2px}
+body a:hover{text-decoration:underline}
+body hr{border:0;border-top:1px solid var(--line-2);margin:56px 0}
+body table{border-collapse:collapse;width:100%;margin:22px 0 30px;font-size:15px;line-height:1.45}
+body th{text-align:left;font-weight:600;font-size:12.5px;color:var(--ink-2);padding:10px 12px;background:var(--surface);border-bottom:1px solid var(--line)}
+body td{padding:11px 12px;border-bottom:1px solid var(--line-2);vertical-align:top}
+body tr:nth-child(even) td{background:transparent}
+body figure.fig{margin:32px 0 36px;padding:0;max-width:100%}
+body figure.fig svg{width:100%;height:auto;display:block;background:var(--surface);border:0;border-radius:20px;padding:18px}
+body figure.fig figcaption{font-size:13px;color:var(--ink-2);margin-top:10px;max-width:72ch;line-height:1.5}
+body figure.fig .figtitle{font-family:var(--sans);font-size:14px;font-weight:600;color:var(--ink);margin-bottom:6px}
+body pre{background:var(--surface);border:1px solid var(--line-2);border-radius:16px;padding:18px;overflow:auto;font-family:var(--mono);font-size:13.5px;line-height:1.55;margin:20px 0 24px}
+body code{font-family:var(--mono);font-size:.88em;background:var(--surface);border-radius:6px;padding:.12em .35em}
+body pre code{background:none;padding:0;font-size:inherit}
+body blockquote{margin:24px 0;padding:2px 0 2px 18px;border-left:3px solid var(--broth);color:var(--ink-2)}
+:root[data-theme="dark"] .fig-light{display:none!important}
+:root[data-theme="dark"] .fig-dark{display:block!important}
+:root[data-theme="light"] .fig-dark{display:none!important}
+:root[data-theme="light"] .fig-light{display:block!important}
+.docfoot{max-width:900px;margin:0 auto;padding:24px 24px 64px;border-top:1px solid var(--line-2);display:flex;justify-content:space-between;gap:12px;font-size:12.5px;color:var(--ink-3)}
+.docfoot a{color:var(--ink-2);text-decoration:none}
+.docfoot a:hover{color:var(--broth)}
+@media (max-width:700px){
+  .docbar{padding:8px 16px}
+  .wrap{padding:40px 18px 80px}
+  body h1{font-size:clamp(38px,11vw,48px)}
+  body h1 + p{font-size:18px}
+  body h2{font-size:28px;margin-top:52px}
+  body h3{font-size:20px}
+  body p,body li{font-size:16.5px}
+  body table{font-size:14px}
+  body th,body td{padding:9px 9px}
+  .docfoot{padding:20px 18px 50px;flex-direction:column;gap:6px}
+}
+@media print{
+  .docbar,.appearance,.docfoot{display:none!important}
+  body{background:#fff;color:#000;font-size:11pt}
+  .wrap{max-width:none;padding:0}
+  body h1{font-size:28pt;max-width:none}
+  body h2{font-size:16pt;page-break-after:avoid}
+  body h3{font-size:13pt;page-break-after:avoid}
+  body a{color:#000;text-decoration:none}
+  body table,body figure{break-inside:avoid}
+}
+
+
+.index-actions{margin:18px 0 36px;display:flex;flex-wrap:wrap;gap:16px;align-items:center}
+.index-actions a{font-size:14px;font-weight:500;color:var(--broth);text-decoration:none}
+.index-actions a:hover{text-decoration:underline}
+.phaseh{display:flex;align-items:baseline;justify-content:space-between;gap:14px;font-size:24px!important;margin:52px 0 2px!important;letter-spacing:-.02em}
+.phaseh span{font-size:12px;font-weight:400;color:var(--ink-3);letter-spacing:0;white-space:nowrap}
+.weeklist{border-top:1px solid var(--line-2);margin-bottom:8px}
+.weekrow{display:flex;align-items:center;gap:14px;min-height:50px;padding:10px 4px;border-bottom:1px solid var(--line-2);text-decoration:none;color:var(--ink)}
+.weekrow:hover{background:var(--surface)}
+.wnum{width:28px;flex:none;font-size:12px;font-weight:600;color:var(--broth);font-variant-numeric:tabular-nums}
+.wtitle{flex:1;font-size:16.5px;font-weight:500;line-height:1.35}
+.warrow{flex:none;color:var(--ink-3);font-size:16px}
+.weeknav{display:flex;align-items:center;justify-content:space-between;gap:14px;margin:52px 0 0;padding-top:22px;border-top:1px solid var(--line-2);font-size:14px}
+.weeknav a{color:var(--broth);text-decoration:none;font-weight:500}
+.weeknav a:hover{text-decoration:underline}
+.weeknav .idx{color:var(--ink-2);font-weight:400}
+.weeknav .empty{visibility:hidden}
+.case-h{max-width:22ch}
+.protocol{max-width:72ch}
+.protocol li{margin:.55em 0}
+.protocol h2{margin-top:38px}
+@media (max-width:700px){.phaseh{font-size:21px!important;margin-top:42px!important}.wtitle{font-size:15.5px}.weeknav{font-size:13px;gap:8px}}
+@media print{.weeknav,.index-actions{display:none!important}}
+</style>
+<style>.sr-only{position:absolute!important;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap;border:0}</style>
+</head><body>
+<header class="docbar"><a class="docback" href="index.html">&#8592; Lecture index</a><div class="appearance" role="group" aria-label="Appearance">
+<button type="button" data-appearance="auto" aria-pressed="true">Auto</button>
+<button type="button" data-appearance="light" aria-pressed="false">Light</button>
+<button type="button" data-appearance="dark" aria-pressed="false">Dark</button>
+</div></header>
+<main class="wrap">
+<p class="doc-kicker">Week 47 of 55 &middot; Process, economics and the application &middot; <strong class="tier-badge">Core</strong></p>
+<h1>Media, sterilisation and inoculum development</h1>
+<h2 class="sr-only">Week content</h2>
+<p class="meta" style="border-left:3px solid var(--broth);padding-left:14px"><strong>Case thread:</strong> Which process changes alter the cell environment, not only handling? <a href="../CASE-THREAD.md">Open the case thread</a>.</p>
+<p>The half of a fermentation that no paper reports and every plant lives with. Three decisions sit in this week — what the medium is made of, how it is sterilised, and how the inoculum gets to the vessel — and each is a cost against a risk rather than a yield against a ceiling. The habit from weeks 44-46 carries over unchanged: cost every option against what it buys. What is different here is that the arithmetic is unusually clean, because sterilisation kinetics are first order with an Arrhenius constant and the numbers are published. The single most useful thing in the week is that the del factor delivered during heat-up and cool-down is usually larger than the del factor the holding period was designed for, which means most hand-computed cycles are over-specified and destroy nutrients for nothing.</p>
+<h3>Core ideas</h3>
+<p><strong>1. What the medium is for, and the four things that decide it</strong></p>
+<p>Stanbury Ch 4 lists the medium&#x27;s duties and they are worth stating as a specification rather than a recipe: supply every element in the biomass, supply the carbon and electrons for the product, supply the energy for maintenance, and buffer the pH excursion the process creates. The elemental demand is not a judgement call — it comes straight out of the biomass formula you built in week 16 and Shuler §7.3.1 is the method: write CH1.8O0.5N0.2 (or your own measured formula), multiply by the target biomass, and that is the nitrogen, phosphorus and sulfur bill before anything else is decided. Stanbury&#x27;s chapter is organised by component — water, energy sources, carbon sources, nitrogen sources, minerals with chelators, growth factors, nutrient recycle, buffers, precursors and regulators, oxygen requirements, antifoams, medium optimization — and the four decisions that actually move cost are: complex against defined, the carbon source, whether anything must be fed rather than batched, and how much of the nitrogen is there for biomass you do not want. On that last point the arithmetic is brutal and is done in the anchor of week 52: nitrogen in the medium that produces biomass rather than product is a cost twice, once as the nitrogen and once as the oxygen to burn the carbon that went with it.</p>
+<p><strong>2. Complex against defined, costed rather than argued</strong></p>
+<p>The argument is usually had on grounds of reproducibility and that is the wrong axis to start on, because the difference in cost per kilogram of product is often larger than the difference in yield. Take Stanbury&#x27;s own framing — factors influencing the choice of carbon source, and the examples under carbohydrates, oils and fats, hydrocarbons — and convert it. A defined medium on glucose at the week 45 price of $400 per tonne, at a biomass yield of 0.45 g g⁻¹ and a product yield of 0.30 g g⁻¹, costs 3.33 kg of glucose per kilogram of product, $1.33. A complex medium replacing part of the nitrogen with corn steep liquor or yeast extract typically raises titre and rate but adds a nitrogen line costing dollars rather than cents per kilogram, and the test is whether the productivity gain pays for it. The second axis is variability: Stanbury is explicit that complex sources are batch-variable, which is a validation cost in a regulated product and a control cost in any product, because every analytical method you built in phase 5 now has a matrix that changes between deliveries. The third is downstream, and it is the one most often forgotten — a complex medium puts colour, protein and particulates into the broth that week 51&#x27;s train has to remove, and the clarification burden is a real line in the cost of goods rather than an inconvenience.</p>
+<p><strong>3. Thermal death is first order, and that is the whole of the design</strong></p>
+<p>Stanbury Ch 5 sets it out: −dN/dt = kN, integrating to ln(N₀/N_t) = kt, with N the total number of viable organisms in the batch rather than a concentration, because the minimum number needed to spoil a batch is one regardless of volume. Deindoerfer and Humphrey&#x27;s design criterion is the del factor, ∇ = ln(N₀/N_t), and the temperature dependence is Arrhenius: k = A e^(−E/RT), so ln k against 1/T is a straight line. Two consequences follow immediately and both are stated in the chapter. First, sterility is unattainable in finite time, so the target is a probability — the fermentation industry&#x27;s usual figure, which Stanbury attributes to Deindoerfer and Humphrey, Richards, Banks and Corbett, is one contaminated batch in a thousand, so N_t = 10⁻³. Second, the del factor is scale-dependent: N₀ is proportional to volume, so going from 1,000 to 10,000 dm³ at fixed risk raises the required del from 34.5 to 36.8. That is a rise of exactly ln 10, which is the whole of the scale effect and is worth seeing as such — the del factor grows as the logarithm of volume, so a thousand-fold scale-up costs only 6.9 more del.</p>
+<p><strong>4. Verified kinetics, and what they say about 121 °C</strong></p>
+<p>Doran&#x27;s Example 13.8 supplies parameters you can use rather than assume: for bacterial spores, E_d = 283 kJ gmol⁻¹ and A = 5.7 × 10³⁹ h⁻¹. Put those through k_d = A e^(−E_d/RT) and the temperature ladder falls out, with D (the time for a one-log reduction, 2.303/k_d) beside it: 100 °C gives k_d = 1.38 h⁻¹ and D = 100 min; 110 °C gives 15.0 h⁻¹ and 9.2 min; 115 °C gives 47.0 h⁻¹ and 2.9 min; 121 °C gives 179 h⁻¹ and 0.77 min; 130 °C gives 1,228 h⁻¹ and 0.11 min; 140 °C gives 9,474 h⁻¹ and 0.015 min. Two things are worth reading off that ladder. The activation energy is high, so the rate rises by roughly a factor of ten for every 10 °C — which is why 121 °C is the autoclave temperature and why nothing useful happens at 100 °C. And Doran says plainly that cell death below about 100 °C is minimal, which is the licence to start the heat-up integral at 100 °C rather than at ambient. Doran also records, for direct steam sparging, that condensate typically adds 10-20% to the liquid volume; if you size the vessel from the medium volume and sterilise by injection, the fill is 10-20% larger than you planned.</p>
+<p><strong>5. Heat-up and cool-down are not a correction, they are usually most of the cycle</strong></p>
+<figure class="fig"><div class="figtitle">Figure 47.5 — Where a sterilisation cycle's del factor is actually delivered</div><div class="fig-light"><svg role="img" aria-label="Left: the slow cycle, 60 min up and 45 min down, with cumulative del on the right axis — the requirement of 40 is met 49 minutes in, long before the hold would have begun. Right: the same del factor split across heat-up, hold and cool-down for a fast and a slow cycle. A holding time computed without the ramps is not a safety margin, it is nutrient destroyed for nothing." xmlns:xlink="http://www.w3.org/1999/xlink" width="740.132906pt" height="233.566141pt" viewBox="0 0 740.132906 233.566141" xmlns="http://www.w3.org/2000/svg" version="1.1">
+ <metadata>
+  <rdf:RDF xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:cc="http://creativecommons.org/ns#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+   <cc:Work>
+    <dc:type rdf:resource="http://purl.org/dc/dcmitype/StillImage"/>
+    <dc:date>2026-11-02T23:57:56.404077</dc:date>
+    <dc:format>image/svg+xml</dc:format>
+    <dc:creator>
+     <cc:Agent>
+      <dc:title>Matplotlib v3.10.8, https://matplotlib.org/</dc:title>
+     </cc:Agent>
+    </dc:creator>
+   </cc:Work>
+  </rdf:RDF>
+ </metadata>
+ <defs>
+  <style type="text/css">*{stroke-linejoin: round; stroke-linecap: butt}</style>
+ </defs>
+ <g id="figure_1">
+  <g id="patch_1">
+   <path d="M 0 233.566141 
+L 740.132906 233.566141 
+L 740.132906 -0 
+L 0 -0 
+L 0 233.566141 
+z
+" style="fill: none"/>
+  </g>
+  <g id="axes_1">
+   <g id="patch_2">
+    <path d="M 65.9664 172.08 
+L 241.81309 172.08 
+L 241.81309 5.76 
+L 65.9664 5.76 
+L 65.9664 172.08 
+z
+" style="fill: none"/>
+   </g>
+   <g id="matplotlib.axis_1">
+    <g id="xtick_1">
+     <g id="line2d_1">
+      <defs>
+       <path id="mdf56a0c2c5" d="M 0 0 
+L 0 3.5 
+" style="stroke: #8a7458; stroke-width: 0.9"/>
+      </defs>
+      <g>
+       <use xlink:href="#mdf56a0c2c5" x="65.9664" y="172.08" style="fill: #8a7458; stroke: #8a7458; stroke-width: 0.9"/>
+      </g>
+     </g>
+     <g id="text_1">
+      <text style="font-size: 9.5px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: middle; fill: #8a7458" x="65.9664" y="186.298516" transform="rotate(-0 65.9664 186.298516)">0</text>
+     </g>
+    </g>
+    <g id="xtick_2">
+     <g id="line2d_2">
+      <g>
+       <use xlink:href="#mdf56a0c2c5" x="98.530602" y="172.08" style="fill: #8a7458; stroke: #8a7458; stroke-width: 0.9"/>
+      </g>
+     </g>
+     <g id="text_2">
+      <text style="font-size: 9.5px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: middle; fill: #8a7458" x="98.530602" y="186.298516" transform="rotate(-0 98.530602 186.298516)">20</text>
+     </g>
+    </g>
+    <g id="xtick_3">
+     <g id="line2d_3">
+      <g>
+       <use xlink:href="#mdf56a0c2c5" x="131.094804" y="172.08" style="fill: #8a7458; stroke: #8a7458; stroke-width: 0.9"/>
+      </g>
+     </g>
+     <g id="text_3">
+      <text style="font-size: 9.5px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: middle; fill: #8a7458" x="131.094804" y="186.298516" transform="rotate(-0 131.094804 186.298516)">40</text>
+     </g>
+    </g>
+    <g id="xtick_4">
+     <g id="line2d_4">
+      <g>
+       <use xlink:href="#mdf56a0c2c5" x="163.659005" y="172.08" style="fill: #8a7458; stroke: #8a7458; stroke-width: 0.9"/>
+      </g>
+     </g>
+     <g id="text_4">
+      <text style="font-size: 9.5px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: middle; fill: #8a7458" x="163.659005" y="186.298516" transform="rotate(-0 163.659005 186.298516)">60</text>
+     </g>
+    </g>
+    <g id="xtick_5">
+     <g id="line2d_5">
+      <g>
+       <use xlink:href="#mdf56a0c2c5" x="196.223207" y="172.08" style="fill: #8a7458; stroke: #8a7458; stroke-width: 0.9"/>
+      </g>
+     </g>
+     <g id="text_5">
+      <text style="font-size: 9.5px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: middle; fill: #8a7458" x="196.223207" y="186.298516" transform="rotate(-0 196.223207 186.298516)">80</text>
+     </g>
+    </g>
+    <g id="xtick_6">
+     <g id="line2d_6">
+      <g>
+       <use xlink:href="#mdf56a0c2c5" x="228.787409" y="172.08" style="fill: #8a7458; stroke: #8a7458; stroke-width: 0.9"/>
+      </g>
+     </g>
+     <g id="text_6">
+      <text style="font-size: 9.5px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: middle; fill: #8a7458" x="228.787409" y="186.298516" transform="rotate(-0 228.787409 186.298516)">100</text>
+     </g>
+    </g>
+    <g id="text_7">
+     <text style="font-size: 9.5px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: middle; fill: #4a3c2c" x="153.889745" y="199.492734" transform="rotate(-0 153.889745 199.492734)">time from 100 °C  (min)</text>
+    </g>
+   </g>
+   <g id="matplotlib.axis_2">
+    <g id="ytick_1">
+     <g id="line2d_7">
+      <path d="M 65.9664 172.08 
+L 241.81309 172.08 
+" clip-path="url(#p308c9dbccf)" style="fill: none; stroke: #e6dccb; stroke-opacity: 0.7; stroke-width: 0.6; stroke-linecap: square"/>
+     </g>
+     <g id="line2d_8">
+      <defs>
+       <path id="m9903f80276" d="M 0 0 
+L -3.5 0 
+" style="stroke: #8a7458; stroke-width: 0.9"/>
+      </defs>
+      <g>
+       <use xlink:href="#m9903f80276" x="65.9664" y="172.08" style="fill: #8a7458; stroke: #8a7458; stroke-width: 0.9"/>
+      </g>
+     </g>
+     <g id="text_8">
+      <text style="font-size: 9.5px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: end; fill: #8a7458" x="58.9664" y="175.689258" transform="rotate(-0 58.9664 175.689258)">0</text>
+     </g>
+    </g>
+    <g id="ytick_2">
+     <g id="line2d_9">
+      <path d="M 65.9664 150.756923 
+L 241.81309 150.756923 
+" clip-path="url(#p308c9dbccf)" style="fill: none; stroke: #e6dccb; stroke-opacity: 0.7; stroke-width: 0.6; stroke-linecap: square"/>
+     </g>
+     <g id="line2d_10">
+      <g>
+       <use xlink:href="#m9903f80276" x="65.9664" y="150.756923" style="fill: #8a7458; stroke: #8a7458; stroke-width: 0.9"/>
+      </g>
+     </g>
+     <g id="text_9">
+      <text style="font-size: 9.5px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: end; fill: #8a7458" x="58.9664" y="154.366181" transform="rotate(-0 58.9664 154.366181)">10</text>
+     </g>
+    </g>
+    <g id="ytick_3">
+     <g id="line2d_11">
+      <path d="M 65.9664 129.433846 
+L 241.81309 129.433846 
+" clip-path="url(#p308c9dbccf)" style="fill: none; stroke: #e6dccb; stroke-opacity: 0.7; stroke-width: 0.6; stroke-linecap: square"/>
+     </g>
+     <g id="line2d_12">
+      <g>
+       <use xlink:href="#m9903f80276" x="65.9664" y="129.433846" style="fill: #8a7458; stroke: #8a7458; stroke-width: 0.9"/>
+      </g>
+     </g>
+     <g id="text_10">
+      <text style="font-size: 9.5px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: end; fill: #8a7458" x="58.9664" y="133.043104" transform="rotate(-0 58.9664 133.043104)">20</text>
+     </g>
+    </g>
+    <g id="ytick_4">
+     <g id="line2d_13">
+      <path d="M 65.9664 108.110769 
+L 241.81309 108.110769 
+" clip-path="url(#p308c9dbccf)" style="fill: none; stroke: #e6dccb; stroke-opacity: 0.7; stroke-width: 0.6; stroke-linecap: square"/>
+     </g>
+     <g id="line2d_14">
+      <g>
+       <use xlink:href="#m9903f80276" x="65.9664" y="108.110769" style="fill: #8a7458; stroke: #8a7458; stroke-width: 0.9"/>
+      </g>
+     </g>
+     <g id="text_11">
+      <text style="font-size: 9.5px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: end; fill: #8a7458" x="58.9664" y="111.720027" transform="rotate(-0 58.9664 111.720027)">30</text>
+     </g>
+    </g>
+    <g id="ytick_5">
+     <g id="line2d_15">
+      <path d="M 65.9664 86.787692 
+L 241.81309 86.787692 
+" clip-path="url(#p308c9dbccf)" style="fill: none; stroke: #e6dccb; stroke-opacity: 0.7; stroke-width: 0.6; stroke-linecap: square"/>
+     </g>
+     <g id="line2d_16">
+      <g>
+       <use xlink:href="#m9903f80276" x="65.9664" y="86.787692" style="fill: #8a7458; stroke: #8a7458; stroke-width: 0.9"/>
+      </g>
+     </g>
+     <g id="text_12">
+      <text style="font-size: 9.5px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: end; fill: #8a7458" x="58.9664" y="90.39695" transform="rotate(-0 58.9664 90.39695)">40</text>
+     </g>
+    </g>
+    <g id="ytick_6">
+     <g id="line2d_17">
+      <path d="M 65.9664 65.464615 
+L 241.81309 65.464615 
+" clip-path="url(#p308c9dbccf)" style="fill: none; stroke: #e6dccb; stroke-opacity: 0.7; stroke-width: 0.6; stroke-linecap: square"/>
+     </g>
+     <g id="line2d_18">
+      <g>
+       <use xlink:href="#m9903f80276" x="65.9664" y="65.464615" style="fill: #8a7458; stroke: #8a7458; stroke-width: 0.9"/>
+      </g>
+     </g>
+     <g id="text_13">
+      <text style="font-size: 9.5px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: end; fill: #8a7458" x="58.9664" y="69.073873" transform="rotate(-0 58.9664 69.073873)">50</text>
+     </g>
+    </g>
+    <g id="ytick_7">
+     <g id="line2d_19">
+      <path d="M 65.9664 44.141538 
+L 241.81309 44.141538 
+" clip-path="url(#p308c9dbccf)" style="fill: none; stroke: #e6dccb; stroke-opacity: 0.7; stroke-width: 0.6; stroke-linecap: square"/>
+     </g>
+     <g id="line2d_20">
+      <g>
+       <use xlink:href="#m9903f80276" x="65.9664" y="44.141538" style="fill: #8a7458; stroke: #8a7458; stroke-width: 0.9"/>
+      </g>
+     </g>
+     <g id="text_14">
+      <text style="font-size: 9.5px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: end; fill: #8a7458" x="58.9664" y="47.750796" transform="rotate(-0 58.9664 47.750796)">60</text>
+     </g>
+    </g>
+    <g id="ytick_8">
+     <g id="line2d_21">
+      <path d="M 65.9664 22.818462 
+L 241.81309 22.818462 
+" clip-path="url(#p308c9dbccf)" style="fill: none; stroke: #e6dccb; stroke-opacity: 0.7; stroke-width: 0.6; stroke-linecap: square"/>
+     </g>
+     <g id="line2d_22">
+      <g>
+       <use xlink:href="#m9903f80276" x="65.9664" y="22.818462" style="fill: #8a7458; stroke: #8a7458; stroke-width: 0.9"/>
+      </g>
+     </g>
+     <g id="text_15">
+      <text style="font-size: 9.5px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: end; fill: #8a7458" x="58.9664" y="26.427719" transform="rotate(-0 58.9664 26.427719)">70</text>
+     </g>
+    </g>
+    <g id="text_16">
+     <text style="font-size: 9.5px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: middle; fill: #4a3c2c" x="40.901947" y="88.92" transform="rotate(-90 40.901947 88.92)">cumulative del factor</text>
+    </g>
+   </g>
+   <g id="line2d_23">
+    <path d="M 65.9664 172.08 
+L 71.806293 171.793705 
+L 75.731468 171.39164 
+L 78.795018 170.859972 
+L 81.284153 170.205093 
+L 83.390344 169.424816 
+L 85.209328 168.523672 
+L 86.836839 167.484319 
+L 88.368614 166.250986 
+L 89.804654 164.815105 
+L 91.144957 163.175513 
+L 92.48526 161.184791 
+L 93.825564 158.769817 
+L 95.070131 156.07088 
+L 96.314699 152.846539 
+L 97.559266 148.99731 
+L 98.803834 144.41921 
+L 109.621997 102.677544 
+L 110.770828 99.415771 
+L 111.91966 96.794353 
+L 113.068491 94.689901 
+L 114.313059 92.877873 
+L 115.557626 91.453171 
+L 116.89793 90.259167 
+L 118.333969 89.283492 
+L 119.865744 88.505899 
+L 121.684728 87.84229 
+L 123.790919 87.32211 
+L 126.37579 86.922796 
+L 129.822284 86.632503 
+L 132.885835 86.501508 
+L 132.885835 86.501508 
+" clip-path="url(#p308c9dbccf)" style="fill: none; stroke: #1f6f62; stroke-width: 1.9; stroke-linecap: square"/>
+   </g>
+   <g id="line2d_24">
+    <path d="M 65.9664 172.08 
+L 76.72796 171.64624 
+L 85.043711 171.099036 
+L 91.891977 170.435105 
+L 97.761919 169.648934 
+L 102.898118 168.740507 
+L 107.545156 167.689379 
+L 111.703031 166.517184 
+L 115.371745 165.260375 
+L 118.795878 163.861571 
+L 121.97543 162.332321 
+L 124.910401 160.691207 
+L 127.845372 158.795391 
+L 130.535762 156.801028 
+L 133.226152 154.526546 
+L 135.671961 152.183602 
+L 138.11777 149.545104 
+L 140.563579 146.574726 
+L 143.009388 143.23179 
+L 145.455197 139.470769 
+L 147.656426 135.686401 
+L 149.857654 131.480894 
+L 152.058882 126.808573 
+L 154.26011 121.618942 
+L 156.461339 115.856185 
+L 158.662567 109.458621 
+L 160.863795 102.35811 
+L 163.065023 94.479385 
+L 166.244575 82.839745 
+L 168.201222 76.695261 
+L 170.15787 71.265496 
+L 172.114517 66.469012 
+L 174.071164 62.233453 
+L 176.027812 58.494557 
+L 177.984459 55.195267 
+L 179.941106 52.284943 
+L 182.142335 49.420025 
+L 184.343563 46.934332 
+L 186.544791 44.778663 
+L 188.746019 42.910069 
+L 191.191829 41.12513 
+L 193.637638 39.603936 
+L 196.328028 38.189804 
+L 199.262999 36.907735 
+L 202.442551 35.772892 
+L 205.866683 34.791337 
+L 209.779978 33.912896 
+L 214.182435 33.165057 
+L 219.318634 32.532419 
+L 225.433157 32.018181 
+L 233.015165 31.618672 
+L 236.92846 31.481528 
+L 236.92846 31.481528 
+" clip-path="url(#p308c9dbccf)" style="fill: none; stroke: #8a5f1b; stroke-width: 1.9; stroke-linecap: square"/>
+   </g>
+   <g id="line2d_25">
+    <path d="M 65.9664 86.659248 
+L 241.81309 86.659248 
+" clip-path="url(#p308c9dbccf)" style="fill: none; stroke-dasharray: 4.4,3.3; stroke-dashoffset: 0; stroke: #a4503a; stroke-width: 1.1"/>
+   </g>
+   <g id="line2d_26">
+    <path d="M 129.43934 86.655551 
+" clip-path="url(#p308c9dbccf)" style="fill: none; stroke: #1f6f62; stroke-width: 1.9; stroke-linecap: square"/>
+    <defs>
+     <path id="meb674b915f" d="M 0 2.25 
+C 0.596707 2.25 1.169055 2.012926 1.59099 1.59099 
+C 2.012926 1.169055 2.25 0.596707 2.25 0 
+C 2.25 -0.596707 2.012926 -1.169055 1.59099 -1.59099 
+C 1.169055 -2.012926 0.596707 -2.25 0 -2.25 
+C -0.596707 -2.25 -1.169055 -2.012926 -1.59099 -1.59099 
+C -2.012926 -1.169055 -2.25 -0.596707 -2.25 0 
+C -2.25 0.596707 -2.012926 1.169055 -1.59099 1.59099 
+C -1.169055 2.012926 -0.596707 2.25 0 2.25 
+z
+" style="stroke: #1f6f62"/>
+    </defs>
+    <g clip-path="url(#p308c9dbccf)">
+     <use xlink:href="#meb674b915f" x="129.43934" y="86.655551" style="fill: #1f6f62; stroke: #1f6f62"/>
+    </g>
+   </g>
+   <g id="line2d_27">
+    <path d="M 165.266252 86.20821 
+" clip-path="url(#p308c9dbccf)" style="fill: none; stroke: #8a5f1b; stroke-width: 1.9; stroke-linecap: square"/>
+    <defs>
+     <path id="m5d99a08293" d="M 0 2.25 
+C 0.596707 2.25 1.169055 2.012926 1.59099 1.59099 
+C 2.012926 1.169055 2.25 0.596707 2.25 0 
+C 2.25 -0.596707 2.012926 -1.169055 1.59099 -1.59099 
+C 1.169055 -2.012926 0.596707 -2.25 0 -2.25 
+C -0.596707 -2.25 -1.169055 -2.012926 -1.59099 -1.59099 
+C -2.012926 -1.169055 -2.25 -0.596707 -2.25 0 
+C -2.25 0.596707 -2.012926 1.169055 -1.59099 1.59099 
+C -1.169055 2.012926 -0.596707 2.25 0 2.25 
+z
+" style="stroke: #8a5f1b"/>
+    </defs>
+    <g clip-path="url(#p308c9dbccf)">
+     <use xlink:href="#m5d99a08293" x="165.266252" y="86.20821" style="fill: #8a5f1b; stroke: #8a5f1b"/>
+    </g>
+   </g>
+   <g id="patch_3">
+    <path d="M 65.9664 172.08 
+L 65.9664 5.76 
+" style="fill: none; stroke: #dfd2be; stroke-width: 0.9; stroke-linejoin: miter; stroke-linecap: square"/>
+   </g>
+   <g id="patch_4">
+    <path d="M 65.9664 172.08 
+L 241.81309 172.08 
+" style="fill: none; stroke: #dfd2be; stroke-width: 0.9; stroke-linejoin: miter; stroke-linecap: square"/>
+   </g>
+   <g id="text_17">
+    <text style="font-size: 8.4px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: end; fill: #a4503a" x="238.296156" y="102.2256" transform="rotate(-0 238.296156 102.2256)">required  40</text>
+   </g>
+   <g id="text_18">
+    <text style="font-size: 8.2px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; fill: #8a7458" transform="translate(210.672702 150.278642)">39 min</text>
+    <text style="font-size: 8.2px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; fill: #8a7458" transform="translate(210.672702 160.395456)">61 min</text>
+   </g>
+   <g id="legend_1">
+    <g id="line2d_28">
+     <path d="M 73.3464 16.500719 
+L 81.5464 16.500719 
+L 89.7464 16.500719 
+" style="fill: none; stroke: #1f6f62; stroke-width: 1.9; stroke-linecap: square"/>
+    </g>
+    <g id="text_19">
+     <text style="font-size: 8.2px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: start; fill: #4a3c2c" x="96.3064" y="19.370719" transform="rotate(-0 96.3064 19.370719)">fast  20 / 6.1 / 15 min</text>
+    </g>
+    <g id="line2d_29">
+     <path d="M 73.3464 28.536781 
+L 81.5464 28.536781 
+L 89.7464 28.536781 
+" style="fill: none; stroke: #8a5f1b; stroke-width: 1.9; stroke-linecap: square"/>
+    </g>
+    <g id="text_20">
+     <text style="font-size: 8.2px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: start; fill: #4a3c2c" x="96.3064" y="31.406781" transform="rotate(-0 96.3064 31.406781)">slow  60 / 0 / 45 min</text>
+    </g>
+   </g>
+  </g>
+  <g id="axes_2">
+   <g id="patch_5">
+    <path d="M 319.025773 172.08 
+L 478.8864 172.08 
+L 478.8864 5.76 
+L 319.025773 5.76 
+L 319.025773 172.08 
+z
+" style="fill: none"/>
+   </g>
+   <g id="patch_6">
+    <path d="M 319.025773 121.122383 
+L 394.317512 121.122383 
+L 394.317512 88.566128 
+L 319.025773 88.566128 
+z
+" clip-path="url(#pbe01a493d9)" style="fill: #8a5f1b; opacity: 0.32; stroke: #8a5f1b; stroke-width: 1.1; stroke-linejoin: miter"/>
+   </g>
+   <g id="patch_7">
+    <path d="M 394.317512 121.122383 
+L 394.317512 121.122383 
+L 394.317512 88.566128 
+L 394.317512 88.566128 
+z
+" clip-path="url(#pbe01a493d9)" style="fill: #1f6f62; opacity: 0.32; stroke: #1f6f62; stroke-width: 1.1; stroke-linejoin: miter"/>
+   </g>
+   <g id="patch_8">
+    <path d="M 394.317512 121.122383 
+L 450.786317 121.122383 
+L 450.786317 88.566128 
+L 394.317512 88.566128 
+z
+" clip-path="url(#pbe01a493d9)" style="fill: #8a7458; opacity: 0.32; stroke: #8a7458; stroke-width: 1.1; stroke-linejoin: miter"/>
+   </g>
+   <g id="patch_9">
+    <path d="M 319.025773 50.347915 
+L 344.123019 50.347915 
+L 344.123019 17.79166 
+L 319.025773 17.79166 
+z
+" clip-path="url(#pbe01a493d9)" style="fill: #8a5f1b; opacity: 0.32; stroke: #8a5f1b; stroke-width: 1.1; stroke-linejoin: miter"/>
+   </g>
+   <g id="patch_10">
+    <path d="M 344.123019 50.347915 
+L 380.251521 50.347915 
+L 380.251521 17.79166 
+L 344.123019 17.79166 
+z
+" clip-path="url(#pbe01a493d9)" style="fill: #1f6f62; opacity: 0.32; stroke: #1f6f62; stroke-width: 1.1; stroke-linejoin: miter"/>
+   </g>
+   <g id="patch_11">
+    <path d="M 380.251521 50.347915 
+L 399.074456 50.347915 
+L 399.074456 17.79166 
+L 380.251521 17.79166 
+z
+" clip-path="url(#pbe01a493d9)" style="fill: #8a7458; opacity: 0.32; stroke: #8a7458; stroke-width: 1.1; stroke-linejoin: miter"/>
+   </g>
+   <g id="matplotlib.axis_3">
+    <g id="xtick_7">
+     <g id="line2d_30">
+      <path d="M 319.025773 172.08 
+L 319.025773 5.76 
+" clip-path="url(#pbe01a493d9)" style="fill: none; stroke: #e6dccb; stroke-opacity: 0.7; stroke-width: 0.6; stroke-linecap: square"/>
+     </g>
+     <g id="line2d_31">
+      <g>
+       <use xlink:href="#mdf56a0c2c5" x="319.025773" y="172.08" style="fill: #8a7458; stroke: #8a7458; stroke-width: 0.9"/>
+      </g>
+     </g>
+     <g id="text_21">
+      <text style="font-size: 9.5px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: middle; fill: #8a7458" x="319.025773" y="186.298516" transform="rotate(-0 319.025773 186.298516)">0</text>
+     </g>
+    </g>
+    <g id="xtick_8">
+     <g id="line2d_32">
+      <path d="M 358.99093 172.08 
+L 358.99093 5.76 
+" clip-path="url(#pbe01a493d9)" style="fill: none; stroke: #e6dccb; stroke-opacity: 0.7; stroke-width: 0.6; stroke-linecap: square"/>
+     </g>
+     <g id="line2d_33">
+      <g>
+       <use xlink:href="#mdf56a0c2c5" x="358.99093" y="172.08" style="fill: #8a7458; stroke: #8a7458; stroke-width: 0.9"/>
+      </g>
+     </g>
+     <g id="text_22">
+      <text style="font-size: 9.5px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: middle; fill: #8a7458" x="358.99093" y="186.298516" transform="rotate(-0 358.99093 186.298516)">20</text>
+     </g>
+    </g>
+    <g id="xtick_9">
+     <g id="line2d_34">
+      <path d="M 398.956086 172.08 
+L 398.956086 5.76 
+" clip-path="url(#pbe01a493d9)" style="fill: none; stroke: #e6dccb; stroke-opacity: 0.7; stroke-width: 0.6; stroke-linecap: square"/>
+     </g>
+     <g id="line2d_35">
+      <g>
+       <use xlink:href="#mdf56a0c2c5" x="398.956086" y="172.08" style="fill: #8a7458; stroke: #8a7458; stroke-width: 0.9"/>
+      </g>
+     </g>
+     <g id="text_23">
+      <text style="font-size: 9.5px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: middle; fill: #8a7458" x="398.956086" y="186.298516" transform="rotate(-0 398.956086 186.298516)">40</text>
+     </g>
+    </g>
+    <g id="xtick_10">
+     <g id="line2d_36">
+      <path d="M 438.921243 172.08 
+L 438.921243 5.76 
+" clip-path="url(#pbe01a493d9)" style="fill: none; stroke: #e6dccb; stroke-opacity: 0.7; stroke-width: 0.6; stroke-linecap: square"/>
+     </g>
+     <g id="line2d_37">
+      <g>
+       <use xlink:href="#mdf56a0c2c5" x="438.921243" y="172.08" style="fill: #8a7458; stroke: #8a7458; stroke-width: 0.9"/>
+      </g>
+     </g>
+     <g id="text_24">
+      <text style="font-size: 9.5px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: middle; fill: #8a7458" x="438.921243" y="186.298516" transform="rotate(-0 438.921243 186.298516)">60</text>
+     </g>
+    </g>
+    <g id="xtick_11">
+     <g id="line2d_38">
+      <path d="M 478.8864 172.08 
+L 478.8864 5.76 
+" clip-path="url(#pbe01a493d9)" style="fill: none; stroke: #e6dccb; stroke-opacity: 0.7; stroke-width: 0.6; stroke-linecap: square"/>
+     </g>
+     <g id="line2d_39">
+      <g>
+       <use xlink:href="#mdf56a0c2c5" x="478.8864" y="172.08" style="fill: #8a7458; stroke: #8a7458; stroke-width: 0.9"/>
+      </g>
+     </g>
+     <g id="text_25">
+      <text style="font-size: 9.5px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: middle; fill: #8a7458" x="478.8864" y="186.298516" transform="rotate(-0 478.8864 186.298516)">80</text>
+     </g>
+    </g>
+    <g id="text_26">
+     <text style="font-size: 9.5px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: middle; fill: #4a3c2c" x="398.956086" y="199.492734" transform="rotate(-0 398.956086 199.492734)">del factor delivered</text>
+    </g>
+   </g>
+   <g id="matplotlib.axis_4">
+    <g id="ytick_9">
+     <g id="line2d_40">
+      <g>
+       <use xlink:href="#m9903f80276" x="319.025773" y="104.844255" style="fill: #8a7458; stroke: #8a7458; stroke-width: 0.9"/>
+      </g>
+     </g>
+     <g id="text_27">
+      <text style="font-size: 8.4px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; fill: #8a7458" transform="translate(293.306898 103.970787)">slow</text>
+      <text style="font-size: 8.4px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; fill: #8a7458" transform="translate(250.456398 113.376949)">60 / 0 / 45 min</text>
+     </g>
+    </g>
+    <g id="ytick_10">
+     <g id="line2d_41">
+      <g>
+       <use xlink:href="#m9903f80276" x="319.025773" y="34.069787" style="fill: #8a7458; stroke: #8a7458; stroke-width: 0.9"/>
+      </g>
+     </g>
+     <g id="text_28">
+      <text style="font-size: 8.4px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; fill: #8a7458" transform="translate(296.252148 33.196318)">fast</text>
+      <text style="font-size: 8.4px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; fill: #8a7458" transform="translate(242.442273 42.602481)">20 / 6.1 / 15 min</text>
+     </g>
+    </g>
+   </g>
+   <g id="line2d_42">
+    <path d="M 399.076456 172.08 
+L 399.076456 5.76 
+" clip-path="url(#pbe01a493d9)" style="fill: none; stroke-dasharray: 4.4,3.3; stroke-dashoffset: 0; stroke: #a4503a; stroke-width: 1.1"/>
+   </g>
+   <g id="patch_12">
+    <path d="M 319.025773 172.08 
+L 319.025773 5.76 
+" style="fill: none; stroke: #dfd2be; stroke-width: 0.9; stroke-linejoin: miter; stroke-linecap: square"/>
+   </g>
+   <g id="patch_13">
+    <path d="M 319.025773 172.08 
+L 478.8864 172.08 
+" style="fill: none; stroke: #dfd2be; stroke-width: 0.9; stroke-linejoin: miter; stroke-linecap: square"/>
+   </g>
+   <g id="text_29">
+    <text style="font-weight: 700; font-size: 8.4px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: middle; fill: #8a5f1b" x="356.671643" y="107.16213" transform="rotate(-0 356.671643 107.16213)">38</text>
+   </g>
+   <g id="text_30">
+    <text style="font-weight: 700; font-size: 8.4px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: middle; fill: #8a7458" x="422.551915" y="107.16213" transform="rotate(-0 422.551915 107.16213)">28</text>
+   </g>
+   <g id="text_31">
+    <text style="font-weight: 700; font-size: 8.4px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: start; fill: #4a3c2c" x="453.783704" y="107.16213" transform="rotate(-0 453.783704 107.16213)">66</text>
+   </g>
+   <g id="text_32">
+    <text style="font-weight: 700; font-size: 8.4px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: middle; fill: #8a5f1b" x="331.574396" y="36.387662" transform="rotate(-0 331.574396 36.387662)">13</text>
+   </g>
+   <g id="text_33">
+    <text style="font-weight: 700; font-size: 8.4px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: middle; fill: #1f6f62" x="362.18727" y="36.387662" transform="rotate(-0 362.18727 36.387662)">18</text>
+   </g>
+   <g id="text_34">
+    <text style="font-weight: 700; font-size: 8.4px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: middle; fill: #8a7458" x="389.662989" y="36.387662" transform="rotate(-0 389.662989 36.387662)">9</text>
+   </g>
+   <g id="text_35">
+    <text style="font-weight: 700; font-size: 8.4px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: start; fill: #4a3c2c" x="402.071843" y="36.387662" transform="rotate(-0 402.071843 36.387662)">40</text>
+   </g>
+   <g id="text_36">
+    <text style="font-size: 8.4px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: start; fill: #8a5f1b" x="321.024031" y="161.46383" transform="rotate(-0 321.024031 161.46383)">■ heat-up</text>
+   </g>
+   <g id="text_37">
+    <text style="font-size: 8.4px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: start; fill: #1f6f62" x="366.983961" y="161.46383" transform="rotate(-0 366.983961 161.46383)">■ hold</text>
+   </g>
+   <g id="text_38">
+    <text style="font-size: 8.4px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: start; fill: #8a7458" x="412.943891" y="161.46383" transform="rotate(-0 412.943891 161.46383)">■ cool-down</text>
+   </g>
+   <g id="text_39">
+    <text style="font-size: 8.2px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: start; fill: #a4503a" x="402.073843" y="134.569532" transform="rotate(-0 402.073843 134.569532)">required 40</text>
+   </g>
+  </g>
+  <g id="text_40">
+   <text style="font-size: 8.3px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: start; fill: #8a7458" x="5.76" y="226.08" transform="rotate(-0 5.76 226.08)">Computed from Doran's Example 13.8 parameters (Eₑ = 283 kJ gmol⁻¹, A = 5.7 × 10³⁹ h⁻¹) for 50 m³ at one contaminated batch in a thousand; death below 100 °C neglected.</text>
+  </g>
+ </g>
+ <defs>
+  <clipPath id="p308c9dbccf">
+   <rect x="65.9664" y="5.76" width="175.84669" height="166.32"/>
+  </clipPath>
+  <clipPath id="pbe01a493d9">
+   <rect x="319.025773" y="5.76" width="159.860627" height="166.32"/>
+  </clipPath>
+ </defs>
+</svg>
+</div><div class="fig-dark"><svg role="img" aria-label="Left: the slow cycle, 60 min up and 45 min down, with cumulative del on the right axis — the requirement of 40 is met 49 minutes in, long before the hold would have begun. Right: the same del factor split across heat-up, hold and cool-down for a fast and a slow cycle. A holding time computed without the ramps is not a safety margin, it is nutrient destroyed for nothing." xmlns:xlink="http://www.w3.org/1999/xlink" width="740.132906pt" height="233.566141pt" viewBox="0 0 740.132906 233.566141" xmlns="http://www.w3.org/2000/svg" version="1.1">
+ <metadata>
+  <rdf:RDF xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:cc="http://creativecommons.org/ns#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+   <cc:Work>
+    <dc:type rdf:resource="http://purl.org/dc/dcmitype/StillImage"/>
+    <dc:date>2026-11-02T23:57:56.503252</dc:date>
+    <dc:format>image/svg+xml</dc:format>
+    <dc:creator>
+     <cc:Agent>
+      <dc:title>Matplotlib v3.10.8, https://matplotlib.org/</dc:title>
+     </cc:Agent>
+    </dc:creator>
+   </cc:Work>
+  </rdf:RDF>
+ </metadata>
+ <defs>
+  <style type="text/css">*{stroke-linejoin: round; stroke-linecap: butt}</style>
+ </defs>
+ <g id="figure_1">
+  <g id="patch_1">
+   <path d="M 0 233.566141 
+L 740.132906 233.566141 
+L 740.132906 -0 
+L 0 -0 
+L 0 233.566141 
+z
+" style="fill: none"/>
+  </g>
+  <g id="axes_1">
+   <g id="patch_2">
+    <path d="M 65.9664 172.08 
+L 241.81309 172.08 
+L 241.81309 5.76 
+L 65.9664 5.76 
+L 65.9664 172.08 
+z
+" style="fill: none"/>
+   </g>
+   <g id="matplotlib.axis_1">
+    <g id="xtick_1">
+     <g id="line2d_1">
+      <defs>
+       <path id="m31b1c122a5" d="M 0 0 
+L 0 3.5 
+" style="stroke: #9a8872; stroke-width: 0.9"/>
+      </defs>
+      <g>
+       <use xlink:href="#m31b1c122a5" x="65.9664" y="172.08" style="fill: #9a8872; stroke: #9a8872; stroke-width: 0.9"/>
+      </g>
+     </g>
+     <g id="text_1">
+      <text style="font-size: 9.5px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: middle; fill: #9a8872" x="65.9664" y="186.298516" transform="rotate(-0 65.9664 186.298516)">0</text>
+     </g>
+    </g>
+    <g id="xtick_2">
+     <g id="line2d_2">
+      <g>
+       <use xlink:href="#m31b1c122a5" x="98.530602" y="172.08" style="fill: #9a8872; stroke: #9a8872; stroke-width: 0.9"/>
+      </g>
+     </g>
+     <g id="text_2">
+      <text style="font-size: 9.5px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: middle; fill: #9a8872" x="98.530602" y="186.298516" transform="rotate(-0 98.530602 186.298516)">20</text>
+     </g>
+    </g>
+    <g id="xtick_3">
+     <g id="line2d_3">
+      <g>
+       <use xlink:href="#m31b1c122a5" x="131.094804" y="172.08" style="fill: #9a8872; stroke: #9a8872; stroke-width: 0.9"/>
+      </g>
+     </g>
+     <g id="text_3">
+      <text style="font-size: 9.5px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: middle; fill: #9a8872" x="131.094804" y="186.298516" transform="rotate(-0 131.094804 186.298516)">40</text>
+     </g>
+    </g>
+    <g id="xtick_4">
+     <g id="line2d_4">
+      <g>
+       <use xlink:href="#m31b1c122a5" x="163.659005" y="172.08" style="fill: #9a8872; stroke: #9a8872; stroke-width: 0.9"/>
+      </g>
+     </g>
+     <g id="text_4">
+      <text style="font-size: 9.5px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: middle; fill: #9a8872" x="163.659005" y="186.298516" transform="rotate(-0 163.659005 186.298516)">60</text>
+     </g>
+    </g>
+    <g id="xtick_5">
+     <g id="line2d_5">
+      <g>
+       <use xlink:href="#m31b1c122a5" x="196.223207" y="172.08" style="fill: #9a8872; stroke: #9a8872; stroke-width: 0.9"/>
+      </g>
+     </g>
+     <g id="text_5">
+      <text style="font-size: 9.5px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: middle; fill: #9a8872" x="196.223207" y="186.298516" transform="rotate(-0 196.223207 186.298516)">80</text>
+     </g>
+    </g>
+    <g id="xtick_6">
+     <g id="line2d_6">
+      <g>
+       <use xlink:href="#m31b1c122a5" x="228.787409" y="172.08" style="fill: #9a8872; stroke: #9a8872; stroke-width: 0.9"/>
+      </g>
+     </g>
+     <g id="text_6">
+      <text style="font-size: 9.5px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: middle; fill: #9a8872" x="228.787409" y="186.298516" transform="rotate(-0 228.787409 186.298516)">100</text>
+     </g>
+    </g>
+    <g id="text_7">
+     <text style="font-size: 9.5px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: middle; fill: #cbbca6" x="153.889745" y="199.492734" transform="rotate(-0 153.889745 199.492734)">time from 100 °C  (min)</text>
+    </g>
+   </g>
+   <g id="matplotlib.axis_2">
+    <g id="ytick_1">
+     <g id="line2d_7">
+      <path d="M 65.9664 172.08 
+L 241.81309 172.08 
+" clip-path="url(#p1d09b6ffea)" style="fill: none; stroke: #2e251c; stroke-opacity: 0.7; stroke-width: 0.6; stroke-linecap: square"/>
+     </g>
+     <g id="line2d_8">
+      <defs>
+       <path id="m7ab44001a1" d="M 0 0 
+L -3.5 0 
+" style="stroke: #9a8872; stroke-width: 0.9"/>
+      </defs>
+      <g>
+       <use xlink:href="#m7ab44001a1" x="65.9664" y="172.08" style="fill: #9a8872; stroke: #9a8872; stroke-width: 0.9"/>
+      </g>
+     </g>
+     <g id="text_8">
+      <text style="font-size: 9.5px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: end; fill: #9a8872" x="58.9664" y="175.689258" transform="rotate(-0 58.9664 175.689258)">0</text>
+     </g>
+    </g>
+    <g id="ytick_2">
+     <g id="line2d_9">
+      <path d="M 65.9664 150.756923 
+L 241.81309 150.756923 
+" clip-path="url(#p1d09b6ffea)" style="fill: none; stroke: #2e251c; stroke-opacity: 0.7; stroke-width: 0.6; stroke-linecap: square"/>
+     </g>
+     <g id="line2d_10">
+      <g>
+       <use xlink:href="#m7ab44001a1" x="65.9664" y="150.756923" style="fill: #9a8872; stroke: #9a8872; stroke-width: 0.9"/>
+      </g>
+     </g>
+     <g id="text_9">
+      <text style="font-size: 9.5px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: end; fill: #9a8872" x="58.9664" y="154.366181" transform="rotate(-0 58.9664 154.366181)">10</text>
+     </g>
+    </g>
+    <g id="ytick_3">
+     <g id="line2d_11">
+      <path d="M 65.9664 129.433846 
+L 241.81309 129.433846 
+" clip-path="url(#p1d09b6ffea)" style="fill: none; stroke: #2e251c; stroke-opacity: 0.7; stroke-width: 0.6; stroke-linecap: square"/>
+     </g>
+     <g id="line2d_12">
+      <g>
+       <use xlink:href="#m7ab44001a1" x="65.9664" y="129.433846" style="fill: #9a8872; stroke: #9a8872; stroke-width: 0.9"/>
+      </g>
+     </g>
+     <g id="text_10">
+      <text style="font-size: 9.5px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: end; fill: #9a8872" x="58.9664" y="133.043104" transform="rotate(-0 58.9664 133.043104)">20</text>
+     </g>
+    </g>
+    <g id="ytick_4">
+     <g id="line2d_13">
+      <path d="M 65.9664 108.110769 
+L 241.81309 108.110769 
+" clip-path="url(#p1d09b6ffea)" style="fill: none; stroke: #2e251c; stroke-opacity: 0.7; stroke-width: 0.6; stroke-linecap: square"/>
+     </g>
+     <g id="line2d_14">
+      <g>
+       <use xlink:href="#m7ab44001a1" x="65.9664" y="108.110769" style="fill: #9a8872; stroke: #9a8872; stroke-width: 0.9"/>
+      </g>
+     </g>
+     <g id="text_11">
+      <text style="font-size: 9.5px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: end; fill: #9a8872" x="58.9664" y="111.720027" transform="rotate(-0 58.9664 111.720027)">30</text>
+     </g>
+    </g>
+    <g id="ytick_5">
+     <g id="line2d_15">
+      <path d="M 65.9664 86.787692 
+L 241.81309 86.787692 
+" clip-path="url(#p1d09b6ffea)" style="fill: none; stroke: #2e251c; stroke-opacity: 0.7; stroke-width: 0.6; stroke-linecap: square"/>
+     </g>
+     <g id="line2d_16">
+      <g>
+       <use xlink:href="#m7ab44001a1" x="65.9664" y="86.787692" style="fill: #9a8872; stroke: #9a8872; stroke-width: 0.9"/>
+      </g>
+     </g>
+     <g id="text_12">
+      <text style="font-size: 9.5px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: end; fill: #9a8872" x="58.9664" y="90.39695" transform="rotate(-0 58.9664 90.39695)">40</text>
+     </g>
+    </g>
+    <g id="ytick_6">
+     <g id="line2d_17">
+      <path d="M 65.9664 65.464615 
+L 241.81309 65.464615 
+" clip-path="url(#p1d09b6ffea)" style="fill: none; stroke: #2e251c; stroke-opacity: 0.7; stroke-width: 0.6; stroke-linecap: square"/>
+     </g>
+     <g id="line2d_18">
+      <g>
+       <use xlink:href="#m7ab44001a1" x="65.9664" y="65.464615" style="fill: #9a8872; stroke: #9a8872; stroke-width: 0.9"/>
+      </g>
+     </g>
+     <g id="text_13">
+      <text style="font-size: 9.5px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: end; fill: #9a8872" x="58.9664" y="69.073873" transform="rotate(-0 58.9664 69.073873)">50</text>
+     </g>
+    </g>
+    <g id="ytick_7">
+     <g id="line2d_19">
+      <path d="M 65.9664 44.141538 
+L 241.81309 44.141538 
+" clip-path="url(#p1d09b6ffea)" style="fill: none; stroke: #2e251c; stroke-opacity: 0.7; stroke-width: 0.6; stroke-linecap: square"/>
+     </g>
+     <g id="line2d_20">
+      <g>
+       <use xlink:href="#m7ab44001a1" x="65.9664" y="44.141538" style="fill: #9a8872; stroke: #9a8872; stroke-width: 0.9"/>
+      </g>
+     </g>
+     <g id="text_14">
+      <text style="font-size: 9.5px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: end; fill: #9a8872" x="58.9664" y="47.750796" transform="rotate(-0 58.9664 47.750796)">60</text>
+     </g>
+    </g>
+    <g id="ytick_8">
+     <g id="line2d_21">
+      <path d="M 65.9664 22.818462 
+L 241.81309 22.818462 
+" clip-path="url(#p1d09b6ffea)" style="fill: none; stroke: #2e251c; stroke-opacity: 0.7; stroke-width: 0.6; stroke-linecap: square"/>
+     </g>
+     <g id="line2d_22">
+      <g>
+       <use xlink:href="#m7ab44001a1" x="65.9664" y="22.818462" style="fill: #9a8872; stroke: #9a8872; stroke-width: 0.9"/>
+      </g>
+     </g>
+     <g id="text_15">
+      <text style="font-size: 9.5px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: end; fill: #9a8872" x="58.9664" y="26.427719" transform="rotate(-0 58.9664 26.427719)">70</text>
+     </g>
+    </g>
+    <g id="text_16">
+     <text style="font-size: 9.5px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: middle; fill: #cbbca6" x="40.901947" y="88.92" transform="rotate(-90 40.901947 88.92)">cumulative del factor</text>
+    </g>
+   </g>
+   <g id="line2d_23">
+    <path d="M 65.9664 172.08 
+L 71.806293 171.793705 
+L 75.731468 171.39164 
+L 78.795018 170.859972 
+L 81.284153 170.205093 
+L 83.390344 169.424816 
+L 85.209328 168.523672 
+L 86.836839 167.484319 
+L 88.368614 166.250986 
+L 89.804654 164.815105 
+L 91.144957 163.175513 
+L 92.48526 161.184791 
+L 93.825564 158.769817 
+L 95.070131 156.07088 
+L 96.314699 152.846539 
+L 97.559266 148.99731 
+L 98.803834 144.41921 
+L 109.621997 102.677544 
+L 110.770828 99.415771 
+L 111.91966 96.794353 
+L 113.068491 94.689901 
+L 114.313059 92.877873 
+L 115.557626 91.453171 
+L 116.89793 90.259167 
+L 118.333969 89.283492 
+L 119.865744 88.505899 
+L 121.684728 87.84229 
+L 123.790919 87.32211 
+L 126.37579 86.922796 
+L 129.822284 86.632503 
+L 132.885835 86.501508 
+L 132.885835 86.501508 
+" clip-path="url(#p1d09b6ffea)" style="fill: none; stroke: #6dbdac; stroke-width: 1.9; stroke-linecap: square"/>
+   </g>
+   <g id="line2d_24">
+    <path d="M 65.9664 172.08 
+L 76.72796 171.64624 
+L 85.043711 171.099036 
+L 91.891977 170.435105 
+L 97.761919 169.648934 
+L 102.898118 168.740507 
+L 107.545156 167.689379 
+L 111.703031 166.517184 
+L 115.371745 165.260375 
+L 118.795878 163.861571 
+L 121.97543 162.332321 
+L 124.910401 160.691207 
+L 127.845372 158.795391 
+L 130.535762 156.801028 
+L 133.226152 154.526546 
+L 135.671961 152.183602 
+L 138.11777 149.545104 
+L 140.563579 146.574726 
+L 143.009388 143.23179 
+L 145.455197 139.470769 
+L 147.656426 135.686401 
+L 149.857654 131.480894 
+L 152.058882 126.808573 
+L 154.26011 121.618942 
+L 156.461339 115.856185 
+L 158.662567 109.458621 
+L 160.863795 102.35811 
+L 163.065023 94.479385 
+L 166.244575 82.839745 
+L 168.201222 76.695261 
+L 170.15787 71.265496 
+L 172.114517 66.469012 
+L 174.071164 62.233453 
+L 176.027812 58.494557 
+L 177.984459 55.195267 
+L 179.941106 52.284943 
+L 182.142335 49.420025 
+L 184.343563 46.934332 
+L 186.544791 44.778663 
+L 188.746019 42.910069 
+L 191.191829 41.12513 
+L 193.637638 39.603936 
+L 196.328028 38.189804 
+L 199.262999 36.907735 
+L 202.442551 35.772892 
+L 205.866683 34.791337 
+L 209.779978 33.912896 
+L 214.182435 33.165057 
+L 219.318634 32.532419 
+L 225.433157 32.018181 
+L 233.015165 31.618672 
+L 236.92846 31.481528 
+L 236.92846 31.481528 
+" clip-path="url(#p1d09b6ffea)" style="fill: none; stroke: #d7a95c; stroke-width: 1.9; stroke-linecap: square"/>
+   </g>
+   <g id="line2d_25">
+    <path d="M 65.9664 86.659248 
+L 241.81309 86.659248 
+" clip-path="url(#p1d09b6ffea)" style="fill: none; stroke-dasharray: 4.4,3.3; stroke-dashoffset: 0; stroke: #d98c72; stroke-width: 1.1"/>
+   </g>
+   <g id="line2d_26">
+    <path d="M 129.43934 86.655551 
+" clip-path="url(#p1d09b6ffea)" style="fill: none; stroke: #6dbdac; stroke-width: 1.9; stroke-linecap: square"/>
+    <defs>
+     <path id="m4cecc33ed6" d="M 0 2.25 
+C 0.596707 2.25 1.169055 2.012926 1.59099 1.59099 
+C 2.012926 1.169055 2.25 0.596707 2.25 0 
+C 2.25 -0.596707 2.012926 -1.169055 1.59099 -1.59099 
+C 1.169055 -2.012926 0.596707 -2.25 0 -2.25 
+C -0.596707 -2.25 -1.169055 -2.012926 -1.59099 -1.59099 
+C -2.012926 -1.169055 -2.25 -0.596707 -2.25 0 
+C -2.25 0.596707 -2.012926 1.169055 -1.59099 1.59099 
+C -1.169055 2.012926 -0.596707 2.25 0 2.25 
+z
+" style="stroke: #6dbdac"/>
+    </defs>
+    <g clip-path="url(#p1d09b6ffea)">
+     <use xlink:href="#m4cecc33ed6" x="129.43934" y="86.655551" style="fill: #6dbdac; stroke: #6dbdac"/>
+    </g>
+   </g>
+   <g id="line2d_27">
+    <path d="M 165.266252 86.20821 
+" clip-path="url(#p1d09b6ffea)" style="fill: none; stroke: #d7a95c; stroke-width: 1.9; stroke-linecap: square"/>
+    <defs>
+     <path id="m15d34ddbb7" d="M 0 2.25 
+C 0.596707 2.25 1.169055 2.012926 1.59099 1.59099 
+C 2.012926 1.169055 2.25 0.596707 2.25 0 
+C 2.25 -0.596707 2.012926 -1.169055 1.59099 -1.59099 
+C 1.169055 -2.012926 0.596707 -2.25 0 -2.25 
+C -0.596707 -2.25 -1.169055 -2.012926 -1.59099 -1.59099 
+C -2.012926 -1.169055 -2.25 -0.596707 -2.25 0 
+C -2.25 0.596707 -2.012926 1.169055 -1.59099 1.59099 
+C -1.169055 2.012926 -0.596707 2.25 0 2.25 
+z
+" style="stroke: #d7a95c"/>
+    </defs>
+    <g clip-path="url(#p1d09b6ffea)">
+     <use xlink:href="#m15d34ddbb7" x="165.266252" y="86.20821" style="fill: #d7a95c; stroke: #d7a95c"/>
+    </g>
+   </g>
+   <g id="patch_3">
+    <path d="M 65.9664 172.08 
+L 65.9664 5.76 
+" style="fill: none; stroke: #3a3026; stroke-width: 0.9; stroke-linejoin: miter; stroke-linecap: square"/>
+   </g>
+   <g id="patch_4">
+    <path d="M 65.9664 172.08 
+L 241.81309 172.08 
+" style="fill: none; stroke: #3a3026; stroke-width: 0.9; stroke-linejoin: miter; stroke-linecap: square"/>
+   </g>
+   <g id="text_17">
+    <text style="font-size: 8.4px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: end; fill: #d98c72" x="238.296156" y="102.2256" transform="rotate(-0 238.296156 102.2256)">required  40</text>
+   </g>
+   <g id="text_18">
+    <text style="font-size: 8.2px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; fill: #9a8872" transform="translate(210.672702 150.278642)">39 min</text>
+    <text style="font-size: 8.2px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; fill: #9a8872" transform="translate(210.672702 160.395456)">61 min</text>
+   </g>
+   <g id="legend_1">
+    <g id="line2d_28">
+     <path d="M 73.3464 16.500719 
+L 81.5464 16.500719 
+L 89.7464 16.500719 
+" style="fill: none; stroke: #6dbdac; stroke-width: 1.9; stroke-linecap: square"/>
+    </g>
+    <g id="text_19">
+     <text style="font-size: 8.2px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: start; fill: #cbbca6" x="96.3064" y="19.370719" transform="rotate(-0 96.3064 19.370719)">fast  20 / 6.1 / 15 min</text>
+    </g>
+    <g id="line2d_29">
+     <path d="M 73.3464 28.536781 
+L 81.5464 28.536781 
+L 89.7464 28.536781 
+" style="fill: none; stroke: #d7a95c; stroke-width: 1.9; stroke-linecap: square"/>
+    </g>
+    <g id="text_20">
+     <text style="font-size: 8.2px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: start; fill: #cbbca6" x="96.3064" y="31.406781" transform="rotate(-0 96.3064 31.406781)">slow  60 / 0 / 45 min</text>
+    </g>
+   </g>
+  </g>
+  <g id="axes_2">
+   <g id="patch_5">
+    <path d="M 319.025773 172.08 
+L 478.8864 172.08 
+L 478.8864 5.76 
+L 319.025773 5.76 
+L 319.025773 172.08 
+z
+" style="fill: none"/>
+   </g>
+   <g id="patch_6">
+    <path d="M 319.025773 121.122383 
+L 394.317512 121.122383 
+L 394.317512 88.566128 
+L 319.025773 88.566128 
+z
+" clip-path="url(#pc05de39574)" style="fill: #d7a95c; opacity: 0.32; stroke: #d7a95c; stroke-width: 1.1; stroke-linejoin: miter"/>
+   </g>
+   <g id="patch_7">
+    <path d="M 394.317512 121.122383 
+L 394.317512 121.122383 
+L 394.317512 88.566128 
+L 394.317512 88.566128 
+z
+" clip-path="url(#pc05de39574)" style="fill: #6dbdac; opacity: 0.32; stroke: #6dbdac; stroke-width: 1.1; stroke-linejoin: miter"/>
+   </g>
+   <g id="patch_8">
+    <path d="M 394.317512 121.122383 
+L 450.786317 121.122383 
+L 450.786317 88.566128 
+L 394.317512 88.566128 
+z
+" clip-path="url(#pc05de39574)" style="fill: #9a8872; opacity: 0.32; stroke: #9a8872; stroke-width: 1.1; stroke-linejoin: miter"/>
+   </g>
+   <g id="patch_9">
+    <path d="M 319.025773 50.347915 
+L 344.123019 50.347915 
+L 344.123019 17.79166 
+L 319.025773 17.79166 
+z
+" clip-path="url(#pc05de39574)" style="fill: #d7a95c; opacity: 0.32; stroke: #d7a95c; stroke-width: 1.1; stroke-linejoin: miter"/>
+   </g>
+   <g id="patch_10">
+    <path d="M 344.123019 50.347915 
+L 380.251521 50.347915 
+L 380.251521 17.79166 
+L 344.123019 17.79166 
+z
+" clip-path="url(#pc05de39574)" style="fill: #6dbdac; opacity: 0.32; stroke: #6dbdac; stroke-width: 1.1; stroke-linejoin: miter"/>
+   </g>
+   <g id="patch_11">
+    <path d="M 380.251521 50.347915 
+L 399.074456 50.347915 
+L 399.074456 17.79166 
+L 380.251521 17.79166 
+z
+" clip-path="url(#pc05de39574)" style="fill: #9a8872; opacity: 0.32; stroke: #9a8872; stroke-width: 1.1; stroke-linejoin: miter"/>
+   </g>
+   <g id="matplotlib.axis_3">
+    <g id="xtick_7">
+     <g id="line2d_30">
+      <path d="M 319.025773 172.08 
+L 319.025773 5.76 
+" clip-path="url(#pc05de39574)" style="fill: none; stroke: #2e251c; stroke-opacity: 0.7; stroke-width: 0.6; stroke-linecap: square"/>
+     </g>
+     <g id="line2d_31">
+      <g>
+       <use xlink:href="#m31b1c122a5" x="319.025773" y="172.08" style="fill: #9a8872; stroke: #9a8872; stroke-width: 0.9"/>
+      </g>
+     </g>
+     <g id="text_21">
+      <text style="font-size: 9.5px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: middle; fill: #9a8872" x="319.025773" y="186.298516" transform="rotate(-0 319.025773 186.298516)">0</text>
+     </g>
+    </g>
+    <g id="xtick_8">
+     <g id="line2d_32">
+      <path d="M 358.99093 172.08 
+L 358.99093 5.76 
+" clip-path="url(#pc05de39574)" style="fill: none; stroke: #2e251c; stroke-opacity: 0.7; stroke-width: 0.6; stroke-linecap: square"/>
+     </g>
+     <g id="line2d_33">
+      <g>
+       <use xlink:href="#m31b1c122a5" x="358.99093" y="172.08" style="fill: #9a8872; stroke: #9a8872; stroke-width: 0.9"/>
+      </g>
+     </g>
+     <g id="text_22">
+      <text style="font-size: 9.5px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: middle; fill: #9a8872" x="358.99093" y="186.298516" transform="rotate(-0 358.99093 186.298516)">20</text>
+     </g>
+    </g>
+    <g id="xtick_9">
+     <g id="line2d_34">
+      <path d="M 398.956086 172.08 
+L 398.956086 5.76 
+" clip-path="url(#pc05de39574)" style="fill: none; stroke: #2e251c; stroke-opacity: 0.7; stroke-width: 0.6; stroke-linecap: square"/>
+     </g>
+     <g id="line2d_35">
+      <g>
+       <use xlink:href="#m31b1c122a5" x="398.956086" y="172.08" style="fill: #9a8872; stroke: #9a8872; stroke-width: 0.9"/>
+      </g>
+     </g>
+     <g id="text_23">
+      <text style="font-size: 9.5px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: middle; fill: #9a8872" x="398.956086" y="186.298516" transform="rotate(-0 398.956086 186.298516)">40</text>
+     </g>
+    </g>
+    <g id="xtick_10">
+     <g id="line2d_36">
+      <path d="M 438.921243 172.08 
+L 438.921243 5.76 
+" clip-path="url(#pc05de39574)" style="fill: none; stroke: #2e251c; stroke-opacity: 0.7; stroke-width: 0.6; stroke-linecap: square"/>
+     </g>
+     <g id="line2d_37">
+      <g>
+       <use xlink:href="#m31b1c122a5" x="438.921243" y="172.08" style="fill: #9a8872; stroke: #9a8872; stroke-width: 0.9"/>
+      </g>
+     </g>
+     <g id="text_24">
+      <text style="font-size: 9.5px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: middle; fill: #9a8872" x="438.921243" y="186.298516" transform="rotate(-0 438.921243 186.298516)">60</text>
+     </g>
+    </g>
+    <g id="xtick_11">
+     <g id="line2d_38">
+      <path d="M 478.8864 172.08 
+L 478.8864 5.76 
+" clip-path="url(#pc05de39574)" style="fill: none; stroke: #2e251c; stroke-opacity: 0.7; stroke-width: 0.6; stroke-linecap: square"/>
+     </g>
+     <g id="line2d_39">
+      <g>
+       <use xlink:href="#m31b1c122a5" x="478.8864" y="172.08" style="fill: #9a8872; stroke: #9a8872; stroke-width: 0.9"/>
+      </g>
+     </g>
+     <g id="text_25">
+      <text style="font-size: 9.5px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: middle; fill: #9a8872" x="478.8864" y="186.298516" transform="rotate(-0 478.8864 186.298516)">80</text>
+     </g>
+    </g>
+    <g id="text_26">
+     <text style="font-size: 9.5px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: middle; fill: #cbbca6" x="398.956086" y="199.492734" transform="rotate(-0 398.956086 199.492734)">del factor delivered</text>
+    </g>
+   </g>
+   <g id="matplotlib.axis_4">
+    <g id="ytick_9">
+     <g id="line2d_40">
+      <g>
+       <use xlink:href="#m7ab44001a1" x="319.025773" y="104.844255" style="fill: #9a8872; stroke: #9a8872; stroke-width: 0.9"/>
+      </g>
+     </g>
+     <g id="text_27">
+      <text style="font-size: 8.4px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; fill: #9a8872" transform="translate(293.306898 103.970787)">slow</text>
+      <text style="font-size: 8.4px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; fill: #9a8872" transform="translate(250.456398 113.376949)">60 / 0 / 45 min</text>
+     </g>
+    </g>
+    <g id="ytick_10">
+     <g id="line2d_41">
+      <g>
+       <use xlink:href="#m7ab44001a1" x="319.025773" y="34.069787" style="fill: #9a8872; stroke: #9a8872; stroke-width: 0.9"/>
+      </g>
+     </g>
+     <g id="text_28">
+      <text style="font-size: 8.4px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; fill: #9a8872" transform="translate(296.252148 33.196318)">fast</text>
+      <text style="font-size: 8.4px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; fill: #9a8872" transform="translate(242.442273 42.602481)">20 / 6.1 / 15 min</text>
+     </g>
+    </g>
+   </g>
+   <g id="line2d_42">
+    <path d="M 399.076456 172.08 
+L 399.076456 5.76 
+" clip-path="url(#pc05de39574)" style="fill: none; stroke-dasharray: 4.4,3.3; stroke-dashoffset: 0; stroke: #d98c72; stroke-width: 1.1"/>
+   </g>
+   <g id="patch_12">
+    <path d="M 319.025773 172.08 
+L 319.025773 5.76 
+" style="fill: none; stroke: #3a3026; stroke-width: 0.9; stroke-linejoin: miter; stroke-linecap: square"/>
+   </g>
+   <g id="patch_13">
+    <path d="M 319.025773 172.08 
+L 478.8864 172.08 
+" style="fill: none; stroke: #3a3026; stroke-width: 0.9; stroke-linejoin: miter; stroke-linecap: square"/>
+   </g>
+   <g id="text_29">
+    <text style="font-weight: 700; font-size: 8.4px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: middle; fill: #d7a95c" x="356.671643" y="107.16213" transform="rotate(-0 356.671643 107.16213)">38</text>
+   </g>
+   <g id="text_30">
+    <text style="font-weight: 700; font-size: 8.4px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: middle; fill: #9a8872" x="422.551915" y="107.16213" transform="rotate(-0 422.551915 107.16213)">28</text>
+   </g>
+   <g id="text_31">
+    <text style="font-weight: 700; font-size: 8.4px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: start; fill: #cbbca6" x="453.783704" y="107.16213" transform="rotate(-0 453.783704 107.16213)">66</text>
+   </g>
+   <g id="text_32">
+    <text style="font-weight: 700; font-size: 8.4px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: middle; fill: #d7a95c" x="331.574396" y="36.387662" transform="rotate(-0 331.574396 36.387662)">13</text>
+   </g>
+   <g id="text_33">
+    <text style="font-weight: 700; font-size: 8.4px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: middle; fill: #6dbdac" x="362.18727" y="36.387662" transform="rotate(-0 362.18727 36.387662)">18</text>
+   </g>
+   <g id="text_34">
+    <text style="font-weight: 700; font-size: 8.4px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: middle; fill: #9a8872" x="389.662989" y="36.387662" transform="rotate(-0 389.662989 36.387662)">9</text>
+   </g>
+   <g id="text_35">
+    <text style="font-weight: 700; font-size: 8.4px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: start; fill: #cbbca6" x="402.071843" y="36.387662" transform="rotate(-0 402.071843 36.387662)">40</text>
+   </g>
+   <g id="text_36">
+    <text style="font-size: 8.4px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: start; fill: #d7a95c" x="321.024031" y="161.46383" transform="rotate(-0 321.024031 161.46383)">■ heat-up</text>
+   </g>
+   <g id="text_37">
+    <text style="font-size: 8.4px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: start; fill: #6dbdac" x="366.983961" y="161.46383" transform="rotate(-0 366.983961 161.46383)">■ hold</text>
+   </g>
+   <g id="text_38">
+    <text style="font-size: 8.4px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: start; fill: #9a8872" x="412.943891" y="161.46383" transform="rotate(-0 412.943891 161.46383)">■ cool-down</text>
+   </g>
+   <g id="text_39">
+    <text style="font-size: 8.2px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: start; fill: #d98c72" x="402.073843" y="134.569532" transform="rotate(-0 402.073843 134.569532)">required 40</text>
+   </g>
+  </g>
+  <g id="text_40">
+   <text style="font-size: 8.3px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: start; fill: #9a8872" x="5.76" y="226.08" transform="rotate(-0 5.76 226.08)">Computed from Doran's Example 13.8 parameters (Eₑ = 283 kJ gmol⁻¹, A = 5.7 × 10³⁹ h⁻¹) for 50 m³ at one contaminated batch in a thousand; death below 100 °C neglected.</text>
+  </g>
+ </g>
+ <defs>
+  <clipPath id="p1d09b6ffea">
+   <rect x="65.9664" y="5.76" width="175.84669" height="166.32"/>
+  </clipPath>
+  <clipPath id="pc05de39574">
+   <rect x="319.025773" y="5.76" width="159.860627" height="166.32"/>
+  </clipPath>
+ </defs>
+</svg>
+</div><figcaption>Left: the slow cycle, 60 min up and 45 min down, with cumulative del on the right axis — the requirement of 40 is met 49 minutes in, long before the hold would have begun. Right: the same del factor split across heat-up, hold and cool-down for a fast and a slow cycle. A holding time computed without the ramps is not a safety margin, it is nutrient destroyed for nothing.</figcaption></figure>
+<p>Doran §13.6.1 is explicit that cell death occurs at all times during the cycle, that holding periods are of the order of minutes while heating and cooling of large volumes take hours, and that t_hd can be minimised by accounting for the ramps. Stanbury&#x27;s Ch 5 names the same calculation — &#x27;calculation of the Del factor during heating and cooling&#x27; is its own named subsection, ahead of the holding-time one. The integral is ∫k_d dt over the ramp, and it cannot be done until the temperature profile is known; Deindoerfer and Humphrey&#x27;s generalised profiles, reproduced in Doran&#x27;s Table 13.3, give the form — hyperbolic for direct steam sparging, linear for electrical heating, exponential for heat transfer from isothermal steam through a coil — and linear cooling against a constant-temperature coolant. The anchor does the integral numerically for a linear ramp, and the result is the point of the week: a 60-minute heat-up from 100 to 121 °C delivers del 37.7 on its own, and a 45-minute cool-down delivers 28.3, against a requirement of 40.1 for 50 m³. The ramps over-deliver by a factor of e²⁶. Every minute of holding time computed without them is a minute of nutrient destruction bought for nothing.</p>
+<p><strong>6. The thing you are trading against is the medium, and it has its own Arrhenius constant</strong></p>
+<p>Deindoerfer and Humphrey&#x27;s second criterion, which Stanbury gives as equation (5.11) onward, is the Nutrient Quality Criterion Q = ln(x₀/x_t) = k·t, built on exactly the same first-order-with-Arrhenius logic as the del factor, with the nutrient&#x27;s own activation energy. Superimpose the two families of lines on ln t against 1/T and you have the continuous sterilisation performance chart of their 1961 paper, reproduced as Stanbury&#x27;s Fig. 5.12: lines of constant del, lines of constant Q, and a safe operating region between the nutrient-in-excess bound and the nutrient-exhausted bound. The reason the chart slopes the way it does is the only thing you need to remember from it. Spore destruction has an activation energy around 283 kJ mol⁻¹; nutrient destruction is far lower, of the order of 100 kJ mol⁻¹ for vitamins and sugars, which is not a figure from the assigned reading and is flagged as an assumption in the anchor. Because the spore reaction is the more temperature-sensitive of the two, hotter and shorter always buys more sterility per unit of nutrient destroyed. That single inequality is the entire case for high-temperature short-time continuous sterilisation, and the anchor puts a number on it. Stanbury&#x27;s own caveat is worth keeping: the approach only works if the limiting heat-labile nutrient has been identified and its Arrhenius parameters measured, which Banks points out is rarely true of a complex medium — so in practice the chart tells you which direction to move, not where to stop.</p>
+<p><strong>7. What has to be sterilised separately, and why the list is short but non-negotiable</strong></p>
+<p>Three mechanisms, and they are chemical rather than kinetic, so no temperature-time regime avoids them. Maillard reaction between reducing sugars and amino groups browns the medium, destroys lysine and arginine preferentially, and generates compounds that inhibit growth — which is why glucose and the nitrogen source are routinely sterilised apart and combined cold. Phosphate precipitates with calcium and magnesium at sterilisation temperature, removing both the phosphate and the divalent cations from solution, which is why phosphate is a separate addition and why chelators appear in Stanbury&#x27;s component list at all. Vitamins and some amino acids are simply destroyed, which is why they are filter-sterilised; Stanbury notes that filtration is the method of choice for animal-cell media precisely because they are completely soluble and heat-labile, and Ch 5&#x27;s filter-sterilization section covers media as well as air. The decision rule is not &#x27;sterilise everything separately&#x27; — every separate stream is another vessel, another transfer and another aseptic connection, which is a contamination risk of its own. It is: separate the reducing sugar from the amino nitrogen, separate the phosphate from the divalent cations, filter what heat destroys, and heat the rest together.</p>
+<p><strong>8. The seed train is a generation count, and the generation count is a stability calculation</strong></p>
+<p>Stanbury Ch 6 gives the structure — criteria for the transfer of inoculum, then the development of inocula for yeast, bacterial and mycelial processes, then the aseptic inoculation of plant fermenters — and the criterion matters more than the stages. The usual inoculum ratio is 5 to 10% v/v, so each stage multiplies volume by 10 to 20 and the train from a 1 mL vial to 50 m³ is about seven to eight transfers. The number that actually matters is not the number of stages but the number of generations, because that is what week 33&#x27;s plasmid-stability model takes as its argument. Volume from 1 mL to 50,000 L is a factor of 5 × 10⁷, which is log₂(5 × 10⁷) = 25.6 generations of net growth, plus whatever is spent re-entering exponential phase after each transfer. Twenty-six generations is a long time for an unselected plasmid: at a segregational loss rate per generation of 1%, the plasmid-free fraction at inoculation is 1 − 0.99²⁶ = 23%, and the production vessel is seeded with a population that is already nearly a quarter wrong. Stanbury&#x27;s transfer criterion — transfer in late exponential phase, on a defined physiological state rather than a clock — is what keeps the lag short and therefore keeps the generation count near its theoretical minimum, and it is the only lever in the train that does not cost a vessel.</p>
+<p><strong>9. The contamination risk you accept, stated as a number rather than a posture</strong></p>
+<p>The week&#x27;s fourth objective asks you to state the risk you accept and why, and the honest version of that is an expected-cost calculation rather than a safety factor. One batch in a thousand is the industry figure; the question is whether it is right for your process. A contaminated batch costs the medium, the utilities, the vessel time, the clean-down, and the downstream capacity that was reserved for it — for the 50 m³ aerobic process costed in week 52 that is of the order of tens of thousands of dollars. Moving from 10⁻³ to 10⁻⁶ risk costs 6.9 more del, which at 121 °C is 2.3 more minutes of holding, which costs a little nutrient and nothing else. Moving the other way, to 10⁻², saves 2.3 minutes and buys a ten-fold higher failure rate. The asymmetry is the point: sterility is cheap at the margin and failure is expensive, so the usual error is not over-sterilising the broth but under-specifying everything else — the seals, the valves, the sample ports and the exhaust filter, which Stanbury Ch 7 covers at length and which is where contamination actually comes from. A del factor is a statement about the medium, not about the plant.</p>
+<h3>Worked anchor</h3>
+<p>A batch sterilisation cycle for 50 m³, with the ramps integrated, and what ignoring them would have cost.</p>
+<p>Step 1 — the del factor required. Doran&#x27;s Example 13.8 basis: spores at 5 × 10¹² m⁻³. In 50 m³, N₀ = 2.5 × 10¹⁴. Accepting one contaminated batch in a thousand, N_t = 10⁻³. So ∇ = ln(2.5 × 10¹⁴ / 10⁻³) = ln(2.5 × 10¹⁷) = 40.1.</p>
+<p>Sanity check against Stanbury: their 1,000 dm³ figure of 34.5 corresponds to ln(10¹²/10⁻³) = 34.54, i.e. 10⁹ organisms per dm³. Doran&#x27;s 5 × 10⁹ per dm³ is the same order, and the two sources agree to within one del factor on the same basis. Good.</p>
+<p>Step 2 — the rate constant. k_d = A e^(−E_d/RT) with E_d = 283 kJ gmol⁻¹, A = 5.7 × 10³⁹ h⁻¹, E_d/R = 34,036 K. At 121 °C (394.15 K): E_d/RT = 86.35, k_d = 179 h⁻¹ = 2.98 min⁻¹, D = 0.77 min.</p>
+<p>Step 3 — the naive answer. Ignoring the ramps, t_hd = 40.1 / 2.98 = 13.5 min at 121 °C.</p>
+<p>Step 4 — the ramps, for a fast cycle. Direct steam injection to 121 °C in 20 min from 100 °C, flash cooling back to 100 °C in 15 min, both taken as linear in temperature, death below 100 °C neglected per Doran. Numerical integration of ∫k_d dt over each ramp gives ∇_heat = 12.6 and ∇_cool = 9.4. Together 22.0, which is 55% of the requirement.</p>
+<p>The holding period therefore needs only 40.1 − 22.0 = 18.1 del, i.e. t_hd = 18.1 / 2.98 = 6.1 min. Accounting for the ramps more than halves the holding time: 6.1 min against the naive 13.5.</p>
+<p>Step 5 — the ramps, for a slow cycle, which is the usual case at this scale. A 50 m³ vessel heated through a jacket does not reach 121 °C in 20 minutes. Take 60 min up and 45 min down: ∇_heat = 37.7, ∇_cool = 28.3, total 66.0 against a requirement of 40.1. The holding time required is negative. The cycle is already sterile before the hold begins, by a margin of e^(66.0−40.1) = e^25.9, which is a factor of 1.8 × 10¹¹.</p>
+<p>Step 6 — what that over-delivery costs, in nutrient. Compare two regimes delivering the same del of 40.1: a 121 °C hold for 13.5 min, and a 140 °C continuous steriliser for 40.1/157.9 = 0.254 min = 15.2 s. Take the nutrient&#x27;s activation energy as 100 kJ mol⁻¹ — this figure is not from the assigned reading and is the one assumption carrying the result. The ratio of nutrient destruction is Q₁₄₀/Q₁₂₁ = [k_n(140)/k_n(121)] × (t₁₄₀/t₁₂₁) = 4.07 × 0.0189 = 0.077. The hotter, shorter regime destroys about one-thirteenth as much nutrient for the same sterility.</p>
+<p>Step 7 — what the arithmetic chooses. Three options, costed:</p>
+<p>(i) Batch, slow ramps, no holding time. Free. Delivers del 66 against 40 needed, so the nutrient damage is whatever a 105-minute excursion above 100 °C does. This is what most plants actually run, and the reason it survives is that the damage is absorbed into the medium recipe during development rather than measured.</p>
+<p>(ii) Batch, fast ramps by direct steam injection and flash cooling, 6.1 min hold. Costs clean steam and 10-20% condensate dilution, and Stanbury warns of foaming on heating and the need for steam free of anticorrosion additives. Cuts the above-100 °C excursion from 105 min to 41 min.</p>
+<p>(iii) Continuous, 140 °C, 15 s hold. Costs a spiral or plate exchanger and its capital, and Stanbury notes plate exchangers cannot handle suspended solids while spirals can and are self-cleaning. Buys the factor of thirteen on nutrient destruction, and buys back the vessel time — 105 minutes of a 50 m³ vessel per batch, which at a 48-hour cycle is 3.6% of capacity.</p>
+<p>The order of magnitude of the decision is set by option (iii)&#x27;s two credits, and the larger of them is not the nutrient. It is the vessel time, because vessel time is what week 52 will show carries the capital charge. The nutrient argument is the one in the textbooks; the capacity argument is the one that gets funded.</p>
+<p>One caveat the arithmetic cannot carry: Stanbury, following Armenante and Li (1993), records that particles in the medium heat far more slowly than the bulk, that their cores may not reach temperature before leaving a continuous steriliser, and that the conclusion is to overdesign the steriliser and the first cooling exchanger rather than lengthen the holding coil — and that direct steam injection is unwise for a particulate medium for the same reason. A hydrolysate or a starch slurry is a particulate medium. The 15-second answer above is for a soluble one.</p>
+<p><strong>Assumptions behind this calculation</strong></p>
+<ul>
+<li>spore load 5 × 10¹² m⁻³ of raw medium, from Doran&#x27;s Example 13.8 rather than from a measurement on this medium</li>
+<li>E_d = 283 kJ gmol⁻¹ and A = 5.7 × 10³⁹ h⁻¹ for the contaminating spores, also from Doran&#x27;s Example 13.8 and treated as applying to the whole population</li>
+<li>one contaminated batch in a thousand accepted, which is the figure Stanbury attributes to the fermentation industry and not a derivation</li>
+<li>cell death below 100 °C neglected, so the ramp integrals start and finish there, per Doran §13.6.1</li>
+<li>heat-up and cool-down taken as linear in temperature, which is Deindoerfer and Humphrey&#x27;s electrical-heating profile rather than the jacket profile this vessel would actually have</li>
+<li>nutrient destruction activation energy of 100 kJ mol⁻¹ — this figure is not from any assigned reading and is the single assumption carrying the hot-and-short conclusion</li>
+<li>medium taken as fully soluble, so Armenante and Li&#x27;s particle-core lag does not apply; a hydrolysate or starch slurry would invalidate the 15-second continuous answer</li>
+<li>the seed train&#x27;s generation count taken as the volume ratio alone, with no allowance for growth spent re-entering exponential phase after each transfer</li>
+<li>segregational loss of 1% per generation assumed when converting the generation count into a plasmid-free fraction</li>
+</ul>
+<h3>Reading map</h3>
+<table><thead><tr><th>Source</th><th>Treatment</th><th>Why</th></tr></thead><tbody><tr><td>Stanbury Ch 4 — Media for Industrial Fermentations (printed p93), in full</td><td>Read closely</td><td>Named sections, not numbered: introduction; typical media (94); medium formulation (94); water; energy sources; carbon sources (97, with factors influencing the choice and the examples under carbohydrates, oils and fats, hydrocarbons); nitrogen sources (101); minerals (102) with chelators; growth factors; nutrient recycle; buffers; the addition of precursors and metabolic regulators to media (105); oxygen requirements (108); antifoams (109); medium optimization (110). Read the component sections closely and the medium-optimization section for method rather than for its specific designs. This book numbers no sections, so cite by name.</td></tr><tr><td>Stanbury Ch 5 — Sterilization (printed p123), in full</td><td>Read closely</td><td>The week&#x27;s spine. Medium sterilization (123); the design of batch sterilization processes (129), whose first named subsection is calculation of the Del factor during heating and cooling and whose second is calculation of the holding time at constant temperature — in that order, which is the lesson; Richards&#x27; rapid method (130); the scale up of batch sterilization processes (130); the design of continuous sterilization processes (132); sterilization of the fermenter, of the feeds and of liquid wastes (137); filter sterilization (137) with the theory (140) and design (144) of depth filters. Take the del factor, the Arrhenius relation, the Nutrient Quality Criterion and Fig. 5.12 from here.</td></tr><tr><td>Doran Ch 13 §13.6.1 — Batch Heat Sterilisation of Liquids (printed p377)</td><td>Read closely</td><td>Not in the curriculum&#x27;s reading list for this week and it should be. This is where the heat-up and cool-down integrals are set out as Eqs (13.99) and (13.100), where Table 13.3 gives Deindoerfer and Humphrey&#x27;s generalised temperature-time profiles for each heating method, and where the 10-20% condensate dilution and the &#x27;death below 100 °C is minimal&#x27; simplification come from. §13.6.2 continuous heat sterilisation and its Example 13.8 supply the verified Arrhenius parameters the anchor uses, plus the axial-dispersion treatment of the holding coil.</td></tr><tr><td>Stanbury Ch 6 — The Development of Inocula for Industrial Fermentations (printed p147)</td><td>Read closely</td><td>Read &#x27;criteria for the transfer of inoculum&#x27; (149) closely and the process-specific sections — yeast (151), bacterial (153), mycelial (155) — at the level of what each one&#x27;s transfer criterion is and why it differs. The mycelial sections matter if your host is filamentous, because the subsection on the effect of the inoculum on morphology (160) is the upstream end of week 48&#x27;s pellet problem and week 49&#x27;s rheology problem.</td></tr><tr><td>Doran Ch 5 §5.9-5.11 — energy balances with biomass production</td><td>Read closely</td><td>§5.9 heat of reaction for processes with biomass production, §5.10 the energy-balance equation for cell culture, §5.11 worked examples. Subsection 5.9.2, Heat of Reaction With Oxygen as Electron Acceptor, is the source of the number this phase leans on in weeks 47, 49 and 51: 115 kJ per gmol electrons transferred, four electrons per O₂, so about 460 kJ per gmol O₂ consumed for aerobic metabolism, which Doran notes is verified against the experimental data of Cooney et al. Needed here for the steam duty of the sterilisation cycle and again in week 49 for the cooling duty.</td></tr><tr><td>Shuler Ch 10 §10.4 — Sterilization of Process Fluids (printed p314)</td><td>Skim</td><td>Substituted for the curriculum&#x27;s §10.3, which is Bioreactor Instrumentation and Control — see the README. §10.4.1 introduction and the kinetics of death, §10.4.2 sterilization of liquids (315), §10.4.3 sterilization of gases (320). Skim, because Stanbury Ch 5 and Doran §13.6 cover the liquid case better; read §10.4.3 closely if you have not costed an air sterilisation filter, since neither of the others gives the gas side as compactly. Shuler Ch 9 covers neither medium nor sterilisation and the curriculum&#x27;s original pointer to it does not resolve.</td></tr><tr><td>Shuler Ch 7 §7.3.1 — Elemental Balances (printed p209)</td><td>Skim</td><td>Reread, not new. The elemental demand of the medium is this calculation run backwards, and §7.3.2 degree of reduction plus §7.4 theoretical predictions of yield coefficients are what turn a target titre into a carbon and nitrogen bill. This resolves the &#x27;Shuler Ch 7, section unconfirmed&#x27; pointer carried since week 16.</td></tr><tr><td>Stanbury Ch 7, named section &#x27;other fermentation vessels&#x27; (printed p199)</td><td>Skip</td><td>Week 49&#x27;s material, read there. Noted here only because the sterilisation of the fermenter — as against the medium — is split across Ch 5 and Ch 7 and it is easy to read one and think you have both.</td></tr></tbody></table>
+<h3>Common misconceptions</h3>
+<ul>
+<li>That the holding time is the sterilisation cycle. For a vessel of this size it is usually the smallest of the three contributions: a 60-minute heat-up to 121 °C delivers del 37.7 on its own against a requirement of 40.1. Compute the ramps first and the hold last, which is the order Stanbury&#x27;s own subsection headings use.</li>
+<li>That higher temperature is harder on the medium. It is harder per minute and much easier per unit of sterility, because spore destruction has roughly three times the activation energy of nutrient destruction. At fixed del, 140 °C for 15 seconds destroys about a thirteenth of the nutrient that 121 °C for 13.5 minutes does. The whole of high-temperature short-time processing is that inequality.</li>
+<li>That separate sterilisation is a precaution. It is a reaction-avoidance measure with named chemistry: Maillard between reducing sugars and amino groups, and phosphate precipitating with calcium and magnesium. No time-temperature regime prevents either, because neither is a thermal-death problem. Conversely, every extra stream is an extra aseptic connection, so the list of what to separate should be short and justified rather than long and cautious.</li>
+</ul>
+<h3>Check yourself before moving on</h3>
+<p><strong>Q.</strong> Why must heat-up and cool-down be integrated into the del calculation, and what happens if you ignore them?</p>
+<p><strong>A.</strong> Because cell death is first order with an Arrhenius rate constant and therefore proceeds at every temperature, not only at the holding temperature, and because at production scale the time spent above 100 °C during the ramps is in hours while the hold is in minutes. Ignoring them means solving ∇ = k_d·t_hd for the whole requirement and getting a holding time that is too long — in the worked case 13.5 min instead of 6.1 min with fast ramps, and with slow ramps a positive holding time where the correct answer is zero, because the ramps alone deliver del 66 against a requirement of 40. The cost is not safety, it is the medium: every surplus minute at 121 °C destroys nutrient, browns the broth and consumes vessel time, and none of it buys sterility that was not already there. The ramps have to be integrated numerically because k_d varies by two orders of magnitude over the ramp, so an average temperature does not work.</p>
+<p><strong>Q.</strong> Your seed train takes a 1 mL vial to a 50 m³ vessel. How many generations is that, and what do you do with the answer?</p>
+<p><strong>A.</strong> A volume ratio of 5 × 10⁷, so log₂(5 × 10⁷) = 25.6 generations of net growth as a floor, plus the growth spent re-entering exponential phase after each of the seven or eight transfers. Feed 26 generations into the week 33 segregational-loss model: at 1% loss per generation the production vessel is inoculated with 23% plasmid-free cells before the fermentation starts, and the loss continues through it. Three things follow. Use a chromosomally integrated construct if the product allows, because the arithmetic does not improve with vessel design. If a plasmid is unavoidable, keep selection on through the train and know what the selection costs in the production vessel, where antibiotic is usually not permitted. And transfer on Stanbury&#x27;s criterion — a defined physiological state in late exponential phase — rather than on a clock, because that minimises the lag and therefore the generations spent outside net growth, which is the only part of the count that vessel design can touch.</p>
+<p><strong>Q.</strong> A reviewer says your decision to sterilise glucose separately is over-engineering. Answer them quantitatively.</p>
+<p><strong>A.</strong> The mechanism is not thermal death, so no cycle avoids it: reducing sugars condense with free amino groups in a Maillard reaction whose products brown the medium, consume lysine and arginine preferentially, and inhibit growth. The quantitative part is the excursion — with jacket heating, this medium spends about 105 minutes above 100 °C, and Maillard rate rises steeply through that range, so the exposure is not a few minutes at peak but most of two hours. The cost of separating is one extra vessel, one extra transfer and one extra aseptic connection, which raises contamination risk against the 10⁻³ target; the cost of not separating is a yield loss that has to be measured rather than argued, and a broth that is harder to clarify in week 51. The right answer is to run both and compare titres, and to say which way the comparison came out — and if it came out neutral, combine them, because the connection is a real risk and the chemistry is only a real cost when it is large.</p>
+<hr>
+
+<section class="study-transfer" aria-label="Week 47 application and teach-back">
+<h3>Apply it to your fermentation experience</h3>
+<p><strong>Transfer prompt.</strong> Revisit your inoculum and medium choices. Which variation could be biological versus process-driven, and how would blocking or randomization help separate them?</p>
+<p class="meta">Use your actual thesis methods and results where you remember them. Mark missing information as unknown; do not assume the organisms were co-cultured, that a metabolite was measured, or that a proposed mechanism was demonstrated.</p>
+<h3>Teach it back</h3>
+<p>Explain the week's concept from memory, work one number, and name one boundary. Then use the <a href="teach-back.html">five-minute teach-back protocol</a> and log it in the tracker.</p>
+</section>
+<nav class="weeknav" aria-label="Week navigation"><a href="week-46.html">&#8592; Week 46</a><a class="idx" href="index.html">Lecture index</a><a class="idx" href="case-study.html">Case study</a><a href="week-48.html">Week 48 &#8594;</a></nav>
+</main>
+<footer class="docfoot"><a href="../metabolic-engineering-tracker.html">&#8592; Course tracker</a><span>Metabolic engineering &middot; 55 weeks</span></footer>
+<script>
+(function(){var root=document.documentElement,key="me.theme";var bs=Array.prototype.slice.call(document.querySelectorAll(".appearance button"));
+function paint(v){bs.forEach(function(b){b.setAttribute("aria-pressed",b.getAttribute("data-appearance")===v?"true":"false");});if(v==="auto")root.removeAttribute("data-theme");else root.setAttribute("data-theme",v);}
+var saved="auto";try{saved=localStorage.getItem(key)||"auto";}catch(e){}
+bs.forEach(function(b){b.addEventListener("click",function(){var v=b.getAttribute("data-appearance");paint(v);try{localStorage.setItem(key,v);}catch(e){}});});paint(saved);})();
+</script>
+</body>
+</html>

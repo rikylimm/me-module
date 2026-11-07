@@ -1,0 +1,1260 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="utf-8"><title>Week 55 — The application: proposal, portfolio and supervisors — Metabolic engineering</title>
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+
+
+<style>:root{color-scheme:light;--paper:#FAF6EF;--ink:#211A12;--ink-2:#4A3C2C;--ink-3:#8A7458;
+--line:#DFD2BE;--line-2:#EDE4D5;--broth:#9A6B1F;--broth-soft:#F6ECD9;
+--serif:"Newsreader",Georgia,serif;--sans:"Public Sans",system-ui,sans-serif}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--paper:#15120D;--ink:#F1E9DC;--ink-2:#CBBCA6;
+--ink-3:#948872;--line:#352C22;--line-2:#2A231B;--broth:#D7A95C;--broth-soft:#241D14}}
+*{box-sizing:border-box}
+body{margin:0;background:var(--paper);color:var(--ink);font-family:var(--sans);font-size:15.5px;line-height:1.6;
+padding:env(safe-area-inset-top,0) 0 env(safe-area-inset-bottom,0)}
+.wrap{max-width:840px;margin:0 auto;padding:40px 22px 90px}
+h1{font-family:var(--serif);font-size:clamp(28px,5vw,42px);line-height:1.1;font-weight:600;margin:0 0 6px;letter-spacing:-.02em}
+h2{font-family:var(--serif);font-size:26px;font-weight:600;margin:46px 0 10px;letter-spacing:-.01em;padding-bottom:7px;border-bottom:1px solid var(--line)}
+h3{font-family:var(--serif);font-size:20px;font-weight:600;margin:30px 0 4px;color:var(--broth)}
+h4{font-size:14px;font-weight:650;margin:18px 0 4px;color:var(--ink-3);letter-spacing:.02em;text-transform:uppercase}
+p{margin:0 0 12px;max-width:74ch}
+em{color:var(--ink-2)}
+ul{margin:0 0 14px;padding-left:1.15em;max-width:74ch}
+li{margin:.3em 0}li::marker{color:var(--ink-3)}
+hr{border:0;border-top:1px solid var(--line);margin:40px 0}
+strong{font-weight:650}
+table{border-collapse:collapse;width:100%;margin:14px 0 20px;font-size:14px}
+th{text-align:left;font-weight:600;color:var(--ink-3);font-size:12.5px;padding:7px 9px;border-bottom:1.5px solid var(--line)}
+td{padding:8px 9px;border-bottom:1px solid var(--line-2);vertical-align:top}
+tr:nth-child(even) td{background:var(--broth-soft)}
+
+figure.fig{margin:22px 0 26px;padding:0;max-width:100%}
+figure.fig svg{width:100%;height:auto;display:block;background:var(--card);
+  border:1px solid var(--line-2);border-radius:10px;padding:8px 10px}
+figure.fig figcaption{font-size:13px;color:var(--ink-3);margin-top:8px;max-width:74ch;line-height:1.5}
+figure.fig .figtitle{font-family:var(--serif);font-size:15px;color:var(--ink-2);margin-bottom:6px}
+figure.fig .fig-dark{display:none}
+@media (prefers-color-scheme: dark){
+  figure.fig .fig-light{display:none}
+  figure.fig .fig-dark{display:block}
+}
+@media print{figure.fig{break-inside:avoid;page-break-inside:avoid}
+  figure.fig .fig-dark{display:none !important}
+  figure.fig .fig-light{display:block !important}}
+
+@media print{body{background:#fff}.wrap{padding:0;max-width:none}h2,h3{page-break-after:avoid}}</style><script>try{var t=localStorage.getItem("me.theme");if(t&&t!=="auto")document.documentElement.setAttribute("data-theme",t);}catch(e){}</script>
+<meta name="color-scheme" content="light dark">
+<meta name="theme-color" content="#ffffff" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#000000" media="(prefers-color-scheme: dark)">
+<style>
+/* ============================================================
+   COURSE LIBRARY — Apple document shell
+   ============================================================ */
+:root{
+  color-scheme:light;
+  --paper:#FFFFFF;--surface:#F5F5F7;--card:#FFFFFF;--fill:#F5F5F7;
+  --ink:#1D1D1F;--ink-2:#6E6E73;--ink-3:#6E6E73;
+  --line:rgba(0,0,0,.14);--line-2:rgba(0,0,0,.08);
+  --broth:#0071E3;--broth-soft:rgba(0,113,227,.10);
+  --nav-bg:rgba(255,255,255,.84);
+  --sans:-apple-system,BlinkMacSystemFont,"SF Pro Text","SF Pro Display","Helvetica Neue",Arial,sans-serif;
+  --mono:ui-monospace,"SF Mono",Menlo,Consolas,monospace;
+  --serif:var(--sans);
+}
+@media (prefers-color-scheme:dark){
+  :root:not([data-theme="light"]){
+    color-scheme:dark;
+    --paper:#000000;--surface:#1C1C1E;--card:#2C2C2E;--fill:#2C2C2E;
+    --ink:#F5F5F7;--ink-2:#A1A1A6;--ink-3:#8E8E93;
+    --line:rgba(255,255,255,.16);--line-2:rgba(255,255,255,.09);
+    --broth:#5AA9FF;--broth-soft:rgba(10,132,255,.18);
+    --nav-bg:rgba(0,0,0,.74);
+  }
+}
+:root[data-theme="dark"]{
+  color-scheme:dark;
+  --paper:#000000;--surface:#1C1C1E;--card:#2C2C2E;--fill:#2C2C2E;
+  --ink:#F5F5F7;--ink-2:#A1A1A6;--ink-3:#8E8E93;
+  --line:rgba(255,255,255,.16);--line-2:rgba(255,255,255,.09);
+  --broth:#5AA9FF;--broth-soft:rgba(10,132,255,.18);
+  --nav-bg:rgba(0,0,0,.74);
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth;scroll-padding-top:72px;-webkit-text-size-adjust:100%}
+body{
+  margin:0;background:var(--paper);color:var(--ink);
+  font-family:var(--sans);font-size:17px;line-height:1.62;letter-spacing:-.011em;
+  padding:0;
+}
+.docbar{
+  position:sticky;top:0;z-index:80;display:flex;align-items:center;justify-content:space-between;gap:12px;
+  padding:8px max(24px,calc((100vw - 1180px)/2));
+  background:var(--nav-bg);
+  -webkit-backdrop-filter:saturate(180%) blur(20px);backdrop-filter:saturate(180%) blur(20px);
+  border-bottom:1px solid var(--line-2);
+}
+.docback{display:inline-flex;align-items:center;gap:6px;color:var(--ink-2);font-size:13px;font-weight:500;text-decoration:none;white-space:nowrap}
+.docback:hover{color:var(--broth)}
+.appearance{display:inline-flex;gap:2px;padding:2px;background:var(--fill);border-radius:980px}
+.appearance button{border:0;background:none;color:var(--ink-2);font:inherit;font-size:12px;font-weight:500;line-height:1;padding:6px 11px;border-radius:980px;cursor:pointer}
+.appearance button[aria-pressed="true"]{background:var(--card);color:var(--ink);box-shadow:0 1px 2px rgba(0,0,0,.08)}
+.wrap{max-width:900px;margin:0 auto;padding:64px 24px 96px}
+body h1{
+  font-family:var(--sans);font-size:clamp(42px,6.2vw,64px);line-height:1.04;letter-spacing:-.04em;
+  font-weight:700;margin:0 0 16px;max-width:18ch;color:var(--ink);
+}
+.doc-kicker{font-size:13px;font-weight:500;letter-spacing:0;color:var(--ink-2);margin:0 0 12px}
+body h1 + p{font-size:20px;line-height:1.55;color:var(--ink-2);max-width:68ch;margin:0 0 18px}
+body h1 + p strong{color:var(--ink);font-weight:600}
+body h2{
+  font-family:var(--sans);font-size:32px;line-height:1.15;letter-spacing:-.03em;font-weight:600;
+  color:var(--ink);margin:64px 0 14px;padding:0;border:0;
+}
+body h3{font-family:var(--sans);font-size:22px;line-height:1.25;letter-spacing:-.02em;font-weight:600;color:var(--ink);margin:36px 0 8px}
+body h4{font-size:14px;line-height:1.4;font-weight:600;letter-spacing:0;text-transform:none;color:var(--ink-2);margin:24px 0 6px}
+body p{margin:0 0 14px;max-width:72ch}
+body ul,body ol{margin:0 0 16px;padding-left:1.25em;max-width:72ch}
+body li{margin:.32em 0}
+body li::marker{color:var(--ink-3)}
+body strong{font-weight:600;color:var(--ink)}
+body em{color:var(--ink)}
+body a{color:var(--broth);text-decoration:underline;text-underline-offset:2px}
+body a:hover{text-decoration:underline}
+body hr{border:0;border-top:1px solid var(--line-2);margin:56px 0}
+body table{border-collapse:collapse;width:100%;margin:22px 0 30px;font-size:15px;line-height:1.45}
+body th{text-align:left;font-weight:600;font-size:12.5px;color:var(--ink-2);padding:10px 12px;background:var(--surface);border-bottom:1px solid var(--line)}
+body td{padding:11px 12px;border-bottom:1px solid var(--line-2);vertical-align:top}
+body tr:nth-child(even) td{background:transparent}
+body figure.fig{margin:32px 0 36px;padding:0;max-width:100%}
+body figure.fig svg{width:100%;height:auto;display:block;background:var(--surface);border:0;border-radius:20px;padding:18px}
+body figure.fig figcaption{font-size:13px;color:var(--ink-2);margin-top:10px;max-width:72ch;line-height:1.5}
+body figure.fig .figtitle{font-family:var(--sans);font-size:14px;font-weight:600;color:var(--ink);margin-bottom:6px}
+body pre{background:var(--surface);border:1px solid var(--line-2);border-radius:16px;padding:18px;overflow:auto;font-family:var(--mono);font-size:13.5px;line-height:1.55;margin:20px 0 24px}
+body code{font-family:var(--mono);font-size:.88em;background:var(--surface);border-radius:6px;padding:.12em .35em}
+body pre code{background:none;padding:0;font-size:inherit}
+body blockquote{margin:24px 0;padding:2px 0 2px 18px;border-left:3px solid var(--broth);color:var(--ink-2)}
+:root[data-theme="dark"] .fig-light{display:none!important}
+:root[data-theme="dark"] .fig-dark{display:block!important}
+:root[data-theme="light"] .fig-dark{display:none!important}
+:root[data-theme="light"] .fig-light{display:block!important}
+.docfoot{max-width:900px;margin:0 auto;padding:24px 24px 64px;border-top:1px solid var(--line-2);display:flex;justify-content:space-between;gap:12px;font-size:12.5px;color:var(--ink-3)}
+.docfoot a{color:var(--ink-2);text-decoration:none}
+.docfoot a:hover{color:var(--broth)}
+@media (max-width:700px){
+  .docbar{padding:8px 16px}
+  .wrap{padding:40px 18px 80px}
+  body h1{font-size:clamp(38px,11vw,48px)}
+  body h1 + p{font-size:18px}
+  body h2{font-size:28px;margin-top:52px}
+  body h3{font-size:20px}
+  body p,body li{font-size:16.5px}
+  body table{font-size:14px}
+  body th,body td{padding:9px 9px}
+  .docfoot{padding:20px 18px 50px;flex-direction:column;gap:6px}
+}
+@media print{
+  .docbar,.appearance,.docfoot{display:none!important}
+  body{background:#fff;color:#000;font-size:11pt}
+  .wrap{max-width:none;padding:0}
+  body h1{font-size:28pt;max-width:none}
+  body h2{font-size:16pt;page-break-after:avoid}
+  body h3{font-size:13pt;page-break-after:avoid}
+  body a{color:#000;text-decoration:none}
+  body table,body figure{break-inside:avoid}
+}
+
+
+.index-actions{margin:18px 0 36px;display:flex;flex-wrap:wrap;gap:16px;align-items:center}
+.index-actions a{font-size:14px;font-weight:500;color:var(--broth);text-decoration:none}
+.index-actions a:hover{text-decoration:underline}
+.phaseh{display:flex;align-items:baseline;justify-content:space-between;gap:14px;font-size:24px!important;margin:52px 0 2px!important;letter-spacing:-.02em}
+.phaseh span{font-size:12px;font-weight:400;color:var(--ink-3);letter-spacing:0;white-space:nowrap}
+.weeklist{border-top:1px solid var(--line-2);margin-bottom:8px}
+.weekrow{display:flex;align-items:center;gap:14px;min-height:50px;padding:10px 4px;border-bottom:1px solid var(--line-2);text-decoration:none;color:var(--ink)}
+.weekrow:hover{background:var(--surface)}
+.wnum{width:28px;flex:none;font-size:12px;font-weight:600;color:var(--broth);font-variant-numeric:tabular-nums}
+.wtitle{flex:1;font-size:16.5px;font-weight:500;line-height:1.35}
+.warrow{flex:none;color:var(--ink-3);font-size:16px}
+.weeknav{display:flex;align-items:center;justify-content:space-between;gap:14px;margin:52px 0 0;padding-top:22px;border-top:1px solid var(--line-2);font-size:14px}
+.weeknav a{color:var(--broth);text-decoration:none;font-weight:500}
+.weeknav a:hover{text-decoration:underline}
+.weeknav .idx{color:var(--ink-2);font-weight:400}
+.weeknav .empty{visibility:hidden}
+.case-h{max-width:22ch}
+.protocol{max-width:72ch}
+.protocol li{margin:.55em 0}
+.protocol h2{margin-top:38px}
+@media (max-width:700px){.phaseh{font-size:21px!important;margin-top:42px!important}.wtitle{font-size:15.5px}.weeknav{font-size:13px;gap:8px}}
+@media print{.weeknav,.index-actions{display:none!important}}
+</style>
+<style>.sr-only{position:absolute!important;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap;border:0}</style>
+</head><body>
+<header class="docbar"><a class="docback" href="index.html">&#8592; Lecture index</a><div class="appearance" role="group" aria-label="Appearance">
+<button type="button" data-appearance="auto" aria-pressed="true">Auto</button>
+<button type="button" data-appearance="light" aria-pressed="false">Light</button>
+<button type="button" data-appearance="dark" aria-pressed="false">Dark</button>
+</div></header>
+<main class="wrap">
+<p class="doc-kicker">Week 55 of 55 &middot; Process, economics and the application &middot; <strong class="tier-badge">Core</strong></p>
+<h1>The application: proposal, portfolio and supervisors</h1>
+<h2 class="sr-only">Week content</h2>
+<p>The last week, and the one with the least new content and the most at stake. Fifty-five weeks of work converts into three documents — a three-page proposal, a portfolio index and ten outreach emails — and the conversion is lossy in a specific way worth anticipating: everything that made the work worth doing lives in the arithmetic, and none of the three documents has room for arithmetic. What they have room for is one number each, chosen well. The organising discipline of the week is feasibility arithmetic applied to the proposal itself, which is the same move the whole of phase 8 has been making and is the one most proposals skip: a three-year project has about 97 working weeks of experimental time in it after induction, writing, teaching and leave are taken out, and a programme with a 20% reserve has about 78 usable. The anchor budgets the three aims as drafted at 102 weeks against that 78, finds aim 3 is the overrun, and reaches the conclusion the week&#x27;s fifth session already anticipates — the aim with no credible alternative route is the one to delete. A proposal whose aims do not fit in its own timeline is the commonest thing a supervisor sees and the easiest thing to fix before sending.</p>
+<h3>Core ideas</h3>
+<p><strong>1. What the proposal is actually being read for</strong></p>
+<p>Two questions, and neither is whether the science is good. Can this person formulate a question — meaning, is there one sentence in here that could be false, and does the rest of the document follow from it — and will they finish things, meaning does the plan fit in the time and does the author know what would go wrong. Everything else a reviewer notices is evidence about those two. A three-page proposal that spends a page and a half on background is answering a question nobody asked, and the correction is structural rather than editorial: problem and gap in one page, hypothesis in one sentence, three aims with methods, risks and alternatives, and fit. The hypothesis sentence is the load-bearing one and it has a testable form — <em>X limits Y under conditions Z, and relieving X by W will increase Y by at least V</em> — in which every symbol is something that can be measured. Two failure modes to check for. A hypothesis that cannot be false (<em>understanding X will enable Y</em>) is a topic, not a hypothesis. And a hypothesis whose refutation would not change anything is a question nobody needs answered, which is a harder problem than it looks, because it is usually an interesting question attached to no decision.</p>
+<p><strong>2. Finding the question, which is an extraction rather than an invention</strong></p>
+<p>The first session&#x27;s instruction — reread every week notebook and extract every question you wrote and still cannot answer — is the right method and it works because the questions were recorded while the ignorance was fresh. Expect thirty to sixty of them across fifty-five weeks and expect most to be answerable with an afternoon of reading, which is itself useful. Grouping is where the judgement enters, and the grouping that matters is by what kind of thing is missing: a measurement nobody has made, a mechanism nobody has explained, a method that does not exist, or a number that exists but disagrees between sources. Those four have very different three-year prospects. A missing measurement is the safest doctoral project and the least distinctive; a missing mechanism is the most distinctive and the riskiest; a missing method is a good project if the method is the contribution and a bad one if it is only a prerequisite; and a disagreement between sources is often the best of the four, because the work is bounded, the literature frames it, and the result is publishable either way. This course has generated examples of all four, and several of them are already recorded — a host with no treatment in any available text, a secretion-capacity figure that no source supplied, numbers that differed between two books and had to be settled against a PDF.</p>
+<p><strong>3. The aim structure, and why aim 1 has to name the first experiment</strong></p>
+<p>Three aims, each a claim with a method, and the convention a reviewer applies without saying so is that aim 1 should be nearly certain to produce a result, aim 2 should depend on aim 1 succeeding only loosely, and aim 3 may be ambitious. The reason is risk serialisation: aims that depend on each other in a chain turn one failure into no thesis, and a reviewer reads the dependency structure before reading the science. Aim 1&#x27;s job is therefore to be the aim that cannot fail to produce data — a characterisation, a measurement, a construction with a known method — and the sharpening instruction in the week&#x27;s fourth session is exact: aim 1 must name the first experiment, the measurement, and both possible outcomes. Both outcomes is the part usually missing, and writing them is diagnostic. If one outcome is interesting and the other is <em>then we would try something else</em>, the experiment is not a test. If both outcomes lead somewhere, the aim is sound and the proposal has demonstrated the skill it is claiming. The same test applied to aims 2 and 3 usually finds that aim 3 has one outcome, which is the week&#x27;s fifth session arriving — an aim with no credible alternative route should be deleted rather than hedged.</p>
+<p><strong>4. Feasibility arithmetic, which almost nobody does and everybody notices</strong></p>
+<figure class="fig"><div class="figtitle">Figure 55.4 — What fits in three years once the deductions and the rework are counted</div><div class="fig-light"><svg role="img" aria-label="Left: 156 weeks becomes 97 of experimental time after induction, writing, teaching, courses and leave, and 78 usable after a 20% reserve. Right: the three aims as drafted need 102 weeks and overrun by 24, all of it in the aim that has no credible alternative route — so the arithmetic and the week's own deletion rule choose the same aim to cut." xmlns:xlink="http://www.w3.org/1999/xlink" width="888.095969pt" height="227.770141pt" viewBox="0 0 888.095969 227.770141" xmlns="http://www.w3.org/2000/svg" version="1.1">
+ <metadata>
+  <rdf:RDF xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:cc="http://creativecommons.org/ns#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+   <cc:Work>
+    <dc:type rdf:resource="http://purl.org/dc/dcmitype/StillImage"/>
+    <dc:date>2026-11-02T23:57:56.220920</dc:date>
+    <dc:format>image/svg+xml</dc:format>
+    <dc:creator>
+     <cc:Agent>
+      <dc:title>Matplotlib v3.10.8, https://matplotlib.org/</dc:title>
+     </cc:Agent>
+    </dc:creator>
+   </cc:Work>
+  </rdf:RDF>
+ </metadata>
+ <defs>
+  <style type="text/css">*{stroke-linejoin: round; stroke-linecap: butt}</style>
+ </defs>
+ <g id="figure_1">
+  <g id="patch_1">
+   <path d="M 0 227.770141 
+L 888.095969 227.770141 
+L 888.095969 0 
+L 0 0 
+L 0 227.770141 
+z
+" style="fill: none"/>
+  </g>
+  <g id="axes_1">
+   <g id="patch_2">
+    <path d="M 65.9664 169.308 
+L 246.209257 169.308 
+L 246.209257 5.76 
+L 65.9664 5.76 
+L 65.9664 169.308 
+z
+" style="fill: none"/>
+   </g>
+   <g id="patch_3">
+    <path d="M 73.05018 169.308 
+L 112.404516 169.308 
+L 112.404516 161.52 
+L 73.05018 161.52 
+z
+" clip-path="url(#p0d8ba1cfb3)" style="fill: #8a7458; opacity: 0.2; stroke: #8a7458; stroke-linejoin: miter"/>
+   </g>
+   <g id="patch_4">
+    <path d="M 73.05018 161.52 
+L 112.404516 161.52 
+L 112.404516 142.05 
+L 73.05018 142.05 
+z
+" clip-path="url(#p0d8ba1cfb3)" style="fill: #8a7458; opacity: 0.2; stroke: #8a7458; stroke-linejoin: miter"/>
+   </g>
+   <g id="patch_5">
+    <path d="M 73.05018 142.05 
+L 112.404516 142.05 
+L 112.404516 130.368 
+L 73.05018 130.368 
+z
+" clip-path="url(#p0d8ba1cfb3)" style="fill: #8a7458; opacity: 0.2; stroke: #8a7458; stroke-linejoin: miter"/>
+   </g>
+   <g id="patch_6">
+    <path d="M 73.05018 130.368 
+L 112.404516 130.368 
+L 112.404516 126.474 
+L 73.05018 126.474 
+z
+" clip-path="url(#p0d8ba1cfb3)" style="fill: #8a7458; opacity: 0.2; stroke: #8a7458; stroke-linejoin: miter"/>
+   </g>
+   <g id="patch_7">
+    <path d="M 73.05018 126.474 
+L 112.404516 126.474 
+L 112.404516 111.8715 
+L 73.05018 111.8715 
+z
+" clip-path="url(#p0d8ba1cfb3)" style="fill: #8a7458; opacity: 0.2; stroke: #8a7458; stroke-linejoin: miter"/>
+   </g>
+   <g id="patch_8">
+    <path d="M 73.05018 111.8715 
+L 112.404516 111.8715 
+L 112.404516 17.442 
+L 73.05018 17.442 
+z
+" clip-path="url(#p0d8ba1cfb3)" style="fill: #1f6f62; opacity: 0.32; stroke: #1f6f62; stroke-width: 1.1; stroke-linejoin: miter"/>
+   </g>
+   <g id="matplotlib.axis_1">
+    <g id="xtick_1">
+     <g id="line2d_1">
+      <defs>
+       <path id="m7baa4cffb7" d="M 0 0 
+L 0 3.5 
+" style="stroke: #8a7458; stroke-width: 0.9"/>
+      </defs>
+      <g>
+       <use xlink:href="#m7baa4cffb7" x="92.727348" y="169.308" style="fill: #8a7458; stroke: #8a7458; stroke-width: 0.9"/>
+      </g>
+     </g>
+     <g id="text_1">
+      <text style="font-size: 8.8px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: middle; fill: #8a7458" x="92.727348" y="182.994625" transform="rotate(-0 92.727348 182.994625)">36 months</text>
+     </g>
+    </g>
+   </g>
+   <g id="matplotlib.axis_2">
+    <g id="ytick_1">
+     <g id="line2d_2">
+      <path d="M 65.9664 169.308 
+L 246.209257 169.308 
+" clip-path="url(#p0d8ba1cfb3)" style="fill: none; stroke: #e6dccb; stroke-opacity: 0.7; stroke-width: 0.6; stroke-linecap: square"/>
+     </g>
+     <g id="line2d_3">
+      <defs>
+       <path id="mfb60b82664" d="M 0 0 
+L -3.5 0 
+" style="stroke: #8a7458; stroke-width: 0.9"/>
+      </defs>
+      <g>
+       <use xlink:href="#mfb60b82664" x="65.9664" y="169.308" style="fill: #8a7458; stroke: #8a7458; stroke-width: 0.9"/>
+      </g>
+     </g>
+     <g id="text_2">
+      <text style="font-size: 9.5px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: end; fill: #8a7458" x="58.9664" y="172.917258" transform="rotate(-0 58.9664 172.917258)">0</text>
+     </g>
+    </g>
+    <g id="ytick_2">
+     <g id="line2d_4">
+      <path d="M 65.9664 144.9705 
+L 246.209257 144.9705 
+" clip-path="url(#p0d8ba1cfb3)" style="fill: none; stroke: #e6dccb; stroke-opacity: 0.7; stroke-width: 0.6; stroke-linecap: square"/>
+     </g>
+     <g id="line2d_5">
+      <g>
+       <use xlink:href="#mfb60b82664" x="65.9664" y="144.9705" style="fill: #8a7458; stroke: #8a7458; stroke-width: 0.9"/>
+      </g>
+     </g>
+     <g id="text_3">
+      <text style="font-size: 9.5px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: end; fill: #8a7458" x="58.9664" y="148.579758" transform="rotate(-0 58.9664 148.579758)">25</text>
+     </g>
+    </g>
+    <g id="ytick_3">
+     <g id="line2d_6">
+      <path d="M 65.9664 120.633 
+L 246.209257 120.633 
+" clip-path="url(#p0d8ba1cfb3)" style="fill: none; stroke: #e6dccb; stroke-opacity: 0.7; stroke-width: 0.6; stroke-linecap: square"/>
+     </g>
+     <g id="line2d_7">
+      <g>
+       <use xlink:href="#mfb60b82664" x="65.9664" y="120.633" style="fill: #8a7458; stroke: #8a7458; stroke-width: 0.9"/>
+      </g>
+     </g>
+     <g id="text_4">
+      <text style="font-size: 9.5px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: end; fill: #8a7458" x="58.9664" y="124.242258" transform="rotate(-0 58.9664 124.242258)">50</text>
+     </g>
+    </g>
+    <g id="ytick_4">
+     <g id="line2d_8">
+      <path d="M 65.9664 96.2955 
+L 246.209257 96.2955 
+" clip-path="url(#p0d8ba1cfb3)" style="fill: none; stroke: #e6dccb; stroke-opacity: 0.7; stroke-width: 0.6; stroke-linecap: square"/>
+     </g>
+     <g id="line2d_9">
+      <g>
+       <use xlink:href="#mfb60b82664" x="65.9664" y="96.2955" style="fill: #8a7458; stroke: #8a7458; stroke-width: 0.9"/>
+      </g>
+     </g>
+     <g id="text_5">
+      <text style="font-size: 9.5px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: end; fill: #8a7458" x="58.9664" y="99.904758" transform="rotate(-0 58.9664 99.904758)">75</text>
+     </g>
+    </g>
+    <g id="ytick_5">
+     <g id="line2d_10">
+      <path d="M 65.9664 71.958 
+L 246.209257 71.958 
+" clip-path="url(#p0d8ba1cfb3)" style="fill: none; stroke: #e6dccb; stroke-opacity: 0.7; stroke-width: 0.6; stroke-linecap: square"/>
+     </g>
+     <g id="line2d_11">
+      <g>
+       <use xlink:href="#mfb60b82664" x="65.9664" y="71.958" style="fill: #8a7458; stroke: #8a7458; stroke-width: 0.9"/>
+      </g>
+     </g>
+     <g id="text_6">
+      <text style="font-size: 9.5px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: end; fill: #8a7458" x="58.9664" y="75.567258" transform="rotate(-0 58.9664 75.567258)">100</text>
+     </g>
+    </g>
+    <g id="ytick_6">
+     <g id="line2d_12">
+      <path d="M 65.9664 47.6205 
+L 246.209257 47.6205 
+" clip-path="url(#p0d8ba1cfb3)" style="fill: none; stroke: #e6dccb; stroke-opacity: 0.7; stroke-width: 0.6; stroke-linecap: square"/>
+     </g>
+     <g id="line2d_13">
+      <g>
+       <use xlink:href="#mfb60b82664" x="65.9664" y="47.6205" style="fill: #8a7458; stroke: #8a7458; stroke-width: 0.9"/>
+      </g>
+     </g>
+     <g id="text_7">
+      <text style="font-size: 9.5px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: end; fill: #8a7458" x="58.9664" y="51.229758" transform="rotate(-0 58.9664 51.229758)">125</text>
+     </g>
+    </g>
+    <g id="ytick_7">
+     <g id="line2d_14">
+      <path d="M 65.9664 23.283 
+L 246.209257 23.283 
+" clip-path="url(#p0d8ba1cfb3)" style="fill: none; stroke: #e6dccb; stroke-opacity: 0.7; stroke-width: 0.6; stroke-linecap: square"/>
+     </g>
+     <g id="line2d_15">
+      <g>
+       <use xlink:href="#mfb60b82664" x="65.9664" y="23.283" style="fill: #8a7458; stroke: #8a7458; stroke-width: 0.9"/>
+      </g>
+     </g>
+     <g id="text_8">
+      <text style="font-size: 9.5px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: end; fill: #8a7458" x="58.9664" y="26.892258" transform="rotate(-0 58.9664 26.892258)">150</text>
+     </g>
+    </g>
+    <g id="text_9">
+     <text style="font-size: 9.5px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: middle; fill: #4a3c2c" x="34.857572" y="87.534" transform="rotate(-90 34.857572 87.534)">weeks</text>
+    </g>
+   </g>
+   <g id="line2d_16">
+    <path d="M 65.9664 92.9856 
+L 246.209257 92.9856 
+" clip-path="url(#p0d8ba1cfb3)" style="fill: none; stroke-dasharray: 4,3; stroke-dashoffset: 0; stroke: #a4503a"/>
+   </g>
+   <g id="patch_9">
+    <path d="M 65.9664 169.308 
+L 65.9664 5.76 
+" style="fill: none; stroke: #dfd2be; stroke-width: 0.9; stroke-linejoin: miter; stroke-linecap: square"/>
+   </g>
+   <g id="patch_10">
+    <path d="M 65.9664 169.308 
+L 246.209257 169.308 
+" style="fill: none; stroke: #dfd2be; stroke-width: 0.9; stroke-linejoin: miter; stroke-linecap: square"/>
+   </g>
+   <g id="text_10">
+    <text style="font-size: 7.3px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; fill: #8a7458" transform="translate(119.488296 15.200859)">deducted, 59 weeks</text>
+    <text style="font-size: 7.3px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; fill: #8a7458" transform="translate(119.488296 23.375262)">   induction, training    8</text>
+    <text style="font-size: 7.3px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; fill: #8a7458" transform="translate(119.488296 31.549666)">   thesis and papers   20</text>
+    <text style="font-size: 7.3px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; fill: #8a7458" transform="translate(119.488296 39.724069)">   teaching                    12</text>
+    <text style="font-size: 7.3px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; fill: #8a7458" transform="translate(119.488296 47.898472)">   courses, review        4</text>
+    <text style="font-size: 7.3px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; fill: #8a7458" transform="translate(119.488296 56.072875)">   leave                         15</text>
+   </g>
+   <g id="text_11">
+    <text style="font-weight: 700; font-size: 8px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: start; fill: #1f6f62" x="119.488296" y="81.93075" transform="rotate(-0 119.488296 81.93075)">experiments   97</text>
+   </g>
+   <g id="text_12">
+    <text style="font-size: 7.8px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: start; fill: #a4503a" x="119.488296" y="105.142781" transform="rotate(-0 119.488296 105.142781)">20% reserve, 78 usable</text>
+   </g>
+  </g>
+  <g id="axes_2">
+   <g id="patch_11">
+    <path d="M 315.029257 169.308 
+L 478.8864 169.308 
+L 478.8864 5.76 
+L 315.029257 5.76 
+L 315.029257 169.308 
+z
+" style="fill: none"/>
+   </g>
+   <g id="patch_12">
+    <path d="M 329.925361 169.308 
+L 367.165621 169.308 
+L 367.165621 119.8278 
+L 329.925361 119.8278 
+z
+" clip-path="url(#pea1c2ff777)" style="fill: #1f6f62; opacity: 0.32; stroke: #1f6f62; stroke-width: 1.1; stroke-linejoin: miter"/>
+   </g>
+   <g id="patch_13">
+    <path d="M 329.925361 119.8278 
+L 367.165621 119.8278 
+L 367.165621 90.999 
+L 329.925361 90.999 
+z
+" clip-path="url(#pea1c2ff777)" style="fill: #8a5f1b; opacity: 0.32; stroke: #8a5f1b; stroke-width: 1.1; stroke-linejoin: miter"/>
+   </g>
+   <g id="patch_14">
+    <path d="M 329.925361 90.999 
+L 367.165621 90.999 
+L 367.165621 28.629 
+L 329.925361 28.629 
+z
+" clip-path="url(#pea1c2ff777)" style="fill: #a4503a; opacity: 0.32; stroke: #a4503a; stroke-width: 1.1; stroke-linejoin: miter"/>
+   </g>
+   <g id="patch_15">
+    <path d="M 404.405881 169.308 
+L 441.64614 169.308 
+L 441.64614 90.999 
+L 404.405881 90.999 
+z
+" clip-path="url(#pea1c2ff777)" style="fill: #1f6f62; opacity: 0.32; stroke: #1f6f62; stroke-width: 1.1; stroke-linejoin: miter"/>
+   </g>
+   <g id="matplotlib.axis_3">
+    <g id="xtick_2">
+     <g id="line2d_17">
+      <g>
+       <use xlink:href="#m7baa4cffb7" x="348.545491" y="169.308" style="fill: #8a7458; stroke: #8a7458; stroke-width: 0.9"/>
+      </g>
+     </g>
+     <g id="text_13">
+      <text style="font-size: 8.4px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: middle; fill: #8a7458" x="348.545491" y="182.690688" transform="rotate(-0 348.545491 182.690688)">as drafted</text>
+     </g>
+    </g>
+    <g id="xtick_3">
+     <g id="line2d_18">
+      <g>
+       <use xlink:href="#m7baa4cffb7" x="423.02601" y="169.308" style="fill: #8a7458; stroke: #8a7458; stroke-width: 0.9"/>
+      </g>
+     </g>
+     <g id="text_14">
+      <text style="font-size: 8.4px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: middle; fill: #8a7458" x="423.02601" y="182.690688" transform="rotate(-0 423.02601 182.690688)">after the cut</text>
+     </g>
+    </g>
+   </g>
+   <g id="matplotlib.axis_4">
+    <g id="ytick_8">
+     <g id="line2d_19">
+      <path d="M 315.029257 169.308 
+L 478.8864 169.308 
+" clip-path="url(#pea1c2ff777)" style="fill: none; stroke: #e6dccb; stroke-opacity: 0.7; stroke-width: 0.6; stroke-linecap: square"/>
+     </g>
+     <g id="line2d_20">
+      <g>
+       <use xlink:href="#mfb60b82664" x="315.029257" y="169.308" style="fill: #8a7458; stroke: #8a7458; stroke-width: 0.9"/>
+      </g>
+     </g>
+     <g id="text_15">
+      <text style="font-size: 9.5px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: end; fill: #8a7458" x="308.029257" y="172.917258" transform="rotate(-0 308.029257 172.917258)">0</text>
+     </g>
+    </g>
+    <g id="ytick_9">
+     <g id="line2d_21">
+      <path d="M 315.029257 141.588 
+L 478.8864 141.588 
+" clip-path="url(#pea1c2ff777)" style="fill: none; stroke: #e6dccb; stroke-opacity: 0.7; stroke-width: 0.6; stroke-linecap: square"/>
+     </g>
+     <g id="line2d_22">
+      <g>
+       <use xlink:href="#mfb60b82664" x="315.029257" y="141.588" style="fill: #8a7458; stroke: #8a7458; stroke-width: 0.9"/>
+      </g>
+     </g>
+     <g id="text_16">
+      <text style="font-size: 9.5px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: end; fill: #8a7458" x="308.029257" y="145.197258" transform="rotate(-0 308.029257 145.197258)">20</text>
+     </g>
+    </g>
+    <g id="ytick_10">
+     <g id="line2d_23">
+      <path d="M 315.029257 113.868 
+L 478.8864 113.868 
+" clip-path="url(#pea1c2ff777)" style="fill: none; stroke: #e6dccb; stroke-opacity: 0.7; stroke-width: 0.6; stroke-linecap: square"/>
+     </g>
+     <g id="line2d_24">
+      <g>
+       <use xlink:href="#mfb60b82664" x="315.029257" y="113.868" style="fill: #8a7458; stroke: #8a7458; stroke-width: 0.9"/>
+      </g>
+     </g>
+     <g id="text_17">
+      <text style="font-size: 9.5px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: end; fill: #8a7458" x="308.029257" y="117.477258" transform="rotate(-0 308.029257 117.477258)">40</text>
+     </g>
+    </g>
+    <g id="ytick_11">
+     <g id="line2d_25">
+      <path d="M 315.029257 86.148 
+L 478.8864 86.148 
+" clip-path="url(#pea1c2ff777)" style="fill: none; stroke: #e6dccb; stroke-opacity: 0.7; stroke-width: 0.6; stroke-linecap: square"/>
+     </g>
+     <g id="line2d_26">
+      <g>
+       <use xlink:href="#mfb60b82664" x="315.029257" y="86.148" style="fill: #8a7458; stroke: #8a7458; stroke-width: 0.9"/>
+      </g>
+     </g>
+     <g id="text_18">
+      <text style="font-size: 9.5px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: end; fill: #8a7458" x="308.029257" y="89.757258" transform="rotate(-0 308.029257 89.757258)">60</text>
+     </g>
+    </g>
+    <g id="ytick_12">
+     <g id="line2d_27">
+      <path d="M 315.029257 58.428 
+L 478.8864 58.428 
+" clip-path="url(#pea1c2ff777)" style="fill: none; stroke: #e6dccb; stroke-opacity: 0.7; stroke-width: 0.6; stroke-linecap: square"/>
+     </g>
+     <g id="line2d_28">
+      <g>
+       <use xlink:href="#mfb60b82664" x="315.029257" y="58.428" style="fill: #8a7458; stroke: #8a7458; stroke-width: 0.9"/>
+      </g>
+     </g>
+     <g id="text_19">
+      <text style="font-size: 9.5px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: end; fill: #8a7458" x="308.029257" y="62.037258" transform="rotate(-0 308.029257 62.037258)">80</text>
+     </g>
+    </g>
+    <g id="ytick_13">
+     <g id="line2d_29">
+      <path d="M 315.029257 30.708 
+L 478.8864 30.708 
+" clip-path="url(#pea1c2ff777)" style="fill: none; stroke: #e6dccb; stroke-opacity: 0.7; stroke-width: 0.6; stroke-linecap: square"/>
+     </g>
+     <g id="line2d_30">
+      <g>
+       <use xlink:href="#mfb60b82664" x="315.029257" y="30.708" style="fill: #8a7458; stroke: #8a7458; stroke-width: 0.9"/>
+      </g>
+     </g>
+     <g id="text_20">
+      <text style="font-size: 9.5px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: end; fill: #8a7458" x="308.029257" y="34.317258" transform="rotate(-0 308.029257 34.317258)">100</text>
+     </g>
+    </g>
+    <g id="text_21">
+     <text style="font-size: 9.5px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: middle; fill: #4a3c2c" x="283.920429" y="87.534" transform="rotate(-90 283.920429 87.534)">weeks of work</text>
+    </g>
+   </g>
+   <g id="line2d_31">
+    <path d="M 315.029257 61.7544 
+L 478.8864 61.7544 
+" clip-path="url(#pea1c2ff777)" style="fill: none; stroke-dasharray: 4.4,3.3; stroke-dashoffset: 0; stroke: #a4503a; stroke-width: 1.1"/>
+   </g>
+   <g id="patch_16">
+    <path d="M 315.029257 169.308 
+L 315.029257 5.76 
+" style="fill: none; stroke: #dfd2be; stroke-width: 0.9; stroke-linejoin: miter; stroke-linecap: square"/>
+   </g>
+   <g id="patch_17">
+    <path d="M 315.029257 169.308 
+L 478.8864 169.308 
+" style="fill: none; stroke: #dfd2be; stroke-width: 0.9; stroke-linejoin: miter; stroke-linecap: square"/>
+   </g>
+   <g id="text_22">
+    <text style="font-size: 7.6px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; fill: #4a3c2c" transform="translate(337.834241 138.154688)">aim 1</text>
+    <text style="font-size: 7.6px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; fill: #4a3c2c" transform="translate(324.914835 146.665025)">construction</text>
+    <text style="font-size: 7.6px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; fill: #4a3c2c" transform="translate(337.194178 155.175363)">36 wk</text>
+   </g>
+   <g id="text_23">
+    <text style="font-size: 7.6px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; fill: #4a3c2c" transform="translate(337.834241 99.000188)">aim 2</text>
+    <text style="font-size: 7.6px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; fill: #4a3c2c" transform="translate(323.828866 107.510525)">fermentation</text>
+    <text style="font-size: 7.6px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; fill: #4a3c2c" transform="translate(337.194178 116.020863)">21 wk</text>
+   </g>
+   <g id="text_24">
+    <text style="font-size: 7.6px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; fill: #4a3c2c" transform="translate(337.834241 35.382788)">aim 3</text>
+    <text style="font-size: 7.6px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; fill: #4a3c2c" transform="translate(328.906616 43.893125)">pilot + ¹³C</text>
+    <text style="font-size: 7.6px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; fill: #4a3c2c" transform="translate(337.194178 52.403462)">45 wk</text>
+   </g>
+   <g id="text_25">
+    <text style="font-size: 7.8px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; fill: #4a3c2c" transform="translate(406.112807 127.938666)">aims 1-2</text>
+    <text style="font-size: 7.8px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; fill: #4a3c2c" transform="translate(411.375979 136.672959)">56 wk</text>
+   </g>
+   <g id="text_26">
+    <text style="font-size: 8px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: end; fill: #a4503a" x="478.141595" y="57.5964" transform="rotate(-0 478.141595 57.5964)">78 usable weeks</text>
+   </g>
+   <g id="patch_18">
+    <path d="M 375.358478 59.752804 
+Q 375.358478 45.192016 375.358478 31.749261 
+" style="fill: none; stroke: #a4503a; stroke-linecap: round"/>
+    <path d="M 373.558478 35.349261 
+L 375.358478 31.749261 
+L 377.158478 35.349261 
+z
+" style="fill: #a4503a; stroke: #a4503a; stroke-linecap: round"/>
+   </g>
+   <g id="text_27">
+    <text style="font-size: 7.8px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; fill: #a4503a" transform="translate(379.827309 42.976866)">over by</text>
+    <text style="font-size: 7.8px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; fill: #a4503a" transform="translate(379.827309 51.711159)">24 wk</text>
+   </g>
+  </g>
+  <g id="text_28">
+   <text style="font-size: 8.3px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: start; fill: #8a7458" x="5.76" y="220.284" transform="rotate(-0 5.76 220.284)">Illustrative planning assumptions: deductions vary by country and funder, and the rework factors (1.7 on construction, 1.4 on runs) come from this course's own planning rather than from a host group's records.</text>
+  </g>
+ </g>
+ <defs>
+  <clipPath id="p0d8ba1cfb3">
+   <rect x="65.9664" y="5.76" width="180.242857" height="163.548"/>
+  </clipPath>
+  <clipPath id="pea1c2ff777">
+   <rect x="315.029257" y="5.76" width="163.857143" height="163.548"/>
+  </clipPath>
+ </defs>
+</svg>
+</div><div class="fig-dark"><svg role="img" aria-label="Left: 156 weeks becomes 97 of experimental time after induction, writing, teaching, courses and leave, and 78 usable after a 20% reserve. Right: the three aims as drafted need 102 weeks and overrun by 24, all of it in the aim that has no credible alternative route — so the arithmetic and the week's own deletion rule choose the same aim to cut." xmlns:xlink="http://www.w3.org/1999/xlink" width="888.095969pt" height="227.770141pt" viewBox="0 0 888.095969 227.770141" xmlns="http://www.w3.org/2000/svg" version="1.1">
+ <metadata>
+  <rdf:RDF xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:cc="http://creativecommons.org/ns#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+   <cc:Work>
+    <dc:type rdf:resource="http://purl.org/dc/dcmitype/StillImage"/>
+    <dc:date>2026-11-02T23:57:56.310465</dc:date>
+    <dc:format>image/svg+xml</dc:format>
+    <dc:creator>
+     <cc:Agent>
+      <dc:title>Matplotlib v3.10.8, https://matplotlib.org/</dc:title>
+     </cc:Agent>
+    </dc:creator>
+   </cc:Work>
+  </rdf:RDF>
+ </metadata>
+ <defs>
+  <style type="text/css">*{stroke-linejoin: round; stroke-linecap: butt}</style>
+ </defs>
+ <g id="figure_1">
+  <g id="patch_1">
+   <path d="M 0 227.770141 
+L 888.095969 227.770141 
+L 888.095969 0 
+L 0 0 
+L 0 227.770141 
+z
+" style="fill: none"/>
+  </g>
+  <g id="axes_1">
+   <g id="patch_2">
+    <path d="M 65.9664 169.308 
+L 246.209257 169.308 
+L 246.209257 5.76 
+L 65.9664 5.76 
+L 65.9664 169.308 
+z
+" style="fill: none"/>
+   </g>
+   <g id="patch_3">
+    <path d="M 73.05018 169.308 
+L 112.404516 169.308 
+L 112.404516 161.52 
+L 73.05018 161.52 
+z
+" clip-path="url(#pf6ece4272d)" style="fill: #9a8872; opacity: 0.2; stroke: #9a8872; stroke-linejoin: miter"/>
+   </g>
+   <g id="patch_4">
+    <path d="M 73.05018 161.52 
+L 112.404516 161.52 
+L 112.404516 142.05 
+L 73.05018 142.05 
+z
+" clip-path="url(#pf6ece4272d)" style="fill: #9a8872; opacity: 0.2; stroke: #9a8872; stroke-linejoin: miter"/>
+   </g>
+   <g id="patch_5">
+    <path d="M 73.05018 142.05 
+L 112.404516 142.05 
+L 112.404516 130.368 
+L 73.05018 130.368 
+z
+" clip-path="url(#pf6ece4272d)" style="fill: #9a8872; opacity: 0.2; stroke: #9a8872; stroke-linejoin: miter"/>
+   </g>
+   <g id="patch_6">
+    <path d="M 73.05018 130.368 
+L 112.404516 130.368 
+L 112.404516 126.474 
+L 73.05018 126.474 
+z
+" clip-path="url(#pf6ece4272d)" style="fill: #9a8872; opacity: 0.2; stroke: #9a8872; stroke-linejoin: miter"/>
+   </g>
+   <g id="patch_7">
+    <path d="M 73.05018 126.474 
+L 112.404516 126.474 
+L 112.404516 111.8715 
+L 73.05018 111.8715 
+z
+" clip-path="url(#pf6ece4272d)" style="fill: #9a8872; opacity: 0.2; stroke: #9a8872; stroke-linejoin: miter"/>
+   </g>
+   <g id="patch_8">
+    <path d="M 73.05018 111.8715 
+L 112.404516 111.8715 
+L 112.404516 17.442 
+L 73.05018 17.442 
+z
+" clip-path="url(#pf6ece4272d)" style="fill: #6dbdac; opacity: 0.32; stroke: #6dbdac; stroke-width: 1.1; stroke-linejoin: miter"/>
+   </g>
+   <g id="matplotlib.axis_1">
+    <g id="xtick_1">
+     <g id="line2d_1">
+      <defs>
+       <path id="mab2046877f" d="M 0 0 
+L 0 3.5 
+" style="stroke: #9a8872; stroke-width: 0.9"/>
+      </defs>
+      <g>
+       <use xlink:href="#mab2046877f" x="92.727348" y="169.308" style="fill: #9a8872; stroke: #9a8872; stroke-width: 0.9"/>
+      </g>
+     </g>
+     <g id="text_1">
+      <text style="font-size: 8.8px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: middle; fill: #9a8872" x="92.727348" y="182.994625" transform="rotate(-0 92.727348 182.994625)">36 months</text>
+     </g>
+    </g>
+   </g>
+   <g id="matplotlib.axis_2">
+    <g id="ytick_1">
+     <g id="line2d_2">
+      <path d="M 65.9664 169.308 
+L 246.209257 169.308 
+" clip-path="url(#pf6ece4272d)" style="fill: none; stroke: #2e251c; stroke-opacity: 0.7; stroke-width: 0.6; stroke-linecap: square"/>
+     </g>
+     <g id="line2d_3">
+      <defs>
+       <path id="md771f1bae4" d="M 0 0 
+L -3.5 0 
+" style="stroke: #9a8872; stroke-width: 0.9"/>
+      </defs>
+      <g>
+       <use xlink:href="#md771f1bae4" x="65.9664" y="169.308" style="fill: #9a8872; stroke: #9a8872; stroke-width: 0.9"/>
+      </g>
+     </g>
+     <g id="text_2">
+      <text style="font-size: 9.5px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: end; fill: #9a8872" x="58.9664" y="172.917258" transform="rotate(-0 58.9664 172.917258)">0</text>
+     </g>
+    </g>
+    <g id="ytick_2">
+     <g id="line2d_4">
+      <path d="M 65.9664 144.9705 
+L 246.209257 144.9705 
+" clip-path="url(#pf6ece4272d)" style="fill: none; stroke: #2e251c; stroke-opacity: 0.7; stroke-width: 0.6; stroke-linecap: square"/>
+     </g>
+     <g id="line2d_5">
+      <g>
+       <use xlink:href="#md771f1bae4" x="65.9664" y="144.9705" style="fill: #9a8872; stroke: #9a8872; stroke-width: 0.9"/>
+      </g>
+     </g>
+     <g id="text_3">
+      <text style="font-size: 9.5px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: end; fill: #9a8872" x="58.9664" y="148.579758" transform="rotate(-0 58.9664 148.579758)">25</text>
+     </g>
+    </g>
+    <g id="ytick_3">
+     <g id="line2d_6">
+      <path d="M 65.9664 120.633 
+L 246.209257 120.633 
+" clip-path="url(#pf6ece4272d)" style="fill: none; stroke: #2e251c; stroke-opacity: 0.7; stroke-width: 0.6; stroke-linecap: square"/>
+     </g>
+     <g id="line2d_7">
+      <g>
+       <use xlink:href="#md771f1bae4" x="65.9664" y="120.633" style="fill: #9a8872; stroke: #9a8872; stroke-width: 0.9"/>
+      </g>
+     </g>
+     <g id="text_4">
+      <text style="font-size: 9.5px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: end; fill: #9a8872" x="58.9664" y="124.242258" transform="rotate(-0 58.9664 124.242258)">50</text>
+     </g>
+    </g>
+    <g id="ytick_4">
+     <g id="line2d_8">
+      <path d="M 65.9664 96.2955 
+L 246.209257 96.2955 
+" clip-path="url(#pf6ece4272d)" style="fill: none; stroke: #2e251c; stroke-opacity: 0.7; stroke-width: 0.6; stroke-linecap: square"/>
+     </g>
+     <g id="line2d_9">
+      <g>
+       <use xlink:href="#md771f1bae4" x="65.9664" y="96.2955" style="fill: #9a8872; stroke: #9a8872; stroke-width: 0.9"/>
+      </g>
+     </g>
+     <g id="text_5">
+      <text style="font-size: 9.5px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: end; fill: #9a8872" x="58.9664" y="99.904758" transform="rotate(-0 58.9664 99.904758)">75</text>
+     </g>
+    </g>
+    <g id="ytick_5">
+     <g id="line2d_10">
+      <path d="M 65.9664 71.958 
+L 246.209257 71.958 
+" clip-path="url(#pf6ece4272d)" style="fill: none; stroke: #2e251c; stroke-opacity: 0.7; stroke-width: 0.6; stroke-linecap: square"/>
+     </g>
+     <g id="line2d_11">
+      <g>
+       <use xlink:href="#md771f1bae4" x="65.9664" y="71.958" style="fill: #9a8872; stroke: #9a8872; stroke-width: 0.9"/>
+      </g>
+     </g>
+     <g id="text_6">
+      <text style="font-size: 9.5px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: end; fill: #9a8872" x="58.9664" y="75.567258" transform="rotate(-0 58.9664 75.567258)">100</text>
+     </g>
+    </g>
+    <g id="ytick_6">
+     <g id="line2d_12">
+      <path d="M 65.9664 47.6205 
+L 246.209257 47.6205 
+" clip-path="url(#pf6ece4272d)" style="fill: none; stroke: #2e251c; stroke-opacity: 0.7; stroke-width: 0.6; stroke-linecap: square"/>
+     </g>
+     <g id="line2d_13">
+      <g>
+       <use xlink:href="#md771f1bae4" x="65.9664" y="47.6205" style="fill: #9a8872; stroke: #9a8872; stroke-width: 0.9"/>
+      </g>
+     </g>
+     <g id="text_7">
+      <text style="font-size: 9.5px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: end; fill: #9a8872" x="58.9664" y="51.229758" transform="rotate(-0 58.9664 51.229758)">125</text>
+     </g>
+    </g>
+    <g id="ytick_7">
+     <g id="line2d_14">
+      <path d="M 65.9664 23.283 
+L 246.209257 23.283 
+" clip-path="url(#pf6ece4272d)" style="fill: none; stroke: #2e251c; stroke-opacity: 0.7; stroke-width: 0.6; stroke-linecap: square"/>
+     </g>
+     <g id="line2d_15">
+      <g>
+       <use xlink:href="#md771f1bae4" x="65.9664" y="23.283" style="fill: #9a8872; stroke: #9a8872; stroke-width: 0.9"/>
+      </g>
+     </g>
+     <g id="text_8">
+      <text style="font-size: 9.5px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: end; fill: #9a8872" x="58.9664" y="26.892258" transform="rotate(-0 58.9664 26.892258)">150</text>
+     </g>
+    </g>
+    <g id="text_9">
+     <text style="font-size: 9.5px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: middle; fill: #cbbca6" x="34.857572" y="87.534" transform="rotate(-90 34.857572 87.534)">weeks</text>
+    </g>
+   </g>
+   <g id="line2d_16">
+    <path d="M 65.9664 92.9856 
+L 246.209257 92.9856 
+" clip-path="url(#pf6ece4272d)" style="fill: none; stroke-dasharray: 4,3; stroke-dashoffset: 0; stroke: #d98c72"/>
+   </g>
+   <g id="patch_9">
+    <path d="M 65.9664 169.308 
+L 65.9664 5.76 
+" style="fill: none; stroke: #3a3026; stroke-width: 0.9; stroke-linejoin: miter; stroke-linecap: square"/>
+   </g>
+   <g id="patch_10">
+    <path d="M 65.9664 169.308 
+L 246.209257 169.308 
+" style="fill: none; stroke: #3a3026; stroke-width: 0.9; stroke-linejoin: miter; stroke-linecap: square"/>
+   </g>
+   <g id="text_10">
+    <text style="font-size: 7.3px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; fill: #9a8872" transform="translate(119.488296 15.200859)">deducted, 59 weeks</text>
+    <text style="font-size: 7.3px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; fill: #9a8872" transform="translate(119.488296 23.375262)">   induction, training    8</text>
+    <text style="font-size: 7.3px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; fill: #9a8872" transform="translate(119.488296 31.549666)">   thesis and papers   20</text>
+    <text style="font-size: 7.3px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; fill: #9a8872" transform="translate(119.488296 39.724069)">   teaching                    12</text>
+    <text style="font-size: 7.3px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; fill: #9a8872" transform="translate(119.488296 47.898472)">   courses, review        4</text>
+    <text style="font-size: 7.3px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; fill: #9a8872" transform="translate(119.488296 56.072875)">   leave                         15</text>
+   </g>
+   <g id="text_11">
+    <text style="font-weight: 700; font-size: 8px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: start; fill: #6dbdac" x="119.488296" y="81.93075" transform="rotate(-0 119.488296 81.93075)">experiments   97</text>
+   </g>
+   <g id="text_12">
+    <text style="font-size: 7.8px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: start; fill: #d98c72" x="119.488296" y="105.142781" transform="rotate(-0 119.488296 105.142781)">20% reserve, 78 usable</text>
+   </g>
+  </g>
+  <g id="axes_2">
+   <g id="patch_11">
+    <path d="M 315.029257 169.308 
+L 478.8864 169.308 
+L 478.8864 5.76 
+L 315.029257 5.76 
+L 315.029257 169.308 
+z
+" style="fill: none"/>
+   </g>
+   <g id="patch_12">
+    <path d="M 329.925361 169.308 
+L 367.165621 169.308 
+L 367.165621 119.8278 
+L 329.925361 119.8278 
+z
+" clip-path="url(#pd724146bef)" style="fill: #6dbdac; opacity: 0.32; stroke: #6dbdac; stroke-width: 1.1; stroke-linejoin: miter"/>
+   </g>
+   <g id="patch_13">
+    <path d="M 329.925361 119.8278 
+L 367.165621 119.8278 
+L 367.165621 90.999 
+L 329.925361 90.999 
+z
+" clip-path="url(#pd724146bef)" style="fill: #d7a95c; opacity: 0.32; stroke: #d7a95c; stroke-width: 1.1; stroke-linejoin: miter"/>
+   </g>
+   <g id="patch_14">
+    <path d="M 329.925361 90.999 
+L 367.165621 90.999 
+L 367.165621 28.629 
+L 329.925361 28.629 
+z
+" clip-path="url(#pd724146bef)" style="fill: #d98c72; opacity: 0.32; stroke: #d98c72; stroke-width: 1.1; stroke-linejoin: miter"/>
+   </g>
+   <g id="patch_15">
+    <path d="M 404.405881 169.308 
+L 441.64614 169.308 
+L 441.64614 90.999 
+L 404.405881 90.999 
+z
+" clip-path="url(#pd724146bef)" style="fill: #6dbdac; opacity: 0.32; stroke: #6dbdac; stroke-width: 1.1; stroke-linejoin: miter"/>
+   </g>
+   <g id="matplotlib.axis_3">
+    <g id="xtick_2">
+     <g id="line2d_17">
+      <g>
+       <use xlink:href="#mab2046877f" x="348.545491" y="169.308" style="fill: #9a8872; stroke: #9a8872; stroke-width: 0.9"/>
+      </g>
+     </g>
+     <g id="text_13">
+      <text style="font-size: 8.4px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: middle; fill: #9a8872" x="348.545491" y="182.690688" transform="rotate(-0 348.545491 182.690688)">as drafted</text>
+     </g>
+    </g>
+    <g id="xtick_3">
+     <g id="line2d_18">
+      <g>
+       <use xlink:href="#mab2046877f" x="423.02601" y="169.308" style="fill: #9a8872; stroke: #9a8872; stroke-width: 0.9"/>
+      </g>
+     </g>
+     <g id="text_14">
+      <text style="font-size: 8.4px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: middle; fill: #9a8872" x="423.02601" y="182.690688" transform="rotate(-0 423.02601 182.690688)">after the cut</text>
+     </g>
+    </g>
+   </g>
+   <g id="matplotlib.axis_4">
+    <g id="ytick_8">
+     <g id="line2d_19">
+      <path d="M 315.029257 169.308 
+L 478.8864 169.308 
+" clip-path="url(#pd724146bef)" style="fill: none; stroke: #2e251c; stroke-opacity: 0.7; stroke-width: 0.6; stroke-linecap: square"/>
+     </g>
+     <g id="line2d_20">
+      <g>
+       <use xlink:href="#md771f1bae4" x="315.029257" y="169.308" style="fill: #9a8872; stroke: #9a8872; stroke-width: 0.9"/>
+      </g>
+     </g>
+     <g id="text_15">
+      <text style="font-size: 9.5px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: end; fill: #9a8872" x="308.029257" y="172.917258" transform="rotate(-0 308.029257 172.917258)">0</text>
+     </g>
+    </g>
+    <g id="ytick_9">
+     <g id="line2d_21">
+      <path d="M 315.029257 141.588 
+L 478.8864 141.588 
+" clip-path="url(#pd724146bef)" style="fill: none; stroke: #2e251c; stroke-opacity: 0.7; stroke-width: 0.6; stroke-linecap: square"/>
+     </g>
+     <g id="line2d_22">
+      <g>
+       <use xlink:href="#md771f1bae4" x="315.029257" y="141.588" style="fill: #9a8872; stroke: #9a8872; stroke-width: 0.9"/>
+      </g>
+     </g>
+     <g id="text_16">
+      <text style="font-size: 9.5px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: end; fill: #9a8872" x="308.029257" y="145.197258" transform="rotate(-0 308.029257 145.197258)">20</text>
+     </g>
+    </g>
+    <g id="ytick_10">
+     <g id="line2d_23">
+      <path d="M 315.029257 113.868 
+L 478.8864 113.868 
+" clip-path="url(#pd724146bef)" style="fill: none; stroke: #2e251c; stroke-opacity: 0.7; stroke-width: 0.6; stroke-linecap: square"/>
+     </g>
+     <g id="line2d_24">
+      <g>
+       <use xlink:href="#md771f1bae4" x="315.029257" y="113.868" style="fill: #9a8872; stroke: #9a8872; stroke-width: 0.9"/>
+      </g>
+     </g>
+     <g id="text_17">
+      <text style="font-size: 9.5px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: end; fill: #9a8872" x="308.029257" y="117.477258" transform="rotate(-0 308.029257 117.477258)">40</text>
+     </g>
+    </g>
+    <g id="ytick_11">
+     <g id="line2d_25">
+      <path d="M 315.029257 86.148 
+L 478.8864 86.148 
+" clip-path="url(#pd724146bef)" style="fill: none; stroke: #2e251c; stroke-opacity: 0.7; stroke-width: 0.6; stroke-linecap: square"/>
+     </g>
+     <g id="line2d_26">
+      <g>
+       <use xlink:href="#md771f1bae4" x="315.029257" y="86.148" style="fill: #9a8872; stroke: #9a8872; stroke-width: 0.9"/>
+      </g>
+     </g>
+     <g id="text_18">
+      <text style="font-size: 9.5px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: end; fill: #9a8872" x="308.029257" y="89.757258" transform="rotate(-0 308.029257 89.757258)">60</text>
+     </g>
+    </g>
+    <g id="ytick_12">
+     <g id="line2d_27">
+      <path d="M 315.029257 58.428 
+L 478.8864 58.428 
+" clip-path="url(#pd724146bef)" style="fill: none; stroke: #2e251c; stroke-opacity: 0.7; stroke-width: 0.6; stroke-linecap: square"/>
+     </g>
+     <g id="line2d_28">
+      <g>
+       <use xlink:href="#md771f1bae4" x="315.029257" y="58.428" style="fill: #9a8872; stroke: #9a8872; stroke-width: 0.9"/>
+      </g>
+     </g>
+     <g id="text_19">
+      <text style="font-size: 9.5px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: end; fill: #9a8872" x="308.029257" y="62.037258" transform="rotate(-0 308.029257 62.037258)">80</text>
+     </g>
+    </g>
+    <g id="ytick_13">
+     <g id="line2d_29">
+      <path d="M 315.029257 30.708 
+L 478.8864 30.708 
+" clip-path="url(#pd724146bef)" style="fill: none; stroke: #2e251c; stroke-opacity: 0.7; stroke-width: 0.6; stroke-linecap: square"/>
+     </g>
+     <g id="line2d_30">
+      <g>
+       <use xlink:href="#md771f1bae4" x="315.029257" y="30.708" style="fill: #9a8872; stroke: #9a8872; stroke-width: 0.9"/>
+      </g>
+     </g>
+     <g id="text_20">
+      <text style="font-size: 9.5px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: end; fill: #9a8872" x="308.029257" y="34.317258" transform="rotate(-0 308.029257 34.317258)">100</text>
+     </g>
+    </g>
+    <g id="text_21">
+     <text style="font-size: 9.5px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: middle; fill: #cbbca6" x="283.920429" y="87.534" transform="rotate(-90 283.920429 87.534)">weeks of work</text>
+    </g>
+   </g>
+   <g id="line2d_31">
+    <path d="M 315.029257 61.7544 
+L 478.8864 61.7544 
+" clip-path="url(#pd724146bef)" style="fill: none; stroke-dasharray: 4.4,3.3; stroke-dashoffset: 0; stroke: #d98c72; stroke-width: 1.1"/>
+   </g>
+   <g id="patch_16">
+    <path d="M 315.029257 169.308 
+L 315.029257 5.76 
+" style="fill: none; stroke: #3a3026; stroke-width: 0.9; stroke-linejoin: miter; stroke-linecap: square"/>
+   </g>
+   <g id="patch_17">
+    <path d="M 315.029257 169.308 
+L 478.8864 169.308 
+" style="fill: none; stroke: #3a3026; stroke-width: 0.9; stroke-linejoin: miter; stroke-linecap: square"/>
+   </g>
+   <g id="text_22">
+    <text style="font-size: 7.6px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; fill: #cbbca6" transform="translate(337.834241 138.154688)">aim 1</text>
+    <text style="font-size: 7.6px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; fill: #cbbca6" transform="translate(324.914835 146.665025)">construction</text>
+    <text style="font-size: 7.6px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; fill: #cbbca6" transform="translate(337.194178 155.175363)">36 wk</text>
+   </g>
+   <g id="text_23">
+    <text style="font-size: 7.6px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; fill: #cbbca6" transform="translate(337.834241 99.000188)">aim 2</text>
+    <text style="font-size: 7.6px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; fill: #cbbca6" transform="translate(323.828866 107.510525)">fermentation</text>
+    <text style="font-size: 7.6px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; fill: #cbbca6" transform="translate(337.194178 116.020863)">21 wk</text>
+   </g>
+   <g id="text_24">
+    <text style="font-size: 7.6px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; fill: #cbbca6" transform="translate(337.834241 35.382788)">aim 3</text>
+    <text style="font-size: 7.6px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; fill: #cbbca6" transform="translate(328.906616 43.893125)">pilot + ¹³C</text>
+    <text style="font-size: 7.6px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; fill: #cbbca6" transform="translate(337.194178 52.403462)">45 wk</text>
+   </g>
+   <g id="text_25">
+    <text style="font-size: 7.8px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; fill: #cbbca6" transform="translate(406.112807 127.938666)">aims 1-2</text>
+    <text style="font-size: 7.8px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; fill: #cbbca6" transform="translate(411.375979 136.672959)">56 wk</text>
+   </g>
+   <g id="text_26">
+    <text style="font-size: 8px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: end; fill: #d98c72" x="478.141595" y="57.5964" transform="rotate(-0 478.141595 57.5964)">78 usable weeks</text>
+   </g>
+   <g id="patch_18">
+    <path d="M 375.358478 59.752804 
+Q 375.358478 45.192016 375.358478 31.749261 
+" style="fill: none; stroke: #d98c72; stroke-linecap: round"/>
+    <path d="M 373.558478 35.349261 
+L 375.358478 31.749261 
+L 377.158478 35.349261 
+z
+" style="fill: #d98c72; stroke: #d98c72; stroke-linecap: round"/>
+   </g>
+   <g id="text_27">
+    <text style="font-size: 7.8px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; fill: #d98c72" transform="translate(379.827309 42.976866)">over by</text>
+    <text style="font-size: 7.8px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; fill: #d98c72" transform="translate(379.827309 51.711159)">24 wk</text>
+   </g>
+  </g>
+  <g id="text_28">
+   <text style="font-size: 8.3px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: start; fill: #9a8872" x="5.76" y="220.284" transform="rotate(-0 5.76 220.284)">Illustrative planning assumptions: deductions vary by country and funder, and the rework factors (1.7 on construction, 1.4 on runs) come from this course's own planning rather than from a host group's records.</text>
+  </g>
+ </g>
+ <defs>
+  <clipPath id="pf6ece4272d">
+   <rect x="65.9664" y="5.76" width="180.242857" height="163.548"/>
+  </clipPath>
+  <clipPath id="pd724146bef">
+   <rect x="315.029257" y="5.76" width="163.857143" height="163.548"/>
+  </clipPath>
+ </defs>
+</svg>
+</div><figcaption>Left: 156 weeks becomes 97 of experimental time after induction, writing, teaching, courses and leave, and 78 usable after a 20% reserve. Right: the three aims as drafted need 102 weeks and overrun by 24, all of it in the aim that has no credible alternative route — so the arithmetic and the week's own deletion rule choose the same aim to cut.</figcaption></figure>
+<p>A three-year project has 156 weeks in it and nothing like 156 weeks of experiments. Induction, safety and technique training take the first couple of months; the thesis and any papers take four to five months at the end; teaching or demonstrating takes a few weeks a year in most systems; courses, conferences and annual review take a few more; and leave is five or six weeks a year. The anchor&#x27;s deduction comes to 59 weeks, leaving 97, and a programme without reserve is a programme that will overrun, so a 20% contingency leaves about 78 usable weeks. Against that, each aim has to be costed in weeks with a rework factor, because experiments fail: a design-build-test-learn cycle on a strain is about seven weeks serial, and with a 60% per-attempt success rate the expected cost is nearer twelve. Doing this arithmetic has three effects, all good. It usually shows that three aims as drafted do not fit, which is a finding to act on rather than hide. It tells the reviewer that the author has planned rather than wished. And it converts the risk section from a list of worries into a schedule with slack, which is what a risk section is for.</p>
+<p><strong>5. Risks and alternatives, with the test that each alternative is credible</strong></p>
+<p>Every aim needs a named risk and a named alternative route, and the discipline is that the alternative has to be a different way of getting the same answer rather than a different thing to do. <em>If the CRISPR edit fails we will use recombineering</em> is credible — same answer, different method, known cost. <em>If the strain does not produce we will characterise the intermediates</em> is not an alternative, it is a different project, and a reviewer reads it as an admission that the aim has no fallback. The test is whether the alternative produces data that still tests the hypothesis. Applying it honestly is what triggers the week&#x27;s instruction to delete any aim with no credible alternative, and the deletion is almost always right: an aim whose only route is one technique working is a bet rather than a plan, and three years is long enough that the bet will be called. Two risk categories deserve specific mention because this course has supplied the material for both. Biosafety and dual use, where the Methods handbook&#x27;s §11 is the source and the paragraph is required if the target has any such dimension — an engineered organism going anywhere near a food product or an environmental release has a regulatory barrier that brief 8 is explicit can be a decisive argument against building at all. And scale-dependence, where a result obtained in a shake flask may not survive a controlled vessel, which week 54&#x27;s scale-down reading governs and which is the most common reason an otherwise sound aim produces a number nobody can use.</p>
+<p><strong>6. The portfolio index, and what each entry has to say</strong></p>
+<p>The repository README becomes the index, and the instruction that makes it useful is the one the week states: what each artifact shows <strong>and does not show</strong>. The second half is the whole value. A supervisor opening thirty artifacts has no way to tell a flux model validated against measured data from one validated against nothing, and the author who marks the difference is immediately more credible than the author who presents both the same way. The format that works is three lines per artifact: what it is, what it establishes, and the sentence beginning <em>this does not show</em>. For the capstone&#x27;s own numbers that sentence is already written — the titre is a literature analogy, every downstream stage recovery is assumed, the installation factor is assumed, the LCA is cradle-to-gate and cannot rank the product against an incumbent. Two further rules keep the index honest. Order the artifacts by what they demonstrate rather than by week number, so that the three best sit at the top. And mark which artifacts have been checked by someone else, since a self-marked exam paper and a reviewed calculation are different kinds of evidence and a reader will assume the weaker one unless told.</p>
+<p><strong>7. The three artifacts to show, and the arithmetic for choosing them</strong></p>
+<p>Thirty-one artifacts is not a portfolio, it is a backup. The review that produced this course flagged designating the three to actually show as still open, and it is now decidable, because the criterion is what each one demonstrates that the others do not. The three should cover three different kinds of capability rather than three instances of the best one: something computational and verifiable, which for this body of work means a model with its validation and its failure cases; something quantitative and physical, which means a process calculation with its assumptions and its balances; and something that demonstrates judgement, which means a piece of work whose conclusion is negative — a design costed and found not worth building, a pointer found wrong and corrected, a specification shown to be unreachable. The third is the one most candidates omit and the one that distinguishes most, because almost nobody shows a negative result and a negative result is the only kind that cannot be faked by effort. The capstone dossier is a natural choice for the second and third at once, which is an argument for making its verdict section prominent rather than apologetic. <strong>The designation, made rather than deferred: artifact 19, the ¹³C flux analysis study, for the computational half — it is the one piece of modelling in the portfolio with a verified forward simulation, two kinds of confidence interval and a deliberately induced structural error that the chi-squared detects, so it demonstrates method rather than tool use; artifact 29, the process design and techno-economic model, for the quantitative and physical half, because almost no applicant from the biological side can size a vessel from an oxygen demand and then cost it; and artifact 30, the capstone dossier, for judgement, because its verdict is negative — the configuration cannot reach the product’s price at any accessible titre — and a negative result reached quantitatively is the only kind that cannot be faked by effort. Artifact 1, the repository and its dated log, is not on the list and should still be the first link in the index, because commit dates are the only unfakeable evidence of consistency.</strong></p>
+<p><strong>8. Building the shortlist, and the sentence that makes an email specific</strong></p>
+<p>Ten groups, each with a recent paper read and a one-sentence fit argument, and the sources that actually work are the ones the topic list names: editorial boards of the journals in the field, corresponding authors of the papers already in the log, funded project lists from the national agencies, and the recent-graduate route, which is the most underused — people who finished in the last two or three years are findable, are hiring or are about to be, and their thesis says what the group actually does rather than what its website says. The email&#x27;s content is one sentence and everything else is housekeeping. The sentence refers to an unresolved result in that group&#x27;s own work and proposes something specific about it, which is only possible if the paper was read properly, and its absence is why most outreach fails: a message that could have been sent to any of the ten is read as having been sent to all of them. The arithmetic is worth knowing and worth not being discouraged by — ten specific emails might produce three replies and one or two conversations, which is a normal and sufficient yield, so the list should be ten rather than three and the replies should be expected to be few rather than taken as a verdict.</p>
+<p><strong>9. The interview, prepared as one figure and one regret per artifact</strong></p>
+<p>For every artifact, the one figure you would show and the one thing you would do differently — and the second half is again where the value is. A candidate who can say what was wrong with their own work is demonstrating the thing the work was for, and the specific regrets this course has generated are strong ones: that the stage recoveries were assumed rather than measured and the first experiment should have been a material balance; that the capital charge was carried as a placeholder for a week and was wrong by a factor of forty-eight; that the modelling effort went to the quantity with the smallest elasticity. Each of those is a sentence that shows calibration. Two things to prepare beyond that list. The questions that will certainly be asked, which are a small set and all answerable in advance: why this organism, why this product, what would you do if the funding were half, what is the weakest number in your dossier, and what would change your mind. And one honest answer to <em>what can you not do</em>, which for a candidate converting from a chemical engineering background is usually the wet-lab gap, and which is answered best with a plan and a duration rather than with reassurance.</p>
+<p><strong>10. Naming the remaining gap precisely, and starting on it rather than ending on it</strong></p>
+<p>The last session asks for an honest assessment of what you still cannot do and a plan for the first six months, and the review behind this course added two notes that belong here. Supervisor contact was originally scheduled for this week and should have been brought forward to month three or four, because contact made early shapes which phases to go deep on and late contact cannot — on a fifty-five week plan that advice is stronger rather than weaker, since there is more calendar to redirect. And the wet-lab gap has more calendar in which to be closed on a long timeline, so it should be started early rather than left to the end, which is to say that the honest assessment written this week is partly a retrospective on a sequencing decision. State the gap in hours and techniques rather than as a disposition: so many hours of sterile technique, so many of a specific assay, never having run a fermenter above a certain volume, never having done a particular analysis without a protocol in front of you. A named gap with a named remedy reads as self-knowledge. An unnamed one reads as the thing an interviewer will spend the interview finding.</p>
+<h3>Worked anchor</h3>
+<p>Budget the proposal against the time a three-year project actually has, and let the arithmetic decide which aim to cut.</p>
+<p>Step 1 — available experimental time. Thirty-six months is 156 weeks. Deduct, with the figures stated as planning assumptions rather than as rules:</p>
+<p>induction, safety and technique training          8 weeks thesis and papers                                20 teaching and demonstrating                       12   (4 per year) courses, conferences and annual review            4 leave                                            15   (5 per year) ---- deducted                                         59 available for experiments                        97 weeks</p>
+<p>Step 2 — reserve. A programme planned to consume all of its time has no capacity to absorb a failure, and every aim below has a rework factor already in it for failures that are expected; the reserve is for the ones that are not. At 20% of the experimental programme that is 19 weeks, leaving <strong>78 usable weeks</strong>.</p>
+<p>Step 3 — cost each aim, with a rework factor. A design-build-test-learn cycle on a strain is about seven weeks serial — one design, three build including verification, two test on the final medium with analytics, one analysis — and at a 60% success rate per attempt the expected cost is 1.7 cycles per intended cycle:</p>
+<p>aim 1  strain construction, 3 DBTL cycles      7 × 3 × 1.7  =  36 weeks aim 2  fermentation characterisation, 12 controlled fed-batch runs at 1 week each plus 4 weeks of setup, ×1.4 rework  4 + 17      =  21 weeks aim 3  pilot demonstration at 50 L plus a full ¹³C flux map of the final strain                     =  45 weeks -------- total       102 weeks</p>
+<p>Step 4 — the finding. 102 weeks of work against 78 usable, an overrun of 24 weeks or 31%, and the overrun is entirely aim 3: aims 1 and 2 together are 57 weeks and leave 21 of slack. So the proposal as drafted does not fit, and the question is which of the three ways out to take. Descope aim 3 to the part that fits in 21 weeks, which for this pair is the flux map on the final strain and not the pilot run, since the pilot needs a facility and a strain that aim 1 has not yet delivered. Delete aim 3 and let aims 1 and 2 carry the thesis, which is defensible and slightly thin. Or move aim 3&#x27;s content into a fourth-year ambition, which is honest about most doctoral timelines and which a reviewer will read as either candour or padding depending on how it is written.</p>
+<p>Step 5 — apply the week&#x27;s own deletion rule and the answer resolves. Aim 3 as drafted has one route: the pilot run requires access to a vessel, a strain, and a window, and if any of the three does not arrive there is no alternative that still tests the hypothesis. By the test in core idea 5 that is not an aim with a risk, it is a bet. Aim 1&#x27;s risk — the edit fails — has a credible alternative in a different editing method at a known cost. Aim 2&#x27;s risk — the strain does not produce at scale — has a credible alternative in characterising the limitation itself, which still tests the hypothesis. <strong>So aim 3 goes, the flux map moves into aim 2 as its final work package, and the 21 weeks of slack becomes the reserve for aim 1&#x27;s rework, which is where the arithmetic says the risk actually is.</strong></p>
+<p>Step 6 — the sensitivity, because the conclusion should not rest on one rework factor. At a 75% per-attempt success rate rather than 60%, aim 1 costs 28 weeks rather than 36, and aims 1 and 2 come to 49 weeks with 29 of slack — still not enough for the drafted aim 3 at 45. At a 50% success rate aim 1 costs 42 weeks and aims 1 and 2 come to 63, leaving 15. So across the plausible range of success rates the conclusion is unchanged, which is the check worth stating in the proposal itself: the plan fits for any reasonable assumption about failure, and the aim that was cut does not fit for any of them.</p>
+<p>Step 7 — the outreach arithmetic, which is smaller and worth doing for the same reason. Ten groups, each with a paper read and a specific sentence. At a 30% reply rate that is three replies, and at half of those converting to a conversation, one or two real conversations. Two consequences. The list has to be ten rather than three, because three specific emails produce an expected one reply and a plausible zero, and a zero from three is indistinguishable from a zero from bad emails. And the sentence has to be specific per group, because the only variable in the reply rate that the candidate controls is whether the recipient can tell the message was written for them — the other variables, their funding, their timing and their current students, are invisible and unmanageable. Budget two to three hours per email, most of it reading rather than writing, which is 25-30 hours for the set, and put it in the schedule rather than treating it as something to do between other work.</p>
+<p>What this leaves out. Every deduction in step 1 is a planning assumption and all of them vary by country, institution and funding source — a project with no teaching obligation recovers 12 weeks and a project with a taught first year loses far more than 8. The seven-week DBTL cycle and the 60% success rate are figures from this course&#x27;s own construction planning in phases 6 and 7 rather than measurements from the group that would host the work, and the right version of this calculation is done with that group&#x27;s numbers after the first conversation. The 20% reserve is a convention. The reply-rate figures are folklore and are stated as such. And the arithmetic deliberately costs only bench time: it says nothing about the time to learn a technique that the candidate does not yet have, which for anyone converting between disciplines is the largest single unbudgeted item and belongs in the honest assessment rather than in the plan.</p>
+<p><strong>Assumptions behind this calculation</strong></p>
+<ul>
+<li>156 weeks in three years, with 8 weeks of induction and training, 20 of writing, 12 of teaching, 4 of courses and review and 15 of leave deducted — all planning assumptions that vary by country, institution and funding source</li>
+<li>a 20% reserve on the experimental programme, which is a convention rather than a derived figure</li>
+<li>a seven-week design-build-test-learn cycle and a 60% per-attempt success rate, from this course&#x27;s own construction planning in phases 6 and 7 rather than from the host group&#x27;s records</li>
+<li>a 1.4 rework factor on fermentation runs against 1.7 on strain construction</li>
+<li>aim 3 costed at 45 weeks for a 50 L pilot run plus a full ¹³C flux map, which is an estimate rather than a quotation from anyone who has done both</li>
+<li>a 30% reply rate to outreach and half of replies converting to a conversation, which is folklore and is stated as such</li>
+<li>no time budgeted for learning techniques the candidate does not yet have, which for a cross-disciplinary conversion is the largest unbudgeted item</li>
+</ul>
+<h3>Reading map</h3>
+<table><thead><tr><th>Source</th><th>Treatment</th><th>Why</th></tr></thead><tbody><tr><td>Lee Ch 1 §1.7 The Future of Metabolic Engineering (printed p17)</td><td>Read closely</td><td>Confirmed present in the PDF. Assigned here as a source of open problems and that is the right use for this week, read differently from how weeks 52 and 54 read it: not as a frame for a conclusion but as a list to mine, marking each stated ambition with whether it is a missing measurement, a missing mechanism, a missing method or a disagreement between sources — the four categories in core idea 2, which have very different three-year prospects. Most of the section&#x27;s ambitions are mechanism and method, which is where the distinctive projects are and also where the risk is.</td></tr><tr><td>Your full paper log and all 55 week notebooks</td><td>Read closely</td><td>The curriculum&#x27;s second entry and the week&#x27;s largest reading task by volume. The extraction is mechanical: every question written down and still unanswered, pulled out verbatim with its week number, then grouped. Expect thirty to sixty and expect most to dissolve on contact with an afternoon of reading, which is itself worth recording — the survivors are the candidates. Three questions this course already banked as unresolved are worth starting from: a host named in a week&#x27;s topic list with no treatment in any available text, a secretion-capacity figure that no uploaded source supplied, and the numbers that differed between two textbooks and had to be settled against the PDFs.</td></tr><tr><td>Recent issues of Metabolic Engineering, Nature Catalysis, ACS Synthetic Biology</td><td>Skim</td><td>The curriculum&#x27;s third entry. Skim with two specific purposes rather than for general awareness, because general awareness is what the paper log was for. First, the editorial boards and the corresponding authors are the raw material for the shortlist, and the recent-graduate route — finding who published from a group two or three years ago and where they went — is faster from the journals than from any group website. Second, the last twelve months of titles are the best available check on whether the proposal&#x27;s question has just been answered, which is a cheap check and an expensive thing to discover after sending.</td></tr><tr><td>Your own artifacts, read as a stranger would read them</td><td>Read closely</td><td>The curriculum&#x27;s fourth entry and the input to the portfolio index. The reading protocol that makes it work: open each artifact cold, without the notebook that produced it, and write the three lines the index needs — what it is, what it establishes, and the sentence beginning <em>this does not show</em>. Anything whose third line cannot be written has not been understood well enough to show. This is also where the three artifacts to actually show get chosen, against the criterion in core idea 7: one computational and verifiable, one quantitative and physical, one that demonstrates judgement by reaching a negative conclusion.</td></tr><tr><td>Methods handbook §11 biosafety, ethics and dual use, and §12 defending your work</td><td>Read closely</td><td>§11 is named in the week&#x27;s fifth session and the instruction is conditional — include the paragraph if the target has any such dimension — but the condition is met more often than candidates assume: an engineered organism anywhere near a food product, an environmental release, or a product with a plausible misuse all qualify, and brief 8&#x27;s consortium replacement meets it squarely. §12 is not in the curriculum&#x27;s list for this week and belongs here more than anywhere else, since this is the week the work stops being calculations and starts being a thing to defend in a room. Read §12 before preparing the interview questions rather than after drafting answers to them.</td></tr><tr><td>Your week 52 cost model and the capstone dossier&#x27;s verdict section</td><td>Skim</td><td>Not in the curriculum&#x27;s `r:[]`. Skim them for one specific purpose: the proposal&#x27;s problem-and-gap page needs a number, and the cost model supplies the only quantitative statement in the whole body of work about why the problem matters — a cost of goods, a price, and the gap between them. A proposal that opens with a market size from a consultancy report and one that opens with a cost of goods the author computed are read very differently, and the second takes one sentence.</td></tr></tbody></table>
+<h3>Common misconceptions</h3>
+<ul>
+<li>That a proposal is judged on the quality of the science. It is judged on whether there is one sentence in it that could be false and whether the plan fits in the time: the two questions a supervisor is answering are whether this person can formulate a question and whether they finish things. A hypothesis that cannot be refuted is a topic, and three aims that need 102 weeks of a 78-week programme is the commonest and most visible way of answering the second question badly.</li>
+<li>That an alternative route is a different thing to do if the aim fails. A credible alternative produces data that still tests the same hypothesis by a different method at a known cost — recombineering instead of a CRISPR edit, not characterising intermediates instead of making a product. An aim with no such alternative is a bet rather than a plan, and over three years the bet gets called, which is why the right response to finding one is to delete the aim rather than to hedge it.</li>
+<li>That the portfolio&#x27;s job is to show the best work. Its job is to let a stranger verify claims in ten minutes, which makes the sentence beginning <em>this does not show</em> the most valuable line in each entry: a reader with no way to distinguish a validated model from an unvalidated one will assume the weaker reading of both. Three artifacts covering three kinds of capability beat thirty-one covering one, and the one that demonstrates judgement is usually the one with a negative conclusion.</li>
+</ul>
+<h3>Check yourself before moving on</h3>
+<p><strong>Q.</strong> State your central hypothesis in one sentence and the single result that would refute it.</p>
+<p><strong>A.</strong> The sentence has a fixed testable shape and it is worth writing it in that shape even if the final prose is smoother: <em>X limits Y in host H under conditions Z, and relieving X by intervention W will raise Y by at least V.</em> Every symbol must be measurable and V must be stated, because a hypothesis with no threshold cannot be refuted by any result — a 3% improvement confirms <em>will increase</em> and refutes nothing. The refuting result is then mechanical to state: intervention W implemented and verified, conditions Z established and documented, and Y increased by less than V, or not at all, or decreased. Three things make that answer strong rather than formulaic in an interview. First, name the controls that make the refutation interpretable, because a null result with no verification of W is not a refutation of the hypothesis but a failure of the experiment, and the distinction is the whole of the difference between a three-year project that concludes something and one that concludes nothing — so the verification of W is part of the refuting result, not a precondition for it. Second, say what the refutation would mean, since a hypothesis whose refutation teaches nothing is a question nobody needed answered: if relieving X does not raise Y, either X was not limiting, which is itself a publishable statement about the host, or the relief was insufficient, which is a dose question that the same experiment can be designed to separate. Third, state the threshold&#x27;s origin, and for this body of work it has one — the economics of week 52 sets what size of improvement would matter, so V can be derived rather than chosen, and a hypothesis whose threshold comes out of a cost model is visibly a different kind of claim from one whose threshold is a round number.</p>
+<p><strong>Q.</strong> Your three aims need 102 weeks and your project has 78 usable. What do you do, and what do you tell the panel?</p>
+<p><strong>A.</strong> Act on it rather than hiding it, and the acting has a defensible order. First, check the arithmetic&#x27;s inputs, since the conclusion should not rest on a single rework factor: at a 75% per-attempt success rate rather than 60% the construction aim falls from 36 weeks to 28 and the programme still does not fit the drafted third aim at 45, and at 50% it fits even less, so the overrun is robust across the plausible range and the input to question is not the success rate but the 45-week aim. Second, identify which aim is the overrun rather than trimming all three, because uniform trimming produces three aims that each half-fit and the thesis needs at least one that completes. Third, apply the alternative-route test: the aim to cut is the one whose only route is a single resource or technique arriving on time, which for the anchor is a pilot run requiring a vessel, a strain and a window with no fallback that still tests the hypothesis. Cut it, move whatever part of it fits into the surviving aims — the flux map becomes the final work package of aim 2 — and let the released weeks become the reserve for the aim where the arithmetic says the risk actually is, which is the construction aim with its 1.7 rework multiplier. What to tell the panel is the arithmetic itself, in three sentences: here is the available time after the standard deductions, here is what each aim costs with its rework factor, and here is why the programme is two aims with a reserve rather than three without one. That is a stronger position than a three-aim proposal, for the reason the whole of phase 8 has been making: a plan that has been costed and cut is evidence of judgement, and a plan that fits only if nothing fails is evidence of the opposite. The one thing not to say is that the third aim is a stretch goal, unless it is genuinely resourced as one, because a reviewer reads an unresourced stretch goal as the same proposal with a softer verb.</p>
+<p><strong>Q.</strong> An interviewer asks what you still cannot do. Answer it.</p>
+<p><strong>A.</strong> Answer in hours and techniques, not in dispositions, and attach a remedy with a duration to each item — the question is a calibration test and the failure mode is reassurance rather than ignorance. For a candidate converting into this field from a chemical engineering background the honest list has three kinds of entry. Techniques never performed: so many hours of sterile technique, a specific assay never run without a protocol in front of you, no experience of a fermenter above a stated volume, no hands-on genome editing as distinct from having planned it in detail. Judgements never tested: no experience of deciding when a contaminated run is salvageable, of reading an unexpected growth curve in real time, or of knowing which of a day&#x27;s four anomalies is the instrument — the kind of knowledge that is only acquired by being wrong in a laboratory and that no amount of modelling substitutes for. And the structural one, which is worth naming because an interviewer will otherwise name it: a body of work in which every number is computed or cited and almost none is measured, which is exactly the criticism the capstone&#x27;s own unknowns section makes of itself — the stage recoveries assumed, the titre taken from a literature analogy, the installation factor assumed. Then the remedy, specifically and with a duration: which of those is closed by a few weeks in a laboratory, which needs a rotation or a project, and what the first six months would be spent on, which for this profile is bench technique and the measurement of the two or three numbers the dossier flagged as load-bearing and assumed. Two framing points make the answer land. The gaps should be ordered by how much they limit the proposed project rather than by how uncomfortable they are, which demonstrates the same prioritisation the elasticity work demonstrated. And it is worth saying what the conversion brings that the gap costs — a process and cost perspective that most applicants from the biological side do not have, which is the content of the capstone&#x27;s second half and the reason the dossier is worth reading — said once, as a fact, and not as a defence.</p>
+<hr>
+
+<section class="study-transfer" aria-label="Week 55 application and teach-back">
+<h3>Apply it to your fermentation experience</h3>
+<p><strong>Transfer prompt.</strong> Give a three-minute explanation of how your chemical-engineering and fermentation experience leads to one specific metabolic-engineering question. What foundational concept would you still need to learn to investigate it?</p>
+<p class="meta">Use your actual thesis methods and results where you remember them. Mark missing information as unknown; do not assume the organisms were co-cultured, that a metabolite was measured, or that a proposed mechanism was demonstrated.</p>
+<h3>Teach it back</h3>
+<p>Explain the week's concept from memory, work one number, and name one boundary. Then use the <a href="teach-back.html">five-minute teach-back protocol</a> and log it in the tracker.</p>
+</section>
+<h2>Appendix — on the numbers in these notes</h2>
+<p>Every number in these modules — ribosome counts, pool sizes, half-lives, turnover times — is written from working knowledge and is an order-of-magnitude figure. Before any of them enters a notebook, a figure or a proposal, check it against BioNumbers or the primary source and cite that, not these notes. Treat the modules as a map of what matters and a scaffold for reasoning; treat the textbooks and the databases as the authority for values.</p>
+
+<h2>Appendix — Sources, editions and citation practice</h2>
+<p>The reading maps give author and title as shorthand. They are a route into the literature, not a reference list, and the paper log asks for the full citation and DOI for exactly that reason. The table below gives the full reference for the principal papers the maps name by author; the DOIs were checked against Crossref when this appendix was written. If a map names a paper without a year, this is the entry to use.</p>
+<table><thead><tr><th>Named in the maps</th><th>Full reference</th></tr></thead><tbody>
+<tr><td>Keio collection</td><td>Baba et al., <em>Mol Syst Biol</em> 2:2006.0008 (2006). doi:10.1038/msb4100050</td></tr>
+<tr><td>1,4-butanediol</td><td>Yim et al., <em>Nat Chem Biol</em> 7:445–452 (2011). doi:10.1038/nchembio.580</td></tr>
+<tr><td>Taxadiene</td><td>Ajikumar et al., <em>Science</em> 330:70–74 (2010). doi:10.1126/science.1191652</td></tr>
+<tr><td>Overflow metabolism</td><td>Basan et al., <em>Nature</em> 528:99–104 (2015). doi:10.1038/nature15765</td></tr>
+<tr><td>Artemisinic acid</td><td>Ro et al., <em>Nature</em> 440:940–943 (2006). doi:10.1038/nature04640</td></tr>
+<tr><td>NREL ethanol design</td><td>Humbird et al., <em>Process Design and Economics for Biochemical Conversion of Lignocellulosic Biomass to Ethanol</em>, NREL/TP-5100-47764 (May 2011)</td></tr>
+<tr><td>Polymer LCA</td><td>Tabone, Cregg, Beckman &amp; Landis, <em>Environ Sci Technol</em> 44:8264–8269 (2010). doi:10.1021/es101640n</td></tr>
+<tr><td>FBA primer</td><td>Orth, Thiele &amp; Palsson, <em>Nat Biotechnol</em> 28:245–248 (2010). doi:10.1038/nbt.1614</td></tr>
+<tr><td>EMU framework</td><td>Antoniewicz, Kelleher &amp; Stephanopoulos, <em>Metab Eng</em> 9:68–86 (2007). doi:10.1016/j.ymben.2006.09.001</td></tr>
+<tr><td>ART</td><td>Radivojević et al., <em>Nat Commun</em> 11:4879 (2020). doi:10.1038/s41467-020-18008-4</td></tr>
+<tr><td>DOME</td><td>Walsh et al., <em>Nat Methods</em> 18:1122–1127 (2021). doi:10.1038/s41592-021-01205-4</td></tr>
+<tr><td>MEMOTE</td><td>Lieven et al., <em>Nat Biotechnol</em> 38:272–276 (2020). doi:10.1038/s41587-020-0446-y</td></tr>
+<tr><td>GECKO</td><td>Sánchez et al., <em>Mol Syst Biol</em> 13:935 (2017). doi:10.15252/msb.20167411</td></tr>
+<tr><td>MDF</td><td>Noor et al., <em>PLoS Comput Biol</em> 10:e1003483 (2014). doi:10.1371/journal.pcbi.1003483</td></tr>
+<tr><td>eQuilibrator</td><td>Flamholz et al., <em>Bioinformatics</em> 28:2037–2044 (2012). doi:10.1093/bioinformatics/bts317</td></tr>
+</tbody></table>
+<h3>Editions used, and what to check</h3>
+<p>Chapter pointers are to the printings named below. Chapter numbering changes between editions, so if you use a different printing, find the section by title rather than by number and record the edition in your notes. Check for a newer edition before buying: the biochemistry and fermentation texts in particular are several years old, and the primary literature is the authority for anything that has moved.</p>
+<table><thead><tr><th>Text</th><th>Edition used, and what to check</th></tr></thead><tbody>
+<tr><td>Berg, Tymoczko &amp; Stryer, <em>Biochemistry</em></td><td>7th edn (2012) is the printing the chapter pointers were checked against. Check for the current edition; chapter numbering moves.</td></tr>
+<tr><td>Alberts et al., <em>Molecular Biology of the Cell</em></td><td>Edition not stated in the maps. Check the current edition and locate sections by title, not number.</td></tr>
+<tr><td>OpenStax, <em>Microbiology</em></td><td>Online edition; check the revision date before citing a section.</td></tr>
+<tr><td>Shuler &amp; Kargi, <em>Bioprocess Engineering</em></td><td>2nd edn (2002). Check for a current edition.</td></tr>
+<tr><td>Stanbury, Whitaker &amp; Hall, <em>Principles of Fermentation Technology</em></td><td>2nd edn (1995) is the printing used. A 3rd edn (2016) exists and its chapter numbering differs; if you use it, find the section by title.</td></tr>
+<tr><td>Lee, Nielsen &amp; Stephanopoulos, <em>Metabolic Engineering</em></td><td>1998. Still the canonical statement of the field's logic; pair it with current reviews for anything method-specific.</td></tr>
+<tr><td>Palsson, <em>Systems Biology: COBRA</em></td><td>2015. The uploaded extract covers chapters 1–3; the full book is the reference for the rest.</td></tr>
+<tr><td>Doran, <em>Bioprocess Engineering Principles</em></td><td>The maps point at chapters by number; check which edition your copy is and locate by title.</td></tr>
+<tr><td>Belter, <em>Bioseparations</em>; Plawsky, <em>Transport Phenomena Fundamentals</em>; Smith, Van Ness &amp; Abbott, <em>Chemical Engineering Thermodynamics</em>; Voet, <em>Fundamentals of Biochemistry</em></td><td>Check the current edition of each before buying; the chapter pointers are to the printing named in the briefs' book list.</td></tr>
+</tbody></table>
+<h3>When a map gives only an author</h3>
+<p>Search the author and the topic; confirm the paper is the one meant; record the DOI; write one line in the log saying why it matters. If you cannot resolve it, replace it with a paper you can — a reading map is a guide, not a canon. The rule for your own writing is the same one the briefs apply to your thesis: every number and every claim carries a source you could hand to a supervisor.</p>
+<nav class="weeknav" aria-label="Week navigation"><a href="week-54.html">&#8592; Week 54</a><a class="idx" href="index.html">Lecture index</a><a class="idx" href="case-study.html">Case study</a><span class="empty">Week &#8594;</span></nav>
+</main>
+<footer class="docfoot"><a href="../metabolic-engineering-tracker.html">&#8592; Course tracker</a><span>Metabolic engineering &middot; 55 weeks</span></footer>
+<script>
+(function(){var root=document.documentElement,key="me.theme";var bs=Array.prototype.slice.call(document.querySelectorAll(".appearance button"));
+function paint(v){bs.forEach(function(b){b.setAttribute("aria-pressed",b.getAttribute("data-appearance")===v?"true":"false");});if(v==="auto")root.removeAttribute("data-theme");else root.setAttribute("data-theme",v);}
+var saved="auto";try{saved=localStorage.getItem(key)||"auto";}catch(e){}
+bs.forEach(function(b){b.addEventListener("click",function(){var v=b.getAttribute("data-appearance");paint(v);try{localStorage.setItem(key,v);}catch(e){}});});paint(saved);})();
+</script>
+</body>
+</html>

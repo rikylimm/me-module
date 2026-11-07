@@ -1,0 +1,398 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="utf-8"><title>Design briefs — Metabolic engineering</title>
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+
+
+<style>:root{color-scheme:light;--paper:#FAF6EF;--ink:#211A12;--ink-2:#4A3C2C;--ink-3:#8A7458;
+--line:#DFD2BE;--line-2:#EDE4D5;--broth:#9A6B1F;--broth-soft:#F6ECD9;
+--serif:"Newsreader",Georgia,serif;--sans:"Public Sans",system-ui,sans-serif}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--paper:#15120D;--ink:#F1E9DC;--ink-2:#CBBCA6;
+--ink-3:#948872;--line:#352C22;--line-2:#2A231B;--broth:#D7A95C;--broth-soft:#241D14}}
+*{box-sizing:border-box}
+body{margin:0;background:var(--paper);color:var(--ink);font-family:var(--sans);font-size:15.5px;line-height:1.6;
+padding:env(safe-area-inset-top,0) 0 env(safe-area-inset-bottom,0)}
+.wrap{max-width:840px;margin:0 auto;padding:40px 22px 90px}
+h1{font-family:var(--serif);font-size:clamp(28px,5vw,42px);line-height:1.1;font-weight:600;margin:0 0 6px;letter-spacing:-.02em}
+h2{font-family:var(--serif);font-size:26px;font-weight:600;margin:46px 0 10px;letter-spacing:-.01em;padding-bottom:7px;border-bottom:1px solid var(--line)}
+h3{font-family:var(--serif);font-size:20px;font-weight:600;margin:30px 0 4px;color:var(--broth)}
+h4{font-size:14px;font-weight:650;margin:18px 0 4px;color:var(--ink-3);letter-spacing:.02em;text-transform:uppercase}
+p{margin:0 0 12px;max-width:74ch}
+em{color:var(--ink-2)}
+ul{margin:0 0 14px;padding-left:1.15em;max-width:74ch}
+li{margin:.3em 0}li::marker{color:var(--ink-3)}
+hr{border:0;border-top:1px solid var(--line);margin:40px 0}
+strong{font-weight:650}
+table{border-collapse:collapse;width:100%;margin:14px 0 20px;font-size:14px}
+th{text-align:left;font-weight:600;color:var(--ink-3);font-size:12.5px;padding:7px 9px;border-bottom:1.5px solid var(--line)}
+td{padding:8px 9px;border-bottom:1px solid var(--line-2);vertical-align:top}
+tr:nth-child(even) td{background:var(--broth-soft)}
+
+figure.fig{margin:22px 0 26px;padding:0;max-width:100%}
+figure.fig svg{width:100%;height:auto;display:block;background:var(--card);
+  border:1px solid var(--line-2);border-radius:10px;padding:8px 10px}
+figure.fig figcaption{font-size:13px;color:var(--ink-3);margin-top:8px;max-width:74ch;line-height:1.5}
+figure.fig .figtitle{font-family:var(--serif);font-size:15px;color:var(--ink-2);margin-bottom:6px}
+figure.fig .fig-dark{display:none}
+@media (prefers-color-scheme: dark){
+  figure.fig .fig-light{display:none}
+  figure.fig .fig-dark{display:block}
+}
+@media print{figure.fig{break-inside:avoid;page-break-inside:avoid}
+  figure.fig .fig-dark{display:none !important}
+  figure.fig .fig-light{display:block !important}}
+
+@media print{body{background:#fff}.wrap{padding:0;max-width:none}h2,h3{page-break-after:avoid}}</style><script>try{var t=localStorage.getItem("me.theme");if(t&&t!=="auto")document.documentElement.setAttribute("data-theme",t);}catch(e){}</script>
+<meta name="color-scheme" content="light dark">
+<meta name="theme-color" content="#ffffff" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#000000" media="(prefers-color-scheme: dark)">
+</head><body>
+<header class="docbar">
+<a class="docback" href="metabolic-engineering-tracker.html">&#8592; Course tracker</a>
+<div class="appearance" role="group" aria-label="Appearance">
+<button type="button" data-appearance="auto" aria-pressed="true">Auto</button>
+<button type="button" data-appearance="light" aria-pressed="false">Light</button>
+<button type="button" data-appearance="dark" aria-pressed="false">Dark</button>
+</div>
+</header><main class="wrap">
+<p class="doc-kicker">Metabolic engineering &middot; 19 portfolio briefs</p>
+<h1>Design briefs</h1>
+<p><strong>Nineteen open-ended design and simulation problems. No worked solutions.</strong> Three of them, Briefs 8, 15 and 17, are built on work you have done yourself — the cassava consortium, the biodiesel transesterification over an ion-exchange resin, and the response surface study inside that thesis — and those are the ones that connect your existing work to strain engineering. Brief 16 is the applied machine-learning one and Brief 18 is the experimental-design one.</p>
+<p>Companion to the 55-week metabolic engineering course. Last revised 5 November 2026.</p>
+<hr>
+<h2>How to use these briefs</h2>
+<p>Each brief is a scenario with numbers, a set of deliverables and a standard. None has a worked solution, and that is deliberate: the 41 problems in the tracker exist to build competence, and these exist to demonstrate it. If you find yourself wanting an answer key, the brief is working.</p>
+<p><strong>The rules of engagement.</strong></p>
+<ul>
+<li>Every brief must touch data you did not invent. Where a brief says <em>published data</em>, find a real paper, record its accession or citation, and work with the numbers as reported — including the inconvenient ones. A portfolio built entirely on simulated data reads as coursework.</li>
+<li>State your assumptions in writing before you compute. Any brief can be made to produce a tidy answer by assuming the right things; the assumptions are the content.</li>
+<li>Report intervals, not point estimates, wherever a parameter was fitted.</li>
+<li>Every brief ends with a <em>limitations</em> section naming what the work cannot show. This is non-negotiable, and it is the cheapest thing that separates research conduct from a student project.</li>
+<li>Each brief must run from a clean clone in a fresh environment. Test this before you call one finished.</li>
+</ul>
+<p><strong>Timing.</strong> The briefs track the 55-week course, and each names the week at which you have the material to attempt it. Attempting one early is fine; attempting one without the prerequisite reading produces a notebook that works and a candidate who cannot defend it.</p>
+<p><strong>A standing rule for the briefs built on your own work — 8, 15 and 17.</strong> These briefs describe your cassava consortium, your transesterification chemistry and your optimisation strategy, and <strong>none of those descriptions is verified by anything in this document.</strong> Earlier drafts asserted a base catalyst where the thesis used an ion-exchange resin, named three consortium species nobody had checked, and assumed a designed experiment that may not exist. So the rule: where a brief touches your own work it states what must be confirmed from the thesis and asserts nothing about it, and the first task in each of those briefs is to confirm it and write it in. An unverified claim about your own research is the one error a supervisor is certain to catch.</p>
+<p><strong>Scope discipline.</strong> Each brief is sized at roughly 15 to 30 hours. One that has grown past 40 hours has either absorbed a neighbouring brief or acquired features nobody asked for; cut it back. Nineteen finished briefs beat six magnificent ones and thirteen abandoned.</p>
+<p><strong>Books.</strong> Chapter references use: Berg (<em>Biochemistry</em> 7e), Voet (<em>Fundamentals of Biochemistry</em>), Doran (<em>Bioprocess Engineering Principles</em>), Shuler (<em>Bioprocess Engineering</em> 2e), Stanbury (<em>Principles of Fermentation Technology</em>), Belter (<em>Bioseparations</em>), Plawsky (<em>Transport Phenomena Fundamentals</em>), Lee (<em>Metabolic Engineering</em>), Palsson (<em>Systems Biology: COBRA</em>). Check for a newer edition before buying: chapter numbers move between editions, and the pointers are to the printing named here.</p>
+<hr>
+<h2>Tier 1 — Foundations</h2>
+<p>Four briefs that establish you can fit, balance and reconcile. They are the least glamorous and the most frequently probed in interview, because they are where an engineer&#x27;s claim to rigour is either true or not.</p>
+<h3>Brief 1 — The enzyme nobody agrees about</h3>
+<p><em>Attempt from week 5. Target: 20 hours. Reading: Berg Ch 8, Voet Ch 12, Doran Ch 11 §11.3–11.4, Shuler Ch 3.</em></p>
+<p>Choose one enzyme in a pathway that interests you and collect every kinetic record available for it in BRENDA — all organisms, all conditions. You will typically find kcat values spanning an order of magnitude and KM values spanning more.</p>
+<p>Build a notebook that: fits Michaelis-Menten parameters by weighted non-linear regression to at least one real published progress curve or rate series you digitise yourself; reproduces the same fit by Lineweaver-Burk, Eadie-Hofstee and Hanes, and quantifies the bias of each against the non-linear result; and discriminates between the four inhibition mechanisms on a data set where the mechanism is not stated in advance.</p>
+<p>Then do the part most people skip. Tabulate every published kcat and KM with its assay pH, temperature, buffer and organism, and write a one-page argument for which single pair of values you would put into a kinetic model of that pathway, and what interval you would carry around them.</p>
+<p><strong>Deliver:</strong> notebook, digitised data with its source, parameter table with assay conditions, the one-page argument, limitations.</p>
+<p><strong>The standard.</strong> Full marks require the bias of linearisation shown numerically rather than asserted; a written statement of which parameters a single substrate titration can and cannot identify; and a defensible choice between irreconcilable literature values, with the reasoning visible. An examiner is checking whether you treat published numbers as data or as facts.</p>
+<p><strong>Where it usually goes wrong.</strong> Candidates fit beautifully and then pick the kcat from the most recent paper without argument.</p>
+<h3>Brief 2 — Growth parameters from somebody else&#x27;s fermentation</h3>
+<p><em>Attempt from week 18. Target: 25 hours. Reading: Doran Ch 11 §11.7–11.13, Shuler Ch 6, Stanbury Ch 2.</em></p>
+<p>Find a published batch fermentation with a full time course — biomass, substrate and at least one product — and extract the data by digitising the figures. Papers on <em>E. coli</em>, <em>C. glutamicum</em> or <em>S. cerevisiae</em> from the last fifteen years all qualify; choose one whose numbers you can read.</p>
+<p>Build batch, fed-batch and chemostat simulators from the Monod balances, validated against analytical steady states where they exist. Fit µmax, Ks and the yield coefficient to the digitised batch data, and report a joint confidence region rather than three numbers. Then show the thing you already know from the problem sets but must now demonstrate on real data: how poorly batch data constrains Ks, and by how much.</p>
+<p>Finally, design the chemostat series that would resolve µmax, Ks, the true yield and the maintenance coefficient. Specify the number of dilution rates, their spacing, the residual substrate assay and its required detection limit, and the replicate structure. Justify each choice against the parameter it resolves.</p>
+<p><strong>Deliver:</strong> simulators, digitised data with source, fit with a confidence region, the identifiability demonstration, the designed experiment, limitations.</p>
+<p><strong>The standard.</strong> The experimental design is the graded part. A series of four equally spaced dilution rates with no justification scores half; a series justified by where the model is sensitive to each parameter scores full. Credit also for reproducing the washout transition numerically and comparing it with the analytical criterion.</p>
+<h3>Brief 3 — The balance that does not close</h3>
+<p><em>Attempt from week 17. Target: 20 hours. Reading: Doran Ch 4 §4.6 and Ch 5, Shuler Ch 7, Stanbury Ch 2.</em></p>
+<p>Find a published fermentation that reports enough streams to attempt a carbon and an available-electron balance — substrate consumed, biomass, every measured product, and ideally off-gas. Most papers do not close. That is the point of the brief.</p>
+<p>Close both balances. Where they fail, localise the error by redundancy analysis rather than by adjustment: determine which measurements are checkable against which others, compute the gross error test statistic, and name the implicated stream. Then state what the discrepancy pattern implies — a carbon deficit with complete electrons points somewhere quite different from both balances running high by the same factor.</p>
+<p>Extend to an energy balance using Doran Ch 5: compute the heat of reaction from heats of combustion, compare with the oxygen-uptake correlation, and state which you would trust for sizing a cooling system.</p>
+<p><strong>Deliver:</strong> reconciliation notebook, redundancy analysis, the named discrepancy with its diagnosis, the energy balance, limitations — and a short, fair note on what the original paper would have needed to measure to close.</p>
+<p><strong>The standard.</strong> Any answer that closes the balance by scaling a measurement scores zero on the central question. Full marks require the missing stream named, the diagnosis argued from the <em>pattern</em> of the discrepancy, and an explicit statement of the precision needed before the gap can be called real. This brief is the single best demonstration that a chemical engineer reads biological data differently.</p>
+<h3>Brief 4 — A theoretical yield engine</h3>
+<p><em>Attempt from week 17. Target: 25 hours. Reading: Doran Ch 4, Shuler Ch 7, Lee Ch 7.</em></p>
+<p>Build an installable, tested Python module that takes substrate and product formulae and returns maximum molar, mass and carbon yields by two independent routes — degree of reduction and a linear program on an elemental balance — reporting which constraint binds and why.</p>
+<p>Requirements: unit tests covering at least eight known cases, ethanol at 0.511 g/g among them; correct handling of products more oxidised than the substrate, where CO₂ fixation raises the ceiling; cofactor-constrained cases where ATP or NADPH binds before carbon or electrons; and a clear error when the inputs are not chemically sensible.</p>
+<p>Then apply it: compute ceilings for a dozen industrially relevant products, compare each against the best published titre and yield you can find, and tabulate the fraction of theoretical achieved. Write a paragraph on which products sit furthest below their ceiling and what that suggests about where the limitation lies.</p>
+<p><strong>Deliver:</strong> installable module with tests and documentation, the applied comparison table with sources, the written analysis, limitations.</p>
+<p><strong>The standard.</strong> Software hygiene is graded here as heavily as the chemistry: a stranger must install it and get an answer in two minutes. Full marks require the two computational routes cross-checked against each other, the binding constraint reported rather than inferred, and at least one case where the two routes disagree for a stated reason.</p>
+<hr>
+<h2>Tier 2 — Flux modelling</h2>
+<p>The centre of the portfolio. For a computational or systems group these five briefs <em>are</em> the application; for a wet-lab group they are evidence that you will not need supervision on the modelling side.</p>
+<h3>Brief 5 — Two routes, one molecule, one thermodynamic verdict</h3>
+<p><em>Attempt from week 27. Target: 25 hours. Reading: Lee Ch 7, Berg Ch 15, Voet Ch 14, Smith Van Ness Ch 13.</em></p>
+<p>Choose a target molecule for which at least two distinct biosynthetic routes have been published — a native route and a synthetic one, or two synthetic alternatives. Obtain ΔrG′° for every reaction in both, with its uncertainty, and state which estimates come from measurement and which from group contribution.</p>
+<p>Formulate and solve the max-min driving force problem yourself as a linear program: do not call a library that does it for you. Report, for each route, the optimal MDF, the binding reaction, and the metabolite concentration profile that achieves the optimum. Then check that profile against measured intracellular concentrations from a metabolomics paper for the same organism, and say whether the optimum is physiologically reachable or merely feasible on paper.</p>
+<p>Finish with a recommendation between the two routes and the single measurement that would overturn it.</p>
+<p><strong>Deliver:</strong> ΔrG′° table with sources and uncertainties, the LP you wrote, cumulative Gibbs energy profiles for both routes, the comparison against measured concentrations, the recommendation, limitations.</p>
+<p><strong>The standard.</strong> Full marks require the uncertainty propagated rather than mentioned, the bottleneck reaction named with the concentration ratio it demands, and an honest statement of whether that ratio is attainable in vivo. This is the brief that most clearly displays a capability a biology-trained applicant usually lacks, so it is worth doing properly.</p>
+<h3>Brief 6 — A core model you can defend</h3>
+<p><em>Attempt from week 23. Target: 20 hours. Reading: Lee Ch 2 §2.2, Palsson Ch 1–3, COBRApy documentation.</em></p>
+<p>Using the <em>E. coli</em> core model, predict growth on at least six carbon sources, aerobically and anaerobically. Before running any of them, predict the ranking from stoichiometry on paper and commit that prediction to the notebook. Then run the model and explain every case where you were wrong.</p>
+<p>Compute maximum ATP yield per glucose both ways — by hand through glycolysis, pyruvate dehydrogenase and the TCA cycle with a stated P/O, and from the model — and resolve the discrepancy in writing rather than noting it. Extract and interpret shadow prices for at least five metabolites, and say what each identifies as the limiting resource.</p>
+<p>Then break it deliberately: invert an exchange sign, omit a medium component, leave the maintenance reaction unbounded. Record the symptom of each failure. A diagnostic table of symptoms is more useful to a future reader than a clean result.</p>
+<p><strong>Deliver:</strong> notebook with the pre-committed prediction, the hand-versus-model reconciliation, shadow price interpretation, the failure-symptom table, and an assumptions section ranked by fragility.</p>
+<p><strong>The standard.</strong> The pre-committed prediction is the graded element: it proves you reason from stoichiometry rather than from output. An assumptions section that lists assumptions without ranking them scores half.</p>
+<h3>Brief 7 — Validating essentiality, and explaining every failure</h3>
+<p><em>Attempt from week 25. Target: 30 hours. Reading: Lee Ch 2 §2.4, Palsson Ch 3, the Keio collection paper.</em></p>
+<p>Run a complete single gene deletion screen on a genome-scale model — iML1515 or an equivalent for your chosen host — and validate it against experimental essentiality data. Build the confusion matrix and compute precision, recall and F1.</p>
+<p>The work is in what follows. Take every false positive individually and write its mechanistic explanation: a missing isozyme, an unannotated promiscuous activity, an absent transporter, a medium component present in the experiment but not the model, or a GPR rule written as AND where the biology is OR. Group them into classes and report the class frequencies. Do the same for false negatives, and separate the genuine biology from the artefacts of the growth threshold used to call essentiality.</p>
+<p>Then estimate, with your reasoning shown, what fraction of the disagreements are model errors and what fraction are data errors.</p>
+<p><strong>Deliver:</strong> screen, confusion matrix, a gene-by-gene classification table for every false prediction, the class frequency analysis, the model-versus-data error estimate, limitations.</p>
+<p><strong>The standard.</strong> A confusion matrix with no gene-level classification scores a third of the marks. The classification table is the artifact. Credit for sensitivity analysis on the growth threshold, and for at least three false positives traced to a specific missing annotation you can cite.</p>
+<h3>Brief 8 — Replacing a consortium you have actually run</h3>
+<p><em>Attempt from week 26. Target: 30 hours. Reading: Lee Ch 8 and §2.4.4, Yim et al. 2011, Palsson §5.4 on microbial communities, Lactobacillus Genomics and Metabolic Engineering Ch 4.</em></p>
+<p>This brief is built on your own bachelor&#x27;s work: cassava fermented by a defined consortium in a semi-continuous reactor to make fermented cassava flour. Your thesis (Ch 3.3–3.4) names the starter as <em>Lactobacillus plantarum</em>, <em>Bacillus subtilis</em> and <em>Aspergillus oryzae</em>, 8 L of each (24 L total), but one starter-preparation passage says <em>A. niger</em> and no strain identifiers are given. Confirm the fungal identity and strain designations. Resolve the ratio notation before you calculate: the abstract and conclusion use 7:1 water-to-substrate; the methods narrative uses the reciprocal 1:7 substrate-to-water (same condition if stated); the methods table&#x27;s header and values conflict; Table 4.1&#x27;s Run 2 is a separate 1:8 condition. It matters beyond bookkeeping: the division of labour below assumes one amylolytic fungus, one proteolytic or amylolytic bacterium and one lactic acid bacterium, and if the actual consortium differs the cross-feeding structure of the model changes with it. You ran the consortium. The question here is whether one engineered strain could do its job, and the brief is graded as much on the argument against that as on the design.</p>
+<p>Start with the baseline you already have. Reconstruct the process as a quantitative description rather than a protocol: feed composition on a dry basis with starch, protein and the cyanogenic glycoside content stated; the draw-off and refill policy as a dilution rate; and a carbon balance closed as far as your data allow, with every unmeasured stream named — CO₂, fungal biomass that cannot be separated from the substrate, volatilised HCN, and anything lost in drying. Close it to the percentage you can defend and say where the rest went, exactly as Brief 3 requires of a published fermentation.</p>
+<p>Then model the division of labour as a set of hypotheses, not measurements. The working hypothesis is that <em>A. oryzae</em> and <em>B. subtilis</em> secrete amylases and proteases that release sugar, and <em>L. plantarum</em> consumes that sugar and acidifies. The thesis measured counts, pH, cyanogenic compounds, yield, moisture, swelling and whiteness; it did not measure enzyme activity, sugar release, organic-acid production rates or oxygen demand. Build the community stoichiometric model with each organism&#x27;s core metabolism and explicit cross-feeding of hydrolysis products, and impose two candidate constraints. First, if lactate accumulates, the pH trajectory could drive the medium below the pH optima of the enzymes the consortium depends on, making hydrolysis self-limiting. Second, if the fungus requires oxygen and the lactic acid bacterium does not, one vessel may be serving incompatible demands. Compute what each constraint costs in yield, state which one your fermentation data can support, and name the measurement that would decide.</p>
+<p>Then add the operating policy. In semi-continuous operation the draw-off rate selects between organisms by growth rate, and a filamentous fungus is not retained or washed out on the same terms as a bacterium. Derive the washout condition for each organism, show the window in which all three persist, and compare that window with the policy you actually used.</p>
+<p>Now design the replacement. Target a single strain performing consolidated bioprocessing — starch hydrolysis and acidification in one organism — by giving an amylolytic capability to a lactic acid bacterium chassis or lactate-coupled metabolism to an amylase secretor. Produce the production envelope, then design the strain twice: once by hand, proving the coupling stoichiometrically from the conservation argument of week 26, which for a homofermentative organism is the obligate NADH sink you already understand; and once with a bilevel design algorithm. Compare the two, explain every difference, and defend a choice on grounds the algorithm cannot see — secretion capacity for a heterologous amylase, thermodynamic feasibility at real intracellular concentrations, likely escape routes in the actual medium.</p>
+<p>Finally, write the case against your own design, and make it a real one. Five failure mechanisms, each tied to something the model does not represent, each with the measurement that would detect it and a stated likelihood. At least two must be specific to this process rather than generic: that the consortium&#x27;s acidification is itself the contamination control, so a monoculture may need sterility the original process did not; that an engineered organism in a food product faces a regulatory barrier a wild consortium does not; that the product specification is a material property — water binding, paste viscosity, residual cyanide — which no flux model predicts; and that secreted-enzyme titre, not flux, may be the real constraint.</p>
+<p><strong>Deliver:</strong> the baseline balance from your own data with its unmeasured streams named, the community model with cross-feeding and the pH and oxygen constraints costed, the washout analysis against your actual operating policy, the production envelope, the hand-derived coupled design with its proof, the algorithmic design, the defended comparison, the five-mechanism failure analysis, limitations.</p>
+<p><strong>The standard.</strong> The hand derivation is what distinguishes this from a tutorial, and the case against is what distinguishes it from advocacy. Full marks require the coupling proved from conservation rather than asserted, failure mechanisms sitting at different levels of organisation, and an explicit verdict on whether the engineered strain is worth building at all — a defensible answer here is no, provided the reasoning is quantitative. This is the brief that connects what you have already built to what you are asking to be admitted to do, so it is also the one to put in front of a supervisor.</p>
+<h3>Brief 9 — What the labelling says that the rates cannot</h3>
+<p><em>Attempt from week 29. Target: 30 hours. Reading: Lee Ch 3 in full.</em></p>
+<p>Build a 13C flux analysis of a small network — glycolysis, the pentose phosphate pathway, the pyruvate node and an anaplerotic reaction is sufficient. Write the atom transitions yourself and document them. Implement forward simulation of mass isotopomer distributions, verified against a case you work by hand, and implement natural abundance correction.</p>
+<p>Then invert it. Estimate fluxes from noisy synthetic data generated at a known flux vector, and test recovery: can your estimator return the truth, and how does error scale with noise? Report confidence intervals by two methods — linearised covariance and bootstrap — and compare them.</p>
+<p>Two demonstrations complete the brief. First, induce a structural error deliberately by omitting one reaction, and show that the chi-squared statistic detects it while the fitted fluxes still look plausible. Second, compare two tracers on the precision of a target flux and state which experiment you would actually run.</p>
+<p><strong>Deliver:</strong> documented atom transition network, verified forward simulator, estimator with two kinds of interval, the structural-error demonstration, the tracer comparison, limitations.</p>
+<p><strong>The standard.</strong> Keep the network small and completely explained; a correct toy beats a half-working framework and is far easier to defend. Full marks require the forward simulation verified against hand calculation, and a written explanation of why the pentose phosphate split is unobservable from rates alone.</p>
+<hr>
+<h2>Tier 3 — Engineering</h2>
+<p>Three briefs that no biology-trained applicant will have. Brief 11 did not exist in the original course and was added once Doran and Plawsky arrived; it is the one most likely to surprise an interviewer.</p>
+<h3>Brief 10 — Which enzyme should I overexpress?</h3>
+<p><em>Attempt from week 31. Target: 30 hours. Reading: Lee Ch 5 and Ch 6, Lee Ch 4, Doran Ch 11.</em></p>
+<p>Build a kinetic model of a four or five step pathway with reversible rate laws, with the Haldane relation imposed so the parameters are thermodynamically consistent. Assemble parameters from BRENDA as ranges rather than point values, and fit what remains to a target steady-state flux.</p>
+<p>Compute all flux control coefficients numerically and verify the summation theorem. Compute elasticities and verify connectivity. Then demonstrate the thing the theorems imply: double each enzyme in turn and compare the measured flux response with the coefficient&#x27;s prediction; plot flux against enzyme level over a ten-fold range and show where linearity fails; and recompute the coefficients after amplifying the controlling step to show control migrating downstream.</p>
+<p>Add a proteome budget. Find the enzyme allocation that maximises flux under a fixed total protein mass, and compare that optimum with the conclusion the control analysis reached independently.</p>
+<p>Close with an ensemble: a hundred parameter sets consistent with the data, propagated to a prediction interval for a two-fold amplification, set beside the single best-fit prediction.</p>
+<p><strong>Deliver:</strong> model, both theorems verified numerically, the redistribution demonstration, the enzyme-budget optimum, the ensemble prediction interval, limitations.</p>
+<p><strong>The standard.</strong> Full marks require the demonstration that control redistributes, and a written answer to the question in the title that does not name a single gene. Credit for showing the parameter sensitivity spectrum spanning decades and drawing the correct conclusion from it about what may be interpreted mechanistically.</p>
+<h3>Brief 11 — An immobilised biocatalyst that is diffusion-limited</h3>
+<p><em>Attempt from week 48, where the course now covers this material in full, or earlier from week 31. Target: 25 hours. Reading: Doran Ch 12 in full, Doran Ch 13, Doran Ch 9, Plawsky Ch 3 §3.8–3.9 and Ch 4.</em></p>
+<p>An enzyme or a whole-cell catalyst is immobilised in spherical beads of radius R. Build the steady-state shell balance for internal diffusion with Michaelis-Menten reaction, solve it numerically, and compute the effectiveness factor as a function of the Thiele modulus across the practically relevant range.</p>
+<p>Estimate the effective diffusivity of the substrate in the bead matrix rather than assuming it: use a liquid-phase correlation from Plawsky, then correct for porosity and tortuosity, and state the uncertainty you are carrying.</p>
+<p>Then do the design. For a stated conversion target and feed concentration, find the bead radius, catalyst loading and reactor volume that meet it, and show the trade-off: smaller beads raise the effectiveness factor but raise pressure drop and complicate retention. Add external film resistance from a liquid-solid mass transfer correlation and show when it matters relative to internal resistance.</p>
+<p>Finish with the comparison a reviewer will want: this immobilised system against free enzyme or free cells, on volumetric productivity, catalyst cost per kilogram of product and operational stability.</p>
+<p><strong>Deliver:</strong> shell-balance solver, effectiveness factor curves, the diffusivity estimation with its uncertainty, the reactor design with its trade-off analysis, the comparison against free catalyst, limitations.</p>
+<p><strong>The standard.</strong> Full marks require the diffusivity estimated and its uncertainty propagated into the effectiveness factor, and an explicit statement of the regime — internal, external or reaction limited — with the criterion used to decide. Credit for identifying the bead radius at which the regime changes.</p>
+<h3>Brief 12 — Oxygen, mixing and the vessel that cannot deliver</h3>
+<p><em>Attempt from week 49. Target: 30 hours. Reading: Doran Ch 7, Ch 8 and Ch 9, Stanbury Ch 7 and Ch 9, Shuler Ch 10.</em></p>
+<p>Take the strain from Brief 8 or any published producing strain. Compute its specific oxygen uptake rate from the electron balance at target productivity, not from a correlation, and scale it to a volumetric demand at a realistic cell density.</p>
+<p>Size a vessel at 50 m³: geometry, impeller choice, gassed power draw, kLa from a stated correlation with its uncertainty, mixing and circulation time, heat generation and cooling duty, tip speed against shear tolerance. Use Doran Ch 7 for broth rheology, and state how non-Newtonian behaviour changes the power and kLa estimates if your organism is filamentous or produces an exopolysaccharide.</p>
+<p>Then demonstrate the conflict. Tabulate what holding each of four scale-up criteria constant — power per volume, kLa, tip speed, mixing time — implies for all the others from 10 L to 50 m³. Choose one, defend it, and state plainly what you accept degrading.</p>
+<p>Finally, design the scale-down experiment that tests the strain against the gradient you cannot eliminate: two-compartment configuration, circulation timescale matched to the large vessel&#x27;s mixing time, measurements and the result that would condemn the strain.</p>
+<p><strong>Deliver:</strong> oxygen demand derivation, full vessel specification with every calculation traceable, the four-criterion conflict table, the defended choice, the scale-down design, limitations.</p>
+<p><strong>The standard.</strong> This brief is graded on traceability: every number must come from a calculation or a cited correlation, and the correlation&#x27;s uncertainty must be acknowledged. Full marks require the conflict table and an explicit statement of what is sacrificed. Credit for computing the oxygen demand from first principles rather than from a published qO₂.</p>
+<hr>
+<h2>Tier 4 — Integration</h2>
+<p>Two briefs that join everything and produce the document you actually send. Brief 14 is the portfolio&#x27;s centrepiece, and it is the one almost no applicant to this field can write.</p>
+<h3>Brief 13 — The separation train, sized and costed</h3>
+<p><em>Attempt from week 51. Target: 30 hours. Reading: Belter throughout, Doran Ch 10, Stanbury Ch 10, Shuler Ch 11.</em></p>
+<p>Take your product at a stated titre and broth composition. Select and <strong>size</strong> a recovery and purification train from the product&#x27;s physical properties — solubility, volatility, charge, partition coefficient, molecular weight, thermal stability — justifying every unit against the alternatives you rejected.</p>
+<p>Size, do not merely select. Compute the centrifuge sigma factor or filter area required, the extraction stages and solvent ratio, the adsorbent capacity or column volume and cycle time, and the evaporation or crystallisation duty. Belter carries the design equations; Doran Ch 10 covers the theory for filtration, centrifugation and aqueous two-phase extraction.</p>
+<p>Then the arithmetic that decides everything: stage yields, overall multiplicative recovery, and the upstream cost each lost kilogram carries. Identify the worst stage and the most valuable single improvement. Show how the whole train&#x27;s cost per kilogram varies with titre at 10, 25, 50 and 100 g/L, and find the titre below which the separation becomes uneconomic rather than merely expensive.</p>
+<p>Finally, evaluate in situ product removal as an alternative, connecting it explicitly to the thermodynamic driving-force argument from Brief 5.</p>
+<p><strong>Deliver:</strong> selection with rejected alternatives, sizing calculations for every unit, stage and overall yields, cost per kilogram against titre, the ISPR evaluation, limitations.</p>
+<p><strong>The standard.</strong> Selection without sizing scores a third. Full marks require a sized train, the multiplicative recovery computed with the dominant loss named, and the titre threshold identified with its reasoning. Note in your limitations that Belter dates from 1988 and that modern chromatography media and continuous processing have moved on — then say where that affects your numbers.</p>
+<h3>Brief 14 — Does it close? A techno-economic verdict</h3>
+<p><em>Attempt from week 52, completing in weeks 53–54. Target: 40 hours, and the only brief permitted to exceed 30. Reading: Stanbury Ch 12, Doran Ch 1 and Ch 5, Lee Ch 22, plus your own Briefs 4, 8, 12 and 13.</em></p>
+<p>Build the techno-economic model for your product and process, and answer one question: at what strain performance does this process make money?</p>
+<p>Assemble CAPEX from equipment sizing with installation factors, stating the estimate&#x27;s accuracy class rather than implying a precision you do not have. Assemble OPEX: raw materials, utilities from your Brief 12 energy balance, labour, waste treatment, capital charge. Close the overall mass balance across strain, fermentation and downstream — carbon in to carbon out, end to end — and the energy balance alongside it. Report cost of goods per kilogram.</p>
+<p>Then run the analysis that makes this a research document rather than a spreadsheet. Vary titre, rate and yield by ±30% and compute the cost elasticity to each. Rank them, and state the regime in which that ranking holds and the circumstances that reverse it. Run a Monte Carlo over the three most uncertain inputs and report a cost distribution, not a point.</p>
+<p><strong>Invert it.</strong> From the market price and a defensible margin, derive the minimum titre, rate and yield the process requires. Set that specification beside what your Brief 8 strain design predicts, and state the gap in numbers. Then say which single strain intervention closes the most of that gap per unit of effort — and if the gap cannot be closed, say so plainly and explain what would have to change: feedstock, product, co-product credit or market.</p>
+<p>Finish with a screening life-cycle assessment in outline: system boundary, functional unit, the two dominant impact contributors, and an honest statement of what boundary and allocation choices do to the result.</p>
+<p><strong>Deliver:</strong> the full model, closed mass and energy balances, cost of goods, elasticity ranking with its regime, Monte Carlo distribution, the derived strain specification with the gap quantified, the screening LCA, and an unknowns section.</p>
+<p><strong>The standard.</strong> This brief is graded on willingness to reach an unwelcome conclusion. A model that concludes the process is viable, where the numbers do not support it, scores below one that concludes it is not and says exactly why. Full marks require the inversion — specification derived from economics rather than aspiration — and the gap stated numerically against your own strain design.</p>
+<p><strong>Why this one matters most.</strong> Nearly every applicant can describe a pathway. Very few can tell a supervisor what the strain would have to achieve for the project to be worth running, and fewer still will say when the answer is no. That judgement is the whole argument for admitting a chemical engineer to this field, and this brief is where you demonstrate it.</p>
+<hr>
+<h3>Brief 15 — The lipid route you already ran, as a strain problem</h3>
+<p><em>Attempt from week 44. Target: 35 hours. Reading: Lee Ch 14 on oleaginous yeast and the lipid chapters, Stanbury Ch 12, Towler &amp; Sinnott Ch 7, NREL/TP-5100-47764 as the TEA model. Geankoplis (5th edn) §28.4 ion-exchange processes for the catalyst bed itself, and §29.2 crystallization theory if the lipid is recovered as a solid.</em></p>
+<p>This brief is the lipid counterpart of Brief 8, and it exists for the same reason: it starts from a process you have run rather than from a tutorial. You made biodiesel over a <strong>heterogeneous ion-exchange resin</strong> — a solid, generally acidic catalyst in a packed or slurry configuration, not the homogeneous base route — producing fatty acid methyl esters with glycerol as the by-product. <strong>Fill the specifics in from your thesis before working the brief: which resin, which functional group and exchange capacity, the methanol-to-oil ratio, temperature, residence time, the conversion reached and whether the resin was regenerated or replaced.</strong> Those numbers are the brief&#x27;s boundary conditions and they are yours, not the literature&#x27;s. The question is whether a microbial lipid can replace the plant oil at the front of that process, and as in Brief 8 the brief is graded as much on the argument against as on the design.</p>
+<p>Start with the chemistry you already own, written quantitatively, and notice that the catalyst choice changes the question this brief asks. The reaction stoichiometry is the fixed part: three moles of methanol per mole of triacylglycerol, glycerol at roughly 10% of the oil mass, and a product specification — cetane number, cold-flow behaviour, oxidative stability — that is a function of the fatty acid chain-length and saturation profile rather than of lipid mass. Write that profile requirement down first, because it is the specification the strain has to meet and the thing a lipid titre does not describe: a strain making 60 g L⁻¹ of the wrong chain-length distribution has not solved the problem.</p>
+<p><strong>What the resin changes, and it is the crux of the brief.</strong> A homogeneous base catalyst is poisoned by free fatty acid above roughly a per cent, because the FFA saponifies, consumes catalyst and emulsifies the product, which is why the base route needs a refined, low-FFA feed and a washing train to remove soap and residual catalyst. An acidic ion-exchange resin does not saponify: it <strong>esterifies</strong> the free fatty acid to methyl ester alongside the transesterification, so a high-FFA feed is a substrate rather than a contaminant, the catalyst stays in the bed rather than in the product, and the aqueous washing step largely disappears. The costs are the other side of the same coin — acid catalysis is slower, so it demands a higher methanol-to-oil ratio, a higher temperature and a longer residence time, and the resin&#x27;s capacity, swelling behaviour, water tolerance and deactivation rate become process parameters you have to carry. Compute each of those from your own run.</p>
+<p><strong>And that is what makes the microbial route&#x27;s case harder rather than easier.</strong> Quantify it explicitly: because the resin tolerates high-FFA feeds, the plant-oil front end is not competing at the price of refined edible oil but at the price of waste cooking oil, acid oil, soapstock or tallow — feedstocks that are cheap precisely because the base route cannot use them. The microbial lipid therefore has to beat the cheapest tier of the oil market, not the most expensive, and the brief should state that price and date it. The honest corollary is also worth writing down: the same tolerance means a microbial lipid with a high free-fatty-acid fraction, which an oleaginous yeast under nitrogen limitation can give, is a <em>better</em> fit for your resin process than for a base-catalysed one — so the catalyst you already know is the one piece of the chain that favours the microbial route.</p>
+<p>Then the organism. <em>Yarrowia lipolytica</em> is the obvious chassis and the course&#x27;s host matrix in phase 7 already carries it; take the published performance envelope rather than the best single number, and state the medium and the mode of operation each figure came from. Build the stoichiometric case by hand before any model: the theoretical yield of C16–C18 lipid on glucose from the carbon and redox balance, the NADPH demand of fatty acid synthesis and where it comes from in this organism, and the fact that lipid accumulation is triggered by nitrogen limitation, which means the high-yield state and the high-growth state are different states. That last point is the one a flux model represents badly and the one that decides the process, so derive the nitrogen-limited production phase explicitly and compare it with the fed-batch policy of week 50.</p>
+<p>Then the strain design proper: the acetyl-CoA and NADPH supply problem, the β-oxidation deletions, the chain-length question as an enzyme-specificity question rather than a flux question, and the consequence that the product specification pushes on thioesterase and desaturase choice rather than on pathway length. Design it twice as Brief 8 requires — once by hand from the conservation argument, once algorithmically — and defend the difference.</p>
+<p>Then the economics, and this is where the brief earns its place in the portfolio. Run the week 52 machinery on both routes to the same functional unit, a tonne of methyl ester meeting the same specification: the waste-oil-plus-resin route, whose cost is dominated by the oil price and whose capital is modest, against the microbial route, whose cost is dominated by capital charge and whose feedstock is sugar. Use capital per annual tonne as the diagnostic, compute the elasticity of cost to lipid titre and to lipid yield, and find the sugar price and the scale at which the ranking changes. Expect the microbial route to lose on cost, by a wider margin than it would against refined oil, and say so quantitatively; then state the conditions under which it would not — a waste carbon source with a gate fee, a chain-length specification no available oil meets, or a co-product that carries the capital. Note also what the resin contributes to the comparison that a base catalyst would not: no soap, no wash water, no catalyst in the glycerol, and therefore a glycerol stream of higher value, which belongs in the credit line of both models.</p>
+<p>Finish with the environmental half, to the ISO 14040 framework and with the same honesty week 52 demands: functional unit per unit of fuel energy rather than per kilogram, cradle-to-gate stated as such, and the non-carbon categories named, since the plant-oil route&#x27;s burden sits in the field and the microbial route&#x27;s sits in the sugar, which is also a field.</p>
+<p><strong>Deliver:</strong> the resin process&#x27;s own boundary conditions from your thesis — catalyst, ratio, temperature, residence time, conversion, deactivation — with the chain-length specification stated as a requirement and the FFA tolerance quantified, the hand-derived theoretical lipid yield with its NADPH accounting, the nitrogen-limitation analysis against your own fed-batch policy, the two strain designs and the defended comparison, the two-route techno-economic model with the elasticities and the crossover conditions, the screening LCA with its non-carbon categories, limitations.</p>
+<p><strong>The standard.</strong> Full marks require the chain-length specification treated as a design constraint rather than a footnote, the nitrogen-limited and growth states separated explicitly, the FFA tolerance of the resin carried through into which oil price the microbial route must beat, and a verdict with the price and the scale attached. As in Brief 8, a defensible answer is <em>not worth building at this scale, and here is the scale</em> — and because this brief sits on top of process chemistry you have already performed, it is the second one to put in front of a supervisor.</p>
+<h3>Brief 16 — Machine learning in the design–build–test–learn cycle, honestly</h3>
+<p><em>Attempt from week 39. Target: 30 hours. Reading: the ART/automated-recommendation literature, the tuning-library and screening material of phase 6, and your own week 30 identifiability work.</em></p>
+<p>Every group in this field now has a machine-learning sentence in its grant applications, and most applicants either cannot write one or write one that a reviewer discounts immediately. The point of this brief is to be able to say something specific and defensible, which in practice means knowing what the data cannot support.</p>
+<p>Take a published design–build–test–learn data set — a promoter or ribosome-binding-site library with measured expression, or a combinatorial pathway library with measured titres, of the kind phase 6 sizes — and pose one prediction task on it: given the construct&#x27;s parts, predict the phenotype. Then do the work in the order that makes the result mean something.</p>
+<p>First, the baselines, before any model. The mean. A linear model on one-hot encoded parts. An additive model with no interaction terms. Most published gains over no baseline at all are gains over these, and a method that cannot beat an additive model on a library of a few hundred members should be reported as not beating it.</p>
+<p>Second, the split, which is where this literature most often fails. A random train–test split on a combinatorial library leaks: the test constructs share parts with the training constructs, so the model is interpolating within a design it has already seen. Build a leave-one-part-out or leave-one-module-out split as well, report both, and show how much of the apparent performance was leakage. This single comparison is the most valuable thing in the brief.</p>
+<p>Third, the uncertainty. Report predictive intervals rather than a point correlation, and check calibration: of the predictions with an 80% interval, do 80% contain the measurement? An uncalibrated model is useless for the thing it would actually be used for, which is choosing the next round of constructs.</p>
+<p>Fourth, the decision, which is the only reason any of this matters. Use the model to propose the next round of N constructs under the screening throughput phase 6 computes, compare its proposal against random selection and against the control-coefficient-guided choice of week 31, and state the expected gain in units of the screen rather than in R². Then say what would falsify the recommendation.</p>
+<p>Fifth, the limits, written as a numbered list. The measurement noise floor from your own replicate data, and the fact that no model can be more accurate than it. The number of constructs required for the model to beat the additive baseline, estimated from a learning curve rather than asserted. The extrapolation question: a model trained on one host, one medium and one assay predicts nothing about another, which is the same portability problem Lee §22.5 names for environmental biocatalysts. And the identifiability parallel from week 30 — a model that fits well with parameters that are not determined by the data is making a different claim from one that is.</p>
+<p><strong>Deliver:</strong> the data set with its provenance and its replicate noise floor, the three baselines, both splits with the leakage quantified, calibrated predictive intervals, the next-round proposal compared against two non-ML strategies in units of the screen, the learning curve, the numbered limits.</p>
+<p><strong>The standard.</strong> No deep network is required and one is unlikely to help at these data volumes; a calibrated regularised linear or tree model that is honestly validated is worth more here than anything larger. Full marks require the leakage comparison, calibration checked rather than assumed, and the recommendation expressed as constructs to build rather than as a correlation coefficient. The sentence this brief buys you is the one worth rehearsing: <em>I can say what a model of this size can and cannot be asked to decide.</em></p>
+<hr>
+<h3>Brief 17 — Re-analyse your own response surface, properly</h3>
+<p><em>Attempt from week 30. Target: 25 hours. Reading: the statistics handbook §6-§9, your own thesis.</em></p>
+<p>This is the third brief built on work you have already done, and it is the cheapest strong artifact in the portfolio because the experiments are finished either way.</p>
+<p><strong>First, establish what was actually done.</strong> Determine whether your biodiesel optimisation over the ion-exchange resin employed a statistically designed experiment — a factorial, a Box–Behnken, a central composite — or whether the factors were varied one at a time. <strong>Nothing in this document establishes which</strong>, and the answer decides which half of the brief you do. Both halves are worth the same marks and the second is the more interesting assignment.</p>
+<p><strong>If it was a designed experiment: reconstruct and independently re-analyse it.</strong> Start with the design rather than the results — the factors, their coded and natural levels, the design type, the run order, how many centre points there were and whether the runs were randomised. Write the design matrix out and check it against what the thesis says was run; a surprising number of published RSM studies report a design whose matrix does not match their own table, and finding that in your own work is a better result than not looking. Then refit and report what the original analysis probably did not, as below.</p>
+<p><strong>If it was not: critique the strategy and design the defensible alternative.</strong> Reconstruct what was run as a design matrix anyway — one-factor-at-a-time <em>is</em> a design, just an inefficient one — and quantify what it cost: how many runs were spent, which interactions were inaccessible by construction, and whether the reported optimum could be a ridge or a saddle that the strategy could not have detected. Then design the experiment that should have been run, in run counts: a Plackett–Burman or fractional factorial screen if more than four factors were plausible, a steepest-ascent path if the starting point was far from the optimum, and a Box–Behnken or central composite with enough centre points to make lack of fit testable. Simulate the alternative against the response surface implied by the original data and state what it would have found that the original could not. <strong>A critique with a costed redesign is stronger evidence of judgement than a competent re-analysis</strong>, which is why this branch is not the consolation prize.</p>
+<p>In the first branch, fit the second-order model with `statsmodels` and report what the original analysis probably did not. The full ANOVA table with the model, each term and the residual partitioned into <strong>pure error from the centre points and lack of fit</strong>, with the F-test on their mean squares and the degrees of freedom stated. The parameter estimates with intervals rather than a bare regression equation. Residuals plotted against fitted values, against each factor and in run order. And a canonical analysis of the stationary point: maximum, minimum or saddle, with the eigenvalues, because a saddle means there is no interior optimum and a ridge is being reported as a peak.</p>
+<p>Then the three checks that decide whether the original conclusion survives. Does the lack-of-fit test pass, and with how many degrees of freedom — if the design had three centre points, say plainly that the test had almost no power. Is the predicted optimum inside the design region or extrapolated beyond it. And was the optimum ever run and measured, or only predicted? If the thesis ran a confirmation experiment, compare its result against the model&#x27;s prediction interval, which is the only external validation an RSM can have.</p>
+<p>Finish with what you would design differently now, in run counts: a Plackett-Burman screen first if more than four factors were plausible, more centre points to make lack of fit testable, a blocked design if the runs spanned more than one day or one batch of resin, and a confirmation run at the optimum with replicates.</p>
+<p><strong>Deliver:</strong> a statement of which branch applies and the evidence for it; the reconstructed design matrix checked against the thesis; the ANOVA table with pure error and lack of fit separated, parameter intervals, four residual plots, the canonical analysis with eigenvalues, a verdict on whether the original optimum survives, and the redesign in run counts. All in one notebook that runs from a clean clone.</p>
+<p><strong>The standard.</strong> In the first branch, full marks require the lack-of-fit test computed and interpreted including its degrees of freedom, a stated verdict on the stationary point&#x27;s character, and an honest comparison with the original analysis — including where it was right. In the second, they require the inaccessible interactions named, the redesign costed in runs, and a statement of what it would have found. The point of this brief is not to find fault with your own thesis; it is to demonstrate that you can audit a designed experiment, which is a thing supervisors need done and few applicants can do. <strong>This is the brief that proves the statistics handbook was read</strong>, and because the data are yours and the code is public it is also the most verifiable artifact in the portfolio.</p>
+<h3>Brief 18 — Power, replication and a screen that can detect what you claim</h3>
+<p><em>Attempt from week 33. Target: 20 hours. Reading: the statistics handbook §1-§5, phase 6&#x27;s screening ladder, Hurlbert 1984.</em></p>
+<p>A short brief with one deliverable: the experimental design document you would hand a supervisor before running anything, for a screen you actually intend to run.</p>
+<p>Take the tuning library from phase 6 — modules, variants, library size and the screening format with its real throughput. Then answer, with arithmetic rather than assertion: what is the measurement&#x27;s noise floor, from replicate data you either have or must first generate; what effect size matters, derived from the week 52 cost model rather than chosen; how many biological replicates per variant that combination requires at 80% power, and what happens to the count if you halve the detectable effect; what the replicate structure is, naming biological against technical explicitly and stating what the experimental unit is; how plate position, batch and day are randomised or blocked, with the layout drawn; which controls appear in every block; and what multiplicity correction the resulting number of comparisons demands, with the expected false-positive count computed both uncorrected and under false discovery rate control.</p>
+<p>Then the part that makes it a design rather than a plan: <strong>state the decision rule before the data exist.</strong> What result sends a variant to confirmation, how many confirmation replicates, and what result would make you abandon the library altogether. And state the pseudo-replication trap this design avoids, in the specific form it would have taken here — usually one flask sampled repeatedly, or one plate per variant.</p>
+<p><strong>Deliver:</strong> a two-page design document with the noise floor, the power calculation, the replicate structure, the randomisation or blocking scheme with its layout, the control placement, the multiplicity treatment with expected false positives, the decision rule, and the named trap avoided. Plus the Python that produced the power calculation and the randomised layout, with its seed.</p>
+<p><strong>The standard.</strong> Full marks require the effect size justified economically rather than conventionally, the power calculation reproducible from the notebook, and a decision rule written before any data. Two sentences are worth being able to say from this brief: <em>this screen can detect a 20% improvement with ten replicates per arm, and cannot detect 10% at any replication I can afford</em>; and <em>here is what I will do with the list it produces.</em></p>
+<hr>
+<h3>Brief 19 — Substrate channelling and compartmentalisation: evidence, not enthusiasm</h3>
+<p><em>Attempt from week 42. Target: 25 hours. Reading: Lee Ch 18 and Ch 19, Alberts Ch 12 and Ch 13, Nagrath (ed.) MiMB 2088 (Lim et al. on ²H tracing), Stephanopoulos §12.2 on grouping reactions, methods handbook §16.</em></p>
+<p>Spatial organisation is the most over-claimed idea in this field and one of the few that could matter. Scaffolds, fusion proteins, enzyme clusters, protein condensates, peroxisomal and mitochondrial targeting, and synthetic compartments are all offered as ways to raise flux by keeping intermediates near the next enzyme. The brief asks you to decide, for one specific pathway, whether that argument holds — and the deliverable is graded on the evidence standard rather than on the design.</p>
+<p><strong>Start with the physics, before any biology.</strong> Compute the diffusion time for your intermediate across a cell of your host&#x27;s dimensions, from the diffusivity for a small metabolite in cytoplasm. Compare it against the turnover time of the consuming enzyme at the intracellular concentration your phase 2 thermodynamic work assumed. <strong>If diffusion is orders of magnitude faster than turnover, channelling cannot help by shortening transit</strong> and any benefit must come from somewhere else — protecting a labile intermediate, keeping a toxic one below a threshold, or raising the local concentration against an unfavourable mass-action ratio. State which mechanism you are claiming, in those terms, and what it would take to measure it.</p>
+<p><strong>Then the evidence ladder from methods handbook §16, applied to the channelling literature specifically.</strong> For three published claims of a channelling or scaffolding benefit, place each on the five rungs and write down what was measured directly. Expect to find: a measured titre improvement (rung 3), a proposed proximity mechanism (rung 4), and no independent measurement of the intermediate&#x27;s local concentration or transit. That is not a reason to dismiss the work; it is the reason the deliverable has to say which rung its own claim sits on. Note the standard confound explicitly — a fusion or a scaffold changes expression level, folding and stability as well as proximity, so the comparison that isolates proximity is a scaffold with the same expression and a disrupted interaction surface, and almost nobody runs it.</p>
+<p><strong>Then compartments, which are a different argument.</strong> Targeting a pathway to the mitochondrion, the peroxisome or the vacuole changes the cofactor pool it draws on, the pH it runs at, the proteases it meets and the transport steps it needs. Week 41 raises the vacuole as a sequestration target for a toxic intermediate; this brief is where that gets quantified. Work the transport problem: the intermediate must cross a membrane to get in and the product must cross to get out, and unless there is a transporter you can name, compartmentalisation adds two steps you have not designed. <strong>Lim et al. in MiMB 2088 is the method that settles the cofactor half</strong> — ²H tracing separating mitochondrial from cytosolic NAD(P)H — and it is the best available demonstration that whole-cell flux models hide exactly the thing a compartmented host makes different.</p>
+<p><strong>Then the model.</strong> A whole-cell stoichiometric model cannot represent a local concentration, so say what your model can and cannot show, and use Stephanopoulos §12.2 on grouping reactions to express the compartment as a module with its own boundary fluxes rather than pretending the network is well mixed.</p>
+<p><strong>Deliver:</strong> the diffusion-against-turnover calculation with its assumed diffusivity and its source, a stated mechanism of benefit from the three named options, three published claims placed on the evidence ladder with the directly-measured quantity identified for each, the proximity-versus-expression confound and the control that would resolve it, the transport balance for the compartment option with named transporters or an admission that none is known, and a verdict with the measurement that would change it.</p>
+<p><strong>The standard.</strong> Full marks require the diffusion comparison done first and used to constrain what can be claimed, the three literature claims placed on rungs rather than summarised, and a verdict that names its own rung. A defensible answer is <em>channelling cannot help this pathway and here is the calculation</em> — which is the most common correct answer and the least often written.</p>
+<hr>
+<h2>Grading and presentation</h2>
+<p>Mark each brief yourself, against this rubric, before you call it finished. Write the score and the reasoning into the brief&#x27;s own README. A supervisor reading a repository where the author has graded their own work sceptically is reading something unusual.</p>
+<table><thead><tr><th>Criterion</th><th>Weight</th><th>What full marks looks like</th></tr></thead><tbody><tr><td>Correctness</td><td>25%</td><td>The arithmetic is right, the units survive, and two independent routes agree where the brief asks for two</td></tr><tr><td>Real data</td><td>20%</td><td>Published data with its accession or citation, used as reported, including the inconvenient values</td></tr><tr><td>Uncertainty</td><td>15%</td><td>Intervals on every fitted parameter, propagated rather than mentioned</td></tr><tr><td>Reasoning visible</td><td>15%</td><td>The argument is in prose, and a reader can follow the decision without rerunning the code</td></tr><tr><td>Limitations</td><td>15%</td><td>Names what the work cannot show, specifically, including the thing an examiner was about to ask</td></tr><tr><td>Reproducibility</td><td>10%</td><td>Runs from a clean clone in a fresh environment, with data provenance recorded and dependencies pinned</td></tr></tbody></table>
+<p>Fifty per cent is a pass. Below forty, the brief is not portfolio material and should be reworked rather than published.</p>
+<p><strong>Presentation, per brief.</strong> One folder containing: a README stating the question, the answer, and what the work does not show, in that order; the notebook or module; the data with its provenance; and exactly one figure that could stand alone, with labelled axes and stated units. Interviewers say <em>show me something you made</em> — have that figure ready for every brief.</p>
+<p><strong>The repository index.</strong> Rewrite the top-level README as a table of the nineteen briefs: question asked, answer reached, what it demonstrates, and a direct link. A busy academic should get the shape of fifty-five weeks in ninety seconds, then be able to drill into whichever brief interests them.</p>
+<p><strong>Order of attack if time is short.</strong> Briefs 3, 5, 7, 12 and 14 carry the most weight per hour, with 8, 15 and 17 ahead of all of them if a supervisor is already reading, since those three rest on work you have already done, because each demonstrates something a biology-trained applicant typically cannot do at all. If you reach application season with only five finished, finish those five.</p>
+<hr>
+<h2>What these briefs do and do not prove</h2>
+<p>They prove how you reason. They prove you can take an incomplete published data set, close what can be closed, name what is missing, and reach a decision you are willing to defend. They prove you will not need supervision on the computational side — and for a group that is half computational, which is a large share of this field, that is the primary evidence rather than a consolation prize.</p>
+<p>They prove nothing about your hands. No notebook shows whether you will notice a contaminated flask, troubleshoot a failed transformation at seven in the evening, or keep a usable laboratory record under pressure. Say this yourself, before the interviewer does, and name the specific techniques you have never performed. An applicant who states the gap precisely is trusted more than one who claims none. The thirty written bench protocols in the tracker sit alongside these briefs for exactly that reason, and they are labelled as paper designs throughout.</p>
+<p>Two failure modes to avoid. First, a portfolio built entirely on simulated data: it reads as a set of exercises however sophisticated the methods, which is why every brief above demands data you did not invent. Second, tool demonstration in place of inquiry — the notebook that reruns a tutorial competently and asks nothing. The question at the top of each README is what makes a brief research rather than practice.</p>
+<p>One sentence worth being able to say aloud, about your own work and meaning it: <em>a failed prediction produced information only because the investigation was designed to discriminate between the model&#x27;s assumptions.</em> That is worth more in an interview than any individual result in the folder.</p>
+</main><footer class="docfoot"><a href="metabolic-engineering-tracker.html">&#8592; Course tracker</a><span>Metabolic engineering &middot; 55 weeks</span></footer>
+<script>
+(function(){
+  var root=document.documentElement,key="me.theme";
+  var bs=Array.prototype.slice.call(document.querySelectorAll(".appearance button"));
+  function paint(v){
+    bs.forEach(function(b){b.setAttribute("aria-pressed",b.getAttribute("data-appearance")===v?"true":"false");});
+    if(v==="auto")root.removeAttribute("data-theme");else root.setAttribute("data-theme",v);
+  }
+  var saved="auto";try{saved=localStorage.getItem(key)||"auto";}catch(e){}
+  bs.forEach(function(b){b.addEventListener("click",function(){
+    var v=b.getAttribute("data-appearance");paint(v);
+    try{localStorage.setItem(key,v);}catch(e){}
+  });});
+  paint(saved);
+})();
+</script>
+<style>
+/* ============================================================
+   COURSE LIBRARY — Apple document shell
+   ============================================================ */
+:root{
+  color-scheme:light;
+  --paper:#FFFFFF;--surface:#F5F5F7;--card:#FFFFFF;--fill:#F5F5F7;
+  --ink:#1D1D1F;--ink-2:#6E6E73;--ink-3:#6E6E73;
+  --line:rgba(0,0,0,.14);--line-2:rgba(0,0,0,.08);
+  --broth:#0071E3;--broth-soft:rgba(0,113,227,.10);
+  --nav-bg:rgba(255,255,255,.84);
+  --sans:-apple-system,BlinkMacSystemFont,"SF Pro Text","SF Pro Display","Helvetica Neue",Arial,sans-serif;
+  --mono:ui-monospace,"SF Mono",Menlo,Consolas,monospace;
+  --serif:var(--sans);
+}
+@media (prefers-color-scheme:dark){
+  :root:not([data-theme="light"]){
+    color-scheme:dark;
+    --paper:#000000;--surface:#1C1C1E;--card:#2C2C2E;--fill:#2C2C2E;
+    --ink:#F5F5F7;--ink-2:#A1A1A6;--ink-3:#8E8E93;
+    --line:rgba(255,255,255,.16);--line-2:rgba(255,255,255,.09);
+    --broth:#5AA9FF;--broth-soft:rgba(10,132,255,.18);
+    --nav-bg:rgba(0,0,0,.74);
+  }
+}
+:root[data-theme="dark"]{
+  color-scheme:dark;
+  --paper:#000000;--surface:#1C1C1E;--card:#2C2C2E;--fill:#2C2C2E;
+  --ink:#F5F5F7;--ink-2:#A1A1A6;--ink-3:#8E8E93;
+  --line:rgba(255,255,255,.16);--line-2:rgba(255,255,255,.09);
+  --broth:#5AA9FF;--broth-soft:rgba(10,132,255,.18);
+  --nav-bg:rgba(0,0,0,.74);
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth;scroll-padding-top:72px;-webkit-text-size-adjust:100%}
+body{
+  margin:0;background:var(--paper);color:var(--ink);
+  font-family:var(--sans);font-size:17px;line-height:1.62;letter-spacing:-.011em;
+  padding:0;
+}
+.docbar{
+  position:sticky;top:0;z-index:80;display:flex;align-items:center;justify-content:space-between;gap:12px;
+  padding:8px max(24px,calc((100vw - 1180px)/2));
+  background:var(--nav-bg);
+  -webkit-backdrop-filter:saturate(180%) blur(20px);backdrop-filter:saturate(180%) blur(20px);
+  border-bottom:1px solid var(--line-2);
+}
+.docback{display:inline-flex;align-items:center;gap:6px;color:var(--ink-2);font-size:13px;font-weight:500;text-decoration:none;white-space:nowrap}
+.docback:hover{color:var(--broth)}
+.appearance{display:inline-flex;gap:2px;padding:2px;background:var(--fill);border-radius:980px}
+.appearance button{border:0;background:none;color:var(--ink-2);font:inherit;font-size:12px;font-weight:500;line-height:1;padding:6px 11px;border-radius:980px;cursor:pointer}
+.appearance button[aria-pressed="true"]{background:var(--card);color:var(--ink);box-shadow:0 1px 2px rgba(0,0,0,.08)}
+.wrap{max-width:900px;margin:0 auto;padding:64px 24px 96px}
+body h1{
+  font-family:var(--sans);font-size:clamp(42px,6.2vw,64px);line-height:1.04;letter-spacing:-.04em;
+  font-weight:700;margin:0 0 16px;max-width:18ch;color:var(--ink);
+}
+.doc-kicker{font-size:13px;font-weight:500;letter-spacing:0;color:var(--ink-2);margin:0 0 12px}
+body h1 + p{font-size:20px;line-height:1.55;color:var(--ink-2);max-width:68ch;margin:0 0 18px}
+body h1 + p strong{color:var(--ink);font-weight:600}
+body h2{
+  font-family:var(--sans);font-size:32px;line-height:1.15;letter-spacing:-.03em;font-weight:600;
+  color:var(--ink);margin:64px 0 14px;padding:0;border:0;
+}
+body h3{font-family:var(--sans);font-size:22px;line-height:1.25;letter-spacing:-.02em;font-weight:600;color:var(--ink);margin:36px 0 8px}
+body h4{font-size:14px;line-height:1.4;font-weight:600;letter-spacing:0;text-transform:none;color:var(--ink-2);margin:24px 0 6px}
+body p{margin:0 0 14px;max-width:72ch}
+body ul,body ol{margin:0 0 16px;padding-left:1.25em;max-width:72ch}
+body li{margin:.32em 0}
+body li::marker{color:var(--ink-3)}
+body strong{font-weight:600;color:var(--ink)}
+body em{color:var(--ink)}
+body a{color:var(--broth);text-decoration:underline;text-underline-offset:2px}
+body a:hover{text-decoration:underline}
+body hr{border:0;border-top:1px solid var(--line-2);margin:56px 0}
+body table{border-collapse:collapse;width:100%;margin:22px 0 30px;font-size:15px;line-height:1.45}
+body th{text-align:left;font-weight:600;font-size:12.5px;color:var(--ink-2);padding:10px 12px;background:var(--surface);border-bottom:1px solid var(--line)}
+body td{padding:11px 12px;border-bottom:1px solid var(--line-2);vertical-align:top}
+body tr:nth-child(even) td{background:transparent}
+body figure.fig{margin:32px 0 36px;padding:0;max-width:100%}
+body figure.fig svg{width:100%;height:auto;display:block;background:var(--surface);border:0;border-radius:20px;padding:18px}
+body figure.fig figcaption{font-size:13px;color:var(--ink-2);margin-top:10px;max-width:72ch;line-height:1.5}
+body figure.fig .figtitle{font-family:var(--sans);font-size:14px;font-weight:600;color:var(--ink);margin-bottom:6px}
+body pre{background:var(--surface);border:1px solid var(--line-2);border-radius:16px;padding:18px;overflow:auto;font-family:var(--mono);font-size:13.5px;line-height:1.55;margin:20px 0 24px}
+body code{font-family:var(--mono);font-size:.88em;background:var(--surface);border-radius:6px;padding:.12em .35em}
+body pre code{background:none;padding:0;font-size:inherit}
+body blockquote{margin:24px 0;padding:2px 0 2px 18px;border-left:3px solid var(--broth);color:var(--ink-2)}
+:root[data-theme="dark"] .fig-light{display:none!important}
+:root[data-theme="dark"] .fig-dark{display:block!important}
+:root[data-theme="light"] .fig-dark{display:none!important}
+:root[data-theme="light"] .fig-light{display:block!important}
+.docfoot{max-width:900px;margin:0 auto;padding:24px 24px 64px;border-top:1px solid var(--line-2);display:flex;justify-content:space-between;gap:12px;font-size:12.5px;color:var(--ink-3)}
+.docfoot a{color:var(--ink-2);text-decoration:none}
+.docfoot a:hover{color:var(--broth)}
+@media (max-width:700px){
+  .docbar{padding:8px 16px}
+  .wrap{padding:40px 18px 80px}
+  body h1{font-size:clamp(38px,11vw,48px)}
+  body h1 + p{font-size:18px}
+  body h2{font-size:28px;margin-top:52px}
+  body h3{font-size:20px}
+  body p,body li{font-size:16.5px}
+  body table{font-size:14px}
+  body th,body td{padding:9px 9px}
+  .docfoot{padding:20px 18px 50px;flex-direction:column;gap:6px}
+}
+@media print{
+  .docbar,.appearance,.docfoot{display:none!important}
+  body{background:#fff;color:#000;font-size:11pt}
+  .wrap{max-width:none;padding:0}
+  body h1{font-size:28pt;max-width:none}
+  body h2{font-size:16pt;page-break-after:avoid}
+  body h3{font-size:13pt;page-break-after:avoid}
+  body a{color:#000;text-decoration:none}
+  body table,body figure{break-inside:avoid}
+}
+</style>
+</body></html>

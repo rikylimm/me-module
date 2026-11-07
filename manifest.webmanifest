@@ -1,0 +1,14 @@
+{
+  "name": "Metabolic engineering — 55 weeks",
+  "short_name": "ME 55",
+  "description": "55-week metabolic engineering tracker, lecture notes and practice labs.",
+  "start_url": "./",
+  "scope": "./",
+  "display": "standalone",
+  "background_color": "#ffffff",
+  "theme_color": "#0071e3",
+  "icons": [
+    {"src": "icons/icon-192.png", "sizes": "192x192", "type": "image/png", "purpose": "any"},
+    {"src": "icons/icon-512.png", "sizes": "512x512", "type": "image/png", "purpose": "any maskable"}
+  ]
+}

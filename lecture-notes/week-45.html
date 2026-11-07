@@ -1,0 +1,1391 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="utf-8"><title>Week 45 — Product classes I: bulk chemicals, organic acids and alcohols — Metabolic engineering</title>
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+
+
+<style>:root{color-scheme:light;--paper:#FAF6EF;--ink:#211A12;--ink-2:#4A3C2C;--ink-3:#8A7458;
+--line:#DFD2BE;--line-2:#EDE4D5;--broth:#9A6B1F;--broth-soft:#F6ECD9;
+--serif:"Newsreader",Georgia,serif;--sans:"Public Sans",system-ui,sans-serif}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--paper:#15120D;--ink:#F1E9DC;--ink-2:#CBBCA6;
+--ink-3:#948872;--line:#352C22;--line-2:#2A231B;--broth:#D7A95C;--broth-soft:#241D14}}
+*{box-sizing:border-box}
+body{margin:0;background:var(--paper);color:var(--ink);font-family:var(--sans);font-size:15.5px;line-height:1.6;
+padding:env(safe-area-inset-top,0) 0 env(safe-area-inset-bottom,0)}
+.wrap{max-width:840px;margin:0 auto;padding:40px 22px 90px}
+h1{font-family:var(--serif);font-size:clamp(28px,5vw,42px);line-height:1.1;font-weight:600;margin:0 0 6px;letter-spacing:-.02em}
+h2{font-family:var(--serif);font-size:26px;font-weight:600;margin:46px 0 10px;letter-spacing:-.01em;padding-bottom:7px;border-bottom:1px solid var(--line)}
+h3{font-family:var(--serif);font-size:20px;font-weight:600;margin:30px 0 4px;color:var(--broth)}
+h4{font-size:14px;font-weight:650;margin:18px 0 4px;color:var(--ink-3);letter-spacing:.02em;text-transform:uppercase}
+p{margin:0 0 12px;max-width:74ch}
+em{color:var(--ink-2)}
+ul{margin:0 0 14px;padding-left:1.15em;max-width:74ch}
+li{margin:.3em 0}li::marker{color:var(--ink-3)}
+hr{border:0;border-top:1px solid var(--line);margin:40px 0}
+strong{font-weight:650}
+table{border-collapse:collapse;width:100%;margin:14px 0 20px;font-size:14px}
+th{text-align:left;font-weight:600;color:var(--ink-3);font-size:12.5px;padding:7px 9px;border-bottom:1.5px solid var(--line)}
+td{padding:8px 9px;border-bottom:1px solid var(--line-2);vertical-align:top}
+tr:nth-child(even) td{background:var(--broth-soft)}
+
+figure.fig{margin:22px 0 26px;padding:0;max-width:100%}
+figure.fig svg{width:100%;height:auto;display:block;background:var(--card);
+  border:1px solid var(--line-2);border-radius:10px;padding:8px 10px}
+figure.fig figcaption{font-size:13px;color:var(--ink-3);margin-top:8px;max-width:74ch;line-height:1.5}
+figure.fig .figtitle{font-family:var(--serif);font-size:15px;color:var(--ink-2);margin-bottom:6px}
+figure.fig .fig-dark{display:none}
+@media (prefers-color-scheme: dark){
+  figure.fig .fig-light{display:none}
+  figure.fig .fig-dark{display:block}
+}
+@media print{figure.fig{break-inside:avoid;page-break-inside:avoid}
+  figure.fig .fig-dark{display:none !important}
+  figure.fig .fig-light{display:block !important}}
+
+@media print{body{background:#fff}.wrap{padding:0;max-width:none}h2,h3{page-break-after:avoid}}</style><script>try{var t=localStorage.getItem("me.theme");if(t&&t!=="auto")document.documentElement.setAttribute("data-theme",t);}catch(e){}</script>
+<meta name="color-scheme" content="light dark">
+<meta name="theme-color" content="#ffffff" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#000000" media="(prefers-color-scheme: dark)">
+<style>
+/* ============================================================
+   COURSE LIBRARY — Apple document shell
+   ============================================================ */
+:root{
+  color-scheme:light;
+  --paper:#FFFFFF;--surface:#F5F5F7;--card:#FFFFFF;--fill:#F5F5F7;
+  --ink:#1D1D1F;--ink-2:#6E6E73;--ink-3:#6E6E73;
+  --line:rgba(0,0,0,.14);--line-2:rgba(0,0,0,.08);
+  --broth:#0071E3;--broth-soft:rgba(0,113,227,.10);
+  --nav-bg:rgba(255,255,255,.84);
+  --sans:-apple-system,BlinkMacSystemFont,"SF Pro Text","SF Pro Display","Helvetica Neue",Arial,sans-serif;
+  --mono:ui-monospace,"SF Mono",Menlo,Consolas,monospace;
+  --serif:var(--sans);
+}
+@media (prefers-color-scheme:dark){
+  :root:not([data-theme="light"]){
+    color-scheme:dark;
+    --paper:#000000;--surface:#1C1C1E;--card:#2C2C2E;--fill:#2C2C2E;
+    --ink:#F5F5F7;--ink-2:#A1A1A6;--ink-3:#8E8E93;
+    --line:rgba(255,255,255,.16);--line-2:rgba(255,255,255,.09);
+    --broth:#5AA9FF;--broth-soft:rgba(10,132,255,.18);
+    --nav-bg:rgba(0,0,0,.74);
+  }
+}
+:root[data-theme="dark"]{
+  color-scheme:dark;
+  --paper:#000000;--surface:#1C1C1E;--card:#2C2C2E;--fill:#2C2C2E;
+  --ink:#F5F5F7;--ink-2:#A1A1A6;--ink-3:#8E8E93;
+  --line:rgba(255,255,255,.16);--line-2:rgba(255,255,255,.09);
+  --broth:#5AA9FF;--broth-soft:rgba(10,132,255,.18);
+  --nav-bg:rgba(0,0,0,.74);
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth;scroll-padding-top:72px;-webkit-text-size-adjust:100%}
+body{
+  margin:0;background:var(--paper);color:var(--ink);
+  font-family:var(--sans);font-size:17px;line-height:1.62;letter-spacing:-.011em;
+  padding:0;
+}
+.docbar{
+  position:sticky;top:0;z-index:80;display:flex;align-items:center;justify-content:space-between;gap:12px;
+  padding:8px max(24px,calc((100vw - 1180px)/2));
+  background:var(--nav-bg);
+  -webkit-backdrop-filter:saturate(180%) blur(20px);backdrop-filter:saturate(180%) blur(20px);
+  border-bottom:1px solid var(--line-2);
+}
+.docback{display:inline-flex;align-items:center;gap:6px;color:var(--ink-2);font-size:13px;font-weight:500;text-decoration:none;white-space:nowrap}
+.docback:hover{color:var(--broth)}
+.appearance{display:inline-flex;gap:2px;padding:2px;background:var(--fill);border-radius:980px}
+.appearance button{border:0;background:none;color:var(--ink-2);font:inherit;font-size:12px;font-weight:500;line-height:1;padding:6px 11px;border-radius:980px;cursor:pointer}
+.appearance button[aria-pressed="true"]{background:var(--card);color:var(--ink);box-shadow:0 1px 2px rgba(0,0,0,.08)}
+.wrap{max-width:900px;margin:0 auto;padding:64px 24px 96px}
+body h1{
+  font-family:var(--sans);font-size:clamp(42px,6.2vw,64px);line-height:1.04;letter-spacing:-.04em;
+  font-weight:700;margin:0 0 16px;max-width:18ch;color:var(--ink);
+}
+.doc-kicker{font-size:13px;font-weight:500;letter-spacing:0;color:var(--ink-2);margin:0 0 12px}
+body h1 + p{font-size:20px;line-height:1.55;color:var(--ink-2);max-width:68ch;margin:0 0 18px}
+body h1 + p strong{color:var(--ink);font-weight:600}
+body h2{
+  font-family:var(--sans);font-size:32px;line-height:1.15;letter-spacing:-.03em;font-weight:600;
+  color:var(--ink);margin:64px 0 14px;padding:0;border:0;
+}
+body h3{font-family:var(--sans);font-size:22px;line-height:1.25;letter-spacing:-.02em;font-weight:600;color:var(--ink);margin:36px 0 8px}
+body h4{font-size:14px;line-height:1.4;font-weight:600;letter-spacing:0;text-transform:none;color:var(--ink-2);margin:24px 0 6px}
+body p{margin:0 0 14px;max-width:72ch}
+body ul,body ol{margin:0 0 16px;padding-left:1.25em;max-width:72ch}
+body li{margin:.32em 0}
+body li::marker{color:var(--ink-3)}
+body strong{font-weight:600;color:var(--ink)}
+body em{color:var(--ink)}
+body a{color:var(--broth);text-decoration:underline;text-underline-offset:2px}
+body a:hover{text-decoration:underline}
+body hr{border:0;border-top:1px solid var(--line-2);margin:56px 0}
+body table{border-collapse:collapse;width:100%;margin:22px 0 30px;font-size:15px;line-height:1.45}
+body th{text-align:left;font-weight:600;font-size:12.5px;color:var(--ink-2);padding:10px 12px;background:var(--surface);border-bottom:1px solid var(--line)}
+body td{padding:11px 12px;border-bottom:1px solid var(--line-2);vertical-align:top}
+body tr:nth-child(even) td{background:transparent}
+body figure.fig{margin:32px 0 36px;padding:0;max-width:100%}
+body figure.fig svg{width:100%;height:auto;display:block;background:var(--surface);border:0;border-radius:20px;padding:18px}
+body figure.fig figcaption{font-size:13px;color:var(--ink-2);margin-top:10px;max-width:72ch;line-height:1.5}
+body figure.fig .figtitle{font-family:var(--sans);font-size:14px;font-weight:600;color:var(--ink);margin-bottom:6px}
+body pre{background:var(--surface);border:1px solid var(--line-2);border-radius:16px;padding:18px;overflow:auto;font-family:var(--mono);font-size:13.5px;line-height:1.55;margin:20px 0 24px}
+body code{font-family:var(--mono);font-size:.88em;background:var(--surface);border-radius:6px;padding:.12em .35em}
+body pre code{background:none;padding:0;font-size:inherit}
+body blockquote{margin:24px 0;padding:2px 0 2px 18px;border-left:3px solid var(--broth);color:var(--ink-2)}
+:root[data-theme="dark"] .fig-light{display:none!important}
+:root[data-theme="dark"] .fig-dark{display:block!important}
+:root[data-theme="light"] .fig-dark{display:none!important}
+:root[data-theme="light"] .fig-light{display:block!important}
+.docfoot{max-width:900px;margin:0 auto;padding:24px 24px 64px;border-top:1px solid var(--line-2);display:flex;justify-content:space-between;gap:12px;font-size:12.5px;color:var(--ink-3)}
+.docfoot a{color:var(--ink-2);text-decoration:none}
+.docfoot a:hover{color:var(--broth)}
+@media (max-width:700px){
+  .docbar{padding:8px 16px}
+  .wrap{padding:40px 18px 80px}
+  body h1{font-size:clamp(38px,11vw,48px)}
+  body h1 + p{font-size:18px}
+  body h2{font-size:28px;margin-top:52px}
+  body h3{font-size:20px}
+  body p,body li{font-size:16.5px}
+  body table{font-size:14px}
+  body th,body td{padding:9px 9px}
+  .docfoot{padding:20px 18px 50px;flex-direction:column;gap:6px}
+}
+@media print{
+  .docbar,.appearance,.docfoot{display:none!important}
+  body{background:#fff;color:#000;font-size:11pt}
+  .wrap{max-width:none;padding:0}
+  body h1{font-size:28pt;max-width:none}
+  body h2{font-size:16pt;page-break-after:avoid}
+  body h3{font-size:13pt;page-break-after:avoid}
+  body a{color:#000;text-decoration:none}
+  body table,body figure{break-inside:avoid}
+}
+
+
+.index-actions{margin:18px 0 36px;display:flex;flex-wrap:wrap;gap:16px;align-items:center}
+.index-actions a{font-size:14px;font-weight:500;color:var(--broth);text-decoration:none}
+.index-actions a:hover{text-decoration:underline}
+.phaseh{display:flex;align-items:baseline;justify-content:space-between;gap:14px;font-size:24px!important;margin:52px 0 2px!important;letter-spacing:-.02em}
+.phaseh span{font-size:12px;font-weight:400;color:var(--ink-3);letter-spacing:0;white-space:nowrap}
+.weeklist{border-top:1px solid var(--line-2);margin-bottom:8px}
+.weekrow{display:flex;align-items:center;gap:14px;min-height:50px;padding:10px 4px;border-bottom:1px solid var(--line-2);text-decoration:none;color:var(--ink)}
+.weekrow:hover{background:var(--surface)}
+.wnum{width:28px;flex:none;font-size:12px;font-weight:600;color:var(--broth);font-variant-numeric:tabular-nums}
+.wtitle{flex:1;font-size:16.5px;font-weight:500;line-height:1.35}
+.warrow{flex:none;color:var(--ink-3);font-size:16px}
+.weeknav{display:flex;align-items:center;justify-content:space-between;gap:14px;margin:52px 0 0;padding-top:22px;border-top:1px solid var(--line-2);font-size:14px}
+.weeknav a{color:var(--broth);text-decoration:none;font-weight:500}
+.weeknav a:hover{text-decoration:underline}
+.weeknav .idx{color:var(--ink-2);font-weight:400}
+.weeknav .empty{visibility:hidden}
+.case-h{max-width:22ch}
+.protocol{max-width:72ch}
+.protocol li{margin:.55em 0}
+.protocol h2{margin-top:38px}
+@media (max-width:700px){.phaseh{font-size:21px!important;margin-top:42px!important}.wtitle{font-size:15.5px}.weeknav{font-size:13px;gap:8px}}
+@media print{.weeknav,.index-actions{display:none!important}}
+</style>
+<style>.sr-only{position:absolute!important;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap;border:0}</style>
+</head><body>
+<header class="docbar"><a class="docback" href="index.html">&#8592; Lecture index</a><div class="appearance" role="group" aria-label="Appearance">
+<button type="button" data-appearance="auto" aria-pressed="true">Auto</button>
+<button type="button" data-appearance="light" aria-pressed="false">Light</button>
+<button type="button" data-appearance="dark" aria-pressed="false">Dark</button>
+</div></header>
+<main class="wrap">
+<p class="doc-kicker">Week 45 of 55 &middot; Hosts, products and the literature &middot; <strong class="tier-badge">Core</strong></p>
+<h1>Product classes I: bulk chemicals, organic acids and alcohols</h1>
+<h2 class="sr-only">Week content</h2>
+<p>Where yield is everything and the margin is thin, and therefore the week in which strain design becomes arithmetic about money. The habit from weeks 40 to 44 — derive the ceiling, then read the published number as a fraction of it — is necessary here but no longer sufficient, because a bulk product can sit at 90% of theoretical and still lose money. Three further terms decide it: the substrate bill at the achieved yield, the utilities bill that aerobic operation adds, and the allowance left for recovery once the first two are paid. Stanbury Ch 12 is where those come from, and it is a 1999 text whose prices are historical, so use its structure and ratios and quote your own prices into them.</p>
+<h3>Core ideas</h3>
+<p><strong>1. Compute the ceiling for all six products first, and note which constraint binds</strong></p>
+<p>Degrees of reduction, nitrogen-free: glucose 24 per mole, six carbons. Ethanol C₂H₆O has 12, so electrons permit 2 mol per mol and carbon permits 3; electrons bind at 2 × 46.07/180.16 = 0.511 g g⁻¹ — the week 40 figure. n-Butanol and isobutanol C₄H₁₀O both have 24, so electrons permit 1.00 and carbon 1.5; electrons bind at 0.411 g g⁻¹. Lactate and 3-hydroxypropionate are both C₃H₆O₃ with 12, so carbon and electrons both permit 2 mol per mol and the ceiling is 1.000 g g⁻¹ with neither binding — which is why a homolactic fermentation is the cleanest stoichiometry in industrial biology. Succinate C₄H₆O₄ has 14: carbon permits 1.5 mol per mol and electrons 24/14 = 1.714, so carbon binds at 0.983 g g⁻¹. That last case is the one to understand, because carbon binding is a constraint you can buy out of.</p>
+<p><strong>2. Where CO₂ fixation raises the ceiling, and where it cannot</strong></p>
+<p>If carbon binds and electrons are in surplus, supplying carbon from somewhere other than the sugar lifts the ceiling to the electron limit. Succinate is the standard case: route carbon through the reductive branch with PEP or pyruvate carboxylase and each succinate takes one CO₂, so the ceiling rises from 0.983 to 24/14 × 118.09/180.16 = 1.124 g g⁻¹, more than a gram of product per gram of sugar. Nothing of the kind is available for ethanol or butanol, where electrons already bind and the limit is reducing power; adding CO₂ there makes the problem worse, not better. Lactate and 3-HP sit exactly on the boundary with both constraints tight, so neither CO₂ fixation nor extra reductant moves them. Test every bulk target this way before any strain work: identify the binding constraint, then ask whether it is the kind that can be bought out of.</p>
+<p><strong>3. The recurring design pattern is a redox ledger with an ATP clause</strong></p>
+<p>Every product in this class is made in a reaction network that must balance NADH and pay for its own maintenance. The patterns repeat. Alcohols and solvents are more reduced than sugar per carbon, so they consume the reductant glycolysis makes and the route competes with anything else that disposes of electrons — which is why deleting the hydrogen, acetate, lactate and formate routes in C. thermocellum doubled the ethanol yield (Lee §16.2) and why butanol&#x27;s four reducing equivalents per molecule put it against hydrogenase. Reduced acids via the reductive TCA branch need two NADH per succinate and return ATP at the carboxykinase step, so the route can be made ATP-positive and growth-coupled. Fully oxidised three-carbon acids need neither net reductant nor CO₂, which is why they reach unit yield and why their problem is downstream rather than metabolic. The ATP clause is what usually decides anaerobic feasibility: a route that balances electrons but makes no net ATP cannot support the cell that runs it.</p>
+<p><strong>4. Reported strains against those ceilings</strong></p>
+<p>Lee §12.4.2 Organic Acids and Alcohols is the most useful table for this week, because the host is held constant. Itaconate in C. glutamicum reaches 7.8 g L⁻¹ at 0.4 mol mol⁻¹, which the chapter itself calls modest; 3-HP reaches 39 g L⁻¹ in batch and 63 g L⁻¹ in fed-batch; 2,3-butanediol 18.9 g L⁻¹ from 80 g L⁻¹ glucose, and a two-stage process 6.3 g L⁻¹ at 0.3 g g⁻¹; ethanol 106 g L⁻¹; cis,cis-muconate 4.5 g L⁻¹; glutarate 7 and 12 g L⁻¹ as a by-product. Set those beside week 40&#x27;s E. coli figures from Lee Ch 11 — ethanol 54.4 g L⁻¹ at a reported 0.57 g g⁻¹, isopropanol 143 g L⁻¹ over 240 h for 0.60 g L⁻¹ h⁻¹, 1-butanol 30 g L⁻¹ at 0.287 g g⁻¹ and 0.18 g L⁻¹ h⁻¹, 3-HP 72 g L⁻¹ at 1.8 g L⁻¹ h⁻¹ — and beside week 44&#x27;s clostridial 15 g L⁻¹ butanol and 14 g L⁻¹ h⁻¹ continuous. The pattern across all three is consistent and worth stating in the dossier: three-carbon acids reach high titres and high fractions of theoretical, four-carbon alcohols do not, and nothing in the class is rate-limited in the way the amino acid processes are.</p>
+<p><strong>5. Acid tolerance, and the pH decision made in the fermenter</strong></p>
+<p>Week 43 established the process preference from Lee §15.3.2.2: for a lactic acid fermentation a pH below about 3.8 is wanted, because the acid is then protonated and removable by electrodialysis or ultrafiltration, where neutralisation adds osmotic stress during the run and leaves a salt to split afterwards. The mechanism is the week 2 derivation applied to the product: only the undissociated acid crosses the membrane, it dissociates in a cytoplasm held near neutrality, and the proton load scales with the external undissociated concentration, so inhibition rises steeply as pH falls below the pKₐ — 3.86 for lactic acid, 4.76 for acetic. That is also why the tolerance work Lee §15.3.2.2 reports is evolutionary rather than rational: genome shuffling gave roughly a fivefold increase in tolerance to protonated lactic acid at pH 3.8, L. delbrueckii Uc-3 reached 50 g L⁻¹ without pH adjustment, and an adapted Leuconostoc made 76.8 g L⁻¹ under pH control. Treat fermentation pH as a downstream decision taken in the fermenter, and cost both sides of it.</p>
+<p><strong>6. The cost skeleton, from Stanbury Ch 12</strong></p>
+<figure class="fig"><div class="figtitle">Figure 45.6 — Illustrative simulation — what a bulk product selling at $1.80 per kg can pay for</div><div class="fig-light"><svg role="img" aria-label="Losing money on sugar alone begins at 0.222 g g⁻¹, which every product in the class clears; the bar that decides a process is the 30%-of-revenue line at 0.741 g g⁻¹, which the three-carbon acids clear at their ceiling and ethanol cannot clear at any yield from glucose at this price. The right panel is why the class is anaerobic: the same skeleton with an aerobic utilities line of about 0.55 per kg does not close." xmlns:xlink="http://www.w3.org/1999/xlink" width="626.195953pt" height="240.910141pt" viewBox="0 0 626.195953 240.910141" xmlns="http://www.w3.org/2000/svg" version="1.1">
+ <metadata>
+  <rdf:RDF xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:cc="http://creativecommons.org/ns#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+   <cc:Work>
+    <dc:type rdf:resource="http://purl.org/dc/dcmitype/StillImage"/>
+    <dc:date>2026-11-02T23:57:54.615375</dc:date>
+    <dc:format>image/svg+xml</dc:format>
+    <dc:creator>
+     <cc:Agent>
+      <dc:title>Matplotlib v3.10.8, https://matplotlib.org/</dc:title>
+     </cc:Agent>
+    </dc:creator>
+   </cc:Work>
+  </rdf:RDF>
+ </metadata>
+ <defs>
+  <style type="text/css">*{stroke-linejoin: round; stroke-linecap: butt}</style>
+ </defs>
+ <g id="figure_1">
+  <g id="patch_1">
+   <path d="M 0 240.910141 
+L 626.195953 240.910141 
+L 626.195953 0 
+L 0 0 
+L 0 240.910141 
+z
+" style="fill: none"/>
+  </g>
+  <g id="axes_1">
+   <g id="patch_2">
+    <path d="M 65.9664 177.624 
+L 256.838511 177.624 
+L 256.838511 5.76 
+L 65.9664 5.76 
+L 65.9664 177.624 
+z
+" style="fill: none"/>
+   </g>
+   <g id="matplotlib.axis_1">
+    <g id="xtick_1">
+     <g id="line2d_1">
+      <defs>
+       <path id="m25a9e1a323" d="M 0 0 
+L 0 3.5 
+" style="stroke: #8a7458; stroke-width: 0.9"/>
+      </defs>
+      <g>
+       <use xlink:href="#m25a9e1a323" x="75.510006" y="177.624" style="fill: #8a7458; stroke: #8a7458; stroke-width: 0.9"/>
+      </g>
+     </g>
+     <g id="text_1">
+      <text style="font-size: 9.5px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: middle; fill: #8a7458" x="75.510006" y="191.842516" transform="rotate(-0 75.510006 191.842516)">0.2</text>
+     </g>
+    </g>
+    <g id="xtick_2">
+     <g id="line2d_2">
+      <g>
+       <use xlink:href="#m25a9e1a323" x="113.684428" y="177.624" style="fill: #8a7458; stroke: #8a7458; stroke-width: 0.9"/>
+      </g>
+     </g>
+     <g id="text_2">
+      <text style="font-size: 9.5px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: middle; fill: #8a7458" x="113.684428" y="191.842516" transform="rotate(-0 113.684428 191.842516)">0.4</text>
+     </g>
+    </g>
+    <g id="xtick_3">
+     <g id="line2d_3">
+      <g>
+       <use xlink:href="#m25a9e1a323" x="151.85885" y="177.624" style="fill: #8a7458; stroke: #8a7458; stroke-width: 0.9"/>
+      </g>
+     </g>
+     <g id="text_3">
+      <text style="font-size: 9.5px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: middle; fill: #8a7458" x="151.85885" y="191.842516" transform="rotate(-0 151.85885 191.842516)">0.6</text>
+     </g>
+    </g>
+    <g id="xtick_4">
+     <g id="line2d_4">
+      <g>
+       <use xlink:href="#m25a9e1a323" x="190.033272" y="177.624" style="fill: #8a7458; stroke: #8a7458; stroke-width: 0.9"/>
+      </g>
+     </g>
+     <g id="text_4">
+      <text style="font-size: 9.5px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: middle; fill: #8a7458" x="190.033272" y="191.842516" transform="rotate(-0 190.033272 191.842516)">0.8</text>
+     </g>
+    </g>
+    <g id="xtick_5">
+     <g id="line2d_5">
+      <g>
+       <use xlink:href="#m25a9e1a323" x="228.207694" y="177.624" style="fill: #8a7458; stroke: #8a7458; stroke-width: 0.9"/>
+      </g>
+     </g>
+     <g id="text_5">
+      <text style="font-size: 9.5px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: middle; fill: #8a7458" x="228.207694" y="191.842516" transform="rotate(-0 228.207694 191.842516)">1.0</text>
+     </g>
+    </g>
+    <g id="text_6">
+     <!-- yield on glucose  (g g$^{-1}$) -->
+     <g style="fill: #4a3c2c" transform="translate(103.452455 206.368219)">
+      <text>
+       <tspan x="0" y="-0.064063" style="font-size: 9.5px; font-family: 'Public Sans, Helvetica, Arial, sans-serif'; fill: #4a3c2c">y</tspan>
+       <tspan x="5.62207" y="-0.064063" style="font-size: 9.5px; font-family: 'Public Sans, Helvetica, Arial, sans-serif'; fill: #4a3c2c">i</tspan>
+       <tspan x="8.261475" y="-0.064063" style="font-size: 9.5px; font-family: 'Public Sans, Helvetica, Arial, sans-serif'; fill: #4a3c2c">e</tspan>
+       <tspan x="14.106201" y="-0.064063" style="font-size: 9.5px; font-family: 'Public Sans, Helvetica, Arial, sans-serif'; fill: #4a3c2c">l</tspan>
+       <tspan x="16.745605" y="-0.064063" style="font-size: 9.5px; font-family: 'Public Sans, Helvetica, Arial, sans-serif'; fill: #4a3c2c">d</tspan>
+       <tspan x="22.775879" y="-0.064063" style="font-size: 9.5px; font-family: 'Public Sans, Helvetica, Arial, sans-serif'; fill: #4a3c2c"> </tspan>
+       <tspan x="25.795654" y="-0.064063" style="font-size: 9.5px; font-family: 'Public Sans, Helvetica, Arial, sans-serif'; fill: #4a3c2c">o</tspan>
+       <tspan x="31.60791" y="-0.064063" style="font-size: 9.5px; font-family: 'Public Sans, Helvetica, Arial, sans-serif'; fill: #4a3c2c">n</tspan>
+       <tspan x="37.628906" y="-0.064063" style="font-size: 9.5px; font-family: 'Public Sans, Helvetica, Arial, sans-serif'; fill: #4a3c2c"> </tspan>
+       <tspan x="40.648682" y="-0.064063" style="font-size: 9.5px; font-family: 'Public Sans, Helvetica, Arial, sans-serif'; fill: #4a3c2c">g</tspan>
+       <tspan x="46.678955" y="-0.064063" style="font-size: 9.5px; font-family: 'Public Sans, Helvetica, Arial, sans-serif'; fill: #4a3c2c">l</tspan>
+       <tspan x="49.318359" y="-0.064063" style="font-size: 9.5px; font-family: 'Public Sans, Helvetica, Arial, sans-serif'; fill: #4a3c2c">u</tspan>
+       <tspan x="55.339355" y="-0.064063" style="font-size: 9.5px; font-family: 'Public Sans, Helvetica, Arial, sans-serif'; fill: #4a3c2c">c</tspan>
+       <tspan x="60.5625" y="-0.064063" style="font-size: 9.5px; font-family: 'Public Sans, Helvetica, Arial, sans-serif'; fill: #4a3c2c">o</tspan>
+       <tspan x="66.374756" y="-0.064063" style="font-size: 9.5px; font-family: 'Public Sans, Helvetica, Arial, sans-serif'; fill: #4a3c2c">s</tspan>
+       <tspan x="71.324219" y="-0.064063" style="font-size: 9.5px; font-family: 'Public Sans, Helvetica, Arial, sans-serif'; fill: #4a3c2c">e</tspan>
+       <tspan x="77.168945" y="-0.064063" style="font-size: 9.5px; font-family: 'Public Sans, Helvetica, Arial, sans-serif'; fill: #4a3c2c"> </tspan>
+       <tspan x="80.188721" y="-0.064063" style="font-size: 9.5px; font-family: 'Public Sans, Helvetica, Arial, sans-serif'; fill: #4a3c2c"> </tspan>
+       <tspan x="83.208496" y="-0.064063" style="font-size: 9.5px; font-family: 'Public Sans, Helvetica, Arial, sans-serif'; fill: #4a3c2c">(</tspan>
+       <tspan x="86.914795" y="-0.064063" style="font-size: 9.5px; font-family: 'Public Sans, Helvetica, Arial, sans-serif'; fill: #4a3c2c">g</tspan>
+       <tspan x="92.945068" y="-0.064063" style="font-size: 9.5px; font-family: 'Public Sans, Helvetica, Arial, sans-serif'; fill: #4a3c2c"> </tspan>
+       <tspan x="95.964844" y="-0.064063" style="font-size: 9.5px; font-family: 'Public Sans, Helvetica, Arial, sans-serif'; fill: #4a3c2c">g</tspan>
+       <tspan x="112.167163" y="-0.064063" style="font-size: 9.5px; font-family: 'Public Sans, Helvetica, Arial, sans-serif'; fill: #4a3c2c">)</tspan>
+       <tspan x="102.09082" y="-3.892188" style="font-size: 6.65px; font-family: 'Public Sans, Helvetica, Arial, sans-serif'; fill: #4a3c2c">−</tspan>
+       <tspan x="107.662793" y="-3.892188" style="font-size: 6.65px; font-family: 'Public Sans, Helvetica, Arial, sans-serif'; fill: #4a3c2c">1</tspan>
+      </text>
+     </g>
+    </g>
+   </g>
+   <g id="matplotlib.axis_2">
+    <g id="ytick_1">
+     <g id="line2d_6">
+      <path d="M 65.9664 177.624 
+L 256.838511 177.624 
+" clip-path="url(#pcdf90db71d)" style="fill: none; stroke: #e6dccb; stroke-opacity: 0.7; stroke-width: 0.6; stroke-linecap: square"/>
+     </g>
+     <g id="line2d_7">
+      <defs>
+       <path id="mec4e40fbc3" d="M 0 0 
+L -3.5 0 
+" style="stroke: #8a7458; stroke-width: 0.9"/>
+      </defs>
+      <g>
+       <use xlink:href="#mec4e40fbc3" x="65.9664" y="177.624" style="fill: #8a7458; stroke: #8a7458; stroke-width: 0.9"/>
+      </g>
+     </g>
+     <g id="text_7">
+      <text style="font-size: 9.5px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: end; fill: #8a7458" x="58.9664" y="181.233258" transform="rotate(-0 58.9664 181.233258)">0.0</text>
+     </g>
+    </g>
+    <g id="ytick_2">
+     <g id="line2d_8">
+      <path d="M 65.9664 146.934 
+L 256.838511 146.934 
+" clip-path="url(#pcdf90db71d)" style="fill: none; stroke: #e6dccb; stroke-opacity: 0.7; stroke-width: 0.6; stroke-linecap: square"/>
+     </g>
+     <g id="line2d_9">
+      <g>
+       <use xlink:href="#mec4e40fbc3" x="65.9664" y="146.934" style="fill: #8a7458; stroke: #8a7458; stroke-width: 0.9"/>
+      </g>
+     </g>
+     <g id="text_8">
+      <text style="font-size: 9.5px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: end; fill: #8a7458" x="58.9664" y="150.543258" transform="rotate(-0 58.9664 150.543258)">0.5</text>
+     </g>
+    </g>
+    <g id="ytick_3">
+     <g id="line2d_10">
+      <path d="M 65.9664 116.244 
+L 256.838511 116.244 
+" clip-path="url(#pcdf90db71d)" style="fill: none; stroke: #e6dccb; stroke-opacity: 0.7; stroke-width: 0.6; stroke-linecap: square"/>
+     </g>
+     <g id="line2d_11">
+      <g>
+       <use xlink:href="#mec4e40fbc3" x="65.9664" y="116.244" style="fill: #8a7458; stroke: #8a7458; stroke-width: 0.9"/>
+      </g>
+     </g>
+     <g id="text_9">
+      <text style="font-size: 9.5px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: end; fill: #8a7458" x="58.9664" y="119.853258" transform="rotate(-0 58.9664 119.853258)">1.0</text>
+     </g>
+    </g>
+    <g id="ytick_4">
+     <g id="line2d_12">
+      <path d="M 65.9664 85.554 
+L 256.838511 85.554 
+" clip-path="url(#pcdf90db71d)" style="fill: none; stroke: #e6dccb; stroke-opacity: 0.7; stroke-width: 0.6; stroke-linecap: square"/>
+     </g>
+     <g id="line2d_13">
+      <g>
+       <use xlink:href="#mec4e40fbc3" x="65.9664" y="85.554" style="fill: #8a7458; stroke: #8a7458; stroke-width: 0.9"/>
+      </g>
+     </g>
+     <g id="text_10">
+      <text style="font-size: 9.5px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: end; fill: #8a7458" x="58.9664" y="89.163258" transform="rotate(-0 58.9664 89.163258)">1.5</text>
+     </g>
+    </g>
+    <g id="ytick_5">
+     <g id="line2d_14">
+      <path d="M 65.9664 54.864 
+L 256.838511 54.864 
+" clip-path="url(#pcdf90db71d)" style="fill: none; stroke: #e6dccb; stroke-opacity: 0.7; stroke-width: 0.6; stroke-linecap: square"/>
+     </g>
+     <g id="line2d_15">
+      <g>
+       <use xlink:href="#mec4e40fbc3" x="65.9664" y="54.864" style="fill: #8a7458; stroke: #8a7458; stroke-width: 0.9"/>
+      </g>
+     </g>
+     <g id="text_11">
+      <text style="font-size: 9.5px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: end; fill: #8a7458" x="58.9664" y="58.473258" transform="rotate(-0 58.9664 58.473258)">2.0</text>
+     </g>
+    </g>
+    <g id="ytick_6">
+     <g id="line2d_16">
+      <path d="M 65.9664 24.174 
+L 256.838511 24.174 
+" clip-path="url(#pcdf90db71d)" style="fill: none; stroke: #e6dccb; stroke-opacity: 0.7; stroke-width: 0.6; stroke-linecap: square"/>
+     </g>
+     <g id="line2d_17">
+      <g>
+       <use xlink:href="#mec4e40fbc3" x="65.9664" y="24.174" style="fill: #8a7458; stroke: #8a7458; stroke-width: 0.9"/>
+      </g>
+     </g>
+     <g id="text_12">
+      <text style="font-size: 9.5px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: end; fill: #8a7458" x="58.9664" y="27.783258" transform="rotate(-0 58.9664 27.783258)">2.5</text>
+     </g>
+    </g>
+    <g id="text_13">
+     <text style="font-size: 9.5px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: middle; fill: #4a3c2c" x="37.882728" y="91.692" transform="rotate(-90 37.882728 91.692)">substrate cost  (dollars per kg product)</text>
+    </g>
+   </g>
+   <g id="line2d_18">
+    <path d="M 65.9664 13.944 
+L 67.709524 23.3374 
+L 69.452649 31.711164 
+L 71.195773 39.222764 
+L 72.938897 45.998835 
+L 74.682022 52.142366 
+L 77.296708 60.352724 
+L 79.911394 67.554645 
+L 82.526081 73.923171 
+L 85.140767 79.595048 
+L 87.755454 84.678659 
+L 90.37014 89.261009 
+L 92.984827 93.412755 
+L 95.599513 97.191868 
+L 98.2142 100.646362 
+L 101.700448 104.815767 
+L 105.186697 108.556717 
+L 108.672945 111.932027 
+L 112.159194 114.992806 
+L 115.645443 117.781062 
+L 120.003253 120.935671 
+L 124.361064 123.774346 
+L 128.718875 126.342283 
+L 133.076686 128.676453 
+L 138.306058 131.211501 
+L 143.535431 133.496893 
+L 149.636366 135.894175 
+L 155.737301 138.044405 
+L 162.709799 140.245564 
+L 169.682296 142.214794 
+L 177.526355 144.196036 
+L 186.241977 146.152604 
+L 195.82916 148.05629 
+L 206.287906 149.886636 
+L 217.618214 151.629859 
+L 229.820084 153.277665 
+L 243.765079 154.922341 
+L 256.838511 156.274435 
+L 256.838511 156.274435 
+" clip-path="url(#pcdf90db71d)" style="fill: none; stroke: #1f6f62; stroke-width: 1.9; stroke-linecap: square"/>
+   </g>
+   <g id="line2d_19">
+    <path d="M 65.9664 67.14 
+L 256.838511 67.14 
+" clip-path="url(#pcdf90db71d)" style="fill: none; stroke: #a4503a; stroke-width: 1.3; stroke-linecap: square"/>
+   </g>
+   <g id="line2d_20">
+    <path d="M 65.9664 144.4788 
+L 256.838511 144.4788 
+" clip-path="url(#pcdf90db71d)" style="fill: none; stroke-dasharray: 4,3; stroke-dashoffset: 0; stroke: #8a7458"/>
+   </g>
+   <g id="line2d_21">
+    <path d="M 79.751608 177.624 
+L 79.751608 5.76 
+" clip-path="url(#pcdf90db71d)" style="fill: none; stroke-dasharray: 1.8,2.7; stroke-dashoffset: 0; stroke: #a4503a; stroke-width: 0.9"/>
+   </g>
+   <g id="line2d_22">
+    <path d="M 178.722332 177.624 
+L 178.722332 5.76 
+" clip-path="url(#pcdf90db71d)" style="fill: none; stroke-dasharray: 1.8,2.7; stroke-dashoffset: 0; stroke: #8a7458; stroke-width: 0.9"/>
+   </g>
+   <g id="line2d_23">
+    <path d="M 134.871232 129.577033 
+" clip-path="url(#pcdf90db71d)" style="fill: none; stroke: #8a5f1b; stroke-width: 1.9; stroke-linecap: square"/>
+    <defs>
+     <path id="me1821d6d14" d="M -0 2.75 
+L 2.75 -2.75 
+L -2.75 -2.75 
+z
+" style="stroke: #8a5f1b; stroke-linejoin: miter"/>
+    </defs>
+    <g clip-path="url(#pcdf90db71d)">
+     <use xlink:href="#me1821d6d14" x="134.871232" y="129.577033" style="fill: #8a5f1b; stroke: #8a5f1b; stroke-linejoin: miter"/>
+    </g>
+   </g>
+   <g id="line2d_24">
+    <path d="M 228.207694 153.072 
+" clip-path="url(#pcdf90db71d)" style="fill: none; stroke: #8a5f1b; stroke-width: 1.9; stroke-linecap: square"/>
+    <g clip-path="url(#pcdf90db71d)">
+     <use xlink:href="#me1821d6d14" x="228.207694" y="153.072" style="fill: #8a5f1b; stroke: #8a5f1b; stroke-linejoin: miter"/>
+    </g>
+   </g>
+   <g id="patch_3">
+    <path d="M 65.9664 177.624 
+L 65.9664 5.76 
+" style="fill: none; stroke: #dfd2be; stroke-width: 0.9; stroke-linejoin: miter; stroke-linecap: square"/>
+   </g>
+   <g id="patch_4">
+    <path d="M 65.9664 177.624 
+L 256.838511 177.624 
+" style="fill: none; stroke: #dfd2be; stroke-width: 0.9; stroke-linejoin: miter; stroke-linecap: square"/>
+   </g>
+   <g id="text_14">
+    <text style="font-size: 8.2px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: start; fill: #a4503a" x="69.783842" y="62.8434" transform="rotate(-0 69.783842 62.8434)">selling price</text>
+   </g>
+   <g id="text_15">
+    <text style="font-size: 8.2px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: end; fill: #8a7458" x="253.021069" y="132.2028" transform="rotate(-0 253.021069 132.2028)">30% of revenue</text>
+   </g>
+   <g id="text_16">
+    <text style="font-size: 8px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; fill: #a4503a" transform="translate(83.56905 84.26715)">0.222: breaks even</text>
+    <text style="font-size: 8px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; fill: #a4503a" transform="translate(83.56905 93.2254)">on sugar alone</text>
+   </g>
+   <g id="text_17">
+    <text style="font-size: 8px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; fill: #8a7458" transform="translate(182.539774 84.26715)">0.741: viable</text>
+    <text style="font-size: 8px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; fill: #8a7458" transform="translate(182.539774 93.2254)">bulk process</text>
+   </g>
+   <g id="text_18">
+    <text style="font-size: 7.8px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: start; fill: #8a5f1b" x="140.597395" y="124.052833" transform="rotate(-0 140.597395 124.052833)">ethanol 0.511</text>
+   </g>
+   <g id="text_19">
+    <text style="font-size: 7.8px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: start; fill: #8a5f1b" x="233.933858" y="166.5756" transform="rotate(-0 233.933858 166.5756)">lactate 1.000</text>
+   </g>
+  </g>
+  <g id="axes_2">
+   <g id="patch_5">
+    <path d="M 319.826308 177.624 
+L 478.8864 177.624 
+L 478.8864 5.76 
+L 319.826308 5.76 
+L 319.826308 177.624 
+z
+" style="fill: none"/>
+   </g>
+   <g id="patch_6">
+    <path d="M 340.79332 177.624 
+L 385.619346 177.624 
+L 385.619346 150.344 
+L 340.79332 150.344 
+z
+" clip-path="url(#p9a8115d1ae)" style="fill: #1f6f62; opacity: 0.4; stroke: #1f6f62; stroke-width: 1.1; stroke-linejoin: miter"/>
+   </g>
+   <g id="patch_7">
+    <path d="M 340.79332 150.344 
+L 385.619346 150.344 
+L 385.619346 147.33638 
+L 340.79332 147.33638 
+z
+" clip-path="url(#p9a8115d1ae)" style="fill: #8a5f1b; opacity: 0.4; stroke: #8a5f1b; stroke-width: 1.1; stroke-linejoin: miter"/>
+   </g>
+   <g id="patch_8">
+    <path d="M 340.79332 147.33638 
+L 385.619346 147.33638 
+L 385.619346 145.49498 
+L 340.79332 145.49498 
+z
+" clip-path="url(#p9a8115d1ae)" style="fill: #8a7458; opacity: 0.4; stroke: #8a7458; stroke-width: 1.1; stroke-linejoin: miter"/>
+   </g>
+   <g id="patch_9">
+    <path d="M 340.79332 145.49498 
+L 385.619346 145.49498 
+L 385.619346 67.14 
+L 340.79332 67.14 
+z
+" clip-path="url(#p9a8115d1ae)" style="fill: #dfd2be; opacity: 0.4; stroke: #dfd2be; stroke-width: 1.1; stroke-linejoin: miter"/>
+   </g>
+   <g id="patch_10">
+    <path d="M 413.093362 177.624 
+L 457.919388 177.624 
+L 457.919388 92.076962 
+L 413.093362 92.076962 
+z
+" clip-path="url(#p9a8115d1ae)" style="fill: #a4503a; opacity: 0.4; stroke: #a4503a; stroke-width: 1.1; stroke-linejoin: miter"/>
+   </g>
+   <g id="matplotlib.axis_3">
+    <g id="xtick_6">
+     <g id="line2d_25">
+      <g>
+       <use xlink:href="#m25a9e1a323" x="363.206333" y="177.624" style="fill: #8a7458; stroke: #8a7458; stroke-width: 0.9"/>
+      </g>
+     </g>
+     <g id="text_20">
+      <text style="font-size: 8.2px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: middle; fill: #8a7458" x="363.206333" y="190.854719" transform="rotate(-0 363.206333 190.854719)">acid, 0.90 g per g</text>
+     </g>
+    </g>
+    <g id="xtick_7">
+     <g id="line2d_26">
+      <g>
+       <use xlink:href="#m25a9e1a323" x="435.506375" y="177.624" style="fill: #8a7458; stroke: #8a7458; stroke-width: 0.9"/>
+      </g>
+     </g>
+     <g id="text_21">
+      <text style="font-size: 8.2px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: middle; fill: #8a7458" x="435.506375" y="190.854719" transform="rotate(-0 435.506375 190.854719)">butanol, 0.287</text>
+     </g>
+    </g>
+   </g>
+   <g id="matplotlib.axis_4">
+    <g id="ytick_7">
+     <g id="line2d_27">
+      <path d="M 319.826308 177.624 
+L 478.8864 177.624 
+" clip-path="url(#p9a8115d1ae)" style="fill: none; stroke: #e6dccb; stroke-opacity: 0.7; stroke-width: 0.6; stroke-linecap: square"/>
+     </g>
+     <g id="line2d_28">
+      <g>
+       <use xlink:href="#mec4e40fbc3" x="319.826308" y="177.624" style="fill: #8a7458; stroke: #8a7458; stroke-width: 0.9"/>
+      </g>
+     </g>
+     <g id="text_22">
+      <text style="font-size: 9.5px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: end; fill: #8a7458" x="312.826308" y="181.233258" transform="rotate(-0 312.826308 181.233258)">0.0</text>
+     </g>
+    </g>
+    <g id="ytick_8">
+     <g id="line2d_29">
+      <path d="M 319.826308 146.934 
+L 478.8864 146.934 
+" clip-path="url(#p9a8115d1ae)" style="fill: none; stroke: #e6dccb; stroke-opacity: 0.7; stroke-width: 0.6; stroke-linecap: square"/>
+     </g>
+     <g id="line2d_30">
+      <g>
+       <use xlink:href="#mec4e40fbc3" x="319.826308" y="146.934" style="fill: #8a7458; stroke: #8a7458; stroke-width: 0.9"/>
+      </g>
+     </g>
+     <g id="text_23">
+      <text style="font-size: 9.5px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: end; fill: #8a7458" x="312.826308" y="150.543258" transform="rotate(-0 312.826308 150.543258)">0.5</text>
+     </g>
+    </g>
+    <g id="ytick_9">
+     <g id="line2d_31">
+      <path d="M 319.826308 116.244 
+L 478.8864 116.244 
+" clip-path="url(#p9a8115d1ae)" style="fill: none; stroke: #e6dccb; stroke-opacity: 0.7; stroke-width: 0.6; stroke-linecap: square"/>
+     </g>
+     <g id="line2d_32">
+      <g>
+       <use xlink:href="#mec4e40fbc3" x="319.826308" y="116.244" style="fill: #8a7458; stroke: #8a7458; stroke-width: 0.9"/>
+      </g>
+     </g>
+     <g id="text_24">
+      <text style="font-size: 9.5px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: end; fill: #8a7458" x="312.826308" y="119.853258" transform="rotate(-0 312.826308 119.853258)">1.0</text>
+     </g>
+    </g>
+    <g id="ytick_10">
+     <g id="line2d_33">
+      <path d="M 319.826308 85.554 
+L 478.8864 85.554 
+" clip-path="url(#p9a8115d1ae)" style="fill: none; stroke: #e6dccb; stroke-opacity: 0.7; stroke-width: 0.6; stroke-linecap: square"/>
+     </g>
+     <g id="line2d_34">
+      <g>
+       <use xlink:href="#mec4e40fbc3" x="319.826308" y="85.554" style="fill: #8a7458; stroke: #8a7458; stroke-width: 0.9"/>
+      </g>
+     </g>
+     <g id="text_25">
+      <text style="font-size: 9.5px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: end; fill: #8a7458" x="312.826308" y="89.163258" transform="rotate(-0 312.826308 89.163258)">1.5</text>
+     </g>
+    </g>
+    <g id="ytick_11">
+     <g id="line2d_35">
+      <path d="M 319.826308 54.864 
+L 478.8864 54.864 
+" clip-path="url(#p9a8115d1ae)" style="fill: none; stroke: #e6dccb; stroke-opacity: 0.7; stroke-width: 0.6; stroke-linecap: square"/>
+     </g>
+     <g id="line2d_36">
+      <g>
+       <use xlink:href="#mec4e40fbc3" x="319.826308" y="54.864" style="fill: #8a7458; stroke: #8a7458; stroke-width: 0.9"/>
+      </g>
+     </g>
+     <g id="text_26">
+      <text style="font-size: 9.5px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: end; fill: #8a7458" x="312.826308" y="58.473258" transform="rotate(-0 312.826308 58.473258)">2.0</text>
+     </g>
+    </g>
+    <g id="ytick_12">
+     <g id="line2d_37">
+      <path d="M 319.826308 24.174 
+L 478.8864 24.174 
+" clip-path="url(#p9a8115d1ae)" style="fill: none; stroke: #e6dccb; stroke-opacity: 0.7; stroke-width: 0.6; stroke-linecap: square"/>
+     </g>
+     <g id="line2d_38">
+      <g>
+       <use xlink:href="#mec4e40fbc3" x="319.826308" y="24.174" style="fill: #8a7458; stroke: #8a7458; stroke-width: 0.9"/>
+      </g>
+     </g>
+     <g id="text_27">
+      <text style="font-size: 9.5px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: end; fill: #8a7458" x="312.826308" y="27.783258" transform="rotate(-0 312.826308 27.783258)">2.5</text>
+     </g>
+    </g>
+    <g id="text_28">
+     <text style="font-size: 9.5px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: middle; fill: #4a3c2c" x="291.742636" y="91.692" transform="rotate(-90 291.742636 91.692)">dollars per kg product</text>
+    </g>
+   </g>
+   <g id="line2d_39">
+    <path d="M 319.826308 67.14 
+L 478.8864 67.14 
+" clip-path="url(#p9a8115d1ae)" style="fill: none; stroke: #a4503a; stroke-width: 1.3; stroke-linecap: square"/>
+   </g>
+   <g id="patch_11">
+    <path d="M 319.826308 177.624 
+L 319.826308 5.76 
+" style="fill: none; stroke: #dfd2be; stroke-width: 0.9; stroke-linejoin: miter; stroke-linecap: square"/>
+   </g>
+   <g id="patch_12">
+    <path d="M 319.826308 177.624 
+L 478.8864 177.624 
+" style="fill: none; stroke: #dfd2be; stroke-width: 0.9; stroke-linejoin: miter; stroke-linecap: square"/>
+   </g>
+   <g id="text_29">
+    <text style="font-size: 7.8px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; fill: #4a3c2c" transform="translate(322.003442 161.769166)">sugar at 0.90 g per g</text>
+    <text style="font-size: 7.8px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; fill: #4a3c2c" transform="translate(354.522739 170.503459)">0.44</text>
+   </g>
+   <g id="text_30">
+    <text style="font-size: 7.8px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; fill: #4a3c2c" transform="translate(315.473989 99.735509)">medium, labour, capital,</text>
+    <text style="font-size: 7.8px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; fill: #4a3c2c" transform="translate(346.140786 108.469803)">recovery</text>
+    <text style="font-size: 7.8px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; fill: #4a3c2c" transform="translate(354.522739 117.204096)">1.28</text>
+   </g>
+   <g id="text_31">
+    <text style="font-size: 7.8px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: middle; fill: #4a3c2c" x="435.506375" y="137.002793" transform="rotate(-0 435.506375 137.002793)">sugar alone</text>
+   </g>
+   <g id="text_32">
+    <text style="font-weight: 700; font-size: 8.6px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: middle; fill: #a4503a" x="384.896345" y="63.4572" transform="rotate(-0 384.896345 63.4572)">1.80</text>
+   </g>
+   <g id="text_33">
+    <text style="font-weight: 700; font-size: 8.6px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: middle; fill: #a4503a" x="435.506375" y="88.394162" transform="rotate(-0 435.506375 88.394162)">1.39</text>
+   </g>
+   <g id="text_34">
+    <text style="font-size: 7.6px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; fill: #8a7458" transform="translate(323.44131 22.583213)">the two thin bands are lime at 0.05</text>
+    <text style="font-size: 7.6px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; fill: #8a7458" transform="translate(323.44131 31.09355)">and fermentative utilities at 0.03</text>
+   </g>
+  </g>
+  <g id="text_35">
+   <text style="font-size: 8.3px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: start; fill: #8a7458" x="5.76" y="233.424" transform="rotate(-0 5.76 233.424)">Glucose $400 per tonne, product $1.80 per kg, electricity $0.07 per kWh. Prices are assumptions; the 30% rule of thumb is not a derived threshold.</text>
+  </g>
+ </g>
+ <defs>
+  <clipPath id="pcdf90db71d">
+   <rect x="65.9664" y="5.76" width="190.872111" height="171.864"/>
+  </clipPath>
+  <clipPath id="p9a8115d1ae">
+   <rect x="319.826308" y="5.76" width="159.060092" height="171.864"/>
+  </clipPath>
+ </defs>
+</svg>
+</div><div class="fig-dark"><svg role="img" aria-label="Losing money on sugar alone begins at 0.222 g g⁻¹, which every product in the class clears; the bar that decides a process is the 30%-of-revenue line at 0.741 g g⁻¹, which the three-carbon acids clear at their ceiling and ethanol cannot clear at any yield from glucose at this price. The right panel is why the class is anaerobic: the same skeleton with an aerobic utilities line of about 0.55 per kg does not close." xmlns:xlink="http://www.w3.org/1999/xlink" width="626.195953pt" height="240.910141pt" viewBox="0 0 626.195953 240.910141" xmlns="http://www.w3.org/2000/svg" version="1.1">
+ <metadata>
+  <rdf:RDF xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:cc="http://creativecommons.org/ns#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+   <cc:Work>
+    <dc:type rdf:resource="http://purl.org/dc/dcmitype/StillImage"/>
+    <dc:date>2026-11-02T23:57:54.723702</dc:date>
+    <dc:format>image/svg+xml</dc:format>
+    <dc:creator>
+     <cc:Agent>
+      <dc:title>Matplotlib v3.10.8, https://matplotlib.org/</dc:title>
+     </cc:Agent>
+    </dc:creator>
+   </cc:Work>
+  </rdf:RDF>
+ </metadata>
+ <defs>
+  <style type="text/css">*{stroke-linejoin: round; stroke-linecap: butt}</style>
+ </defs>
+ <g id="figure_1">
+  <g id="patch_1">
+   <path d="M 0 240.910141 
+L 626.195953 240.910141 
+L 626.195953 0 
+L 0 0 
+L 0 240.910141 
+z
+" style="fill: none"/>
+  </g>
+  <g id="axes_1">
+   <g id="patch_2">
+    <path d="M 65.9664 177.624 
+L 256.838511 177.624 
+L 256.838511 5.76 
+L 65.9664 5.76 
+L 65.9664 177.624 
+z
+" style="fill: none"/>
+   </g>
+   <g id="matplotlib.axis_1">
+    <g id="xtick_1">
+     <g id="line2d_1">
+      <defs>
+       <path id="m5f3ba25b38" d="M 0 0 
+L 0 3.5 
+" style="stroke: #9a8872; stroke-width: 0.9"/>
+      </defs>
+      <g>
+       <use xlink:href="#m5f3ba25b38" x="75.510006" y="177.624" style="fill: #9a8872; stroke: #9a8872; stroke-width: 0.9"/>
+      </g>
+     </g>
+     <g id="text_1">
+      <text style="font-size: 9.5px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: middle; fill: #9a8872" x="75.510006" y="191.842516" transform="rotate(-0 75.510006 191.842516)">0.2</text>
+     </g>
+    </g>
+    <g id="xtick_2">
+     <g id="line2d_2">
+      <g>
+       <use xlink:href="#m5f3ba25b38" x="113.684428" y="177.624" style="fill: #9a8872; stroke: #9a8872; stroke-width: 0.9"/>
+      </g>
+     </g>
+     <g id="text_2">
+      <text style="font-size: 9.5px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: middle; fill: #9a8872" x="113.684428" y="191.842516" transform="rotate(-0 113.684428 191.842516)">0.4</text>
+     </g>
+    </g>
+    <g id="xtick_3">
+     <g id="line2d_3">
+      <g>
+       <use xlink:href="#m5f3ba25b38" x="151.85885" y="177.624" style="fill: #9a8872; stroke: #9a8872; stroke-width: 0.9"/>
+      </g>
+     </g>
+     <g id="text_3">
+      <text style="font-size: 9.5px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: middle; fill: #9a8872" x="151.85885" y="191.842516" transform="rotate(-0 151.85885 191.842516)">0.6</text>
+     </g>
+    </g>
+    <g id="xtick_4">
+     <g id="line2d_4">
+      <g>
+       <use xlink:href="#m5f3ba25b38" x="190.033272" y="177.624" style="fill: #9a8872; stroke: #9a8872; stroke-width: 0.9"/>
+      </g>
+     </g>
+     <g id="text_4">
+      <text style="font-size: 9.5px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: middle; fill: #9a8872" x="190.033272" y="191.842516" transform="rotate(-0 190.033272 191.842516)">0.8</text>
+     </g>
+    </g>
+    <g id="xtick_5">
+     <g id="line2d_5">
+      <g>
+       <use xlink:href="#m5f3ba25b38" x="228.207694" y="177.624" style="fill: #9a8872; stroke: #9a8872; stroke-width: 0.9"/>
+      </g>
+     </g>
+     <g id="text_5">
+      <text style="font-size: 9.5px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: middle; fill: #9a8872" x="228.207694" y="191.842516" transform="rotate(-0 228.207694 191.842516)">1.0</text>
+     </g>
+    </g>
+    <g id="text_6">
+     <!-- yield on glucose  (g g$^{-1}$) -->
+     <g style="fill: #cbbca6" transform="translate(103.452455 206.368219)">
+      <text>
+       <tspan x="0" y="-0.064063" style="font-size: 9.5px; font-family: 'Public Sans, Helvetica, Arial, sans-serif'; fill: #cbbca6">y</tspan>
+       <tspan x="5.62207" y="-0.064063" style="font-size: 9.5px; font-family: 'Public Sans, Helvetica, Arial, sans-serif'; fill: #cbbca6">i</tspan>
+       <tspan x="8.261475" y="-0.064063" style="font-size: 9.5px; font-family: 'Public Sans, Helvetica, Arial, sans-serif'; fill: #cbbca6">e</tspan>
+       <tspan x="14.106201" y="-0.064063" style="font-size: 9.5px; font-family: 'Public Sans, Helvetica, Arial, sans-serif'; fill: #cbbca6">l</tspan>
+       <tspan x="16.745605" y="-0.064063" style="font-size: 9.5px; font-family: 'Public Sans, Helvetica, Arial, sans-serif'; fill: #cbbca6">d</tspan>
+       <tspan x="22.775879" y="-0.064063" style="font-size: 9.5px; font-family: 'Public Sans, Helvetica, Arial, sans-serif'; fill: #cbbca6"> </tspan>
+       <tspan x="25.795654" y="-0.064063" style="font-size: 9.5px; font-family: 'Public Sans, Helvetica, Arial, sans-serif'; fill: #cbbca6">o</tspan>
+       <tspan x="31.60791" y="-0.064063" style="font-size: 9.5px; font-family: 'Public Sans, Helvetica, Arial, sans-serif'; fill: #cbbca6">n</tspan>
+       <tspan x="37.628906" y="-0.064063" style="font-size: 9.5px; font-family: 'Public Sans, Helvetica, Arial, sans-serif'; fill: #cbbca6"> </tspan>
+       <tspan x="40.648682" y="-0.064063" style="font-size: 9.5px; font-family: 'Public Sans, Helvetica, Arial, sans-serif'; fill: #cbbca6">g</tspan>
+       <tspan x="46.678955" y="-0.064063" style="font-size: 9.5px; font-family: 'Public Sans, Helvetica, Arial, sans-serif'; fill: #cbbca6">l</tspan>
+       <tspan x="49.318359" y="-0.064063" style="font-size: 9.5px; font-family: 'Public Sans, Helvetica, Arial, sans-serif'; fill: #cbbca6">u</tspan>
+       <tspan x="55.339355" y="-0.064063" style="font-size: 9.5px; font-family: 'Public Sans, Helvetica, Arial, sans-serif'; fill: #cbbca6">c</tspan>
+       <tspan x="60.5625" y="-0.064063" style="font-size: 9.5px; font-family: 'Public Sans, Helvetica, Arial, sans-serif'; fill: #cbbca6">o</tspan>
+       <tspan x="66.374756" y="-0.064063" style="font-size: 9.5px; font-family: 'Public Sans, Helvetica, Arial, sans-serif'; fill: #cbbca6">s</tspan>
+       <tspan x="71.324219" y="-0.064063" style="font-size: 9.5px; font-family: 'Public Sans, Helvetica, Arial, sans-serif'; fill: #cbbca6">e</tspan>
+       <tspan x="77.168945" y="-0.064063" style="font-size: 9.5px; font-family: 'Public Sans, Helvetica, Arial, sans-serif'; fill: #cbbca6"> </tspan>
+       <tspan x="80.188721" y="-0.064063" style="font-size: 9.5px; font-family: 'Public Sans, Helvetica, Arial, sans-serif'; fill: #cbbca6"> </tspan>
+       <tspan x="83.208496" y="-0.064063" style="font-size: 9.5px; font-family: 'Public Sans, Helvetica, Arial, sans-serif'; fill: #cbbca6">(</tspan>
+       <tspan x="86.914795" y="-0.064063" style="font-size: 9.5px; font-family: 'Public Sans, Helvetica, Arial, sans-serif'; fill: #cbbca6">g</tspan>
+       <tspan x="92.945068" y="-0.064063" style="font-size: 9.5px; font-family: 'Public Sans, Helvetica, Arial, sans-serif'; fill: #cbbca6"> </tspan>
+       <tspan x="95.964844" y="-0.064063" style="font-size: 9.5px; font-family: 'Public Sans, Helvetica, Arial, sans-serif'; fill: #cbbca6">g</tspan>
+       <tspan x="112.167163" y="-0.064063" style="font-size: 9.5px; font-family: 'Public Sans, Helvetica, Arial, sans-serif'; fill: #cbbca6">)</tspan>
+       <tspan x="102.09082" y="-3.892188" style="font-size: 6.65px; font-family: 'Public Sans, Helvetica, Arial, sans-serif'; fill: #cbbca6">−</tspan>
+       <tspan x="107.662793" y="-3.892188" style="font-size: 6.65px; font-family: 'Public Sans, Helvetica, Arial, sans-serif'; fill: #cbbca6">1</tspan>
+      </text>
+     </g>
+    </g>
+   </g>
+   <g id="matplotlib.axis_2">
+    <g id="ytick_1">
+     <g id="line2d_6">
+      <path d="M 65.9664 177.624 
+L 256.838511 177.624 
+" clip-path="url(#p0ff4bf2479)" style="fill: none; stroke: #2e251c; stroke-opacity: 0.7; stroke-width: 0.6; stroke-linecap: square"/>
+     </g>
+     <g id="line2d_7">
+      <defs>
+       <path id="mca8cde7e88" d="M 0 0 
+L -3.5 0 
+" style="stroke: #9a8872; stroke-width: 0.9"/>
+      </defs>
+      <g>
+       <use xlink:href="#mca8cde7e88" x="65.9664" y="177.624" style="fill: #9a8872; stroke: #9a8872; stroke-width: 0.9"/>
+      </g>
+     </g>
+     <g id="text_7">
+      <text style="font-size: 9.5px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: end; fill: #9a8872" x="58.9664" y="181.233258" transform="rotate(-0 58.9664 181.233258)">0.0</text>
+     </g>
+    </g>
+    <g id="ytick_2">
+     <g id="line2d_8">
+      <path d="M 65.9664 146.934 
+L 256.838511 146.934 
+" clip-path="url(#p0ff4bf2479)" style="fill: none; stroke: #2e251c; stroke-opacity: 0.7; stroke-width: 0.6; stroke-linecap: square"/>
+     </g>
+     <g id="line2d_9">
+      <g>
+       <use xlink:href="#mca8cde7e88" x="65.9664" y="146.934" style="fill: #9a8872; stroke: #9a8872; stroke-width: 0.9"/>
+      </g>
+     </g>
+     <g id="text_8">
+      <text style="font-size: 9.5px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: end; fill: #9a8872" x="58.9664" y="150.543258" transform="rotate(-0 58.9664 150.543258)">0.5</text>
+     </g>
+    </g>
+    <g id="ytick_3">
+     <g id="line2d_10">
+      <path d="M 65.9664 116.244 
+L 256.838511 116.244 
+" clip-path="url(#p0ff4bf2479)" style="fill: none; stroke: #2e251c; stroke-opacity: 0.7; stroke-width: 0.6; stroke-linecap: square"/>
+     </g>
+     <g id="line2d_11">
+      <g>
+       <use xlink:href="#mca8cde7e88" x="65.9664" y="116.244" style="fill: #9a8872; stroke: #9a8872; stroke-width: 0.9"/>
+      </g>
+     </g>
+     <g id="text_9">
+      <text style="font-size: 9.5px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: end; fill: #9a8872" x="58.9664" y="119.853258" transform="rotate(-0 58.9664 119.853258)">1.0</text>
+     </g>
+    </g>
+    <g id="ytick_4">
+     <g id="line2d_12">
+      <path d="M 65.9664 85.554 
+L 256.838511 85.554 
+" clip-path="url(#p0ff4bf2479)" style="fill: none; stroke: #2e251c; stroke-opacity: 0.7; stroke-width: 0.6; stroke-linecap: square"/>
+     </g>
+     <g id="line2d_13">
+      <g>
+       <use xlink:href="#mca8cde7e88" x="65.9664" y="85.554" style="fill: #9a8872; stroke: #9a8872; stroke-width: 0.9"/>
+      </g>
+     </g>
+     <g id="text_10">
+      <text style="font-size: 9.5px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: end; fill: #9a8872" x="58.9664" y="89.163258" transform="rotate(-0 58.9664 89.163258)">1.5</text>
+     </g>
+    </g>
+    <g id="ytick_5">
+     <g id="line2d_14">
+      <path d="M 65.9664 54.864 
+L 256.838511 54.864 
+" clip-path="url(#p0ff4bf2479)" style="fill: none; stroke: #2e251c; stroke-opacity: 0.7; stroke-width: 0.6; stroke-linecap: square"/>
+     </g>
+     <g id="line2d_15">
+      <g>
+       <use xlink:href="#mca8cde7e88" x="65.9664" y="54.864" style="fill: #9a8872; stroke: #9a8872; stroke-width: 0.9"/>
+      </g>
+     </g>
+     <g id="text_11">
+      <text style="font-size: 9.5px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: end; fill: #9a8872" x="58.9664" y="58.473258" transform="rotate(-0 58.9664 58.473258)">2.0</text>
+     </g>
+    </g>
+    <g id="ytick_6">
+     <g id="line2d_16">
+      <path d="M 65.9664 24.174 
+L 256.838511 24.174 
+" clip-path="url(#p0ff4bf2479)" style="fill: none; stroke: #2e251c; stroke-opacity: 0.7; stroke-width: 0.6; stroke-linecap: square"/>
+     </g>
+     <g id="line2d_17">
+      <g>
+       <use xlink:href="#mca8cde7e88" x="65.9664" y="24.174" style="fill: #9a8872; stroke: #9a8872; stroke-width: 0.9"/>
+      </g>
+     </g>
+     <g id="text_12">
+      <text style="font-size: 9.5px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: end; fill: #9a8872" x="58.9664" y="27.783258" transform="rotate(-0 58.9664 27.783258)">2.5</text>
+     </g>
+    </g>
+    <g id="text_13">
+     <text style="font-size: 9.5px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: middle; fill: #cbbca6" x="37.882728" y="91.692" transform="rotate(-90 37.882728 91.692)">substrate cost  (dollars per kg product)</text>
+    </g>
+   </g>
+   <g id="line2d_18">
+    <path d="M 65.9664 13.944 
+L 67.709524 23.3374 
+L 69.452649 31.711164 
+L 71.195773 39.222764 
+L 72.938897 45.998835 
+L 74.682022 52.142366 
+L 77.296708 60.352724 
+L 79.911394 67.554645 
+L 82.526081 73.923171 
+L 85.140767 79.595048 
+L 87.755454 84.678659 
+L 90.37014 89.261009 
+L 92.984827 93.412755 
+L 95.599513 97.191868 
+L 98.2142 100.646362 
+L 101.700448 104.815767 
+L 105.186697 108.556717 
+L 108.672945 111.932027 
+L 112.159194 114.992806 
+L 115.645443 117.781062 
+L 120.003253 120.935671 
+L 124.361064 123.774346 
+L 128.718875 126.342283 
+L 133.076686 128.676453 
+L 138.306058 131.211501 
+L 143.535431 133.496893 
+L 149.636366 135.894175 
+L 155.737301 138.044405 
+L 162.709799 140.245564 
+L 169.682296 142.214794 
+L 177.526355 144.196036 
+L 186.241977 146.152604 
+L 195.82916 148.05629 
+L 206.287906 149.886636 
+L 217.618214 151.629859 
+L 229.820084 153.277665 
+L 243.765079 154.922341 
+L 256.838511 156.274435 
+L 256.838511 156.274435 
+" clip-path="url(#p0ff4bf2479)" style="fill: none; stroke: #6dbdac; stroke-width: 1.9; stroke-linecap: square"/>
+   </g>
+   <g id="line2d_19">
+    <path d="M 65.9664 67.14 
+L 256.838511 67.14 
+" clip-path="url(#p0ff4bf2479)" style="fill: none; stroke: #d98c72; stroke-width: 1.3; stroke-linecap: square"/>
+   </g>
+   <g id="line2d_20">
+    <path d="M 65.9664 144.4788 
+L 256.838511 144.4788 
+" clip-path="url(#p0ff4bf2479)" style="fill: none; stroke-dasharray: 4,3; stroke-dashoffset: 0; stroke: #9a8872"/>
+   </g>
+   <g id="line2d_21">
+    <path d="M 79.751608 177.624 
+L 79.751608 5.76 
+" clip-path="url(#p0ff4bf2479)" style="fill: none; stroke-dasharray: 1.8,2.7; stroke-dashoffset: 0; stroke: #d98c72; stroke-width: 0.9"/>
+   </g>
+   <g id="line2d_22">
+    <path d="M 178.722332 177.624 
+L 178.722332 5.76 
+" clip-path="url(#p0ff4bf2479)" style="fill: none; stroke-dasharray: 1.8,2.7; stroke-dashoffset: 0; stroke: #9a8872; stroke-width: 0.9"/>
+   </g>
+   <g id="line2d_23">
+    <path d="M 134.871232 129.577033 
+" clip-path="url(#p0ff4bf2479)" style="fill: none; stroke: #d7a95c; stroke-width: 1.9; stroke-linecap: square"/>
+    <defs>
+     <path id="m83e9572ebc" d="M -0 2.75 
+L 2.75 -2.75 
+L -2.75 -2.75 
+z
+" style="stroke: #d7a95c; stroke-linejoin: miter"/>
+    </defs>
+    <g clip-path="url(#p0ff4bf2479)">
+     <use xlink:href="#m83e9572ebc" x="134.871232" y="129.577033" style="fill: #d7a95c; stroke: #d7a95c; stroke-linejoin: miter"/>
+    </g>
+   </g>
+   <g id="line2d_24">
+    <path d="M 228.207694 153.072 
+" clip-path="url(#p0ff4bf2479)" style="fill: none; stroke: #d7a95c; stroke-width: 1.9; stroke-linecap: square"/>
+    <g clip-path="url(#p0ff4bf2479)">
+     <use xlink:href="#m83e9572ebc" x="228.207694" y="153.072" style="fill: #d7a95c; stroke: #d7a95c; stroke-linejoin: miter"/>
+    </g>
+   </g>
+   <g id="patch_3">
+    <path d="M 65.9664 177.624 
+L 65.9664 5.76 
+" style="fill: none; stroke: #3a3026; stroke-width: 0.9; stroke-linejoin: miter; stroke-linecap: square"/>
+   </g>
+   <g id="patch_4">
+    <path d="M 65.9664 177.624 
+L 256.838511 177.624 
+" style="fill: none; stroke: #3a3026; stroke-width: 0.9; stroke-linejoin: miter; stroke-linecap: square"/>
+   </g>
+   <g id="text_14">
+    <text style="font-size: 8.2px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: start; fill: #d98c72" x="69.783842" y="62.8434" transform="rotate(-0 69.783842 62.8434)">selling price</text>
+   </g>
+   <g id="text_15">
+    <text style="font-size: 8.2px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: end; fill: #9a8872" x="253.021069" y="132.2028" transform="rotate(-0 253.021069 132.2028)">30% of revenue</text>
+   </g>
+   <g id="text_16">
+    <text style="font-size: 8px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; fill: #d98c72" transform="translate(83.56905 84.26715)">0.222: breaks even</text>
+    <text style="font-size: 8px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; fill: #d98c72" transform="translate(83.56905 93.2254)">on sugar alone</text>
+   </g>
+   <g id="text_17">
+    <text style="font-size: 8px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; fill: #9a8872" transform="translate(182.539774 84.26715)">0.741: viable</text>
+    <text style="font-size: 8px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; fill: #9a8872" transform="translate(182.539774 93.2254)">bulk process</text>
+   </g>
+   <g id="text_18">
+    <text style="font-size: 7.8px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: start; fill: #d7a95c" x="140.597395" y="124.052833" transform="rotate(-0 140.597395 124.052833)">ethanol 0.511</text>
+   </g>
+   <g id="text_19">
+    <text style="font-size: 7.8px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: start; fill: #d7a95c" x="233.933858" y="166.5756" transform="rotate(-0 233.933858 166.5756)">lactate 1.000</text>
+   </g>
+  </g>
+  <g id="axes_2">
+   <g id="patch_5">
+    <path d="M 319.826308 177.624 
+L 478.8864 177.624 
+L 478.8864 5.76 
+L 319.826308 5.76 
+L 319.826308 177.624 
+z
+" style="fill: none"/>
+   </g>
+   <g id="patch_6">
+    <path d="M 340.79332 177.624 
+L 385.619346 177.624 
+L 385.619346 150.344 
+L 340.79332 150.344 
+z
+" clip-path="url(#pa37a8f8d71)" style="fill: #6dbdac; opacity: 0.4; stroke: #6dbdac; stroke-width: 1.1; stroke-linejoin: miter"/>
+   </g>
+   <g id="patch_7">
+    <path d="M 340.79332 150.344 
+L 385.619346 150.344 
+L 385.619346 147.33638 
+L 340.79332 147.33638 
+z
+" clip-path="url(#pa37a8f8d71)" style="fill: #d7a95c; opacity: 0.4; stroke: #d7a95c; stroke-width: 1.1; stroke-linejoin: miter"/>
+   </g>
+   <g id="patch_8">
+    <path d="M 340.79332 147.33638 
+L 385.619346 147.33638 
+L 385.619346 145.49498 
+L 340.79332 145.49498 
+z
+" clip-path="url(#pa37a8f8d71)" style="fill: #9a8872; opacity: 0.4; stroke: #9a8872; stroke-width: 1.1; stroke-linejoin: miter"/>
+   </g>
+   <g id="patch_9">
+    <path d="M 340.79332 145.49498 
+L 385.619346 145.49498 
+L 385.619346 67.14 
+L 340.79332 67.14 
+z
+" clip-path="url(#pa37a8f8d71)" style="fill: #3a3026; opacity: 0.4; stroke: #3a3026; stroke-width: 1.1; stroke-linejoin: miter"/>
+   </g>
+   <g id="patch_10">
+    <path d="M 413.093362 177.624 
+L 457.919388 177.624 
+L 457.919388 92.076962 
+L 413.093362 92.076962 
+z
+" clip-path="url(#pa37a8f8d71)" style="fill: #d98c72; opacity: 0.4; stroke: #d98c72; stroke-width: 1.1; stroke-linejoin: miter"/>
+   </g>
+   <g id="matplotlib.axis_3">
+    <g id="xtick_6">
+     <g id="line2d_25">
+      <g>
+       <use xlink:href="#m5f3ba25b38" x="363.206333" y="177.624" style="fill: #9a8872; stroke: #9a8872; stroke-width: 0.9"/>
+      </g>
+     </g>
+     <g id="text_20">
+      <text style="font-size: 8.2px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: middle; fill: #9a8872" x="363.206333" y="190.854719" transform="rotate(-0 363.206333 190.854719)">acid, 0.90 g per g</text>
+     </g>
+    </g>
+    <g id="xtick_7">
+     <g id="line2d_26">
+      <g>
+       <use xlink:href="#m5f3ba25b38" x="435.506375" y="177.624" style="fill: #9a8872; stroke: #9a8872; stroke-width: 0.9"/>
+      </g>
+     </g>
+     <g id="text_21">
+      <text style="font-size: 8.2px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: middle; fill: #9a8872" x="435.506375" y="190.854719" transform="rotate(-0 435.506375 190.854719)">butanol, 0.287</text>
+     </g>
+    </g>
+   </g>
+   <g id="matplotlib.axis_4">
+    <g id="ytick_7">
+     <g id="line2d_27">
+      <path d="M 319.826308 177.624 
+L 478.8864 177.624 
+" clip-path="url(#pa37a8f8d71)" style="fill: none; stroke: #2e251c; stroke-opacity: 0.7; stroke-width: 0.6; stroke-linecap: square"/>
+     </g>
+     <g id="line2d_28">
+      <g>
+       <use xlink:href="#mca8cde7e88" x="319.826308" y="177.624" style="fill: #9a8872; stroke: #9a8872; stroke-width: 0.9"/>
+      </g>
+     </g>
+     <g id="text_22">
+      <text style="font-size: 9.5px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: end; fill: #9a8872" x="312.826308" y="181.233258" transform="rotate(-0 312.826308 181.233258)">0.0</text>
+     </g>
+    </g>
+    <g id="ytick_8">
+     <g id="line2d_29">
+      <path d="M 319.826308 146.934 
+L 478.8864 146.934 
+" clip-path="url(#pa37a8f8d71)" style="fill: none; stroke: #2e251c; stroke-opacity: 0.7; stroke-width: 0.6; stroke-linecap: square"/>
+     </g>
+     <g id="line2d_30">
+      <g>
+       <use xlink:href="#mca8cde7e88" x="319.826308" y="146.934" style="fill: #9a8872; stroke: #9a8872; stroke-width: 0.9"/>
+      </g>
+     </g>
+     <g id="text_23">
+      <text style="font-size: 9.5px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: end; fill: #9a8872" x="312.826308" y="150.543258" transform="rotate(-0 312.826308 150.543258)">0.5</text>
+     </g>
+    </g>
+    <g id="ytick_9">
+     <g id="line2d_31">
+      <path d="M 319.826308 116.244 
+L 478.8864 116.244 
+" clip-path="url(#pa37a8f8d71)" style="fill: none; stroke: #2e251c; stroke-opacity: 0.7; stroke-width: 0.6; stroke-linecap: square"/>
+     </g>
+     <g id="line2d_32">
+      <g>
+       <use xlink:href="#mca8cde7e88" x="319.826308" y="116.244" style="fill: #9a8872; stroke: #9a8872; stroke-width: 0.9"/>
+      </g>
+     </g>
+     <g id="text_24">
+      <text style="font-size: 9.5px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: end; fill: #9a8872" x="312.826308" y="119.853258" transform="rotate(-0 312.826308 119.853258)">1.0</text>
+     </g>
+    </g>
+    <g id="ytick_10">
+     <g id="line2d_33">
+      <path d="M 319.826308 85.554 
+L 478.8864 85.554 
+" clip-path="url(#pa37a8f8d71)" style="fill: none; stroke: #2e251c; stroke-opacity: 0.7; stroke-width: 0.6; stroke-linecap: square"/>
+     </g>
+     <g id="line2d_34">
+      <g>
+       <use xlink:href="#mca8cde7e88" x="319.826308" y="85.554" style="fill: #9a8872; stroke: #9a8872; stroke-width: 0.9"/>
+      </g>
+     </g>
+     <g id="text_25">
+      <text style="font-size: 9.5px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: end; fill: #9a8872" x="312.826308" y="89.163258" transform="rotate(-0 312.826308 89.163258)">1.5</text>
+     </g>
+    </g>
+    <g id="ytick_11">
+     <g id="line2d_35">
+      <path d="M 319.826308 54.864 
+L 478.8864 54.864 
+" clip-path="url(#pa37a8f8d71)" style="fill: none; stroke: #2e251c; stroke-opacity: 0.7; stroke-width: 0.6; stroke-linecap: square"/>
+     </g>
+     <g id="line2d_36">
+      <g>
+       <use xlink:href="#mca8cde7e88" x="319.826308" y="54.864" style="fill: #9a8872; stroke: #9a8872; stroke-width: 0.9"/>
+      </g>
+     </g>
+     <g id="text_26">
+      <text style="font-size: 9.5px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: end; fill: #9a8872" x="312.826308" y="58.473258" transform="rotate(-0 312.826308 58.473258)">2.0</text>
+     </g>
+    </g>
+    <g id="ytick_12">
+     <g id="line2d_37">
+      <path d="M 319.826308 24.174 
+L 478.8864 24.174 
+" clip-path="url(#pa37a8f8d71)" style="fill: none; stroke: #2e251c; stroke-opacity: 0.7; stroke-width: 0.6; stroke-linecap: square"/>
+     </g>
+     <g id="line2d_38">
+      <g>
+       <use xlink:href="#mca8cde7e88" x="319.826308" y="24.174" style="fill: #9a8872; stroke: #9a8872; stroke-width: 0.9"/>
+      </g>
+     </g>
+     <g id="text_27">
+      <text style="font-size: 9.5px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: end; fill: #9a8872" x="312.826308" y="27.783258" transform="rotate(-0 312.826308 27.783258)">2.5</text>
+     </g>
+    </g>
+    <g id="text_28">
+     <text style="font-size: 9.5px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: middle; fill: #cbbca6" x="291.742636" y="91.692" transform="rotate(-90 291.742636 91.692)">dollars per kg product</text>
+    </g>
+   </g>
+   <g id="line2d_39">
+    <path d="M 319.826308 67.14 
+L 478.8864 67.14 
+" clip-path="url(#pa37a8f8d71)" style="fill: none; stroke: #d98c72; stroke-width: 1.3; stroke-linecap: square"/>
+   </g>
+   <g id="patch_11">
+    <path d="M 319.826308 177.624 
+L 319.826308 5.76 
+" style="fill: none; stroke: #3a3026; stroke-width: 0.9; stroke-linejoin: miter; stroke-linecap: square"/>
+   </g>
+   <g id="patch_12">
+    <path d="M 319.826308 177.624 
+L 478.8864 177.624 
+" style="fill: none; stroke: #3a3026; stroke-width: 0.9; stroke-linejoin: miter; stroke-linecap: square"/>
+   </g>
+   <g id="text_29">
+    <text style="font-size: 7.8px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; fill: #cbbca6" transform="translate(322.003442 161.769166)">sugar at 0.90 g per g</text>
+    <text style="font-size: 7.8px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; fill: #cbbca6" transform="translate(354.522739 170.503459)">0.44</text>
+   </g>
+   <g id="text_30">
+    <text style="font-size: 7.8px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; fill: #cbbca6" transform="translate(315.473989 99.735509)">medium, labour, capital,</text>
+    <text style="font-size: 7.8px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; fill: #cbbca6" transform="translate(346.140786 108.469803)">recovery</text>
+    <text style="font-size: 7.8px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; fill: #cbbca6" transform="translate(354.522739 117.204096)">1.28</text>
+   </g>
+   <g id="text_31">
+    <text style="font-size: 7.8px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: middle; fill: #cbbca6" x="435.506375" y="137.002793" transform="rotate(-0 435.506375 137.002793)">sugar alone</text>
+   </g>
+   <g id="text_32">
+    <text style="font-weight: 700; font-size: 8.6px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: middle; fill: #d98c72" x="384.896345" y="63.4572" transform="rotate(-0 384.896345 63.4572)">1.80</text>
+   </g>
+   <g id="text_33">
+    <text style="font-weight: 700; font-size: 8.6px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: middle; fill: #d98c72" x="435.506375" y="88.394162" transform="rotate(-0 435.506375 88.394162)">1.39</text>
+   </g>
+   <g id="text_34">
+    <text style="font-size: 7.6px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; fill: #9a8872" transform="translate(323.44131 22.583213)">the two thin bands are lime at 0.05</text>
+    <text style="font-size: 7.6px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; fill: #9a8872" transform="translate(323.44131 31.09355)">and fermentative utilities at 0.03</text>
+   </g>
+  </g>
+  <g id="text_35">
+   <text style="font-size: 8.3px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: start; fill: #9a8872" x="5.76" y="233.424" transform="rotate(-0 5.76 233.424)">Glucose $400 per tonne, product $1.80 per kg, electricity $0.07 per kWh. Prices are assumptions; the 30% rule of thumb is not a derived threshold.</text>
+  </g>
+ </g>
+ <defs>
+  <clipPath id="p0ff4bf2479">
+   <rect x="65.9664" y="5.76" width="190.872111" height="171.864"/>
+  </clipPath>
+  <clipPath id="pa37a8f8d71">
+   <rect x="319.826308" y="5.76" width="159.060092" height="171.864"/>
+  </clipPath>
+ </defs>
+</svg>
+</div><figcaption>Losing money on sugar alone begins at 0.222 g g⁻¹, which every product in the class clears; the bar that decides a process is the 30%-of-revenue line at 0.741 g g⁻¹, which the three-carbon acids clear at their ceiling and ethanol cannot clear at any yield from glucose at this price. The right panel is why the class is anaerobic: the same skeleton with an aerobic utilities line of about 0.55 per kg does not close.</figcaption></figure>
+<p>Stanbury&#x27;s Ch 12 is titled Fermentation Economics and its sections are named rather than numbered. The structural claims are the durable part. Across a range of processes the cost components rank in decreasing order as raw materials, fixed costs, utilities and labour, which is why media and strain improvement earn development effort and why work on a component contributing little cannot be justified. Capital scales as the sixth to three-quarter power of size — reported scale factors of 0.6 for brewing, 0.7–0.8 for single-cell protein, 0.6 for antibody production, 0.75 for fermentation processes generally — and the relative cost per unit of output falls steeply with scale, the chapter&#x27;s Table 12.4 giving 30.0 at 1 unit of volume against 1.0 at 100 and 0.3 at 1 000. Containment inverts that: basic fermenter cost rises 10–30% per containment level, only about 30% of a containment building is usable space, and a 3 m³ recombinant facility can cost as much to build as a 2 000 m³ antibiotic plant. Energy for a stirred aerobic fermentation, covering agitation, air compression and chilled water, is about 8.2 kW m⁻³. Turnaround between batches is 15–25 h, and the batch cycle is t = (1/μₘ)ln(X_f/X₀) + t_T + t_L + t_D, so productivity over the cycle and not over the fermentation is what sizes a plant.</p>
+<p><strong>7. What is left for recovery, which is the number most proposals omit</strong></p>
+<p>Stanbury quotes Atkinson and Mavituna&#x27;s estimates of the allowance a bulk process can afford for recovery, and they are the most transferable figures in the chapter because they are stated as a limit per tonne against a selling price and a broth concentration: about £40 per tonne for ethanol selling at £220 per tonne at 7% w/v from a local carbohydrate; about £100 per tonne for single-cell protein selling at £300 per tonne at 3% w/v; about £300 per tonne for organic acids or glycol selling at £700 per tonne at 10% concentration. The pattern is the one week 46 generalises: the allowance rises with both price and broth concentration, and a dilute cheap product has almost nothing to spend. Two further numbers from the same section: recovery and purification lose 8% of citric acid and 4% of penicillin G before salt formation, so a yield quoted at the fermenter is not the yield at the drum; and filter aid used economically still adds about £9 per tonne for a product at 10% concentration in broth. Keep the currency as printed — these are 1990s sterling figures and converting them silently would hide both the vintage and the exchange assumption.</p>
+<p><strong>8. Why most announced bio-based chemicals never scaled, stated as four checks</strong></p>
+<p>Run them in this order on any announcement. First, the substrate check: at the reported yield, what fraction of the selling price is sugar? Above about 40% a bulk process has no room for anything else, and the anchor puts the breakeven for a product at $1.80 per kilogram at 0.222 g g⁻¹. Second, the aeration check: is the route aerobic? At 8.2 kW m⁻³ the utilities term alone can approach a third of a bulk selling price, which is why the bulk products that scaled — ethanol, lactate, 1,3-propanediol — are fermentative and the aerobic ones mostly did not. Third, the concentration check: what is the titre, and what does the recovery allowance at that concentration permit? A 20 g L⁻¹ broth selling at commodity price cannot pay for a distillation train. Fourth, the incumbent check: the competing petrochemical price is not a fixed target, and a process designed against a high oil price meets a low one. None of these four is a strain property, which is the week&#x27;s uncomfortable lesson: most of the failures were not strain failures.</p>
+<h3>Worked anchor</h3>
+<p>The cost skeleton for a bulk product selling at $1.80 per kilogram, and the yield it demands.</p>
+<p>Basis: glucose at $400 per tonne, that is $0.40 per kilogram; electricity at $0.07 per kWh, as Stanbury&#x27;s own example uses; product selling at $1.80 per kilogram, which is roughly where lactic acid sits.</p>
+<p>Step 1, the substrate line as a function of yield. Substrate cost per kilogram of product is 0.40/Y. Setting that equal to the selling price gives the point at which the process loses money on sugar alone: Y = 0.40/1.80 = 0.222 g g⁻¹. That is the answer to the week&#x27;s check question, and it is a very low bar — every product in the class can clear it.</p>
+<p>Step 2, the bar that matters. A bulk process needs the substrate line at roughly 30% of revenue, because the other 70% has to carry utilities, medium, labour, capital recovery and downstream. At 30% of $1.80, that is $0.54 per kilogram, so Y ≥ 0.40/0.54 = 0.741 g g⁻¹.</p>
+<p>Step 3, which products can reach it. Against the ceilings derived above: lactate and 3-HP at 1.000 g g⁻¹ can, and at a realistic 0.90 g g⁻¹ the sugar costs $0.44 per kilogram, 25% of revenue. Succinate at 1.124 g g⁻¹ with CO₂ fixation can, and at 0.85 g g⁻¹ pays $0.47. Ethanol cannot: its ceiling is 0.511 g g⁻¹, so even at 90% of theoretical the sugar costs 0.40/0.46 = $0.87 per kilogram, 48% of revenue — which is why fuel ethanol is made from sugar at a fraction of $400 per tonne and carries co-product credits. Butanol at a reported 0.287 g g⁻¹ pays $1.39 per kilogram, 77% of revenue, before anything else is bought. The yield ceiling is not the obstacle for the three-carbon acids; it is decisive for the four-carbon alcohols.</p>
+<p>Step 4, the utilities line, which is where aerobic routes die. Take a 48-hour aerobic batch at 8.2 kW m⁻³: 8.2 × 48 = 394 kWh m⁻³, which at $0.07 is $27.6 per cubic metre of broth. At a 50 g L⁻¹ titre one tonne of product needs 20 m³, so that is $552 per tonne, $0.55 per kilogram — 31% of the $1.80 selling price, on top of the sugar. The same calculation for a fermentative route, where Stanbury places aeration and agitation among the minor costs, gives a line that nearly vanishes. Doubling the titre to 100 g L⁻¹ halves it, which is the clearest statement of why titre earns engineering effort even when yield does not change.</p>
+<p>Step 5, the neutralisation line, for the acid case. One tonne of lactic acid is 11.1 kmol of acid. Neutralised with lime, 0.5 mol of Ca(OH)₂ per mol, that is 5.55 kmol, 411 kg; at an assumed $120 per tonne, $49 per tonne of product, $0.05 per kilogram, which is small. The salt is not: springing the acid with sulfuric acid precipitates 5.55 kmol of gypsum at 172.17 g mol⁻¹, which is 956 kg of CaSO₄·2H₂O per tonne of lactic acid — very nearly a tonne of solid waste per tonne of product, to be filtered, washed and disposed of. That burden, not the lime, is the reason a low-pH fermentation is worth the tolerance engineering of week 43.</p>
+<p>Step 6, the total, and the conclusion. Fermentative, at 0.90 g g⁻¹ and 50 g L⁻¹: sugar $0.44, utilities small, neutralisation $0.05, leaving roughly $1.30 of the $1.80 for medium, labour, capital and recovery. Stanbury&#x27;s recovery allowance for organic acids at 10% concentration is about £300 per tonne against a £700 per tonne price, that is 43% of revenue, which at $1.80 would be $0.77 — so the skeleton closes, but only just, and only because the route is anaerobic and the yield is near unity. Change any one of those three and it does not. Note what has not been costed: the complex nitrogen source, which week 43 showed can be $1.60 per kilogram on its own and would close this process on its own.</p>
+<p><strong>Assumptions behind this calculation</strong></p>
+<ul>
+<li>glucose at $400 per tonne, electricity at $0.07 per kWh, product selling at $1.80 per kilogram</li>
+<li>nitrogen supplied as ammonia, so all degrees of reduction are taken nitrogen-free</li>
+<li>a viable bulk process needs the substrate line at about 30% of revenue; the figure is a rule of thumb, not a derived threshold</li>
+<li>a 48-hour aerobic batch at Stanbury&#x27;s 8.2 kW m⁻¹ — agitation, air compression and chilled water — with no credit for heat recovery</li>
+<li>titre 50 g L⁻¹ when broth volume per tonne of product is computed</li>
+<li>lime at an assumed $120 per tonne, and the acid sprung with sulfuric acid so the salt is gypsum</li>
+<li>no medium, labour, capital or downstream cost in the skeleton beyond the lines named</li>
+<li>Stanbury&#x27;s and Atkinson and Mavituna&#x27;s figures left in the currency and vintage as printed, with no indexing to the present</li>
+</ul>
+<h3>Reading map</h3>
+<table><thead><tr><th>Source</th><th>Treatment</th><th>Why</th></tr></thead><tbody><tr><td>Lee Ch 11 §11.2–11.3</td><td>Read closely</td><td>The curriculum&#x27;s pointer reads Lee Ch 11 and Ch 12 §on organic acid and alcohol strains; in Ch 11 that resolves to §11.2 fuels, with §11.2.1 fermentative, §11.2.2 keto acid, §11.2.3 isoprenoid and §11.2.4 fatty acid routes, and §11.3.1 bulk chemicals. Reread the tables from week 40 with the ceilings in hand and convert every reported yield to a fraction of theoretical before comparing strains; at least one exceeds its ceiling and the basis is undeclared.</td></tr><tr><td>Lee Ch 12 §12.4.2 — Organic Acids and Alcohols</td><td>Read closely</td><td>The other half of the same pointer, and the better half, because the host is held constant across products: §12.4.2.1 cis,cis-muconate, §12.4.2.2 glutarate, §12.4.2.3 itaconate, §12.4.2.4 3-hydroxypropionate, §12.4.2.5 short-chain alcohols. Tabulate titre, yield and the stated basis; the chapter is unusually candid about which titres are modest.</td></tr><tr><td>Lee Ch 16 §16.1–16.2</td><td>Read closely</td><td>Substituted for the curriculum&#x27;s Lee Ch 16 §on solvent production, which names no section that exists — the chapter&#x27;s four sections are introduction, aims, genomic editing and genetic parts. The solvent numbers are in §16.1 and §16.2 and were read in week 44; reread them here as yields rather than as host properties, against the 0.411 g g⁻¹ butanol ceiling.</td></tr><tr><td>Stanbury Ch 12 — Fermentation Economics</td><td>Read closely</td><td>Verified against the PDF in this session. Sections are named, not numbered: introduction, isolation of micro-organisms of potential industrial interest, strain improvement, market potential, effects of legislation, plant and equipment, media, air sterilization, heating and cooling, aeration and agitation, batch-process cycle times, continuous culture, recovery costs, water usage and recycling, effluent treatment. Read the introduction, plant and equipment, aeration and agitation, batch-process cycle times and recovery costs closely; take the structure and the ratios and quote your own prices, since the figures are 1990s sterling and dollars.</td></tr><tr><td>Lee Ch 15 §15.3.2.2 and §15.4.2</td><td>Skim</td><td>Reread from week 43 for the acid case: the sub-3.8 pH preference and the reason for it, the evolutionary tolerance results, and in §15.4.2 the bulk chemicals from LAB — ethanol, acetoin and the butanediol isomers. This is where the pH decision and the organism choice meet.</td></tr><tr><td>Lactobacillus Ch 4 — Production of Lactate Using Lactobacillus</td><td>Skim</td><td>Assigned for revisiting, but the volume was not uploaded for this session, so nothing new can be taken from it and no figure in these notes depends on it. The chapter&#x27;s verified contents are in the README — sugar metabolism, lactic acid and PLA, optical purity, acid tolerance and by-product formation, industrial waste substrates, phage — and week 43&#x27;s reading of it stands: recompute reported yields against the 1.000 g g⁻¹ homolactic ceiling and check whether the medium is contributing carbon.</td></tr><tr><td>Doran Ch 11 §11.6 and §11.13</td><td>Skim</td><td>Not in the curriculum&#x27;s reading list but needed for the ATP clause: §11.6 yields in cell culture and §11.13 the effect of maintenance on yields are where the gap between an observed yield and a theoretical one gets its second term, after the product-pathway accounting is done. A bulk process at 90% of theoretical has usually spent most of the missing 10% here.</td></tr></tbody></table>
+<h3>Common misconceptions</h3>
+<ul>
+<li>That a high fraction of theoretical yield means a viable process. Citric acid runs at 89% of its stated ceiling and lactate can approach 90%, and both can still lose money: the substrate line is only one of four, and an aerobic route at 8.2 kW m⁻³ can add a third of a bulk selling price in utilities while a dilute broth leaves nothing for recovery. Viability is a cost skeleton, not a ratio.</li>
+<li>That CO₂ fixation can raise any yield ceiling. It raises the ceiling only where carbon binds and electrons are in surplus, which among these products means succinate and the other reduced four-carbon acids — 0.983 to 1.124 g g⁻¹. For ethanol and butanol electrons already bind, so supplying more carbon does nothing; identify the binding constraint before proposing a carboxylation.</li>
+<li>That neutralised fermentation is simply the easy option. It costs little in base — about $0.05 per kilogram of lactic acid at an assumed lime price — and a great deal in solid: springing the acid again precipitates about 956 kg of gypsum per tonne of product, to be filtered, washed and disposed of, besides the osmotic stress on the culture during the run. The pH decision is a downstream capital decision taken in the fermenter.</li>
+</ul>
+<h3>Check yourself before moving on</h3>
+<p><strong>Q.</strong> At what yield does a product selling at $1.80/kg stop losing money on substrate alone?</p>
+<p><strong>A.</strong> At 0.222 g g⁻¹, with glucose at $400 per tonne: substrate cost is 0.40/Y per kilogram of product, and setting that equal to $1.80 gives Y = 0.222. That is the floor, not the target. A bulk process needs the substrate line near 30% of revenue, which is $0.54 per kilogram and therefore Y ≥ 0.741 g g⁻¹ — a bar the three-carbon acids clear at their ceiling of 1.000 g g⁻¹ and ethanol, at 0.511, cannot clear at any yield from sugar at that price. The useful form of the answer is the inversion: given a price and a substrate cost, the required yield follows, and it can be compared with the ceiling before any strain work begins.</p>
+<p><strong>Q.</strong> A paper reports succinate at 1.05 g per g of glucose. Is the number credible, and what do you check?</p>
+<p><strong>A.</strong> Credible, and that is the point of knowing which constraint binds. Succinate&#x27;s carbon ceiling is 1.5 mol per mol, 0.983 g g⁻¹, so 1.05 exceeds it — but succinate&#x27;s electron ceiling is 1.714 mol per mol, 1.124 g g⁻¹, and the gap between the two is exactly what one CO₂ per succinate fixed through the reductive branch buys. So check first that the route is reductive and carboxylating, and that CO₂ or bicarbonate was supplied; then check the basis, as always, that the yield is on sugar consumed rather than supplied and that no complex medium is contributing carbon. A reported 1.05 g g⁻¹ from an oxidative route, by contrast, would be impossible and the basis would be wrong.</p>
+<p><strong>Q.</strong> Two routes to the same bulk acid are offered: aerobic at 80 g L⁻¹ and 0.80 g g⁻¹, or anaerobic at 40 g L⁻¹ and 0.90 g g⁻¹. Which do you take?</p>
+<p><strong>A.</strong> Cost both skeletons rather than comparing yields. Sugar at $400 per tonne: $0.50 per kilogram aerobic against $0.44 anaerobic, a difference of $0.06 that favours the anaerobic route slightly. Utilities reverse the size of the question: a 48-hour aerobic batch at 8.2 kW m⁻³ and $0.07 per kWh costs $27.6 per cubic metre, which at 80 g L⁻¹ is $0.35 per kilogram, against a fermentative route where Stanbury puts aeration among the minor costs. Recovery pulls the other way, since the allowance rises with broth concentration and 40 g L⁻¹ gives half the concentration to work from — Atkinson and Mavituna&#x27;s organic acid limit of about £300 per tonne is quoted at 10% in broth. So the decision is anaerobic unless the downstream train is concentration-limited, and the way to settle it is to carry both skeletons to a cost per kilogram rather than to argue the yields.</p>
+<hr>
+
+<section class="study-transfer" aria-label="Week 45 application and teach-back">
+<h3>Apply it to your fermentation experience</h3>
+<p><strong>Transfer prompt.</strong> Select a bulk product class compatible with your interests. Estimate whether titre, productivity, or yield is most likely to dominate feasibility, and state the process assumptions behind that choice.</p>
+<p class="meta">Use your actual thesis methods and results where you remember them. Mark missing information as unknown; do not assume the organisms were co-cultured, that a metabolite was measured, or that a proposed mechanism was demonstrated.</p>
+<h3>Teach it back</h3>
+<p>Explain the week's concept from memory, work one number, and name one boundary. Then use the <a href="teach-back.html">five-minute teach-back protocol</a> and log it in the tracker.</p>
+</section>
+<nav class="weeknav" aria-label="Week navigation"><a href="week-44.html">&#8592; Week 44</a><a class="idx" href="index.html">Lecture index</a><a class="idx" href="case-study.html">Case study</a><a href="week-46.html">Week 46 &#8594;</a></nav>
+</main>
+<footer class="docfoot"><a href="../metabolic-engineering-tracker.html">&#8592; Course tracker</a><span>Metabolic engineering &middot; 55 weeks</span></footer>
+<script>
+(function(){var root=document.documentElement,key="me.theme";var bs=Array.prototype.slice.call(document.querySelectorAll(".appearance button"));
+function paint(v){bs.forEach(function(b){b.setAttribute("aria-pressed",b.getAttribute("data-appearance")===v?"true":"false");});if(v==="auto")root.removeAttribute("data-theme");else root.setAttribute("data-theme",v);}
+var saved="auto";try{saved=localStorage.getItem(key)||"auto";}catch(e){}
+bs.forEach(function(b){b.addEventListener("click",function(){var v=b.getAttribute("data-appearance");paint(v);try{localStorage.setItem(key,v);}catch(e){}});});paint(saved);})();
+</script>
+</body>
+</html>

@@ -1,0 +1,1647 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="utf-8"><title>Week 40 — Escherichia coli as a platform — Metabolic engineering</title>
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+
+
+<style>:root{color-scheme:light;--paper:#FAF6EF;--ink:#211A12;--ink-2:#4A3C2C;--ink-3:#8A7458;
+--line:#DFD2BE;--line-2:#EDE4D5;--broth:#9A6B1F;--broth-soft:#F6ECD9;
+--serif:"Newsreader",Georgia,serif;--sans:"Public Sans",system-ui,sans-serif}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--paper:#15120D;--ink:#F1E9DC;--ink-2:#CBBCA6;
+--ink-3:#948872;--line:#352C22;--line-2:#2A231B;--broth:#D7A95C;--broth-soft:#241D14}}
+*{box-sizing:border-box}
+body{margin:0;background:var(--paper);color:var(--ink);font-family:var(--sans);font-size:15.5px;line-height:1.6;
+padding:env(safe-area-inset-top,0) 0 env(safe-area-inset-bottom,0)}
+.wrap{max-width:840px;margin:0 auto;padding:40px 22px 90px}
+h1{font-family:var(--serif);font-size:clamp(28px,5vw,42px);line-height:1.1;font-weight:600;margin:0 0 6px;letter-spacing:-.02em}
+h2{font-family:var(--serif);font-size:26px;font-weight:600;margin:46px 0 10px;letter-spacing:-.01em;padding-bottom:7px;border-bottom:1px solid var(--line)}
+h3{font-family:var(--serif);font-size:20px;font-weight:600;margin:30px 0 4px;color:var(--broth)}
+h4{font-size:14px;font-weight:650;margin:18px 0 4px;color:var(--ink-3);letter-spacing:.02em;text-transform:uppercase}
+p{margin:0 0 12px;max-width:74ch}
+em{color:var(--ink-2)}
+ul{margin:0 0 14px;padding-left:1.15em;max-width:74ch}
+li{margin:.3em 0}li::marker{color:var(--ink-3)}
+hr{border:0;border-top:1px solid var(--line);margin:40px 0}
+strong{font-weight:650}
+table{border-collapse:collapse;width:100%;margin:14px 0 20px;font-size:14px}
+th{text-align:left;font-weight:600;color:var(--ink-3);font-size:12.5px;padding:7px 9px;border-bottom:1.5px solid var(--line)}
+td{padding:8px 9px;border-bottom:1px solid var(--line-2);vertical-align:top}
+tr:nth-child(even) td{background:var(--broth-soft)}
+
+figure.fig{margin:22px 0 26px;padding:0;max-width:100%}
+figure.fig svg{width:100%;height:auto;display:block;background:var(--card);
+  border:1px solid var(--line-2);border-radius:10px;padding:8px 10px}
+figure.fig figcaption{font-size:13px;color:var(--ink-3);margin-top:8px;max-width:74ch;line-height:1.5}
+figure.fig .figtitle{font-family:var(--serif);font-size:15px;color:var(--ink-2);margin-bottom:6px}
+figure.fig .fig-dark{display:none}
+@media (prefers-color-scheme: dark){
+  figure.fig .fig-light{display:none}
+  figure.fig .fig-dark{display:block}
+}
+@media print{figure.fig{break-inside:avoid;page-break-inside:avoid}
+  figure.fig .fig-dark{display:none !important}
+  figure.fig .fig-light{display:block !important}}
+
+@media print{body{background:#fff}.wrap{padding:0;max-width:none}h2,h3{page-break-after:avoid}}</style><script>try{var t=localStorage.getItem("me.theme");if(t&&t!=="auto")document.documentElement.setAttribute("data-theme",t);}catch(e){}</script>
+<meta name="color-scheme" content="light dark">
+<meta name="theme-color" content="#ffffff" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#000000" media="(prefers-color-scheme: dark)">
+<style>
+/* ============================================================
+   COURSE LIBRARY — Apple document shell
+   ============================================================ */
+:root{
+  color-scheme:light;
+  --paper:#FFFFFF;--surface:#F5F5F7;--card:#FFFFFF;--fill:#F5F5F7;
+  --ink:#1D1D1F;--ink-2:#6E6E73;--ink-3:#6E6E73;
+  --line:rgba(0,0,0,.14);--line-2:rgba(0,0,0,.08);
+  --broth:#0071E3;--broth-soft:rgba(0,113,227,.10);
+  --nav-bg:rgba(255,255,255,.84);
+  --sans:-apple-system,BlinkMacSystemFont,"SF Pro Text","SF Pro Display","Helvetica Neue",Arial,sans-serif;
+  --mono:ui-monospace,"SF Mono",Menlo,Consolas,monospace;
+  --serif:var(--sans);
+}
+@media (prefers-color-scheme:dark){
+  :root:not([data-theme="light"]){
+    color-scheme:dark;
+    --paper:#000000;--surface:#1C1C1E;--card:#2C2C2E;--fill:#2C2C2E;
+    --ink:#F5F5F7;--ink-2:#A1A1A6;--ink-3:#8E8E93;
+    --line:rgba(255,255,255,.16);--line-2:rgba(255,255,255,.09);
+    --broth:#5AA9FF;--broth-soft:rgba(10,132,255,.18);
+    --nav-bg:rgba(0,0,0,.74);
+  }
+}
+:root[data-theme="dark"]{
+  color-scheme:dark;
+  --paper:#000000;--surface:#1C1C1E;--card:#2C2C2E;--fill:#2C2C2E;
+  --ink:#F5F5F7;--ink-2:#A1A1A6;--ink-3:#8E8E93;
+  --line:rgba(255,255,255,.16);--line-2:rgba(255,255,255,.09);
+  --broth:#5AA9FF;--broth-soft:rgba(10,132,255,.18);
+  --nav-bg:rgba(0,0,0,.74);
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth;scroll-padding-top:72px;-webkit-text-size-adjust:100%}
+body{
+  margin:0;background:var(--paper);color:var(--ink);
+  font-family:var(--sans);font-size:17px;line-height:1.62;letter-spacing:-.011em;
+  padding:0;
+}
+.docbar{
+  position:sticky;top:0;z-index:80;display:flex;align-items:center;justify-content:space-between;gap:12px;
+  padding:8px max(24px,calc((100vw - 1180px)/2));
+  background:var(--nav-bg);
+  -webkit-backdrop-filter:saturate(180%) blur(20px);backdrop-filter:saturate(180%) blur(20px);
+  border-bottom:1px solid var(--line-2);
+}
+.docback{display:inline-flex;align-items:center;gap:6px;color:var(--ink-2);font-size:13px;font-weight:500;text-decoration:none;white-space:nowrap}
+.docback:hover{color:var(--broth)}
+.appearance{display:inline-flex;gap:2px;padding:2px;background:var(--fill);border-radius:980px}
+.appearance button{border:0;background:none;color:var(--ink-2);font:inherit;font-size:12px;font-weight:500;line-height:1;padding:6px 11px;border-radius:980px;cursor:pointer}
+.appearance button[aria-pressed="true"]{background:var(--card);color:var(--ink);box-shadow:0 1px 2px rgba(0,0,0,.08)}
+.wrap{max-width:900px;margin:0 auto;padding:64px 24px 96px}
+body h1{
+  font-family:var(--sans);font-size:clamp(42px,6.2vw,64px);line-height:1.04;letter-spacing:-.04em;
+  font-weight:700;margin:0 0 16px;max-width:18ch;color:var(--ink);
+}
+.doc-kicker{font-size:13px;font-weight:500;letter-spacing:0;color:var(--ink-2);margin:0 0 12px}
+body h1 + p{font-size:20px;line-height:1.55;color:var(--ink-2);max-width:68ch;margin:0 0 18px}
+body h1 + p strong{color:var(--ink);font-weight:600}
+body h2{
+  font-family:var(--sans);font-size:32px;line-height:1.15;letter-spacing:-.03em;font-weight:600;
+  color:var(--ink);margin:64px 0 14px;padding:0;border:0;
+}
+body h3{font-family:var(--sans);font-size:22px;line-height:1.25;letter-spacing:-.02em;font-weight:600;color:var(--ink);margin:36px 0 8px}
+body h4{font-size:14px;line-height:1.4;font-weight:600;letter-spacing:0;text-transform:none;color:var(--ink-2);margin:24px 0 6px}
+body p{margin:0 0 14px;max-width:72ch}
+body ul,body ol{margin:0 0 16px;padding-left:1.25em;max-width:72ch}
+body li{margin:.32em 0}
+body li::marker{color:var(--ink-3)}
+body strong{font-weight:600;color:var(--ink)}
+body em{color:var(--ink)}
+body a{color:var(--broth);text-decoration:underline;text-underline-offset:2px}
+body a:hover{text-decoration:underline}
+body hr{border:0;border-top:1px solid var(--line-2);margin:56px 0}
+body table{border-collapse:collapse;width:100%;margin:22px 0 30px;font-size:15px;line-height:1.45}
+body th{text-align:left;font-weight:600;font-size:12.5px;color:var(--ink-2);padding:10px 12px;background:var(--surface);border-bottom:1px solid var(--line)}
+body td{padding:11px 12px;border-bottom:1px solid var(--line-2);vertical-align:top}
+body tr:nth-child(even) td{background:transparent}
+body figure.fig{margin:32px 0 36px;padding:0;max-width:100%}
+body figure.fig svg{width:100%;height:auto;display:block;background:var(--surface);border:0;border-radius:20px;padding:18px}
+body figure.fig figcaption{font-size:13px;color:var(--ink-2);margin-top:10px;max-width:72ch;line-height:1.5}
+body figure.fig .figtitle{font-family:var(--sans);font-size:14px;font-weight:600;color:var(--ink);margin-bottom:6px}
+body pre{background:var(--surface);border:1px solid var(--line-2);border-radius:16px;padding:18px;overflow:auto;font-family:var(--mono);font-size:13.5px;line-height:1.55;margin:20px 0 24px}
+body code{font-family:var(--mono);font-size:.88em;background:var(--surface);border-radius:6px;padding:.12em .35em}
+body pre code{background:none;padding:0;font-size:inherit}
+body blockquote{margin:24px 0;padding:2px 0 2px 18px;border-left:3px solid var(--broth);color:var(--ink-2)}
+:root[data-theme="dark"] .fig-light{display:none!important}
+:root[data-theme="dark"] .fig-dark{display:block!important}
+:root[data-theme="light"] .fig-dark{display:none!important}
+:root[data-theme="light"] .fig-light{display:block!important}
+.docfoot{max-width:900px;margin:0 auto;padding:24px 24px 64px;border-top:1px solid var(--line-2);display:flex;justify-content:space-between;gap:12px;font-size:12.5px;color:var(--ink-3)}
+.docfoot a{color:var(--ink-2);text-decoration:none}
+.docfoot a:hover{color:var(--broth)}
+@media (max-width:700px){
+  .docbar{padding:8px 16px}
+  .wrap{padding:40px 18px 80px}
+  body h1{font-size:clamp(38px,11vw,48px)}
+  body h1 + p{font-size:18px}
+  body h2{font-size:28px;margin-top:52px}
+  body h3{font-size:20px}
+  body p,body li{font-size:16.5px}
+  body table{font-size:14px}
+  body th,body td{padding:9px 9px}
+  .docfoot{padding:20px 18px 50px;flex-direction:column;gap:6px}
+}
+@media print{
+  .docbar,.appearance,.docfoot{display:none!important}
+  body{background:#fff;color:#000;font-size:11pt}
+  .wrap{max-width:none;padding:0}
+  body h1{font-size:28pt;max-width:none}
+  body h2{font-size:16pt;page-break-after:avoid}
+  body h3{font-size:13pt;page-break-after:avoid}
+  body a{color:#000;text-decoration:none}
+  body table,body figure{break-inside:avoid}
+}
+
+
+.index-actions{margin:18px 0 36px;display:flex;flex-wrap:wrap;gap:16px;align-items:center}
+.index-actions a{font-size:14px;font-weight:500;color:var(--broth);text-decoration:none}
+.index-actions a:hover{text-decoration:underline}
+.phaseh{display:flex;align-items:baseline;justify-content:space-between;gap:14px;font-size:24px!important;margin:52px 0 2px!important;letter-spacing:-.02em}
+.phaseh span{font-size:12px;font-weight:400;color:var(--ink-3);letter-spacing:0;white-space:nowrap}
+.weeklist{border-top:1px solid var(--line-2);margin-bottom:8px}
+.weekrow{display:flex;align-items:center;gap:14px;min-height:50px;padding:10px 4px;border-bottom:1px solid var(--line-2);text-decoration:none;color:var(--ink)}
+.weekrow:hover{background:var(--surface)}
+.wnum{width:28px;flex:none;font-size:12px;font-weight:600;color:var(--broth);font-variant-numeric:tabular-nums}
+.wtitle{flex:1;font-size:16.5px;font-weight:500;line-height:1.35}
+.warrow{flex:none;color:var(--ink-3);font-size:16px}
+.weeknav{display:flex;align-items:center;justify-content:space-between;gap:14px;margin:52px 0 0;padding-top:22px;border-top:1px solid var(--line-2);font-size:14px}
+.weeknav a{color:var(--broth);text-decoration:none;font-weight:500}
+.weeknav a:hover{text-decoration:underline}
+.weeknav .idx{color:var(--ink-2);font-weight:400}
+.weeknav .empty{visibility:hidden}
+.case-h{max-width:22ch}
+.protocol{max-width:72ch}
+.protocol li{margin:.55em 0}
+.protocol h2{margin-top:38px}
+@media (max-width:700px){.phaseh{font-size:21px!important;margin-top:42px!important}.wtitle{font-size:15.5px}.weeknav{font-size:13px;gap:8px}}
+@media print{.weeknav,.index-actions{display:none!important}}
+</style>
+<style>.sr-only{position:absolute!important;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap;border:0}</style>
+</head><body>
+<header class="docbar"><a class="docback" href="index.html">&#8592; Lecture index</a><div class="appearance" role="group" aria-label="Appearance">
+<button type="button" data-appearance="auto" aria-pressed="true">Auto</button>
+<button type="button" data-appearance="light" aria-pressed="false">Light</button>
+<button type="button" data-appearance="dark" aria-pressed="false">Dark</button>
+</div></header>
+<main class="wrap">
+<p class="doc-kicker">Week 40 of 55 &middot; Hosts, products and the literature &middot; <strong class="tier-badge">Useful next</strong></p>
+<h1>Escherichia coli as a platform</h1>
+<h2 class="sr-only">Week content</h2>
+<p>The reference host, and the week where four decades of published strain engineering are available to check your understanding against. The content divides cleanly: what the knowledge base actually buys, what acetate overflow costs and why it happens, and how to read a published titre. The week&#x27;s hardest habit is the last one — every number in Lee&#x27;s Ch 11 tables is a titre, a yield or a productivity measured under conditions the table does not state, and the first thing to do with any of them is recompute it as a fraction of the theoretical maximum you derive yourself. One of them comes out above 100%, which is the most useful thing in the chapter.</p>
+<h3>Core ideas</h3>
+<p><strong>1. What &quot;reference host&quot; buys, stated as capability rather than reputation</strong></p>
+<p>Shuler §14.3.2 is the honest inventory: E. coli is chosen first when post-translational modification is unnecessary, because the knowledge base, host backgrounds, vectors and promoters are deeper than for any other organism. The quantities behind that are high growth rate, growth to over 50 g dry weight per litre, expression from strong vector–promoter combinations at roughly 25–50% or more of total protein, and cheap defined media — which multiply into volumetric productivity. Table 14.2 rates five hosts across growth rate, genetic systems, expression level, media cost, folding, glycosylation, proteolysis, secretion and safety; it is the skeleton of Artifact 24 and the matrix should keep its columns. Modelling depth is part of the same inventory: Lee §2.4 traces the E. coli genome-scale model from iJE660 through iJR904, iAF1260 and iJO1366 to iML1515, whose reconstruction covers 1,515 genes. No other organism has that lineage, which is exactly why every model you have built in phases 4 and 5 was built here.</p>
+<p><strong>2. The same inventory read as liabilities</strong></p>
+<p>Shuler §14.3.2 continues into what E. coli does badly, and the list is specific. It does not normally secrete protein: about 20% of its protein is translocated across the inner membrane, and excretion into the medium is the exception. High-level cytoplasmic expression triggers the heat-shock regulon, one response of which is increased proteolysis, in some cases fast enough to degrade product as quickly as it is made. More often the product forms an inclusion body of misfolded, inactive protein, recoverable by resolubilisation at a cost that varies enormously between proteins — and advantageous when resolubilisation is easy, because it simplifies the first purification steps. The cytoplasm may not form disulfide bridges, the product usually retains an N-terminal methionine, and lysing the cells releases lipopolysaccharide endotoxin, which is a purification problem rather than a nuisance when the product is injectable.</p>
+<p><strong>3. Acetate overflow is four mechanisms, and the assigned chapter does not contain any of them</strong></p>
+<figure class="fig"><div class="figtitle">Figure 40.3 — Illustrative simulation — overflow against growth rate, and what the lost carbon costs</div><div class="fig-light"><svg role="img" aria-label="Acetate excretion is threshold-linear in growth rate, so a culture below the threshold has no overflow to engineer away and one above it cannot feed-control its way out. The right panel prices the carbon: fifteen points of it is $200 per tonne of product, which is a margin for a bulk chemical and nothing at all for a specialty." xmlns:xlink="http://www.w3.org/1999/xlink" width="490.690775pt" height="235.036703pt" viewBox="0 0 490.690775 235.036703" xmlns="http://www.w3.org/2000/svg" version="1.1">
+ <metadata>
+  <rdf:RDF xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:cc="http://creativecommons.org/ns#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+   <cc:Work>
+    <dc:type rdf:resource="http://purl.org/dc/dcmitype/StillImage"/>
+    <dc:date>2026-11-02T23:57:53.049672</dc:date>
+    <dc:format>image/svg+xml</dc:format>
+    <dc:creator>
+     <cc:Agent>
+      <dc:title>Matplotlib v3.10.8, https://matplotlib.org/</dc:title>
+     </cc:Agent>
+    </dc:creator>
+   </cc:Work>
+  </rdf:RDF>
+ </metadata>
+ <defs>
+  <style type="text/css">*{stroke-linejoin: round; stroke-linecap: butt}</style>
+ </defs>
+ <g id="figure_1">
+  <g id="patch_1">
+   <path d="M 0 235.036703 
+L 490.690775 235.036703 
+L 490.690775 -0 
+L 0 -0 
+L 0 235.036703 
+z
+" style="fill: none"/>
+  </g>
+  <g id="axes_1">
+   <g id="patch_2">
+    <path d="M 65.9664 179.526563 
+L 228.469352 179.526563 
+L 228.469352 18.750563 
+L 65.9664 18.750563 
+L 65.9664 179.526563 
+z
+" style="fill: none"/>
+   </g>
+   <g id="matplotlib.axis_1">
+    <g id="xtick_1">
+     <g id="line2d_1">
+      <defs>
+       <path id="m42c1e4be39" d="M 0 0 
+L 0 3.5 
+" style="stroke: #8a7458; stroke-width: 0.9"/>
+      </defs>
+      <g>
+       <use xlink:href="#m42c1e4be39" x="65.9664" y="179.526563" style="fill: #8a7458; stroke: #8a7458; stroke-width: 0.9"/>
+      </g>
+     </g>
+     <g id="text_1">
+      <text style="font-size: 9.5px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: middle; fill: #8a7458" x="65.9664" y="193.745078" transform="rotate(-0 65.9664 193.745078)">0.0</text>
+     </g>
+    </g>
+    <g id="xtick_2">
+     <g id="line2d_2">
+      <g>
+       <use xlink:href="#m42c1e4be39" x="100.177548" y="179.526563" style="fill: #8a7458; stroke: #8a7458; stroke-width: 0.9"/>
+      </g>
+     </g>
+     <g id="text_2">
+      <text style="font-size: 9.5px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: middle; fill: #8a7458" x="100.177548" y="193.745078" transform="rotate(-0 100.177548 193.745078)">0.2</text>
+     </g>
+    </g>
+    <g id="xtick_3">
+     <g id="line2d_3">
+      <g>
+       <use xlink:href="#m42c1e4be39" x="134.388695" y="179.526563" style="fill: #8a7458; stroke: #8a7458; stroke-width: 0.9"/>
+      </g>
+     </g>
+     <g id="text_3">
+      <text style="font-size: 9.5px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: middle; fill: #8a7458" x="134.388695" y="193.745078" transform="rotate(-0 134.388695 193.745078)">0.4</text>
+     </g>
+    </g>
+    <g id="xtick_4">
+     <g id="line2d_4">
+      <g>
+       <use xlink:href="#m42c1e4be39" x="168.599843" y="179.526563" style="fill: #8a7458; stroke: #8a7458; stroke-width: 0.9"/>
+      </g>
+     </g>
+     <g id="text_4">
+      <text style="font-size: 9.5px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: middle; fill: #8a7458" x="168.599843" y="193.745078" transform="rotate(-0 168.599843 193.745078)">0.6</text>
+     </g>
+    </g>
+    <g id="xtick_5">
+     <g id="line2d_5">
+      <g>
+       <use xlink:href="#m42c1e4be39" x="202.810991" y="179.526563" style="fill: #8a7458; stroke: #8a7458; stroke-width: 0.9"/>
+      </g>
+     </g>
+     <g id="text_5">
+      <text style="font-size: 9.5px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: middle; fill: #8a7458" x="202.810991" y="193.745078" transform="rotate(-0 202.810991 193.745078)">0.8</text>
+     </g>
+    </g>
+    <g id="text_6">
+     <!-- growth rate  (h$^{-1}$) -->
+     <g style="fill: #4a3c2c" transform="translate(104.610376 208.270781)">
+      <text>
+       <tspan x="0" y="-0.064063" style="font-size: 9.5px; font-family: 'Public Sans, Helvetica, Arial, sans-serif'; fill: #4a3c2c">g</tspan>
+       <tspan x="6.030273" y="-0.064063" style="font-size: 9.5px; font-family: 'Public Sans, Helvetica, Arial, sans-serif'; fill: #4a3c2c">r</tspan>
+       <tspan x="9.936035" y="-0.064063" style="font-size: 9.5px; font-family: 'Public Sans, Helvetica, Arial, sans-serif'; fill: #4a3c2c">o</tspan>
+       <tspan x="15.748291" y="-0.064063" style="font-size: 9.5px; font-family: 'Public Sans, Helvetica, Arial, sans-serif'; fill: #4a3c2c">w</tspan>
+       <tspan x="23.518066" y="-0.064063" style="font-size: 9.5px; font-family: 'Public Sans, Helvetica, Arial, sans-serif'; fill: #4a3c2c">t</tspan>
+       <tspan x="27.24292" y="-0.064063" style="font-size: 9.5px; font-family: 'Public Sans, Helvetica, Arial, sans-serif'; fill: #4a3c2c">h</tspan>
+       <tspan x="33.263916" y="-0.064063" style="font-size: 9.5px; font-family: 'Public Sans, Helvetica, Arial, sans-serif'; fill: #4a3c2c"> </tspan>
+       <tspan x="36.283691" y="-0.064063" style="font-size: 9.5px; font-family: 'Public Sans, Helvetica, Arial, sans-serif'; fill: #4a3c2c">r</tspan>
+       <tspan x="40.189453" y="-0.064063" style="font-size: 9.5px; font-family: 'Public Sans, Helvetica, Arial, sans-serif'; fill: #4a3c2c">a</tspan>
+       <tspan x="46.010986" y="-0.064063" style="font-size: 9.5px; font-family: 'Public Sans, Helvetica, Arial, sans-serif'; fill: #4a3c2c">t</tspan>
+       <tspan x="49.73584" y="-0.064063" style="font-size: 9.5px; font-family: 'Public Sans, Helvetica, Arial, sans-serif'; fill: #4a3c2c">e</tspan>
+       <tspan x="55.580566" y="-0.064063" style="font-size: 9.5px; font-family: 'Public Sans, Helvetica, Arial, sans-serif'; fill: #4a3c2c"> </tspan>
+       <tspan x="58.600342" y="-0.064063" style="font-size: 9.5px; font-family: 'Public Sans, Helvetica, Arial, sans-serif'; fill: #4a3c2c"> </tspan>
+       <tspan x="61.620117" y="-0.064063" style="font-size: 9.5px; font-family: 'Public Sans, Helvetica, Arial, sans-serif'; fill: #4a3c2c">(</tspan>
+       <tspan x="65.326416" y="-0.064063" style="font-size: 9.5px; font-family: 'Public Sans, Helvetica, Arial, sans-serif'; fill: #4a3c2c">h</tspan>
+       <tspan x="81.519458" y="-0.064063" style="font-size: 9.5px; font-family: 'Public Sans, Helvetica, Arial, sans-serif'; fill: #4a3c2c">)</tspan>
+       <tspan x="71.443115" y="-3.892188" style="font-size: 6.65px; font-family: 'Public Sans, Helvetica, Arial, sans-serif'; fill: #4a3c2c">−</tspan>
+       <tspan x="77.015088" y="-3.892188" style="font-size: 6.65px; font-family: 'Public Sans, Helvetica, Arial, sans-serif'; fill: #4a3c2c">1</tspan>
+      </text>
+     </g>
+    </g>
+   </g>
+   <g id="matplotlib.axis_2">
+    <g id="ytick_1">
+     <g id="line2d_6">
+      <path d="M 65.9664 179.526563 
+L 228.469352 179.526563 
+" clip-path="url(#p4093d67f60)" style="fill: none; stroke: #e6dccb; stroke-opacity: 0.7; stroke-width: 0.6; stroke-linecap: square"/>
+     </g>
+     <g id="line2d_7">
+      <defs>
+       <path id="m40e069a774" d="M 0 0 
+L -3.5 0 
+" style="stroke: #8a7458; stroke-width: 0.9"/>
+      </defs>
+      <g>
+       <use xlink:href="#m40e069a774" x="65.9664" y="179.526563" style="fill: #8a7458; stroke: #8a7458; stroke-width: 0.9"/>
+      </g>
+     </g>
+     <g id="text_7">
+      <text style="font-size: 9.5px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: end; fill: #8a7458" x="58.9664" y="183.13582" transform="rotate(-0 58.9664 183.13582)">0.0</text>
+     </g>
+    </g>
+    <g id="ytick_2">
+     <g id="line2d_8">
+      <path d="M 65.9664 159.429563 
+L 228.469352 159.429563 
+" clip-path="url(#p4093d67f60)" style="fill: none; stroke: #e6dccb; stroke-opacity: 0.7; stroke-width: 0.6; stroke-linecap: square"/>
+     </g>
+     <g id="line2d_9">
+      <g>
+       <use xlink:href="#m40e069a774" x="65.9664" y="159.429563" style="fill: #8a7458; stroke: #8a7458; stroke-width: 0.9"/>
+      </g>
+     </g>
+     <g id="text_8">
+      <text style="font-size: 9.5px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: end; fill: #8a7458" x="58.9664" y="163.03882" transform="rotate(-0 58.9664 163.03882)">0.2</text>
+     </g>
+    </g>
+    <g id="ytick_3">
+     <g id="line2d_10">
+      <path d="M 65.9664 139.332563 
+L 228.469352 139.332563 
+" clip-path="url(#p4093d67f60)" style="fill: none; stroke: #e6dccb; stroke-opacity: 0.7; stroke-width: 0.6; stroke-linecap: square"/>
+     </g>
+     <g id="line2d_11">
+      <g>
+       <use xlink:href="#m40e069a774" x="65.9664" y="139.332563" style="fill: #8a7458; stroke: #8a7458; stroke-width: 0.9"/>
+      </g>
+     </g>
+     <g id="text_9">
+      <text style="font-size: 9.5px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: end; fill: #8a7458" x="58.9664" y="142.94182" transform="rotate(-0 58.9664 142.94182)">0.4</text>
+     </g>
+    </g>
+    <g id="ytick_4">
+     <g id="line2d_12">
+      <path d="M 65.9664 119.235563 
+L 228.469352 119.235563 
+" clip-path="url(#p4093d67f60)" style="fill: none; stroke: #e6dccb; stroke-opacity: 0.7; stroke-width: 0.6; stroke-linecap: square"/>
+     </g>
+     <g id="line2d_13">
+      <g>
+       <use xlink:href="#m40e069a774" x="65.9664" y="119.235563" style="fill: #8a7458; stroke: #8a7458; stroke-width: 0.9"/>
+      </g>
+     </g>
+     <g id="text_10">
+      <text style="font-size: 9.5px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: end; fill: #8a7458" x="58.9664" y="122.84482" transform="rotate(-0 58.9664 122.84482)">0.6</text>
+     </g>
+    </g>
+    <g id="ytick_5">
+     <g id="line2d_14">
+      <path d="M 65.9664 99.138563 
+L 228.469352 99.138563 
+" clip-path="url(#p4093d67f60)" style="fill: none; stroke: #e6dccb; stroke-opacity: 0.7; stroke-width: 0.6; stroke-linecap: square"/>
+     </g>
+     <g id="line2d_15">
+      <g>
+       <use xlink:href="#m40e069a774" x="65.9664" y="99.138563" style="fill: #8a7458; stroke: #8a7458; stroke-width: 0.9"/>
+      </g>
+     </g>
+     <g id="text_11">
+      <text style="font-size: 9.5px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: end; fill: #8a7458" x="58.9664" y="102.74782" transform="rotate(-0 58.9664 102.74782)">0.8</text>
+     </g>
+    </g>
+    <g id="ytick_6">
+     <g id="line2d_16">
+      <path d="M 65.9664 79.041563 
+L 228.469352 79.041563 
+" clip-path="url(#p4093d67f60)" style="fill: none; stroke: #e6dccb; stroke-opacity: 0.7; stroke-width: 0.6; stroke-linecap: square"/>
+     </g>
+     <g id="line2d_17">
+      <g>
+       <use xlink:href="#m40e069a774" x="65.9664" y="79.041563" style="fill: #8a7458; stroke: #8a7458; stroke-width: 0.9"/>
+      </g>
+     </g>
+     <g id="text_12">
+      <text style="font-size: 9.5px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: end; fill: #8a7458" x="58.9664" y="82.65082" transform="rotate(-0 58.9664 82.65082)">1.0</text>
+     </g>
+    </g>
+    <g id="ytick_7">
+     <g id="line2d_18">
+      <path d="M 65.9664 58.944563 
+L 228.469352 58.944563 
+" clip-path="url(#p4093d67f60)" style="fill: none; stroke: #e6dccb; stroke-opacity: 0.7; stroke-width: 0.6; stroke-linecap: square"/>
+     </g>
+     <g id="line2d_19">
+      <g>
+       <use xlink:href="#m40e069a774" x="65.9664" y="58.944563" style="fill: #8a7458; stroke: #8a7458; stroke-width: 0.9"/>
+      </g>
+     </g>
+     <g id="text_13">
+      <text style="font-size: 9.5px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: end; fill: #8a7458" x="58.9664" y="62.55382" transform="rotate(-0 58.9664 62.55382)">1.2</text>
+     </g>
+    </g>
+    <g id="ytick_8">
+     <g id="line2d_20">
+      <path d="M 65.9664 38.847563 
+L 228.469352 38.847563 
+" clip-path="url(#p4093d67f60)" style="fill: none; stroke: #e6dccb; stroke-opacity: 0.7; stroke-width: 0.6; stroke-linecap: square"/>
+     </g>
+     <g id="line2d_21">
+      <g>
+       <use xlink:href="#m40e069a774" x="65.9664" y="38.847563" style="fill: #8a7458; stroke: #8a7458; stroke-width: 0.9"/>
+      </g>
+     </g>
+     <g id="text_14">
+      <text style="font-size: 9.5px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: end; fill: #8a7458" x="58.9664" y="42.45682" transform="rotate(-0 58.9664 42.45682)">1.4</text>
+     </g>
+    </g>
+    <g id="ytick_9">
+     <g id="line2d_22">
+      <path d="M 65.9664 18.750563 
+L 228.469352 18.750563 
+" clip-path="url(#p4093d67f60)" style="fill: none; stroke: #e6dccb; stroke-opacity: 0.7; stroke-width: 0.6; stroke-linecap: square"/>
+     </g>
+     <g id="line2d_23">
+      <g>
+       <use xlink:href="#m40e069a774" x="65.9664" y="18.750563" style="fill: #8a7458; stroke: #8a7458; stroke-width: 0.9"/>
+      </g>
+     </g>
+     <g id="text_15">
+      <text style="font-size: 9.5px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: end; fill: #8a7458" x="58.9664" y="22.35982" transform="rotate(-0 58.9664 22.35982)">1.6</text>
+     </g>
+    </g>
+    <g id="text_16">
+     <text style="font-size: 9.5px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: middle; fill: #4a3c2c" x="37.882728" y="99.138563" transform="rotate(-90 37.882728 99.138563)">acetate excretion  (a.u.)</text>
+    </g>
+   </g>
+   <g id="line2d_24">
+    <path d="M 65.9664 179.526563 
+L 142.726588 179.526563 
+L 143.543186 178.395475 
+L 228.469352 18.750563 
+L 228.469352 18.750563 
+" clip-path="url(#p4093d67f60)" style="fill: none; stroke: #a4503a; stroke-width: 1.9; stroke-linecap: square"/>
+   </g>
+   <g id="line2d_25">
+    <path d="M 142.941482 179.526563 
+L 142.941482 18.750563 
+" clip-path="url(#p4093d67f60)" style="fill: none; stroke-dasharray: 3.6,2.7; stroke-dashoffset: 0; stroke: #dfd2be; stroke-width: 0.9"/>
+   </g>
+   <g id="patch_3">
+    <path d="M 65.9664 179.526563 
+L 65.9664 18.750563 
+" style="fill: none; stroke: #dfd2be; stroke-width: 0.9; stroke-linejoin: miter; stroke-linecap: square"/>
+   </g>
+   <g id="patch_4">
+    <path d="M 65.9664 179.526563 
+L 228.469352 179.526563 
+" style="fill: none; stroke: #dfd2be; stroke-width: 0.9; stroke-linejoin: miter; stroke-linecap: square"/>
+   </g>
+   <g id="text_17">
+    <text style="font-size: 8.2px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: start; fill: #8a7458" x="148.073154" y="36.837863" transform="rotate(-0 148.073154 36.837863)">threshold</text>
+   </g>
+   <g id="text_18">
+    <text style="font-size: 8.2px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; fill: #8a7458" transform="translate(72.80863 43.068581)">respiration</text>
+    <text style="font-size: 8.2px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; fill: #8a7458" transform="translate(72.80863 52.250788)">keeps up</text>
+   </g>
+  </g>
+  <g id="axes_2">
+   <g id="patch_5">
+    <path d="M 300.133153 179.526563 
+L 478.8864 179.526563 
+L 478.8864 18.750563 
+L 300.133153 18.750563 
+L 300.133153 179.526563 
+z
+" style="fill: none"/>
+   </g>
+   <g id="matplotlib.axis_3">
+    <g id="xtick_6">
+     <g id="line2d_26">
+      <g>
+       <use xlink:href="#m42c1e4be39" x="300.133153" y="179.526563" style="fill: #8a7458; stroke: #8a7458; stroke-width: 0.9"/>
+      </g>
+     </g>
+     <g id="text_19">
+      <text style="font-size: 9.5px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: middle; fill: #8a7458" x="300.133153" y="193.745078" transform="rotate(-0 300.133153 193.745078)">0</text>
+     </g>
+    </g>
+    <g id="xtick_7">
+     <g id="line2d_27">
+      <g>
+       <use xlink:href="#m42c1e4be39" x="329.925361" y="179.526563" style="fill: #8a7458; stroke: #8a7458; stroke-width: 0.9"/>
+      </g>
+     </g>
+     <g id="text_20">
+      <text style="font-size: 9.5px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: middle; fill: #8a7458" x="329.925361" y="193.745078" transform="rotate(-0 329.925361 193.745078)">5</text>
+     </g>
+    </g>
+    <g id="xtick_8">
+     <g id="line2d_28">
+      <g>
+       <use xlink:href="#m42c1e4be39" x="359.717569" y="179.526563" style="fill: #8a7458; stroke: #8a7458; stroke-width: 0.9"/>
+      </g>
+     </g>
+     <g id="text_21">
+      <text style="font-size: 9.5px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: middle; fill: #8a7458" x="359.717569" y="193.745078" transform="rotate(-0 359.717569 193.745078)">10</text>
+     </g>
+    </g>
+    <g id="xtick_9">
+     <g id="line2d_29">
+      <g>
+       <use xlink:href="#m42c1e4be39" x="389.509777" y="179.526563" style="fill: #8a7458; stroke: #8a7458; stroke-width: 0.9"/>
+      </g>
+     </g>
+     <g id="text_22">
+      <text style="font-size: 9.5px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: middle; fill: #8a7458" x="389.509777" y="193.745078" transform="rotate(-0 389.509777 193.745078)">15</text>
+     </g>
+    </g>
+    <g id="xtick_10">
+     <g id="line2d_30">
+      <g>
+       <use xlink:href="#m42c1e4be39" x="419.301984" y="179.526563" style="fill: #8a7458; stroke: #8a7458; stroke-width: 0.9"/>
+      </g>
+     </g>
+     <g id="text_23">
+      <text style="font-size: 9.5px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: middle; fill: #8a7458" x="419.301984" y="193.745078" transform="rotate(-0 419.301984 193.745078)">20</text>
+     </g>
+    </g>
+    <g id="xtick_11">
+     <g id="line2d_31">
+      <g>
+       <use xlink:href="#m42c1e4be39" x="449.094192" y="179.526563" style="fill: #8a7458; stroke: #8a7458; stroke-width: 0.9"/>
+      </g>
+     </g>
+     <g id="text_24">
+      <text style="font-size: 9.5px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: middle; fill: #8a7458" x="449.094192" y="193.745078" transform="rotate(-0 449.094192 193.745078)">25</text>
+     </g>
+    </g>
+    <g id="xtick_12">
+     <g id="line2d_32">
+      <g>
+       <use xlink:href="#m42c1e4be39" x="478.8864" y="179.526563" style="fill: #8a7458; stroke: #8a7458; stroke-width: 0.9"/>
+      </g>
+     </g>
+     <g id="text_25">
+      <text style="font-size: 9.5px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: middle; fill: #8a7458" x="478.8864" y="193.745078" transform="rotate(-0 478.8864 193.745078)">30</text>
+     </g>
+    </g>
+    <g id="text_26">
+     <text style="font-size: 9.5px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: middle; fill: #4a3c2c" x="389.509777" y="206.939297" transform="rotate(-0 389.509777 206.939297)">carbon leaving as acetate  (%)</text>
+    </g>
+   </g>
+   <g id="matplotlib.axis_4">
+    <g id="ytick_10">
+     <g id="line2d_33">
+      <path d="M 300.133153 179.526563 
+L 478.8864 179.526563 
+" clip-path="url(#p77caf19640)" style="fill: none; stroke: #e6dccb; stroke-opacity: 0.7; stroke-width: 0.6; stroke-linecap: square"/>
+     </g>
+     <g id="line2d_34">
+      <g>
+       <use xlink:href="#m40e069a774" x="300.133153" y="179.526563" style="fill: #8a7458; stroke: #8a7458; stroke-width: 0.9"/>
+      </g>
+     </g>
+     <g id="text_27">
+      <text style="font-size: 9.5px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: end; fill: #8a7458" x="293.133153" y="183.13582" transform="rotate(-0 293.133153 183.13582)">1.0</text>
+     </g>
+    </g>
+    <g id="ytick_11">
+     <g id="line2d_35">
+      <path d="M 300.133153 154.791793 
+L 478.8864 154.791793 
+" clip-path="url(#p77caf19640)" style="fill: none; stroke: #e6dccb; stroke-opacity: 0.7; stroke-width: 0.6; stroke-linecap: square"/>
+     </g>
+     <g id="line2d_36">
+      <g>
+       <use xlink:href="#m40e069a774" x="300.133153" y="154.791793" style="fill: #8a7458; stroke: #8a7458; stroke-width: 0.9"/>
+      </g>
+     </g>
+     <g id="text_28">
+      <text style="font-size: 9.5px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: end; fill: #8a7458" x="293.133153" y="158.401051" transform="rotate(-0 293.133153 158.401051)">1.1</text>
+     </g>
+    </g>
+    <g id="ytick_12">
+     <g id="line2d_37">
+      <path d="M 300.133153 130.057024 
+L 478.8864 130.057024 
+" clip-path="url(#p77caf19640)" style="fill: none; stroke: #e6dccb; stroke-opacity: 0.7; stroke-width: 0.6; stroke-linecap: square"/>
+     </g>
+     <g id="line2d_38">
+      <g>
+       <use xlink:href="#m40e069a774" x="300.133153" y="130.057024" style="fill: #8a7458; stroke: #8a7458; stroke-width: 0.9"/>
+      </g>
+     </g>
+     <g id="text_29">
+      <text style="font-size: 9.5px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: end; fill: #8a7458" x="293.133153" y="133.666282" transform="rotate(-0 293.133153 133.666282)">1.2</text>
+     </g>
+    </g>
+    <g id="ytick_13">
+     <g id="line2d_39">
+      <path d="M 300.133153 105.322255 
+L 478.8864 105.322255 
+" clip-path="url(#p77caf19640)" style="fill: none; stroke: #e6dccb; stroke-opacity: 0.7; stroke-width: 0.6; stroke-linecap: square"/>
+     </g>
+     <g id="line2d_40">
+      <g>
+       <use xlink:href="#m40e069a774" x="300.133153" y="105.322255" style="fill: #8a7458; stroke: #8a7458; stroke-width: 0.9"/>
+      </g>
+     </g>
+     <g id="text_30">
+      <text style="font-size: 9.5px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: end; fill: #8a7458" x="293.133153" y="108.931513" transform="rotate(-0 293.133153 108.931513)">1.3</text>
+     </g>
+    </g>
+    <g id="ytick_14">
+     <g id="line2d_41">
+      <path d="M 300.133153 80.587486 
+L 478.8864 80.587486 
+" clip-path="url(#p77caf19640)" style="fill: none; stroke: #e6dccb; stroke-opacity: 0.7; stroke-width: 0.6; stroke-linecap: square"/>
+     </g>
+     <g id="line2d_42">
+      <g>
+       <use xlink:href="#m40e069a774" x="300.133153" y="80.587486" style="fill: #8a7458; stroke: #8a7458; stroke-width: 0.9"/>
+      </g>
+     </g>
+     <g id="text_31">
+      <text style="font-size: 9.5px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: end; fill: #8a7458" x="293.133153" y="84.196743" transform="rotate(-0 293.133153 84.196743)">1.4</text>
+     </g>
+    </g>
+    <g id="ytick_15">
+     <g id="line2d_43">
+      <path d="M 300.133153 55.852716 
+L 478.8864 55.852716 
+" clip-path="url(#p77caf19640)" style="fill: none; stroke: #e6dccb; stroke-opacity: 0.7; stroke-width: 0.6; stroke-linecap: square"/>
+     </g>
+     <g id="line2d_44">
+      <g>
+       <use xlink:href="#m40e069a774" x="300.133153" y="55.852716" style="fill: #8a7458; stroke: #8a7458; stroke-width: 0.9"/>
+      </g>
+     </g>
+     <g id="text_32">
+      <text style="font-size: 9.5px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: end; fill: #8a7458" x="293.133153" y="59.461974" transform="rotate(-0 293.133153 59.461974)">1.5</text>
+     </g>
+    </g>
+    <g id="ytick_16">
+     <g id="line2d_45">
+      <path d="M 300.133153 31.117947 
+L 478.8864 31.117947 
+" clip-path="url(#p77caf19640)" style="fill: none; stroke: #e6dccb; stroke-opacity: 0.7; stroke-width: 0.6; stroke-linecap: square"/>
+     </g>
+     <g id="line2d_46">
+      <g>
+       <use xlink:href="#m40e069a774" x="300.133153" y="31.117947" style="fill: #8a7458; stroke: #8a7458; stroke-width: 0.9"/>
+      </g>
+     </g>
+     <g id="text_33">
+      <text style="font-size: 9.5px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: end; fill: #8a7458" x="293.133153" y="34.727205" transform="rotate(-0 293.133153 34.727205)">1.6</text>
+     </g>
+    </g>
+    <g id="text_34">
+     <text style="font-size: 9.5px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: middle; fill: #4a3c2c" x="272.049481" y="99.138563" transform="rotate(-90 272.049481 99.138563)">glucose cost  ($ per kg product)</text>
+    </g>
+   </g>
+   <g id="line2d_47">
+    <path d="M 300.133153 146.54687 
+L 301.635281 145.838376 
+L 303.137409 145.126292 
+L 304.639538 144.41059 
+L 306.141666 143.691243 
+L 307.643794 142.968223 
+L 309.145922 142.241501 
+L 310.64805 141.511049 
+L 312.150178 140.776838 
+L 313.652306 140.03884 
+L 315.154434 139.297024 
+L 316.656563 138.551361 
+L 318.158691 137.801822 
+L 319.660819 137.048375 
+L 321.162947 136.29099 
+L 322.665075 135.529637 
+L 324.167203 134.764283 
+L 325.669331 133.994898 
+L 327.171459 133.221449 
+L 328.673588 132.443904 
+L 330.175716 131.66223 
+L 331.677844 130.876395 
+L 333.179972 130.086365 
+L 334.6821 129.292107 
+L 336.184228 128.493586 
+L 337.686356 127.690768 
+L 339.188484 126.883618 
+L 340.690613 126.072102 
+L 342.192741 125.256183 
+L 343.694869 124.435825 
+L 345.196997 123.610993 
+L 346.699125 122.78165 
+L 348.201253 121.947758 
+L 349.703381 121.10928 
+L 351.205509 120.266178 
+L 352.707638 119.418414 
+L 354.209766 118.565948 
+L 355.711894 117.708743 
+L 357.214022 116.846757 
+L 358.71615 115.979951 
+L 360.218278 115.108285 
+L 361.720406 114.231717 
+L 363.222534 113.350206 
+L 364.724663 112.46371 
+L 366.226791 111.572187 
+L 367.728919 110.675593 
+L 369.231047 109.773886 
+L 370.733175 108.867022 
+L 372.235303 107.954955 
+L 373.737431 107.037641 
+L 375.239559 106.115036 
+L 376.741688 105.187092 
+L 378.243816 104.253764 
+L 379.745944 103.315004 
+L 381.248072 102.370765 
+L 382.7502 101.420999 
+L 384.252328 100.465656 
+L 385.754456 99.504689 
+L 387.256584 98.538046 
+L 388.758713 97.565679 
+L 390.260841 96.587534 
+L 391.762969 95.603562 
+L 393.265097 94.613709 
+L 394.767225 93.617923 
+L 396.269353 92.616151 
+L 397.771481 91.608338 
+L 399.273609 90.594429 
+L 400.775738 89.574368 
+L 402.277866 88.548101 
+L 403.779994 87.515569 
+L 405.282122 86.476716 
+L 406.78425 85.431483 
+L 408.286378 84.379812 
+L 409.788506 83.321641 
+L 411.290634 82.256912 
+L 412.792763 81.185563 
+L 414.294891 80.107532 
+L 415.797019 79.022756 
+L 417.299147 77.931171 
+L 418.801275 76.832715 
+L 420.303403 75.72732 
+L 421.805531 74.614923 
+L 423.307659 73.495454 
+L 424.809788 72.368848 
+L 426.311916 71.235036 
+L 427.814044 70.093947 
+L 429.316172 68.945513 
+L 430.8183 67.789661 
+L 432.320428 66.62632 
+L 433.822556 65.455417 
+L 435.324684 64.276877 
+L 436.826813 63.090626 
+L 438.328941 61.896588 
+L 439.831069 60.694685 
+L 441.333197 59.484841 
+L 442.835325 58.266976 
+L 444.337453 57.041009 
+L 445.839581 55.80686 
+L 447.341709 54.564447 
+L 448.843838 53.313686 
+L 450.345966 52.054493 
+L 451.848094 50.786783 
+L 453.350222 49.510468 
+L 454.85235 48.225461 
+L 456.354478 46.931672 
+L 457.856606 45.629012 
+L 459.358734 44.317388 
+L 460.860863 42.996709 
+L 462.362991 41.666879 
+L 463.865119 40.327803 
+L 465.367247 38.979385 
+L 466.869375 37.621527 
+L 468.371503 36.254129 
+L 469.873631 34.877089 
+L 471.375759 33.490307 
+L 472.877888 32.093678 
+L 474.380016 30.687096 
+L 475.882144 29.270455 
+L 477.384272 27.843648 
+L 478.8864 26.406563 
+" clip-path="url(#p77caf19640)" style="fill: none; stroke: #1f6f62; stroke-width: 1.9; stroke-linecap: square"/>
+   </g>
+   <g id="line2d_48">
+    <path d="M 300.133153 146.54687 
+" clip-path="url(#p77caf19640)" style="fill: none; stroke: #1f6f62; stroke-width: 1.9; stroke-linecap: square"/>
+    <defs>
+     <path id="m6e05a0ba18" d="M 0 2.25 
+C 0.596707 2.25 1.169055 2.012926 1.59099 1.59099 
+C 2.012926 1.169055 2.25 0.596707 2.25 0 
+C 2.25 -0.596707 2.012926 -1.169055 1.59099 -1.59099 
+C 1.169055 -2.012926 0.596707 -2.25 0 -2.25 
+C -0.596707 -2.25 -1.169055 -2.012926 -1.59099 -1.59099 
+C -2.012926 -1.169055 -2.25 -0.596707 -2.25 0 
+C -2.25 0.596707 -2.012926 1.169055 -1.59099 1.59099 
+C -1.169055 2.012926 -0.596707 2.25 0 2.25 
+z
+" style="stroke: #1f6f62"/>
+    </defs>
+    <g clip-path="url(#p77caf19640)">
+     <use xlink:href="#m6e05a0ba18" x="300.133153" y="146.54687" style="fill: #1f6f62; stroke: #1f6f62"/>
+    </g>
+   </g>
+   <g id="line2d_49">
+    <path d="M 390.260841 96.587534 
+" clip-path="url(#p77caf19640)" style="fill: none; stroke: #a4503a; stroke-width: 1.9; stroke-linecap: square"/>
+    <defs>
+     <path id="mc767aa1133" d="M 0 2.25 
+C 0.596707 2.25 1.169055 2.012926 1.59099 1.59099 
+C 2.012926 1.169055 2.25 0.596707 2.25 0 
+C 2.25 -0.596707 2.012926 -1.169055 1.59099 -1.59099 
+C 1.169055 -2.012926 0.596707 -2.25 0 -2.25 
+C -0.596707 -2.25 -1.169055 -2.012926 -1.59099 -1.59099 
+C -2.012926 -1.169055 -2.25 -0.596707 -2.25 0 
+C -2.25 0.596707 -2.012926 1.169055 -1.59099 1.59099 
+C -1.169055 2.012926 -0.596707 2.25 0 2.25 
+z
+" style="stroke: #a4503a"/>
+    </defs>
+    <g clip-path="url(#p77caf19640)">
+     <use xlink:href="#mc767aa1133" x="390.260841" y="96.587534" style="fill: #a4503a; stroke: #a4503a"/>
+    </g>
+   </g>
+   <g id="patch_6">
+    <path d="M 300.133153 179.526563 
+L 300.133153 18.750563 
+" style="fill: none; stroke: #dfd2be; stroke-width: 0.9; stroke-linejoin: miter; stroke-linecap: square"/>
+   </g>
+   <g id="patch_7">
+    <path d="M 300.133153 179.526563 
+L 478.8864 179.526563 
+" style="fill: none; stroke: #dfd2be; stroke-width: 0.9; stroke-linejoin: miter; stroke-linecap: square"/>
+   </g>
+   <g id="text_35">
+    <text style="font-size: 8.2px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; fill: #1f6f62" transform="translate(304.899906 157.724543)">leak closed</text>
+    <text style="font-size: 8.2px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; fill: #1f6f62" transform="translate(304.899906 166.906749)">$1.13 per kg</text>
+   </g>
+   <g id="text_36">
+    <text style="font-size: 8.2px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; fill: #a4503a" transform="translate(395.027594 107.765207)">15% lost</text>
+    <text style="font-size: 8.2px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; fill: #a4503a" transform="translate(395.027594 116.947413)">$1.34 per kg</text>
+   </g>
+   <g id="text_37">
+    <text style="font-size: 9.2px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: start; fill: #8a7458" x="300.133153" y="12.750563" transform="rotate(-0 300.133153 12.750563)">the 15-point leak costs $200 per tonne</text>
+   </g>
+  </g>
+  <g id="text_38">
+   <text style="font-size: 8.3px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: start; fill: #8a7458" x="5.76" y="227.550563" transform="rotate(-0 5.76 227.550563)">Threshold-linear form after Basan et al. 2015; cost at glucose $400 per tonne and a product ceiling of 0.55 g g⁻¹.</text>
+  </g>
+ </g>
+ <defs>
+  <clipPath id="p4093d67f60">
+   <rect x="65.9664" y="18.750563" width="162.502952" height="160.776"/>
+  </clipPath>
+  <clipPath id="p77caf19640">
+   <rect x="300.133153" y="18.750563" width="178.753247" height="160.776"/>
+  </clipPath>
+ </defs>
+</svg>
+</div><div class="fig-dark"><svg role="img" aria-label="Acetate excretion is threshold-linear in growth rate, so a culture below the threshold has no overflow to engineer away and one above it cannot feed-control its way out. The right panel prices the carbon: fifteen points of it is $200 per tonne of product, which is a margin for a bulk chemical and nothing at all for a specialty." xmlns:xlink="http://www.w3.org/1999/xlink" width="490.690775pt" height="235.036703pt" viewBox="0 0 490.690775 235.036703" xmlns="http://www.w3.org/2000/svg" version="1.1">
+ <metadata>
+  <rdf:RDF xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:cc="http://creativecommons.org/ns#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+   <cc:Work>
+    <dc:type rdf:resource="http://purl.org/dc/dcmitype/StillImage"/>
+    <dc:date>2026-11-02T23:57:53.174808</dc:date>
+    <dc:format>image/svg+xml</dc:format>
+    <dc:creator>
+     <cc:Agent>
+      <dc:title>Matplotlib v3.10.8, https://matplotlib.org/</dc:title>
+     </cc:Agent>
+    </dc:creator>
+   </cc:Work>
+  </rdf:RDF>
+ </metadata>
+ <defs>
+  <style type="text/css">*{stroke-linejoin: round; stroke-linecap: butt}</style>
+ </defs>
+ <g id="figure_1">
+  <g id="patch_1">
+   <path d="M 0 235.036703 
+L 490.690775 235.036703 
+L 490.690775 -0 
+L 0 -0 
+L 0 235.036703 
+z
+" style="fill: none"/>
+  </g>
+  <g id="axes_1">
+   <g id="patch_2">
+    <path d="M 65.9664 179.526563 
+L 228.469352 179.526563 
+L 228.469352 18.750563 
+L 65.9664 18.750563 
+L 65.9664 179.526563 
+z
+" style="fill: none"/>
+   </g>
+   <g id="matplotlib.axis_1">
+    <g id="xtick_1">
+     <g id="line2d_1">
+      <defs>
+       <path id="ma0f6067264" d="M 0 0 
+L 0 3.5 
+" style="stroke: #9a8872; stroke-width: 0.9"/>
+      </defs>
+      <g>
+       <use xlink:href="#ma0f6067264" x="65.9664" y="179.526563" style="fill: #9a8872; stroke: #9a8872; stroke-width: 0.9"/>
+      </g>
+     </g>
+     <g id="text_1">
+      <text style="font-size: 9.5px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: middle; fill: #9a8872" x="65.9664" y="193.745078" transform="rotate(-0 65.9664 193.745078)">0.0</text>
+     </g>
+    </g>
+    <g id="xtick_2">
+     <g id="line2d_2">
+      <g>
+       <use xlink:href="#ma0f6067264" x="100.177548" y="179.526563" style="fill: #9a8872; stroke: #9a8872; stroke-width: 0.9"/>
+      </g>
+     </g>
+     <g id="text_2">
+      <text style="font-size: 9.5px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: middle; fill: #9a8872" x="100.177548" y="193.745078" transform="rotate(-0 100.177548 193.745078)">0.2</text>
+     </g>
+    </g>
+    <g id="xtick_3">
+     <g id="line2d_3">
+      <g>
+       <use xlink:href="#ma0f6067264" x="134.388695" y="179.526563" style="fill: #9a8872; stroke: #9a8872; stroke-width: 0.9"/>
+      </g>
+     </g>
+     <g id="text_3">
+      <text style="font-size: 9.5px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: middle; fill: #9a8872" x="134.388695" y="193.745078" transform="rotate(-0 134.388695 193.745078)">0.4</text>
+     </g>
+    </g>
+    <g id="xtick_4">
+     <g id="line2d_4">
+      <g>
+       <use xlink:href="#ma0f6067264" x="168.599843" y="179.526563" style="fill: #9a8872; stroke: #9a8872; stroke-width: 0.9"/>
+      </g>
+     </g>
+     <g id="text_4">
+      <text style="font-size: 9.5px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: middle; fill: #9a8872" x="168.599843" y="193.745078" transform="rotate(-0 168.599843 193.745078)">0.6</text>
+     </g>
+    </g>
+    <g id="xtick_5">
+     <g id="line2d_5">
+      <g>
+       <use xlink:href="#ma0f6067264" x="202.810991" y="179.526563" style="fill: #9a8872; stroke: #9a8872; stroke-width: 0.9"/>
+      </g>
+     </g>
+     <g id="text_5">
+      <text style="font-size: 9.5px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: middle; fill: #9a8872" x="202.810991" y="193.745078" transform="rotate(-0 202.810991 193.745078)">0.8</text>
+     </g>
+    </g>
+    <g id="text_6">
+     <!-- growth rate  (h$^{-1}$) -->
+     <g style="fill: #cbbca6" transform="translate(104.610376 208.270781)">
+      <text>
+       <tspan x="0" y="-0.064063" style="font-size: 9.5px; font-family: 'Public Sans, Helvetica, Arial, sans-serif'; fill: #cbbca6">g</tspan>
+       <tspan x="6.030273" y="-0.064063" style="font-size: 9.5px; font-family: 'Public Sans, Helvetica, Arial, sans-serif'; fill: #cbbca6">r</tspan>
+       <tspan x="9.936035" y="-0.064063" style="font-size: 9.5px; font-family: 'Public Sans, Helvetica, Arial, sans-serif'; fill: #cbbca6">o</tspan>
+       <tspan x="15.748291" y="-0.064063" style="font-size: 9.5px; font-family: 'Public Sans, Helvetica, Arial, sans-serif'; fill: #cbbca6">w</tspan>
+       <tspan x="23.518066" y="-0.064063" style="font-size: 9.5px; font-family: 'Public Sans, Helvetica, Arial, sans-serif'; fill: #cbbca6">t</tspan>
+       <tspan x="27.24292" y="-0.064063" style="font-size: 9.5px; font-family: 'Public Sans, Helvetica, Arial, sans-serif'; fill: #cbbca6">h</tspan>
+       <tspan x="33.263916" y="-0.064063" style="font-size: 9.5px; font-family: 'Public Sans, Helvetica, Arial, sans-serif'; fill: #cbbca6"> </tspan>
+       <tspan x="36.283691" y="-0.064063" style="font-size: 9.5px; font-family: 'Public Sans, Helvetica, Arial, sans-serif'; fill: #cbbca6">r</tspan>
+       <tspan x="40.189453" y="-0.064063" style="font-size: 9.5px; font-family: 'Public Sans, Helvetica, Arial, sans-serif'; fill: #cbbca6">a</tspan>
+       <tspan x="46.010986" y="-0.064063" style="font-size: 9.5px; font-family: 'Public Sans, Helvetica, Arial, sans-serif'; fill: #cbbca6">t</tspan>
+       <tspan x="49.73584" y="-0.064063" style="font-size: 9.5px; font-family: 'Public Sans, Helvetica, Arial, sans-serif'; fill: #cbbca6">e</tspan>
+       <tspan x="55.580566" y="-0.064063" style="font-size: 9.5px; font-family: 'Public Sans, Helvetica, Arial, sans-serif'; fill: #cbbca6"> </tspan>
+       <tspan x="58.600342" y="-0.064063" style="font-size: 9.5px; font-family: 'Public Sans, Helvetica, Arial, sans-serif'; fill: #cbbca6"> </tspan>
+       <tspan x="61.620117" y="-0.064063" style="font-size: 9.5px; font-family: 'Public Sans, Helvetica, Arial, sans-serif'; fill: #cbbca6">(</tspan>
+       <tspan x="65.326416" y="-0.064063" style="font-size: 9.5px; font-family: 'Public Sans, Helvetica, Arial, sans-serif'; fill: #cbbca6">h</tspan>
+       <tspan x="81.519458" y="-0.064063" style="font-size: 9.5px; font-family: 'Public Sans, Helvetica, Arial, sans-serif'; fill: #cbbca6">)</tspan>
+       <tspan x="71.443115" y="-3.892188" style="font-size: 6.65px; font-family: 'Public Sans, Helvetica, Arial, sans-serif'; fill: #cbbca6">−</tspan>
+       <tspan x="77.015088" y="-3.892188" style="font-size: 6.65px; font-family: 'Public Sans, Helvetica, Arial, sans-serif'; fill: #cbbca6">1</tspan>
+      </text>
+     </g>
+    </g>
+   </g>
+   <g id="matplotlib.axis_2">
+    <g id="ytick_1">
+     <g id="line2d_6">
+      <path d="M 65.9664 179.526563 
+L 228.469352 179.526563 
+" clip-path="url(#p83fdf53902)" style="fill: none; stroke: #2e251c; stroke-opacity: 0.7; stroke-width: 0.6; stroke-linecap: square"/>
+     </g>
+     <g id="line2d_7">
+      <defs>
+       <path id="m626a33db5b" d="M 0 0 
+L -3.5 0 
+" style="stroke: #9a8872; stroke-width: 0.9"/>
+      </defs>
+      <g>
+       <use xlink:href="#m626a33db5b" x="65.9664" y="179.526563" style="fill: #9a8872; stroke: #9a8872; stroke-width: 0.9"/>
+      </g>
+     </g>
+     <g id="text_7">
+      <text style="font-size: 9.5px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: end; fill: #9a8872" x="58.9664" y="183.13582" transform="rotate(-0 58.9664 183.13582)">0.0</text>
+     </g>
+    </g>
+    <g id="ytick_2">
+     <g id="line2d_8">
+      <path d="M 65.9664 159.429563 
+L 228.469352 159.429563 
+" clip-path="url(#p83fdf53902)" style="fill: none; stroke: #2e251c; stroke-opacity: 0.7; stroke-width: 0.6; stroke-linecap: square"/>
+     </g>
+     <g id="line2d_9">
+      <g>
+       <use xlink:href="#m626a33db5b" x="65.9664" y="159.429563" style="fill: #9a8872; stroke: #9a8872; stroke-width: 0.9"/>
+      </g>
+     </g>
+     <g id="text_8">
+      <text style="font-size: 9.5px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: end; fill: #9a8872" x="58.9664" y="163.03882" transform="rotate(-0 58.9664 163.03882)">0.2</text>
+     </g>
+    </g>
+    <g id="ytick_3">
+     <g id="line2d_10">
+      <path d="M 65.9664 139.332563 
+L 228.469352 139.332563 
+" clip-path="url(#p83fdf53902)" style="fill: none; stroke: #2e251c; stroke-opacity: 0.7; stroke-width: 0.6; stroke-linecap: square"/>
+     </g>
+     <g id="line2d_11">
+      <g>
+       <use xlink:href="#m626a33db5b" x="65.9664" y="139.332563" style="fill: #9a8872; stroke: #9a8872; stroke-width: 0.9"/>
+      </g>
+     </g>
+     <g id="text_9">
+      <text style="font-size: 9.5px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: end; fill: #9a8872" x="58.9664" y="142.94182" transform="rotate(-0 58.9664 142.94182)">0.4</text>
+     </g>
+    </g>
+    <g id="ytick_4">
+     <g id="line2d_12">
+      <path d="M 65.9664 119.235563 
+L 228.469352 119.235563 
+" clip-path="url(#p83fdf53902)" style="fill: none; stroke: #2e251c; stroke-opacity: 0.7; stroke-width: 0.6; stroke-linecap: square"/>
+     </g>
+     <g id="line2d_13">
+      <g>
+       <use xlink:href="#m626a33db5b" x="65.9664" y="119.235563" style="fill: #9a8872; stroke: #9a8872; stroke-width: 0.9"/>
+      </g>
+     </g>
+     <g id="text_10">
+      <text style="font-size: 9.5px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: end; fill: #9a8872" x="58.9664" y="122.84482" transform="rotate(-0 58.9664 122.84482)">0.6</text>
+     </g>
+    </g>
+    <g id="ytick_5">
+     <g id="line2d_14">
+      <path d="M 65.9664 99.138563 
+L 228.469352 99.138563 
+" clip-path="url(#p83fdf53902)" style="fill: none; stroke: #2e251c; stroke-opacity: 0.7; stroke-width: 0.6; stroke-linecap: square"/>
+     </g>
+     <g id="line2d_15">
+      <g>
+       <use xlink:href="#m626a33db5b" x="65.9664" y="99.138563" style="fill: #9a8872; stroke: #9a8872; stroke-width: 0.9"/>
+      </g>
+     </g>
+     <g id="text_11">
+      <text style="font-size: 9.5px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: end; fill: #9a8872" x="58.9664" y="102.74782" transform="rotate(-0 58.9664 102.74782)">0.8</text>
+     </g>
+    </g>
+    <g id="ytick_6">
+     <g id="line2d_16">
+      <path d="M 65.9664 79.041563 
+L 228.469352 79.041563 
+" clip-path="url(#p83fdf53902)" style="fill: none; stroke: #2e251c; stroke-opacity: 0.7; stroke-width: 0.6; stroke-linecap: square"/>
+     </g>
+     <g id="line2d_17">
+      <g>
+       <use xlink:href="#m626a33db5b" x="65.9664" y="79.041563" style="fill: #9a8872; stroke: #9a8872; stroke-width: 0.9"/>
+      </g>
+     </g>
+     <g id="text_12">
+      <text style="font-size: 9.5px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: end; fill: #9a8872" x="58.9664" y="82.65082" transform="rotate(-0 58.9664 82.65082)">1.0</text>
+     </g>
+    </g>
+    <g id="ytick_7">
+     <g id="line2d_18">
+      <path d="M 65.9664 58.944563 
+L 228.469352 58.944563 
+" clip-path="url(#p83fdf53902)" style="fill: none; stroke: #2e251c; stroke-opacity: 0.7; stroke-width: 0.6; stroke-linecap: square"/>
+     </g>
+     <g id="line2d_19">
+      <g>
+       <use xlink:href="#m626a33db5b" x="65.9664" y="58.944563" style="fill: #9a8872; stroke: #9a8872; stroke-width: 0.9"/>
+      </g>
+     </g>
+     <g id="text_13">
+      <text style="font-size: 9.5px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: end; fill: #9a8872" x="58.9664" y="62.55382" transform="rotate(-0 58.9664 62.55382)">1.2</text>
+     </g>
+    </g>
+    <g id="ytick_8">
+     <g id="line2d_20">
+      <path d="M 65.9664 38.847563 
+L 228.469352 38.847563 
+" clip-path="url(#p83fdf53902)" style="fill: none; stroke: #2e251c; stroke-opacity: 0.7; stroke-width: 0.6; stroke-linecap: square"/>
+     </g>
+     <g id="line2d_21">
+      <g>
+       <use xlink:href="#m626a33db5b" x="65.9664" y="38.847563" style="fill: #9a8872; stroke: #9a8872; stroke-width: 0.9"/>
+      </g>
+     </g>
+     <g id="text_14">
+      <text style="font-size: 9.5px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: end; fill: #9a8872" x="58.9664" y="42.45682" transform="rotate(-0 58.9664 42.45682)">1.4</text>
+     </g>
+    </g>
+    <g id="ytick_9">
+     <g id="line2d_22">
+      <path d="M 65.9664 18.750563 
+L 228.469352 18.750563 
+" clip-path="url(#p83fdf53902)" style="fill: none; stroke: #2e251c; stroke-opacity: 0.7; stroke-width: 0.6; stroke-linecap: square"/>
+     </g>
+     <g id="line2d_23">
+      <g>
+       <use xlink:href="#m626a33db5b" x="65.9664" y="18.750563" style="fill: #9a8872; stroke: #9a8872; stroke-width: 0.9"/>
+      </g>
+     </g>
+     <g id="text_15">
+      <text style="font-size: 9.5px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: end; fill: #9a8872" x="58.9664" y="22.35982" transform="rotate(-0 58.9664 22.35982)">1.6</text>
+     </g>
+    </g>
+    <g id="text_16">
+     <text style="font-size: 9.5px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: middle; fill: #cbbca6" x="37.882728" y="99.138563" transform="rotate(-90 37.882728 99.138563)">acetate excretion  (a.u.)</text>
+    </g>
+   </g>
+   <g id="line2d_24">
+    <path d="M 65.9664 179.526563 
+L 142.726588 179.526563 
+L 143.543186 178.395475 
+L 228.469352 18.750563 
+L 228.469352 18.750563 
+" clip-path="url(#p83fdf53902)" style="fill: none; stroke: #d98c72; stroke-width: 1.9; stroke-linecap: square"/>
+   </g>
+   <g id="line2d_25">
+    <path d="M 142.941482 179.526563 
+L 142.941482 18.750563 
+" clip-path="url(#p83fdf53902)" style="fill: none; stroke-dasharray: 3.6,2.7; stroke-dashoffset: 0; stroke: #3a3026; stroke-width: 0.9"/>
+   </g>
+   <g id="patch_3">
+    <path d="M 65.9664 179.526563 
+L 65.9664 18.750563 
+" style="fill: none; stroke: #3a3026; stroke-width: 0.9; stroke-linejoin: miter; stroke-linecap: square"/>
+   </g>
+   <g id="patch_4">
+    <path d="M 65.9664 179.526563 
+L 228.469352 179.526563 
+" style="fill: none; stroke: #3a3026; stroke-width: 0.9; stroke-linejoin: miter; stroke-linecap: square"/>
+   </g>
+   <g id="text_17">
+    <text style="font-size: 8.2px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: start; fill: #9a8872" x="148.073154" y="36.837863" transform="rotate(-0 148.073154 36.837863)">threshold</text>
+   </g>
+   <g id="text_18">
+    <text style="font-size: 8.2px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; fill: #9a8872" transform="translate(72.80863 43.068581)">respiration</text>
+    <text style="font-size: 8.2px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; fill: #9a8872" transform="translate(72.80863 52.250788)">keeps up</text>
+   </g>
+  </g>
+  <g id="axes_2">
+   <g id="patch_5">
+    <path d="M 300.133153 179.526563 
+L 478.8864 179.526563 
+L 478.8864 18.750563 
+L 300.133153 18.750563 
+L 300.133153 179.526563 
+z
+" style="fill: none"/>
+   </g>
+   <g id="matplotlib.axis_3">
+    <g id="xtick_6">
+     <g id="line2d_26">
+      <g>
+       <use xlink:href="#ma0f6067264" x="300.133153" y="179.526563" style="fill: #9a8872; stroke: #9a8872; stroke-width: 0.9"/>
+      </g>
+     </g>
+     <g id="text_19">
+      <text style="font-size: 9.5px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: middle; fill: #9a8872" x="300.133153" y="193.745078" transform="rotate(-0 300.133153 193.745078)">0</text>
+     </g>
+    </g>
+    <g id="xtick_7">
+     <g id="line2d_27">
+      <g>
+       <use xlink:href="#ma0f6067264" x="329.925361" y="179.526563" style="fill: #9a8872; stroke: #9a8872; stroke-width: 0.9"/>
+      </g>
+     </g>
+     <g id="text_20">
+      <text style="font-size: 9.5px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: middle; fill: #9a8872" x="329.925361" y="193.745078" transform="rotate(-0 329.925361 193.745078)">5</text>
+     </g>
+    </g>
+    <g id="xtick_8">
+     <g id="line2d_28">
+      <g>
+       <use xlink:href="#ma0f6067264" x="359.717569" y="179.526563" style="fill: #9a8872; stroke: #9a8872; stroke-width: 0.9"/>
+      </g>
+     </g>
+     <g id="text_21">
+      <text style="font-size: 9.5px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: middle; fill: #9a8872" x="359.717569" y="193.745078" transform="rotate(-0 359.717569 193.745078)">10</text>
+     </g>
+    </g>
+    <g id="xtick_9">
+     <g id="line2d_29">
+      <g>
+       <use xlink:href="#ma0f6067264" x="389.509777" y="179.526563" style="fill: #9a8872; stroke: #9a8872; stroke-width: 0.9"/>
+      </g>
+     </g>
+     <g id="text_22">
+      <text style="font-size: 9.5px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: middle; fill: #9a8872" x="389.509777" y="193.745078" transform="rotate(-0 389.509777 193.745078)">15</text>
+     </g>
+    </g>
+    <g id="xtick_10">
+     <g id="line2d_30">
+      <g>
+       <use xlink:href="#ma0f6067264" x="419.301984" y="179.526563" style="fill: #9a8872; stroke: #9a8872; stroke-width: 0.9"/>
+      </g>
+     </g>
+     <g id="text_23">
+      <text style="font-size: 9.5px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: middle; fill: #9a8872" x="419.301984" y="193.745078" transform="rotate(-0 419.301984 193.745078)">20</text>
+     </g>
+    </g>
+    <g id="xtick_11">
+     <g id="line2d_31">
+      <g>
+       <use xlink:href="#ma0f6067264" x="449.094192" y="179.526563" style="fill: #9a8872; stroke: #9a8872; stroke-width: 0.9"/>
+      </g>
+     </g>
+     <g id="text_24">
+      <text style="font-size: 9.5px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: middle; fill: #9a8872" x="449.094192" y="193.745078" transform="rotate(-0 449.094192 193.745078)">25</text>
+     </g>
+    </g>
+    <g id="xtick_12">
+     <g id="line2d_32">
+      <g>
+       <use xlink:href="#ma0f6067264" x="478.8864" y="179.526563" style="fill: #9a8872; stroke: #9a8872; stroke-width: 0.9"/>
+      </g>
+     </g>
+     <g id="text_25">
+      <text style="font-size: 9.5px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: middle; fill: #9a8872" x="478.8864" y="193.745078" transform="rotate(-0 478.8864 193.745078)">30</text>
+     </g>
+    </g>
+    <g id="text_26">
+     <text style="font-size: 9.5px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: middle; fill: #cbbca6" x="389.509777" y="206.939297" transform="rotate(-0 389.509777 206.939297)">carbon leaving as acetate  (%)</text>
+    </g>
+   </g>
+   <g id="matplotlib.axis_4">
+    <g id="ytick_10">
+     <g id="line2d_33">
+      <path d="M 300.133153 179.526563 
+L 478.8864 179.526563 
+" clip-path="url(#p8811cacdf6)" style="fill: none; stroke: #2e251c; stroke-opacity: 0.7; stroke-width: 0.6; stroke-linecap: square"/>
+     </g>
+     <g id="line2d_34">
+      <g>
+       <use xlink:href="#m626a33db5b" x="300.133153" y="179.526563" style="fill: #9a8872; stroke: #9a8872; stroke-width: 0.9"/>
+      </g>
+     </g>
+     <g id="text_27">
+      <text style="font-size: 9.5px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: end; fill: #9a8872" x="293.133153" y="183.13582" transform="rotate(-0 293.133153 183.13582)">1.0</text>
+     </g>
+    </g>
+    <g id="ytick_11">
+     <g id="line2d_35">
+      <path d="M 300.133153 154.791793 
+L 478.8864 154.791793 
+" clip-path="url(#p8811cacdf6)" style="fill: none; stroke: #2e251c; stroke-opacity: 0.7; stroke-width: 0.6; stroke-linecap: square"/>
+     </g>
+     <g id="line2d_36">
+      <g>
+       <use xlink:href="#m626a33db5b" x="300.133153" y="154.791793" style="fill: #9a8872; stroke: #9a8872; stroke-width: 0.9"/>
+      </g>
+     </g>
+     <g id="text_28">
+      <text style="font-size: 9.5px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: end; fill: #9a8872" x="293.133153" y="158.401051" transform="rotate(-0 293.133153 158.401051)">1.1</text>
+     </g>
+    </g>
+    <g id="ytick_12">
+     <g id="line2d_37">
+      <path d="M 300.133153 130.057024 
+L 478.8864 130.057024 
+" clip-path="url(#p8811cacdf6)" style="fill: none; stroke: #2e251c; stroke-opacity: 0.7; stroke-width: 0.6; stroke-linecap: square"/>
+     </g>
+     <g id="line2d_38">
+      <g>
+       <use xlink:href="#m626a33db5b" x="300.133153" y="130.057024" style="fill: #9a8872; stroke: #9a8872; stroke-width: 0.9"/>
+      </g>
+     </g>
+     <g id="text_29">
+      <text style="font-size: 9.5px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: end; fill: #9a8872" x="293.133153" y="133.666282" transform="rotate(-0 293.133153 133.666282)">1.2</text>
+     </g>
+    </g>
+    <g id="ytick_13">
+     <g id="line2d_39">
+      <path d="M 300.133153 105.322255 
+L 478.8864 105.322255 
+" clip-path="url(#p8811cacdf6)" style="fill: none; stroke: #2e251c; stroke-opacity: 0.7; stroke-width: 0.6; stroke-linecap: square"/>
+     </g>
+     <g id="line2d_40">
+      <g>
+       <use xlink:href="#m626a33db5b" x="300.133153" y="105.322255" style="fill: #9a8872; stroke: #9a8872; stroke-width: 0.9"/>
+      </g>
+     </g>
+     <g id="text_30">
+      <text style="font-size: 9.5px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: end; fill: #9a8872" x="293.133153" y="108.931513" transform="rotate(-0 293.133153 108.931513)">1.3</text>
+     </g>
+    </g>
+    <g id="ytick_14">
+     <g id="line2d_41">
+      <path d="M 300.133153 80.587486 
+L 478.8864 80.587486 
+" clip-path="url(#p8811cacdf6)" style="fill: none; stroke: #2e251c; stroke-opacity: 0.7; stroke-width: 0.6; stroke-linecap: square"/>
+     </g>
+     <g id="line2d_42">
+      <g>
+       <use xlink:href="#m626a33db5b" x="300.133153" y="80.587486" style="fill: #9a8872; stroke: #9a8872; stroke-width: 0.9"/>
+      </g>
+     </g>
+     <g id="text_31">
+      <text style="font-size: 9.5px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: end; fill: #9a8872" x="293.133153" y="84.196743" transform="rotate(-0 293.133153 84.196743)">1.4</text>
+     </g>
+    </g>
+    <g id="ytick_15">
+     <g id="line2d_43">
+      <path d="M 300.133153 55.852716 
+L 478.8864 55.852716 
+" clip-path="url(#p8811cacdf6)" style="fill: none; stroke: #2e251c; stroke-opacity: 0.7; stroke-width: 0.6; stroke-linecap: square"/>
+     </g>
+     <g id="line2d_44">
+      <g>
+       <use xlink:href="#m626a33db5b" x="300.133153" y="55.852716" style="fill: #9a8872; stroke: #9a8872; stroke-width: 0.9"/>
+      </g>
+     </g>
+     <g id="text_32">
+      <text style="font-size: 9.5px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: end; fill: #9a8872" x="293.133153" y="59.461974" transform="rotate(-0 293.133153 59.461974)">1.5</text>
+     </g>
+    </g>
+    <g id="ytick_16">
+     <g id="line2d_45">
+      <path d="M 300.133153 31.117947 
+L 478.8864 31.117947 
+" clip-path="url(#p8811cacdf6)" style="fill: none; stroke: #2e251c; stroke-opacity: 0.7; stroke-width: 0.6; stroke-linecap: square"/>
+     </g>
+     <g id="line2d_46">
+      <g>
+       <use xlink:href="#m626a33db5b" x="300.133153" y="31.117947" style="fill: #9a8872; stroke: #9a8872; stroke-width: 0.9"/>
+      </g>
+     </g>
+     <g id="text_33">
+      <text style="font-size: 9.5px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: end; fill: #9a8872" x="293.133153" y="34.727205" transform="rotate(-0 293.133153 34.727205)">1.6</text>
+     </g>
+    </g>
+    <g id="text_34">
+     <text style="font-size: 9.5px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: middle; fill: #cbbca6" x="272.049481" y="99.138563" transform="rotate(-90 272.049481 99.138563)">glucose cost  ($ per kg product)</text>
+    </g>
+   </g>
+   <g id="line2d_47">
+    <path d="M 300.133153 146.54687 
+L 301.635281 145.838376 
+L 303.137409 145.126292 
+L 304.639538 144.41059 
+L 306.141666 143.691243 
+L 307.643794 142.968223 
+L 309.145922 142.241501 
+L 310.64805 141.511049 
+L 312.150178 140.776838 
+L 313.652306 140.03884 
+L 315.154434 139.297024 
+L 316.656563 138.551361 
+L 318.158691 137.801822 
+L 319.660819 137.048375 
+L 321.162947 136.29099 
+L 322.665075 135.529637 
+L 324.167203 134.764283 
+L 325.669331 133.994898 
+L 327.171459 133.221449 
+L 328.673588 132.443904 
+L 330.175716 131.66223 
+L 331.677844 130.876395 
+L 333.179972 130.086365 
+L 334.6821 129.292107 
+L 336.184228 128.493586 
+L 337.686356 127.690768 
+L 339.188484 126.883618 
+L 340.690613 126.072102 
+L 342.192741 125.256183 
+L 343.694869 124.435825 
+L 345.196997 123.610993 
+L 346.699125 122.78165 
+L 348.201253 121.947758 
+L 349.703381 121.10928 
+L 351.205509 120.266178 
+L 352.707638 119.418414 
+L 354.209766 118.565948 
+L 355.711894 117.708743 
+L 357.214022 116.846757 
+L 358.71615 115.979951 
+L 360.218278 115.108285 
+L 361.720406 114.231717 
+L 363.222534 113.350206 
+L 364.724663 112.46371 
+L 366.226791 111.572187 
+L 367.728919 110.675593 
+L 369.231047 109.773886 
+L 370.733175 108.867022 
+L 372.235303 107.954955 
+L 373.737431 107.037641 
+L 375.239559 106.115036 
+L 376.741688 105.187092 
+L 378.243816 104.253764 
+L 379.745944 103.315004 
+L 381.248072 102.370765 
+L 382.7502 101.420999 
+L 384.252328 100.465656 
+L 385.754456 99.504689 
+L 387.256584 98.538046 
+L 388.758713 97.565679 
+L 390.260841 96.587534 
+L 391.762969 95.603562 
+L 393.265097 94.613709 
+L 394.767225 93.617923 
+L 396.269353 92.616151 
+L 397.771481 91.608338 
+L 399.273609 90.594429 
+L 400.775738 89.574368 
+L 402.277866 88.548101 
+L 403.779994 87.515569 
+L 405.282122 86.476716 
+L 406.78425 85.431483 
+L 408.286378 84.379812 
+L 409.788506 83.321641 
+L 411.290634 82.256912 
+L 412.792763 81.185563 
+L 414.294891 80.107532 
+L 415.797019 79.022756 
+L 417.299147 77.931171 
+L 418.801275 76.832715 
+L 420.303403 75.72732 
+L 421.805531 74.614923 
+L 423.307659 73.495454 
+L 424.809788 72.368848 
+L 426.311916 71.235036 
+L 427.814044 70.093947 
+L 429.316172 68.945513 
+L 430.8183 67.789661 
+L 432.320428 66.62632 
+L 433.822556 65.455417 
+L 435.324684 64.276877 
+L 436.826813 63.090626 
+L 438.328941 61.896588 
+L 439.831069 60.694685 
+L 441.333197 59.484841 
+L 442.835325 58.266976 
+L 444.337453 57.041009 
+L 445.839581 55.80686 
+L 447.341709 54.564447 
+L 448.843838 53.313686 
+L 450.345966 52.054493 
+L 451.848094 50.786783 
+L 453.350222 49.510468 
+L 454.85235 48.225461 
+L 456.354478 46.931672 
+L 457.856606 45.629012 
+L 459.358734 44.317388 
+L 460.860863 42.996709 
+L 462.362991 41.666879 
+L 463.865119 40.327803 
+L 465.367247 38.979385 
+L 466.869375 37.621527 
+L 468.371503 36.254129 
+L 469.873631 34.877089 
+L 471.375759 33.490307 
+L 472.877888 32.093678 
+L 474.380016 30.687096 
+L 475.882144 29.270455 
+L 477.384272 27.843648 
+L 478.8864 26.406563 
+" clip-path="url(#p8811cacdf6)" style="fill: none; stroke: #6dbdac; stroke-width: 1.9; stroke-linecap: square"/>
+   </g>
+   <g id="line2d_48">
+    <path d="M 300.133153 146.54687 
+" clip-path="url(#p8811cacdf6)" style="fill: none; stroke: #6dbdac; stroke-width: 1.9; stroke-linecap: square"/>
+    <defs>
+     <path id="m686f382427" d="M 0 2.25 
+C 0.596707 2.25 1.169055 2.012926 1.59099 1.59099 
+C 2.012926 1.169055 2.25 0.596707 2.25 0 
+C 2.25 -0.596707 2.012926 -1.169055 1.59099 -1.59099 
+C 1.169055 -2.012926 0.596707 -2.25 0 -2.25 
+C -0.596707 -2.25 -1.169055 -2.012926 -1.59099 -1.59099 
+C -2.012926 -1.169055 -2.25 -0.596707 -2.25 0 
+C -2.25 0.596707 -2.012926 1.169055 -1.59099 1.59099 
+C -1.169055 2.012926 -0.596707 2.25 0 2.25 
+z
+" style="stroke: #6dbdac"/>
+    </defs>
+    <g clip-path="url(#p8811cacdf6)">
+     <use xlink:href="#m686f382427" x="300.133153" y="146.54687" style="fill: #6dbdac; stroke: #6dbdac"/>
+    </g>
+   </g>
+   <g id="line2d_49">
+    <path d="M 390.260841 96.587534 
+" clip-path="url(#p8811cacdf6)" style="fill: none; stroke: #d98c72; stroke-width: 1.9; stroke-linecap: square"/>
+    <defs>
+     <path id="m6d8d6ffbc7" d="M 0 2.25 
+C 0.596707 2.25 1.169055 2.012926 1.59099 1.59099 
+C 2.012926 1.169055 2.25 0.596707 2.25 0 
+C 2.25 -0.596707 2.012926 -1.169055 1.59099 -1.59099 
+C 1.169055 -2.012926 0.596707 -2.25 0 -2.25 
+C -0.596707 -2.25 -1.169055 -2.012926 -1.59099 -1.59099 
+C -2.012926 -1.169055 -2.25 -0.596707 -2.25 0 
+C -2.25 0.596707 -2.012926 1.169055 -1.59099 1.59099 
+C -1.169055 2.012926 -0.596707 2.25 0 2.25 
+z
+" style="stroke: #d98c72"/>
+    </defs>
+    <g clip-path="url(#p8811cacdf6)">
+     <use xlink:href="#m6d8d6ffbc7" x="390.260841" y="96.587534" style="fill: #d98c72; stroke: #d98c72"/>
+    </g>
+   </g>
+   <g id="patch_6">
+    <path d="M 300.133153 179.526563 
+L 300.133153 18.750563 
+" style="fill: none; stroke: #3a3026; stroke-width: 0.9; stroke-linejoin: miter; stroke-linecap: square"/>
+   </g>
+   <g id="patch_7">
+    <path d="M 300.133153 179.526563 
+L 478.8864 179.526563 
+" style="fill: none; stroke: #3a3026; stroke-width: 0.9; stroke-linejoin: miter; stroke-linecap: square"/>
+   </g>
+   <g id="text_35">
+    <text style="font-size: 8.2px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; fill: #6dbdac" transform="translate(304.899906 157.724543)">leak closed</text>
+    <text style="font-size: 8.2px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; fill: #6dbdac" transform="translate(304.899906 166.906749)">$1.13 per kg</text>
+   </g>
+   <g id="text_36">
+    <text style="font-size: 8.2px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; fill: #d98c72" transform="translate(395.027594 107.765207)">15% lost</text>
+    <text style="font-size: 8.2px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; fill: #d98c72" transform="translate(395.027594 116.947413)">$1.34 per kg</text>
+   </g>
+   <g id="text_37">
+    <text style="font-size: 9.2px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: start; fill: #9a8872" x="300.133153" y="12.750563" transform="rotate(-0 300.133153 12.750563)">the 15-point leak costs $200 per tonne</text>
+   </g>
+  </g>
+  <g id="text_38">
+   <text style="font-size: 8.3px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: start; fill: #9a8872" x="5.76" y="227.550563" transform="rotate(-0 5.76 227.550563)">Threshold-linear form after Basan et al. 2015; cost at glucose $400 per tonne and a product ceiling of 0.55 g g⁻¹.</text>
+  </g>
+ </g>
+ <defs>
+  <clipPath id="p83fdf53902">
+   <rect x="65.9664" y="18.750563" width="162.502952" height="160.776"/>
+  </clipPath>
+  <clipPath id="p8811cacdf6">
+   <rect x="300.133153" y="18.750563" width="178.753247" height="160.776"/>
+  </clipPath>
+ </defs>
+</svg>
+</div><figcaption>Acetate excretion is threshold-linear in growth rate, so a culture below the threshold has no overflow to engineer away and one above it cannot feed-control its way out. The right panel prices the carbon: fifteen points of it is $200 per tonne of product, which is a margin for a bulk chemical and nothing at all for a specialty.</figcaption></figure>
+<p>This has to be said plainly because the week&#x27;s curriculum points at Lee Ch 11 for it: the chapter mentions acetate six times, all incidentally, and has no section on overflow. The mechanisms, from the primary literature, are (i) flux imbalance — glucose uptake exceeding what the acetyl-CoA node, TCA cycle and respiratory chain can process, the classical account of el-Mansi and Holms, J Gen Microbiol 135:2875–2883 (1989); (ii) proteome allocation — fermentation is a cheaper way to make ATP per gram of protein invested than respiration, so at high growth rate excreting acetate maximises growth, which is Basan et al., Nature 528(7580):99–104 (2015), doi:10.1038/nature15765, and which predicts the threshold-linear rise of acetate with growth rate; (iii) loss of the scavenging route — acetyl-CoA synthetase is under carbon catabolite repression, so the cell stops reassimilating what it excretes, per Valgepea et al., BMC Syst Biol 4:166 (2010), doi:10.1186/1752-0509-4-166; and (iv) redox state — a high NADH/NAD⁺ ratio inhibits TCA flux and shifts transcription, per Vemuri et al., Appl Environ Microbiol 72(5):3653–3661 (2006). They are not alternatives. A fast-growing fed-batch culture has all four acting at once.</p>
+<p><strong>4. One countermeasure per mechanism, and they are not interchangeable</strong></p>
+<p>Against flux imbalance: controlled glucose feeding so that glucose never accumulates, which Shuler §14.3.2 names as the engineering contribution that made high-cell-density E. coli possible, coupled to consumption rate where that can be estimated on-line; or weakening uptake itself by moving from the PTS to a permease-plus-kinase route. Against proteome allocation: grow slower in the production phase, because the threshold is in growth rate — which is why a two-phase process with induction late is both a burden and an overflow decision. Against the repressed scavenging route: de-repress or overexpress acs so the excreted acetate is taken back. Against redox: raise respiratory or NADH-oxidising capacity, or aerate harder. Deleting pta and ackA removes the main excretion route and appears in Lee Ch 11 doing exactly that, in the 3-hydroxypropionate strain that reached 72 g L⁻¹ from glycerol at 1.8 g L⁻¹ h⁻¹ — but it is a blunt instrument: it does not remove the cause, and the carbon reappears as pyruvate, lactate or formate unless something downstream takes it.</p>
+<p><strong>5. Ch 11 is organised by what the carbon becomes, and the tables are the chapter</strong></p>
+<p>§11.2 fuels, §11.3 chemicals, §11.4 materials, with no methods sections at all — tools, expression and genome engineering are elsewhere in the book, as week 33 to 35 already found. Tables 11.1 onward give product, titre, yield, productivity, carbon source, culture style, strategy and reference, and the spread within one product is as instructive as the differences between products: ethanol at 34.6 g L⁻¹ in flask from overexpressed Zymomonas mobilis pdc and adhII, then 54.4 g L⁻¹ at 0.57 g g⁻¹ in batch once the operon was integrated into pflB and frd deleted, then 63.2 g L⁻¹ from xylose in a tolerance-evolved derivative. 1-butanol runs from 0.552 g L⁻¹ in flask to 30 g L⁻¹ at 0.287 g g⁻¹ and 0.18 g L⁻¹ h⁻¹ in fed-batch with in situ product removal. Isopropanol reaches 143 g L⁻¹ — in 240 hours, so 0.60 g L⁻¹ h⁻¹. Caprolactam sits at 79.6 µg L⁻¹. A titre without its culture style and duration is not a number you can use.</p>
+<p><strong>6. Recompute every reported yield against a ceiling you derived</strong></p>
+<p>Take the degree of reduction of substrate and product, divide, and you have the electron-limited ceiling; compare with the carbon-limited one and the smaller binds. Ethanol from glucose: both limits give 0.511 g g⁻¹. Table 11.1 reports 0.57 g g⁻¹ for the integrated KO11 strain on glucose — 112% of the maximum. The number is not wrong, it is differently based: the extra carbon comes from somewhere the yield definition excludes, almost always the complex medium, and occasionally from a yield taken on sugar consumed for product rather than on sugar consumed. This is the single most transferable skill in the week. A yield above its own ceiling means the basis is undeclared, and a yield of 0.45 g g⁻¹ from xylose in the same table — 88% of theoretical, which is excellent and plausible — tells you the chapter&#x27;s numbers are not systematically inflated, just inconsistently defined.</p>
+<p><strong>7. Yim et al. 2011, criticised with the tools you now have</strong></p>
+<p>The 1,4-butanediol paper (Nat Chem Biol 7(7):445–452, cited in Lee Ch 11 as reference 63 for the 18 g L⁻¹ fed-batch result) was read in week 26 as a strain-design success. Three criticisms are available now and were not then. First, the algorithm did the pathway enumeration and the growth coupling, but the enzyme assignment, the expression tuning and the host background were hand work, so the paper demonstrates less about algorithmic design than its framing suggests — week 26&#x27;s own distinction between a pathway and a strain. Second, 18 g L⁻¹ is a titre against an electron-limited ceiling of about 1.09 mol BDO per mol glucose, 0.55 g g⁻¹: the gap to be closed is in yield and rate, which the paper does not report in a form that lets you close it. Third, growth coupling is a property of a model under an objective, and the week 25 and 26 caveats apply — a coupled design is only coupled while the constraints it was computed under hold, and a seed train is not that environment.</p>
+<p><strong>8. Three situations in which E. coli is the wrong choice</strong></p>
+<p>When the product needs post-translational modification: Shuler §14.3.1 makes this the first branch in the decision, and no amount of E. coli engineering moves it. When the product is a secreted enzyme sold by the kilogram: a host that secretes natively removes the lysis, the inclusion-body and the endotoxin problems at once, which is week 42&#x27;s argument for Bacillus. When the process environment itself is hostile — a low-pH acid fermentation, a solvent-containing broth, a feedstock of lignin aromatics — the tolerance of the host matters more than its tool stack, which is weeks 42 and 43. A fourth, weaker case is regulatory: for a food product the question is not what E. coli can express but whether an engineered Gram-negative with an endotoxin problem is a sensible thing to put in the process at all.</p>
+<h3>Worked anchor</h3>
+<p>What acetate costs, in carbon and in money, at a stated flux.</p>
+<p>Basis: aerobic fed-batch on glucose, product of molar mass 90.1 (take 1,4-butanediol), 15% of consumed carbon leaving as acetate. Glucose 180.16 g mol⁻¹, six carbons; acetic acid 60.05 g mol⁻¹, two.</p>
+<p>Carbon first. Per 100 mol of substrate carbon — 16.67 mol glucose, 3,003 g — 15 mol C leaves as acetate, which is 7.5 mol of acetate, 450 g. Nothing has been made from it.</p>
+<p>Yield. If the diverted carbon would otherwise have gone to product at the same efficiency, a reported yield of 0.30 g g⁻¹ becomes 0.30/0.85 = 0.353 g g⁻¹ once the leak is closed. Against the electron-limited ceiling of 0.55 g g⁻¹ that is a move from 55% to 64% of theoretical.</p>
+<p>Money. Glucose at $400 per tonne: at 0.30 g g⁻¹ the substrate cost is 1/0.30 = 3.33 kg glucose per kg of product, $1.33 kg⁻¹. At 0.353 g g⁻¹ it is 2.83 kg, $1.13 kg⁻¹. The saving is $0.20 per kg, $200 per tonne. For a bulk chemical selling near $1,800 per tonne that is 11% of revenue, and plausibly the whole margin; for a $20,000-per-tonne specialty it is noise. Acetate is a bulk-product problem.</p>
+<p>What the arithmetic leaves out, and why it understates the penalty: acetate also inhibits growth. Shuler §14.3.2 says so without giving a threshold, and no number in the assigned reading supplies one, so the honest statement is mechanistic rather than numeric — acetic acid has pKₐ 4.76, so at the pH of a controlled fermentation most of it is dissociated, and the undissociated fraction that crosses the membrane and acidifies the cytoplasm is the week 2 derivation applied to a different acid. The real cost is the carbon above plus a growth-rate term and a titre ceiling that have to be measured in your own strain.</p>
+<p>So the rank order of countermeasures follows from where your flux sits, not from a list: if glucose is accumulating, feed control is free and immediate; if it is not, and the culture is fast, the overflow is the proteome-allocation kind and only a slower production phase or more respiratory capacity touches it.</p>
+<p><strong>Assumptions behind this calculation</strong></p>
+<ul>
+<li>15% of consumed carbon leaving as acetate, and that carbon available to product at the same efficiency if the leak were closed</li>
+<li>product taken as 1,4-butanediol, 90.1 g mol⁻¹, with an electron-limited ceiling of 0.55 g g⁻¹</li>
+<li>glucose at $400 per tonne and a bulk selling price near $1,800 per tonne</li>
+<li>no growth-rate or titre penalty from acetate included in the money figure</li>
+<li>yields compared on grams per gram of glucose consumed, which is the basis Lee&#x27;s tables do not state</li>
+</ul>
+<h3>Reading map</h3>
+<table><thead><tr><th>Source</th><th>Treatment</th><th>Why</th></tr></thead><tbody><tr><td>Lee Ch 11 — Metabolic Engineering of Escherichia coli, in full</td><td>Read closely</td><td>§11.2 fuels, §11.3 chemicals, §11.4 materials, §11.5 perspectives. Read it as a table of numbers rather than a narrative: product, titre, yield, productivity, carbon source, culture style. There are no sections on central metabolism, acetate or expression systems, so the curriculum&#x27;s three pointers to them do not resolve — see the misconceptions and the README.</td></tr><tr><td>Lee Ch 2 §2.4 — Brief History of the GEM for E. coli</td><td>Read closely</td><td>§2.4.1 origin, §2.4.2 model organism, §2.4.3 key predictions, §2.4.4 design algorithms, §2.4.5 scope expansions. The lineage iJE660 → iJR904 → iAF1260 → iJO1366 → iML1515 and what each added; iML1515 covers 1,515 genes. This is the modelling half of what &quot;reference host&quot; means.</td></tr><tr><td>Shuler Ch 14 §14.2 and §14.3.1–14.3.2, with Table 14.2</td><td>Read closely</td><td>Substituted for the curriculum&#x27;s &quot;Shuler Ch 14 §on production strains&quot;, which names no section that exists. §14.2 is how the product class decides the process, §14.3.1 the host-choice branch points, §14.3.2 E. coli in detail — cell density, expression level, acetate and feed control, inclusion bodies, endotoxin, secretion. Table 14.2 is the column structure for Artifact 24.</td></tr><tr><td><a href="https://pubmed.ncbi.nlm.nih.gov/21602812/" target="_blank" rel="noopener">Yim et al., Nat Chem Biol 7(7):445–452 (2011)</a></td><td>Read closely</td><td>Reread against weeks 25, 26 and 31 rather than for its content. Lee Ch 11 cites it as the 18 g L⁻¹ 1,4-butanediol fed-batch result, which is the number to criticise.</td></tr><tr><td><a href="https://doi.org/10.1038/nature15765" target="_blank" rel="noopener">Basan et al., Nature 528(7580):99–104 (2015)</a></td><td>Read closely</td><td>The proteome-allocation account of overflow and the threshold-linear relation between acetate excretion and growth rate. Cited because the assigned chapters contain no mechanism for the week&#x27;s second objective; read with Vemuri et al. (2006) on the redox ratio and Valgepea et al. (2010) on catabolite repression of acs.</td></tr><tr><td>Lee Ch 11 §11.4.1 — Recombinant Proteins</td><td>Skim</td><td>The one session pointer that does resolve. Therapeutic proteins, membrane proteins and protein-based materials; read for what changes when the product is the protein, then take the process consequences from Shuler §14.3.2 instead, which is far more specific about them.</td></tr><tr><td>Lee Ch 2 §2.5–2.8</td><td>Skip</td><td>ME models, proteome expansion and future directions were week 31&#x27;s material and are not needed again here.</td></tr></tbody></table>
+<h3>Common misconceptions</h3>
+<ul>
+<li>That acetate overflow means the cell has run out of oxygen. It happens in fully aerated cultures with dissolved oxygen in excess, because the limit is the processing capacity downstream of acetyl-CoA and the proteome cost of respiration, not oxygen availability. Oxygen limitation is a fifth, separate cause with a different signature.</li>
+<li>That deleting pta and ackA solves it. It removes the main excretion route, not the imbalance that fills it: the carbon re-emerges as pyruvate, lactate or formate, and the strain often grows worse, because acetate excretion was doing something for it.</li>
+<li>That a published yield can be compared with a theoretical one without checking its basis. Lee&#x27;s Table 11.1 reports 0.57 g ethanol per g glucose against a ceiling of 0.511 — 112% of theoretical. The yield is on an undeclared basis, almost certainly complex medium carbon; find the basis before you use any number from a table.</li>
+</ul>
+<h3>Check yourself before moving on</h3>
+<p><strong>Q.</strong> Name the four causes of acetate overflow and the specific countermeasure for each.</p>
+<p><strong>A.</strong> Flux imbalance at the acetyl-CoA node, where uptake outruns TCA and respiratory capacity — countered by controlled glucose feeding, or by weakening uptake itself. Proteome allocation, where fermentation is the cheaper ATP route per gram of protein at high growth rate — countered only by lowering growth rate in the production phase or by buying more respiratory capacity. Carbon catabolite repression of acetyl-CoA synthetase, which switches off reassimilation — countered by de-repressing or overexpressing acs. A high NADH/NAD⁺ ratio inhibiting TCA flux — countered by raising NADH oxidation or aeration. Deleting pta and ackA is not a fifth cause&#x27;s countermeasure; it blocks the exit, and only helps if something downstream can take the carbon.</p>
+<p><strong>Q.</strong> A table reports 0.57 g ethanol per g glucose. What do you do?</p>
+<p><strong>A.</strong> Compute the ceiling before anything else: glucose to ethanol is limited at 0.511 g g⁻¹ by both carbon and electrons, so 0.57 exceeds it and the basis must be undeclared. The usual explanation is carbon from a complex medium counted into product but not into substrate; a second is a yield taken only over the sugar routed to product. Neither makes the strain bad — KO11 is a real strain — but the number cannot enter a comparison with a yield computed on total sugar, and nothing in the matrix should be populated from it without the basis stated beside it.</p>
+<p><strong>Q.</strong> You are asked to justify E. coli for a secreted industrial enzyme. What is the strongest argument against you, and what would you need to win?</p>
+<p><strong>A.</strong> That the host does not secrete: about 20% of E. coli protein crosses the inner membrane and excretion to the medium is the exception, so the process acquires lysis, inclusion-body recovery and endotoxin clearance — three unit operations a natively secreting host does not need, for a product whose price cannot carry them. To win you would need either a demonstrated excretion titre in your own hands in the same vessel, or a product that folds only in the cytoplasm, or a downstream train already built and paid for. Expression level alone does not win it, because the 25–50% of total protein that E. coli can reach is intracellular protein.</p>
+<hr>
+
+<section class="study-transfer" aria-label="Week 40 application and teach-back">
+<h3>Apply it to your fermentation experience</h3>
+<p><strong>Transfer prompt.</strong> Ask whether E. coli is a sensible chassis for a cassava-derived product. Compare its pathway, transport, tolerance, and process fit with the organism(s) you already know.</p>
+<p class="meta">Use your actual thesis methods and results where you remember them. Mark missing information as unknown; do not assume the organisms were co-cultured, that a metabolite was measured, or that a proposed mechanism was demonstrated.</p>
+<h3>Teach it back</h3>
+<p>Explain the week's concept from memory, work one number, and name one boundary. Then use the <a href="teach-back.html">five-minute teach-back protocol</a> and log it in the tracker.</p>
+</section>
+<nav class="weeknav" aria-label="Week navigation"><a href="week-39.html">&#8592; Week 39</a><a class="idx" href="index.html">Lecture index</a><a class="idx" href="case-study.html">Case study</a><a href="week-41.html">Week 41 &#8594;</a></nav>
+</main>
+<footer class="docfoot"><a href="../metabolic-engineering-tracker.html">&#8592; Course tracker</a><span>Metabolic engineering &middot; 55 weeks</span></footer>
+<script>
+(function(){var root=document.documentElement,key="me.theme";var bs=Array.prototype.slice.call(document.querySelectorAll(".appearance button"));
+function paint(v){bs.forEach(function(b){b.setAttribute("aria-pressed",b.getAttribute("data-appearance")===v?"true":"false");});if(v==="auto")root.removeAttribute("data-theme");else root.setAttribute("data-theme",v);}
+var saved="auto";try{saved=localStorage.getItem(key)||"auto";}catch(e){}
+bs.forEach(function(b){b.addEventListener("click",function(){var v=b.getAttribute("data-appearance");paint(v);try{localStorage.setItem(key,v);}catch(e){}});});paint(saved);})();
+</script>
+</body>
+</html>

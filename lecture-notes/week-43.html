@@ -1,0 +1,846 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="utf-8"><title>Week 43 — Lactic acid bacteria and food-grade hosts — Metabolic engineering</title>
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+
+
+<style>:root{color-scheme:light;--paper:#FAF6EF;--ink:#211A12;--ink-2:#4A3C2C;--ink-3:#8A7458;
+--line:#DFD2BE;--line-2:#EDE4D5;--broth:#9A6B1F;--broth-soft:#F6ECD9;
+--serif:"Newsreader",Georgia,serif;--sans:"Public Sans",system-ui,sans-serif}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--paper:#15120D;--ink:#F1E9DC;--ink-2:#CBBCA6;
+--ink-3:#948872;--line:#352C22;--line-2:#2A231B;--broth:#D7A95C;--broth-soft:#241D14}}
+*{box-sizing:border-box}
+body{margin:0;background:var(--paper);color:var(--ink);font-family:var(--sans);font-size:15.5px;line-height:1.6;
+padding:env(safe-area-inset-top,0) 0 env(safe-area-inset-bottom,0)}
+.wrap{max-width:840px;margin:0 auto;padding:40px 22px 90px}
+h1{font-family:var(--serif);font-size:clamp(28px,5vw,42px);line-height:1.1;font-weight:600;margin:0 0 6px;letter-spacing:-.02em}
+h2{font-family:var(--serif);font-size:26px;font-weight:600;margin:46px 0 10px;letter-spacing:-.01em;padding-bottom:7px;border-bottom:1px solid var(--line)}
+h3{font-family:var(--serif);font-size:20px;font-weight:600;margin:30px 0 4px;color:var(--broth)}
+h4{font-size:14px;font-weight:650;margin:18px 0 4px;color:var(--ink-3);letter-spacing:.02em;text-transform:uppercase}
+p{margin:0 0 12px;max-width:74ch}
+em{color:var(--ink-2)}
+ul{margin:0 0 14px;padding-left:1.15em;max-width:74ch}
+li{margin:.3em 0}li::marker{color:var(--ink-3)}
+hr{border:0;border-top:1px solid var(--line);margin:40px 0}
+strong{font-weight:650}
+table{border-collapse:collapse;width:100%;margin:14px 0 20px;font-size:14px}
+th{text-align:left;font-weight:600;color:var(--ink-3);font-size:12.5px;padding:7px 9px;border-bottom:1.5px solid var(--line)}
+td{padding:8px 9px;border-bottom:1px solid var(--line-2);vertical-align:top}
+tr:nth-child(even) td{background:var(--broth-soft)}
+
+figure.fig{margin:22px 0 26px;padding:0;max-width:100%}
+figure.fig svg{width:100%;height:auto;display:block;background:var(--card);
+  border:1px solid var(--line-2);border-radius:10px;padding:8px 10px}
+figure.fig figcaption{font-size:13px;color:var(--ink-3);margin-top:8px;max-width:74ch;line-height:1.5}
+figure.fig .figtitle{font-family:var(--serif);font-size:15px;color:var(--ink-2);margin-bottom:6px}
+figure.fig .fig-dark{display:none}
+@media (prefers-color-scheme: dark){
+  figure.fig .fig-light{display:none}
+  figure.fig .fig-dark{display:block}
+}
+@media print{figure.fig{break-inside:avoid;page-break-inside:avoid}
+  figure.fig .fig-dark{display:none !important}
+  figure.fig .fig-light{display:block !important}}
+
+@media print{body{background:#fff}.wrap{padding:0;max-width:none}h2,h3{page-break-after:avoid}}</style><script>try{var t=localStorage.getItem("me.theme");if(t&&t!=="auto")document.documentElement.setAttribute("data-theme",t);}catch(e){}</script>
+<meta name="color-scheme" content="light dark">
+<meta name="theme-color" content="#ffffff" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#000000" media="(prefers-color-scheme: dark)">
+<style>
+/* ============================================================
+   COURSE LIBRARY — Apple document shell
+   ============================================================ */
+:root{
+  color-scheme:light;
+  --paper:#FFFFFF;--surface:#F5F5F7;--card:#FFFFFF;--fill:#F5F5F7;
+  --ink:#1D1D1F;--ink-2:#6E6E73;--ink-3:#6E6E73;
+  --line:rgba(0,0,0,.14);--line-2:rgba(0,0,0,.08);
+  --broth:#0071E3;--broth-soft:rgba(0,113,227,.10);
+  --nav-bg:rgba(255,255,255,.84);
+  --sans:-apple-system,BlinkMacSystemFont,"SF Pro Text","SF Pro Display","Helvetica Neue",Arial,sans-serif;
+  --mono:ui-monospace,"SF Mono",Menlo,Consolas,monospace;
+  --serif:var(--sans);
+}
+@media (prefers-color-scheme:dark){
+  :root:not([data-theme="light"]){
+    color-scheme:dark;
+    --paper:#000000;--surface:#1C1C1E;--card:#2C2C2E;--fill:#2C2C2E;
+    --ink:#F5F5F7;--ink-2:#A1A1A6;--ink-3:#8E8E93;
+    --line:rgba(255,255,255,.16);--line-2:rgba(255,255,255,.09);
+    --broth:#5AA9FF;--broth-soft:rgba(10,132,255,.18);
+    --nav-bg:rgba(0,0,0,.74);
+  }
+}
+:root[data-theme="dark"]{
+  color-scheme:dark;
+  --paper:#000000;--surface:#1C1C1E;--card:#2C2C2E;--fill:#2C2C2E;
+  --ink:#F5F5F7;--ink-2:#A1A1A6;--ink-3:#8E8E93;
+  --line:rgba(255,255,255,.16);--line-2:rgba(255,255,255,.09);
+  --broth:#5AA9FF;--broth-soft:rgba(10,132,255,.18);
+  --nav-bg:rgba(0,0,0,.74);
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth;scroll-padding-top:72px;-webkit-text-size-adjust:100%}
+body{
+  margin:0;background:var(--paper);color:var(--ink);
+  font-family:var(--sans);font-size:17px;line-height:1.62;letter-spacing:-.011em;
+  padding:0;
+}
+.docbar{
+  position:sticky;top:0;z-index:80;display:flex;align-items:center;justify-content:space-between;gap:12px;
+  padding:8px max(24px,calc((100vw - 1180px)/2));
+  background:var(--nav-bg);
+  -webkit-backdrop-filter:saturate(180%) blur(20px);backdrop-filter:saturate(180%) blur(20px);
+  border-bottom:1px solid var(--line-2);
+}
+.docback{display:inline-flex;align-items:center;gap:6px;color:var(--ink-2);font-size:13px;font-weight:500;text-decoration:none;white-space:nowrap}
+.docback:hover{color:var(--broth)}
+.appearance{display:inline-flex;gap:2px;padding:2px;background:var(--fill);border-radius:980px}
+.appearance button{border:0;background:none;color:var(--ink-2);font:inherit;font-size:12px;font-weight:500;line-height:1;padding:6px 11px;border-radius:980px;cursor:pointer}
+.appearance button[aria-pressed="true"]{background:var(--card);color:var(--ink);box-shadow:0 1px 2px rgba(0,0,0,.08)}
+.wrap{max-width:900px;margin:0 auto;padding:64px 24px 96px}
+body h1{
+  font-family:var(--sans);font-size:clamp(42px,6.2vw,64px);line-height:1.04;letter-spacing:-.04em;
+  font-weight:700;margin:0 0 16px;max-width:18ch;color:var(--ink);
+}
+.doc-kicker{font-size:13px;font-weight:500;letter-spacing:0;color:var(--ink-2);margin:0 0 12px}
+body h1 + p{font-size:20px;line-height:1.55;color:var(--ink-2);max-width:68ch;margin:0 0 18px}
+body h1 + p strong{color:var(--ink);font-weight:600}
+body h2{
+  font-family:var(--sans);font-size:32px;line-height:1.15;letter-spacing:-.03em;font-weight:600;
+  color:var(--ink);margin:64px 0 14px;padding:0;border:0;
+}
+body h3{font-family:var(--sans);font-size:22px;line-height:1.25;letter-spacing:-.02em;font-weight:600;color:var(--ink);margin:36px 0 8px}
+body h4{font-size:14px;line-height:1.4;font-weight:600;letter-spacing:0;text-transform:none;color:var(--ink-2);margin:24px 0 6px}
+body p{margin:0 0 14px;max-width:72ch}
+body ul,body ol{margin:0 0 16px;padding-left:1.25em;max-width:72ch}
+body li{margin:.32em 0}
+body li::marker{color:var(--ink-3)}
+body strong{font-weight:600;color:var(--ink)}
+body em{color:var(--ink)}
+body a{color:var(--broth);text-decoration:underline;text-underline-offset:2px}
+body a:hover{text-decoration:underline}
+body hr{border:0;border-top:1px solid var(--line-2);margin:56px 0}
+body table{border-collapse:collapse;width:100%;margin:22px 0 30px;font-size:15px;line-height:1.45}
+body th{text-align:left;font-weight:600;font-size:12.5px;color:var(--ink-2);padding:10px 12px;background:var(--surface);border-bottom:1px solid var(--line)}
+body td{padding:11px 12px;border-bottom:1px solid var(--line-2);vertical-align:top}
+body tr:nth-child(even) td{background:transparent}
+body figure.fig{margin:32px 0 36px;padding:0;max-width:100%}
+body figure.fig svg{width:100%;height:auto;display:block;background:var(--surface);border:0;border-radius:20px;padding:18px}
+body figure.fig figcaption{font-size:13px;color:var(--ink-2);margin-top:10px;max-width:72ch;line-height:1.5}
+body figure.fig .figtitle{font-family:var(--sans);font-size:14px;font-weight:600;color:var(--ink);margin-bottom:6px}
+body pre{background:var(--surface);border:1px solid var(--line-2);border-radius:16px;padding:18px;overflow:auto;font-family:var(--mono);font-size:13.5px;line-height:1.55;margin:20px 0 24px}
+body code{font-family:var(--mono);font-size:.88em;background:var(--surface);border-radius:6px;padding:.12em .35em}
+body pre code{background:none;padding:0;font-size:inherit}
+body blockquote{margin:24px 0;padding:2px 0 2px 18px;border-left:3px solid var(--broth);color:var(--ink-2)}
+:root[data-theme="dark"] .fig-light{display:none!important}
+:root[data-theme="dark"] .fig-dark{display:block!important}
+:root[data-theme="light"] .fig-dark{display:none!important}
+:root[data-theme="light"] .fig-light{display:block!important}
+.docfoot{max-width:900px;margin:0 auto;padding:24px 24px 64px;border-top:1px solid var(--line-2);display:flex;justify-content:space-between;gap:12px;font-size:12.5px;color:var(--ink-3)}
+.docfoot a{color:var(--ink-2);text-decoration:none}
+.docfoot a:hover{color:var(--broth)}
+@media (max-width:700px){
+  .docbar{padding:8px 16px}
+  .wrap{padding:40px 18px 80px}
+  body h1{font-size:clamp(38px,11vw,48px)}
+  body h1 + p{font-size:18px}
+  body h2{font-size:28px;margin-top:52px}
+  body h3{font-size:20px}
+  body p,body li{font-size:16.5px}
+  body table{font-size:14px}
+  body th,body td{padding:9px 9px}
+  .docfoot{padding:20px 18px 50px;flex-direction:column;gap:6px}
+}
+@media print{
+  .docbar,.appearance,.docfoot{display:none!important}
+  body{background:#fff;color:#000;font-size:11pt}
+  .wrap{max-width:none;padding:0}
+  body h1{font-size:28pt;max-width:none}
+  body h2{font-size:16pt;page-break-after:avoid}
+  body h3{font-size:13pt;page-break-after:avoid}
+  body a{color:#000;text-decoration:none}
+  body table,body figure{break-inside:avoid}
+}
+
+
+.index-actions{margin:18px 0 36px;display:flex;flex-wrap:wrap;gap:16px;align-items:center}
+.index-actions a{font-size:14px;font-weight:500;color:var(--broth);text-decoration:none}
+.index-actions a:hover{text-decoration:underline}
+.phaseh{display:flex;align-items:baseline;justify-content:space-between;gap:14px;font-size:24px!important;margin:52px 0 2px!important;letter-spacing:-.02em}
+.phaseh span{font-size:12px;font-weight:400;color:var(--ink-3);letter-spacing:0;white-space:nowrap}
+.weeklist{border-top:1px solid var(--line-2);margin-bottom:8px}
+.weekrow{display:flex;align-items:center;gap:14px;min-height:50px;padding:10px 4px;border-bottom:1px solid var(--line-2);text-decoration:none;color:var(--ink)}
+.weekrow:hover{background:var(--surface)}
+.wnum{width:28px;flex:none;font-size:12px;font-weight:600;color:var(--broth);font-variant-numeric:tabular-nums}
+.wtitle{flex:1;font-size:16.5px;font-weight:500;line-height:1.35}
+.warrow{flex:none;color:var(--ink-3);font-size:16px}
+.weeknav{display:flex;align-items:center;justify-content:space-between;gap:14px;margin:52px 0 0;padding-top:22px;border-top:1px solid var(--line-2);font-size:14px}
+.weeknav a{color:var(--broth);text-decoration:none;font-weight:500}
+.weeknav a:hover{text-decoration:underline}
+.weeknav .idx{color:var(--ink-2);font-weight:400}
+.weeknav .empty{visibility:hidden}
+.case-h{max-width:22ch}
+.protocol{max-width:72ch}
+.protocol li{margin:.55em 0}
+.protocol h2{margin-top:38px}
+@media (max-width:700px){.phaseh{font-size:21px!important;margin-top:42px!important}.wtitle{font-size:15.5px}.weeknav{font-size:13px;gap:8px}}
+@media print{.weeknav,.index-actions{display:none!important}}
+</style>
+<style>.sr-only{position:absolute!important;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap;border:0}</style>
+</head><body>
+<header class="docbar"><a class="docback" href="index.html">&#8592; Lecture index</a><div class="appearance" role="group" aria-label="Appearance">
+<button type="button" data-appearance="auto" aria-pressed="true">Auto</button>
+<button type="button" data-appearance="light" aria-pressed="false">Light</button>
+<button type="button" data-appearance="dark" aria-pressed="false">Dark</button>
+</div></header>
+<main class="wrap">
+<p class="doc-kicker">Week 43 of 55 &middot; Hosts, products and the literature &middot; <strong class="tier-badge">Optional depth</strong></p>
+<h1>Lactic acid bacteria and food-grade hosts</h1>
+<h2 class="sr-only">Week content</h2>
+<p>The host group where regulatory status outweighs genetic convenience, and the one where the Lactobacillus volume gives depth most applicants will not have. Two threads run through the week and they pull against each other: genome reduction has made these organisms nutritionally fastidious, so the medium is expensive and is usually the largest line in the cost of goods for a low-value product; and food-grade status is worth enough, in market access and regulatory calendar, to pay for that medium anyway. Everything else — the expression toolbox, the acid-tolerance engineering, the surface layer — is downstream of those two facts.</p>
+<h3>Core ideas</h3>
+<p><strong>1. Genome reduction is the organism&#x27;s defining fact, and it is quantified</strong></p>
+<p>The Lactobacillus volume&#x27;s Ch 1 gives the numbers: genomes range from 1.23 Mbp in L. sanfranciscensis to 4.91 Mbp in L. parakefiri; across 213 analysed genomes of lactobacilli and related LAB the pangenome holds about 45,000 gene families while only 73 genes, mostly for growth and replication, are shared by every strain analysed. The evolutionary pattern is loss of ancestral genes and metabolic simplification on moving into nutritionally rich environments, with horizontal acquisition on top. Larger genomes belong to free-living and nomadic species and smaller ones to host-adapted specialists, with both genome size and GC content lower in the specialists. Dairy isolates carry a very limited carbohydrate-utilisation repertoire — fewer PTS cassettes, and in L. delbrueckii subsp. bulgaricus a high pseudogene count — because lactose is the only sugar that matters in milk.</p>
+<p><strong>2. What that costs you is a medium, not a capability</strong></p>
+<figure class="fig"><div class="figtitle">Figure 43.2 — Illustrative simulation — medium cost per kilogram of lactate</div><div class="fig-light"><svg role="img" aria-label="The complex nitrogen source is 71% of the medium cost and 3.6 times the sugar bill, and the total exceeds the selling price of the product. That difference, about $800 per tonne, is the price of the biosynthetic pathways these genomes have discarded — and the thing food-grade status has to be worth more than." xmlns:xlink="http://www.w3.org/1999/xlink" width="497.256433pt" height="222.046141pt" viewBox="0 0 497.256433 222.046141" xmlns="http://www.w3.org/2000/svg" version="1.1">
+ <metadata>
+  <rdf:RDF xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:cc="http://creativecommons.org/ns#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+   <cc:Work>
+    <dc:type rdf:resource="http://purl.org/dc/dcmitype/StillImage"/>
+    <dc:date>2026-11-02T23:57:53.800065</dc:date>
+    <dc:format>image/svg+xml</dc:format>
+    <dc:creator>
+     <cc:Agent>
+      <dc:title>Matplotlib v3.10.8, https://matplotlib.org/</dc:title>
+     </cc:Agent>
+    </dc:creator>
+   </cc:Work>
+  </rdf:RDF>
+ </metadata>
+ <defs>
+  <style type="text/css">*{stroke-linejoin: round; stroke-linecap: butt}</style>
+ </defs>
+ <g id="figure_1">
+  <g id="patch_1">
+   <path d="M 0 222.046141 
+L 497.256433 222.046141 
+L 497.256433 0 
+L 0 0 
+L 0 222.046141 
+z
+" style="fill: none"/>
+  </g>
+  <g id="axes_1">
+   <g id="patch_2">
+    <path d="M 62.712 166.536 
+L 453.312 166.536 
+L 453.312 5.76 
+L 62.712 5.76 
+L 62.712 166.536 
+z
+" style="fill: none"/>
+   </g>
+   <g id="patch_3">
+    <path d="M 80.466545 166.536 
+L 192.344503 166.536 
+L 192.344503 140.070815 
+L 80.466545 140.070815 
+z
+" clip-path="url(#pb6ae67d6c2)" style="fill: #1f6f62; opacity: 0.32; stroke: #1f6f62; stroke-width: 1.1; stroke-linejoin: miter"/>
+   </g>
+   <g id="patch_4">
+    <path d="M 323.679497 166.536 
+L 435.557455 166.536 
+L 435.557455 140.070815 
+L 323.679497 140.070815 
+z
+" clip-path="url(#pb6ae67d6c2)" style="fill: #1f6f62; opacity: 0.32; stroke: #1f6f62; stroke-width: 1.1; stroke-linejoin: miter"/>
+   </g>
+   <g id="patch_5">
+    <path d="M 80.466545 140.070815 
+L 192.344503 140.070815 
+L 192.344503 44.796148 
+L 80.466545 44.796148 
+z
+" clip-path="url(#pb6ae67d6c2)" style="fill: #a4503a; opacity: 0.32; stroke: #a4503a; stroke-width: 1.1; stroke-linejoin: miter"/>
+   </g>
+   <g id="patch_6">
+    <path d="M 323.679497 140.070815 
+L 435.557455 140.070815 
+L 435.557455 140.070815 
+L 323.679497 140.070815 
+z
+" clip-path="url(#pb6ae67d6c2)" style="fill: #a4503a; opacity: 0.32; stroke: #a4503a; stroke-width: 1.1; stroke-linejoin: miter"/>
+   </g>
+   <g id="patch_7">
+    <path d="M 80.466545 44.796148 
+L 192.344503 44.796148 
+L 192.344503 32.886815 
+L 80.466545 32.886815 
+z
+" clip-path="url(#pb6ae67d6c2)" style="fill: #8a7458; opacity: 0.32; stroke: #8a7458; stroke-width: 1.1; stroke-linejoin: miter"/>
+   </g>
+   <g id="patch_8">
+    <path d="M 323.679497 140.070815 
+L 435.557455 140.070815 
+L 435.557455 80.524148 
+L 323.679497 80.524148 
+z
+" clip-path="url(#pb6ae67d6c2)" style="fill: #8a7458; opacity: 0.32; stroke: #8a7458; stroke-width: 1.1; stroke-linejoin: miter"/>
+   </g>
+   <g id="patch_9">
+    <path d="M 62.712 77.216 
+L 453.312 77.216 
+L 453.312 47.442667 
+L 62.712 47.442667 
+z
+" clip-path="url(#pb6ae67d6c2)" style="fill: #8a5f1b; opacity: 0.14"/>
+   </g>
+   <g id="matplotlib.axis_1">
+    <g id="xtick_1">
+     <g id="line2d_1">
+      <defs>
+       <path id="m120b67b1f6" d="M 0 0 
+L 0 3.5 
+" style="stroke: #8a7458; stroke-width: 0.9"/>
+      </defs>
+      <g>
+       <use xlink:href="#m120b67b1f6" x="136.405524" y="166.536" style="fill: #8a7458; stroke: #8a7458; stroke-width: 0.9"/>
+      </g>
+     </g>
+     <g id="text_1">
+      <text style="font-size: 8.8px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: middle; fill: #8a7458" x="136.405524" y="180.222625" transform="rotate(-0 136.405524 180.222625)">complex LAB medium</text>
+     </g>
+    </g>
+    <g id="xtick_2">
+     <g id="line2d_2">
+      <g>
+       <use xlink:href="#m120b67b1f6" x="379.618476" y="166.536" style="fill: #8a7458; stroke: #8a7458; stroke-width: 0.9"/>
+      </g>
+     </g>
+     <g id="text_2">
+      <text style="font-size: 8.8px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: middle; fill: #8a7458" x="379.618476" y="180.222625" transform="rotate(-0 379.618476 180.222625)">defined medium host</text>
+     </g>
+    </g>
+   </g>
+   <g id="matplotlib.axis_2">
+    <g id="ytick_1">
+     <g id="line2d_3">
+      <path d="M 62.712 166.536 
+L 453.312 166.536 
+" clip-path="url(#pb6ae67d6c2)" style="fill: none; stroke: #e6dccb; stroke-opacity: 0.7; stroke-width: 0.6; stroke-linecap: square"/>
+     </g>
+     <g id="line2d_4">
+      <defs>
+       <path id="m1a68862744" d="M 0 0 
+L -3.5 0 
+" style="stroke: #8a7458; stroke-width: 0.9"/>
+      </defs>
+      <g>
+       <use xlink:href="#m1a68862744" x="62.712" y="166.536" style="fill: #8a7458; stroke: #8a7458; stroke-width: 0.9"/>
+      </g>
+     </g>
+     <g id="text_3">
+      <text style="font-size: 9.5px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: end; fill: #8a7458" x="55.712" y="170.145258" transform="rotate(-0 55.712 170.145258)">0.0</text>
+     </g>
+    </g>
+    <g id="ytick_2">
+     <g id="line2d_5">
+      <path d="M 62.712 136.762667 
+L 453.312 136.762667 
+" clip-path="url(#pb6ae67d6c2)" style="fill: none; stroke: #e6dccb; stroke-opacity: 0.7; stroke-width: 0.6; stroke-linecap: square"/>
+     </g>
+     <g id="line2d_6">
+      <g>
+       <use xlink:href="#m1a68862744" x="62.712" y="136.762667" style="fill: #8a7458; stroke: #8a7458; stroke-width: 0.9"/>
+      </g>
+     </g>
+     <g id="text_4">
+      <text style="font-size: 9.5px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: end; fill: #8a7458" x="55.712" y="140.371924" transform="rotate(-0 55.712 140.371924)">0.5</text>
+     </g>
+    </g>
+    <g id="ytick_3">
+     <g id="line2d_7">
+      <path d="M 62.712 106.989333 
+L 453.312 106.989333 
+" clip-path="url(#pb6ae67d6c2)" style="fill: none; stroke: #e6dccb; stroke-opacity: 0.7; stroke-width: 0.6; stroke-linecap: square"/>
+     </g>
+     <g id="line2d_8">
+      <g>
+       <use xlink:href="#m1a68862744" x="62.712" y="106.989333" style="fill: #8a7458; stroke: #8a7458; stroke-width: 0.9"/>
+      </g>
+     </g>
+     <g id="text_5">
+      <text style="font-size: 9.5px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: end; fill: #8a7458" x="55.712" y="110.598591" transform="rotate(-0 55.712 110.598591)">1.0</text>
+     </g>
+    </g>
+    <g id="ytick_4">
+     <g id="line2d_9">
+      <path d="M 62.712 77.216 
+L 453.312 77.216 
+" clip-path="url(#pb6ae67d6c2)" style="fill: none; stroke: #e6dccb; stroke-opacity: 0.7; stroke-width: 0.6; stroke-linecap: square"/>
+     </g>
+     <g id="line2d_10">
+      <g>
+       <use xlink:href="#m1a68862744" x="62.712" y="77.216" style="fill: #8a7458; stroke: #8a7458; stroke-width: 0.9"/>
+      </g>
+     </g>
+     <g id="text_6">
+      <text style="font-size: 9.5px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: end; fill: #8a7458" x="55.712" y="80.825258" transform="rotate(-0 55.712 80.825258)">1.5</text>
+     </g>
+    </g>
+    <g id="ytick_5">
+     <g id="line2d_11">
+      <path d="M 62.712 47.442667 
+L 453.312 47.442667 
+" clip-path="url(#pb6ae67d6c2)" style="fill: none; stroke: #e6dccb; stroke-opacity: 0.7; stroke-width: 0.6; stroke-linecap: square"/>
+     </g>
+     <g id="line2d_12">
+      <g>
+       <use xlink:href="#m1a68862744" x="62.712" y="47.442667" style="fill: #8a7458; stroke: #8a7458; stroke-width: 0.9"/>
+      </g>
+     </g>
+     <g id="text_7">
+      <text style="font-size: 9.5px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: end; fill: #8a7458" x="55.712" y="51.051924" transform="rotate(-0 55.712 51.051924)">2.0</text>
+     </g>
+    </g>
+    <g id="ytick_6">
+     <g id="line2d_13">
+      <path d="M 62.712 17.669333 
+L 453.312 17.669333 
+" clip-path="url(#pb6ae67d6c2)" style="fill: none; stroke: #e6dccb; stroke-opacity: 0.7; stroke-width: 0.6; stroke-linecap: square"/>
+     </g>
+     <g id="line2d_14">
+      <g>
+       <use xlink:href="#m1a68862744" x="62.712" y="17.669333" style="fill: #8a7458; stroke: #8a7458; stroke-width: 0.9"/>
+      </g>
+     </g>
+     <g id="text_8">
+      <text style="font-size: 9.5px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: end; fill: #8a7458" x="55.712" y="21.278591" transform="rotate(-0 55.712 21.278591)">2.5</text>
+     </g>
+    </g>
+    <g id="text_9">
+     <text style="font-size: 9.5px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: middle; fill: #4a3c2c" x="34.628328" y="86.148" transform="rotate(-90 34.628328 86.148)">medium cost  ($ per kg lactate)</text>
+    </g>
+   </g>
+   <g id="patch_10">
+    <path d="M 62.712 166.536 
+L 62.712 5.76 
+" style="fill: none; stroke: #dfd2be; stroke-width: 0.9; stroke-linejoin: miter; stroke-linecap: square"/>
+   </g>
+   <g id="patch_11">
+    <path d="M 62.712 166.536 
+L 453.312 166.536 
+" style="fill: none; stroke: #dfd2be; stroke-width: 0.9; stroke-linejoin: miter; stroke-linecap: square"/>
+   </g>
+   <g id="text_10">
+    <text style="font-weight: 700; font-size: 8.8px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: middle; fill: #4a3c2c" x="136.405524" y="29.314015" transform="rotate(-0 136.405524 29.314015)">$2.24 per kg</text>
+   </g>
+   <g id="text_11">
+    <text style="font-weight: 700; font-size: 8.8px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: middle; fill: #4a3c2c" x="379.618476" y="76.951348" transform="rotate(-0 379.618476 76.951348)">$1.44 per kg</text>
+   </g>
+   <g id="text_12">
+    <text style="font-size: 8.2px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; fill: #8a5f1b" transform="translate(450.059527 60.000918)">lactic acid</text>
+    <text style="font-size: 8.2px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; fill: #8a5f1b" transform="translate(441.927433 69.183124)">selling price</text>
+   </g>
+   <g id="legend_1">
+    <g id="patch_12">
+     <path d="M 343.457625 19.370719 
+L 359.857625 19.370719 
+L 359.857625 13.630719 
+L 343.457625 13.630719 
+z
+" style="fill: #1f6f62; opacity: 0.32; stroke: #1f6f62; stroke-width: 1.1; stroke-linejoin: miter"/>
+    </g>
+    <g id="text_13">
+     <text style="font-size: 8.2px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: start; fill: #4a3c2c" x="366.417625" y="19.370719" transform="rotate(-0 366.417625 19.370719)">sugar</text>
+    </g>
+    <g id="patch_13">
+     <path d="M 343.457625 31.406781 
+L 359.857625 31.406781 
+L 359.857625 25.666781 
+L 343.457625 25.666781 
+z
+" style="fill: #a4503a; opacity: 0.32; stroke: #a4503a; stroke-width: 1.1; stroke-linejoin: miter"/>
+    </g>
+    <g id="text_14">
+     <text style="font-size: 8.2px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: start; fill: #4a3c2c" x="366.417625" y="31.406781" transform="rotate(-0 366.417625 31.406781)">complex nitrogen</text>
+    </g>
+    <g id="patch_14">
+     <path d="M 343.457625 43.442844 
+L 359.857625 43.442844 
+L 359.857625 37.702844 
+L 343.457625 37.702844 
+z
+" style="fill: #8a7458; opacity: 0.32; stroke: #8a7458; stroke-width: 1.1; stroke-linejoin: miter"/>
+    </g>
+    <g id="text_15">
+     <text style="font-size: 8.2px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: start; fill: #4a3c2c" x="366.417625" y="43.442844" transform="rotate(-0 366.417625 43.442844)">salts, buffer, traces</text>
+    </g>
+   </g>
+  </g>
+  <g id="text_16">
+   <text style="font-size: 8.3px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: start; fill: #8a7458" x="5.76" y="214.56" transform="rotate(-0 5.76 214.56)">At 50 g L⁻¹ and 0.90 g g⁻¹; complex nitrogen 20 g L⁻¹ at $4 kg⁻¹. Prices are assumptions.</text>
+  </g>
+ </g>
+ <defs>
+  <clipPath id="pb6ae67d6c2">
+   <rect x="62.712" y="5.76" width="390.6" height="160.776"/>
+  </clipPath>
+ </defs>
+</svg>
+</div><div class="fig-dark"><svg role="img" aria-label="The complex nitrogen source is 71% of the medium cost and 3.6 times the sugar bill, and the total exceeds the selling price of the product. That difference, about $800 per tonne, is the price of the biosynthetic pathways these genomes have discarded — and the thing food-grade status has to be worth more than." xmlns:xlink="http://www.w3.org/1999/xlink" width="497.256433pt" height="222.046141pt" viewBox="0 0 497.256433 222.046141" xmlns="http://www.w3.org/2000/svg" version="1.1">
+ <metadata>
+  <rdf:RDF xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:cc="http://creativecommons.org/ns#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+   <cc:Work>
+    <dc:type rdf:resource="http://purl.org/dc/dcmitype/StillImage"/>
+    <dc:date>2026-11-02T23:57:53.848260</dc:date>
+    <dc:format>image/svg+xml</dc:format>
+    <dc:creator>
+     <cc:Agent>
+      <dc:title>Matplotlib v3.10.8, https://matplotlib.org/</dc:title>
+     </cc:Agent>
+    </dc:creator>
+   </cc:Work>
+  </rdf:RDF>
+ </metadata>
+ <defs>
+  <style type="text/css">*{stroke-linejoin: round; stroke-linecap: butt}</style>
+ </defs>
+ <g id="figure_1">
+  <g id="patch_1">
+   <path d="M 0 222.046141 
+L 497.256433 222.046141 
+L 497.256433 0 
+L 0 0 
+L 0 222.046141 
+z
+" style="fill: none"/>
+  </g>
+  <g id="axes_1">
+   <g id="patch_2">
+    <path d="M 62.712 166.536 
+L 453.312 166.536 
+L 453.312 5.76 
+L 62.712 5.76 
+L 62.712 166.536 
+z
+" style="fill: none"/>
+   </g>
+   <g id="patch_3">
+    <path d="M 80.466545 166.536 
+L 192.344503 166.536 
+L 192.344503 140.070815 
+L 80.466545 140.070815 
+z
+" clip-path="url(#p114c7f9f70)" style="fill: #6dbdac; opacity: 0.32; stroke: #6dbdac; stroke-width: 1.1; stroke-linejoin: miter"/>
+   </g>
+   <g id="patch_4">
+    <path d="M 323.679497 166.536 
+L 435.557455 166.536 
+L 435.557455 140.070815 
+L 323.679497 140.070815 
+z
+" clip-path="url(#p114c7f9f70)" style="fill: #6dbdac; opacity: 0.32; stroke: #6dbdac; stroke-width: 1.1; stroke-linejoin: miter"/>
+   </g>
+   <g id="patch_5">
+    <path d="M 80.466545 140.070815 
+L 192.344503 140.070815 
+L 192.344503 44.796148 
+L 80.466545 44.796148 
+z
+" clip-path="url(#p114c7f9f70)" style="fill: #d98c72; opacity: 0.32; stroke: #d98c72; stroke-width: 1.1; stroke-linejoin: miter"/>
+   </g>
+   <g id="patch_6">
+    <path d="M 323.679497 140.070815 
+L 435.557455 140.070815 
+L 435.557455 140.070815 
+L 323.679497 140.070815 
+z
+" clip-path="url(#p114c7f9f70)" style="fill: #d98c72; opacity: 0.32; stroke: #d98c72; stroke-width: 1.1; stroke-linejoin: miter"/>
+   </g>
+   <g id="patch_7">
+    <path d="M 80.466545 44.796148 
+L 192.344503 44.796148 
+L 192.344503 32.886815 
+L 80.466545 32.886815 
+z
+" clip-path="url(#p114c7f9f70)" style="fill: #9a8872; opacity: 0.32; stroke: #9a8872; stroke-width: 1.1; stroke-linejoin: miter"/>
+   </g>
+   <g id="patch_8">
+    <path d="M 323.679497 140.070815 
+L 435.557455 140.070815 
+L 435.557455 80.524148 
+L 323.679497 80.524148 
+z
+" clip-path="url(#p114c7f9f70)" style="fill: #9a8872; opacity: 0.32; stroke: #9a8872; stroke-width: 1.1; stroke-linejoin: miter"/>
+   </g>
+   <g id="patch_9">
+    <path d="M 62.712 77.216 
+L 453.312 77.216 
+L 453.312 47.442667 
+L 62.712 47.442667 
+z
+" clip-path="url(#p114c7f9f70)" style="fill: #d7a95c; opacity: 0.14"/>
+   </g>
+   <g id="matplotlib.axis_1">
+    <g id="xtick_1">
+     <g id="line2d_1">
+      <defs>
+       <path id="m77033d0b84" d="M 0 0 
+L 0 3.5 
+" style="stroke: #9a8872; stroke-width: 0.9"/>
+      </defs>
+      <g>
+       <use xlink:href="#m77033d0b84" x="136.405524" y="166.536" style="fill: #9a8872; stroke: #9a8872; stroke-width: 0.9"/>
+      </g>
+     </g>
+     <g id="text_1">
+      <text style="font-size: 8.8px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: middle; fill: #9a8872" x="136.405524" y="180.222625" transform="rotate(-0 136.405524 180.222625)">complex LAB medium</text>
+     </g>
+    </g>
+    <g id="xtick_2">
+     <g id="line2d_2">
+      <g>
+       <use xlink:href="#m77033d0b84" x="379.618476" y="166.536" style="fill: #9a8872; stroke: #9a8872; stroke-width: 0.9"/>
+      </g>
+     </g>
+     <g id="text_2">
+      <text style="font-size: 8.8px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: middle; fill: #9a8872" x="379.618476" y="180.222625" transform="rotate(-0 379.618476 180.222625)">defined medium host</text>
+     </g>
+    </g>
+   </g>
+   <g id="matplotlib.axis_2">
+    <g id="ytick_1">
+     <g id="line2d_3">
+      <path d="M 62.712 166.536 
+L 453.312 166.536 
+" clip-path="url(#p114c7f9f70)" style="fill: none; stroke: #2e251c; stroke-opacity: 0.7; stroke-width: 0.6; stroke-linecap: square"/>
+     </g>
+     <g id="line2d_4">
+      <defs>
+       <path id="mb7b7c2fa0c" d="M 0 0 
+L -3.5 0 
+" style="stroke: #9a8872; stroke-width: 0.9"/>
+      </defs>
+      <g>
+       <use xlink:href="#mb7b7c2fa0c" x="62.712" y="166.536" style="fill: #9a8872; stroke: #9a8872; stroke-width: 0.9"/>
+      </g>
+     </g>
+     <g id="text_3">
+      <text style="font-size: 9.5px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: end; fill: #9a8872" x="55.712" y="170.145258" transform="rotate(-0 55.712 170.145258)">0.0</text>
+     </g>
+    </g>
+    <g id="ytick_2">
+     <g id="line2d_5">
+      <path d="M 62.712 136.762667 
+L 453.312 136.762667 
+" clip-path="url(#p114c7f9f70)" style="fill: none; stroke: #2e251c; stroke-opacity: 0.7; stroke-width: 0.6; stroke-linecap: square"/>
+     </g>
+     <g id="line2d_6">
+      <g>
+       <use xlink:href="#mb7b7c2fa0c" x="62.712" y="136.762667" style="fill: #9a8872; stroke: #9a8872; stroke-width: 0.9"/>
+      </g>
+     </g>
+     <g id="text_4">
+      <text style="font-size: 9.5px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: end; fill: #9a8872" x="55.712" y="140.371924" transform="rotate(-0 55.712 140.371924)">0.5</text>
+     </g>
+    </g>
+    <g id="ytick_3">
+     <g id="line2d_7">
+      <path d="M 62.712 106.989333 
+L 453.312 106.989333 
+" clip-path="url(#p114c7f9f70)" style="fill: none; stroke: #2e251c; stroke-opacity: 0.7; stroke-width: 0.6; stroke-linecap: square"/>
+     </g>
+     <g id="line2d_8">
+      <g>
+       <use xlink:href="#mb7b7c2fa0c" x="62.712" y="106.989333" style="fill: #9a8872; stroke: #9a8872; stroke-width: 0.9"/>
+      </g>
+     </g>
+     <g id="text_5">
+      <text style="font-size: 9.5px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: end; fill: #9a8872" x="55.712" y="110.598591" transform="rotate(-0 55.712 110.598591)">1.0</text>
+     </g>
+    </g>
+    <g id="ytick_4">
+     <g id="line2d_9">
+      <path d="M 62.712 77.216 
+L 453.312 77.216 
+" clip-path="url(#p114c7f9f70)" style="fill: none; stroke: #2e251c; stroke-opacity: 0.7; stroke-width: 0.6; stroke-linecap: square"/>
+     </g>
+     <g id="line2d_10">
+      <g>
+       <use xlink:href="#mb7b7c2fa0c" x="62.712" y="77.216" style="fill: #9a8872; stroke: #9a8872; stroke-width: 0.9"/>
+      </g>
+     </g>
+     <g id="text_6">
+      <text style="font-size: 9.5px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: end; fill: #9a8872" x="55.712" y="80.825258" transform="rotate(-0 55.712 80.825258)">1.5</text>
+     </g>
+    </g>
+    <g id="ytick_5">
+     <g id="line2d_11">
+      <path d="M 62.712 47.442667 
+L 453.312 47.442667 
+" clip-path="url(#p114c7f9f70)" style="fill: none; stroke: #2e251c; stroke-opacity: 0.7; stroke-width: 0.6; stroke-linecap: square"/>
+     </g>
+     <g id="line2d_12">
+      <g>
+       <use xlink:href="#mb7b7c2fa0c" x="62.712" y="47.442667" style="fill: #9a8872; stroke: #9a8872; stroke-width: 0.9"/>
+      </g>
+     </g>
+     <g id="text_7">
+      <text style="font-size: 9.5px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: end; fill: #9a8872" x="55.712" y="51.051924" transform="rotate(-0 55.712 51.051924)">2.0</text>
+     </g>
+    </g>
+    <g id="ytick_6">
+     <g id="line2d_13">
+      <path d="M 62.712 17.669333 
+L 453.312 17.669333 
+" clip-path="url(#p114c7f9f70)" style="fill: none; stroke: #2e251c; stroke-opacity: 0.7; stroke-width: 0.6; stroke-linecap: square"/>
+     </g>
+     <g id="line2d_14">
+      <g>
+       <use xlink:href="#mb7b7c2fa0c" x="62.712" y="17.669333" style="fill: #9a8872; stroke: #9a8872; stroke-width: 0.9"/>
+      </g>
+     </g>
+     <g id="text_8">
+      <text style="font-size: 9.5px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: end; fill: #9a8872" x="55.712" y="21.278591" transform="rotate(-0 55.712 21.278591)">2.5</text>
+     </g>
+    </g>
+    <g id="text_9">
+     <text style="font-size: 9.5px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: middle; fill: #cbbca6" x="34.628328" y="86.148" transform="rotate(-90 34.628328 86.148)">medium cost  ($ per kg lactate)</text>
+    </g>
+   </g>
+   <g id="patch_10">
+    <path d="M 62.712 166.536 
+L 62.712 5.76 
+" style="fill: none; stroke: #3a3026; stroke-width: 0.9; stroke-linejoin: miter; stroke-linecap: square"/>
+   </g>
+   <g id="patch_11">
+    <path d="M 62.712 166.536 
+L 453.312 166.536 
+" style="fill: none; stroke: #3a3026; stroke-width: 0.9; stroke-linejoin: miter; stroke-linecap: square"/>
+   </g>
+   <g id="text_10">
+    <text style="font-weight: 700; font-size: 8.8px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: middle; fill: #cbbca6" x="136.405524" y="29.314015" transform="rotate(-0 136.405524 29.314015)">$2.24 per kg</text>
+   </g>
+   <g id="text_11">
+    <text style="font-weight: 700; font-size: 8.8px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: middle; fill: #cbbca6" x="379.618476" y="76.951348" transform="rotate(-0 379.618476 76.951348)">$1.44 per kg</text>
+   </g>
+   <g id="text_12">
+    <text style="font-size: 8.2px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; fill: #d7a95c" transform="translate(450.059527 60.000918)">lactic acid</text>
+    <text style="font-size: 8.2px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; fill: #d7a95c" transform="translate(441.927433 69.183124)">selling price</text>
+   </g>
+   <g id="legend_1">
+    <g id="patch_12">
+     <path d="M 343.457625 19.370719 
+L 359.857625 19.370719 
+L 359.857625 13.630719 
+L 343.457625 13.630719 
+z
+" style="fill: #6dbdac; opacity: 0.32; stroke: #6dbdac; stroke-width: 1.1; stroke-linejoin: miter"/>
+    </g>
+    <g id="text_13">
+     <text style="font-size: 8.2px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: start; fill: #cbbca6" x="366.417625" y="19.370719" transform="rotate(-0 366.417625 19.370719)">sugar</text>
+    </g>
+    <g id="patch_13">
+     <path d="M 343.457625 31.406781 
+L 359.857625 31.406781 
+L 359.857625 25.666781 
+L 343.457625 25.666781 
+z
+" style="fill: #d98c72; opacity: 0.32; stroke: #d98c72; stroke-width: 1.1; stroke-linejoin: miter"/>
+    </g>
+    <g id="text_14">
+     <text style="font-size: 8.2px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: start; fill: #cbbca6" x="366.417625" y="31.406781" transform="rotate(-0 366.417625 31.406781)">complex nitrogen</text>
+    </g>
+    <g id="patch_14">
+     <path d="M 343.457625 43.442844 
+L 359.857625 43.442844 
+L 359.857625 37.702844 
+L 343.457625 37.702844 
+z
+" style="fill: #9a8872; opacity: 0.32; stroke: #9a8872; stroke-width: 1.1; stroke-linejoin: miter"/>
+    </g>
+    <g id="text_15">
+     <text style="font-size: 8.2px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: start; fill: #cbbca6" x="366.417625" y="43.442844" transform="rotate(-0 366.417625 43.442844)">salts, buffer, traces</text>
+    </g>
+   </g>
+  </g>
+  <g id="text_16">
+   <text style="font-size: 8.3px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: start; fill: #9a8872" x="5.76" y="214.56" transform="rotate(-0 5.76 214.56)">At 50 g L⁻¹ and 0.90 g g⁻¹; complex nitrogen 20 g L⁻¹ at $4 kg⁻¹. Prices are assumptions.</text>
+  </g>
+ </g>
+ <defs>
+  <clipPath id="p114c7f9f70">
+   <rect x="62.712" y="5.76" width="390.6" height="160.776"/>
+  </clipPath>
+ </defs>
+</svg>
+</div><figcaption>The complex nitrogen source is 71% of the medium cost and 3.6 times the sugar bill, and the total exceeds the selling price of the product. That difference, about $800 per tonne, is the price of the biosynthetic pathways these genomes have discarded — and the thing food-grade status has to be worth more than.</figcaption></figure>
+<p>The same chapter states the consequence directly: the move to nutritionally rich environments lost the ability to biosynthesise many cofactors, vitamins and amino acids. Whatever the organism cannot make, you buy — as peptone, yeast extract, beef extract, corn steep or a defined amino acid blend — and you buy it per litre of broth, not per kilogram of product. That is why the medium cost per kilogram of product is the first calculation in any LAB process and the content of the worked anchor. It is also why the engineering question in this host is often subtractive in reverse: restoring a biosynthetic pathway to drop a medium component can be worth more than raising a titre.</p>
+<p><strong>3. Homolactic and heterolactic, stated quantitatively</strong></p>
+<p>Lee §15.1.2 is the reference: LAB have a simple central metabolism with a high glycolytic flux and a fermentative metabolism relying on substrate-level phosphorylation. Homofermentative strains — lactococci, streptococci, some lactobacilli — run the EMP pathway and produce almost exclusively lactic acid from readily fermentable sugars; heterofermentative ones — Leuconostoc, most pediococci, some lactobacilli — rely on the oxidative pentose phosphate pathway with a phosphoketolase and produce a mixture of lactate, acetate, ethanol and CO₂, with obligate heterofermenters lacking glycolytic enzymes entirely. On pentoses some strains use the non-oxidative PP pathway instead. And on slowly fermentable sugars the metabolism can shift to mixed-acid mode, giving lactate, formate, acetate, ethanol and CO₂. Connect this to the week 13 ledger: the homolactic route is 2 ATP and 2 lactate per glucose with no net redox imbalance, the heterolactic route is 1 ATP, 1 lactate, 1 CO₂ and one two-carbon product — so the yield difference is a third of the carbon and half the ATP, and which route the strain runs is not a detail.</p>
+<p><strong>4. Acid tolerance is where the process and the organism meet</strong></p>
+<p>Lee §15.3.2.2 states the process preference first: for lactic acid fermentations a pH below about 3.8 is wanted, because the acid is then in its free form and removable by electrodialysis or ultrafiltration, whereas neutralisation raises osmotic stress during the run and leaves a salt to be recovered from. Lactobacilli are naturally rather acid-tolerant and still need improving. The reported routes are all evolutionary rather than rational: genome shuffling of two mutagenised populations gave roughly a fivefold increase in tolerance to protonated lactic acid at pH 3.8 and a doubling of production at pH 4.0 without any prior genomic knowledge; L. delbrueckii Uc-3 reached 50 g L⁻¹ with no pH adjustment after UV mutagenesis, protoplast fusion and adaptive evolution; an adapted Leuconostoc mesenteroides tolerated 70 g L⁻¹ and made 76.8 g L⁻¹ under pH control, though by salt tolerance rather than acid tolerance proper. A hypermutator mutS background accelerated the evolution and gave better endpoints than wild-type parents.</p>
+<p><strong>5. The expression toolbox exists and its dynamic range is modest</strong></p>
+<p>The Lactobacillus volume&#x27;s Ch 9 surveys it: low-copy replicons p256 and pWV01 and the high-copy pSH71 underlie most vectors; nisin-controlled expression, the NICE system built on PnisA induced by sub-inhibitory nisin, is the best-known inducible system, and pSIP, built on the sakacin promoters including PsppA, is its main alternative and avoids NICE&#x27;s regulation problems in Lactobacillus species. Carbohydrate-responsive systems are reported with their ranges — a xylA promoter gave 60- to 80-fold induction by xylose where a second promoter gave only 3- to 10-fold — and FOS-, lac- and tre-based vectors are inducible by their sugar and repressed by glucose. Temperature-inducible and copper-inducible options exist. For constitutive expression, the Rud et al. library built by randomising the spacer between consensus −10 and −35 elements gave stable expression from low levels up to as high as or higher than induced PorfX in both L. plantarum and L. sakei, which makes it the practical choice for metabolic engineering. One cautionary result: differences in reporter output between constructs traced back to mRNA stability driven by unfavourable codons in the 5′ portion of the gene, which is week 34&#x27;s lesson arriving in a new host.</p>
+<p><strong>6. The surface layer is both a tool and a proteome line item</strong></p>
+<p>The volume&#x27;s Ch 5 covers envelope remodelling under osmotic stress and Ch 6 the S-layer proteins themselves: two-dimensional crystalline arrays of self-assembling subunits attached non-covalently to the cell wall, generally 40–200 kDa across bacteria and 25–71 kDa in lactobacilli, glycosylated in some species, and accounting for 10–15% of total cellular protein — among the most abundant proteins the cell makes. Two consequences. As a display platform it is unmatched: a strong native promoter, a secretion and anchoring route the cell already runs at high flux, and a surface presentation suited to mucosal delivery and whole-cell biocatalysis. As a burden it is a tenth of the proteome already committed, which is the week 31 allocation argument applied to a host where the budget is smaller to begin with.</p>
+<p><strong>7. Food-grade status is a regulatory argument with a technical tail</strong></p>
+<p>GRAS in the United States and the EFSA Qualified Presumption of Safety in Europe attach to organisms, and neither transfers automatically to an engineered derivative: the status shortens the path for the species, while the construct brings its own assessment, and an antibiotic-resistance marker or a heterologous sequence of uncertain provenance is exactly what that assessment looks for. Hence the food-grade toolbox — Ch 9 notes systems designed to meet self-cloning criteria with no antibiotic resistance genes — and hence the preference for chromosomal integration and complementation markers that week 33 costed. Note the honest limit: the assigned reading describes the tools, not the regulatory process, so the regulatory note the week asks for should be written from primary regulatory sources and flagged as outside the reading.</p>
+<p><strong>8. When a lactobacillus is the right answer, and when it is not</strong></p>
+<p>It is the right answer when the product goes into food or into a human as a live organism, when the organism&#x27;s own acidification is part of the process&#x27;s contamination control, when the substrate is a dairy or plant side-stream the host is already adapted to, or when surface display is the product. It is the wrong answer when the chemistry needs NADPH or oxygen, when the economics cannot carry a complex medium, when the product needs high-density aerobic fed-batch, or when the engineering programme needs fast iteration — transformation efficiency and marker availability in this group are week 33&#x27;s constraint, not a formality. The matrix&#x27;s LAB page is the one that needs a column the others do not: regulatory status, with the distinction between the species and the construct written into it.</p>
+<h3>Worked anchor</h3>
+<p>Medium cost per kilogram of lactate, complex against defined, with the prices flagged as the weakest part of the calculation.</p>
+<p>Basis: a complex LAB medium with 20 g L⁻¹ of complex nitrogen source — peptone plus yeast or beef extract, as MRS-type media use — at an assumed food-grade price of $4 kg⁻¹; glucose at $400 t⁻¹; salts and buffer at $0.01 L⁻¹. Product at 50 g L⁻¹, which is the titre Lee §15.3.2.2 reports for an acid-tolerant L. delbrueckii strain fermenting without pH adjustment. Yield on sugar 0.90 g g⁻¹, within the range the Lactobacillus volume&#x27;s Ch 4 reports for homolactic strains.</p>
+<p>Per litre of broth: complex nitrogen  20 g × $4 kg⁻¹        = $0.080 glucose           55.6 g × $0.40 kg⁻¹   = $0.022 salts and buffer                        = $0.010 total                                   = $0.112 per litre</p>
+<p>Per kilogram of lactate, at 50 g L⁻¹, that is 20 litres of broth: $2.24 kg⁻¹, of which $1.60 is the complex nitrogen source — 71% of the medium cost, and 3.6 times the sugar bill.</p>
+<p>Against a lactic acid price in the $1.5–2.0 kg⁻¹ range, the medium alone exceeds the revenue. The process as costed does not close, and no titre improvement available in the chapter closes it: at 76.8 g L⁻¹, the best pH-controlled titre reported, the medium cost falls to $1.46 kg⁻¹ only if the complex component is unchanged per litre — which it is not, since a higher titre needs more nitrogen.</p>
+<p>The defined-medium comparison. A host that makes its own amino acids and vitamins — E. coli on glucose and salts, at roughly $0.05 L⁻¹ including trace elements and vitamins — at the same 0.90 g g⁻¹ and 50 g L⁻¹ pays about $0.05 + $0.022 = $0.072 per litre, $1.44 per kilogram, of which the sugar is now a third. Note that this salts line is five times the complex medium&#x27;s, and deliberately so: in the complex medium the extract is supplying the trace metals and vitamins, so they are already paid for inside the $4 kg⁻¹ nitrogen source and must not be counted twice. The gap is $0.80 per kilogram, and it is the price of the 73-gene core and the lost biosynthetic pathways.</p>
+<p>So the trade, stated as a decision rather than a lament: the complex medium costs roughly $800 per tonne of product more than a defined one. A food-grade organism is worth that if the product cannot be made in a non-food-grade host at all, or if the regulatory calendar it shortens is worth more than $800 a tonne — which for a food ingredient at modest volume it often is, and for commodity lactic acid it is not, which is why commodity lactic acid is made by organisms selected for acid tolerance and cheap media rather than for food-grade status.</p>
+<p>The honest caveat is the prices: all three are assumptions at order-of-magnitude accuracy, and the conclusion is sensitive to the complex nitrogen price in a way it is not sensitive to anything else. Before this number enters a proposal, quote the actual components.</p>
+<p><strong>Assumptions behind this calculation</strong></p>
+<ul>
+<li>complex nitrogen source at 20 g L⁻¹ and an assumed food-grade price of $4 kg⁻¹</li>
+<li>glucose at $400 per tonne, salts and buffer at $0.01 L⁻¹</li>
+<li>lactate at 50 g L⁻¹ and a yield on sugar of 0.90 g g⁻¹</li>
+<li>medium composition unchanged per litre when the titre changes</li>
+<li>defined medium for the comparison host at about $0.05 L⁻¹ including trace elements</li>
+<li>no credit for the regulatory or market value that the food-grade status itself carries</li>
+<li>all three prices are order-of-magnitude assumptions and the conclusion is sensitive to the first</li>
+</ul>
+<h3>Reading map</h3>
+<table><thead><tr><th>Source</th><th>Treatment</th><th>Why</th></tr></thead><tbody><tr><td>Lee Ch 15 — Metabolic Engineering of Lactic Acid Bacteria, in full</td><td>Read closely</td><td>§15.1.1–15.1.2 phylogeny and metabolism, §15.2 the genetic toolbox, §15.3 traditional applications with §15.3.2.2 acid tolerance and §15.3.3 substrate utilisation, §15.4 products by class. §15.2.1–15.2.3 were already read in weeks 33 and 35; the new material here is §15.1.2, §15.3 and §15.4.</td></tr><tr><td>Lactobacillus Ch 1 — A Genomic Perspective on Niche Adaptability in Lactobacillus</td><td>Read closely</td><td>Genome sizes from 1.23 to 4.91 Mbp, 213 genomes, a 45,000-family pangenome against a 73-gene core, and the loss of cofactor, vitamin and amino acid biosynthesis on adaptation to rich environments. This is the quantitative basis of the medium-cost argument, not background.</td></tr><tr><td>Lactobacillus Ch 4 — Production of Lactate Using Lactobacillus</td><td>Read closely</td><td>Sugar metabolism, lactic acid and PLA, then the problems-and-solutions half: optical purity, acid tolerance and by-product formation, industrial waste substrates, phage. Recompute the reported yields against the homolactic ceiling of 1.0 g g⁻¹ before comparing strains — several are reported on complex media and on residual whey, so the bases differ.</td></tr><tr><td>Lactobacillus Ch 9 — Recombinant Gene Expression in Lactobacilli</td><td>Read closely</td><td>Read closely a second time, now for dynamic range rather than for mechanism: NICE and pSIP, the 60- to 80-fold xylA induction against 3- to 10-fold alternatives, the Rud constitutive promoter library, the 5′-UTR and codon effects on mRNA stability, secretory expression and surface display. Tabulate system against range; that table is the LAB tools column of the matrix.</td></tr><tr><td>Lactobacillus Ch 3 — Complex Oligosaccharide Utilization Pathways in Lactobacillus</td><td>Read closely</td><td>Fructans and FOS, glucans and glucooligosaccharides, β-glucans, XOS, GOS and human milk oligosaccharides. Read for how the transporter and glycoside hydrolase repertoire, not the central metabolism, decides which prebiotic substrates a strain can use — the practical form of Ch 1&#x27;s genome-reduction argument.</td></tr><tr><td>Lactobacillus Ch 6 — S-Layer Proteins from Lactobacilli</td><td>Read closely</td><td>Occurrence and primary structure, glycosylation, expression of the genes, cell-wall binding and self-assembly regions, functionality and biotechnological applications. The two numbers to carry away are 10–15% of total cellular protein and 25–71 kDa in lactobacilli.</td></tr><tr><td>Lactobacillus Ch 5 — Modifications of Lactobacillus Surface Under Environmental Stress</td><td>Skim</td><td>Envelope composition and its variation under osmotic stress, with the S-layer section. Skim the peptidoglycan and teichoic acid chemistry, which was week 15&#x27;s material, and read the osmotic-stress sections for what a high-titre acid fermentation does to the envelope.</td></tr><tr><td>Lee Ch 15 §15.4.3–15.4.5</td><td>Skim</td><td>Vitamins and polyols, therapeutic proteins and bacteriocins, LAB as biocatalysts. Skim for the breadth of the portfolio — riboflavin, folate, 3-HP from glycerol at 36 g L⁻¹, GABA at 105 g L⁻¹ in fed-batch — and come back to it in week 46 when the product classes are the subject.</td></tr></tbody></table>
+<h3>Common misconceptions</h3>
+<ul>
+<li>That food-grade status transfers to an engineered strain. GRAS and QPS attach to the organism; the construct is assessed on its own, and markers, vectors and heterologous sequences are exactly what is assessed. The status buys a shorter path for the species, not an exemption, which is why the food-grade toolbox is built around self-cloning criteria and the absence of antibiotic resistance genes.</li>
+<li>That LAB are nutritionally demanding because they are delicate. They are demanding because they have discarded biosynthetic pathways they did not need in a rich niche — a 73-gene core across 213 genomes, with cofactor, vitamin and amino acid biosynthesis among the first losses. It is an adaptation, and it is why the medium, not the strain, is the cost centre.</li>
+<li>That a low-pH fermentation is simply harder. It is harder for the organism and much cheaper downstream: below about pH 3.8 the acid is protonated and can be recovered by electrodialysis or ultrafiltration, where a neutralised fermentation adds osmotic stress during the run and leaves a salt to be split afterwards. The pH is a downstream decision made in the fermenter.</li>
+</ul>
+<h3>Check yourself before moving on</h3>
+<p><strong>Q.</strong> Name two reasons to choose a lactobacillus despite weaker tools, and the cost each choice carries.</p>
+<p><strong>A.</strong> First, food-grade status: for a product going into food or into a person as a live organism, a GRAS or QPS species shortens the regulatory path in a way no amount of engineering in a non-food-grade host can. The cost is that the status covers the species and not the construct, so the toolbox narrows to self-cloning, marker-free, integration-based designs — the slowest tools available. Second, niche fit: the organism is already adapted to the substrate and to the acidified, anaerobic process, and its own acidification is part of the contamination control. The cost is nutritional, and it is quantified — a complex medium runs roughly $2.2 per kilogram of lactate against $1.4 on a defined medium, most of it the complex nitrogen source, which for a commodity acid is the whole margin.</p>
+<p><strong>Q.</strong> A strain is reported making lactate at 0.93 g per g of sugar. What do you check before putting it in the matrix?</p>
+<p><strong>A.</strong> That the basis is sugar consumed and not sugar supplied, since conversion and yield are reported interchangeably in this literature; that the medium is not contributing carbon, which it does whenever whey, yeast extract or stillage is in it — the homolactic ceiling is 1.0 g g⁻¹ and a complex medium can push an apparent yield towards it or past it; whether the strain is homofermentative, because a heterofermentative route caps the yield near 0.5 g g⁻¹ and a mixed-acid shift lower still; and whether the number is for one isomer or for total lactate, which decides whether the product is polymer-grade at all.</p>
+<p><strong>Q.</strong> You are asked to display an antigen on the surface of L. plantarum. What does the reading support, and what does it not?</p>
+<p><strong>A.</strong> It supports the route: Ch 9 covers secretory expression and surface display, and Ch 6 gives the S-layer as a self-assembling array that is already 10–15% of total cellular protein, so the promoter, the secretion machinery and the anchoring chemistry are all running at high flux natively. It supports the expression choice too — the Rud constitutive library reaches induced-PorfX levels and avoids an inducer that a live product cannot carry, where NICE needs nisin and pSIP needs a peptide. What it does not support is any claim about immunogenicity, dose or persistence in vivo, and it gives no display density; those come from the therapeutic literature, and the matrix entry should carry the capability without the efficacy.</p>
+<hr>
+
+<section class="study-transfer" aria-label="Week 43 application and teach-back">
+<h3>Apply it to your fermentation experience</h3>
+<p><strong>Transfer prompt.</strong> For L. plantarum or another lactic acid bacterium in your work, connect acid formation and pH control to carbon balance and product tolerance. Which process change could alter physiology as well as pH?</p>
+<p class="meta">Use your actual thesis methods and results where you remember them. Mark missing information as unknown; do not assume the organisms were co-cultured, that a metabolite was measured, or that a proposed mechanism was demonstrated.</p>
+<h3>Teach it back</h3>
+<p>Explain the week's concept from memory, work one number, and name one boundary. Then use the <a href="teach-back.html">five-minute teach-back protocol</a> and log it in the tracker.</p>
+</section>
+<nav class="weeknav" aria-label="Week navigation"><a href="week-42.html">&#8592; Week 42</a><a class="idx" href="index.html">Lecture index</a><a class="idx" href="case-study.html">Case study</a><a href="week-44.html">Week 44 &#8594;</a></nav>
+</main>
+<footer class="docfoot"><a href="../metabolic-engineering-tracker.html">&#8592; Course tracker</a><span>Metabolic engineering &middot; 55 weeks</span></footer>
+<script>
+(function(){var root=document.documentElement,key="me.theme";var bs=Array.prototype.slice.call(document.querySelectorAll(".appearance button"));
+function paint(v){bs.forEach(function(b){b.setAttribute("aria-pressed",b.getAttribute("data-appearance")===v?"true":"false");});if(v==="auto")root.removeAttribute("data-theme");else root.setAttribute("data-theme",v);}
+var saved="auto";try{saved=localStorage.getItem(key)||"auto";}catch(e){}
+bs.forEach(function(b){b.addEventListener("click",function(){var v=b.getAttribute("data-appearance");paint(v);try{localStorage.setItem(key,v);}catch(e){}});});paint(saved);})();
+</script>
+</body>
+</html>

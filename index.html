@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Metabolic engineering — 55 weeks</title>
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<link rel="icon" type="image/svg+xml" href="favicon.svg">
+<meta name="color-scheme" content="light dark">
+<meta name="theme-color" content="#ffffff" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#000000" media="(prefers-color-scheme: dark)">
+<script>try{var t=localStorage.getItem("me.theme");if(t&&t!=="auto")document.documentElement.setAttribute("data-theme",t);}catch(e){}</script>
+<style>
+:root{color-scheme:light;--paper:#fff;--surface:#f5f5f7;--card:#fff;--ink:#1d1d1f;--ink2:#6e6e73;--line:rgba(0,0,0,.08);--blue:#0071e3;--nav:rgba(255,255,255,.84);--sans:-apple-system,BlinkMacSystemFont,"SF Pro Text","SF Pro Display","Helvetica Neue",Arial,sans-serif}
+@media(prefers-color-scheme:dark){:root:not([data-theme="light"]){color-scheme:dark;--paper:#000;--surface:#1c1c1e;--card:#2c2c2e;--ink:#f5f5f7;--ink2:#a1a1a6;--line:rgba(255,255,255,.1);--blue:#5aa9ff;--nav:rgba(0,0,0,.74)}}
+:root[data-theme="dark"]{color-scheme:dark;--paper:#000;--surface:#1c1c1e;--card:#2c2c2e;--ink:#f5f5f7;--ink2:#a1a1a6;--line:rgba(255,255,255,.1);--blue:#5aa9ff;--nav:rgba(0,0,0,.74)}
+*{box-sizing:border-box}.skip{position:fixed;left:12px;top:-80px;z-index:100;background:var(--ink);color:var(--paper);padding:10px 14px;border-radius:8px;font-size:13px;text-decoration:none}.skip:focus{top:12px}html{scroll-behavior:smooth}body{margin:0;background:var(--paper);color:var(--ink);font-family:var(--sans);font-size:17px;line-height:1.55;letter-spacing:-.012em}
+.bar{position:sticky;top:0;z-index:10;display:flex;align-items:center;justify-content:space-between;padding:9px max(24px,calc((100vw - 1180px)/2));background:var(--nav);backdrop-filter:saturate(180%) blur(20px);-webkit-backdrop-filter:saturate(180%) blur(20px);border-bottom:1px solid var(--line);font-size:13px;color:var(--ink2)}
+.appearance{display:inline-flex;gap:2px;padding:2px;background:var(--surface);border-radius:980px}
+.appearance button{border:0;background:none;color:var(--ink2);font:inherit;font-size:12px;padding:6px 11px;border-radius:980px;cursor:pointer}
+.appearance button[aria-pressed="true"]{background:var(--card);color:var(--ink);box-shadow:0 1px 2px rgba(0,0,0,.08)}
+main{max-width:900px;margin:0 auto;padding:72px 24px 90px}
+.kicker{font-size:13px;color:var(--ink2);margin:0 0 12px}
+h1{font-size:clamp(44px,7vw,76px);line-height:1.02;letter-spacing:-.045em;margin:0 0 16px;font-weight:700}
+.lead{font-size:20px;line-height:1.55;color:var(--ink2);max-width:62ch;margin:0 0 30px}
+.actions{display:flex;flex-wrap:wrap;gap:10px;margin-bottom:44px}
+.btn{display:inline-flex;align-items:center;justify-content:center;text-decoration:none;font-size:15px;font-weight:500;padding:12px 22px;border-radius:980px;border:1px solid transparent}
+.primary{background:#0066CC;color:#fff}.ghost{background:var(--surface);color:var(--ink)}
+.grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}
+.card{display:block;text-decoration:none;color:var(--ink);background:var(--surface);border-radius:22px;padding:22px}
+.card b{display:block;font-size:17px;margin-bottom:4px}.card span{display:block;font-size:13px;line-height:1.45;color:var(--ink2)}
+.card:hover{outline:2px solid var(--blue);outline-offset:-2px}
+.assure{margin:26px 0 0;font-size:13px}.assure a{color:var(--blue);text-decoration:none}.assure a:hover{text-decoration:underline}
+footer{max-width:900px;margin:0 auto;padding:22px 24px 50px;border-top:1px solid var(--line);font-size:12.5px;color:var(--ink2);display:flex;justify-content:space-between;gap:12px}
+footer a{color:var(--ink2);text-decoration:none}footer a:hover{color:var(--blue)}
+@media(max-width:640px){main{padding:48px 18px 70px}.grid{grid-template-columns:1fr}.bar{padding:8px 16px}footer{padding:20px 18px 40px;flex-direction:column}}
+</style>
+<link rel="manifest" href="manifest.webmanifest">
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+<header class="bar">
+  <span>Metabolic engineering</span>
+  <div class="appearance" role="group" aria-label="Appearance">
+    <button type="button" data-appearance="auto" aria-pressed="true">Auto</button>
+    <button type="button" data-appearance="light" aria-pressed="false">Light</button>
+    <button type="button" data-appearance="dark" aria-pressed="false">Dark</button>
+  </div>
+</header>
+<main id="main">
+  <p class="kicker">55-week course &middot; 660 sessions</p>
+  <h1>Metabolic engineering</h1>
+  <p class="lead">A full-time curriculum from the chemistry of the cytosol to a research proposal and a portfolio a supervisor can check. Lecture notes, design briefs, methods, machine learning, statistics and a 55-week tracker.</p>
+  <div class="actions">
+    <a class="btn primary" href="metabolic-engineering-tracker.html">Open tracker</a>
+    <a class="btn ghost" href="lecture-notes/index.html">Lecture notes</a>
+  </div>
+  <div class="grid">
+    <a class="card" href="start-here.html"><b>Start here</b><span>Core path, entry diagnostic and catch-up routes.</span></a>
+    <a class="card" href="diagnostic.html"><b>Entry diagnostic</b><span>Fifteen questions. Choose a starting path.</span></a>
+    <a class="card" href="lecture-notes/case-study.html"><b>Fercaf case study</b><span>Audit the 2017 reactor thesis: process, evidence, whiteness and ratio conflicts.</span></a>
+    <a class="card" href="lecture-notes/teach-back.html"><b>Teach-back protocol</b><span>Five minutes: explain, calculate, name the boundary, log it.</span></a>
+    <a class="card" href="design-briefs.html"><b>Design briefs</b><span>Nineteen open-ended portfolio problems with no worked solutions.</span></a>
+    <a class="card" href="methods-handbook.html"><b>Methods handbook</b><span>Forty-two entries: purpose, procedure, controls and failure modes.</span></a>
+    <a class="card" href="ml-handbook.html"><b>Machine learning</b><span>Thirteen sections for data sets measured in tens to hundreds.</span></a>
+    <a class="card" href="stats-handbook.html"><b>Statistics &amp; DOE</b><span>Seventeen sections on inference and designed experiments.</span></a>
+    <a class="card" href="GUIDED-PROJECT.md"><b>Guided project</b><span>Balance, FBA, design, isotope evidence and limits.</span></a>
+    <a class="card" href="CASE-THREAD.md"><b>Case thread</b><span>Fercaf and biodiesel, with transfer limits.</span></a>
+    <a class="card" href="practice/README.md"><b>Practice labs</b><span>Ten runnable NumPy labs with unit tests.</span></a>
+    <a class="card" href="BENCH-CRITERIA.md"><b>Bench criteria</b><span>Thirty protocols screened for risk, controls and acceptance.</span></a>
+    <a class="card" href="PORTFOLIO-PACK.md"><b>Portfolio pack</b><span>Evidence paths, review cadence and export with checksums.</span></a>
+  </div>
+  <p class="assure"><a href="AUDIT.md">Course assurance &rarr;</a> &nbsp; <a href="MASTERY.md">Mastery gates &rarr;</a></p>
+</main>
+<footer>
+  <a href="README.txt">Module README</a>
+  <a href="AUDIT.md">Assurance</a>
+  <a href="MASTERY.md">Mastery</a>
+  <a href="search.html">Search</a>
+  <span>55 weeks &middot; 660 sessions</span>
+</footer>
+<script>
+(function(){var root=document.documentElement,key="me.theme";var bs=[].slice.call(document.querySelectorAll(".appearance button"));function paint(v){bs.forEach(function(b){b.setAttribute("aria-pressed",b.getAttribute("data-appearance")===v?"true":"false")});if(v==="auto")root.removeAttribute("data-theme");else root.setAttribute("data-theme",v)}var saved="auto";try{saved=localStorage.getItem(key)||"auto"}catch(e){}bs.forEach(function(b){b.addEventListener("click",function(){var v=b.getAttribute("data-appearance");paint(v);try{localStorage.setItem(key,v)}catch(e){}})});paint(saved)})();
+</script>
+<script>if("serviceWorker" in navigator){addEventListener("load",function(){navigator.serviceWorker.register("./sw.js").catch(function(){})})}</script>
+</body>
+</html>

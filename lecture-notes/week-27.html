@@ -1,0 +1,1075 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="utf-8"><title>Week 27 — Metabolomics and intracellular measurement — Metabolic engineering</title>
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+
+
+<style>:root{color-scheme:light;--paper:#FAF6EF;--ink:#211A12;--ink-2:#4A3C2C;--ink-3:#8A7458;
+--line:#DFD2BE;--line-2:#EDE4D5;--broth:#9A6B1F;--broth-soft:#F6ECD9;
+--serif:"Newsreader",Georgia,serif;--sans:"Public Sans",system-ui,sans-serif}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--paper:#15120D;--ink:#F1E9DC;--ink-2:#CBBCA6;
+--ink-3:#948872;--line:#352C22;--line-2:#2A231B;--broth:#D7A95C;--broth-soft:#241D14}}
+*{box-sizing:border-box}
+body{margin:0;background:var(--paper);color:var(--ink);font-family:var(--sans);font-size:15.5px;line-height:1.6;
+padding:env(safe-area-inset-top,0) 0 env(safe-area-inset-bottom,0)}
+.wrap{max-width:840px;margin:0 auto;padding:40px 22px 90px}
+h1{font-family:var(--serif);font-size:clamp(28px,5vw,42px);line-height:1.1;font-weight:600;margin:0 0 6px;letter-spacing:-.02em}
+h2{font-family:var(--serif);font-size:26px;font-weight:600;margin:46px 0 10px;letter-spacing:-.01em;padding-bottom:7px;border-bottom:1px solid var(--line)}
+h3{font-family:var(--serif);font-size:20px;font-weight:600;margin:30px 0 4px;color:var(--broth)}
+h4{font-size:14px;font-weight:650;margin:18px 0 4px;color:var(--ink-3);letter-spacing:.02em;text-transform:uppercase}
+p{margin:0 0 12px;max-width:74ch}
+em{color:var(--ink-2)}
+ul{margin:0 0 14px;padding-left:1.15em;max-width:74ch}
+li{margin:.3em 0}li::marker{color:var(--ink-3)}
+hr{border:0;border-top:1px solid var(--line);margin:40px 0}
+strong{font-weight:650}
+table{border-collapse:collapse;width:100%;margin:14px 0 20px;font-size:14px}
+th{text-align:left;font-weight:600;color:var(--ink-3);font-size:12.5px;padding:7px 9px;border-bottom:1.5px solid var(--line)}
+td{padding:8px 9px;border-bottom:1px solid var(--line-2);vertical-align:top}
+tr:nth-child(even) td{background:var(--broth-soft)}
+
+figure.fig{margin:22px 0 26px;padding:0;max-width:100%}
+figure.fig svg{width:100%;height:auto;display:block;background:var(--card);
+  border:1px solid var(--line-2);border-radius:10px;padding:8px 10px}
+figure.fig figcaption{font-size:13px;color:var(--ink-3);margin-top:8px;max-width:74ch;line-height:1.5}
+figure.fig .figtitle{font-family:var(--serif);font-size:15px;color:var(--ink-2);margin-bottom:6px}
+figure.fig .fig-dark{display:none}
+@media (prefers-color-scheme: dark){
+  figure.fig .fig-light{display:none}
+  figure.fig .fig-dark{display:block}
+}
+@media print{figure.fig{break-inside:avoid;page-break-inside:avoid}
+  figure.fig .fig-dark{display:none !important}
+  figure.fig .fig-light{display:block !important}}
+
+@media print{body{background:#fff}.wrap{padding:0;max-width:none}h2,h3{page-break-after:avoid}}</style><script>try{var t=localStorage.getItem("me.theme");if(t&&t!=="auto")document.documentElement.setAttribute("data-theme",t);}catch(e){}</script>
+<meta name="color-scheme" content="light dark">
+<meta name="theme-color" content="#ffffff" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#000000" media="(prefers-color-scheme: dark)">
+<style>
+/* ============================================================
+   COURSE LIBRARY — Apple document shell
+   ============================================================ */
+:root{
+  color-scheme:light;
+  --paper:#FFFFFF;--surface:#F5F5F7;--card:#FFFFFF;--fill:#F5F5F7;
+  --ink:#1D1D1F;--ink-2:#6E6E73;--ink-3:#6E6E73;
+  --line:rgba(0,0,0,.14);--line-2:rgba(0,0,0,.08);
+  --broth:#0071E3;--broth-soft:rgba(0,113,227,.10);
+  --nav-bg:rgba(255,255,255,.84);
+  --sans:-apple-system,BlinkMacSystemFont,"SF Pro Text","SF Pro Display","Helvetica Neue",Arial,sans-serif;
+  --mono:ui-monospace,"SF Mono",Menlo,Consolas,monospace;
+  --serif:var(--sans);
+}
+@media (prefers-color-scheme:dark){
+  :root:not([data-theme="light"]){
+    color-scheme:dark;
+    --paper:#000000;--surface:#1C1C1E;--card:#2C2C2E;--fill:#2C2C2E;
+    --ink:#F5F5F7;--ink-2:#A1A1A6;--ink-3:#8E8E93;
+    --line:rgba(255,255,255,.16);--line-2:rgba(255,255,255,.09);
+    --broth:#5AA9FF;--broth-soft:rgba(10,132,255,.18);
+    --nav-bg:rgba(0,0,0,.74);
+  }
+}
+:root[data-theme="dark"]{
+  color-scheme:dark;
+  --paper:#000000;--surface:#1C1C1E;--card:#2C2C2E;--fill:#2C2C2E;
+  --ink:#F5F5F7;--ink-2:#A1A1A6;--ink-3:#8E8E93;
+  --line:rgba(255,255,255,.16);--line-2:rgba(255,255,255,.09);
+  --broth:#5AA9FF;--broth-soft:rgba(10,132,255,.18);
+  --nav-bg:rgba(0,0,0,.74);
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth;scroll-padding-top:72px;-webkit-text-size-adjust:100%}
+body{
+  margin:0;background:var(--paper);color:var(--ink);
+  font-family:var(--sans);font-size:17px;line-height:1.62;letter-spacing:-.011em;
+  padding:0;
+}
+.docbar{
+  position:sticky;top:0;z-index:80;display:flex;align-items:center;justify-content:space-between;gap:12px;
+  padding:8px max(24px,calc((100vw - 1180px)/2));
+  background:var(--nav-bg);
+  -webkit-backdrop-filter:saturate(180%) blur(20px);backdrop-filter:saturate(180%) blur(20px);
+  border-bottom:1px solid var(--line-2);
+}
+.docback{display:inline-flex;align-items:center;gap:6px;color:var(--ink-2);font-size:13px;font-weight:500;text-decoration:none;white-space:nowrap}
+.docback:hover{color:var(--broth)}
+.appearance{display:inline-flex;gap:2px;padding:2px;background:var(--fill);border-radius:980px}
+.appearance button{border:0;background:none;color:var(--ink-2);font:inherit;font-size:12px;font-weight:500;line-height:1;padding:6px 11px;border-radius:980px;cursor:pointer}
+.appearance button[aria-pressed="true"]{background:var(--card);color:var(--ink);box-shadow:0 1px 2px rgba(0,0,0,.08)}
+.wrap{max-width:900px;margin:0 auto;padding:64px 24px 96px}
+body h1{
+  font-family:var(--sans);font-size:clamp(42px,6.2vw,64px);line-height:1.04;letter-spacing:-.04em;
+  font-weight:700;margin:0 0 16px;max-width:18ch;color:var(--ink);
+}
+.doc-kicker{font-size:13px;font-weight:500;letter-spacing:0;color:var(--ink-2);margin:0 0 12px}
+body h1 + p{font-size:20px;line-height:1.55;color:var(--ink-2);max-width:68ch;margin:0 0 18px}
+body h1 + p strong{color:var(--ink);font-weight:600}
+body h2{
+  font-family:var(--sans);font-size:32px;line-height:1.15;letter-spacing:-.03em;font-weight:600;
+  color:var(--ink);margin:64px 0 14px;padding:0;border:0;
+}
+body h3{font-family:var(--sans);font-size:22px;line-height:1.25;letter-spacing:-.02em;font-weight:600;color:var(--ink);margin:36px 0 8px}
+body h4{font-size:14px;line-height:1.4;font-weight:600;letter-spacing:0;text-transform:none;color:var(--ink-2);margin:24px 0 6px}
+body p{margin:0 0 14px;max-width:72ch}
+body ul,body ol{margin:0 0 16px;padding-left:1.25em;max-width:72ch}
+body li{margin:.32em 0}
+body li::marker{color:var(--ink-3)}
+body strong{font-weight:600;color:var(--ink)}
+body em{color:var(--ink)}
+body a{color:var(--broth);text-decoration:underline;text-underline-offset:2px}
+body a:hover{text-decoration:underline}
+body hr{border:0;border-top:1px solid var(--line-2);margin:56px 0}
+body table{border-collapse:collapse;width:100%;margin:22px 0 30px;font-size:15px;line-height:1.45}
+body th{text-align:left;font-weight:600;font-size:12.5px;color:var(--ink-2);padding:10px 12px;background:var(--surface);border-bottom:1px solid var(--line)}
+body td{padding:11px 12px;border-bottom:1px solid var(--line-2);vertical-align:top}
+body tr:nth-child(even) td{background:transparent}
+body figure.fig{margin:32px 0 36px;padding:0;max-width:100%}
+body figure.fig svg{width:100%;height:auto;display:block;background:var(--surface);border:0;border-radius:20px;padding:18px}
+body figure.fig figcaption{font-size:13px;color:var(--ink-2);margin-top:10px;max-width:72ch;line-height:1.5}
+body figure.fig .figtitle{font-family:var(--sans);font-size:14px;font-weight:600;color:var(--ink);margin-bottom:6px}
+body pre{background:var(--surface);border:1px solid var(--line-2);border-radius:16px;padding:18px;overflow:auto;font-family:var(--mono);font-size:13.5px;line-height:1.55;margin:20px 0 24px}
+body code{font-family:var(--mono);font-size:.88em;background:var(--surface);border-radius:6px;padding:.12em .35em}
+body pre code{background:none;padding:0;font-size:inherit}
+body blockquote{margin:24px 0;padding:2px 0 2px 18px;border-left:3px solid var(--broth);color:var(--ink-2)}
+:root[data-theme="dark"] .fig-light{display:none!important}
+:root[data-theme="dark"] .fig-dark{display:block!important}
+:root[data-theme="light"] .fig-dark{display:none!important}
+:root[data-theme="light"] .fig-light{display:block!important}
+.docfoot{max-width:900px;margin:0 auto;padding:24px 24px 64px;border-top:1px solid var(--line-2);display:flex;justify-content:space-between;gap:12px;font-size:12.5px;color:var(--ink-3)}
+.docfoot a{color:var(--ink-2);text-decoration:none}
+.docfoot a:hover{color:var(--broth)}
+@media (max-width:700px){
+  .docbar{padding:8px 16px}
+  .wrap{padding:40px 18px 80px}
+  body h1{font-size:clamp(38px,11vw,48px)}
+  body h1 + p{font-size:18px}
+  body h2{font-size:28px;margin-top:52px}
+  body h3{font-size:20px}
+  body p,body li{font-size:16.5px}
+  body table{font-size:14px}
+  body th,body td{padding:9px 9px}
+  .docfoot{padding:20px 18px 50px;flex-direction:column;gap:6px}
+}
+@media print{
+  .docbar,.appearance,.docfoot{display:none!important}
+  body{background:#fff;color:#000;font-size:11pt}
+  .wrap{max-width:none;padding:0}
+  body h1{font-size:28pt;max-width:none}
+  body h2{font-size:16pt;page-break-after:avoid}
+  body h3{font-size:13pt;page-break-after:avoid}
+  body a{color:#000;text-decoration:none}
+  body table,body figure{break-inside:avoid}
+}
+
+
+.index-actions{margin:18px 0 36px;display:flex;flex-wrap:wrap;gap:16px;align-items:center}
+.index-actions a{font-size:14px;font-weight:500;color:var(--broth);text-decoration:none}
+.index-actions a:hover{text-decoration:underline}
+.phaseh{display:flex;align-items:baseline;justify-content:space-between;gap:14px;font-size:24px!important;margin:52px 0 2px!important;letter-spacing:-.02em}
+.phaseh span{font-size:12px;font-weight:400;color:var(--ink-3);letter-spacing:0;white-space:nowrap}
+.weeklist{border-top:1px solid var(--line-2);margin-bottom:8px}
+.weekrow{display:flex;align-items:center;gap:14px;min-height:50px;padding:10px 4px;border-bottom:1px solid var(--line-2);text-decoration:none;color:var(--ink)}
+.weekrow:hover{background:var(--surface)}
+.wnum{width:28px;flex:none;font-size:12px;font-weight:600;color:var(--broth);font-variant-numeric:tabular-nums}
+.wtitle{flex:1;font-size:16.5px;font-weight:500;line-height:1.35}
+.warrow{flex:none;color:var(--ink-3);font-size:16px}
+.weeknav{display:flex;align-items:center;justify-content:space-between;gap:14px;margin:52px 0 0;padding-top:22px;border-top:1px solid var(--line-2);font-size:14px}
+.weeknav a{color:var(--broth);text-decoration:none;font-weight:500}
+.weeknav a:hover{text-decoration:underline}
+.weeknav .idx{color:var(--ink-2);font-weight:400}
+.weeknav .empty{visibility:hidden}
+.case-h{max-width:22ch}
+.protocol{max-width:72ch}
+.protocol li{margin:.55em 0}
+.protocol h2{margin-top:38px}
+@media (max-width:700px){.phaseh{font-size:21px!important;margin-top:42px!important}.wtitle{font-size:15.5px}.weeknav{font-size:13px;gap:8px}}
+@media print{.weeknav,.index-actions{display:none!important}}
+</style>
+<style>.sr-only{position:absolute!important;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap;border:0}</style>
+</head><body>
+<header class="docbar"><a class="docback" href="index.html">&#8592; Lecture index</a><div class="appearance" role="group" aria-label="Appearance">
+<button type="button" data-appearance="auto" aria-pressed="true">Auto</button>
+<button type="button" data-appearance="light" aria-pressed="false">Light</button>
+<button type="button" data-appearance="dark" aria-pressed="false">Dark</button>
+</div></header>
+<main class="wrap">
+<p class="doc-kicker">Week 27 of 55 &middot; Measurement and control of flux &middot; <strong class="tier-badge">Core</strong></p>
+<h1>Metabolomics and intracellular measurement</h1>
+<h2 class="sr-only">Week content</h2>
+<p class="meta" style="border-left:3px solid var(--broth);padding-left:14px"><strong>Case thread:</strong> What sampling would be needed to see intracellular pools rather than broth? <a href="../CASE-THREAD.md">Open the case thread</a>.</p>
+<p>Every concentration you assumed in phase 2 and every bound you guessed in phase 4 is measured this week, badly and with difficulty. The content is not the instrument; it is the error budget, and the skill is knowing which term dominates and whether your conclusion survives it.</p>
+<h3>Core ideas</h3>
+<p><strong>1. Turnover time is the design constraint, and you compute it</strong></p>
+<p>τ = pool / flux through the pool, and the whole protocol follows from it. Work in µmol gDW⁻¹: intracellular water is about 2 mL gDW⁻¹, so 1 mM is 2 µmol gDW⁻¹. ATP at 1.5 mM against a turnover flux of order 50 mmol gDW⁻¹ h⁻¹ gives τ ≈ 0.2 s; glucose-6-phosphate at 1 mM with a glycolytic flux of 10 gives τ ≈ 0.7 s; glutamate at 60 mM drained at 1.5 gives τ ≈ 290 s. Three orders of magnitude separate the easy case from the hard one, which is why no single protocol serves a whole metabolome. Rank your metabolites by τ before choosing one.</p>
+<p><strong>2. Quench speed and leakage are in direct conflict</strong></p>
+<p>Rapid arrest and membrane integrity trade against each other, because the fastest methods work by cold shock or solvent and both perturb the membrane. How much leaks depends on the organism, the metabolite class, the solvent, the temperature, the biomass density and the contact time, so the figures are protocol-specific and must be validated rather than assumed: reported losses for cold methanol run from a few per cent for nucleotides to half the pool for some organic acids. Fast filtration is gentler, slower, and the wash itself removes metabolite. The answer is the differential method: quench whole broth, measure the filtrate separately, and take the intracellular amount as the difference, n_in = n_broth − n_extracellular. That estimates the intracellular pool only when the two measurements are commensurate — matched volumes, accounted recovery, no filtration delay — and it converts an unknown bias into a variance rather than removing it.</p>
+<p><strong>3. Absolute quantification needs an isotope-dilution standard</strong></p>
+<p>A uniformly ¹³C-labelled extract of the same organism gives many analytes a chemically identical, mass-shifted twin that tracks extraction loss, ion suppression and drift together — many rather than every, since coverage reaches only what the organism synthesises, at the labelling completeness and isotopic purity actually achieved, for species measured in a valid response range. Where it reaches, it corrects everything downstream of the point at which it was added, so spike timing decides which part of the chain is covered: added at the quench it covers extraction, added afterwards only the analysis. Without such a standard you have relative quantification, comparable to your own samples and nothing else — fine for a fold-change, not enough for a ΔrG′, which needs molar units. It matters because co-eluting compounds compete for charge in electrospray, and suppression of tens of per cent is commonly reported, so a curve built in clean solvent reads low by an amount that depends on how dirty the extract is.</p>
+<p><strong>4. Keep bias and variance in separate columns</strong></p>
+<figure class="fig"><div class="figtitle">Figure 27.4 — Illustrative simulation — the error budget, with the bias kept out of the quadrature sum</div><div class="fig-light"><svg role="img" aria-label="Left: the five terms of a typical intracellular measurement, with quench leakage marked as the bias it is. Right: what each propagation contributes to a ΔrG′ estimate, against the group-contribution uncertainty in ΔrG′°. For a feasibility verdict the metabolomics is already good enough; for a kinetic model, where concentration enters the rate law directly, it is not." xmlns:xlink="http://www.w3.org/1999/xlink" width="707.382944pt" height="244.396703pt" viewBox="0 0 707.382944 244.396703" xmlns="http://www.w3.org/2000/svg" version="1.1">
+ <metadata>
+  <rdf:RDF xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:cc="http://creativecommons.org/ns#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+   <cc:Work>
+    <dc:type rdf:resource="http://purl.org/dc/dcmitype/StillImage"/>
+    <dc:date>2026-11-02T23:57:48.810408</dc:date>
+    <dc:format>image/svg+xml</dc:format>
+    <dc:creator>
+     <cc:Agent>
+      <dc:title>Matplotlib v3.10.8, https://matplotlib.org/</dc:title>
+     </cc:Agent>
+    </dc:creator>
+   </cc:Work>
+  </rdf:RDF>
+ </metadata>
+ <defs>
+  <style type="text/css">*{stroke-linejoin: round; stroke-linecap: butt}</style>
+ </defs>
+ <g id="figure_1">
+  <g id="patch_1">
+   <path d="M 0 244.396703 
+L 707.382944 244.396703 
+L 707.382944 -0 
+L 0 -0 
+L 0 244.396703 
+z
+" style="fill: none"/>
+  </g>
+  <g id="axes_1">
+   <g id="patch_2">
+    <path d="M 98.687875 185.070563 
+L 248.426306 185.070563 
+L 248.426306 18.750563 
+L 98.687875 18.750563 
+L 98.687875 185.070563 
+z
+" style="fill: none"/>
+   </g>
+   <g id="patch_3">
+    <path d="M 98.687875 45.458161 
+L 148.600685 45.458161 
+L 148.600685 26.310562 
+L 98.687875 26.310562 
+z
+" clip-path="url(#pb6ba191275)" style="fill: #1f6f62; opacity: 0.3; stroke: #1f6f62; stroke-width: 1.1; stroke-linejoin: miter"/>
+   </g>
+   <g id="patch_4">
+    <path d="M 98.687875 78.471261 
+L 192.274395 78.471261 
+L 192.274395 59.323663 
+L 98.687875 59.323663 
+z
+" clip-path="url(#pb6ba191275)" style="fill: #a4503a; opacity: 0.3; stroke: #a4503a; stroke-width: 1.1; stroke-linejoin: miter"/>
+   </g>
+   <g id="patch_5">
+    <path d="M 98.687875 111.484362 
+L 161.078888 111.484362 
+L 161.078888 92.336763 
+L 98.687875 92.336763 
+z
+" clip-path="url(#pb6ba191275)" style="fill: #1f6f62; opacity: 0.3; stroke: #1f6f62; stroke-width: 1.1; stroke-linejoin: miter"/>
+   </g>
+   <g id="patch_6">
+    <path d="M 98.687875 144.497462 
+L 117.405179 144.497462 
+L 117.405179 125.349864 
+L 98.687875 125.349864 
+z
+" clip-path="url(#pb6ba191275)" style="fill: #1f6f62; opacity: 0.3; stroke: #1f6f62; stroke-width: 1.1; stroke-linejoin: miter"/>
+   </g>
+   <g id="patch_7">
+    <path d="M 98.687875 177.510562 
+L 129.883382 177.510562 
+L 129.883382 158.362964 
+L 98.687875 158.362964 
+z
+" clip-path="url(#pb6ba191275)" style="fill: #1f6f62; opacity: 0.3; stroke: #1f6f62; stroke-width: 1.1; stroke-linejoin: miter"/>
+   </g>
+   <g id="matplotlib.axis_1">
+    <g id="xtick_1">
+     <g id="line2d_1">
+      <path d="M 98.687875 185.070563 
+L 98.687875 18.750563 
+" clip-path="url(#pb6ba191275)" style="fill: none; stroke: #e6dccb; stroke-opacity: 0.7; stroke-width: 0.6; stroke-linecap: square"/>
+     </g>
+     <g id="line2d_2">
+      <defs>
+       <path id="m70773257d7" d="M 0 0 
+L 0 3.5 
+" style="stroke: #8a7458; stroke-width: 0.9"/>
+      </defs>
+      <g>
+       <use xlink:href="#m70773257d7" x="98.687875" y="185.070563" style="fill: #8a7458; stroke: #8a7458; stroke-width: 0.9"/>
+      </g>
+     </g>
+     <g id="text_1">
+      <text style="font-size: 9.5px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: middle; fill: #8a7458" x="98.687875" y="199.289078" transform="rotate(-0 98.687875 199.289078)">0</text>
+     </g>
+    </g>
+    <g id="xtick_2">
+     <g id="line2d_3">
+      <path d="M 129.883382 185.070563 
+L 129.883382 18.750563 
+" clip-path="url(#pb6ba191275)" style="fill: none; stroke: #e6dccb; stroke-opacity: 0.7; stroke-width: 0.6; stroke-linecap: square"/>
+     </g>
+     <g id="line2d_4">
+      <g>
+       <use xlink:href="#m70773257d7" x="129.883382" y="185.070563" style="fill: #8a7458; stroke: #8a7458; stroke-width: 0.9"/>
+      </g>
+     </g>
+     <g id="text_2">
+      <text style="font-size: 9.5px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: middle; fill: #8a7458" x="129.883382" y="199.289078" transform="rotate(-0 129.883382 199.289078)">5</text>
+     </g>
+    </g>
+    <g id="xtick_3">
+     <g id="line2d_5">
+      <path d="M 161.078888 185.070563 
+L 161.078888 18.750563 
+" clip-path="url(#pb6ba191275)" style="fill: none; stroke: #e6dccb; stroke-opacity: 0.7; stroke-width: 0.6; stroke-linecap: square"/>
+     </g>
+     <g id="line2d_6">
+      <g>
+       <use xlink:href="#m70773257d7" x="161.078888" y="185.070563" style="fill: #8a7458; stroke: #8a7458; stroke-width: 0.9"/>
+      </g>
+     </g>
+     <g id="text_3">
+      <text style="font-size: 9.5px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: middle; fill: #8a7458" x="161.078888" y="199.289078" transform="rotate(-0 161.078888 199.289078)">10</text>
+     </g>
+    </g>
+    <g id="xtick_4">
+     <g id="line2d_7">
+      <path d="M 192.274395 185.070563 
+L 192.274395 18.750563 
+" clip-path="url(#pb6ba191275)" style="fill: none; stroke: #e6dccb; stroke-opacity: 0.7; stroke-width: 0.6; stroke-linecap: square"/>
+     </g>
+     <g id="line2d_8">
+      <g>
+       <use xlink:href="#m70773257d7" x="192.274395" y="185.070563" style="fill: #8a7458; stroke: #8a7458; stroke-width: 0.9"/>
+      </g>
+     </g>
+     <g id="text_4">
+      <text style="font-size: 9.5px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: middle; fill: #8a7458" x="192.274395" y="199.289078" transform="rotate(-0 192.274395 199.289078)">15</text>
+     </g>
+    </g>
+    <g id="xtick_5">
+     <g id="line2d_9">
+      <path d="M 223.469901 185.070563 
+L 223.469901 18.750563 
+" clip-path="url(#pb6ba191275)" style="fill: none; stroke: #e6dccb; stroke-opacity: 0.7; stroke-width: 0.6; stroke-linecap: square"/>
+     </g>
+     <g id="line2d_10">
+      <g>
+       <use xlink:href="#m70773257d7" x="223.469901" y="185.070563" style="fill: #8a7458; stroke: #8a7458; stroke-width: 0.9"/>
+      </g>
+     </g>
+     <g id="text_5">
+      <text style="font-size: 9.5px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: middle; fill: #8a7458" x="223.469901" y="199.289078" transform="rotate(-0 223.469901 199.289078)">20</text>
+     </g>
+    </g>
+    <g id="text_6">
+     <text style="font-size: 9.5px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: middle; fill: #4a3c2c" x="173.557091" y="212.483297" transform="rotate(-0 173.557091 212.483297)">relative error  (%)</text>
+    </g>
+   </g>
+   <g id="matplotlib.axis_2">
+    <g id="ytick_1">
+     <g id="line2d_11">
+      <defs>
+       <path id="m734ca80bd1" d="M 0 0 
+L -3.5 0 
+" style="stroke: #8a7458; stroke-width: 0.9"/>
+      </defs>
+      <g>
+       <use xlink:href="#m734ca80bd1" x="98.687875" y="35.884362" style="fill: #8a7458; stroke: #8a7458; stroke-width: 0.9"/>
+      </g>
+     </g>
+     <g id="text_7">
+      <text style="font-size: 8.8px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: end; fill: #8a7458" x="91.687875" y="39.227674" transform="rotate(-0 91.687875 39.227674)">sampling</text>
+     </g>
+    </g>
+    <g id="ytick_2">
+     <g id="line2d_12">
+      <g>
+       <use xlink:href="#m734ca80bd1" x="98.687875" y="68.897462" style="fill: #8a7458; stroke: #8a7458; stroke-width: 0.9"/>
+      </g>
+     </g>
+     <g id="text_8">
+      <text style="font-size: 8.8px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: end; fill: #8a7458" x="91.687875" y="72.240775" transform="rotate(-0 91.687875 72.240775)">quench leakage</text>
+     </g>
+    </g>
+    <g id="ytick_3">
+     <g id="line2d_13">
+      <g>
+       <use xlink:href="#m734ca80bd1" x="98.687875" y="101.910562" style="fill: #8a7458; stroke: #8a7458; stroke-width: 0.9"/>
+      </g>
+     </g>
+     <g id="text_9">
+      <text style="font-size: 8.8px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: end; fill: #8a7458" x="91.687875" y="105.253875" transform="rotate(-0 91.687875 105.253875)">extraction recovery</text>
+     </g>
+    </g>
+    <g id="ytick_4">
+     <g id="line2d_14">
+      <g>
+       <use xlink:href="#m734ca80bd1" x="98.687875" y="134.923663" style="fill: #8a7458; stroke: #8a7458; stroke-width: 0.9"/>
+      </g>
+     </g>
+     <g id="text_10">
+      <text style="font-size: 8.8px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: end; fill: #8a7458" x="91.687875" y="138.266975" transform="rotate(-0 91.687875 138.266975)">dilution</text>
+     </g>
+    </g>
+    <g id="ytick_5">
+     <g id="line2d_15">
+      <g>
+       <use xlink:href="#m734ca80bd1" x="98.687875" y="167.936763" style="fill: #8a7458; stroke: #8a7458; stroke-width: 0.9"/>
+      </g>
+     </g>
+     <g id="text_11">
+      <text style="font-size: 8.8px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: end; fill: #8a7458" x="91.687875" y="171.280076" transform="rotate(-0 91.687875 171.280076)">instrument</text>
+     </g>
+    </g>
+   </g>
+   <g id="patch_8">
+    <path d="M 98.687875 185.070563 
+L 98.687875 18.750562 
+" style="fill: none; stroke: #dfd2be; stroke-width: 0.9; stroke-linejoin: miter; stroke-linecap: square"/>
+   </g>
+   <g id="patch_9">
+    <path d="M 98.687875 185.070563 
+L 248.426306 185.070563 
+" style="fill: none; stroke: #dfd2be; stroke-width: 0.9; stroke-linejoin: miter; stroke-linecap: square"/>
+   </g>
+   <g id="text_12">
+    <text style="font-weight: 700; font-size: 8.4px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: start; fill: #1f6f62" x="152.344146" y="38.202237" transform="rotate(-0 152.344146 38.202237)">8%</text>
+   </g>
+   <g id="text_13">
+    <text style="font-weight: 700; font-size: 8.4px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: start; fill: #a4503a" x="196.017855" y="71.215337" transform="rotate(-0 196.017855 71.215337)">15%</text>
+   </g>
+   <g id="text_14">
+    <text style="font-weight: 700; font-size: 8.4px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: start; fill: #1f6f62" x="164.822349" y="104.228438" transform="rotate(-0 164.822349 104.228438)">10%</text>
+   </g>
+   <g id="text_15">
+    <text style="font-weight: 700; font-size: 8.4px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: start; fill: #1f6f62" x="121.14864" y="137.241538" transform="rotate(-0 121.14864 137.241538)">3%</text>
+   </g>
+   <g id="text_16">
+    <text style="font-weight: 700; font-size: 8.4px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: start; fill: #1f6f62" x="133.626842" y="170.254638" transform="rotate(-0 133.626842 170.254638)">5%</text>
+   </g>
+   <g id="text_17">
+    <text style="font-weight: 700; font-size: 8.4px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: start; fill: #a4503a" x="218.47862" y="71.215337" transform="rotate(-0 218.47862 71.215337)">bias</text>
+   </g>
+   <g id="text_18">
+    <text style="font-size: 9.2px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: start; fill: #8a7458" x="98.687875" y="12.750563" transform="rotate(-0 98.687875 12.750563)">one term is a bias, not a variance</text>
+   </g>
+  </g>
+  <g id="axes_2">
+   <g id="patch_10">
+    <path d="M 381.400544 185.070563 
+L 511.607875 185.070563 
+L 511.607875 18.750563 
+L 381.400544 18.750563 
+L 381.400544 185.070563 
+z
+" style="fill: none"/>
+   </g>
+   <g id="patch_11">
+    <path d="M 381.400544 177.510563 
+L 481.560029 177.510563 
+L 481.560029 146.310563 
+L 381.400544 146.310563 
+z
+" clip-path="url(#p0fdf7b2e34)" style="fill: #8a5f1b; opacity: 0.3; stroke: #8a5f1b; stroke-width: 1.1; stroke-linejoin: miter"/>
+   </g>
+   <g id="patch_12">
+    <path d="M 381.400544 117.510563 
+L 393.469499 117.510563 
+L 393.469499 86.310563 
+L 381.400544 86.310563 
+z
+" clip-path="url(#p0fdf7b2e34)" style="fill: #a4503a; opacity: 0.3; stroke: #a4503a; stroke-width: 1.1; stroke-linejoin: miter"/>
+   </g>
+   <g id="patch_13">
+    <path d="M 381.400544 57.510563 
+L 389.895818 57.510563 
+L 389.895818 26.310563 
+L 381.400544 26.310563 
+z
+" clip-path="url(#p0fdf7b2e34)" style="fill: #1f6f62; opacity: 0.3; stroke: #1f6f62; stroke-width: 1.1; stroke-linejoin: miter"/>
+   </g>
+   <g id="matplotlib.axis_3">
+    <g id="xtick_6">
+     <g id="line2d_16">
+      <path d="M 381.400544 185.070563 
+L 381.400544 18.750563 
+" clip-path="url(#p0fdf7b2e34)" style="fill: none; stroke: #e6dccb; stroke-opacity: 0.7; stroke-width: 0.6; stroke-linecap: square"/>
+     </g>
+     <g id="line2d_17">
+      <g>
+       <use xlink:href="#m70773257d7" x="381.400544" y="185.070563" style="fill: #8a7458; stroke: #8a7458; stroke-width: 0.9"/>
+      </g>
+     </g>
+     <g id="text_19">
+      <text style="font-size: 9.5px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: middle; fill: #8a7458" x="381.400544" y="199.289078" transform="rotate(-0 381.400544 199.289078)">0</text>
+     </g>
+    </g>
+    <g id="xtick_7">
+     <g id="line2d_18">
+      <path d="M 431.480286 185.070563 
+L 431.480286 18.750563 
+" clip-path="url(#p0fdf7b2e34)" style="fill: none; stroke: #e6dccb; stroke-opacity: 0.7; stroke-width: 0.6; stroke-linecap: square"/>
+     </g>
+     <g id="line2d_19">
+      <g>
+       <use xlink:href="#m70773257d7" x="431.480286" y="185.070563" style="fill: #8a7458; stroke: #8a7458; stroke-width: 0.9"/>
+      </g>
+     </g>
+     <g id="text_20">
+      <text style="font-size: 9.5px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: middle; fill: #8a7458" x="431.480286" y="199.289078" transform="rotate(-0 431.480286 199.289078)">2</text>
+     </g>
+    </g>
+    <g id="xtick_8">
+     <g id="line2d_20">
+      <path d="M 481.560029 185.070563 
+L 481.560029 18.750563 
+" clip-path="url(#p0fdf7b2e34)" style="fill: none; stroke: #e6dccb; stroke-opacity: 0.7; stroke-width: 0.6; stroke-linecap: square"/>
+     </g>
+     <g id="line2d_21">
+      <g>
+       <use xlink:href="#m70773257d7" x="481.560029" y="185.070563" style="fill: #8a7458; stroke: #8a7458; stroke-width: 0.9"/>
+      </g>
+     </g>
+     <g id="text_21">
+      <text style="font-size: 9.5px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: middle; fill: #8a7458" x="481.560029" y="199.289078" transform="rotate(-0 481.560029 199.289078)">4</text>
+     </g>
+    </g>
+    <g id="text_22">
+     <text style="font-size: 9.5px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: middle; fill: #4a3c2c" x="446.504209" y="212.483297" transform="rotate(-0 446.504209 212.483297)">contribution to ΔrG′  (kJ mol⁻¹)</text>
+    </g>
+   </g>
+   <g id="matplotlib.axis_4">
+    <g id="ytick_6">
+     <g id="line2d_22">
+      <g>
+       <use xlink:href="#m734ca80bd1" x="381.400544" y="161.910563" style="fill: #8a7458; stroke: #8a7458; stroke-width: 0.9"/>
+      </g>
+     </g>
+     <g id="text_23">
+      <text style="font-size: 8.2px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: end; fill: #8a7458" x="374.400544" y="165.025922" transform="rotate(-0 374.400544 165.025922)">ΔrG′°, group contribution</text>
+     </g>
+    </g>
+    <g id="ytick_7">
+     <g id="line2d_23">
+      <g>
+       <use xlink:href="#m734ca80bd1" x="381.400544" y="101.910563" style="fill: #8a7458; stroke: #8a7458; stroke-width: 0.9"/>
+      </g>
+     </g>
+     <g id="text_24">
+      <text style="font-size: 8.2px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: end; fill: #8a7458" x="374.400544" y="105.025922" transform="rotate(-0 374.400544 105.025922)">leakage as a variance</text>
+     </g>
+    </g>
+    <g id="ytick_8">
+     <g id="line2d_24">
+      <g>
+       <use xlink:href="#m734ca80bd1" x="381.400544" y="41.910563" style="fill: #8a7458; stroke: #8a7458; stroke-width: 0.9"/>
+      </g>
+     </g>
+     <g id="text_25">
+      <text style="font-size: 8.2px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: end; fill: #8a7458" x="374.400544" y="45.025922" transform="rotate(-0 374.400544 45.025922)">budget handled honestly</text>
+     </g>
+    </g>
+   </g>
+   <g id="patch_14">
+    <path d="M 381.400544 185.070563 
+L 381.400544 18.750563 
+" style="fill: none; stroke: #dfd2be; stroke-width: 0.9; stroke-linejoin: miter; stroke-linecap: square"/>
+   </g>
+   <g id="patch_15">
+    <path d="M 381.400544 185.070563 
+L 511.607875 185.070563 
+" style="fill: none; stroke: #dfd2be; stroke-width: 0.9; stroke-linejoin: miter; stroke-linecap: square"/>
+   </g>
+   <g id="text_26">
+    <text style="font-weight: 700; font-size: 8.4px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: start; fill: #8a5f1b" x="484.815213" y="164.228438" transform="rotate(-0 484.815213 164.228438)">4.00</text>
+   </g>
+   <g id="text_27">
+    <text style="font-weight: 700; font-size: 8.4px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: start; fill: #a4503a" x="396.724683" y="104.228438" transform="rotate(-0 396.724683 104.228438)">0.48</text>
+   </g>
+   <g id="text_28">
+    <text style="font-weight: 700; font-size: 8.4px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: start; fill: #1f6f62" x="393.151001" y="44.228438" transform="rotate(-0 393.151001 44.228438)">0.34</text>
+   </g>
+   <g id="text_29">
+    <text style="font-size: 9.2px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: start; fill: #8a7458" x="381.400544" y="12.750563" transform="rotate(-0 381.400544 12.750563)">and neither one limits the verdict</text>
+   </g>
+  </g>
+  <g id="text_30">
+   <text style="font-size: 8.3px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: start; fill: #8a7458" x="38.481475" y="236.910563" transform="rotate(-0 38.481475 236.910563)">Random terms combine in quadrature to 14%; propagating the leakage as a variance gives 21% and an interval centred low. Neither limits a feasibility verdict.</text>
+  </g>
+ </g>
+ <defs>
+  <clipPath id="pb6ba191275">
+   <rect x="98.687875" y="18.750563" width="149.738431" height="166.32"/>
+  </clipPath>
+  <clipPath id="p0fdf7b2e34">
+   <rect x="381.400544" y="18.750563" width="130.207331" height="166.32"/>
+  </clipPath>
+ </defs>
+</svg>
+</div><div class="fig-dark"><svg role="img" aria-label="Left: the five terms of a typical intracellular measurement, with quench leakage marked as the bias it is. Right: what each propagation contributes to a ΔrG′ estimate, against the group-contribution uncertainty in ΔrG′°. For a feasibility verdict the metabolomics is already good enough; for a kinetic model, where concentration enters the rate law directly, it is not." xmlns:xlink="http://www.w3.org/1999/xlink" width="707.382944pt" height="244.396703pt" viewBox="0 0 707.382944 244.396703" xmlns="http://www.w3.org/2000/svg" version="1.1">
+ <metadata>
+  <rdf:RDF xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:cc="http://creativecommons.org/ns#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+   <cc:Work>
+    <dc:type rdf:resource="http://purl.org/dc/dcmitype/StillImage"/>
+    <dc:date>2026-11-02T23:57:48.898867</dc:date>
+    <dc:format>image/svg+xml</dc:format>
+    <dc:creator>
+     <cc:Agent>
+      <dc:title>Matplotlib v3.10.8, https://matplotlib.org/</dc:title>
+     </cc:Agent>
+    </dc:creator>
+   </cc:Work>
+  </rdf:RDF>
+ </metadata>
+ <defs>
+  <style type="text/css">*{stroke-linejoin: round; stroke-linecap: butt}</style>
+ </defs>
+ <g id="figure_1">
+  <g id="patch_1">
+   <path d="M 0 244.396703 
+L 707.382944 244.396703 
+L 707.382944 -0 
+L 0 -0 
+L 0 244.396703 
+z
+" style="fill: none"/>
+  </g>
+  <g id="axes_1">
+   <g id="patch_2">
+    <path d="M 98.687875 185.070563 
+L 248.426306 185.070563 
+L 248.426306 18.750563 
+L 98.687875 18.750563 
+L 98.687875 185.070563 
+z
+" style="fill: none"/>
+   </g>
+   <g id="patch_3">
+    <path d="M 98.687875 45.458161 
+L 148.600685 45.458161 
+L 148.600685 26.310562 
+L 98.687875 26.310562 
+z
+" clip-path="url(#peee09988ec)" style="fill: #6dbdac; opacity: 0.3; stroke: #6dbdac; stroke-width: 1.1; stroke-linejoin: miter"/>
+   </g>
+   <g id="patch_4">
+    <path d="M 98.687875 78.471261 
+L 192.274395 78.471261 
+L 192.274395 59.323663 
+L 98.687875 59.323663 
+z
+" clip-path="url(#peee09988ec)" style="fill: #d98c72; opacity: 0.3; stroke: #d98c72; stroke-width: 1.1; stroke-linejoin: miter"/>
+   </g>
+   <g id="patch_5">
+    <path d="M 98.687875 111.484362 
+L 161.078888 111.484362 
+L 161.078888 92.336763 
+L 98.687875 92.336763 
+z
+" clip-path="url(#peee09988ec)" style="fill: #6dbdac; opacity: 0.3; stroke: #6dbdac; stroke-width: 1.1; stroke-linejoin: miter"/>
+   </g>
+   <g id="patch_6">
+    <path d="M 98.687875 144.497462 
+L 117.405179 144.497462 
+L 117.405179 125.349864 
+L 98.687875 125.349864 
+z
+" clip-path="url(#peee09988ec)" style="fill: #6dbdac; opacity: 0.3; stroke: #6dbdac; stroke-width: 1.1; stroke-linejoin: miter"/>
+   </g>
+   <g id="patch_7">
+    <path d="M 98.687875 177.510562 
+L 129.883382 177.510562 
+L 129.883382 158.362964 
+L 98.687875 158.362964 
+z
+" clip-path="url(#peee09988ec)" style="fill: #6dbdac; opacity: 0.3; stroke: #6dbdac; stroke-width: 1.1; stroke-linejoin: miter"/>
+   </g>
+   <g id="matplotlib.axis_1">
+    <g id="xtick_1">
+     <g id="line2d_1">
+      <path d="M 98.687875 185.070563 
+L 98.687875 18.750563 
+" clip-path="url(#peee09988ec)" style="fill: none; stroke: #2e251c; stroke-opacity: 0.7; stroke-width: 0.6; stroke-linecap: square"/>
+     </g>
+     <g id="line2d_2">
+      <defs>
+       <path id="m0b26512e68" d="M 0 0 
+L 0 3.5 
+" style="stroke: #9a8872; stroke-width: 0.9"/>
+      </defs>
+      <g>
+       <use xlink:href="#m0b26512e68" x="98.687875" y="185.070563" style="fill: #9a8872; stroke: #9a8872; stroke-width: 0.9"/>
+      </g>
+     </g>
+     <g id="text_1">
+      <text style="font-size: 9.5px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: middle; fill: #9a8872" x="98.687875" y="199.289078" transform="rotate(-0 98.687875 199.289078)">0</text>
+     </g>
+    </g>
+    <g id="xtick_2">
+     <g id="line2d_3">
+      <path d="M 129.883382 185.070563 
+L 129.883382 18.750563 
+" clip-path="url(#peee09988ec)" style="fill: none; stroke: #2e251c; stroke-opacity: 0.7; stroke-width: 0.6; stroke-linecap: square"/>
+     </g>
+     <g id="line2d_4">
+      <g>
+       <use xlink:href="#m0b26512e68" x="129.883382" y="185.070563" style="fill: #9a8872; stroke: #9a8872; stroke-width: 0.9"/>
+      </g>
+     </g>
+     <g id="text_2">
+      <text style="font-size: 9.5px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: middle; fill: #9a8872" x="129.883382" y="199.289078" transform="rotate(-0 129.883382 199.289078)">5</text>
+     </g>
+    </g>
+    <g id="xtick_3">
+     <g id="line2d_5">
+      <path d="M 161.078888 185.070563 
+L 161.078888 18.750563 
+" clip-path="url(#peee09988ec)" style="fill: none; stroke: #2e251c; stroke-opacity: 0.7; stroke-width: 0.6; stroke-linecap: square"/>
+     </g>
+     <g id="line2d_6">
+      <g>
+       <use xlink:href="#m0b26512e68" x="161.078888" y="185.070563" style="fill: #9a8872; stroke: #9a8872; stroke-width: 0.9"/>
+      </g>
+     </g>
+     <g id="text_3">
+      <text style="font-size: 9.5px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: middle; fill: #9a8872" x="161.078888" y="199.289078" transform="rotate(-0 161.078888 199.289078)">10</text>
+     </g>
+    </g>
+    <g id="xtick_4">
+     <g id="line2d_7">
+      <path d="M 192.274395 185.070563 
+L 192.274395 18.750563 
+" clip-path="url(#peee09988ec)" style="fill: none; stroke: #2e251c; stroke-opacity: 0.7; stroke-width: 0.6; stroke-linecap: square"/>
+     </g>
+     <g id="line2d_8">
+      <g>
+       <use xlink:href="#m0b26512e68" x="192.274395" y="185.070563" style="fill: #9a8872; stroke: #9a8872; stroke-width: 0.9"/>
+      </g>
+     </g>
+     <g id="text_4">
+      <text style="font-size: 9.5px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: middle; fill: #9a8872" x="192.274395" y="199.289078" transform="rotate(-0 192.274395 199.289078)">15</text>
+     </g>
+    </g>
+    <g id="xtick_5">
+     <g id="line2d_9">
+      <path d="M 223.469901 185.070563 
+L 223.469901 18.750563 
+" clip-path="url(#peee09988ec)" style="fill: none; stroke: #2e251c; stroke-opacity: 0.7; stroke-width: 0.6; stroke-linecap: square"/>
+     </g>
+     <g id="line2d_10">
+      <g>
+       <use xlink:href="#m0b26512e68" x="223.469901" y="185.070563" style="fill: #9a8872; stroke: #9a8872; stroke-width: 0.9"/>
+      </g>
+     </g>
+     <g id="text_5">
+      <text style="font-size: 9.5px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: middle; fill: #9a8872" x="223.469901" y="199.289078" transform="rotate(-0 223.469901 199.289078)">20</text>
+     </g>
+    </g>
+    <g id="text_6">
+     <text style="font-size: 9.5px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: middle; fill: #cbbca6" x="173.557091" y="212.483297" transform="rotate(-0 173.557091 212.483297)">relative error  (%)</text>
+    </g>
+   </g>
+   <g id="matplotlib.axis_2">
+    <g id="ytick_1">
+     <g id="line2d_11">
+      <defs>
+       <path id="md3be400836" d="M 0 0 
+L -3.5 0 
+" style="stroke: #9a8872; stroke-width: 0.9"/>
+      </defs>
+      <g>
+       <use xlink:href="#md3be400836" x="98.687875" y="35.884362" style="fill: #9a8872; stroke: #9a8872; stroke-width: 0.9"/>
+      </g>
+     </g>
+     <g id="text_7">
+      <text style="font-size: 8.8px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: end; fill: #9a8872" x="91.687875" y="39.227674" transform="rotate(-0 91.687875 39.227674)">sampling</text>
+     </g>
+    </g>
+    <g id="ytick_2">
+     <g id="line2d_12">
+      <g>
+       <use xlink:href="#md3be400836" x="98.687875" y="68.897462" style="fill: #9a8872; stroke: #9a8872; stroke-width: 0.9"/>
+      </g>
+     </g>
+     <g id="text_8">
+      <text style="font-size: 8.8px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: end; fill: #9a8872" x="91.687875" y="72.240775" transform="rotate(-0 91.687875 72.240775)">quench leakage</text>
+     </g>
+    </g>
+    <g id="ytick_3">
+     <g id="line2d_13">
+      <g>
+       <use xlink:href="#md3be400836" x="98.687875" y="101.910562" style="fill: #9a8872; stroke: #9a8872; stroke-width: 0.9"/>
+      </g>
+     </g>
+     <g id="text_9">
+      <text style="font-size: 8.8px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: end; fill: #9a8872" x="91.687875" y="105.253875" transform="rotate(-0 91.687875 105.253875)">extraction recovery</text>
+     </g>
+    </g>
+    <g id="ytick_4">
+     <g id="line2d_14">
+      <g>
+       <use xlink:href="#md3be400836" x="98.687875" y="134.923663" style="fill: #9a8872; stroke: #9a8872; stroke-width: 0.9"/>
+      </g>
+     </g>
+     <g id="text_10">
+      <text style="font-size: 8.8px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: end; fill: #9a8872" x="91.687875" y="138.266975" transform="rotate(-0 91.687875 138.266975)">dilution</text>
+     </g>
+    </g>
+    <g id="ytick_5">
+     <g id="line2d_15">
+      <g>
+       <use xlink:href="#md3be400836" x="98.687875" y="167.936763" style="fill: #9a8872; stroke: #9a8872; stroke-width: 0.9"/>
+      </g>
+     </g>
+     <g id="text_11">
+      <text style="font-size: 8.8px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: end; fill: #9a8872" x="91.687875" y="171.280076" transform="rotate(-0 91.687875 171.280076)">instrument</text>
+     </g>
+    </g>
+   </g>
+   <g id="patch_8">
+    <path d="M 98.687875 185.070563 
+L 98.687875 18.750562 
+" style="fill: none; stroke: #3a3026; stroke-width: 0.9; stroke-linejoin: miter; stroke-linecap: square"/>
+   </g>
+   <g id="patch_9">
+    <path d="M 98.687875 185.070563 
+L 248.426306 185.070563 
+" style="fill: none; stroke: #3a3026; stroke-width: 0.9; stroke-linejoin: miter; stroke-linecap: square"/>
+   </g>
+   <g id="text_12">
+    <text style="font-weight: 700; font-size: 8.4px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: start; fill: #6dbdac" x="152.344146" y="38.202237" transform="rotate(-0 152.344146 38.202237)">8%</text>
+   </g>
+   <g id="text_13">
+    <text style="font-weight: 700; font-size: 8.4px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: start; fill: #d98c72" x="196.017855" y="71.215337" transform="rotate(-0 196.017855 71.215337)">15%</text>
+   </g>
+   <g id="text_14">
+    <text style="font-weight: 700; font-size: 8.4px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: start; fill: #6dbdac" x="164.822349" y="104.228438" transform="rotate(-0 164.822349 104.228438)">10%</text>
+   </g>
+   <g id="text_15">
+    <text style="font-weight: 700; font-size: 8.4px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: start; fill: #6dbdac" x="121.14864" y="137.241538" transform="rotate(-0 121.14864 137.241538)">3%</text>
+   </g>
+   <g id="text_16">
+    <text style="font-weight: 700; font-size: 8.4px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: start; fill: #6dbdac" x="133.626842" y="170.254638" transform="rotate(-0 133.626842 170.254638)">5%</text>
+   </g>
+   <g id="text_17">
+    <text style="font-weight: 700; font-size: 8.4px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: start; fill: #d98c72" x="218.47862" y="71.215337" transform="rotate(-0 218.47862 71.215337)">bias</text>
+   </g>
+   <g id="text_18">
+    <text style="font-size: 9.2px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: start; fill: #9a8872" x="98.687875" y="12.750563" transform="rotate(-0 98.687875 12.750563)">one term is a bias, not a variance</text>
+   </g>
+  </g>
+  <g id="axes_2">
+   <g id="patch_10">
+    <path d="M 381.400544 185.070563 
+L 511.607875 185.070563 
+L 511.607875 18.750563 
+L 381.400544 18.750563 
+L 381.400544 185.070563 
+z
+" style="fill: none"/>
+   </g>
+   <g id="patch_11">
+    <path d="M 381.400544 177.510563 
+L 481.560029 177.510563 
+L 481.560029 146.310563 
+L 381.400544 146.310563 
+z
+" clip-path="url(#pebc976e962)" style="fill: #d7a95c; opacity: 0.3; stroke: #d7a95c; stroke-width: 1.1; stroke-linejoin: miter"/>
+   </g>
+   <g id="patch_12">
+    <path d="M 381.400544 117.510563 
+L 393.469499 117.510563 
+L 393.469499 86.310563 
+L 381.400544 86.310563 
+z
+" clip-path="url(#pebc976e962)" style="fill: #d98c72; opacity: 0.3; stroke: #d98c72; stroke-width: 1.1; stroke-linejoin: miter"/>
+   </g>
+   <g id="patch_13">
+    <path d="M 381.400544 57.510563 
+L 389.895818 57.510563 
+L 389.895818 26.310563 
+L 381.400544 26.310563 
+z
+" clip-path="url(#pebc976e962)" style="fill: #6dbdac; opacity: 0.3; stroke: #6dbdac; stroke-width: 1.1; stroke-linejoin: miter"/>
+   </g>
+   <g id="matplotlib.axis_3">
+    <g id="xtick_6">
+     <g id="line2d_16">
+      <path d="M 381.400544 185.070563 
+L 381.400544 18.750563 
+" clip-path="url(#pebc976e962)" style="fill: none; stroke: #2e251c; stroke-opacity: 0.7; stroke-width: 0.6; stroke-linecap: square"/>
+     </g>
+     <g id="line2d_17">
+      <g>
+       <use xlink:href="#m0b26512e68" x="381.400544" y="185.070563" style="fill: #9a8872; stroke: #9a8872; stroke-width: 0.9"/>
+      </g>
+     </g>
+     <g id="text_19">
+      <text style="font-size: 9.5px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: middle; fill: #9a8872" x="381.400544" y="199.289078" transform="rotate(-0 381.400544 199.289078)">0</text>
+     </g>
+    </g>
+    <g id="xtick_7">
+     <g id="line2d_18">
+      <path d="M 431.480286 185.070563 
+L 431.480286 18.750563 
+" clip-path="url(#pebc976e962)" style="fill: none; stroke: #2e251c; stroke-opacity: 0.7; stroke-width: 0.6; stroke-linecap: square"/>
+     </g>
+     <g id="line2d_19">
+      <g>
+       <use xlink:href="#m0b26512e68" x="431.480286" y="185.070563" style="fill: #9a8872; stroke: #9a8872; stroke-width: 0.9"/>
+      </g>
+     </g>
+     <g id="text_20">
+      <text style="font-size: 9.5px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: middle; fill: #9a8872" x="431.480286" y="199.289078" transform="rotate(-0 431.480286 199.289078)">2</text>
+     </g>
+    </g>
+    <g id="xtick_8">
+     <g id="line2d_20">
+      <path d="M 481.560029 185.070563 
+L 481.560029 18.750563 
+" clip-path="url(#pebc976e962)" style="fill: none; stroke: #2e251c; stroke-opacity: 0.7; stroke-width: 0.6; stroke-linecap: square"/>
+     </g>
+     <g id="line2d_21">
+      <g>
+       <use xlink:href="#m0b26512e68" x="481.560029" y="185.070563" style="fill: #9a8872; stroke: #9a8872; stroke-width: 0.9"/>
+      </g>
+     </g>
+     <g id="text_21">
+      <text style="font-size: 9.5px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: middle; fill: #9a8872" x="481.560029" y="199.289078" transform="rotate(-0 481.560029 199.289078)">4</text>
+     </g>
+    </g>
+    <g id="text_22">
+     <text style="font-size: 9.5px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: middle; fill: #cbbca6" x="446.504209" y="212.483297" transform="rotate(-0 446.504209 212.483297)">contribution to ΔrG′  (kJ mol⁻¹)</text>
+    </g>
+   </g>
+   <g id="matplotlib.axis_4">
+    <g id="ytick_6">
+     <g id="line2d_22">
+      <g>
+       <use xlink:href="#md3be400836" x="381.400544" y="161.910563" style="fill: #9a8872; stroke: #9a8872; stroke-width: 0.9"/>
+      </g>
+     </g>
+     <g id="text_23">
+      <text style="font-size: 8.2px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: end; fill: #9a8872" x="374.400544" y="165.025922" transform="rotate(-0 374.400544 165.025922)">ΔrG′°, group contribution</text>
+     </g>
+    </g>
+    <g id="ytick_7">
+     <g id="line2d_23">
+      <g>
+       <use xlink:href="#md3be400836" x="381.400544" y="101.910563" style="fill: #9a8872; stroke: #9a8872; stroke-width: 0.9"/>
+      </g>
+     </g>
+     <g id="text_24">
+      <text style="font-size: 8.2px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: end; fill: #9a8872" x="374.400544" y="105.025922" transform="rotate(-0 374.400544 105.025922)">leakage as a variance</text>
+     </g>
+    </g>
+    <g id="ytick_8">
+     <g id="line2d_24">
+      <g>
+       <use xlink:href="#md3be400836" x="381.400544" y="41.910563" style="fill: #9a8872; stroke: #9a8872; stroke-width: 0.9"/>
+      </g>
+     </g>
+     <g id="text_25">
+      <text style="font-size: 8.2px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: end; fill: #9a8872" x="374.400544" y="45.025922" transform="rotate(-0 374.400544 45.025922)">budget handled honestly</text>
+     </g>
+    </g>
+   </g>
+   <g id="patch_14">
+    <path d="M 381.400544 185.070563 
+L 381.400544 18.750563 
+" style="fill: none; stroke: #3a3026; stroke-width: 0.9; stroke-linejoin: miter; stroke-linecap: square"/>
+   </g>
+   <g id="patch_15">
+    <path d="M 381.400544 185.070563 
+L 511.607875 185.070563 
+" style="fill: none; stroke: #3a3026; stroke-width: 0.9; stroke-linejoin: miter; stroke-linecap: square"/>
+   </g>
+   <g id="text_26">
+    <text style="font-weight: 700; font-size: 8.4px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: start; fill: #d7a95c" x="484.815213" y="164.228438" transform="rotate(-0 484.815213 164.228438)">4.00</text>
+   </g>
+   <g id="text_27">
+    <text style="font-weight: 700; font-size: 8.4px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: start; fill: #d98c72" x="396.724683" y="104.228438" transform="rotate(-0 396.724683 104.228438)">0.48</text>
+   </g>
+   <g id="text_28">
+    <text style="font-weight: 700; font-size: 8.4px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: start; fill: #6dbdac" x="393.151001" y="44.228438" transform="rotate(-0 393.151001 44.228438)">0.34</text>
+   </g>
+   <g id="text_29">
+    <text style="font-size: 9.2px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: start; fill: #9a8872" x="381.400544" y="12.750563" transform="rotate(-0 381.400544 12.750563)">and neither one limits the verdict</text>
+   </g>
+  </g>
+  <g id="text_30">
+   <text style="font-size: 8.3px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: start; fill: #9a8872" x="38.481475" y="236.910563" transform="rotate(-0 38.481475 236.910563)">Random terms combine in quadrature to 14%; propagating the leakage as a variance gives 21% and an interval centred low. Neither limits a feasibility verdict.</text>
+  </g>
+ </g>
+ <defs>
+  <clipPath id="peee09988ec">
+   <rect x="98.687875" y="18.750563" width="149.738431" height="166.32"/>
+  </clipPath>
+  <clipPath id="pebc976e962">
+   <rect x="381.400544" y="18.750563" width="130.207331" height="166.32"/>
+  </clipPath>
+ </defs>
+</svg>
+</div><figcaption>Left: the five terms of a typical intracellular measurement, with quench leakage marked as the bias it is. Right: what each propagation contributes to a ΔrG′ estimate, against the group-contribution uncertainty in ΔrG′°. For a feasibility verdict the metabolomics is already good enough; for a kinetic model, where concentration enters the rate law directly, it is not.</figcaption></figure>
+<p>Independent random errors combine in quadrature, √(Σσᵢ²), so the largest term dominates quickly and polishing a small one is wasted effort. A fifteen per cent leakage is not a random error: it is a bias, it does not shrink with replication, and it does not belong in the quadrature sum. It belongs in a correction with its own uncertainty, or in a stated direction of error. The commonest failure in published metabolomics is to propagate a bias as a variance, which converts a systematic understatement into a reassuring interval centred on the wrong value.</p>
+<p><strong>5. Thermodynamics needs less precision than kinetics</strong></p>
+<p>ΔrG′ = ΔrG′° + RT·Σᵢ νᵢ·ln aᵢ, with RT = 2.577 kJ mol⁻¹ at 37 °C. A twenty per cent error in one reactant contributes RT·ln(1.2) = 0.47 kJ mol⁻¹ and a factor of two only 1.8, while group-contribution estimates of ΔrG′° carry 3–4 kJ mol⁻¹. So for a feasibility verdict on a reaction with small stoichiometric coefficients and roughly independent errors, improving the standard-state estimate beats improving the metabolomics. Check that premise rather than assuming it: the sum runs over every reactant weighted by νᵢ, so a coefficient of two doubles that term and errors shared across metabolites — one dilution factor, one biomass normalisation — add rather than cancel. For a kinetic model the ranking reverses, because a rate law evaluates S/Kₘ directly and a factor-of-two error in concentration is a factor-of-two error in the rate of an unsaturated step. One nicety worth knowing before someone asks: Q is written in concentrations rather than activities, and the activity correction is not ignored but sits in the other term — eQuilibrator returns a <em>transformed</em> standard energy at a stated pH, pMg and ionic strength, so quoting ΔrG′° without those three conditions is quoting an incomplete number. Know which question you are asking before calling a measurement good enough.</p>
+<p><strong>6. Compartmentation, and why a eukaryotic cytosolic concentration is rarely real</strong></p>
+<p>A whole-cell yeast extract is a volume-weighted average over cytosol, mitochondrion and vacuole. The vacuole alone can be a fifth to a half of cell volume and concentrates amino acids by an order of magnitude, so a reported cytosolic glutamate may be wrong by a factor of several in a direction the number cannot tell you. Real compartment-specific measurement needs rapid fractionation in non-aqueous solvent or a sensor calibrated in situ, both hard enough that few data sets exist. Compartmentalised thermodynamic analysis in a eukaryote therefore rests on inferred concentrations and should say so.</p>
+<h3>Worked anchor</h3>
+<p>Turnover times, an error budget, and what both do to a thermodynamic verdict.</p>
+<p>Intracellular water 2 mL gDW⁻¹, so 1 mM = 2 µmol gDW⁻¹.</p>
+<p>ATP: 3 µmol gDW⁻¹ over 50,000/3600 = 13.9 µmol gDW⁻¹ s⁻¹ gives τ = 0.22 s. G6P: 2 µmol gDW⁻¹ over 2.8 µmol gDW⁻¹ s⁻¹ gives τ = 0.72 s. Glutamate: 120 µmol gDW⁻¹ over 0.42 µmol gDW⁻¹ s⁻¹ gives τ = 288 s.</p>
+<p>A five-second protocol reports glutamate honestly, reports G6P as whatever it became during sampling, and reports ATP as a property of the quench.</p>
+<p>Now one metabolite reported at 1.5 mM: sampling 8%, leakage 15%, extraction recovery 85 ± 10%, dilution 3%, instrument 5%. The leakage is a bias and the 85% recovery is a correction whose ±10% is its variance, so the random terms are 0.08, 0.10, 0.03, 0.05:</p>
+<p>√(0.0064 + 0.0100 + 0.0009 + 0.0025) = √0.0198 = 0.141, about 14%.</p>
+<p>Propagate the leakage as random instead, as most papers do, and you get √(0.0198 + 0.0225) = 0.206 — an interval of 1.5 ± 0.31 mM centred low by roughly the leakage.</p>
+<p>Carried into ΔrG′, the 14% error contributes RT·ln(1.14) = 2.577 × 0.131 = 0.34 kJ mol⁻¹ and the 21% version 0.49. Against 4 kJ mol⁻¹ of uncertainty in ΔrG′°, both are an order of magnitude too small to matter. So for a feasibility study the metabolomics is already good enough and the standard-state estimate is not, while for week 30&#x27;s kinetic model the opposite holds. Write that sentence down; it is the one that shows you know what the measurement is for.</p>
+<p><strong>Assumptions behind this calculation</strong></p>
+<ul>
+<li>intracellular water 2 mL gDW⁻¹, used to convert mM to µmol gDW⁻¹</li>
+<li>pools and fluxes are order-of-magnitude figures, not measurements</li>
+<li>the random error terms are independent; leakage is treated as a bias</li>
+<li>one reactant varies in the ΔrG′ step, with ν = 1</li>
+<li>RT = 2.577 kJ mol⁻¹ at 37 °C</li>
+</ul>
+<h3>Reading map</h3>
+<table><thead><tr><th>Source</th><th>Treatment</th><th>Why</th></tr></thead><tbody><tr><td>Lee Ch 9 — Metabolomics</td><td>Read closely</td><td>The week&#x27;s primary text, by Diederen, Delabrière, Othman, Reid and Zamboni of the Institute of Molecular Systems Biology at ETH Zurich — attribution checked against the chapter&#x27;s own title page, printed p259. §9.3.1 is sample preparation and quenching, §9.5 is ionisation and the mechanism behind suppression. Write the loss or bias at every step.</td></tr><tr><td>Lee Ch 3 §3.5.5</td><td>Read closely</td><td>Metabolomics in the context of labelling, where pool sizes stop being a curiosity: instationary MFA takes them as parameters in week 29.</td></tr><tr><td>Berg Ch 3 §3.4</td><td>Skim</td><td>Ionisation and fragmentation only. You need the mechanism behind ion suppression, not the proteomics applications.</td></tr><tr><td><a href="https://hmdb.ca/" target="_blank" rel="noopener">Human Metabolome Database</a></td><td>Skim</td><td>For provenance, not values: trace one concentration to its primary measurement and note the method, condition and reported error.</td></tr><tr><td><a href="https://equilibrator.weizmann.ac.il/" target="_blank" rel="noopener">eQuilibrator, with Lee Ch 7 §7.2.2 and §7.3</a></td><td>Read closely</td><td>The ΔrG′° half of the calculation. Lee gives the formation-energy estimation and the pH and ionic-strength transform behind the number the server returns.</td></tr><tr><td>Palsson Ch 3, reread</td><td>Skip</td><td>Reconstruction is behind you and nothing in it addresses measurement.</td></tr></tbody></table>
+<h3>Common misconceptions</h3>
+<ul>
+<li>That a reported intracellular concentration is a cytosolic concentration. In a eukaryote it is an average over compartments differing by an order of magnitude.</li>
+<li>That replication fixes leakage. Replication fixes variance; leakage is a bias, and averaging a hundred biased samples gives a precise wrong number.</li>
+<li>That the mass spectrometer limits a thermodynamic analysis. RT·ln of a concentration error is small next to the uncertainty in ΔrG′°. It limits kinetics, where concentrations enter the rate law directly.</li>
+</ul>
+<h3>Check yourself before moving on</h3>
+<p><strong>Q.</strong> Your protocol quenches in five seconds. Which measurements does it support, and which does it destroy?</p>
+<p><strong>A.</strong> Compute τ = pool/flux. ATP at 3 µmol gDW⁻¹ over 13.9 µmol gDW⁻¹ s⁻¹ turns over in 0.2 s, so five seconds is twenty-five turnover times and the number belongs to the quench, not the cell; G6P at τ ≈ 0.7 s goes the same way. Glutamate at τ ≈ 290 s is barely perturbed and is reported honestly. The protocol must be fast relative to the shortest τ you intend to interpret, so state which subset of the metabolome your method is valid for and do not report the rest.</p>
+<p><strong>Q.</strong> A paper reports intracellular ATP with ±8% error bars and no mention of leakage. What do you conclude?</p>
+<p><strong>A.</strong> That the interval is a precision claim about replicates, not an accuracy claim about the cell. Nucleotide leakage in a methanol quench is a bias in a known direction — downward — so the true value lies above the interval rather than within it, and nothing in the stated error reflects that. The second concern is whether the quench outran a 0.2 s turnover time at all. Neither objection makes the paper wrong; both say that any conclusion resting on the absolute value rather than on a ratio between their own conditions is unsupported.</p>
+<p><strong>Q.</strong> When is it worth improving a measurement from 20% to 5%, and when is it not?</p>
+<p><strong>A.</strong> Worth it when the number enters a rate law, because an unsaturated step&#x27;s rate goes as S/Kₘ and the error passes undamped into every flux and control coefficient downstream. Not worth it for a feasibility verdict, where the concentration enters only as RT·ln Q: the improvement buys about 0.3 kJ mol⁻¹ against a 3–4 kJ mol⁻¹ uncertainty in ΔrG′° that dominates regardless. Differentiate the conclusion with respect to the measurement and compare against the other error terms before spending a month on the instrument.</p>
+<hr>
+
+<section class="study-transfer" aria-label="Week 27 application and teach-back">
+<h3>Apply it to your fermentation experience</h3>
+<p><strong>Transfer prompt.</strong> Select one intracellular metabolite that would clarify a bottleneck in your fermentations. How would rapid quenching, extraction recovery, and normalization affect the conclusion?</p>
+<p class="meta">Use your actual thesis methods and results where you remember them. Mark missing information as unknown; do not assume the organisms were co-cultured, that a metabolite was measured, or that a proposed mechanism was demonstrated.</p>
+<h3>Teach it back</h3>
+<p>Explain the week's concept from memory, work one number, and name one boundary. Then use the <a href="teach-back.html">five-minute teach-back protocol</a> and log it in the tracker.</p>
+</section>
+<nav class="weeknav" aria-label="Week navigation"><a href="week-26.html">&#8592; Week 26</a><a class="idx" href="index.html">Lecture index</a><a class="idx" href="case-study.html">Case study</a><a href="week-28.html">Week 28 &#8594;</a></nav>
+</main>
+<footer class="docfoot"><a href="../metabolic-engineering-tracker.html">&#8592; Course tracker</a><span>Metabolic engineering &middot; 55 weeks</span></footer>
+<script>
+(function(){var root=document.documentElement,key="me.theme";var bs=Array.prototype.slice.call(document.querySelectorAll(".appearance button"));
+function paint(v){bs.forEach(function(b){b.setAttribute("aria-pressed",b.getAttribute("data-appearance")===v?"true":"false");});if(v==="auto")root.removeAttribute("data-theme");else root.setAttribute("data-theme",v);}
+var saved="auto";try{saved=localStorage.getItem(key)||"auto";}catch(e){}
+bs.forEach(function(b){b.addEventListener("click",function(){var v=b.getAttribute("data-appearance");paint(v);try{localStorage.setItem(key,v);}catch(e){}});});paint(saved);})();
+</script>
+</body>
+</html>

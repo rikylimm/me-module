@@ -1,0 +1,940 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="utf-8"><title>Week 4 — Enzyme catalysis — Metabolic engineering</title>
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+
+
+<style>:root{color-scheme:light;--paper:#FAF6EF;--ink:#211A12;--ink-2:#4A3C2C;--ink-3:#8A7458;
+--line:#DFD2BE;--line-2:#EDE4D5;--broth:#9A6B1F;--broth-soft:#F6ECD9;
+--serif:"Newsreader",Georgia,serif;--sans:"Public Sans",system-ui,sans-serif}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--paper:#15120D;--ink:#F1E9DC;--ink-2:#CBBCA6;
+--ink-3:#948872;--line:#352C22;--line-2:#2A231B;--broth:#D7A95C;--broth-soft:#241D14}}
+*{box-sizing:border-box}
+body{margin:0;background:var(--paper);color:var(--ink);font-family:var(--sans);font-size:15.5px;line-height:1.6;
+padding:env(safe-area-inset-top,0) 0 env(safe-area-inset-bottom,0)}
+.wrap{max-width:840px;margin:0 auto;padding:40px 22px 90px}
+h1{font-family:var(--serif);font-size:clamp(28px,5vw,42px);line-height:1.1;font-weight:600;margin:0 0 6px;letter-spacing:-.02em}
+h2{font-family:var(--serif);font-size:26px;font-weight:600;margin:46px 0 10px;letter-spacing:-.01em;padding-bottom:7px;border-bottom:1px solid var(--line)}
+h3{font-family:var(--serif);font-size:20px;font-weight:600;margin:30px 0 4px;color:var(--broth)}
+h4{font-size:14px;font-weight:650;margin:18px 0 4px;color:var(--ink-3);letter-spacing:.02em;text-transform:uppercase}
+p{margin:0 0 12px;max-width:74ch}
+em{color:var(--ink-2)}
+ul{margin:0 0 14px;padding-left:1.15em;max-width:74ch}
+li{margin:.3em 0}li::marker{color:var(--ink-3)}
+hr{border:0;border-top:1px solid var(--line);margin:40px 0}
+strong{font-weight:650}
+table{border-collapse:collapse;width:100%;margin:14px 0 20px;font-size:14px}
+th{text-align:left;font-weight:600;color:var(--ink-3);font-size:12.5px;padding:7px 9px;border-bottom:1.5px solid var(--line)}
+td{padding:8px 9px;border-bottom:1px solid var(--line-2);vertical-align:top}
+tr:nth-child(even) td{background:var(--broth-soft)}
+
+figure.fig{margin:22px 0 26px;padding:0;max-width:100%}
+figure.fig svg{width:100%;height:auto;display:block;background:var(--card);
+  border:1px solid var(--line-2);border-radius:10px;padding:8px 10px}
+figure.fig figcaption{font-size:13px;color:var(--ink-3);margin-top:8px;max-width:74ch;line-height:1.5}
+figure.fig .figtitle{font-family:var(--serif);font-size:15px;color:var(--ink-2);margin-bottom:6px}
+figure.fig .fig-dark{display:none}
+@media (prefers-color-scheme: dark){
+  figure.fig .fig-light{display:none}
+  figure.fig .fig-dark{display:block}
+}
+@media print{figure.fig{break-inside:avoid;page-break-inside:avoid}
+  figure.fig .fig-dark{display:none !important}
+  figure.fig .fig-light{display:block !important}}
+
+@media print{body{background:#fff}.wrap{padding:0;max-width:none}h2,h3{page-break-after:avoid}}</style><script>try{var t=localStorage.getItem("me.theme");if(t&&t!=="auto")document.documentElement.setAttribute("data-theme",t);}catch(e){}</script>
+<meta name="color-scheme" content="light dark">
+<meta name="theme-color" content="#ffffff" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#000000" media="(prefers-color-scheme: dark)">
+<style>
+/* ============================================================
+   COURSE LIBRARY — Apple document shell
+   ============================================================ */
+:root{
+  color-scheme:light;
+  --paper:#FFFFFF;--surface:#F5F5F7;--card:#FFFFFF;--fill:#F5F5F7;
+  --ink:#1D1D1F;--ink-2:#6E6E73;--ink-3:#6E6E73;
+  --line:rgba(0,0,0,.14);--line-2:rgba(0,0,0,.08);
+  --broth:#0071E3;--broth-soft:rgba(0,113,227,.10);
+  --nav-bg:rgba(255,255,255,.84);
+  --sans:-apple-system,BlinkMacSystemFont,"SF Pro Text","SF Pro Display","Helvetica Neue",Arial,sans-serif;
+  --mono:ui-monospace,"SF Mono",Menlo,Consolas,monospace;
+  --serif:var(--sans);
+}
+@media (prefers-color-scheme:dark){
+  :root:not([data-theme="light"]){
+    color-scheme:dark;
+    --paper:#000000;--surface:#1C1C1E;--card:#2C2C2E;--fill:#2C2C2E;
+    --ink:#F5F5F7;--ink-2:#A1A1A6;--ink-3:#8E8E93;
+    --line:rgba(255,255,255,.16);--line-2:rgba(255,255,255,.09);
+    --broth:#5AA9FF;--broth-soft:rgba(10,132,255,.18);
+    --nav-bg:rgba(0,0,0,.74);
+  }
+}
+:root[data-theme="dark"]{
+  color-scheme:dark;
+  --paper:#000000;--surface:#1C1C1E;--card:#2C2C2E;--fill:#2C2C2E;
+  --ink:#F5F5F7;--ink-2:#A1A1A6;--ink-3:#8E8E93;
+  --line:rgba(255,255,255,.16);--line-2:rgba(255,255,255,.09);
+  --broth:#5AA9FF;--broth-soft:rgba(10,132,255,.18);
+  --nav-bg:rgba(0,0,0,.74);
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth;scroll-padding-top:72px;-webkit-text-size-adjust:100%}
+body{
+  margin:0;background:var(--paper);color:var(--ink);
+  font-family:var(--sans);font-size:17px;line-height:1.62;letter-spacing:-.011em;
+  padding:0;
+}
+.docbar{
+  position:sticky;top:0;z-index:80;display:flex;align-items:center;justify-content:space-between;gap:12px;
+  padding:8px max(24px,calc((100vw - 1180px)/2));
+  background:var(--nav-bg);
+  -webkit-backdrop-filter:saturate(180%) blur(20px);backdrop-filter:saturate(180%) blur(20px);
+  border-bottom:1px solid var(--line-2);
+}
+.docback{display:inline-flex;align-items:center;gap:6px;color:var(--ink-2);font-size:13px;font-weight:500;text-decoration:none;white-space:nowrap}
+.docback:hover{color:var(--broth)}
+.appearance{display:inline-flex;gap:2px;padding:2px;background:var(--fill);border-radius:980px}
+.appearance button{border:0;background:none;color:var(--ink-2);font:inherit;font-size:12px;font-weight:500;line-height:1;padding:6px 11px;border-radius:980px;cursor:pointer}
+.appearance button[aria-pressed="true"]{background:var(--card);color:var(--ink);box-shadow:0 1px 2px rgba(0,0,0,.08)}
+.wrap{max-width:900px;margin:0 auto;padding:64px 24px 96px}
+body h1{
+  font-family:var(--sans);font-size:clamp(42px,6.2vw,64px);line-height:1.04;letter-spacing:-.04em;
+  font-weight:700;margin:0 0 16px;max-width:18ch;color:var(--ink);
+}
+.doc-kicker{font-size:13px;font-weight:500;letter-spacing:0;color:var(--ink-2);margin:0 0 12px}
+body h1 + p{font-size:20px;line-height:1.55;color:var(--ink-2);max-width:68ch;margin:0 0 18px}
+body h1 + p strong{color:var(--ink);font-weight:600}
+body h2{
+  font-family:var(--sans);font-size:32px;line-height:1.15;letter-spacing:-.03em;font-weight:600;
+  color:var(--ink);margin:64px 0 14px;padding:0;border:0;
+}
+body h3{font-family:var(--sans);font-size:22px;line-height:1.25;letter-spacing:-.02em;font-weight:600;color:var(--ink);margin:36px 0 8px}
+body h4{font-size:14px;line-height:1.4;font-weight:600;letter-spacing:0;text-transform:none;color:var(--ink-2);margin:24px 0 6px}
+body p{margin:0 0 14px;max-width:72ch}
+body ul,body ol{margin:0 0 16px;padding-left:1.25em;max-width:72ch}
+body li{margin:.32em 0}
+body li::marker{color:var(--ink-3)}
+body strong{font-weight:600;color:var(--ink)}
+body em{color:var(--ink)}
+body a{color:var(--broth);text-decoration:underline;text-underline-offset:2px}
+body a:hover{text-decoration:underline}
+body hr{border:0;border-top:1px solid var(--line-2);margin:56px 0}
+body table{border-collapse:collapse;width:100%;margin:22px 0 30px;font-size:15px;line-height:1.45}
+body th{text-align:left;font-weight:600;font-size:12.5px;color:var(--ink-2);padding:10px 12px;background:var(--surface);border-bottom:1px solid var(--line)}
+body td{padding:11px 12px;border-bottom:1px solid var(--line-2);vertical-align:top}
+body tr:nth-child(even) td{background:transparent}
+body figure.fig{margin:32px 0 36px;padding:0;max-width:100%}
+body figure.fig svg{width:100%;height:auto;display:block;background:var(--surface);border:0;border-radius:20px;padding:18px}
+body figure.fig figcaption{font-size:13px;color:var(--ink-2);margin-top:10px;max-width:72ch;line-height:1.5}
+body figure.fig .figtitle{font-family:var(--sans);font-size:14px;font-weight:600;color:var(--ink);margin-bottom:6px}
+body pre{background:var(--surface);border:1px solid var(--line-2);border-radius:16px;padding:18px;overflow:auto;font-family:var(--mono);font-size:13.5px;line-height:1.55;margin:20px 0 24px}
+body code{font-family:var(--mono);font-size:.88em;background:var(--surface);border-radius:6px;padding:.12em .35em}
+body pre code{background:none;padding:0;font-size:inherit}
+body blockquote{margin:24px 0;padding:2px 0 2px 18px;border-left:3px solid var(--broth);color:var(--ink-2)}
+:root[data-theme="dark"] .fig-light{display:none!important}
+:root[data-theme="dark"] .fig-dark{display:block!important}
+:root[data-theme="light"] .fig-dark{display:none!important}
+:root[data-theme="light"] .fig-light{display:block!important}
+.docfoot{max-width:900px;margin:0 auto;padding:24px 24px 64px;border-top:1px solid var(--line-2);display:flex;justify-content:space-between;gap:12px;font-size:12.5px;color:var(--ink-3)}
+.docfoot a{color:var(--ink-2);text-decoration:none}
+.docfoot a:hover{color:var(--broth)}
+@media (max-width:700px){
+  .docbar{padding:8px 16px}
+  .wrap{padding:40px 18px 80px}
+  body h1{font-size:clamp(38px,11vw,48px)}
+  body h1 + p{font-size:18px}
+  body h2{font-size:28px;margin-top:52px}
+  body h3{font-size:20px}
+  body p,body li{font-size:16.5px}
+  body table{font-size:14px}
+  body th,body td{padding:9px 9px}
+  .docfoot{padding:20px 18px 50px;flex-direction:column;gap:6px}
+}
+@media print{
+  .docbar,.appearance,.docfoot{display:none!important}
+  body{background:#fff;color:#000;font-size:11pt}
+  .wrap{max-width:none;padding:0}
+  body h1{font-size:28pt;max-width:none}
+  body h2{font-size:16pt;page-break-after:avoid}
+  body h3{font-size:13pt;page-break-after:avoid}
+  body a{color:#000;text-decoration:none}
+  body table,body figure{break-inside:avoid}
+}
+
+
+.index-actions{margin:18px 0 36px;display:flex;flex-wrap:wrap;gap:16px;align-items:center}
+.index-actions a{font-size:14px;font-weight:500;color:var(--broth);text-decoration:none}
+.index-actions a:hover{text-decoration:underline}
+.phaseh{display:flex;align-items:baseline;justify-content:space-between;gap:14px;font-size:24px!important;margin:52px 0 2px!important;letter-spacing:-.02em}
+.phaseh span{font-size:12px;font-weight:400;color:var(--ink-3);letter-spacing:0;white-space:nowrap}
+.weeklist{border-top:1px solid var(--line-2);margin-bottom:8px}
+.weekrow{display:flex;align-items:center;gap:14px;min-height:50px;padding:10px 4px;border-bottom:1px solid var(--line-2);text-decoration:none;color:var(--ink)}
+.weekrow:hover{background:var(--surface)}
+.wnum{width:28px;flex:none;font-size:12px;font-weight:600;color:var(--broth);font-variant-numeric:tabular-nums}
+.wtitle{flex:1;font-size:16.5px;font-weight:500;line-height:1.35}
+.warrow{flex:none;color:var(--ink-3);font-size:16px}
+.weeknav{display:flex;align-items:center;justify-content:space-between;gap:14px;margin:52px 0 0;padding-top:22px;border-top:1px solid var(--line-2);font-size:14px}
+.weeknav a{color:var(--broth);text-decoration:none;font-weight:500}
+.weeknav a:hover{text-decoration:underline}
+.weeknav .idx{color:var(--ink-2);font-weight:400}
+.weeknav .empty{visibility:hidden}
+.case-h{max-width:22ch}
+.protocol{max-width:72ch}
+.protocol li{margin:.55em 0}
+.protocol h2{margin-top:38px}
+@media (max-width:700px){.phaseh{font-size:21px!important;margin-top:42px!important}.wtitle{font-size:15.5px}.weeknav{font-size:13px;gap:8px}}
+@media print{.weeknav,.index-actions{display:none!important}}
+</style>
+<style>.sr-only{position:absolute!important;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap;border:0}</style>
+</head><body>
+<header class="docbar"><a class="docback" href="index.html">&#8592; Lecture index</a><div class="appearance" role="group" aria-label="Appearance">
+<button type="button" data-appearance="auto" aria-pressed="true">Auto</button>
+<button type="button" data-appearance="light" aria-pressed="false">Light</button>
+<button type="button" data-appearance="dark" aria-pressed="false">Dark</button>
+</div></header>
+<main class="wrap">
+<p class="doc-kicker">Week 4 of 55 &middot; Molecular foundations &middot; <strong class="tier-badge">Core</strong></p>
+<h1>Enzyme catalysis</h1>
+<h2 class="sr-only">Week content</h2>
+<p>Mechanism before kinetics. Knowing which catalytic strategy an enzyme uses tells you what its rate is sensitive to, which cofactor it will demand from your pathway, and what engineering it will tolerate. The week also teaches you to read a kinetic record sceptically, which is the skill Brief 1 grades.</p>
+<h3>Core ideas</h3>
+<p><strong>1. Catalysis is transition-state stabilisation, and the arithmetic is exponential</strong></p>
+<figure class="fig"><div class="figtitle">Figure 4.1 — Illustrative simulation — transition-state stabilisation</div><div class="fig-light"><svg role="img" aria-label="Catalysis lowers the activation barrier without changing the free energies of substrate or product, so the equilibrium constant is untouched and only the rate of approach alters. At 310 K every 5.9 kJ/mol is one decade of rate; real enzymes reduce the barrier by 45–100 kJ/mol." xmlns:xlink="http://www.w3.org/1999/xlink" width="418.127344pt" height="204.024781pt" viewBox="0 0 418.127344 204.024781" xmlns="http://www.w3.org/2000/svg" version="1.1">
+ <metadata>
+  <rdf:RDF xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:cc="http://creativecommons.org/ns#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+   <cc:Work>
+    <dc:type rdf:resource="http://purl.org/dc/dcmitype/StillImage"/>
+    <dc:date>2026-11-02T23:57:44.449406</dc:date>
+    <dc:format>image/svg+xml</dc:format>
+    <dc:creator>
+     <cc:Agent>
+      <dc:title>Matplotlib v3.10.8, https://matplotlib.org/</dc:title>
+     </cc:Agent>
+    </dc:creator>
+   </cc:Work>
+  </rdf:RDF>
+ </metadata>
+ <defs>
+  <style type="text/css">*{stroke-linejoin: round; stroke-linecap: butt}</style>
+ </defs>
+ <g id="figure_1">
+  <g id="patch_1">
+   <path d="M -0 204.024781 
+L 418.127344 204.024781 
+L 418.127344 0 
+L -0 0 
+L -0 204.024781 
+z
+" style="fill: none"/>
+  </g>
+  <g id="axes_1">
+   <g id="patch_2">
+    <path d="M 44.087344 185.070563 
+L 412.367344 185.070563 
+L 412.367344 18.750563 
+L 44.087344 18.750563 
+L 44.087344 185.070563 
+z
+" style="fill: none"/>
+   </g>
+   <g id="matplotlib.axis_1">
+    <g id="text_1">
+     <text style="font-size: 9.5px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: middle; fill: #4a3c2c" x="228.227344" y="196.289078" transform="rotate(-0 228.227344 196.289078)">reaction coordinate</text>
+    </g>
+   </g>
+   <g id="matplotlib.axis_2">
+    <g id="ytick_1">
+     <g id="line2d_1">
+      <defs>
+       <path id="m8308a18bf5" d="M 0 0 
+L -3.5 0 
+" style="stroke: #8a7458; stroke-width: 0.9"/>
+      </defs>
+      <g>
+       <use xlink:href="#m8308a18bf5" x="44.087344" y="185.070563" style="fill: #8a7458; stroke: #8a7458; stroke-width: 0.9"/>
+      </g>
+     </g>
+     <g id="text_2">
+      <text style="font-size: 9.5px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: end; fill: #8a7458" x="37.087344" y="188.67982" transform="rotate(-0 37.087344 188.67982)">0</text>
+     </g>
+    </g>
+    <g id="ytick_2">
+     <g id="line2d_2">
+      <g>
+       <use xlink:href="#m8308a18bf5" x="44.087344" y="155.370563" style="fill: #8a7458; stroke: #8a7458; stroke-width: 0.9"/>
+      </g>
+     </g>
+     <g id="text_3">
+      <text style="font-size: 9.5px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: end; fill: #8a7458" x="37.087344" y="158.97982" transform="rotate(-0 37.087344 158.97982)">20</text>
+     </g>
+    </g>
+    <g id="ytick_3">
+     <g id="line2d_3">
+      <g>
+       <use xlink:href="#m8308a18bf5" x="44.087344" y="125.670563" style="fill: #8a7458; stroke: #8a7458; stroke-width: 0.9"/>
+      </g>
+     </g>
+     <g id="text_4">
+      <text style="font-size: 9.5px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: end; fill: #8a7458" x="37.087344" y="129.27982" transform="rotate(-0 37.087344 129.27982)">40</text>
+     </g>
+    </g>
+    <g id="ytick_4">
+     <g id="line2d_4">
+      <g>
+       <use xlink:href="#m8308a18bf5" x="44.087344" y="95.970563" style="fill: #8a7458; stroke: #8a7458; stroke-width: 0.9"/>
+      </g>
+     </g>
+     <g id="text_5">
+      <text style="font-size: 9.5px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: end; fill: #8a7458" x="37.087344" y="99.57982" transform="rotate(-0 37.087344 99.57982)">60</text>
+     </g>
+    </g>
+    <g id="ytick_5">
+     <g id="line2d_5">
+      <g>
+       <use xlink:href="#m8308a18bf5" x="44.087344" y="66.270563" style="fill: #8a7458; stroke: #8a7458; stroke-width: 0.9"/>
+      </g>
+     </g>
+     <g id="text_6">
+      <text style="font-size: 9.5px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: end; fill: #8a7458" x="37.087344" y="69.87982" transform="rotate(-0 37.087344 69.87982)">80</text>
+     </g>
+    </g>
+    <g id="ytick_6">
+     <g id="line2d_6">
+      <g>
+       <use xlink:href="#m8308a18bf5" x="44.087344" y="36.570563" style="fill: #8a7458; stroke: #8a7458; stroke-width: 0.9"/>
+      </g>
+     </g>
+     <g id="text_7">
+      <text style="font-size: 9.5px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: end; fill: #8a7458" x="37.087344" y="40.17982" transform="rotate(-0 37.087344 40.17982)">100</text>
+     </g>
+    </g>
+    <g id="text_8">
+     <text style="font-size: 9.5px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: middle; fill: #4a3c2c" x="12.978516" y="101.910562" transform="rotate(-90 12.978516 101.910562)">free energy  (kJ/mol, arbitrary zero)</text>
+    </g>
+   </g>
+   <g id="line2d_7">
+    <path d="M 44.087344 146.450065 
+L 72.132714 148.346053 
+L 84.679328 148.978805 
+L 93.535761 149.198988 
+L 100.178085 149.148139 
+L 106.082374 148.871771 
+L 111.248626 148.388207 
+L 115.676843 147.744371 
+L 119.367023 147.011561 
+L 123.057203 146.069471 
+L 126.747384 144.887113 
+L 130.437564 143.432114 
+L 133.389708 142.049634 
+L 136.341853 140.454743 
+L 139.293997 138.631156 
+L 142.246141 136.563521 
+L 145.198286 134.237888 
+L 148.15043 131.642218 
+L 151.102574 128.766917 
+L 154.054718 125.605384 
+L 157.006863 122.154562 
+L 159.959007 118.415471 
+L 163.649187 113.345218 
+L 167.339368 107.85568 
+L 171.029548 101.982182 
+L 175.457765 94.497579 
+L 180.624017 85.30861 
+L 196.860811 55.956265 
+L 200.550991 49.86273 
+L 204.241171 44.238452 
+L 207.193316 40.15586 
+L 210.14546 36.50534 
+L 212.359568 34.082604 
+L 214.573676 31.952414 
+L 216.787785 30.132768 
+L 219.001893 28.639409 
+L 221.216001 27.48561 
+L 223.430109 26.682003 
+L 224.906181 26.344809 
+L 226.382254 26.168415 
+L 227.858326 26.153852 
+L 229.334398 26.301564 
+L 230.81047 26.611403 
+L 232.286542 27.082632 
+L 234.50065 28.089026 
+L 236.714759 29.448543 
+L 238.928867 31.151467 
+L 241.142975 33.185384 
+L 243.357083 35.535356 
+L 245.571191 38.184109 
+L 248.523336 42.146792 
+L 251.47548 46.555059 
+L 254.427624 51.353285 
+L 258.117805 57.809182 
+L 262.546021 66.069396 
+L 268.45031 77.610234 
+L 279.520851 99.360164 
+L 284.687103 108.961268 
+L 289.11532 116.694257 
+L 292.8055 122.719466 
+L 296.49568 128.325391 
+L 300.185861 133.489998 
+L 303.876041 138.203472 
+L 306.828185 141.64981 
+L 309.78033 144.812808 
+L 312.732474 147.700631 
+L 315.684618 150.324166 
+L 318.636763 152.696471 
+L 321.588907 154.832259 
+L 325.279087 157.193651 
+L 328.969268 159.242805 
+L 332.659448 161.01274 
+L 336.349628 162.536022 
+L 340.039809 163.843968 
+L 344.468025 165.170579 
+L 348.896242 166.275929 
+L 354.062494 167.340535 
+L 359.966783 168.328212 
+L 367.347143 169.316334 
+L 376.203576 170.267158 
+L 388.750189 171.374899 
+L 411.629308 173.125673 
+L 412.367344 173.180065 
+L 412.367344 173.180065 
+" clip-path="url(#p385b801016)" style="fill: none; stroke-dasharray: 7.03,3.04; stroke-dashoffset: 0; stroke: #8a7458; stroke-width: 1.9"/>
+   </g>
+   <g id="line2d_8">
+    <path d="M 44.087344 146.453797 
+L 76.560931 148.676121 
+L 89.84558 149.367815 
+L 98.702013 149.622583 
+L 106.082374 149.614324 
+L 111.986662 149.396241 
+L 117.152915 148.999522 
+L 121.581131 148.468653 
+L 126.009348 147.72645 
+L 130.437564 146.737289 
+L 134.127745 145.697883 
+L 137.817925 144.440458 
+L 141.508105 142.944927 
+L 145.198286 141.193042 
+L 148.888466 139.169361 
+L 152.578646 136.862288 
+L 156.268827 134.265157 
+L 159.959007 131.377296 
+L 163.649187 128.205029 
+L 167.339368 124.762558 
+L 171.767584 120.307605 
+L 176.933837 114.736844 
+L 183.576161 107.177262 
+L 194.646702 94.489878 
+L 199.074919 89.747133 
+L 202.765099 86.087608 
+L 206.45528 82.776257 
+L 209.407424 80.426994 
+L 212.359568 78.381721 
+L 215.311712 76.67146 
+L 217.525821 75.624978 
+L 219.739929 74.791803 
+L 221.954037 74.179934 
+L 224.168145 73.795633 
+L 226.382254 73.643341 
+L 228.596362 73.725615 
+L 230.81047 74.043099 
+L 233.024578 74.594509 
+L 235.238686 75.376653 
+L 237.452795 76.384477 
+L 239.666903 77.611129 
+L 241.881011 79.048054 
+L 244.833155 81.273299 
+L 247.7853 83.826161 
+L 250.737444 86.674696 
+L 254.427624 90.597342 
+L 258.117805 94.85304 
+L 262.546021 100.290565 
+L 269.188346 108.842663 
+L 279.520851 122.182676 
+L 284.687103 128.503376 
+L 289.11532 133.601135 
+L 293.543536 138.343056 
+L 297.233716 141.994985 
+L 300.923897 145.360641 
+L 304.614077 148.435171 
+L 308.304258 151.22053 
+L 311.994438 153.724457 
+L 315.684618 155.959402 
+L 319.374799 157.941451 
+L 323.064979 159.689295 
+L 326.755159 161.223276 
+L 331.183376 162.811549 
+L 335.611592 164.158908 
+L 340.777845 165.473352 
+L 345.944097 166.559885 
+L 351.848386 167.581623 
+L 359.228747 168.6133 
+L 368.085179 169.607399 
+L 379.893757 170.692213 
+L 399.082694 172.201165 
+L 412.367344 173.183797 
+L 412.367344 173.183797 
+" clip-path="url(#p385b801016)" style="fill: none; stroke: #8a5f1b; stroke-width: 1.9; stroke-linecap: square"/>
+   </g>
+   <g id="patch_3">
+    <path d="M 44.087344 185.070563 
+L 44.087344 18.750563 
+" style="fill: none; stroke: #dfd2be; stroke-width: 0.9; stroke-linejoin: miter; stroke-linecap: square"/>
+   </g>
+   <g id="patch_4">
+    <path d="M 44.087344 185.070563 
+L 412.367344 185.070563 
+" style="fill: none; stroke: #dfd2be; stroke-width: 0.9; stroke-linejoin: miter; stroke-linecap: square"/>
+   </g>
+   <g id="patch_5">
+    <path d="M 228.227344 76.40799 
+Q 228.227344 56.620409 228.227344 36.832827 
+" style="fill: none; stroke: #8a5f1b; stroke-width: 1.1; stroke-linecap: round"/>
+    <path d="M 230.127344 72.60799 
+L 228.227344 76.40799 
+L 226.327344 72.60799 
+" style="fill: none; stroke: #8a5f1b; stroke-width: 1.1; stroke-linecap: round"/>
+    <path d="M 226.327344 40.632827 
+L 228.227344 36.832827 
+L 230.127344 40.632827 
+" style="fill: none; stroke: #8a5f1b; stroke-width: 1.1; stroke-linecap: round"/>
+   </g>
+   <g id="text_9">
+    <text style="font-size: 9px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; fill: #8a5f1b" transform="translate(255.848344 39.954984)">ΔΔG‡ = 32 kJ/mol</text>
+    <text style="font-size: 9px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; fill: #8a5f1b" transform="translate(255.848344 50.033016)">→ 2.5 × 10⁵ fold</text>
+   </g>
+   <g id="text_10">
+    <text style="font-size: 10px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: start; fill: #4a3c2c" x="49.611544" y="153.885563" transform="rotate(-0 49.611544 153.885563)">S</text>
+   </g>
+   <g id="text_11">
+    <text style="font-size: 10px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: start; fill: #4a3c2c" x="403.160344" y="174.675563" transform="rotate(-0 403.160344 174.675563)">P</text>
+   </g>
+   <g id="text_12">
+    <text style="font-size: 9.2px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: start; fill: #8a7458" x="44.087344" y="12.750563" transform="rotate(-0 44.087344 12.750563)">The barrier falls equally in both directions — K′eq is untouched</text>
+   </g>
+   <g id="legend_1">
+    <g id="line2d_9">
+     <path d="M 52.007344 30.277188 
+L 60.807344 30.277188 
+L 69.607344 30.277188 
+" style="fill: none; stroke-dasharray: 7.03,3.04; stroke-dashoffset: 0; stroke: #8a7458; stroke-width: 1.9"/>
+    </g>
+    <g id="text_13">
+     <text style="font-size: 8.8px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: start; fill: #4a3c2c" x="76.647344" y="33.357188" transform="rotate(-0 76.647344 33.357188)">uncatalysed</text>
+    </g>
+    <g id="line2d_10">
+     <path d="M 52.007344 43.193938 
+L 60.807344 43.193938 
+L 69.607344 43.193938 
+" style="fill: none; stroke: #8a5f1b; stroke-width: 1.9; stroke-linecap: square"/>
+    </g>
+    <g id="text_14">
+     <text style="font-size: 8.8px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: start; fill: #4a3c2c" x="76.647344" y="46.273938" transform="rotate(-0 76.647344 46.273938)">catalysed</text>
+    </g>
+   </g>
+  </g>
+ </g>
+ <defs>
+  <clipPath id="p385b801016">
+   <rect x="44.087344" y="18.750563" width="368.28" height="166.32"/>
+  </clipPath>
+ </defs>
+</svg>
+</div><div class="fig-dark"><svg role="img" aria-label="Catalysis lowers the activation barrier without changing the free energies of substrate or product, so the equilibrium constant is untouched and only the rate of approach alters. At 310 K every 5.9 kJ/mol is one decade of rate; real enzymes reduce the barrier by 45–100 kJ/mol." xmlns:xlink="http://www.w3.org/1999/xlink" width="418.127344pt" height="204.024781pt" viewBox="0 0 418.127344 204.024781" xmlns="http://www.w3.org/2000/svg" version="1.1">
+ <metadata>
+  <rdf:RDF xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:cc="http://creativecommons.org/ns#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+   <cc:Work>
+    <dc:type rdf:resource="http://purl.org/dc/dcmitype/StillImage"/>
+    <dc:date>2026-11-02T23:57:44.487487</dc:date>
+    <dc:format>image/svg+xml</dc:format>
+    <dc:creator>
+     <cc:Agent>
+      <dc:title>Matplotlib v3.10.8, https://matplotlib.org/</dc:title>
+     </cc:Agent>
+    </dc:creator>
+   </cc:Work>
+  </rdf:RDF>
+ </metadata>
+ <defs>
+  <style type="text/css">*{stroke-linejoin: round; stroke-linecap: butt}</style>
+ </defs>
+ <g id="figure_1">
+  <g id="patch_1">
+   <path d="M -0 204.024781 
+L 418.127344 204.024781 
+L 418.127344 0 
+L -0 0 
+L -0 204.024781 
+z
+" style="fill: none"/>
+  </g>
+  <g id="axes_1">
+   <g id="patch_2">
+    <path d="M 44.087344 185.070563 
+L 412.367344 185.070563 
+L 412.367344 18.750563 
+L 44.087344 18.750563 
+L 44.087344 185.070563 
+z
+" style="fill: none"/>
+   </g>
+   <g id="matplotlib.axis_1">
+    <g id="text_1">
+     <text style="font-size: 9.5px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: middle; fill: #cbbca6" x="228.227344" y="196.289078" transform="rotate(-0 228.227344 196.289078)">reaction coordinate</text>
+    </g>
+   </g>
+   <g id="matplotlib.axis_2">
+    <g id="ytick_1">
+     <g id="line2d_1">
+      <defs>
+       <path id="mb94ed4db6a" d="M 0 0 
+L -3.5 0 
+" style="stroke: #9a8872; stroke-width: 0.9"/>
+      </defs>
+      <g>
+       <use xlink:href="#mb94ed4db6a" x="44.087344" y="185.070563" style="fill: #9a8872; stroke: #9a8872; stroke-width: 0.9"/>
+      </g>
+     </g>
+     <g id="text_2">
+      <text style="font-size: 9.5px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: end; fill: #9a8872" x="37.087344" y="188.67982" transform="rotate(-0 37.087344 188.67982)">0</text>
+     </g>
+    </g>
+    <g id="ytick_2">
+     <g id="line2d_2">
+      <g>
+       <use xlink:href="#mb94ed4db6a" x="44.087344" y="155.370563" style="fill: #9a8872; stroke: #9a8872; stroke-width: 0.9"/>
+      </g>
+     </g>
+     <g id="text_3">
+      <text style="font-size: 9.5px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: end; fill: #9a8872" x="37.087344" y="158.97982" transform="rotate(-0 37.087344 158.97982)">20</text>
+     </g>
+    </g>
+    <g id="ytick_3">
+     <g id="line2d_3">
+      <g>
+       <use xlink:href="#mb94ed4db6a" x="44.087344" y="125.670563" style="fill: #9a8872; stroke: #9a8872; stroke-width: 0.9"/>
+      </g>
+     </g>
+     <g id="text_4">
+      <text style="font-size: 9.5px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: end; fill: #9a8872" x="37.087344" y="129.27982" transform="rotate(-0 37.087344 129.27982)">40</text>
+     </g>
+    </g>
+    <g id="ytick_4">
+     <g id="line2d_4">
+      <g>
+       <use xlink:href="#mb94ed4db6a" x="44.087344" y="95.970563" style="fill: #9a8872; stroke: #9a8872; stroke-width: 0.9"/>
+      </g>
+     </g>
+     <g id="text_5">
+      <text style="font-size: 9.5px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: end; fill: #9a8872" x="37.087344" y="99.57982" transform="rotate(-0 37.087344 99.57982)">60</text>
+     </g>
+    </g>
+    <g id="ytick_5">
+     <g id="line2d_5">
+      <g>
+       <use xlink:href="#mb94ed4db6a" x="44.087344" y="66.270563" style="fill: #9a8872; stroke: #9a8872; stroke-width: 0.9"/>
+      </g>
+     </g>
+     <g id="text_6">
+      <text style="font-size: 9.5px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: end; fill: #9a8872" x="37.087344" y="69.87982" transform="rotate(-0 37.087344 69.87982)">80</text>
+     </g>
+    </g>
+    <g id="ytick_6">
+     <g id="line2d_6">
+      <g>
+       <use xlink:href="#mb94ed4db6a" x="44.087344" y="36.570563" style="fill: #9a8872; stroke: #9a8872; stroke-width: 0.9"/>
+      </g>
+     </g>
+     <g id="text_7">
+      <text style="font-size: 9.5px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: end; fill: #9a8872" x="37.087344" y="40.17982" transform="rotate(-0 37.087344 40.17982)">100</text>
+     </g>
+    </g>
+    <g id="text_8">
+     <text style="font-size: 9.5px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: middle; fill: #cbbca6" x="12.978516" y="101.910562" transform="rotate(-90 12.978516 101.910562)">free energy  (kJ/mol, arbitrary zero)</text>
+    </g>
+   </g>
+   <g id="line2d_7">
+    <path d="M 44.087344 146.450065 
+L 72.132714 148.346053 
+L 84.679328 148.978805 
+L 93.535761 149.198988 
+L 100.178085 149.148139 
+L 106.082374 148.871771 
+L 111.248626 148.388207 
+L 115.676843 147.744371 
+L 119.367023 147.011561 
+L 123.057203 146.069471 
+L 126.747384 144.887113 
+L 130.437564 143.432114 
+L 133.389708 142.049634 
+L 136.341853 140.454743 
+L 139.293997 138.631156 
+L 142.246141 136.563521 
+L 145.198286 134.237888 
+L 148.15043 131.642218 
+L 151.102574 128.766917 
+L 154.054718 125.605384 
+L 157.006863 122.154562 
+L 159.959007 118.415471 
+L 163.649187 113.345218 
+L 167.339368 107.85568 
+L 171.029548 101.982182 
+L 175.457765 94.497579 
+L 180.624017 85.30861 
+L 196.860811 55.956265 
+L 200.550991 49.86273 
+L 204.241171 44.238452 
+L 207.193316 40.15586 
+L 210.14546 36.50534 
+L 212.359568 34.082604 
+L 214.573676 31.952414 
+L 216.787785 30.132768 
+L 219.001893 28.639409 
+L 221.216001 27.48561 
+L 223.430109 26.682003 
+L 224.906181 26.344809 
+L 226.382254 26.168415 
+L 227.858326 26.153852 
+L 229.334398 26.301564 
+L 230.81047 26.611403 
+L 232.286542 27.082632 
+L 234.50065 28.089026 
+L 236.714759 29.448543 
+L 238.928867 31.151467 
+L 241.142975 33.185384 
+L 243.357083 35.535356 
+L 245.571191 38.184109 
+L 248.523336 42.146792 
+L 251.47548 46.555059 
+L 254.427624 51.353285 
+L 258.117805 57.809182 
+L 262.546021 66.069396 
+L 268.45031 77.610234 
+L 279.520851 99.360164 
+L 284.687103 108.961268 
+L 289.11532 116.694257 
+L 292.8055 122.719466 
+L 296.49568 128.325391 
+L 300.185861 133.489998 
+L 303.876041 138.203472 
+L 306.828185 141.64981 
+L 309.78033 144.812808 
+L 312.732474 147.700631 
+L 315.684618 150.324166 
+L 318.636763 152.696471 
+L 321.588907 154.832259 
+L 325.279087 157.193651 
+L 328.969268 159.242805 
+L 332.659448 161.01274 
+L 336.349628 162.536022 
+L 340.039809 163.843968 
+L 344.468025 165.170579 
+L 348.896242 166.275929 
+L 354.062494 167.340535 
+L 359.966783 168.328212 
+L 367.347143 169.316334 
+L 376.203576 170.267158 
+L 388.750189 171.374899 
+L 411.629308 173.125673 
+L 412.367344 173.180065 
+L 412.367344 173.180065 
+" clip-path="url(#p73e930e044)" style="fill: none; stroke-dasharray: 7.03,3.04; stroke-dashoffset: 0; stroke: #9a8872; stroke-width: 1.9"/>
+   </g>
+   <g id="line2d_8">
+    <path d="M 44.087344 146.453797 
+L 76.560931 148.676121 
+L 89.84558 149.367815 
+L 98.702013 149.622583 
+L 106.082374 149.614324 
+L 111.986662 149.396241 
+L 117.152915 148.999522 
+L 121.581131 148.468653 
+L 126.009348 147.72645 
+L 130.437564 146.737289 
+L 134.127745 145.697883 
+L 137.817925 144.440458 
+L 141.508105 142.944927 
+L 145.198286 141.193042 
+L 148.888466 139.169361 
+L 152.578646 136.862288 
+L 156.268827 134.265157 
+L 159.959007 131.377296 
+L 163.649187 128.205029 
+L 167.339368 124.762558 
+L 171.767584 120.307605 
+L 176.933837 114.736844 
+L 183.576161 107.177262 
+L 194.646702 94.489878 
+L 199.074919 89.747133 
+L 202.765099 86.087608 
+L 206.45528 82.776257 
+L 209.407424 80.426994 
+L 212.359568 78.381721 
+L 215.311712 76.67146 
+L 217.525821 75.624978 
+L 219.739929 74.791803 
+L 221.954037 74.179934 
+L 224.168145 73.795633 
+L 226.382254 73.643341 
+L 228.596362 73.725615 
+L 230.81047 74.043099 
+L 233.024578 74.594509 
+L 235.238686 75.376653 
+L 237.452795 76.384477 
+L 239.666903 77.611129 
+L 241.881011 79.048054 
+L 244.833155 81.273299 
+L 247.7853 83.826161 
+L 250.737444 86.674696 
+L 254.427624 90.597342 
+L 258.117805 94.85304 
+L 262.546021 100.290565 
+L 269.188346 108.842663 
+L 279.520851 122.182676 
+L 284.687103 128.503376 
+L 289.11532 133.601135 
+L 293.543536 138.343056 
+L 297.233716 141.994985 
+L 300.923897 145.360641 
+L 304.614077 148.435171 
+L 308.304258 151.22053 
+L 311.994438 153.724457 
+L 315.684618 155.959402 
+L 319.374799 157.941451 
+L 323.064979 159.689295 
+L 326.755159 161.223276 
+L 331.183376 162.811549 
+L 335.611592 164.158908 
+L 340.777845 165.473352 
+L 345.944097 166.559885 
+L 351.848386 167.581623 
+L 359.228747 168.6133 
+L 368.085179 169.607399 
+L 379.893757 170.692213 
+L 399.082694 172.201165 
+L 412.367344 173.183797 
+L 412.367344 173.183797 
+" clip-path="url(#p73e930e044)" style="fill: none; stroke: #d7a95c; stroke-width: 1.9; stroke-linecap: square"/>
+   </g>
+   <g id="patch_3">
+    <path d="M 44.087344 185.070563 
+L 44.087344 18.750563 
+" style="fill: none; stroke: #3a3026; stroke-width: 0.9; stroke-linejoin: miter; stroke-linecap: square"/>
+   </g>
+   <g id="patch_4">
+    <path d="M 44.087344 185.070563 
+L 412.367344 185.070563 
+" style="fill: none; stroke: #3a3026; stroke-width: 0.9; stroke-linejoin: miter; stroke-linecap: square"/>
+   </g>
+   <g id="patch_5">
+    <path d="M 228.227344 76.40799 
+Q 228.227344 56.620409 228.227344 36.832827 
+" style="fill: none; stroke: #d7a95c; stroke-width: 1.1; stroke-linecap: round"/>
+    <path d="M 230.127344 72.60799 
+L 228.227344 76.40799 
+L 226.327344 72.60799 
+" style="fill: none; stroke: #d7a95c; stroke-width: 1.1; stroke-linecap: round"/>
+    <path d="M 226.327344 40.632827 
+L 228.227344 36.832827 
+L 230.127344 40.632827 
+" style="fill: none; stroke: #d7a95c; stroke-width: 1.1; stroke-linecap: round"/>
+   </g>
+   <g id="text_9">
+    <text style="font-size: 9px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; fill: #d7a95c" transform="translate(255.848344 39.954984)">ΔΔG‡ = 32 kJ/mol</text>
+    <text style="font-size: 9px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; fill: #d7a95c" transform="translate(255.848344 50.033016)">→ 2.5 × 10⁵ fold</text>
+   </g>
+   <g id="text_10">
+    <text style="font-size: 10px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: start; fill: #cbbca6" x="49.611544" y="153.885563" transform="rotate(-0 49.611544 153.885563)">S</text>
+   </g>
+   <g id="text_11">
+    <text style="font-size: 10px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: start; fill: #cbbca6" x="403.160344" y="174.675563" transform="rotate(-0 403.160344 174.675563)">P</text>
+   </g>
+   <g id="text_12">
+    <text style="font-size: 9.2px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: start; fill: #9a8872" x="44.087344" y="12.750563" transform="rotate(-0 44.087344 12.750563)">The barrier falls equally in both directions — K′eq is untouched</text>
+   </g>
+   <g id="legend_1">
+    <g id="line2d_9">
+     <path d="M 52.007344 30.277188 
+L 60.807344 30.277188 
+L 69.607344 30.277188 
+" style="fill: none; stroke-dasharray: 7.03,3.04; stroke-dashoffset: 0; stroke: #9a8872; stroke-width: 1.9"/>
+    </g>
+    <g id="text_13">
+     <text style="font-size: 8.8px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: start; fill: #cbbca6" x="76.647344" y="33.357188" transform="rotate(-0 76.647344 33.357188)">uncatalysed</text>
+    </g>
+    <g id="line2d_10">
+     <path d="M 52.007344 43.193938 
+L 60.807344 43.193938 
+L 69.607344 43.193938 
+" style="fill: none; stroke: #d7a95c; stroke-width: 1.9; stroke-linecap: square"/>
+    </g>
+    <g id="text_14">
+     <text style="font-size: 8.8px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: start; fill: #cbbca6" x="76.647344" y="46.273938" transform="rotate(-0 76.647344 46.273938)">catalysed</text>
+    </g>
+   </g>
+  </g>
+ </g>
+ <defs>
+  <clipPath id="p73e930e044">
+   <rect x="44.087344" y="18.750563" width="368.28" height="166.32"/>
+  </clipPath>
+ </defs>
+</svg>
+</div><figcaption>Catalysis lowers the activation barrier without changing the free energies of substrate or product, so the equilibrium constant is untouched and only the rate of approach alters. At 310 K every 5.9 kJ/mol is one decade of rate; real enzymes reduce the barrier by 45–100 kJ/mol.</figcaption></figure>
+<p>Rate ∝ exp(−ΔG‡/RT). At 310 K, RT = 2.577 kJ/mol, so every 5.9 kJ/mol of barrier reduction buys a factor of ten. A 30 kJ/mol reduction buys about 10⁵; real enzymes achieve 10⁸ to 10¹⁷, which means barrier reductions of 45–100 kJ/mol. The enzyme achieves this by binding the transition state more tightly than the substrate — binding energy is paid back as catalysis. Crucially, the barrier falls equally in both directions, so the equilibrium constant is unchanged. State this crisply when asked; confusing catalysis with equilibrium shifting is the commonest conceptual error in interviews.</p>
+<p><strong>2. Four catalytic strategies and their canonical examples</strong></p>
+<p>Covalent catalysis: a nucleophilic residue forms a transient covalent intermediate — serine proteases, with the Ser-His-Asp triad in which the histidine deprotonates the serine and the aspartate orients the histidine. General acid-base catalysis: a residue donates or accepts a proton in the transition state, which is why histidine at pKa ≈ 6 is so common. Metal ion catalysis: a bound metal polarises a substrate or lowers the pKa of water, as zinc does in carbonic anhydrase to generate hydroxide at neutral pH. Proximity and orientation: holding two substrates in the correct geometry, which converts an unfavourable entropy of association into a binding event paid for once.</p>
+<p><strong>3. Cofactors are a pathway-level constraint, not an enzyme detail</strong></p>
+<p>Learn which chemistry each cofactor enables, because that is how you predict a pathway&#x27;s demand. NAD⁺/NADH: two-electron hydride transfer, catabolic, held oxidised. NADP⁺/NADPH: the same chemistry, biosynthetic, held reduced — the separation is enforced by enzyme specificity and is the central cofactor problem of the course. FAD: one- or two-electron, handles radicals and oxygen. Coenzyme A: acyl group activation as a thioester, which is energetically rich. Thiamine pyrophosphate: decarboxylation and two-carbon transfer. Pyridoxal phosphate: essentially all amino acid chemistry — transamination, decarboxylation, racemisation. Biotin: carboxylation, which is how CO₂ gets fixed at the anaplerotic node. Tetrahydrofolate: one-carbon units. When you look at a new pathway, total its cofactor demand before anything else; that total often decides the host.</p>
+<p><strong>4. EC numbers as a prediction tool</strong></p>
+<p>The first digit gives the reaction class: 1 oxidoreductase, 2 transferase, 3 hydrolase, 4 lyase, 5 isomerase, 6 ligase, 7 translocase. From the class alone you can usually predict the cofactor requirement — a 1.x.x.x needs a redox cofactor, a 6.x.x.x needs ATP, a 4.1.1.x is a decarboxylase and so releases CO₂ and probably costs you a carbon. Use this to sanity-check a pathway you are reading for the first time, before you look anything up.</p>
+<p><strong>5. Why assay conditions make published parameters incomparable</strong></p>
+<p>Enzyme rate follows Arrhenius over the stable range, with activation energies typically 40–60 kJ/mol, which corresponds to a Q₁₀ of roughly 2 — so a measurement at 25 °C rather than 37 °C is about half as fast before anything else differs. Above the stability limit the rate collapses as the protein unfolds, so the apparent optimum is a competition between catalysis and denaturation and is not a thermodynamic property. pH dependence is usually bell-shaped: two ionisable groups, one that must be protonated and one deprotonated, give a plateau between their pKa values, and the apparent kcat and KM can have different pH profiles because they report on different ionisation states. Ionic strength and buffer identity shift both, and some buffers coordinate metals or inhibit outright. Put these together and a sevenfold spread in reported kcat for one enzyme needs no further explanation — which is the quantitative basis for the week 4 scepticism and for Brief 1.</p>
+<p><strong>6. Why published kinetic parameters disagree, and what to do</strong></p>
+<p>Four mechanistically distinct causes. Assay conditions — pH, temperature, ionic strength, buffer identity — easily span sevenfold. Enzyme preparation: tags, partial misfolding, proteolysis, or an inactive fraction, all of which depress apparent kcat unless active-site titration was done. Cofactor or metal saturation differing between preparations. And a different substrate, isoform or orthologue reported under the same EC number. The correct response is never to average: tabulate values with their conditions, exclude the non-comparable ones with the exclusion stated, and carry a range into any model. If a conclusion flips across that range, the study&#x27;s output is that the parameter must be measured.</p>
+<h3>Worked anchor</h3>
+<p>How much rate does a 32 kJ/mol barrier reduction buy at 310 K, and what does that mean practically?</p>
+<p>Enhancement = exp(ΔΔG‡/RT) = exp(32,000/(8.314 × 310)) = exp(12.42) = 2.5 × 10⁵.</p>
+<p>If the uncatalysed reaction has a half-life of 100 years, the catalysed half-life is 100 × 365 × 24 / 2.5×10⁵ hours ≈ 3.5 hours. Still far too slow for a metabolic step, which tells you that 32 kJ/mol is a modest enzyme and that real central-metabolic enzymes must be doing considerably more — typically 60–90 kJ/mol of barrier reduction.</p>
+<p>Use this both ways: it calibrates your sense of what catalysis costs, and it tells you that an engineered enzyme improved by 10-fold has gained only 5.9 kJ/mol of transition-state stabilisation, which is one hydrogen bond. That is why directed evolution works in small increments.</p>
+<p><strong>Assumptions behind this calculation</strong></p>
+<ul>
+<li>310 K, transition-state theory with an unchanged prefactor</li>
+<li>barrier reduction is the only change between catalysed and uncatalysed</li>
+<li>first-order decay, so the half-life scales inversely with rate</li>
+</ul>
+<h3>Reading map</h3>
+<table><thead><tr><th>Source</th><th>Treatment</th><th>Why</th></tr></thead><tbody><tr><td>Berg Ch 9</td><td>Read closely</td><td>Catalytic strategies in full, with the four canonical systems. The most useful single chapter this week; read the serine protease and carbonic anhydrase mechanisms until you can draw them.</td></tr><tr><td>Berg Ch 8 §8.1–8.3</td><td>Read closely</td><td>Free energy, the active site, and the relationship between binding and catalysis. Sets up next week&#x27;s kinetics.</td></tr><tr><td>Microbiology Ch 8.1</td><td>Skim</td><td>Energy, matter and enzymes at an introductory level. Read the regulation sections; the thermodynamics is covered better in Berg.</td></tr><tr><td>BRENDA, one enzyme browsed completely</td><td>Read closely</td><td>Not reading but doing. Pick your dossier enzyme and record every kinetic entry with its assay conditions. This is Brief 1&#x27;s raw material and the week&#x27;s most valuable two hours.</td></tr></tbody></table>
+<h3>Common misconceptions</h3>
+<ul>
+<li>That enzymes shift equilibria. They lower the barrier in both directions; ΔG° is a state function and is untouched.</li>
+<li>That kcat is a property of the enzyme. It is a property of the enzyme under stated conditions with a stated substrate and preparation, which is why the same EC number spans orders of magnitude.</li>
+<li>That a high kcat means a fast step in vivo. Flux depends on kcat, enzyme abundance and the substrate saturation, and an enzyme at 5% saturation is slow however high its kcat.</li>
+</ul>
+<h3>Check yourself before moving on</h3>
+<p><strong>Q.</strong> What rate enhancement does 24 kJ/mol of barrier reduction give at 310 K?</p>
+<p><strong>A.</strong> exp(24,000/(8.314 × 310)) = exp(9.31) ≈ 1.1×10⁴, roughly ten thousand fold. Each 5.9 kJ/mol is a factor of ten at this temperature, so 24 kJ/mol is about four decades.</p>
+<p><strong>Q.</strong> From its EC number alone, 4.1.1.31 — what does this enzyme do, what cofactor is likely, and what does it cost in carbon?</p>
+<p><strong>A.</strong> Class 4 is a lyase; 4.1 cleaves carbon-carbon bonds; 4.1.1 is a carboxy-lyase, meaning a decarboxylase or, run in reverse, a carboxylase. 4.1.1.31 is PEP carboxylase. Since it fixes CO₂ onto PEP to give oxaloacetate it gains a carbon rather than losing one, and unlike pyruvate carboxylase it needs no biotin and no ATP — it uses the phosphate transfer potential of PEP instead. The general lesson is that the class alone predicts both the chemistry and whether carbon is gained or lost.</p>
+<p><strong>Q.</strong> Two laboratories report kcat differing fivefold. Give four distinct causes and say which value you would model.</p>
+<p><strong>A.</strong> Assay temperature and pH, worth about two-fold for a 12 °C difference alone; enzyme preparation differences including tags, misfolding and an inactive fraction that depresses apparent kcat unless active-site titration was done; cofactor or metal saturation differing between preparations; and a different substrate, isoform or orthologue reported under the same EC number. Model neither value alone: tabulate both with conditions, exclude the non-comparable one if there is a reason to, and carry the remaining range into an ensemble. If the conclusion flips across that range, the output of the study is that the parameter must be measured.</p>
+<hr>
+
+<section class="study-transfer" aria-label="Week 4 application and teach-back">
+<h3>Apply it to your fermentation experience</h3>
+<p><strong>Transfer prompt.</strong> For a reaction involved in cassava substrate conversion or product formation, identify the catalytic chemistry and any likely cofactor. What observation would support your proposed mechanism?</p>
+<p class="meta">Use your actual thesis methods and results where you remember them. Mark missing information as unknown; do not assume the organisms were co-cultured, that a metabolite was measured, or that a proposed mechanism was demonstrated.</p>
+<h3>Teach it back</h3>
+<p>Explain the week's concept from memory, work one number, and name one boundary. Then use the <a href="teach-back.html">five-minute teach-back protocol</a> and log it in the tracker.</p>
+</section>
+<nav class="weeknav" aria-label="Week navigation"><a href="week-03.html">&#8592; Week 3</a><a class="idx" href="index.html">Lecture index</a><a class="idx" href="case-study.html">Case study</a><a href="week-05.html">Week 5 &#8594;</a></nav>
+</main>
+<footer class="docfoot"><a href="../metabolic-engineering-tracker.html">&#8592; Course tracker</a><span>Metabolic engineering &middot; 55 weeks</span></footer>
+<script>
+(function(){var root=document.documentElement,key="me.theme";var bs=Array.prototype.slice.call(document.querySelectorAll(".appearance button"));
+function paint(v){bs.forEach(function(b){b.setAttribute("aria-pressed",b.getAttribute("data-appearance")===v?"true":"false");});if(v==="auto")root.removeAttribute("data-theme");else root.setAttribute("data-theme",v);}
+var saved="auto";try{saved=localStorage.getItem(key)||"auto";}catch(e){}
+bs.forEach(function(b){b.addEventListener("click",function(){var v=b.getAttribute("data-appearance");paint(v);try{localStorage.setItem(key,v);}catch(e){}});});paint(saved);})();
+</script>
+</body>
+</html>

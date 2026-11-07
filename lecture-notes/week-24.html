@@ -1,0 +1,1701 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="utf-8"><title>Week 24 — FBA extensions: variability, loops and alternatives — Metabolic engineering</title>
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+
+
+<style>:root{color-scheme:light;--paper:#FAF6EF;--ink:#211A12;--ink-2:#4A3C2C;--ink-3:#8A7458;
+--line:#DFD2BE;--line-2:#EDE4D5;--broth:#9A6B1F;--broth-soft:#F6ECD9;
+--serif:"Newsreader",Georgia,serif;--sans:"Public Sans",system-ui,sans-serif}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--paper:#15120D;--ink:#F1E9DC;--ink-2:#CBBCA6;
+--ink-3:#948872;--line:#352C22;--line-2:#2A231B;--broth:#D7A95C;--broth-soft:#241D14}}
+*{box-sizing:border-box}
+body{margin:0;background:var(--paper);color:var(--ink);font-family:var(--sans);font-size:15.5px;line-height:1.6;
+padding:env(safe-area-inset-top,0) 0 env(safe-area-inset-bottom,0)}
+.wrap{max-width:840px;margin:0 auto;padding:40px 22px 90px}
+h1{font-family:var(--serif);font-size:clamp(28px,5vw,42px);line-height:1.1;font-weight:600;margin:0 0 6px;letter-spacing:-.02em}
+h2{font-family:var(--serif);font-size:26px;font-weight:600;margin:46px 0 10px;letter-spacing:-.01em;padding-bottom:7px;border-bottom:1px solid var(--line)}
+h3{font-family:var(--serif);font-size:20px;font-weight:600;margin:30px 0 4px;color:var(--broth)}
+h4{font-size:14px;font-weight:650;margin:18px 0 4px;color:var(--ink-3);letter-spacing:.02em;text-transform:uppercase}
+p{margin:0 0 12px;max-width:74ch}
+em{color:var(--ink-2)}
+ul{margin:0 0 14px;padding-left:1.15em;max-width:74ch}
+li{margin:.3em 0}li::marker{color:var(--ink-3)}
+hr{border:0;border-top:1px solid var(--line);margin:40px 0}
+strong{font-weight:650}
+table{border-collapse:collapse;width:100%;margin:14px 0 20px;font-size:14px}
+th{text-align:left;font-weight:600;color:var(--ink-3);font-size:12.5px;padding:7px 9px;border-bottom:1.5px solid var(--line)}
+td{padding:8px 9px;border-bottom:1px solid var(--line-2);vertical-align:top}
+tr:nth-child(even) td{background:var(--broth-soft)}
+
+figure.fig{margin:22px 0 26px;padding:0;max-width:100%}
+figure.fig svg{width:100%;height:auto;display:block;background:var(--card);
+  border:1px solid var(--line-2);border-radius:10px;padding:8px 10px}
+figure.fig figcaption{font-size:13px;color:var(--ink-3);margin-top:8px;max-width:74ch;line-height:1.5}
+figure.fig .figtitle{font-family:var(--serif);font-size:15px;color:var(--ink-2);margin-bottom:6px}
+figure.fig .fig-dark{display:none}
+@media (prefers-color-scheme: dark){
+  figure.fig .fig-light{display:none}
+  figure.fig .fig-dark{display:block}
+}
+@media print{figure.fig{break-inside:avoid;page-break-inside:avoid}
+  figure.fig .fig-dark{display:none !important}
+  figure.fig .fig-light{display:block !important}}
+
+@media print{body{background:#fff}.wrap{padding:0;max-width:none}h2,h3{page-break-after:avoid}}</style><script>try{var t=localStorage.getItem("me.theme");if(t&&t!=="auto")document.documentElement.setAttribute("data-theme",t);}catch(e){}</script>
+<meta name="color-scheme" content="light dark">
+<meta name="theme-color" content="#ffffff" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#000000" media="(prefers-color-scheme: dark)">
+<style>
+/* ============================================================
+   COURSE LIBRARY — Apple document shell
+   ============================================================ */
+:root{
+  color-scheme:light;
+  --paper:#FFFFFF;--surface:#F5F5F7;--card:#FFFFFF;--fill:#F5F5F7;
+  --ink:#1D1D1F;--ink-2:#6E6E73;--ink-3:#6E6E73;
+  --line:rgba(0,0,0,.14);--line-2:rgba(0,0,0,.08);
+  --broth:#0071E3;--broth-soft:rgba(0,113,227,.10);
+  --nav-bg:rgba(255,255,255,.84);
+  --sans:-apple-system,BlinkMacSystemFont,"SF Pro Text","SF Pro Display","Helvetica Neue",Arial,sans-serif;
+  --mono:ui-monospace,"SF Mono",Menlo,Consolas,monospace;
+  --serif:var(--sans);
+}
+@media (prefers-color-scheme:dark){
+  :root:not([data-theme="light"]){
+    color-scheme:dark;
+    --paper:#000000;--surface:#1C1C1E;--card:#2C2C2E;--fill:#2C2C2E;
+    --ink:#F5F5F7;--ink-2:#A1A1A6;--ink-3:#8E8E93;
+    --line:rgba(255,255,255,.16);--line-2:rgba(255,255,255,.09);
+    --broth:#5AA9FF;--broth-soft:rgba(10,132,255,.18);
+    --nav-bg:rgba(0,0,0,.74);
+  }
+}
+:root[data-theme="dark"]{
+  color-scheme:dark;
+  --paper:#000000;--surface:#1C1C1E;--card:#2C2C2E;--fill:#2C2C2E;
+  --ink:#F5F5F7;--ink-2:#A1A1A6;--ink-3:#8E8E93;
+  --line:rgba(255,255,255,.16);--line-2:rgba(255,255,255,.09);
+  --broth:#5AA9FF;--broth-soft:rgba(10,132,255,.18);
+  --nav-bg:rgba(0,0,0,.74);
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth;scroll-padding-top:72px;-webkit-text-size-adjust:100%}
+body{
+  margin:0;background:var(--paper);color:var(--ink);
+  font-family:var(--sans);font-size:17px;line-height:1.62;letter-spacing:-.011em;
+  padding:0;
+}
+.docbar{
+  position:sticky;top:0;z-index:80;display:flex;align-items:center;justify-content:space-between;gap:12px;
+  padding:8px max(24px,calc((100vw - 1180px)/2));
+  background:var(--nav-bg);
+  -webkit-backdrop-filter:saturate(180%) blur(20px);backdrop-filter:saturate(180%) blur(20px);
+  border-bottom:1px solid var(--line-2);
+}
+.docback{display:inline-flex;align-items:center;gap:6px;color:var(--ink-2);font-size:13px;font-weight:500;text-decoration:none;white-space:nowrap}
+.docback:hover{color:var(--broth)}
+.appearance{display:inline-flex;gap:2px;padding:2px;background:var(--fill);border-radius:980px}
+.appearance button{border:0;background:none;color:var(--ink-2);font:inherit;font-size:12px;font-weight:500;line-height:1;padding:6px 11px;border-radius:980px;cursor:pointer}
+.appearance button[aria-pressed="true"]{background:var(--card);color:var(--ink);box-shadow:0 1px 2px rgba(0,0,0,.08)}
+.wrap{max-width:900px;margin:0 auto;padding:64px 24px 96px}
+body h1{
+  font-family:var(--sans);font-size:clamp(42px,6.2vw,64px);line-height:1.04;letter-spacing:-.04em;
+  font-weight:700;margin:0 0 16px;max-width:18ch;color:var(--ink);
+}
+.doc-kicker{font-size:13px;font-weight:500;letter-spacing:0;color:var(--ink-2);margin:0 0 12px}
+body h1 + p{font-size:20px;line-height:1.55;color:var(--ink-2);max-width:68ch;margin:0 0 18px}
+body h1 + p strong{color:var(--ink);font-weight:600}
+body h2{
+  font-family:var(--sans);font-size:32px;line-height:1.15;letter-spacing:-.03em;font-weight:600;
+  color:var(--ink);margin:64px 0 14px;padding:0;border:0;
+}
+body h3{font-family:var(--sans);font-size:22px;line-height:1.25;letter-spacing:-.02em;font-weight:600;color:var(--ink);margin:36px 0 8px}
+body h4{font-size:14px;line-height:1.4;font-weight:600;letter-spacing:0;text-transform:none;color:var(--ink-2);margin:24px 0 6px}
+body p{margin:0 0 14px;max-width:72ch}
+body ul,body ol{margin:0 0 16px;padding-left:1.25em;max-width:72ch}
+body li{margin:.32em 0}
+body li::marker{color:var(--ink-3)}
+body strong{font-weight:600;color:var(--ink)}
+body em{color:var(--ink)}
+body a{color:var(--broth);text-decoration:underline;text-underline-offset:2px}
+body a:hover{text-decoration:underline}
+body hr{border:0;border-top:1px solid var(--line-2);margin:56px 0}
+body table{border-collapse:collapse;width:100%;margin:22px 0 30px;font-size:15px;line-height:1.45}
+body th{text-align:left;font-weight:600;font-size:12.5px;color:var(--ink-2);padding:10px 12px;background:var(--surface);border-bottom:1px solid var(--line)}
+body td{padding:11px 12px;border-bottom:1px solid var(--line-2);vertical-align:top}
+body tr:nth-child(even) td{background:transparent}
+body figure.fig{margin:32px 0 36px;padding:0;max-width:100%}
+body figure.fig svg{width:100%;height:auto;display:block;background:var(--surface);border:0;border-radius:20px;padding:18px}
+body figure.fig figcaption{font-size:13px;color:var(--ink-2);margin-top:10px;max-width:72ch;line-height:1.5}
+body figure.fig .figtitle{font-family:var(--sans);font-size:14px;font-weight:600;color:var(--ink);margin-bottom:6px}
+body pre{background:var(--surface);border:1px solid var(--line-2);border-radius:16px;padding:18px;overflow:auto;font-family:var(--mono);font-size:13.5px;line-height:1.55;margin:20px 0 24px}
+body code{font-family:var(--mono);font-size:.88em;background:var(--surface);border-radius:6px;padding:.12em .35em}
+body pre code{background:none;padding:0;font-size:inherit}
+body blockquote{margin:24px 0;padding:2px 0 2px 18px;border-left:3px solid var(--broth);color:var(--ink-2)}
+:root[data-theme="dark"] .fig-light{display:none!important}
+:root[data-theme="dark"] .fig-dark{display:block!important}
+:root[data-theme="light"] .fig-dark{display:none!important}
+:root[data-theme="light"] .fig-light{display:block!important}
+.docfoot{max-width:900px;margin:0 auto;padding:24px 24px 64px;border-top:1px solid var(--line-2);display:flex;justify-content:space-between;gap:12px;font-size:12.5px;color:var(--ink-3)}
+.docfoot a{color:var(--ink-2);text-decoration:none}
+.docfoot a:hover{color:var(--broth)}
+@media (max-width:700px){
+  .docbar{padding:8px 16px}
+  .wrap{padding:40px 18px 80px}
+  body h1{font-size:clamp(38px,11vw,48px)}
+  body h1 + p{font-size:18px}
+  body h2{font-size:28px;margin-top:52px}
+  body h3{font-size:20px}
+  body p,body li{font-size:16.5px}
+  body table{font-size:14px}
+  body th,body td{padding:9px 9px}
+  .docfoot{padding:20px 18px 50px;flex-direction:column;gap:6px}
+}
+@media print{
+  .docbar,.appearance,.docfoot{display:none!important}
+  body{background:#fff;color:#000;font-size:11pt}
+  .wrap{max-width:none;padding:0}
+  body h1{font-size:28pt;max-width:none}
+  body h2{font-size:16pt;page-break-after:avoid}
+  body h3{font-size:13pt;page-break-after:avoid}
+  body a{color:#000;text-decoration:none}
+  body table,body figure{break-inside:avoid}
+}
+
+
+.index-actions{margin:18px 0 36px;display:flex;flex-wrap:wrap;gap:16px;align-items:center}
+.index-actions a{font-size:14px;font-weight:500;color:var(--broth);text-decoration:none}
+.index-actions a:hover{text-decoration:underline}
+.phaseh{display:flex;align-items:baseline;justify-content:space-between;gap:14px;font-size:24px!important;margin:52px 0 2px!important;letter-spacing:-.02em}
+.phaseh span{font-size:12px;font-weight:400;color:var(--ink-3);letter-spacing:0;white-space:nowrap}
+.weeklist{border-top:1px solid var(--line-2);margin-bottom:8px}
+.weekrow{display:flex;align-items:center;gap:14px;min-height:50px;padding:10px 4px;border-bottom:1px solid var(--line-2);text-decoration:none;color:var(--ink)}
+.weekrow:hover{background:var(--surface)}
+.wnum{width:28px;flex:none;font-size:12px;font-weight:600;color:var(--broth);font-variant-numeric:tabular-nums}
+.wtitle{flex:1;font-size:16.5px;font-weight:500;line-height:1.35}
+.warrow{flex:none;color:var(--ink-3);font-size:16px}
+.weeknav{display:flex;align-items:center;justify-content:space-between;gap:14px;margin:52px 0 0;padding-top:22px;border-top:1px solid var(--line-2);font-size:14px}
+.weeknav a{color:var(--broth);text-decoration:none;font-weight:500}
+.weeknav a:hover{text-decoration:underline}
+.weeknav .idx{color:var(--ink-2);font-weight:400}
+.weeknav .empty{visibility:hidden}
+.case-h{max-width:22ch}
+.protocol{max-width:72ch}
+.protocol li{margin:.55em 0}
+.protocol h2{margin-top:38px}
+@media (max-width:700px){.phaseh{font-size:21px!important;margin-top:42px!important}.wtitle{font-size:15.5px}.weeknav{font-size:13px;gap:8px}}
+@media print{.weeknav,.index-actions{display:none!important}}
+</style>
+<style>.sr-only{position:absolute!important;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap;border:0}</style>
+</head><body>
+<header class="docbar"><a class="docback" href="index.html">&#8592; Lecture index</a><div class="appearance" role="group" aria-label="Appearance">
+<button type="button" data-appearance="auto" aria-pressed="true">Auto</button>
+<button type="button" data-appearance="light" aria-pressed="false">Light</button>
+<button type="button" data-appearance="dark" aria-pressed="false">Dark</button>
+</div></header>
+<main class="wrap">
+<p class="doc-kicker">Week 24 of 55 &middot; Constraint-based modelling &middot; <strong class="tier-badge">Useful next</strong></p>
+<h1>FBA extensions: variability, loops and alternatives</h1>
+<h2 class="sr-only">Week content</h2>
+<p>One FBA solution is a hypothesis, not a result. The extensions exist because the feasible region is large, the optimum is frequently degenerate, and mass balance alone permits flux distributions that thermodynamics forbids. This is the week that teaches scepticism about your own output, which is what an interviewer is probing when they ask what FBA assumes.</p>
+<h3>Core ideas</h3>
+<p><strong>1. Degeneracy, and why it is the normal case</strong></p>
+<figure class="fig"><div class="figtitle">Figure 24.1 — Illustrative simulation — unique against degenerate optima</div><div class="fig-light"><svg role="img" aria-label="When the objective vector is parallel to an edge, every point on that edge is optimal and the solver returns an arbitrary one. This is the normal case in real models, and it is the geometric reason flux variability analysis exists." xmlns:xlink="http://www.w3.org/1999/xlink" width="968.974281pt" height="253.340641pt" viewBox="0 0 968.974281 253.340641" xmlns="http://www.w3.org/2000/svg" version="1.1">
+ <metadata>
+  <rdf:RDF xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:cc="http://creativecommons.org/ns#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+   <cc:Work>
+    <dc:type rdf:resource="http://purl.org/dc/dcmitype/StillImage"/>
+    <dc:date>2026-11-02T23:57:48.218399</dc:date>
+    <dc:format>image/svg+xml</dc:format>
+    <dc:creator>
+     <cc:Agent>
+      <dc:title>Matplotlib v3.10.8, https://matplotlib.org/</dc:title>
+     </cc:Agent>
+    </dc:creator>
+   </cc:Work>
+  </rdf:RDF>
+ </metadata>
+ <defs>
+  <style type="text/css">*{stroke-linejoin: round; stroke-linecap: butt}</style>
+ </defs>
+ <g id="figure_1">
+  <g id="patch_1">
+   <path d="M 0 253.340641 
+L 968.974281 253.340641 
+L 968.974281 0 
+L 0 0 
+L 0 253.340641 
+z
+" style="fill: none"/>
+  </g>
+  <g id="axes_1">
+   <g id="patch_2">
+    <path d="M 65.9664 152.9745 
+L 260.739985 152.9745 
+L 260.739985 19.0545 
+L 65.9664 19.0545 
+L 65.9664 152.9745 
+z
+" style="fill: none"/>
+   </g>
+   <g id="patch_3">
+    <path d="M 81.637838 142.672962 
+L 81.637838 60.260654 
+L 139.846036 32.789885 
+L 211.486894 53.392962 
+L 233.874663 108.3345 
+L 162.233804 142.672962 
+z
+" clip-path="url(#p21df34770f)" style="fill: #8a5f1b; opacity: 0.13; stroke: #8a5f1b; stroke-width: 1.4; stroke-linejoin: miter"/>
+   </g>
+   <g id="matplotlib.axis_1">
+    <g id="text_1">
+     <text style="font-size: 9.5px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: middle; fill: #4a3c2c" x="163.353192" y="164.193016" transform="rotate(-0 163.353192 164.193016)">flux through reaction 1</text>
+    </g>
+   </g>
+   <g id="matplotlib.axis_2">
+    <g id="text_2">
+     <text style="font-size: 9.5px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: middle; fill: #4a3c2c" x="59.990697" y="86.0145" transform="rotate(-90 59.990697 86.0145)">flux through reaction 2</text>
+    </g>
+   </g>
+   <g id="line2d_1">
+    <path d="M 158.292737 -1 
+L 256.262431 99.177577 
+" clip-path="url(#p21df34770f)" style="fill: none; stroke: #1f6f62; stroke-width: 1.4; stroke-linecap: square"/>
+   </g>
+   <g id="patch_4">
+    <path d="M 65.9664 152.9745 
+L 65.9664 19.0545 
+" style="fill: none; stroke: #dfd2be; stroke-width: 0.9; stroke-linejoin: miter; stroke-linecap: square"/>
+   </g>
+   <g id="patch_5">
+    <path d="M 65.9664 152.9745 
+L 260.739985 152.9745 
+" style="fill: none; stroke: #dfd2be; stroke-width: 0.9; stroke-linejoin: miter; stroke-linecap: square"/>
+   </g>
+   <g id="text_3">
+    <text style="font-size: 8.6px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: start; fill: #4a3c2c" x="65.9664" y="181.605956" transform="rotate(-0 65.9664 181.605956)">one vertex maximises c</text>
+   </g>
+   <g id="text_4">
+    <text style="font-size: 9.6px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: start; fill: #211a12" x="65.9664" y="13.0545" transform="rotate(-0 65.9664 13.0545)">Unique optimum</text>
+   </g>
+   <g id="line2d_2">
+    <defs>
+     <path id="mb736ef9d7a" d="M 0 3.5 
+C 0.928211 3.5 1.81853 3.131218 2.474874 2.474874 
+C 3.131218 1.81853 3.5 0.928211 3.5 0 
+C 3.5 -0.928211 3.131218 -1.81853 2.474874 -2.474874 
+C 1.81853 -3.131218 0.928211 -3.5 0 -3.5 
+C -0.928211 -3.5 -1.81853 -3.131218 -2.474874 -2.474874 
+C -3.131218 -1.81853 -3.5 -0.928211 -3.5 0 
+C -3.5 0.928211 -3.131218 1.81853 -2.474874 2.474874 
+C -1.81853 3.131218 -0.928211 3.5 0 3.5 
+z
+" style="stroke: #1f6f62"/>
+    </defs>
+    <g clip-path="url(#p21df34770f)">
+     <use xlink:href="#mb736ef9d7a" x="211.486894" y="53.392962" style="fill: #1f6f62; stroke: #1f6f62"/>
+    </g>
+   </g>
+  </g>
+  <g id="axes_2">
+   <g id="patch_6">
+    <path d="M 284.112815 152.9745 
+L 478.8864 152.9745 
+L 478.8864 19.0545 
+L 284.112815 19.0545 
+L 284.112815 152.9745 
+z
+" style="fill: none"/>
+   </g>
+   <g id="patch_7">
+    <path d="M 299.784253 142.672962 
+L 299.784253 60.260654 
+L 357.992451 32.789885 
+L 429.63331 53.392962 
+L 452.021078 108.3345 
+L 380.380219 142.672962 
+z
+" clip-path="url(#pef2998913f)" style="fill: #8a5f1b; opacity: 0.13; stroke: #8a5f1b; stroke-width: 1.4; stroke-linejoin: miter"/>
+   </g>
+   <g id="matplotlib.axis_3">
+    <g id="text_5">
+     <text style="font-size: 9.5px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: middle; fill: #4a3c2c" x="381.499608" y="164.193016" transform="rotate(-0 381.499608 164.193016)">flux through reaction 1</text>
+    </g>
+   </g>
+   <g id="matplotlib.axis_4"/>
+   <g id="line2d_3">
+    <path d="M 407.469077 -1 
+L 474.408846 163.276038 
+" clip-path="url(#pef2998913f)" style="fill: none; stroke: #1f6f62; stroke-width: 1.4; stroke-linecap: square"/>
+   </g>
+   <g id="line2d_4">
+    <path d="M 429.63331 53.392962 
+L 452.021078 108.3345 
+" clip-path="url(#pef2998913f)" style="fill: none; stroke: #1f6f62; stroke-opacity: 0.75; stroke-width: 4.5; stroke-linecap: round"/>
+   </g>
+   <g id="patch_8">
+    <path d="M 284.112815 152.9745 
+L 284.112815 19.0545 
+" style="fill: none; stroke: #dfd2be; stroke-width: 0.9; stroke-linejoin: miter; stroke-linecap: square"/>
+   </g>
+   <g id="patch_9">
+    <path d="M 284.112815 152.9745 
+L 478.8864 152.9745 
+" style="fill: none; stroke: #dfd2be; stroke-width: 0.9; stroke-linejoin: miter; stroke-linecap: square"/>
+   </g>
+   <g id="text_6">
+    <text style="font-size: 8.6px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; fill: #4a3c2c" transform="translate(284.112815 181.605956)">c is parallel to an edge:</text>
+    <text style="font-size: 8.6px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; fill: #4a3c2c" transform="translate(284.112815 191.236075)">every point on it is optimal</text>
+   </g>
+   <g id="text_7">
+    <text style="font-size: 9.6px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: start; fill: #211a12" x="284.112815" y="13.0545" transform="rotate(-0 284.112815 13.0545)">Degenerate optimum</text>
+   </g>
+   <g id="line2d_5">
+    <g clip-path="url(#pef2998913f)">
+     <use xlink:href="#mb736ef9d7a" x="429.63331" y="53.392962" style="fill: #1f6f62; stroke: #1f6f62"/>
+     <use xlink:href="#mb736ef9d7a" x="452.021078" y="108.3345" style="fill: #1f6f62; stroke: #1f6f62"/>
+    </g>
+   </g>
+  </g>
+  <g id="text_8">
+   <text style="font-size: 8.3px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: start; fill: #8a7458" x="5.76" y="245.8545" transform="rotate(-0 5.76 245.8545)">Degeneracy is the normal case in real models, because many reactions appear in alternative routes of identical stoichiometric cost. The solver returns one arbitrary point on that edge — which is why flux variability analysis exists.</text>
+  </g>
+ </g>
+ <defs>
+  <clipPath id="p21df34770f">
+   <rect x="65.9664" y="19.0545" width="194.773585" height="133.92"/>
+  </clipPath>
+  <clipPath id="pef2998913f">
+   <rect x="284.112815" y="19.0545" width="194.773585" height="133.92"/>
+  </clipPath>
+ </defs>
+</svg>
+</div><div class="fig-dark"><svg role="img" aria-label="When the objective vector is parallel to an edge, every point on that edge is optimal and the solver returns an arbitrary one. This is the normal case in real models, and it is the geometric reason flux variability analysis exists." xmlns:xlink="http://www.w3.org/1999/xlink" width="968.974281pt" height="253.340641pt" viewBox="0 0 968.974281 253.340641" xmlns="http://www.w3.org/2000/svg" version="1.1">
+ <metadata>
+  <rdf:RDF xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:cc="http://creativecommons.org/ns#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+   <cc:Work>
+    <dc:type rdf:resource="http://purl.org/dc/dcmitype/StillImage"/>
+    <dc:date>2026-11-02T23:57:48.250156</dc:date>
+    <dc:format>image/svg+xml</dc:format>
+    <dc:creator>
+     <cc:Agent>
+      <dc:title>Matplotlib v3.10.8, https://matplotlib.org/</dc:title>
+     </cc:Agent>
+    </dc:creator>
+   </cc:Work>
+  </rdf:RDF>
+ </metadata>
+ <defs>
+  <style type="text/css">*{stroke-linejoin: round; stroke-linecap: butt}</style>
+ </defs>
+ <g id="figure_1">
+  <g id="patch_1">
+   <path d="M 0 253.340641 
+L 968.974281 253.340641 
+L 968.974281 0 
+L 0 0 
+L 0 253.340641 
+z
+" style="fill: none"/>
+  </g>
+  <g id="axes_1">
+   <g id="patch_2">
+    <path d="M 65.9664 152.9745 
+L 260.739985 152.9745 
+L 260.739985 19.0545 
+L 65.9664 19.0545 
+L 65.9664 152.9745 
+z
+" style="fill: none"/>
+   </g>
+   <g id="patch_3">
+    <path d="M 81.637838 142.672962 
+L 81.637838 60.260654 
+L 139.846036 32.789885 
+L 211.486894 53.392962 
+L 233.874663 108.3345 
+L 162.233804 142.672962 
+z
+" clip-path="url(#p3ed061bc48)" style="fill: #d7a95c; opacity: 0.13; stroke: #d7a95c; stroke-width: 1.4; stroke-linejoin: miter"/>
+   </g>
+   <g id="matplotlib.axis_1">
+    <g id="text_1">
+     <text style="font-size: 9.5px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: middle; fill: #cbbca6" x="163.353192" y="164.193016" transform="rotate(-0 163.353192 164.193016)">flux through reaction 1</text>
+    </g>
+   </g>
+   <g id="matplotlib.axis_2">
+    <g id="text_2">
+     <text style="font-size: 9.5px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: middle; fill: #cbbca6" x="59.990697" y="86.0145" transform="rotate(-90 59.990697 86.0145)">flux through reaction 2</text>
+    </g>
+   </g>
+   <g id="line2d_1">
+    <path d="M 158.292737 -1 
+L 256.262431 99.177577 
+" clip-path="url(#p3ed061bc48)" style="fill: none; stroke: #6dbdac; stroke-width: 1.4; stroke-linecap: square"/>
+   </g>
+   <g id="patch_4">
+    <path d="M 65.9664 152.9745 
+L 65.9664 19.0545 
+" style="fill: none; stroke: #3a3026; stroke-width: 0.9; stroke-linejoin: miter; stroke-linecap: square"/>
+   </g>
+   <g id="patch_5">
+    <path d="M 65.9664 152.9745 
+L 260.739985 152.9745 
+" style="fill: none; stroke: #3a3026; stroke-width: 0.9; stroke-linejoin: miter; stroke-linecap: square"/>
+   </g>
+   <g id="text_3">
+    <text style="font-size: 8.6px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: start; fill: #cbbca6" x="65.9664" y="181.605956" transform="rotate(-0 65.9664 181.605956)">one vertex maximises c</text>
+   </g>
+   <g id="text_4">
+    <text style="font-size: 9.6px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: start; fill: #f1e9dc" x="65.9664" y="13.0545" transform="rotate(-0 65.9664 13.0545)">Unique optimum</text>
+   </g>
+   <g id="line2d_2">
+    <defs>
+     <path id="m49f47bb3aa" d="M 0 3.5 
+C 0.928211 3.5 1.81853 3.131218 2.474874 2.474874 
+C 3.131218 1.81853 3.5 0.928211 3.5 0 
+C 3.5 -0.928211 3.131218 -1.81853 2.474874 -2.474874 
+C 1.81853 -3.131218 0.928211 -3.5 0 -3.5 
+C -0.928211 -3.5 -1.81853 -3.131218 -2.474874 -2.474874 
+C -3.131218 -1.81853 -3.5 -0.928211 -3.5 0 
+C -3.5 0.928211 -3.131218 1.81853 -2.474874 2.474874 
+C -1.81853 3.131218 -0.928211 3.5 0 3.5 
+z
+" style="stroke: #6dbdac"/>
+    </defs>
+    <g clip-path="url(#p3ed061bc48)">
+     <use xlink:href="#m49f47bb3aa" x="211.486894" y="53.392962" style="fill: #6dbdac; stroke: #6dbdac"/>
+    </g>
+   </g>
+  </g>
+  <g id="axes_2">
+   <g id="patch_6">
+    <path d="M 284.112815 152.9745 
+L 478.8864 152.9745 
+L 478.8864 19.0545 
+L 284.112815 19.0545 
+L 284.112815 152.9745 
+z
+" style="fill: none"/>
+   </g>
+   <g id="patch_7">
+    <path d="M 299.784253 142.672962 
+L 299.784253 60.260654 
+L 357.992451 32.789885 
+L 429.63331 53.392962 
+L 452.021078 108.3345 
+L 380.380219 142.672962 
+z
+" clip-path="url(#p340e667b23)" style="fill: #d7a95c; opacity: 0.13; stroke: #d7a95c; stroke-width: 1.4; stroke-linejoin: miter"/>
+   </g>
+   <g id="matplotlib.axis_3">
+    <g id="text_5">
+     <text style="font-size: 9.5px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: middle; fill: #cbbca6" x="381.499608" y="164.193016" transform="rotate(-0 381.499608 164.193016)">flux through reaction 1</text>
+    </g>
+   </g>
+   <g id="matplotlib.axis_4"/>
+   <g id="line2d_3">
+    <path d="M 407.469077 -1 
+L 474.408846 163.276038 
+" clip-path="url(#p340e667b23)" style="fill: none; stroke: #6dbdac; stroke-width: 1.4; stroke-linecap: square"/>
+   </g>
+   <g id="line2d_4">
+    <path d="M 429.63331 53.392962 
+L 452.021078 108.3345 
+" clip-path="url(#p340e667b23)" style="fill: none; stroke: #6dbdac; stroke-opacity: 0.75; stroke-width: 4.5; stroke-linecap: round"/>
+   </g>
+   <g id="patch_8">
+    <path d="M 284.112815 152.9745 
+L 284.112815 19.0545 
+" style="fill: none; stroke: #3a3026; stroke-width: 0.9; stroke-linejoin: miter; stroke-linecap: square"/>
+   </g>
+   <g id="patch_9">
+    <path d="M 284.112815 152.9745 
+L 478.8864 152.9745 
+" style="fill: none; stroke: #3a3026; stroke-width: 0.9; stroke-linejoin: miter; stroke-linecap: square"/>
+   </g>
+   <g id="text_6">
+    <text style="font-size: 8.6px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; fill: #cbbca6" transform="translate(284.112815 181.605956)">c is parallel to an edge:</text>
+    <text style="font-size: 8.6px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; fill: #cbbca6" transform="translate(284.112815 191.236075)">every point on it is optimal</text>
+   </g>
+   <g id="text_7">
+    <text style="font-size: 9.6px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: start; fill: #f1e9dc" x="284.112815" y="13.0545" transform="rotate(-0 284.112815 13.0545)">Degenerate optimum</text>
+   </g>
+   <g id="line2d_5">
+    <g clip-path="url(#p340e667b23)">
+     <use xlink:href="#m49f47bb3aa" x="429.63331" y="53.392962" style="fill: #6dbdac; stroke: #6dbdac"/>
+     <use xlink:href="#m49f47bb3aa" x="452.021078" y="108.3345" style="fill: #6dbdac; stroke: #6dbdac"/>
+    </g>
+   </g>
+  </g>
+  <g id="text_8">
+   <text style="font-size: 8.3px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: start; fill: #9a8872" x="5.76" y="245.8545" transform="rotate(-0 5.76 245.8545)">Degeneracy is the normal case in real models, because many reactions appear in alternative routes of identical stoichiometric cost. The solver returns one arbitrary point on that edge — which is why flux variability analysis exists.</text>
+  </g>
+ </g>
+ <defs>
+  <clipPath id="p3ed061bc48">
+   <rect x="65.9664" y="19.0545" width="194.773585" height="133.92"/>
+  </clipPath>
+  <clipPath id="p340e667b23">
+   <rect x="284.112815" y="19.0545" width="194.773585" height="133.92"/>
+  </clipPath>
+ </defs>
+</svg>
+</div><figcaption>When the objective vector is parallel to an edge, every point on that edge is optimal and the solver returns an arbitrary one. This is the normal case in real models, and it is the geometric reason flux variability analysis exists.</figcaption></figure>
+<p>If the objective vector is parallel to an edge or face of the polytope, every point along it is optimal. In real models this happens constantly, because many reactions appear in alternative routes of identical stoichiometric cost — a redox shuttle that can run through either of two carriers, an isozyme pair, a cycle with no net exchange. The consequence is that the particular flux vector a solver returns is one arbitrary point among many, chosen by the solver&#x27;s internal pivot order rather than by biology. Reporting it as <em>the</em> flux distribution is the commonest misuse of FBA, and flux variability analysis exists to measure how arbitrary it was.</p>
+<p><strong>2. Flux variability analysis, and how to read its output</strong></p>
+<figure class="fig"><div class="figtitle">Figure 24.2 — Illustrative simulation — reading flux variability as a pattern</div><div class="fig-light"><svg role="img" aria-label="Reactions with zero-width intervals are fixed by the constraints and are the real conclusions; wide intervals mark where the model cannot choose between routes of equal stoichiometric cost. A range spanning zero means the model cannot say whether the reaction carries flux at all." xmlns:xlink="http://www.w3.org/1999/xlink" width="660.241062pt" height="247.052734pt" viewBox="0 0 660.241062 247.052734" xmlns="http://www.w3.org/2000/svg" version="1.1">
+ <metadata>
+  <rdf:RDF xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:cc="http://creativecommons.org/ns#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+   <cc:Work>
+    <dc:type rdf:resource="http://purl.org/dc/dcmitype/StillImage"/>
+    <dc:date>2026-11-02T23:57:48.301925</dc:date>
+    <dc:format>image/svg+xml</dc:format>
+    <dc:creator>
+     <cc:Agent>
+      <dc:title>Matplotlib v3.10.8, https://matplotlib.org/</dc:title>
+     </cc:Agent>
+    </dc:creator>
+   </cc:Work>
+  </rdf:RDF>
+ </metadata>
+ <defs>
+  <style type="text/css">*{stroke-linejoin: round; stroke-linecap: butt}</style>
+ </defs>
+ <g id="figure_1">
+  <g id="patch_1">
+   <path d="M -0 247.052734 
+L 660.241062 247.052734 
+L 660.241062 -0 
+L -0 -0 
+L -0 247.052734 
+z
+" style="fill: none"/>
+  </g>
+  <g id="axes_1">
+   <g id="patch_2">
+    <path d="M 90.714969 148.054594 
+L 481.314969 148.054594 
+L 481.314969 18.598594 
+L 90.714969 18.598594 
+L 90.714969 148.054594 
+z
+" style="fill: none"/>
+   </g>
+   <g id="matplotlib.axis_1">
+    <g id="xtick_1">
+     <g id="line2d_1">
+      <path d="M 108.469514 148.054594 
+L 108.469514 18.598594 
+" clip-path="url(#p387130c987)" style="fill: none; stroke: #e6dccb; stroke-opacity: 0.7; stroke-width: 0.6; stroke-linecap: square"/>
+     </g>
+     <g id="line2d_2">
+      <defs>
+       <path id="mca1ff9ed00" d="M 0 0 
+L 0 3.5 
+" style="stroke: #8a7458; stroke-width: 0.9"/>
+      </defs>
+      <g>
+       <use xlink:href="#mca1ff9ed00" x="108.469514" y="148.054594" style="fill: #8a7458; stroke: #8a7458; stroke-width: 0.9"/>
+      </g>
+     </g>
+     <g id="text_1">
+      <text style="font-size: 9.5px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: middle; fill: #8a7458" x="108.469514" y="162.273109" transform="rotate(-0 108.469514 162.273109)">−10</text>
+     </g>
+    </g>
+    <g id="xtick_2">
+     <g id="line2d_3">
+      <path d="M 176.756227 148.054594 
+L 176.756227 18.598594 
+" clip-path="url(#p387130c987)" style="fill: none; stroke: #e6dccb; stroke-opacity: 0.7; stroke-width: 0.6; stroke-linecap: square"/>
+     </g>
+     <g id="line2d_4">
+      <g>
+       <use xlink:href="#mca1ff9ed00" x="176.756227" y="148.054594" style="fill: #8a7458; stroke: #8a7458; stroke-width: 0.9"/>
+      </g>
+     </g>
+     <g id="text_2">
+      <text style="font-size: 9.5px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: middle; fill: #8a7458" x="176.756227" y="162.273109" transform="rotate(-0 176.756227 162.273109)">−5</text>
+     </g>
+    </g>
+    <g id="xtick_3">
+     <g id="line2d_5">
+      <path d="M 245.042941 148.054594 
+L 245.042941 18.598594 
+" clip-path="url(#p387130c987)" style="fill: none; stroke: #e6dccb; stroke-opacity: 0.7; stroke-width: 0.6; stroke-linecap: square"/>
+     </g>
+     <g id="line2d_6">
+      <g>
+       <use xlink:href="#mca1ff9ed00" x="245.042941" y="148.054594" style="fill: #8a7458; stroke: #8a7458; stroke-width: 0.9"/>
+      </g>
+     </g>
+     <g id="text_3">
+      <text style="font-size: 9.5px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: middle; fill: #8a7458" x="245.042941" y="162.273109" transform="rotate(-0 245.042941 162.273109)">0</text>
+     </g>
+    </g>
+    <g id="xtick_4">
+     <g id="line2d_7">
+      <path d="M 313.329654 148.054594 
+L 313.329654 18.598594 
+" clip-path="url(#p387130c987)" style="fill: none; stroke: #e6dccb; stroke-opacity: 0.7; stroke-width: 0.6; stroke-linecap: square"/>
+     </g>
+     <g id="line2d_8">
+      <g>
+       <use xlink:href="#mca1ff9ed00" x="313.329654" y="148.054594" style="fill: #8a7458; stroke: #8a7458; stroke-width: 0.9"/>
+      </g>
+     </g>
+     <g id="text_4">
+      <text style="font-size: 9.5px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: middle; fill: #8a7458" x="313.329654" y="162.273109" transform="rotate(-0 313.329654 162.273109)">5</text>
+     </g>
+    </g>
+    <g id="xtick_5">
+     <g id="line2d_9">
+      <path d="M 381.616367 148.054594 
+L 381.616367 18.598594 
+" clip-path="url(#p387130c987)" style="fill: none; stroke: #e6dccb; stroke-opacity: 0.7; stroke-width: 0.6; stroke-linecap: square"/>
+     </g>
+     <g id="line2d_10">
+      <g>
+       <use xlink:href="#mca1ff9ed00" x="381.616367" y="148.054594" style="fill: #8a7458; stroke: #8a7458; stroke-width: 0.9"/>
+      </g>
+     </g>
+     <g id="text_5">
+      <text style="font-size: 9.5px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: middle; fill: #8a7458" x="381.616367" y="162.273109" transform="rotate(-0 381.616367 162.273109)">10</text>
+     </g>
+    </g>
+    <g id="xtick_6">
+     <g id="line2d_11">
+      <path d="M 449.903081 148.054594 
+L 449.903081 18.598594 
+" clip-path="url(#p387130c987)" style="fill: none; stroke: #e6dccb; stroke-opacity: 0.7; stroke-width: 0.6; stroke-linecap: square"/>
+     </g>
+     <g id="line2d_12">
+      <g>
+       <use xlink:href="#mca1ff9ed00" x="449.903081" y="148.054594" style="fill: #8a7458; stroke: #8a7458; stroke-width: 0.9"/>
+      </g>
+     </g>
+     <g id="text_6">
+      <text style="font-size: 9.5px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: middle; fill: #8a7458" x="449.903081" y="162.273109" transform="rotate(-0 449.903081 162.273109)">15</text>
+     </g>
+    </g>
+    <g id="text_7">
+     <text style="font-size: 9.5px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: middle; fill: #4a3c2c" x="286.014969" y="175.467328" transform="rotate(-0 286.014969 175.467328)">flux range at 100% of optimal growth  (mmol gDW⁻¹ h⁻¹)</text>
+    </g>
+   </g>
+   <g id="matplotlib.axis_2">
+    <g id="ytick_1">
+     <g id="line2d_13">
+      <defs>
+       <path id="mf482a10062" d="M 0 0 
+L -3.5 0 
+" style="stroke: #8a7458; stroke-width: 0.9"/>
+      </defs>
+      <g>
+       <use xlink:href="#mf482a10062" x="90.714969" y="24.482957" style="fill: #8a7458; stroke: #8a7458; stroke-width: 0.9"/>
+      </g>
+     </g>
+     <g id="text_8">
+      <text style="font-size: 8.6px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: end; fill: #8a7458" x="83.714969" y="27.750286" transform="rotate(-0 83.714969 27.750286)">glucose uptake</text>
+     </g>
+    </g>
+    <g id="ytick_2">
+     <g id="line2d_14">
+      <g>
+       <use xlink:href="#mf482a10062" x="90.714969" y="37.559321" style="fill: #8a7458; stroke: #8a7458; stroke-width: 0.9"/>
+      </g>
+     </g>
+     <g id="text_9">
+      <text style="font-size: 8.6px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: end; fill: #8a7458" x="83.714969" y="40.826649" transform="rotate(-0 83.714969 40.826649)">PGI</text>
+     </g>
+    </g>
+    <g id="ytick_3">
+     <g id="line2d_15">
+      <g>
+       <use xlink:href="#mf482a10062" x="90.714969" y="50.635685" style="fill: #8a7458; stroke: #8a7458; stroke-width: 0.9"/>
+      </g>
+     </g>
+     <g id="text_10">
+      <text style="font-size: 8.6px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: end; fill: #8a7458" x="83.714969" y="53.903013" transform="rotate(-0 83.714969 53.903013)">PFK</text>
+     </g>
+    </g>
+    <g id="ytick_4">
+     <g id="line2d_16">
+      <g>
+       <use xlink:href="#mf482a10062" x="90.714969" y="63.712048" style="fill: #8a7458; stroke: #8a7458; stroke-width: 0.9"/>
+      </g>
+     </g>
+     <g id="text_11">
+      <text style="font-size: 8.6px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: end; fill: #8a7458" x="83.714969" y="66.979376" transform="rotate(-0 83.714969 66.979376)">GAPDH</text>
+     </g>
+    </g>
+    <g id="ytick_5">
+     <g id="line2d_17">
+      <g>
+       <use xlink:href="#mf482a10062" x="90.714969" y="76.788412" style="fill: #8a7458; stroke: #8a7458; stroke-width: 0.9"/>
+      </g>
+     </g>
+     <g id="text_12">
+      <text style="font-size: 8.6px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: end; fill: #8a7458" x="83.714969" y="80.05574" transform="rotate(-0 83.714969 80.05574)">pyruvate kinase</text>
+     </g>
+    </g>
+    <g id="ytick_6">
+     <g id="line2d_18">
+      <g>
+       <use xlink:href="#mf482a10062" x="90.714969" y="89.864776" style="fill: #8a7458; stroke: #8a7458; stroke-width: 0.9"/>
+      </g>
+     </g>
+     <g id="text_13">
+      <text style="font-size: 8.6px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: end; fill: #8a7458" x="83.714969" y="93.132104" transform="rotate(-0 83.714969 93.132104)">PDH</text>
+     </g>
+    </g>
+    <g id="ytick_7">
+     <g id="line2d_19">
+      <g>
+       <use xlink:href="#mf482a10062" x="90.714969" y="102.941139" style="fill: #8a7458; stroke: #8a7458; stroke-width: 0.9"/>
+      </g>
+     </g>
+     <g id="text_14">
+      <text style="font-size: 8.6px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: end; fill: #8a7458" x="83.714969" y="106.208467" transform="rotate(-0 83.714969 106.208467)">citrate synthase</text>
+     </g>
+    </g>
+    <g id="ytick_8">
+     <g id="line2d_20">
+      <g>
+       <use xlink:href="#mf482a10062" x="90.714969" y="116.017503" style="fill: #8a7458; stroke: #8a7458; stroke-width: 0.9"/>
+      </g>
+     </g>
+     <g id="text_15">
+      <text style="font-size: 8.6px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: end; fill: #8a7458" x="83.714969" y="119.284831" transform="rotate(-0 83.714969 119.284831)">transhydrogenase</text>
+     </g>
+    </g>
+    <g id="ytick_9">
+     <g id="line2d_21">
+      <g>
+       <use xlink:href="#mf482a10062" x="90.714969" y="129.093866" style="fill: #8a7458; stroke: #8a7458; stroke-width: 0.9"/>
+      </g>
+     </g>
+     <g id="text_16">
+      <text style="font-size: 8.6px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: end; fill: #8a7458" x="83.714969" y="132.361195" transform="rotate(-0 83.714969 132.361195)">NADH dh II</text>
+     </g>
+    </g>
+    <g id="ytick_10">
+     <g id="line2d_22">
+      <g>
+       <use xlink:href="#mf482a10062" x="90.714969" y="142.17023" style="fill: #8a7458; stroke: #8a7458; stroke-width: 0.9"/>
+      </g>
+     </g>
+     <g id="text_17">
+      <text style="font-size: 8.6px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: end; fill: #8a7458" x="83.714969" y="145.437558" transform="rotate(-0 83.714969 145.437558)">acetate exchange</text>
+     </g>
+    </g>
+   </g>
+   <g id="line2d_23">
+    <defs>
+     <path id="me07664c8e7" d="M 0 3.25 
+C 0.86191 3.25 1.688635 2.907559 2.298097 2.298097 
+C 2.907559 1.688635 3.25 0.86191 3.25 0 
+C 3.25 -0.86191 2.907559 -1.688635 2.298097 -2.298097 
+C 1.688635 -2.907559 0.86191 -3.25 0 -3.25 
+C -0.86191 -3.25 -1.688635 -2.907559 -2.298097 -2.298097 
+C -2.907559 -1.688635 -3.25 -0.86191 -3.25 0 
+C -3.25 0.86191 -2.907559 1.688635 -2.298097 2.298097 
+C -1.688635 2.907559 -0.86191 3.25 0 3.25 
+z
+" style="stroke: #1f6f62"/>
+    </defs>
+    <g clip-path="url(#p387130c987)">
+     <use xlink:href="#me07664c8e7" x="108.469514" y="24.482957" style="fill: #1f6f62; stroke: #1f6f62"/>
+    </g>
+   </g>
+   <g id="line2d_24">
+    <g clip-path="url(#p387130c987)">
+     <use xlink:href="#me07664c8e7" x="302.40378" y="37.559321" style="fill: #1f6f62; stroke: #1f6f62"/>
+    </g>
+   </g>
+   <g id="line2d_25">
+    <g clip-path="url(#p387130c987)">
+     <use xlink:href="#me07664c8e7" x="337.912871" y="50.635685" style="fill: #1f6f62; stroke: #1f6f62"/>
+    </g>
+   </g>
+   <g id="line2d_26">
+    <g clip-path="url(#p387130c987)">
+     <use xlink:href="#me07664c8e7" x="463.560423" y="63.712048" style="fill: #1f6f62; stroke: #1f6f62"/>
+    </g>
+   </g>
+   <g id="line2d_27">
+    <path d="M 264.16322 76.788412 
+L 378.884899 76.788412 
+" clip-path="url(#p387130c987)" style="fill: none; stroke: #8a5f1b; stroke-opacity: 0.6; stroke-width: 5.5; stroke-linecap: round"/>
+   </g>
+   <g id="line2d_28">
+    <defs>
+     <path id="maa15d1e11e" d="M 0 4.5 
+L 0 -4.5 
+" style="stroke: #8a5f1b"/>
+    </defs>
+    <g clip-path="url(#p387130c987)">
+     <use xlink:href="#maa15d1e11e" x="264.16322" y="76.788412" style="fill: #8a5f1b; stroke: #8a5f1b"/>
+     <use xlink:href="#maa15d1e11e" x="378.884899" y="76.788412" style="fill: #8a5f1b; stroke: #8a5f1b"/>
+    </g>
+   </g>
+   <g id="line2d_29">
+    <g clip-path="url(#p387130c987)">
+     <use xlink:href="#me07664c8e7" x="362.496088" y="89.864776" style="fill: #1f6f62; stroke: #1f6f62"/>
+    </g>
+   </g>
+   <g id="line2d_30">
+    <path d="M 245.042941 102.941139 
+L 332.449934 102.941139 
+" clip-path="url(#p387130c987)" style="fill: none; stroke: #8a5f1b; stroke-opacity: 0.6; stroke-width: 5.5; stroke-linecap: round"/>
+   </g>
+   <g id="line2d_31">
+    <g clip-path="url(#p387130c987)">
+     <use xlink:href="#maa15d1e11e" x="245.042941" y="102.941139" style="fill: #8a5f1b; stroke: #8a5f1b"/>
+     <use xlink:href="#maa15d1e11e" x="332.449934" y="102.941139" style="fill: #8a5f1b; stroke: #8a5f1b"/>
+    </g>
+   </g>
+   <g id="line2d_32">
+    <path d="M 245.042941 116.017503 
+L 408.931053 116.017503 
+" clip-path="url(#p387130c987)" style="fill: none; stroke: #8a5f1b; stroke-opacity: 0.6; stroke-width: 5.5; stroke-linecap: round"/>
+   </g>
+   <g id="line2d_33">
+    <g clip-path="url(#p387130c987)">
+     <use xlink:href="#maa15d1e11e" x="245.042941" y="116.017503" style="fill: #8a5f1b; stroke: #8a5f1b"/>
+     <use xlink:href="#maa15d1e11e" x="408.931053" y="116.017503" style="fill: #8a5f1b; stroke: #8a5f1b"/>
+    </g>
+   </g>
+   <g id="line2d_34">
+    <path d="M 245.042941 129.093866 
+L 443.074409 129.093866 
+" clip-path="url(#p387130c987)" style="fill: none; stroke: #8a5f1b; stroke-opacity: 0.6; stroke-width: 5.5; stroke-linecap: round"/>
+   </g>
+   <g id="line2d_35">
+    <g clip-path="url(#p387130c987)">
+     <use xlink:href="#maa15d1e11e" x="245.042941" y="129.093866" style="fill: #8a5f1b; stroke: #8a5f1b"/>
+     <use xlink:href="#maa15d1e11e" x="443.074409" y="129.093866" style="fill: #8a5f1b; stroke: #8a5f1b"/>
+    </g>
+   </g>
+   <g id="line2d_36">
+    <path d="M 245.042941 142.17023 
+L 357.033151 142.17023 
+" clip-path="url(#p387130c987)" style="fill: none; stroke: #8a5f1b; stroke-opacity: 0.6; stroke-width: 5.5; stroke-linecap: round"/>
+   </g>
+   <g id="line2d_37">
+    <g clip-path="url(#p387130c987)">
+     <use xlink:href="#maa15d1e11e" x="245.042941" y="142.17023" style="fill: #8a5f1b; stroke: #8a5f1b"/>
+     <use xlink:href="#maa15d1e11e" x="357.033151" y="142.17023" style="fill: #8a5f1b; stroke: #8a5f1b"/>
+    </g>
+   </g>
+   <g id="line2d_38">
+    <path d="M 245.042941 148.054594 
+L 245.042941 18.598594 
+" clip-path="url(#p387130c987)" style="fill: none; stroke: #dfd2be; stroke-width: 0.9; stroke-linecap: square"/>
+   </g>
+   <g id="line2d_39"/>
+   <g id="line2d_40"/>
+   <g id="patch_3">
+    <path d="M 90.714969 148.054594 
+L 90.714969 18.598594 
+" style="fill: none; stroke: #dfd2be; stroke-width: 0.9; stroke-linejoin: miter; stroke-linecap: square"/>
+   </g>
+   <g id="patch_4">
+    <path d="M 90.714969 148.054594 
+L 481.314969 148.054594 
+" style="fill: none; stroke: #dfd2be; stroke-width: 0.9; stroke-linejoin: miter; stroke-linecap: square"/>
+   </g>
+   <g id="text_18">
+    <text style="font-size: 9px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: start; fill: #8a7458" x="90.714969" y="12.598594" transform="rotate(-0 90.714969 12.598594)">Illustrative values. The fixed reactions are the conclusions; the wide ones are where the model cannot choose</text>
+   </g>
+   <g id="legend_1">
+    <g id="line2d_41">
+     <g>
+      <use xlink:href="#me07664c8e7" x="139.604281" y="181.064801" style="fill: #1f6f62; stroke: #1f6f62"/>
+     </g>
+    </g>
+    <g id="text_19">
+     <text style="font-size: 8.4px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: start; fill: #4a3c2c" x="154.724281" y="184.004801" transform="rotate(-0 154.724281 184.004801)">fixed by the constraints</text>
+    </g>
+    <g id="line2d_42">
+     <path d="M 270.801781 181.064801 
+L 279.201781 181.064801 
+L 287.601781 181.064801 
+" style="fill: none; stroke: #8a5f1b; stroke-opacity: 0.6; stroke-width: 5.5; stroke-linecap: square"/>
+    </g>
+    <g id="text_20">
+     <text style="font-size: 8.4px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: start; fill: #4a3c2c" x="294.321781" y="184.004801" transform="rotate(-0 294.321781 184.004801)">degenerate: range at the optimum</text>
+    </g>
+   </g>
+  </g>
+  <g id="text_21">
+   <text style="font-size: 8.3px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: start; fill: #8a7458" x="33.762969" y="239.566594" transform="rotate(-0 33.762969 239.566594)">A range that includes zero means the model cannot say whether the reaction carries flux. Labelling resolves it; FVA only reports that it is unresolved.</text>
+  </g>
+ </g>
+ <defs>
+  <clipPath id="p387130c987">
+   <rect x="90.714969" y="18.598594" width="390.6" height="129.456"/>
+  </clipPath>
+ </defs>
+</svg>
+</div><div class="fig-dark"><svg role="img" aria-label="Reactions with zero-width intervals are fixed by the constraints and are the real conclusions; wide intervals mark where the model cannot choose between routes of equal stoichiometric cost. A range spanning zero means the model cannot say whether the reaction carries flux at all." xmlns:xlink="http://www.w3.org/1999/xlink" width="660.241062pt" height="247.052734pt" viewBox="0 0 660.241062 247.052734" xmlns="http://www.w3.org/2000/svg" version="1.1">
+ <metadata>
+  <rdf:RDF xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:cc="http://creativecommons.org/ns#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+   <cc:Work>
+    <dc:type rdf:resource="http://purl.org/dc/dcmitype/StillImage"/>
+    <dc:date>2026-11-02T23:57:48.370849</dc:date>
+    <dc:format>image/svg+xml</dc:format>
+    <dc:creator>
+     <cc:Agent>
+      <dc:title>Matplotlib v3.10.8, https://matplotlib.org/</dc:title>
+     </cc:Agent>
+    </dc:creator>
+   </cc:Work>
+  </rdf:RDF>
+ </metadata>
+ <defs>
+  <style type="text/css">*{stroke-linejoin: round; stroke-linecap: butt}</style>
+ </defs>
+ <g id="figure_1">
+  <g id="patch_1">
+   <path d="M -0 247.052734 
+L 660.241062 247.052734 
+L 660.241062 -0 
+L -0 -0 
+L -0 247.052734 
+z
+" style="fill: none"/>
+  </g>
+  <g id="axes_1">
+   <g id="patch_2">
+    <path d="M 90.714969 148.054594 
+L 481.314969 148.054594 
+L 481.314969 18.598594 
+L 90.714969 18.598594 
+L 90.714969 148.054594 
+z
+" style="fill: none"/>
+   </g>
+   <g id="matplotlib.axis_1">
+    <g id="xtick_1">
+     <g id="line2d_1">
+      <path d="M 108.469514 148.054594 
+L 108.469514 18.598594 
+" clip-path="url(#p55651e9af8)" style="fill: none; stroke: #2e251c; stroke-opacity: 0.7; stroke-width: 0.6; stroke-linecap: square"/>
+     </g>
+     <g id="line2d_2">
+      <defs>
+       <path id="m7141d3378c" d="M 0 0 
+L 0 3.5 
+" style="stroke: #9a8872; stroke-width: 0.9"/>
+      </defs>
+      <g>
+       <use xlink:href="#m7141d3378c" x="108.469514" y="148.054594" style="fill: #9a8872; stroke: #9a8872; stroke-width: 0.9"/>
+      </g>
+     </g>
+     <g id="text_1">
+      <text style="font-size: 9.5px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: middle; fill: #9a8872" x="108.469514" y="162.273109" transform="rotate(-0 108.469514 162.273109)">−10</text>
+     </g>
+    </g>
+    <g id="xtick_2">
+     <g id="line2d_3">
+      <path d="M 176.756227 148.054594 
+L 176.756227 18.598594 
+" clip-path="url(#p55651e9af8)" style="fill: none; stroke: #2e251c; stroke-opacity: 0.7; stroke-width: 0.6; stroke-linecap: square"/>
+     </g>
+     <g id="line2d_4">
+      <g>
+       <use xlink:href="#m7141d3378c" x="176.756227" y="148.054594" style="fill: #9a8872; stroke: #9a8872; stroke-width: 0.9"/>
+      </g>
+     </g>
+     <g id="text_2">
+      <text style="font-size: 9.5px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: middle; fill: #9a8872" x="176.756227" y="162.273109" transform="rotate(-0 176.756227 162.273109)">−5</text>
+     </g>
+    </g>
+    <g id="xtick_3">
+     <g id="line2d_5">
+      <path d="M 245.042941 148.054594 
+L 245.042941 18.598594 
+" clip-path="url(#p55651e9af8)" style="fill: none; stroke: #2e251c; stroke-opacity: 0.7; stroke-width: 0.6; stroke-linecap: square"/>
+     </g>
+     <g id="line2d_6">
+      <g>
+       <use xlink:href="#m7141d3378c" x="245.042941" y="148.054594" style="fill: #9a8872; stroke: #9a8872; stroke-width: 0.9"/>
+      </g>
+     </g>
+     <g id="text_3">
+      <text style="font-size: 9.5px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: middle; fill: #9a8872" x="245.042941" y="162.273109" transform="rotate(-0 245.042941 162.273109)">0</text>
+     </g>
+    </g>
+    <g id="xtick_4">
+     <g id="line2d_7">
+      <path d="M 313.329654 148.054594 
+L 313.329654 18.598594 
+" clip-path="url(#p55651e9af8)" style="fill: none; stroke: #2e251c; stroke-opacity: 0.7; stroke-width: 0.6; stroke-linecap: square"/>
+     </g>
+     <g id="line2d_8">
+      <g>
+       <use xlink:href="#m7141d3378c" x="313.329654" y="148.054594" style="fill: #9a8872; stroke: #9a8872; stroke-width: 0.9"/>
+      </g>
+     </g>
+     <g id="text_4">
+      <text style="font-size: 9.5px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: middle; fill: #9a8872" x="313.329654" y="162.273109" transform="rotate(-0 313.329654 162.273109)">5</text>
+     </g>
+    </g>
+    <g id="xtick_5">
+     <g id="line2d_9">
+      <path d="M 381.616367 148.054594 
+L 381.616367 18.598594 
+" clip-path="url(#p55651e9af8)" style="fill: none; stroke: #2e251c; stroke-opacity: 0.7; stroke-width: 0.6; stroke-linecap: square"/>
+     </g>
+     <g id="line2d_10">
+      <g>
+       <use xlink:href="#m7141d3378c" x="381.616367" y="148.054594" style="fill: #9a8872; stroke: #9a8872; stroke-width: 0.9"/>
+      </g>
+     </g>
+     <g id="text_5">
+      <text style="font-size: 9.5px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: middle; fill: #9a8872" x="381.616367" y="162.273109" transform="rotate(-0 381.616367 162.273109)">10</text>
+     </g>
+    </g>
+    <g id="xtick_6">
+     <g id="line2d_11">
+      <path d="M 449.903081 148.054594 
+L 449.903081 18.598594 
+" clip-path="url(#p55651e9af8)" style="fill: none; stroke: #2e251c; stroke-opacity: 0.7; stroke-width: 0.6; stroke-linecap: square"/>
+     </g>
+     <g id="line2d_12">
+      <g>
+       <use xlink:href="#m7141d3378c" x="449.903081" y="148.054594" style="fill: #9a8872; stroke: #9a8872; stroke-width: 0.9"/>
+      </g>
+     </g>
+     <g id="text_6">
+      <text style="font-size: 9.5px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: middle; fill: #9a8872" x="449.903081" y="162.273109" transform="rotate(-0 449.903081 162.273109)">15</text>
+     </g>
+    </g>
+    <g id="text_7">
+     <text style="font-size: 9.5px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: middle; fill: #cbbca6" x="286.014969" y="175.467328" transform="rotate(-0 286.014969 175.467328)">flux range at 100% of optimal growth  (mmol gDW⁻¹ h⁻¹)</text>
+    </g>
+   </g>
+   <g id="matplotlib.axis_2">
+    <g id="ytick_1">
+     <g id="line2d_13">
+      <defs>
+       <path id="m0ab79411f7" d="M 0 0 
+L -3.5 0 
+" style="stroke: #9a8872; stroke-width: 0.9"/>
+      </defs>
+      <g>
+       <use xlink:href="#m0ab79411f7" x="90.714969" y="24.482957" style="fill: #9a8872; stroke: #9a8872; stroke-width: 0.9"/>
+      </g>
+     </g>
+     <g id="text_8">
+      <text style="font-size: 8.6px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: end; fill: #9a8872" x="83.714969" y="27.750286" transform="rotate(-0 83.714969 27.750286)">glucose uptake</text>
+     </g>
+    </g>
+    <g id="ytick_2">
+     <g id="line2d_14">
+      <g>
+       <use xlink:href="#m0ab79411f7" x="90.714969" y="37.559321" style="fill: #9a8872; stroke: #9a8872; stroke-width: 0.9"/>
+      </g>
+     </g>
+     <g id="text_9">
+      <text style="font-size: 8.6px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: end; fill: #9a8872" x="83.714969" y="40.826649" transform="rotate(-0 83.714969 40.826649)">PGI</text>
+     </g>
+    </g>
+    <g id="ytick_3">
+     <g id="line2d_15">
+      <g>
+       <use xlink:href="#m0ab79411f7" x="90.714969" y="50.635685" style="fill: #9a8872; stroke: #9a8872; stroke-width: 0.9"/>
+      </g>
+     </g>
+     <g id="text_10">
+      <text style="font-size: 8.6px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: end; fill: #9a8872" x="83.714969" y="53.903013" transform="rotate(-0 83.714969 53.903013)">PFK</text>
+     </g>
+    </g>
+    <g id="ytick_4">
+     <g id="line2d_16">
+      <g>
+       <use xlink:href="#m0ab79411f7" x="90.714969" y="63.712048" style="fill: #9a8872; stroke: #9a8872; stroke-width: 0.9"/>
+      </g>
+     </g>
+     <g id="text_11">
+      <text style="font-size: 8.6px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: end; fill: #9a8872" x="83.714969" y="66.979376" transform="rotate(-0 83.714969 66.979376)">GAPDH</text>
+     </g>
+    </g>
+    <g id="ytick_5">
+     <g id="line2d_17">
+      <g>
+       <use xlink:href="#m0ab79411f7" x="90.714969" y="76.788412" style="fill: #9a8872; stroke: #9a8872; stroke-width: 0.9"/>
+      </g>
+     </g>
+     <g id="text_12">
+      <text style="font-size: 8.6px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: end; fill: #9a8872" x="83.714969" y="80.05574" transform="rotate(-0 83.714969 80.05574)">pyruvate kinase</text>
+     </g>
+    </g>
+    <g id="ytick_6">
+     <g id="line2d_18">
+      <g>
+       <use xlink:href="#m0ab79411f7" x="90.714969" y="89.864776" style="fill: #9a8872; stroke: #9a8872; stroke-width: 0.9"/>
+      </g>
+     </g>
+     <g id="text_13">
+      <text style="font-size: 8.6px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: end; fill: #9a8872" x="83.714969" y="93.132104" transform="rotate(-0 83.714969 93.132104)">PDH</text>
+     </g>
+    </g>
+    <g id="ytick_7">
+     <g id="line2d_19">
+      <g>
+       <use xlink:href="#m0ab79411f7" x="90.714969" y="102.941139" style="fill: #9a8872; stroke: #9a8872; stroke-width: 0.9"/>
+      </g>
+     </g>
+     <g id="text_14">
+      <text style="font-size: 8.6px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: end; fill: #9a8872" x="83.714969" y="106.208467" transform="rotate(-0 83.714969 106.208467)">citrate synthase</text>
+     </g>
+    </g>
+    <g id="ytick_8">
+     <g id="line2d_20">
+      <g>
+       <use xlink:href="#m0ab79411f7" x="90.714969" y="116.017503" style="fill: #9a8872; stroke: #9a8872; stroke-width: 0.9"/>
+      </g>
+     </g>
+     <g id="text_15">
+      <text style="font-size: 8.6px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: end; fill: #9a8872" x="83.714969" y="119.284831" transform="rotate(-0 83.714969 119.284831)">transhydrogenase</text>
+     </g>
+    </g>
+    <g id="ytick_9">
+     <g id="line2d_21">
+      <g>
+       <use xlink:href="#m0ab79411f7" x="90.714969" y="129.093866" style="fill: #9a8872; stroke: #9a8872; stroke-width: 0.9"/>
+      </g>
+     </g>
+     <g id="text_16">
+      <text style="font-size: 8.6px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: end; fill: #9a8872" x="83.714969" y="132.361195" transform="rotate(-0 83.714969 132.361195)">NADH dh II</text>
+     </g>
+    </g>
+    <g id="ytick_10">
+     <g id="line2d_22">
+      <g>
+       <use xlink:href="#m0ab79411f7" x="90.714969" y="142.17023" style="fill: #9a8872; stroke: #9a8872; stroke-width: 0.9"/>
+      </g>
+     </g>
+     <g id="text_17">
+      <text style="font-size: 8.6px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: end; fill: #9a8872" x="83.714969" y="145.437558" transform="rotate(-0 83.714969 145.437558)">acetate exchange</text>
+     </g>
+    </g>
+   </g>
+   <g id="line2d_23">
+    <defs>
+     <path id="m2e41d5c253" d="M 0 3.25 
+C 0.86191 3.25 1.688635 2.907559 2.298097 2.298097 
+C 2.907559 1.688635 3.25 0.86191 3.25 0 
+C 3.25 -0.86191 2.907559 -1.688635 2.298097 -2.298097 
+C 1.688635 -2.907559 0.86191 -3.25 0 -3.25 
+C -0.86191 -3.25 -1.688635 -2.907559 -2.298097 -2.298097 
+C -2.907559 -1.688635 -3.25 -0.86191 -3.25 0 
+C -3.25 0.86191 -2.907559 1.688635 -2.298097 2.298097 
+C -1.688635 2.907559 -0.86191 3.25 0 3.25 
+z
+" style="stroke: #6dbdac"/>
+    </defs>
+    <g clip-path="url(#p55651e9af8)">
+     <use xlink:href="#m2e41d5c253" x="108.469514" y="24.482957" style="fill: #6dbdac; stroke: #6dbdac"/>
+    </g>
+   </g>
+   <g id="line2d_24">
+    <g clip-path="url(#p55651e9af8)">
+     <use xlink:href="#m2e41d5c253" x="302.40378" y="37.559321" style="fill: #6dbdac; stroke: #6dbdac"/>
+    </g>
+   </g>
+   <g id="line2d_25">
+    <g clip-path="url(#p55651e9af8)">
+     <use xlink:href="#m2e41d5c253" x="337.912871" y="50.635685" style="fill: #6dbdac; stroke: #6dbdac"/>
+    </g>
+   </g>
+   <g id="line2d_26">
+    <g clip-path="url(#p55651e9af8)">
+     <use xlink:href="#m2e41d5c253" x="463.560423" y="63.712048" style="fill: #6dbdac; stroke: #6dbdac"/>
+    </g>
+   </g>
+   <g id="line2d_27">
+    <path d="M 264.16322 76.788412 
+L 378.884899 76.788412 
+" clip-path="url(#p55651e9af8)" style="fill: none; stroke: #d7a95c; stroke-opacity: 0.6; stroke-width: 5.5; stroke-linecap: round"/>
+   </g>
+   <g id="line2d_28">
+    <defs>
+     <path id="m470fd8bf67" d="M 0 4.5 
+L 0 -4.5 
+" style="stroke: #d7a95c"/>
+    </defs>
+    <g clip-path="url(#p55651e9af8)">
+     <use xlink:href="#m470fd8bf67" x="264.16322" y="76.788412" style="fill: #d7a95c; stroke: #d7a95c"/>
+     <use xlink:href="#m470fd8bf67" x="378.884899" y="76.788412" style="fill: #d7a95c; stroke: #d7a95c"/>
+    </g>
+   </g>
+   <g id="line2d_29">
+    <g clip-path="url(#p55651e9af8)">
+     <use xlink:href="#m2e41d5c253" x="362.496088" y="89.864776" style="fill: #6dbdac; stroke: #6dbdac"/>
+    </g>
+   </g>
+   <g id="line2d_30">
+    <path d="M 245.042941 102.941139 
+L 332.449934 102.941139 
+" clip-path="url(#p55651e9af8)" style="fill: none; stroke: #d7a95c; stroke-opacity: 0.6; stroke-width: 5.5; stroke-linecap: round"/>
+   </g>
+   <g id="line2d_31">
+    <g clip-path="url(#p55651e9af8)">
+     <use xlink:href="#m470fd8bf67" x="245.042941" y="102.941139" style="fill: #d7a95c; stroke: #d7a95c"/>
+     <use xlink:href="#m470fd8bf67" x="332.449934" y="102.941139" style="fill: #d7a95c; stroke: #d7a95c"/>
+    </g>
+   </g>
+   <g id="line2d_32">
+    <path d="M 245.042941 116.017503 
+L 408.931053 116.017503 
+" clip-path="url(#p55651e9af8)" style="fill: none; stroke: #d7a95c; stroke-opacity: 0.6; stroke-width: 5.5; stroke-linecap: round"/>
+   </g>
+   <g id="line2d_33">
+    <g clip-path="url(#p55651e9af8)">
+     <use xlink:href="#m470fd8bf67" x="245.042941" y="116.017503" style="fill: #d7a95c; stroke: #d7a95c"/>
+     <use xlink:href="#m470fd8bf67" x="408.931053" y="116.017503" style="fill: #d7a95c; stroke: #d7a95c"/>
+    </g>
+   </g>
+   <g id="line2d_34">
+    <path d="M 245.042941 129.093866 
+L 443.074409 129.093866 
+" clip-path="url(#p55651e9af8)" style="fill: none; stroke: #d7a95c; stroke-opacity: 0.6; stroke-width: 5.5; stroke-linecap: round"/>
+   </g>
+   <g id="line2d_35">
+    <g clip-path="url(#p55651e9af8)">
+     <use xlink:href="#m470fd8bf67" x="245.042941" y="129.093866" style="fill: #d7a95c; stroke: #d7a95c"/>
+     <use xlink:href="#m470fd8bf67" x="443.074409" y="129.093866" style="fill: #d7a95c; stroke: #d7a95c"/>
+    </g>
+   </g>
+   <g id="line2d_36">
+    <path d="M 245.042941 142.17023 
+L 357.033151 142.17023 
+" clip-path="url(#p55651e9af8)" style="fill: none; stroke: #d7a95c; stroke-opacity: 0.6; stroke-width: 5.5; stroke-linecap: round"/>
+   </g>
+   <g id="line2d_37">
+    <g clip-path="url(#p55651e9af8)">
+     <use xlink:href="#m470fd8bf67" x="245.042941" y="142.17023" style="fill: #d7a95c; stroke: #d7a95c"/>
+     <use xlink:href="#m470fd8bf67" x="357.033151" y="142.17023" style="fill: #d7a95c; stroke: #d7a95c"/>
+    </g>
+   </g>
+   <g id="line2d_38">
+    <path d="M 245.042941 148.054594 
+L 245.042941 18.598594 
+" clip-path="url(#p55651e9af8)" style="fill: none; stroke: #3a3026; stroke-width: 0.9; stroke-linecap: square"/>
+   </g>
+   <g id="line2d_39"/>
+   <g id="line2d_40"/>
+   <g id="patch_3">
+    <path d="M 90.714969 148.054594 
+L 90.714969 18.598594 
+" style="fill: none; stroke: #3a3026; stroke-width: 0.9; stroke-linejoin: miter; stroke-linecap: square"/>
+   </g>
+   <g id="patch_4">
+    <path d="M 90.714969 148.054594 
+L 481.314969 148.054594 
+" style="fill: none; stroke: #3a3026; stroke-width: 0.9; stroke-linejoin: miter; stroke-linecap: square"/>
+   </g>
+   <g id="text_18">
+    <text style="font-size: 9px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: start; fill: #9a8872" x="90.714969" y="12.598594" transform="rotate(-0 90.714969 12.598594)">Illustrative values. The fixed reactions are the conclusions; the wide ones are where the model cannot choose</text>
+   </g>
+   <g id="legend_1">
+    <g id="line2d_41">
+     <g>
+      <use xlink:href="#m2e41d5c253" x="139.604281" y="181.064801" style="fill: #6dbdac; stroke: #6dbdac"/>
+     </g>
+    </g>
+    <g id="text_19">
+     <text style="font-size: 8.4px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: start; fill: #cbbca6" x="154.724281" y="184.004801" transform="rotate(-0 154.724281 184.004801)">fixed by the constraints</text>
+    </g>
+    <g id="line2d_42">
+     <path d="M 270.801781 181.064801 
+L 279.201781 181.064801 
+L 287.601781 181.064801 
+" style="fill: none; stroke: #d7a95c; stroke-opacity: 0.6; stroke-width: 5.5; stroke-linecap: square"/>
+    </g>
+    <g id="text_20">
+     <text style="font-size: 8.4px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: start; fill: #cbbca6" x="294.321781" y="184.004801" transform="rotate(-0 294.321781 184.004801)">degenerate: range at the optimum</text>
+    </g>
+   </g>
+  </g>
+  <g id="text_21">
+   <text style="font-size: 8.3px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: start; fill: #9a8872" x="33.762969" y="239.566594" transform="rotate(-0 33.762969 239.566594)">A range that includes zero means the model cannot say whether the reaction carries flux. Labelling resolves it; FVA only reports that it is unresolved.</text>
+  </g>
+ </g>
+ <defs>
+  <clipPath id="p55651e9af8">
+   <rect x="90.714969" y="18.598594" width="390.6" height="129.456"/>
+  </clipPath>
+ </defs>
+</svg>
+</div><figcaption>Reactions with zero-width intervals are fixed by the constraints and are the real conclusions; wide intervals mark where the model cannot choose between routes of equal stoichiometric cost. A range spanning zero means the model cannot say whether the reaction carries flux at all.</figcaption></figure>
+<p>FVA maximises and minimises each reaction&#x27;s flux subject to holding the objective at or near its optimum, giving an interval per reaction. Read the pattern rather than individual numbers. Reactions with a zero-width interval are fixed by the constraints: those are the real conclusions. Reactions with a wide interval are degenerate, and a reaction whose interval includes zero may or may not carry flux in vivo — the model cannot say. Running FVA at 100% and again at 90% of optimum tells you how flat the landscape is; a large increase in variability for a 10% objective relaxation means the optimum is a plateau, and so is barely an optimum.</p>
+<p><strong>3. Parsimonious FBA and the enzyme-cost argument</strong></p>
+<figure class="fig"><div class="figtitle">Figure 24.3 — Why mass balance permits the impossible</div><div class="fig-light"><svg role="img" aria-label="A closed cycle with no exchange satisfies S·v = 0 at any flux, because every metabolite is produced and consumed internally. It is nonetheless impossible, since ΔrG′ sums to zero around any cycle and strictly negative values cannot." xmlns:xlink="http://www.w3.org/1999/xlink" width="768.692687pt" height="180.790141pt" viewBox="0 0 768.692687 180.790141" xmlns="http://www.w3.org/2000/svg" version="1.1">
+ <metadata>
+  <rdf:RDF xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:cc="http://creativecommons.org/ns#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+   <cc:Work>
+    <dc:type rdf:resource="http://purl.org/dc/dcmitype/StillImage"/>
+    <dc:date>2026-11-02T23:57:48.412634</dc:date>
+    <dc:format>image/svg+xml</dc:format>
+    <dc:creator>
+     <cc:Agent>
+      <dc:title>Matplotlib v3.10.8, https://matplotlib.org/</dc:title>
+     </cc:Agent>
+    </dc:creator>
+   </cc:Work>
+  </rdf:RDF>
+ </metadata>
+ <defs>
+  <style type="text/css">*{stroke-linejoin: round; stroke-linecap: butt}</style>
+ </defs>
+ <g id="figure_1">
+  <g id="patch_1">
+   <path d="M 0 180.790141 
+L 768.692687 180.790141 
+L 768.692687 0 
+L 0 0 
+L 0 180.790141 
+z
+" style="fill: none"/>
+  </g>
+  <g id="axes_1">
+   <g id="patch_2">
+    <path d="M 137.81448 66.30048 
+L 200.57832 66.30048 
+Q 206.3592 66.30048 206.3592 64.282464 
+L 206.3592 52.462656 
+Q 206.3592 50.44464 200.57832 50.44464 
+L 137.81448 50.44464 
+Q 132.0336 50.44464 132.0336 52.462656 
+L 132.0336 64.282464 
+Q 132.0336 66.30048 137.81448 66.30048 
+z
+" clip-path="url(#pda6f1f2cac)" style="fill: #f1e9da; stroke: #8a5f1b; stroke-width: 1.2; stroke-linejoin: miter"/>
+   </g>
+   <g id="patch_3">
+    <path d="M 253.43208 121.0752 
+L 316.19592 121.0752 
+Q 321.9768 121.0752 321.9768 119.057184 
+L 321.9768 107.237376 
+Q 321.9768 105.21936 316.19592 105.21936 
+L 253.43208 105.21936 
+Q 247.6512 105.21936 247.6512 107.237376 
+L 247.6512 119.057184 
+Q 247.6512 121.0752 253.43208 121.0752 
+z
+" clip-path="url(#pda6f1f2cac)" style="fill: #f1e9da; stroke: #8a5f1b; stroke-width: 1.2; stroke-linejoin: miter"/>
+   </g>
+   <g id="patch_4">
+    <path d="M 96.52248 121.0752 
+L 159.28632 121.0752 
+Q 165.0672 121.0752 165.0672 119.057184 
+L 165.0672 107.237376 
+Q 165.0672 105.21936 159.28632 105.21936 
+L 96.52248 105.21936 
+Q 90.7416 105.21936 90.7416 107.237376 
+L 90.7416 119.057184 
+Q 90.7416 121.0752 96.52248 121.0752 
+z
+" clip-path="url(#pda6f1f2cac)" style="fill: #f1e9da; stroke: #8a5f1b; stroke-width: 1.2; stroke-linejoin: miter"/>
+   </g>
+   <g id="patch_5">
+    <path d="M 160.938 67.74192 
+Q 145.4535 85.75992 130.697705 102.929988 
+" clip-path="url(#pda6f1f2cac)" style="fill: none; stroke: #8a5f1b; stroke-linecap: round"/>
+    <path d="M 134.409234 101.372891 
+L 130.697705 102.929988 
+L 131.678945 99.026506 
+z
+" clip-path="url(#pda6f1f2cac)" style="fill: #8a5f1b; stroke: #8a5f1b; stroke-linecap: round"/>
+   </g>
+   <g id="patch_6">
+    <path d="M 167.1318 113.14728 
+Q 206.3592 113.14728 244.468566 113.14728 
+" clip-path="url(#pda6f1f2cac)" style="fill: none; stroke: #8a5f1b; stroke-linecap: round"/>
+    <path d="M 240.868566 111.34728 
+L 244.468566 113.14728 
+L 240.868566 114.94728 
+z
+" clip-path="url(#pda6f1f2cac)" style="fill: #8a5f1b; stroke: #8a5f1b; stroke-linecap: round"/>
+   </g>
+   <g id="patch_7">
+    <path d="M 280.6848 105.21936 
+Q 233.199 85.75992 186.747738 66.724428 
+" clip-path="url(#pda6f1f2cac)" style="fill: none; stroke: #8a5f1b; stroke-linecap: round"/>
+    <path d="M 189.396341 69.755088 
+L 186.747738 66.724428 
+L 190.761428 66.423942 
+z
+" clip-path="url(#pda6f1f2cac)" style="fill: #8a5f1b; stroke: #8a5f1b; stroke-linecap: round"/>
+   </g>
+   <g id="text_1">
+    <text style="font-weight: 700; font-size: 10px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: middle; fill: #211a12" x="169.1964" y="61.131935" transform="rotate(-0 169.1964 61.131935)">X</text>
+   </g>
+   <g id="text_2">
+    <text style="font-weight: 700; font-size: 10px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: middle; fill: #211a12" x="284.814" y="115.906655" transform="rotate(-0 284.814 115.906655)">Y</text>
+   </g>
+   <g id="text_3">
+    <text style="font-weight: 700; font-size: 10px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: middle; fill: #211a12" x="127.9044" y="115.906655" transform="rotate(-0 127.9044 115.906655)">Z</text>
+   </g>
+   <g id="text_4">
+    <text style="font-weight: 700; font-size: 9.6px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: start; fill: #211a12" x="74.2248" y="19.90302" transform="rotate(-0 74.2248 19.90302)">A loop satisfies mass balance and violates thermodynamics</text>
+   </g>
+   <g id="text_5">
+    <text style="font-size: 8.4px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: start; fill: #8a5f1b" x="90.7416" y="88.798515" transform="rotate(-0 90.7416 88.798515)">v₁</text>
+   </g>
+   <g id="text_6">
+    <text style="font-size: 8.4px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: start; fill: #8a5f1b" x="202.23" y="126.275955" transform="rotate(-0 202.23 126.275955)">v₂</text>
+   </g>
+   <g id="text_7">
+    <text style="font-size: 8.4px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: start; fill: #8a5f1b" x="247.6512" y="83.032755" transform="rotate(-0 247.6512 83.032755)">v₃</text>
+   </g>
+   <g id="text_8">
+    <text style="font-size: 8.2px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: start; fill: #4a3c2c" x="338.4936" y="62.797408" transform="rotate(-0 338.4936 62.797408)">Mass balance: every metabolite is produced and</text>
+   </g>
+   <g id="text_9">
+    <text style="font-size: 8.2px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: start; fill: #4a3c2c" x="338.4936" y="72.887488" transform="rotate(-0 338.4936 72.887488)">consumed inside the loop, so S·v = 0 holds at</text>
+   </g>
+   <g id="text_10">
+    <text style="font-size: 8.2px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: start; fill: #4a3c2c" x="338.4936" y="82.977568" transform="rotate(-0 338.4936 82.977568)">any loop flux, including a large one.</text>
+   </g>
+   <g id="text_11">
+    <text style="font-size: 8.2px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: start; fill: #a4503a" x="338.4936" y="98.833408" transform="rotate(-0 338.4936 98.833408)">Thermodynamics: ΔrG′ is a state function, so it</text>
+   </g>
+   <g id="text_12">
+    <text style="font-size: 8.2px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: start; fill: #a4503a" x="338.4936" y="108.923488" transform="rotate(-0 338.4936 108.923488)">sums to exactly zero around the cycle. Strictly</text>
+   </g>
+   <g id="text_13">
+    <text style="font-size: 8.2px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: start; fill: #a4503a" x="338.4936" y="119.013568" transform="rotate(-0 338.4936 119.013568)">negative values cannot sum to zero, so at least</text>
+   </g>
+   <g id="text_14">
+    <text style="font-size: 8.2px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: start; fill: #a4503a" x="338.4936" y="129.103648" transform="rotate(-0 338.4936 129.103648)">one step runs against its own gradient.</text>
+   </g>
+   <g id="text_15">
+    <text style="font-style: italic; font-size: 7.8px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: start; fill: #8a7458" x="74.2248" y="143.407673" transform="rotate(-0 74.2248 143.407673)">No exchange reactions: nothing enters or leaves. The cycle is invisible to every external measurement.</text>
+   </g>
+  </g>
+  <g id="text_16">
+   <text style="font-size: 8.3px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: start; fill: #8a7458" x="5.76" y="173.304" transform="rotate(-0 5.76 173.304)">Remedies: loopless FBA adds integer direction constraints; thermodynamics-based flux analysis carries ΔrG′ explicitly. pFBA removes most loops incidentally and guarantees nothing.</text>
+  </g>
+ </g>
+ <defs>
+  <clipPath id="pda6f1f2cac">
+   <rect x="65.9664" y="5.76" width="412.92" height="144.144"/>
+  </clipPath>
+ </defs>
+</svg>
+</div><div class="fig-dark"><svg role="img" aria-label="A closed cycle with no exchange satisfies S·v = 0 at any flux, because every metabolite is produced and consumed internally. It is nonetheless impossible, since ΔrG′ sums to zero around any cycle and strictly negative values cannot." xmlns:xlink="http://www.w3.org/1999/xlink" width="768.692687pt" height="180.790141pt" viewBox="0 0 768.692687 180.790141" xmlns="http://www.w3.org/2000/svg" version="1.1">
+ <metadata>
+  <rdf:RDF xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:cc="http://creativecommons.org/ns#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+   <cc:Work>
+    <dc:type rdf:resource="http://purl.org/dc/dcmitype/StillImage"/>
+    <dc:date>2026-11-02T23:57:48.440458</dc:date>
+    <dc:format>image/svg+xml</dc:format>
+    <dc:creator>
+     <cc:Agent>
+      <dc:title>Matplotlib v3.10.8, https://matplotlib.org/</dc:title>
+     </cc:Agent>
+    </dc:creator>
+   </cc:Work>
+  </rdf:RDF>
+ </metadata>
+ <defs>
+  <style type="text/css">*{stroke-linejoin: round; stroke-linecap: butt}</style>
+ </defs>
+ <g id="figure_1">
+  <g id="patch_1">
+   <path d="M 0 180.790141 
+L 768.692687 180.790141 
+L 768.692687 0 
+L 0 0 
+L 0 180.790141 
+z
+" style="fill: none"/>
+  </g>
+  <g id="axes_1">
+   <g id="patch_2">
+    <path d="M 137.81448 66.30048 
+L 200.57832 66.30048 
+Q 206.3592 66.30048 206.3592 64.282464 
+L 206.3592 52.462656 
+Q 206.3592 50.44464 200.57832 50.44464 
+L 137.81448 50.44464 
+Q 132.0336 50.44464 132.0336 52.462656 
+L 132.0336 64.282464 
+Q 132.0336 66.30048 137.81448 66.30048 
+z
+" clip-path="url(#p9743e07113)" style="fill: #241c12; stroke: #d7a95c; stroke-width: 1.2; stroke-linejoin: miter"/>
+   </g>
+   <g id="patch_3">
+    <path d="M 253.43208 121.0752 
+L 316.19592 121.0752 
+Q 321.9768 121.0752 321.9768 119.057184 
+L 321.9768 107.237376 
+Q 321.9768 105.21936 316.19592 105.21936 
+L 253.43208 105.21936 
+Q 247.6512 105.21936 247.6512 107.237376 
+L 247.6512 119.057184 
+Q 247.6512 121.0752 253.43208 121.0752 
+z
+" clip-path="url(#p9743e07113)" style="fill: #241c12; stroke: #d7a95c; stroke-width: 1.2; stroke-linejoin: miter"/>
+   </g>
+   <g id="patch_4">
+    <path d="M 96.52248 121.0752 
+L 159.28632 121.0752 
+Q 165.0672 121.0752 165.0672 119.057184 
+L 165.0672 107.237376 
+Q 165.0672 105.21936 159.28632 105.21936 
+L 96.52248 105.21936 
+Q 90.7416 105.21936 90.7416 107.237376 
+L 90.7416 119.057184 
+Q 90.7416 121.0752 96.52248 121.0752 
+z
+" clip-path="url(#p9743e07113)" style="fill: #241c12; stroke: #d7a95c; stroke-width: 1.2; stroke-linejoin: miter"/>
+   </g>
+   <g id="patch_5">
+    <path d="M 160.938 67.74192 
+Q 145.4535 85.75992 130.697705 102.929988 
+" clip-path="url(#p9743e07113)" style="fill: none; stroke: #d7a95c; stroke-linecap: round"/>
+    <path d="M 134.409234 101.372891 
+L 130.697705 102.929988 
+L 131.678945 99.026506 
+z
+" clip-path="url(#p9743e07113)" style="fill: #d7a95c; stroke: #d7a95c; stroke-linecap: round"/>
+   </g>
+   <g id="patch_6">
+    <path d="M 167.1318 113.14728 
+Q 206.3592 113.14728 244.468566 113.14728 
+" clip-path="url(#p9743e07113)" style="fill: none; stroke: #d7a95c; stroke-linecap: round"/>
+    <path d="M 240.868566 111.34728 
+L 244.468566 113.14728 
+L 240.868566 114.94728 
+z
+" clip-path="url(#p9743e07113)" style="fill: #d7a95c; stroke: #d7a95c; stroke-linecap: round"/>
+   </g>
+   <g id="patch_7">
+    <path d="M 280.6848 105.21936 
+Q 233.199 85.75992 186.747738 66.724428 
+" clip-path="url(#p9743e07113)" style="fill: none; stroke: #d7a95c; stroke-linecap: round"/>
+    <path d="M 189.396341 69.755088 
+L 186.747738 66.724428 
+L 190.761428 66.423942 
+z
+" clip-path="url(#p9743e07113)" style="fill: #d7a95c; stroke: #d7a95c; stroke-linecap: round"/>
+   </g>
+   <g id="text_1">
+    <text style="font-weight: 700; font-size: 10px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: middle; fill: #f1e9dc" x="169.1964" y="61.131935" transform="rotate(-0 169.1964 61.131935)">X</text>
+   </g>
+   <g id="text_2">
+    <text style="font-weight: 700; font-size: 10px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: middle; fill: #f1e9dc" x="284.814" y="115.906655" transform="rotate(-0 284.814 115.906655)">Y</text>
+   </g>
+   <g id="text_3">
+    <text style="font-weight: 700; font-size: 10px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: middle; fill: #f1e9dc" x="127.9044" y="115.906655" transform="rotate(-0 127.9044 115.906655)">Z</text>
+   </g>
+   <g id="text_4">
+    <text style="font-weight: 700; font-size: 9.6px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: start; fill: #f1e9dc" x="74.2248" y="19.90302" transform="rotate(-0 74.2248 19.90302)">A loop satisfies mass balance and violates thermodynamics</text>
+   </g>
+   <g id="text_5">
+    <text style="font-size: 8.4px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: start; fill: #d7a95c" x="90.7416" y="88.798515" transform="rotate(-0 90.7416 88.798515)">v₁</text>
+   </g>
+   <g id="text_6">
+    <text style="font-size: 8.4px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: start; fill: #d7a95c" x="202.23" y="126.275955" transform="rotate(-0 202.23 126.275955)">v₂</text>
+   </g>
+   <g id="text_7">
+    <text style="font-size: 8.4px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: start; fill: #d7a95c" x="247.6512" y="83.032755" transform="rotate(-0 247.6512 83.032755)">v₃</text>
+   </g>
+   <g id="text_8">
+    <text style="font-size: 8.2px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: start; fill: #cbbca6" x="338.4936" y="62.797408" transform="rotate(-0 338.4936 62.797408)">Mass balance: every metabolite is produced and</text>
+   </g>
+   <g id="text_9">
+    <text style="font-size: 8.2px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: start; fill: #cbbca6" x="338.4936" y="72.887488" transform="rotate(-0 338.4936 72.887488)">consumed inside the loop, so S·v = 0 holds at</text>
+   </g>
+   <g id="text_10">
+    <text style="font-size: 8.2px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: start; fill: #cbbca6" x="338.4936" y="82.977568" transform="rotate(-0 338.4936 82.977568)">any loop flux, including a large one.</text>
+   </g>
+   <g id="text_11">
+    <text style="font-size: 8.2px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: start; fill: #d98c72" x="338.4936" y="98.833408" transform="rotate(-0 338.4936 98.833408)">Thermodynamics: ΔrG′ is a state function, so it</text>
+   </g>
+   <g id="text_12">
+    <text style="font-size: 8.2px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: start; fill: #d98c72" x="338.4936" y="108.923488" transform="rotate(-0 338.4936 108.923488)">sums to exactly zero around the cycle. Strictly</text>
+   </g>
+   <g id="text_13">
+    <text style="font-size: 8.2px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: start; fill: #d98c72" x="338.4936" y="119.013568" transform="rotate(-0 338.4936 119.013568)">negative values cannot sum to zero, so at least</text>
+   </g>
+   <g id="text_14">
+    <text style="font-size: 8.2px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: start; fill: #d98c72" x="338.4936" y="129.103648" transform="rotate(-0 338.4936 129.103648)">one step runs against its own gradient.</text>
+   </g>
+   <g id="text_15">
+    <text style="font-style: italic; font-size: 7.8px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: start; fill: #9a8872" x="74.2248" y="143.407673" transform="rotate(-0 74.2248 143.407673)">No exchange reactions: nothing enters or leaves. The cycle is invisible to every external measurement.</text>
+   </g>
+  </g>
+  <g id="text_16">
+   <text style="font-size: 8.3px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: start; fill: #9a8872" x="5.76" y="173.304" transform="rotate(-0 5.76 173.304)">Remedies: loopless FBA adds integer direction constraints; thermodynamics-based flux analysis carries ΔrG′ explicitly. pFBA removes most loops incidentally and guarantees nothing.</text>
+  </g>
+ </g>
+ <defs>
+  <clipPath id="p9743e07113">
+   <rect x="65.9664" y="5.76" width="412.92" height="144.144"/>
+  </clipPath>
+ </defs>
+</svg>
+</div><figcaption>A closed cycle with no exchange satisfies S·v = 0 at any flux, because every metabolite is produced and consumed internally. It is nonetheless impossible, since ΔrG′ sums to zero around any cycle and strictly negative values cannot.</figcaption></figure>
+<p>pFBA selects, among all optimal solutions, the one minimising the sum of absolute fluxes. The justification is that total flux is a rough proxy for total enzyme investment, so the parsimonious solution is the one a proteome-limited cell would prefer. It is a reasonable heuristic with two useful side effects: it removes most internal loops, since a loop adds flux without objective value, and it returns a single reproducible solution rather than an arbitrary one. It is not a thermodynamic guarantee, and it should be described as a heuristic rather than as a correction.</p>
+<p><strong>4. Loops: why mass balance permits the impossible</strong></p>
+<p>A set of reactions forming a closed cycle with no net exchange satisfies S·v = 0 at any loop flux, because every metabolite is produced and consumed within the loop. It is nonetheless impossible: Gibbs energy is a state function, so the sum of ΔrG′ around a closed loop is exactly zero, and a set of strictly negative values cannot sum to zero. Therefore at least one reaction in the loop must be running against its own gradient. The remedies are loopless FBA, which adds integer constraints forcing a thermodynamically consistent set of directions at the cost of a mixed-integer program, and thermodynamics-based flux analysis, which carries concentration variables and ΔrG′ constraints explicitly at the cost of needing data that does not exist for every metabolite.</p>
+<p><strong>5. Flux coupling, which tells you about structure rather than state</strong></p>
+<p>Two reactions are fully coupled if a non-zero flux in one implies a fixed ratio in the other, directionally coupled if one implies the other is non-zero, and partially coupled if the ratio is bounded. Coupling is a property of the network and the bounds, not of a particular solution, which makes it more durable than a flux distribution. Practically it identifies correlated reaction sets, which behave as single units for engineering purposes: deleting one member of a fully coupled set has the same effect as deleting any other, and no intervention can change their ratio.</p>
+<p><strong>6. MOMA and ROOM: what a cell does immediately after a knockout</strong></p>
+<p>Growth maximisation is an evolutionary argument and applies to an organism that has had time to adapt. A freshly constructed knockout has not. MOMA instead finds the flux distribution closest, in Euclidean distance, to the wild-type one, on the argument that regulation has not been retuned; ROOM minimises the number of reactions whose flux changes significantly, on the argument that regulatory changes are discrete. Both predict knockout phenotypes better than growth maximisation for unevolved strains, and growth maximisation recovers its accuracy after adaptive evolution — a result worth knowing because it is one of the field&#x27;s cleanest validations of the optimality assumption&#x27;s domain.</p>
+<h3>Worked anchor</h3>
+<p>Diagnose a wide FVA interval.</p>
+<p>FVA at 100% of optimum returns a range of 0 to 22 mmol gDW⁻¹ h⁻¹ for a reaction. Work through it rather than concluding the reaction is unimportant.</p>
+<p>First, is it a loop? Run loopless FVA. If the range collapses to a narrow interval, the variability was a thermodynamically infeasible cycle and never meant anything.</p>
+<p>Second, is there a cheaper alternative? Run pFBA and see whether the reaction carries flux in the parsimonious solution. If it does not, an enzymatically cheaper route exists and the cell plausibly uses that one.</p>
+<p>Third, what is it coupled to? Compute flux coupling. If the reaction is in a correlated set with an alternative, you have found the specific competing route rather than a vague alternative.</p>
+<p>Fourth, how flat is the optimum? Rerun FVA at 90%. If the range widens substantially, the model has a plateau rather than a peak, and the objective is barely discriminating.</p>
+<p>Fifth, and only now: resolve it experimentally. A genuinely variable split between two routes is exactly what ¹³C labelling measures, which is why week 29 follows this one. The output of this analysis should be a stated experiment, not a conclusion.</p>
+<p><strong>Assumptions behind this calculation</strong></p>
+<ul>
+<li>the model structure is correct and the bounds are as set</li>
+<li>FVA run at 100% of the optimum</li>
+<li>the objective is the one the cell is assumed to optimise</li>
+</ul>
+<h3>Reading map</h3>
+<table><thead><tr><th>Source</th><th>Treatment</th><th>Why</th></tr></thead><tbody><tr><td>Lee Ch 2 §2.2.6 and §2.4</td><td>Read closely</td><td>Additional constraints and the key predictions constraint-based models make. The week&#x27;s core reading.</td></tr><tr><td>Lee Ch 7 §7.2.2–7.3</td><td>Read closely</td><td>Why S·v = 0 permits loops and what removing them requires. Short and directly needed.</td></tr><tr><td><a href="https://cobrapy.readthedocs.io/" target="_blank" rel="noopener">COBRApy — flux variability, loopless, deletions</a></td><td>Read closely</td><td>Doing: run FVA under three media, demonstrate a loop and remove it, and compare MOMA with growth maximisation.</td></tr><tr><td>Lee Ch 8 §8.2</td><td>Skim</td><td>Skim now for the framing; it becomes the primary text in week 26.</td></tr><tr><td>Palsson Ch 12–13 if your extract includes them</td><td>Skim</td><td>Pathway vectors and their use. If your copy stops at Ch 3, Lee Ch 2 covers the needed material.</td></tr></tbody></table>
+<h3>Common misconceptions</h3>
+<ul>
+<li>That the flux distribution a solver returns is the flux distribution. It is one arbitrary point among many whenever the optimum is degenerate, which is usually.</li>
+<li>That pFBA corrects loops. It removes most of them as a side effect of minimising flux; it guarantees nothing thermodynamically.</li>
+<li>That a wide FVA range means a reaction is dispensable. It means the model cannot distinguish two routes of equal cost; the cell may use one exclusively.</li>
+</ul>
+<h3>Check yourself before moving on</h3>
+<p><strong>Q.</strong> Why does S·v = 0 permit a thermodynamically impossible loop, and what are the two principled remedies?</p>
+<p><strong>A.</strong> Mass balance constrains stoichiometry, not direction: a closed cycle produces and consumes each of its metabolites internally, so every row of S·v = 0 is satisfied at any loop flux. It is impossible because Gibbs energy is a state function, so ΔrG′ around a closed loop sums to exactly zero and strictly negative values cannot. The remedies are loopless FBA, adding integer constraints that force a consistent direction assignment, and thermodynamics-based flux analysis, carrying metabolite concentrations and ΔrG′ explicitly. pFBA removes most loops incidentally but guarantees nothing.</p>
+<p><strong>Q.</strong> When is MOMA the appropriate objective rather than growth maximisation, and what evidence supports the distinction?</p>
+<p><strong>A.</strong> For a freshly constructed knockout that has not had time to adapt, because growth maximisation assumes an evolutionary optimisation the strain has not undergone, whereas MOMA assumes regulation has not been retuned and the flux distribution stays close to wild type. The supporting evidence is that MOMA predicts unevolved knockout phenotypes better, while growth maximisation recovers accuracy after adaptive laboratory evolution — which both validates the optimality assumption and delimits where it applies.</p>
+<p><strong>Q.</strong> FVA at 100% of optimum gives a reaction a range of 0 to 20. Give the four checks before drawing any conclusion.</p>
+<p><strong>A.</strong> Run loopless FVA to test whether the variability is a thermodynamically infeasible cycle; run pFBA to see whether the reaction carries flux in the enzymatically cheapest solution; compute flux coupling to identify the specific competing route rather than a vague alternative; and rerun FVA at 90% of optimum to see whether the landscape is a plateau rather than a peak. If the range survives all four, the split is genuinely unresolved by the model and the next step is a ¹³C labelling experiment, not a conclusion.</p>
+<hr>
+
+<section class="study-transfer" aria-label="Week 24 application and teach-back">
+<h3>Apply it to your fermentation experience</h3>
+<p><strong>Transfer prompt.</strong> For a model of your fermentation organism, compare flux variability or alternate optima. What extra measurement could narrow the feasible flux range?</p>
+<p class="meta">Use your actual thesis methods and results where you remember them. Mark missing information as unknown; do not assume the organisms were co-cultured, that a metabolite was measured, or that a proposed mechanism was demonstrated.</p>
+<h3>Teach it back</h3>
+<p>Explain the week's concept from memory, work one number, and name one boundary. Then use the <a href="teach-back.html">five-minute teach-back protocol</a> and log it in the tracker.</p>
+</section>
+<nav class="weeknav" aria-label="Week navigation"><a href="week-23.html">&#8592; Week 23</a><a class="idx" href="index.html">Lecture index</a><a class="idx" href="case-study.html">Case study</a><a href="week-25.html">Week 25 &#8594;</a></nav>
+</main>
+<footer class="docfoot"><a href="../metabolic-engineering-tracker.html">&#8592; Course tracker</a><span>Metabolic engineering &middot; 55 weeks</span></footer>
+<script>
+(function(){var root=document.documentElement,key="me.theme";var bs=Array.prototype.slice.call(document.querySelectorAll(".appearance button"));
+function paint(v){bs.forEach(function(b){b.setAttribute("aria-pressed",b.getAttribute("data-appearance")===v?"true":"false");});if(v==="auto")root.removeAttribute("data-theme");else root.setAttribute("data-theme",v);}
+var saved="auto";try{saved=localStorage.getItem(key)||"auto";}catch(e){}
+bs.forEach(function(b){b.addEventListener("click",function(){var v=b.getAttribute("data-appearance");paint(v);try{localStorage.setItem(key,v);}catch(e){}});});paint(saved);})();
+</script>
+</body>
+</html>

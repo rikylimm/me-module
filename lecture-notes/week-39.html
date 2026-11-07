@@ -1,0 +1,1510 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="utf-8"><title>Week 39 — Omics, the design-build-test-learn cycle and adaptive evolution — Metabolic engineering</title>
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+
+
+<style>:root{color-scheme:light;--paper:#FAF6EF;--ink:#211A12;--ink-2:#4A3C2C;--ink-3:#8A7458;
+--line:#DFD2BE;--line-2:#EDE4D5;--broth:#9A6B1F;--broth-soft:#F6ECD9;
+--serif:"Newsreader",Georgia,serif;--sans:"Public Sans",system-ui,sans-serif}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--paper:#15120D;--ink:#F1E9DC;--ink-2:#CBBCA6;
+--ink-3:#948872;--line:#352C22;--line-2:#2A231B;--broth:#D7A95C;--broth-soft:#241D14}}
+*{box-sizing:border-box}
+body{margin:0;background:var(--paper);color:var(--ink);font-family:var(--sans);font-size:15.5px;line-height:1.6;
+padding:env(safe-area-inset-top,0) 0 env(safe-area-inset-bottom,0)}
+.wrap{max-width:840px;margin:0 auto;padding:40px 22px 90px}
+h1{font-family:var(--serif);font-size:clamp(28px,5vw,42px);line-height:1.1;font-weight:600;margin:0 0 6px;letter-spacing:-.02em}
+h2{font-family:var(--serif);font-size:26px;font-weight:600;margin:46px 0 10px;letter-spacing:-.01em;padding-bottom:7px;border-bottom:1px solid var(--line)}
+h3{font-family:var(--serif);font-size:20px;font-weight:600;margin:30px 0 4px;color:var(--broth)}
+h4{font-size:14px;font-weight:650;margin:18px 0 4px;color:var(--ink-3);letter-spacing:.02em;text-transform:uppercase}
+p{margin:0 0 12px;max-width:74ch}
+em{color:var(--ink-2)}
+ul{margin:0 0 14px;padding-left:1.15em;max-width:74ch}
+li{margin:.3em 0}li::marker{color:var(--ink-3)}
+hr{border:0;border-top:1px solid var(--line);margin:40px 0}
+strong{font-weight:650}
+table{border-collapse:collapse;width:100%;margin:14px 0 20px;font-size:14px}
+th{text-align:left;font-weight:600;color:var(--ink-3);font-size:12.5px;padding:7px 9px;border-bottom:1.5px solid var(--line)}
+td{padding:8px 9px;border-bottom:1px solid var(--line-2);vertical-align:top}
+tr:nth-child(even) td{background:var(--broth-soft)}
+
+figure.fig{margin:22px 0 26px;padding:0;max-width:100%}
+figure.fig svg{width:100%;height:auto;display:block;background:var(--card);
+  border:1px solid var(--line-2);border-radius:10px;padding:8px 10px}
+figure.fig figcaption{font-size:13px;color:var(--ink-3);margin-top:8px;max-width:74ch;line-height:1.5}
+figure.fig .figtitle{font-family:var(--serif);font-size:15px;color:var(--ink-2);margin-bottom:6px}
+figure.fig .fig-dark{display:none}
+@media (prefers-color-scheme: dark){
+  figure.fig .fig-light{display:none}
+  figure.fig .fig-dark{display:block}
+}
+@media print{figure.fig{break-inside:avoid;page-break-inside:avoid}
+  figure.fig .fig-dark{display:none !important}
+  figure.fig .fig-light{display:block !important}}
+
+@media print{body{background:#fff}.wrap{padding:0;max-width:none}h2,h3{page-break-after:avoid}}</style><script>try{var t=localStorage.getItem("me.theme");if(t&&t!=="auto")document.documentElement.setAttribute("data-theme",t);}catch(e){}</script>
+<meta name="color-scheme" content="light dark">
+<meta name="theme-color" content="#ffffff" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#000000" media="(prefers-color-scheme: dark)">
+<style>
+/* ============================================================
+   COURSE LIBRARY — Apple document shell
+   ============================================================ */
+:root{
+  color-scheme:light;
+  --paper:#FFFFFF;--surface:#F5F5F7;--card:#FFFFFF;--fill:#F5F5F7;
+  --ink:#1D1D1F;--ink-2:#6E6E73;--ink-3:#6E6E73;
+  --line:rgba(0,0,0,.14);--line-2:rgba(0,0,0,.08);
+  --broth:#0071E3;--broth-soft:rgba(0,113,227,.10);
+  --nav-bg:rgba(255,255,255,.84);
+  --sans:-apple-system,BlinkMacSystemFont,"SF Pro Text","SF Pro Display","Helvetica Neue",Arial,sans-serif;
+  --mono:ui-monospace,"SF Mono",Menlo,Consolas,monospace;
+  --serif:var(--sans);
+}
+@media (prefers-color-scheme:dark){
+  :root:not([data-theme="light"]){
+    color-scheme:dark;
+    --paper:#000000;--surface:#1C1C1E;--card:#2C2C2E;--fill:#2C2C2E;
+    --ink:#F5F5F7;--ink-2:#A1A1A6;--ink-3:#8E8E93;
+    --line:rgba(255,255,255,.16);--line-2:rgba(255,255,255,.09);
+    --broth:#5AA9FF;--broth-soft:rgba(10,132,255,.18);
+    --nav-bg:rgba(0,0,0,.74);
+  }
+}
+:root[data-theme="dark"]{
+  color-scheme:dark;
+  --paper:#000000;--surface:#1C1C1E;--card:#2C2C2E;--fill:#2C2C2E;
+  --ink:#F5F5F7;--ink-2:#A1A1A6;--ink-3:#8E8E93;
+  --line:rgba(255,255,255,.16);--line-2:rgba(255,255,255,.09);
+  --broth:#5AA9FF;--broth-soft:rgba(10,132,255,.18);
+  --nav-bg:rgba(0,0,0,.74);
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth;scroll-padding-top:72px;-webkit-text-size-adjust:100%}
+body{
+  margin:0;background:var(--paper);color:var(--ink);
+  font-family:var(--sans);font-size:17px;line-height:1.62;letter-spacing:-.011em;
+  padding:0;
+}
+.docbar{
+  position:sticky;top:0;z-index:80;display:flex;align-items:center;justify-content:space-between;gap:12px;
+  padding:8px max(24px,calc((100vw - 1180px)/2));
+  background:var(--nav-bg);
+  -webkit-backdrop-filter:saturate(180%) blur(20px);backdrop-filter:saturate(180%) blur(20px);
+  border-bottom:1px solid var(--line-2);
+}
+.docback{display:inline-flex;align-items:center;gap:6px;color:var(--ink-2);font-size:13px;font-weight:500;text-decoration:none;white-space:nowrap}
+.docback:hover{color:var(--broth)}
+.appearance{display:inline-flex;gap:2px;padding:2px;background:var(--fill);border-radius:980px}
+.appearance button{border:0;background:none;color:var(--ink-2);font:inherit;font-size:12px;font-weight:500;line-height:1;padding:6px 11px;border-radius:980px;cursor:pointer}
+.appearance button[aria-pressed="true"]{background:var(--card);color:var(--ink);box-shadow:0 1px 2px rgba(0,0,0,.08)}
+.wrap{max-width:900px;margin:0 auto;padding:64px 24px 96px}
+body h1{
+  font-family:var(--sans);font-size:clamp(42px,6.2vw,64px);line-height:1.04;letter-spacing:-.04em;
+  font-weight:700;margin:0 0 16px;max-width:18ch;color:var(--ink);
+}
+.doc-kicker{font-size:13px;font-weight:500;letter-spacing:0;color:var(--ink-2);margin:0 0 12px}
+body h1 + p{font-size:20px;line-height:1.55;color:var(--ink-2);max-width:68ch;margin:0 0 18px}
+body h1 + p strong{color:var(--ink);font-weight:600}
+body h2{
+  font-family:var(--sans);font-size:32px;line-height:1.15;letter-spacing:-.03em;font-weight:600;
+  color:var(--ink);margin:64px 0 14px;padding:0;border:0;
+}
+body h3{font-family:var(--sans);font-size:22px;line-height:1.25;letter-spacing:-.02em;font-weight:600;color:var(--ink);margin:36px 0 8px}
+body h4{font-size:14px;line-height:1.4;font-weight:600;letter-spacing:0;text-transform:none;color:var(--ink-2);margin:24px 0 6px}
+body p{margin:0 0 14px;max-width:72ch}
+body ul,body ol{margin:0 0 16px;padding-left:1.25em;max-width:72ch}
+body li{margin:.32em 0}
+body li::marker{color:var(--ink-3)}
+body strong{font-weight:600;color:var(--ink)}
+body em{color:var(--ink)}
+body a{color:var(--broth);text-decoration:underline;text-underline-offset:2px}
+body a:hover{text-decoration:underline}
+body hr{border:0;border-top:1px solid var(--line-2);margin:56px 0}
+body table{border-collapse:collapse;width:100%;margin:22px 0 30px;font-size:15px;line-height:1.45}
+body th{text-align:left;font-weight:600;font-size:12.5px;color:var(--ink-2);padding:10px 12px;background:var(--surface);border-bottom:1px solid var(--line)}
+body td{padding:11px 12px;border-bottom:1px solid var(--line-2);vertical-align:top}
+body tr:nth-child(even) td{background:transparent}
+body figure.fig{margin:32px 0 36px;padding:0;max-width:100%}
+body figure.fig svg{width:100%;height:auto;display:block;background:var(--surface);border:0;border-radius:20px;padding:18px}
+body figure.fig figcaption{font-size:13px;color:var(--ink-2);margin-top:10px;max-width:72ch;line-height:1.5}
+body figure.fig .figtitle{font-family:var(--sans);font-size:14px;font-weight:600;color:var(--ink);margin-bottom:6px}
+body pre{background:var(--surface);border:1px solid var(--line-2);border-radius:16px;padding:18px;overflow:auto;font-family:var(--mono);font-size:13.5px;line-height:1.55;margin:20px 0 24px}
+body code{font-family:var(--mono);font-size:.88em;background:var(--surface);border-radius:6px;padding:.12em .35em}
+body pre code{background:none;padding:0;font-size:inherit}
+body blockquote{margin:24px 0;padding:2px 0 2px 18px;border-left:3px solid var(--broth);color:var(--ink-2)}
+:root[data-theme="dark"] .fig-light{display:none!important}
+:root[data-theme="dark"] .fig-dark{display:block!important}
+:root[data-theme="light"] .fig-dark{display:none!important}
+:root[data-theme="light"] .fig-light{display:block!important}
+.docfoot{max-width:900px;margin:0 auto;padding:24px 24px 64px;border-top:1px solid var(--line-2);display:flex;justify-content:space-between;gap:12px;font-size:12.5px;color:var(--ink-3)}
+.docfoot a{color:var(--ink-2);text-decoration:none}
+.docfoot a:hover{color:var(--broth)}
+@media (max-width:700px){
+  .docbar{padding:8px 16px}
+  .wrap{padding:40px 18px 80px}
+  body h1{font-size:clamp(38px,11vw,48px)}
+  body h1 + p{font-size:18px}
+  body h2{font-size:28px;margin-top:52px}
+  body h3{font-size:20px}
+  body p,body li{font-size:16.5px}
+  body table{font-size:14px}
+  body th,body td{padding:9px 9px}
+  .docfoot{padding:20px 18px 50px;flex-direction:column;gap:6px}
+}
+@media print{
+  .docbar,.appearance,.docfoot{display:none!important}
+  body{background:#fff;color:#000;font-size:11pt}
+  .wrap{max-width:none;padding:0}
+  body h1{font-size:28pt;max-width:none}
+  body h2{font-size:16pt;page-break-after:avoid}
+  body h3{font-size:13pt;page-break-after:avoid}
+  body a{color:#000;text-decoration:none}
+  body table,body figure{break-inside:avoid}
+}
+
+
+.index-actions{margin:18px 0 36px;display:flex;flex-wrap:wrap;gap:16px;align-items:center}
+.index-actions a{font-size:14px;font-weight:500;color:var(--broth);text-decoration:none}
+.index-actions a:hover{text-decoration:underline}
+.phaseh{display:flex;align-items:baseline;justify-content:space-between;gap:14px;font-size:24px!important;margin:52px 0 2px!important;letter-spacing:-.02em}
+.phaseh span{font-size:12px;font-weight:400;color:var(--ink-3);letter-spacing:0;white-space:nowrap}
+.weeklist{border-top:1px solid var(--line-2);margin-bottom:8px}
+.weekrow{display:flex;align-items:center;gap:14px;min-height:50px;padding:10px 4px;border-bottom:1px solid var(--line-2);text-decoration:none;color:var(--ink)}
+.weekrow:hover{background:var(--surface)}
+.wnum{width:28px;flex:none;font-size:12px;font-weight:600;color:var(--broth);font-variant-numeric:tabular-nums}
+.wtitle{flex:1;font-size:16.5px;font-weight:500;line-height:1.35}
+.warrow{flex:none;color:var(--ink-3);font-size:16px}
+.weeknav{display:flex;align-items:center;justify-content:space-between;gap:14px;margin:52px 0 0;padding-top:22px;border-top:1px solid var(--line-2);font-size:14px}
+.weeknav a{color:var(--broth);text-decoration:none;font-weight:500}
+.weeknav a:hover{text-decoration:underline}
+.weeknav .idx{color:var(--ink-2);font-weight:400}
+.weeknav .empty{visibility:hidden}
+.case-h{max-width:22ch}
+.protocol{max-width:72ch}
+.protocol li{margin:.55em 0}
+.protocol h2{margin-top:38px}
+@media (max-width:700px){.phaseh{font-size:21px!important;margin-top:42px!important}.wtitle{font-size:15.5px}.weeknav{font-size:13px;gap:8px}}
+@media print{.weeknav,.index-actions{display:none!important}}
+</style>
+<style>.sr-only{position:absolute!important;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap;border:0}</style>
+</head><body>
+<header class="docbar"><a class="docback" href="index.html">&#8592; Lecture index</a><div class="appearance" role="group" aria-label="Appearance">
+<button type="button" data-appearance="auto" aria-pressed="true">Auto</button>
+<button type="button" data-appearance="light" aria-pressed="false">Light</button>
+<button type="button" data-appearance="dark" aria-pressed="false">Dark</button>
+</div></header>
+<main class="wrap">
+<p class="doc-kicker">Week 39 of 55 &middot; The molecular toolbox &middot; <strong class="tier-badge">Core</strong></p>
+<h1>Omics, the design-build-test-learn cycle and adaptive evolution</h1>
+<h2 class="sr-only">Week content</h2>
+<p>The learn step, and the end of the phase. Data is cheap and a model revision is not: the scarce skill is turning a measurement into a changed assumption rather than into a figure. Two ideas carry the week. A genome-scale model is a context for omic data rather than a consumer of it, which is what separates integration from curve-fitting; and the circularity risk is real — a model constrained by expression data and then validated against expression data has been told what to say. The week also sits and marks Paper 5, so the artifact has to be scoped to ten sessions, not twelve.</p>
+<h3>Core ideas</h3>
+<p><strong>1. Networks as context for content, and the two kinds of network this contrasts</strong></p>
+<p>Palsson Ch 24 opens on the distinction and Table 24.1 tabulates it. Inference-based networks are built from correlation and recurring pattern in the data itself: they need no prior knowledge, apply wherever there is data, relate directly to the omic measurement, and rewire substantially when more data arrives. Knowledge-based reconstructions are built from biochemistry: they are directly mechanistic, require that the biochemistry be known, obey mass and charge conservation and thermodynamics, relate more closely to phenotype through fluxes, and do not rewire once reconstructed. The consequence that matters is stated directly — statistical correlation between omic variables does not confer causality, whereas contextualising the same variables in a mechanistic network can establish it, because the network says which measurements are allowed to co-vary.</p>
+<p><strong>2. The GPR is where the integration is actually done, and it is where it is usually done wrong</strong></p>
+<p>Mapping expression onto reactions runs through the gene-protein-reaction rules, and the logic is not decoration. A complex is an AND: the reaction&#x27;s capacity is set by the least-expressed subunit, so the correct aggregate is a minimum, and averaging across subunits silently invents capacity that the limiting subunit denies. Isozymes are an OR: capacity is the sum, and taking a minimum there silently removes the redundancy that makes the gene non-essential. Week 21 built these rules; this week is where getting them wrong changes a prediction. Palsson&#x27;s statement of the advantage is exactly this — reconstructions capture the relationship between genes and enzyme activities explicitly, with the chain from genomic location through mRNA, protein and complex to activity providing the route by which a transcript measurement reaches a flux bound.</p>
+<p><strong>3. Omics as constraints and omics as validation are different experiments, and only one of them is a test</strong></p>
+<p>Using expression to set flux bounds — favouring reactions whose genes are up and penalising those whose genes are down — produces a prediction of differential reaction use between conditions, and §24.3 reports the method doing real work: a focused prediction of active pathways in a pathogen, confirmed by conditional knockouts, implicating branched-chain amino acid limitation and the regulator CodY in virulence. Using expression to check an unconstrained model&#x27;s prediction is the opposite operation, and §24.4 is its exemplar: across wild-type and adaptively evolved E. coli, more than 98% of the active reactions in the optimal growth solutions are supported by transcriptomic and proteomic data, with evolved strains up-regulating genes inside the optimal solution and down-regulating those outside it. The discipline is to decide which of the two you are doing before you run it. A model constrained by a data set cannot then be validated by that data set, and the before-and-after comparison the artifact requires is only meaningful if the comparison&#x27;s test case was withheld.</p>
+<p><strong>4. What a fold change is, and the three decisions upstream of it</strong></p>
+<p>A fold change is a ratio of normalised counts, and three choices made before it exists decide its value. Library preparation sets what was counted — total RNA against poly-A selection against ribosomal depletion changes which transcripts are present at all. Normalisation sets the denominator, and the standard methods assume most genes do not change, an assumption that fails exactly in the comparisons strain engineering produces, where a heterologous pathway at high expression consumes a measurable fraction of transcription. The significance threshold sets the error trade, and with tens of thousands of tests the multiple-testing correction is not a formality. Lee §9.4.1 makes the parallel point for metabolomics: peak picking, retention-time alignment, missing-value treatment and normalisation each change which features are called, and missing values in particular are not missing at random — they are missing where the analyte was lowest, which is systematically the condition of interest.</p>
+<p><strong>5. Independent component analysis recovers structure that differential expression cannot</strong></p>
+<p>Lee §2.6.2 sets out the method and its interpretation. Differential expression asks which genes changed between two conditions; ICA applied to a compendium of transcriptomes decomposes the expression matrix into independently modulated gene sets — iModulons — and their condition-specific activities. The structure matrix is the outcome of evolution and so represents distal causation; the activity matrix is the condition&#x27;s own state and so represents proximal causation. The number to hold is the interpretive one in §2.6.2.2: because iModulons are mechanistic rather than merely statistical, the variance they explain is the fraction of the transcriptome explained by underlying regulatory mechanism, so iModulons accounting for 67% of the variance in the data explain 67% of the function of the transcriptional regulatory network — a claim principal component analysis cannot make about its components. Lee also notes the public bacterial transcriptome count has been doubling roughly every two years, which is what makes the method available at all, and that iModulons have been applied to the central metabolic engineering problem of how a host responds to heterologous expression, finding five classes of stress response activated.</p>
+<p><strong>6. Adaptive evolution produces a small number of mutations and a large deconvolution problem</strong></p>
+<figure class="fig"><div class="figtitle">Figure 39.6 — Illustrative simulation — the cost of proving which mutations mattered</div><div class="fig-light"><svg role="img" aria-label="Full deconvolution of an endpoint is 2ᵏ − 1 strains, so six mutations is 63 strains and 192 allelic replacements — Palsson's half a year, and only with heavy parallelism. Sequencing frozen time points for fixation order costs nothing and cuts the build to 15 strains and 24 replacements, at the price of leaving six pairwise interactions and every higher-order term untested." xmlns:xlink="http://www.w3.org/1999/xlink" width="459.072pt" height="231.406141pt" viewBox="0 0 459.072 231.406141" xmlns="http://www.w3.org/2000/svg" version="1.1">
+ <metadata>
+  <rdf:RDF xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:cc="http://creativecommons.org/ns#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+   <cc:Work>
+    <dc:type rdf:resource="http://purl.org/dc/dcmitype/StillImage"/>
+    <dc:date>2026-11-02T23:57:51.580960</dc:date>
+    <dc:format>image/svg+xml</dc:format>
+    <dc:creator>
+     <cc:Agent>
+      <dc:title>Matplotlib v3.10.8, https://matplotlib.org/</dc:title>
+     </cc:Agent>
+    </dc:creator>
+   </cc:Work>
+  </rdf:RDF>
+ </metadata>
+ <defs>
+  <style type="text/css">*{stroke-linejoin: round; stroke-linecap: butt}</style>
+ </defs>
+ <g id="figure_1">
+  <g id="patch_1">
+   <path d="M 0 231.406141 
+L 459.072 231.406141 
+L 459.072 0 
+L 0 0 
+L 0 231.406141 
+z
+" style="fill: none"/>
+  </g>
+  <g id="axes_1">
+   <g id="patch_2">
+    <path d="M 62.712 172.08 
+L 453.312 172.08 
+L 453.312 5.76 
+L 62.712 5.76 
+L 62.712 172.08 
+z
+" style="fill: none"/>
+   </g>
+   <g id="matplotlib.axis_1">
+    <g id="xtick_1">
+     <g id="line2d_1">
+      <defs>
+       <path id="m30516413dd" d="M 0 0 
+L 0 3.5 
+" style="stroke: #8a7458; stroke-width: 0.9"/>
+      </defs>
+      <g>
+       <use xlink:href="#m30516413dd" x="78.130421" y="172.08" style="fill: #8a7458; stroke: #8a7458; stroke-width: 0.9"/>
+      </g>
+     </g>
+     <g id="text_1">
+      <text style="font-size: 9.5px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: middle; fill: #8a7458" x="78.130421" y="186.298516" transform="rotate(-0 78.130421 186.298516)">1</text>
+     </g>
+    </g>
+    <g id="xtick_2">
+     <g id="line2d_2">
+      <g>
+       <use xlink:href="#m30516413dd" x="129.525158" y="172.08" style="fill: #8a7458; stroke: #8a7458; stroke-width: 0.9"/>
+      </g>
+     </g>
+     <g id="text_2">
+      <text style="font-size: 9.5px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: middle; fill: #8a7458" x="129.525158" y="186.298516" transform="rotate(-0 129.525158 186.298516)">2</text>
+     </g>
+    </g>
+    <g id="xtick_3">
+     <g id="line2d_3">
+      <g>
+       <use xlink:href="#m30516413dd" x="180.919895" y="172.08" style="fill: #8a7458; stroke: #8a7458; stroke-width: 0.9"/>
+      </g>
+     </g>
+     <g id="text_3">
+      <text style="font-size: 9.5px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: middle; fill: #8a7458" x="180.919895" y="186.298516" transform="rotate(-0 180.919895 186.298516)">3</text>
+     </g>
+    </g>
+    <g id="xtick_4">
+     <g id="line2d_4">
+      <g>
+       <use xlink:href="#m30516413dd" x="232.314632" y="172.08" style="fill: #8a7458; stroke: #8a7458; stroke-width: 0.9"/>
+      </g>
+     </g>
+     <g id="text_4">
+      <text style="font-size: 9.5px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: middle; fill: #8a7458" x="232.314632" y="186.298516" transform="rotate(-0 232.314632 186.298516)">4</text>
+     </g>
+    </g>
+    <g id="xtick_5">
+     <g id="line2d_5">
+      <g>
+       <use xlink:href="#m30516413dd" x="283.709368" y="172.08" style="fill: #8a7458; stroke: #8a7458; stroke-width: 0.9"/>
+      </g>
+     </g>
+     <g id="text_5">
+      <text style="font-size: 9.5px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: middle; fill: #8a7458" x="283.709368" y="186.298516" transform="rotate(-0 283.709368 186.298516)">5</text>
+     </g>
+    </g>
+    <g id="xtick_6">
+     <g id="line2d_6">
+      <g>
+       <use xlink:href="#m30516413dd" x="335.104105" y="172.08" style="fill: #8a7458; stroke: #8a7458; stroke-width: 0.9"/>
+      </g>
+     </g>
+     <g id="text_6">
+      <text style="font-size: 9.5px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: middle; fill: #8a7458" x="335.104105" y="186.298516" transform="rotate(-0 335.104105 186.298516)">6</text>
+     </g>
+    </g>
+    <g id="xtick_7">
+     <g id="line2d_7">
+      <g>
+       <use xlink:href="#m30516413dd" x="386.498842" y="172.08" style="fill: #8a7458; stroke: #8a7458; stroke-width: 0.9"/>
+      </g>
+     </g>
+     <g id="text_7">
+      <text style="font-size: 9.5px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: middle; fill: #8a7458" x="386.498842" y="186.298516" transform="rotate(-0 386.498842 186.298516)">7</text>
+     </g>
+    </g>
+    <g id="xtick_8">
+     <g id="line2d_8">
+      <g>
+       <use xlink:href="#m30516413dd" x="437.893579" y="172.08" style="fill: #8a7458; stroke: #8a7458; stroke-width: 0.9"/>
+      </g>
+     </g>
+     <g id="text_8">
+      <text style="font-size: 9.5px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: middle; fill: #8a7458" x="437.893579" y="186.298516" transform="rotate(-0 437.893579 186.298516)">8</text>
+     </g>
+    </g>
+    <g id="text_9">
+     <text style="font-size: 9.5px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: middle; fill: #4a3c2c" x="258.012" y="199.492734" transform="rotate(-0 258.012 199.492734)">causal mutations in the ALE endpoint</text>
+    </g>
+   </g>
+   <g id="matplotlib.axis_2">
+    <g id="ytick_1">
+     <g id="line2d_9">
+      <path d="M 62.712 167.920563 
+L 453.312 167.920563 
+" clip-path="url(#pccfb682174)" style="fill: none; stroke: #e6dccb; stroke-opacity: 0.7; stroke-width: 0.6; stroke-linecap: square"/>
+     </g>
+     <g id="line2d_10">
+      <defs>
+       <path id="m4b6ae9d44a" d="M 0 0 
+L -3.5 0 
+" style="stroke: #8a7458; stroke-width: 0.9"/>
+      </defs>
+      <g>
+       <use xlink:href="#m4b6ae9d44a" x="62.712" y="167.920563" style="fill: #8a7458; stroke: #8a7458; stroke-width: 0.9"/>
+      </g>
+     </g>
+     <g id="text_10">
+      <!-- $\mathdefault{10^{0}}$ -->
+      <g style="fill: #8a7458" transform="translate(38.992 171.529821)">
+       <text>
+        <tspan x="0" y="-0.976562" style="font-size: 9.5px; font-family: 'Public Sans, Helvetica, Arial, sans-serif'; fill: #8a7458">1</tspan>
+        <tspan x="6.044189" y="-0.976562" style="font-size: 9.5px; font-family: 'Public Sans, Helvetica, Arial, sans-serif'; fill: #8a7458">0</tspan>
+        <tspan x="12.184082" y="-4.804688" style="font-size: 6.65px; font-family: 'Public Sans, Helvetica, Arial, sans-serif'; fill: #8a7458">0</tspan>
+       </text>
+      </g>
+     </g>
+    </g>
+    <g id="ytick_2">
+     <g id="line2d_11">
+      <path d="M 62.712 124.999951 
+L 453.312 124.999951 
+" clip-path="url(#pccfb682174)" style="fill: none; stroke: #e6dccb; stroke-opacity: 0.7; stroke-width: 0.6; stroke-linecap: square"/>
+     </g>
+     <g id="line2d_12">
+      <g>
+       <use xlink:href="#m4b6ae9d44a" x="62.712" y="124.999951" style="fill: #8a7458; stroke: #8a7458; stroke-width: 0.9"/>
+      </g>
+     </g>
+     <g id="text_11">
+      <!-- $\mathdefault{10^{1}}$ -->
+      <g style="fill: #8a7458" transform="translate(38.992 128.609209)">
+       <text>
+        <tspan x="0" y="-0.064063" style="font-size: 9.5px; font-family: 'Public Sans, Helvetica, Arial, sans-serif'; fill: #8a7458">1</tspan>
+        <tspan x="6.044189" y="-0.064063" style="font-size: 9.5px; font-family: 'Public Sans, Helvetica, Arial, sans-serif'; fill: #8a7458">0</tspan>
+        <tspan x="12.184082" y="-3.892188" style="font-size: 6.65px; font-family: 'Public Sans, Helvetica, Arial, sans-serif'; fill: #8a7458">1</tspan>
+       </text>
+      </g>
+     </g>
+    </g>
+    <g id="ytick_3">
+     <g id="line2d_13">
+      <path d="M 62.712 82.079339 
+L 453.312 82.079339 
+" clip-path="url(#pccfb682174)" style="fill: none; stroke: #e6dccb; stroke-opacity: 0.7; stroke-width: 0.6; stroke-linecap: square"/>
+     </g>
+     <g id="line2d_14">
+      <g>
+       <use xlink:href="#m4b6ae9d44a" x="62.712" y="82.079339" style="fill: #8a7458; stroke: #8a7458; stroke-width: 0.9"/>
+      </g>
+     </g>
+     <g id="text_12">
+      <!-- $\mathdefault{10^{2}}$ -->
+      <g style="fill: #8a7458" transform="translate(38.992 85.688597)">
+       <text>
+        <tspan x="0" y="-0.976562" style="font-size: 9.5px; font-family: 'Public Sans, Helvetica, Arial, sans-serif'; fill: #8a7458">1</tspan>
+        <tspan x="6.044189" y="-0.976562" style="font-size: 9.5px; font-family: 'Public Sans, Helvetica, Arial, sans-serif'; fill: #8a7458">0</tspan>
+        <tspan x="12.184082" y="-4.804688" style="font-size: 6.65px; font-family: 'Public Sans, Helvetica, Arial, sans-serif'; fill: #8a7458">2</tspan>
+       </text>
+      </g>
+     </g>
+    </g>
+    <g id="ytick_4">
+     <g id="line2d_15">
+      <path d="M 62.712 39.158728 
+L 453.312 39.158728 
+" clip-path="url(#pccfb682174)" style="fill: none; stroke: #e6dccb; stroke-opacity: 0.7; stroke-width: 0.6; stroke-linecap: square"/>
+     </g>
+     <g id="line2d_16">
+      <g>
+       <use xlink:href="#m4b6ae9d44a" x="62.712" y="39.158728" style="fill: #8a7458; stroke: #8a7458; stroke-width: 0.9"/>
+      </g>
+     </g>
+     <g id="text_13">
+      <!-- $\mathdefault{10^{3}}$ -->
+      <g style="fill: #8a7458" transform="translate(38.992 42.767986)">
+       <text>
+        <tspan x="0" y="-0.976562" style="font-size: 9.5px; font-family: 'Public Sans, Helvetica, Arial, sans-serif'; fill: #8a7458">1</tspan>
+        <tspan x="6.044189" y="-0.976562" style="font-size: 9.5px; font-family: 'Public Sans, Helvetica, Arial, sans-serif'; fill: #8a7458">0</tspan>
+        <tspan x="12.184082" y="-4.804688" style="font-size: 6.65px; font-family: 'Public Sans, Helvetica, Arial, sans-serif'; fill: #8a7458">3</tspan>
+       </text>
+      </g>
+     </g>
+    </g>
+    <g id="ytick_5">
+     <g id="line2d_17">
+      <defs>
+       <path id="mec4097b1d5" d="M 0 0 
+L -2 0 
+" style="stroke: #8a7458; stroke-width: 0.6"/>
+      </defs>
+      <g>
+       <use xlink:href="#mec4097b1d5" x="62.712" y="172.08" style="fill: #8a7458; stroke: #8a7458; stroke-width: 0.6"/>
+      </g>
+     </g>
+    </g>
+    <g id="ytick_6">
+     <g id="line2d_18">
+      <g>
+       <use xlink:href="#mec4097b1d5" x="62.712" y="169.884502" style="fill: #8a7458; stroke: #8a7458; stroke-width: 0.6"/>
+      </g>
+     </g>
+    </g>
+    <g id="ytick_7">
+     <g id="line2d_19">
+      <g>
+       <use xlink:href="#mec4097b1d5" x="62.712" y="155.000171" style="fill: #8a7458; stroke: #8a7458; stroke-width: 0.6"/>
+      </g>
+     </g>
+    </g>
+    <g id="ytick_8">
+     <g id="line2d_20">
+      <g>
+       <use xlink:href="#mec4097b1d5" x="62.712" y="147.442227" style="fill: #8a7458; stroke: #8a7458; stroke-width: 0.6"/>
+      </g>
+     </g>
+    </g>
+    <g id="ytick_9">
+     <g id="line2d_21">
+      <g>
+       <use xlink:href="#mec4097b1d5" x="62.712" y="142.07978" style="fill: #8a7458; stroke: #8a7458; stroke-width: 0.6"/>
+      </g>
+     </g>
+    </g>
+    <g id="ytick_10">
+     <g id="line2d_22">
+      <g>
+       <use xlink:href="#mec4097b1d5" x="62.712" y="137.920343" style="fill: #8a7458; stroke: #8a7458; stroke-width: 0.6"/>
+      </g>
+     </g>
+    </g>
+    <g id="ytick_11">
+     <g id="line2d_23">
+      <g>
+       <use xlink:href="#mec4097b1d5" x="62.712" y="134.521835" style="fill: #8a7458; stroke: #8a7458; stroke-width: 0.6"/>
+      </g>
+     </g>
+    </g>
+    <g id="ytick_12">
+     <g id="line2d_24">
+      <g>
+       <use xlink:href="#mec4097b1d5" x="62.712" y="131.648438" style="fill: #8a7458; stroke: #8a7458; stroke-width: 0.6"/>
+      </g>
+     </g>
+    </g>
+    <g id="ytick_13">
+     <g id="line2d_25">
+      <g>
+       <use xlink:href="#mec4097b1d5" x="62.712" y="129.159388" style="fill: #8a7458; stroke: #8a7458; stroke-width: 0.6"/>
+      </g>
+     </g>
+    </g>
+    <g id="ytick_14">
+     <g id="line2d_26">
+      <g>
+       <use xlink:href="#mec4097b1d5" x="62.712" y="126.963891" style="fill: #8a7458; stroke: #8a7458; stroke-width: 0.6"/>
+      </g>
+     </g>
+    </g>
+    <g id="ytick_15">
+     <g id="line2d_27">
+      <g>
+       <use xlink:href="#mec4097b1d5" x="62.712" y="112.07956" style="fill: #8a7458; stroke: #8a7458; stroke-width: 0.6"/>
+      </g>
+     </g>
+    </g>
+    <g id="ytick_16">
+     <g id="line2d_28">
+      <g>
+       <use xlink:href="#mec4097b1d5" x="62.712" y="104.521615" style="fill: #8a7458; stroke: #8a7458; stroke-width: 0.6"/>
+      </g>
+     </g>
+    </g>
+    <g id="ytick_17">
+     <g id="line2d_29">
+      <g>
+       <use xlink:href="#mec4097b1d5" x="62.712" y="99.159168" style="fill: #8a7458; stroke: #8a7458; stroke-width: 0.6"/>
+      </g>
+     </g>
+    </g>
+    <g id="ytick_18">
+     <g id="line2d_30">
+      <g>
+       <use xlink:href="#mec4097b1d5" x="62.712" y="94.999731" style="fill: #8a7458; stroke: #8a7458; stroke-width: 0.6"/>
+      </g>
+     </g>
+    </g>
+    <g id="ytick_19">
+     <g id="line2d_31">
+      <g>
+       <use xlink:href="#mec4097b1d5" x="62.712" y="91.601224" style="fill: #8a7458; stroke: #8a7458; stroke-width: 0.6"/>
+      </g>
+     </g>
+    </g>
+    <g id="ytick_20">
+     <g id="line2d_32">
+      <g>
+       <use xlink:href="#mec4097b1d5" x="62.712" y="88.727826" style="fill: #8a7458; stroke: #8a7458; stroke-width: 0.6"/>
+      </g>
+     </g>
+    </g>
+    <g id="ytick_21">
+     <g id="line2d_33">
+      <g>
+       <use xlink:href="#mec4097b1d5" x="62.712" y="86.238776" style="fill: #8a7458; stroke: #8a7458; stroke-width: 0.6"/>
+      </g>
+     </g>
+    </g>
+    <g id="ytick_22">
+     <g id="line2d_34">
+      <g>
+       <use xlink:href="#mec4097b1d5" x="62.712" y="84.043279" style="fill: #8a7458; stroke: #8a7458; stroke-width: 0.6"/>
+      </g>
+     </g>
+    </g>
+    <g id="ytick_23">
+     <g id="line2d_35">
+      <g>
+       <use xlink:href="#mec4097b1d5" x="62.712" y="69.158948" style="fill: #8a7458; stroke: #8a7458; stroke-width: 0.6"/>
+      </g>
+     </g>
+    </g>
+    <g id="ytick_24">
+     <g id="line2d_36">
+      <g>
+       <use xlink:href="#mec4097b1d5" x="62.712" y="61.601003" style="fill: #8a7458; stroke: #8a7458; stroke-width: 0.6"/>
+      </g>
+     </g>
+    </g>
+    <g id="ytick_25">
+     <g id="line2d_37">
+      <g>
+       <use xlink:href="#mec4097b1d5" x="62.712" y="56.238556" style="fill: #8a7458; stroke: #8a7458; stroke-width: 0.6"/>
+      </g>
+     </g>
+    </g>
+    <g id="ytick_26">
+     <g id="line2d_38">
+      <g>
+       <use xlink:href="#mec4097b1d5" x="62.712" y="52.079119" style="fill: #8a7458; stroke: #8a7458; stroke-width: 0.6"/>
+      </g>
+     </g>
+    </g>
+    <g id="ytick_27">
+     <g id="line2d_39">
+      <g>
+       <use xlink:href="#mec4097b1d5" x="62.712" y="48.680612" style="fill: #8a7458; stroke: #8a7458; stroke-width: 0.6"/>
+      </g>
+     </g>
+    </g>
+    <g id="ytick_28">
+     <g id="line2d_40">
+      <g>
+       <use xlink:href="#mec4097b1d5" x="62.712" y="45.807215" style="fill: #8a7458; stroke: #8a7458; stroke-width: 0.6"/>
+      </g>
+     </g>
+    </g>
+    <g id="ytick_29">
+     <g id="line2d_41">
+      <g>
+       <use xlink:href="#mec4097b1d5" x="62.712" y="43.318165" style="fill: #8a7458; stroke: #8a7458; stroke-width: 0.6"/>
+      </g>
+     </g>
+    </g>
+    <g id="ytick_30">
+     <g id="line2d_42">
+      <g>
+       <use xlink:href="#mec4097b1d5" x="62.712" y="41.122667" style="fill: #8a7458; stroke: #8a7458; stroke-width: 0.6"/>
+      </g>
+     </g>
+    </g>
+    <g id="ytick_31">
+     <g id="line2d_43">
+      <g>
+       <use xlink:href="#mec4097b1d5" x="62.712" y="26.238336" style="fill: #8a7458; stroke: #8a7458; stroke-width: 0.6"/>
+      </g>
+     </g>
+    </g>
+    <g id="ytick_32">
+     <g id="line2d_44">
+      <g>
+       <use xlink:href="#mec4097b1d5" x="62.712" y="18.680392" style="fill: #8a7458; stroke: #8a7458; stroke-width: 0.6"/>
+      </g>
+     </g>
+    </g>
+    <g id="ytick_33">
+     <g id="line2d_45">
+      <g>
+       <use xlink:href="#mec4097b1d5" x="62.712" y="13.317945" style="fill: #8a7458; stroke: #8a7458; stroke-width: 0.6"/>
+      </g>
+     </g>
+    </g>
+    <g id="ytick_34">
+     <g id="line2d_46">
+      <g>
+       <use xlink:href="#mec4097b1d5" x="62.712" y="9.158508" style="fill: #8a7458; stroke: #8a7458; stroke-width: 0.6"/>
+      </g>
+     </g>
+    </g>
+    <g id="ytick_35">
+     <g id="line2d_47">
+      <g>
+       <use xlink:href="#mec4097b1d5" x="62.712" y="5.76" style="fill: #8a7458; stroke: #8a7458; stroke-width: 0.6"/>
+      </g>
+     </g>
+    </g>
+    <g id="text_14">
+     <text style="font-size: 9.5px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: middle; fill: #4a3c2c" x="33.016297" y="88.92" transform="rotate(-90 33.016297 88.92)">allelic replacements to build</text>
+    </g>
+   </g>
+   <g id="line2d_48">
+    <path d="M 78.130421 167.920563 
+L 129.525158 142.07978 
+L 180.919895 121.601444 
+L 232.314632 103.318605 
+L 283.709368 86.238776 
+L 335.104105 69.919877 
+L 386.498842 54.126089 
+L 437.893579 38.716647 
+" clip-path="url(#pccfb682174)" style="fill: none; stroke: #a4503a; stroke-width: 1.9; stroke-linecap: square"/>
+    <defs>
+     <path id="m33d6a47b1c" d="M 0 2 
+C 0.530406 2 1.03916 1.789267 1.414214 1.414214 
+C 1.789267 1.03916 2 0.530406 2 0 
+C 2 -0.530406 1.789267 -1.03916 1.414214 -1.414214 
+C 1.03916 -1.789267 0.530406 -2 0 -2 
+C -0.530406 -2 -1.03916 -1.789267 -1.414214 -1.414214 
+C -1.789267 -1.03916 -2 -0.530406 -2 0 
+C -2 0.530406 -1.789267 1.03916 -1.414214 1.414214 
+C -1.03916 1.789267 -0.530406 2 0 2 
+z
+" style="stroke: #a4503a"/>
+    </defs>
+    <g clip-path="url(#pccfb682174)">
+     <use xlink:href="#m33d6a47b1c" x="78.130421" y="167.920563" style="fill: #a4503a; stroke: #a4503a"/>
+     <use xlink:href="#m33d6a47b1c" x="129.525158" y="142.07978" style="fill: #a4503a; stroke: #a4503a"/>
+     <use xlink:href="#m33d6a47b1c" x="180.919895" y="121.601444" style="fill: #a4503a; stroke: #a4503a"/>
+     <use xlink:href="#m33d6a47b1c" x="232.314632" y="103.318605" style="fill: #a4503a; stroke: #a4503a"/>
+     <use xlink:href="#m33d6a47b1c" x="283.709368" y="86.238776" style="fill: #a4503a; stroke: #a4503a"/>
+     <use xlink:href="#m33d6a47b1c" x="335.104105" y="69.919877" style="fill: #a4503a; stroke: #a4503a"/>
+     <use xlink:href="#m33d6a47b1c" x="386.498842" y="54.126089" style="fill: #a4503a; stroke: #a4503a"/>
+     <use xlink:href="#m33d6a47b1c" x="437.893579" y="38.716647" style="fill: #a4503a; stroke: #a4503a"/>
+    </g>
+   </g>
+   <g id="line2d_49">
+    <path d="M 129.525158 142.07978 
+L 180.919895 126.963891 
+L 232.314632 118.728047 
+L 283.709368 113.035676 
+L 335.104105 108.681052 
+L 386.498842 105.153546 
+L 437.893579 102.188551 
+" clip-path="url(#pccfb682174)" style="fill: none; stroke: #1f6f62; stroke-width: 1.9; stroke-linecap: square"/>
+    <defs>
+     <path id="m8221263855" d="M 0 2 
+C 0.530406 2 1.03916 1.789267 1.414214 1.414214 
+C 1.789267 1.03916 2 0.530406 2 0 
+C 2 -0.530406 1.789267 -1.03916 1.414214 -1.414214 
+C 1.03916 -1.789267 0.530406 -2 0 -2 
+C -0.530406 -2 -1.03916 -1.789267 -1.414214 -1.414214 
+C -1.789267 -1.03916 -2 -0.530406 -2 0 
+C -2 0.530406 -1.789267 1.03916 -1.414214 1.414214 
+C -1.03916 1.789267 -0.530406 2 0 2 
+z
+" style="stroke: #1f6f62"/>
+    </defs>
+    <g clip-path="url(#pccfb682174)">
+     <use xlink:href="#m8221263855" x="129.525158" y="142.07978" style="fill: #1f6f62; stroke: #1f6f62"/>
+     <use xlink:href="#m8221263855" x="180.919895" y="126.963891" style="fill: #1f6f62; stroke: #1f6f62"/>
+     <use xlink:href="#m8221263855" x="232.314632" y="118.728047" style="fill: #1f6f62; stroke: #1f6f62"/>
+     <use xlink:href="#m8221263855" x="283.709368" y="113.035676" style="fill: #1f6f62; stroke: #1f6f62"/>
+     <use xlink:href="#m8221263855" x="335.104105" y="108.681052" style="fill: #1f6f62; stroke: #1f6f62"/>
+     <use xlink:href="#m8221263855" x="386.498842" y="105.153546" style="fill: #1f6f62; stroke: #1f6f62"/>
+     <use xlink:href="#m8221263855" x="437.893579" y="102.188551" style="fill: #1f6f62; stroke: #1f6f62"/>
+    </g>
+   </g>
+   <g id="line2d_50">
+    <path d="M 62.712 115.108943 
+L 453.312 115.108943 
+" clip-path="url(#pccfb682174)" style="fill: none; stroke-dasharray: 4,3; stroke-dashoffset: 0; stroke: #8a5f1b"/>
+   </g>
+   <g id="line2d_51">
+    <path d="M 335.104105 69.919877 
+" clip-path="url(#pccfb682174)" style="fill: none; stroke: #a4503a; stroke-width: 1.9; stroke-linecap: square"/>
+    <defs>
+     <path id="m9e8edf876c" d="M 0 3 
+C 0.795609 3 1.55874 2.683901 2.12132 2.12132 
+C 2.683901 1.55874 3 0.795609 3 0 
+C 3 -0.795609 2.683901 -1.55874 2.12132 -2.12132 
+C 1.55874 -2.683901 0.795609 -3 0 -3 
+C -0.795609 -3 -1.55874 -2.683901 -2.12132 -2.12132 
+C -2.683901 -1.55874 -3 -0.795609 -3 0 
+C -3 0.795609 -2.683901 1.55874 -2.12132 2.12132 
+C -1.55874 2.683901 -0.795609 3 0 3 
+z
+" style="stroke: #a4503a"/>
+    </defs>
+    <g clip-path="url(#pccfb682174)">
+     <use xlink:href="#m9e8edf876c" x="335.104105" y="69.919877" style="fill: #a4503a; stroke: #a4503a"/>
+    </g>
+   </g>
+   <g id="line2d_52">
+    <path d="M 335.104105 108.681052 
+" clip-path="url(#pccfb682174)" style="fill: none; stroke: #1f6f62; stroke-width: 1.9; stroke-linecap: square"/>
+    <defs>
+     <path id="m7e08c595b2" d="M 0 3 
+C 0.795609 3 1.55874 2.683901 2.12132 2.12132 
+C 2.683901 1.55874 3 0.795609 3 0 
+C 3 -0.795609 2.683901 -1.55874 2.12132 -2.12132 
+C 1.55874 -2.683901 0.795609 -3 0 -3 
+C -0.795609 -3 -1.55874 -2.683901 -2.12132 -2.12132 
+C -2.683901 -1.55874 -3 -0.795609 -3 0 
+C -3 0.795609 -2.683901 1.55874 -2.12132 2.12132 
+C -1.55874 2.683901 -0.795609 3 0 3 
+z
+" style="stroke: #1f6f62"/>
+    </defs>
+    <g clip-path="url(#pccfb682174)">
+     <use xlink:href="#m7e08c595b2" x="335.104105" y="108.681052" style="fill: #1f6f62; stroke: #1f6f62"/>
+    </g>
+   </g>
+   <g id="patch_3">
+    <path d="M 62.712 172.08 
+L 62.712 5.76 
+" style="fill: none; stroke: #dfd2be; stroke-width: 0.9; stroke-linejoin: miter; stroke-linecap: square"/>
+   </g>
+   <g id="patch_4">
+    <path d="M 62.712 172.08 
+L 453.312 172.08 
+" style="fill: none; stroke: #dfd2be; stroke-width: 0.9; stroke-linejoin: miter; stroke-linecap: square"/>
+   </g>
+   <g id="text_15">
+    <text style="font-size: 8.2px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; fill: #8a5f1b" transform="translate(80.700158 99.41541)">17 replacements: one year,</text>
+    <text style="font-size: 8.2px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; fill: #8a5f1b" transform="translate(80.700158 108.597617)">built serially at 3 weeks each</text>
+   </g>
+   <g id="text_16">
+    <text style="font-weight: 700; font-size: 8.4px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: start; fill: #a4503a" x="341.271474" y="64.325872" transform="rotate(-0 341.271474 64.325872)">192 replacements</text>
+   </g>
+   <g id="text_17">
+    <text style="font-weight: 700; font-size: 8.4px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: start; fill: #1f6f62" x="341.271474" y="125.760881" transform="rotate(-0 341.271474 125.760881)">24 replacements</text>
+   </g>
+   <g id="legend_1">
+    <g id="line2d_53">
+     <path d="M 228.98475 147.503438 
+L 237.38475 147.503438 
+L 245.78475 147.503438 
+" style="fill: none; stroke: #a4503a; stroke-width: 1.9; stroke-linecap: square"/>
+     <g>
+      <use xlink:href="#m33d6a47b1c" x="237.38475" y="147.503438" style="fill: #a4503a; stroke: #a4503a"/>
+     </g>
+    </g>
+    <g id="text_18">
+     <text style="font-size: 8.4px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: start; fill: #4a3c2c" x="252.50475" y="150.443438" transform="rotate(-0 252.50475 150.443438)">full deconvolution, every subset</text>
+    </g>
+    <g id="line2d_54">
+     <path d="M 228.98475 159.833063 
+L 237.38475 159.833063 
+L 245.78475 159.833063 
+" style="fill: none; stroke: #1f6f62; stroke-width: 1.9; stroke-linecap: square"/>
+     <g>
+      <use xlink:href="#m8221263855" x="237.38475" y="159.833063" style="fill: #1f6f62; stroke: #1f6f62"/>
+     </g>
+    </g>
+    <g id="text_19">
+     <text style="font-size: 8.4px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: start; fill: #4a3c2c" x="252.50475" y="162.773063" transform="rotate(-0 252.50475 162.773063)">singles + the pairs with the two earliest fixers</text>
+    </g>
+   </g>
+  </g>
+  <g id="text_20">
+   <text style="font-size: 8.3px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: start; fill: #8a7458" x="5.76" y="223.92" transform="rotate(-0 5.76 223.92)">Subsets counted as 2ᵏ − 1 strains and k·2ᵏ⁻¹ replacements; the cut assumes fixation order ranks causality.</text>
+  </g>
+ </g>
+ <defs>
+  <clipPath id="pccfb682174">
+   <rect x="62.712" y="5.76" width="390.6" height="166.32"/>
+  </clipPath>
+ </defs>
+</svg>
+</div><div class="fig-dark"><svg role="img" aria-label="Full deconvolution of an endpoint is 2ᵏ − 1 strains, so six mutations is 63 strains and 192 allelic replacements — Palsson's half a year, and only with heavy parallelism. Sequencing frozen time points for fixation order costs nothing and cuts the build to 15 strains and 24 replacements, at the price of leaving six pairwise interactions and every higher-order term untested." xmlns:xlink="http://www.w3.org/1999/xlink" width="459.072pt" height="231.406141pt" viewBox="0 0 459.072 231.406141" xmlns="http://www.w3.org/2000/svg" version="1.1">
+ <metadata>
+  <rdf:RDF xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:cc="http://creativecommons.org/ns#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+   <cc:Work>
+    <dc:type rdf:resource="http://purl.org/dc/dcmitype/StillImage"/>
+    <dc:date>2026-11-02T23:57:51.732972</dc:date>
+    <dc:format>image/svg+xml</dc:format>
+    <dc:creator>
+     <cc:Agent>
+      <dc:title>Matplotlib v3.10.8, https://matplotlib.org/</dc:title>
+     </cc:Agent>
+    </dc:creator>
+   </cc:Work>
+  </rdf:RDF>
+ </metadata>
+ <defs>
+  <style type="text/css">*{stroke-linejoin: round; stroke-linecap: butt}</style>
+ </defs>
+ <g id="figure_1">
+  <g id="patch_1">
+   <path d="M 0 231.406141 
+L 459.072 231.406141 
+L 459.072 0 
+L 0 0 
+L 0 231.406141 
+z
+" style="fill: none"/>
+  </g>
+  <g id="axes_1">
+   <g id="patch_2">
+    <path d="M 62.712 172.08 
+L 453.312 172.08 
+L 453.312 5.76 
+L 62.712 5.76 
+L 62.712 172.08 
+z
+" style="fill: none"/>
+   </g>
+   <g id="matplotlib.axis_1">
+    <g id="xtick_1">
+     <g id="line2d_1">
+      <defs>
+       <path id="m3c867e818c" d="M 0 0 
+L 0 3.5 
+" style="stroke: #9a8872; stroke-width: 0.9"/>
+      </defs>
+      <g>
+       <use xlink:href="#m3c867e818c" x="78.130421" y="172.08" style="fill: #9a8872; stroke: #9a8872; stroke-width: 0.9"/>
+      </g>
+     </g>
+     <g id="text_1">
+      <text style="font-size: 9.5px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: middle; fill: #9a8872" x="78.130421" y="186.298516" transform="rotate(-0 78.130421 186.298516)">1</text>
+     </g>
+    </g>
+    <g id="xtick_2">
+     <g id="line2d_2">
+      <g>
+       <use xlink:href="#m3c867e818c" x="129.525158" y="172.08" style="fill: #9a8872; stroke: #9a8872; stroke-width: 0.9"/>
+      </g>
+     </g>
+     <g id="text_2">
+      <text style="font-size: 9.5px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: middle; fill: #9a8872" x="129.525158" y="186.298516" transform="rotate(-0 129.525158 186.298516)">2</text>
+     </g>
+    </g>
+    <g id="xtick_3">
+     <g id="line2d_3">
+      <g>
+       <use xlink:href="#m3c867e818c" x="180.919895" y="172.08" style="fill: #9a8872; stroke: #9a8872; stroke-width: 0.9"/>
+      </g>
+     </g>
+     <g id="text_3">
+      <text style="font-size: 9.5px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: middle; fill: #9a8872" x="180.919895" y="186.298516" transform="rotate(-0 180.919895 186.298516)">3</text>
+     </g>
+    </g>
+    <g id="xtick_4">
+     <g id="line2d_4">
+      <g>
+       <use xlink:href="#m3c867e818c" x="232.314632" y="172.08" style="fill: #9a8872; stroke: #9a8872; stroke-width: 0.9"/>
+      </g>
+     </g>
+     <g id="text_4">
+      <text style="font-size: 9.5px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: middle; fill: #9a8872" x="232.314632" y="186.298516" transform="rotate(-0 232.314632 186.298516)">4</text>
+     </g>
+    </g>
+    <g id="xtick_5">
+     <g id="line2d_5">
+      <g>
+       <use xlink:href="#m3c867e818c" x="283.709368" y="172.08" style="fill: #9a8872; stroke: #9a8872; stroke-width: 0.9"/>
+      </g>
+     </g>
+     <g id="text_5">
+      <text style="font-size: 9.5px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: middle; fill: #9a8872" x="283.709368" y="186.298516" transform="rotate(-0 283.709368 186.298516)">5</text>
+     </g>
+    </g>
+    <g id="xtick_6">
+     <g id="line2d_6">
+      <g>
+       <use xlink:href="#m3c867e818c" x="335.104105" y="172.08" style="fill: #9a8872; stroke: #9a8872; stroke-width: 0.9"/>
+      </g>
+     </g>
+     <g id="text_6">
+      <text style="font-size: 9.5px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: middle; fill: #9a8872" x="335.104105" y="186.298516" transform="rotate(-0 335.104105 186.298516)">6</text>
+     </g>
+    </g>
+    <g id="xtick_7">
+     <g id="line2d_7">
+      <g>
+       <use xlink:href="#m3c867e818c" x="386.498842" y="172.08" style="fill: #9a8872; stroke: #9a8872; stroke-width: 0.9"/>
+      </g>
+     </g>
+     <g id="text_7">
+      <text style="font-size: 9.5px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: middle; fill: #9a8872" x="386.498842" y="186.298516" transform="rotate(-0 386.498842 186.298516)">7</text>
+     </g>
+    </g>
+    <g id="xtick_8">
+     <g id="line2d_8">
+      <g>
+       <use xlink:href="#m3c867e818c" x="437.893579" y="172.08" style="fill: #9a8872; stroke: #9a8872; stroke-width: 0.9"/>
+      </g>
+     </g>
+     <g id="text_8">
+      <text style="font-size: 9.5px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: middle; fill: #9a8872" x="437.893579" y="186.298516" transform="rotate(-0 437.893579 186.298516)">8</text>
+     </g>
+    </g>
+    <g id="text_9">
+     <text style="font-size: 9.5px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: middle; fill: #cbbca6" x="258.012" y="199.492734" transform="rotate(-0 258.012 199.492734)">causal mutations in the ALE endpoint</text>
+    </g>
+   </g>
+   <g id="matplotlib.axis_2">
+    <g id="ytick_1">
+     <g id="line2d_9">
+      <path d="M 62.712 167.920563 
+L 453.312 167.920563 
+" clip-path="url(#pb7e802a470)" style="fill: none; stroke: #2e251c; stroke-opacity: 0.7; stroke-width: 0.6; stroke-linecap: square"/>
+     </g>
+     <g id="line2d_10">
+      <defs>
+       <path id="mf894ddd92c" d="M 0 0 
+L -3.5 0 
+" style="stroke: #9a8872; stroke-width: 0.9"/>
+      </defs>
+      <g>
+       <use xlink:href="#mf894ddd92c" x="62.712" y="167.920563" style="fill: #9a8872; stroke: #9a8872; stroke-width: 0.9"/>
+      </g>
+     </g>
+     <g id="text_10">
+      <!-- $\mathdefault{10^{0}}$ -->
+      <g style="fill: #9a8872" transform="translate(38.992 171.529821)">
+       <text>
+        <tspan x="0" y="-0.976562" style="font-size: 9.5px; font-family: 'Public Sans, Helvetica, Arial, sans-serif'; fill: #9a8872">1</tspan>
+        <tspan x="6.044189" y="-0.976562" style="font-size: 9.5px; font-family: 'Public Sans, Helvetica, Arial, sans-serif'; fill: #9a8872">0</tspan>
+        <tspan x="12.184082" y="-4.804688" style="font-size: 6.65px; font-family: 'Public Sans, Helvetica, Arial, sans-serif'; fill: #9a8872">0</tspan>
+       </text>
+      </g>
+     </g>
+    </g>
+    <g id="ytick_2">
+     <g id="line2d_11">
+      <path d="M 62.712 124.999951 
+L 453.312 124.999951 
+" clip-path="url(#pb7e802a470)" style="fill: none; stroke: #2e251c; stroke-opacity: 0.7; stroke-width: 0.6; stroke-linecap: square"/>
+     </g>
+     <g id="line2d_12">
+      <g>
+       <use xlink:href="#mf894ddd92c" x="62.712" y="124.999951" style="fill: #9a8872; stroke: #9a8872; stroke-width: 0.9"/>
+      </g>
+     </g>
+     <g id="text_11">
+      <!-- $\mathdefault{10^{1}}$ -->
+      <g style="fill: #9a8872" transform="translate(38.992 128.609209)">
+       <text>
+        <tspan x="0" y="-0.064063" style="font-size: 9.5px; font-family: 'Public Sans, Helvetica, Arial, sans-serif'; fill: #9a8872">1</tspan>
+        <tspan x="6.044189" y="-0.064063" style="font-size: 9.5px; font-family: 'Public Sans, Helvetica, Arial, sans-serif'; fill: #9a8872">0</tspan>
+        <tspan x="12.184082" y="-3.892188" style="font-size: 6.65px; font-family: 'Public Sans, Helvetica, Arial, sans-serif'; fill: #9a8872">1</tspan>
+       </text>
+      </g>
+     </g>
+    </g>
+    <g id="ytick_3">
+     <g id="line2d_13">
+      <path d="M 62.712 82.079339 
+L 453.312 82.079339 
+" clip-path="url(#pb7e802a470)" style="fill: none; stroke: #2e251c; stroke-opacity: 0.7; stroke-width: 0.6; stroke-linecap: square"/>
+     </g>
+     <g id="line2d_14">
+      <g>
+       <use xlink:href="#mf894ddd92c" x="62.712" y="82.079339" style="fill: #9a8872; stroke: #9a8872; stroke-width: 0.9"/>
+      </g>
+     </g>
+     <g id="text_12">
+      <!-- $\mathdefault{10^{2}}$ -->
+      <g style="fill: #9a8872" transform="translate(38.992 85.688597)">
+       <text>
+        <tspan x="0" y="-0.976562" style="font-size: 9.5px; font-family: 'Public Sans, Helvetica, Arial, sans-serif'; fill: #9a8872">1</tspan>
+        <tspan x="6.044189" y="-0.976562" style="font-size: 9.5px; font-family: 'Public Sans, Helvetica, Arial, sans-serif'; fill: #9a8872">0</tspan>
+        <tspan x="12.184082" y="-4.804688" style="font-size: 6.65px; font-family: 'Public Sans, Helvetica, Arial, sans-serif'; fill: #9a8872">2</tspan>
+       </text>
+      </g>
+     </g>
+    </g>
+    <g id="ytick_4">
+     <g id="line2d_15">
+      <path d="M 62.712 39.158728 
+L 453.312 39.158728 
+" clip-path="url(#pb7e802a470)" style="fill: none; stroke: #2e251c; stroke-opacity: 0.7; stroke-width: 0.6; stroke-linecap: square"/>
+     </g>
+     <g id="line2d_16">
+      <g>
+       <use xlink:href="#mf894ddd92c" x="62.712" y="39.158728" style="fill: #9a8872; stroke: #9a8872; stroke-width: 0.9"/>
+      </g>
+     </g>
+     <g id="text_13">
+      <!-- $\mathdefault{10^{3}}$ -->
+      <g style="fill: #9a8872" transform="translate(38.992 42.767986)">
+       <text>
+        <tspan x="0" y="-0.976562" style="font-size: 9.5px; font-family: 'Public Sans, Helvetica, Arial, sans-serif'; fill: #9a8872">1</tspan>
+        <tspan x="6.044189" y="-0.976562" style="font-size: 9.5px; font-family: 'Public Sans, Helvetica, Arial, sans-serif'; fill: #9a8872">0</tspan>
+        <tspan x="12.184082" y="-4.804688" style="font-size: 6.65px; font-family: 'Public Sans, Helvetica, Arial, sans-serif'; fill: #9a8872">3</tspan>
+       </text>
+      </g>
+     </g>
+    </g>
+    <g id="ytick_5">
+     <g id="line2d_17">
+      <defs>
+       <path id="mc71b7dd067" d="M 0 0 
+L -2 0 
+" style="stroke: #9a8872; stroke-width: 0.6"/>
+      </defs>
+      <g>
+       <use xlink:href="#mc71b7dd067" x="62.712" y="172.08" style="fill: #9a8872; stroke: #9a8872; stroke-width: 0.6"/>
+      </g>
+     </g>
+    </g>
+    <g id="ytick_6">
+     <g id="line2d_18">
+      <g>
+       <use xlink:href="#mc71b7dd067" x="62.712" y="169.884502" style="fill: #9a8872; stroke: #9a8872; stroke-width: 0.6"/>
+      </g>
+     </g>
+    </g>
+    <g id="ytick_7">
+     <g id="line2d_19">
+      <g>
+       <use xlink:href="#mc71b7dd067" x="62.712" y="155.000171" style="fill: #9a8872; stroke: #9a8872; stroke-width: 0.6"/>
+      </g>
+     </g>
+    </g>
+    <g id="ytick_8">
+     <g id="line2d_20">
+      <g>
+       <use xlink:href="#mc71b7dd067" x="62.712" y="147.442227" style="fill: #9a8872; stroke: #9a8872; stroke-width: 0.6"/>
+      </g>
+     </g>
+    </g>
+    <g id="ytick_9">
+     <g id="line2d_21">
+      <g>
+       <use xlink:href="#mc71b7dd067" x="62.712" y="142.07978" style="fill: #9a8872; stroke: #9a8872; stroke-width: 0.6"/>
+      </g>
+     </g>
+    </g>
+    <g id="ytick_10">
+     <g id="line2d_22">
+      <g>
+       <use xlink:href="#mc71b7dd067" x="62.712" y="137.920343" style="fill: #9a8872; stroke: #9a8872; stroke-width: 0.6"/>
+      </g>
+     </g>
+    </g>
+    <g id="ytick_11">
+     <g id="line2d_23">
+      <g>
+       <use xlink:href="#mc71b7dd067" x="62.712" y="134.521835" style="fill: #9a8872; stroke: #9a8872; stroke-width: 0.6"/>
+      </g>
+     </g>
+    </g>
+    <g id="ytick_12">
+     <g id="line2d_24">
+      <g>
+       <use xlink:href="#mc71b7dd067" x="62.712" y="131.648438" style="fill: #9a8872; stroke: #9a8872; stroke-width: 0.6"/>
+      </g>
+     </g>
+    </g>
+    <g id="ytick_13">
+     <g id="line2d_25">
+      <g>
+       <use xlink:href="#mc71b7dd067" x="62.712" y="129.159388" style="fill: #9a8872; stroke: #9a8872; stroke-width: 0.6"/>
+      </g>
+     </g>
+    </g>
+    <g id="ytick_14">
+     <g id="line2d_26">
+      <g>
+       <use xlink:href="#mc71b7dd067" x="62.712" y="126.963891" style="fill: #9a8872; stroke: #9a8872; stroke-width: 0.6"/>
+      </g>
+     </g>
+    </g>
+    <g id="ytick_15">
+     <g id="line2d_27">
+      <g>
+       <use xlink:href="#mc71b7dd067" x="62.712" y="112.07956" style="fill: #9a8872; stroke: #9a8872; stroke-width: 0.6"/>
+      </g>
+     </g>
+    </g>
+    <g id="ytick_16">
+     <g id="line2d_28">
+      <g>
+       <use xlink:href="#mc71b7dd067" x="62.712" y="104.521615" style="fill: #9a8872; stroke: #9a8872; stroke-width: 0.6"/>
+      </g>
+     </g>
+    </g>
+    <g id="ytick_17">
+     <g id="line2d_29">
+      <g>
+       <use xlink:href="#mc71b7dd067" x="62.712" y="99.159168" style="fill: #9a8872; stroke: #9a8872; stroke-width: 0.6"/>
+      </g>
+     </g>
+    </g>
+    <g id="ytick_18">
+     <g id="line2d_30">
+      <g>
+       <use xlink:href="#mc71b7dd067" x="62.712" y="94.999731" style="fill: #9a8872; stroke: #9a8872; stroke-width: 0.6"/>
+      </g>
+     </g>
+    </g>
+    <g id="ytick_19">
+     <g id="line2d_31">
+      <g>
+       <use xlink:href="#mc71b7dd067" x="62.712" y="91.601224" style="fill: #9a8872; stroke: #9a8872; stroke-width: 0.6"/>
+      </g>
+     </g>
+    </g>
+    <g id="ytick_20">
+     <g id="line2d_32">
+      <g>
+       <use xlink:href="#mc71b7dd067" x="62.712" y="88.727826" style="fill: #9a8872; stroke: #9a8872; stroke-width: 0.6"/>
+      </g>
+     </g>
+    </g>
+    <g id="ytick_21">
+     <g id="line2d_33">
+      <g>
+       <use xlink:href="#mc71b7dd067" x="62.712" y="86.238776" style="fill: #9a8872; stroke: #9a8872; stroke-width: 0.6"/>
+      </g>
+     </g>
+    </g>
+    <g id="ytick_22">
+     <g id="line2d_34">
+      <g>
+       <use xlink:href="#mc71b7dd067" x="62.712" y="84.043279" style="fill: #9a8872; stroke: #9a8872; stroke-width: 0.6"/>
+      </g>
+     </g>
+    </g>
+    <g id="ytick_23">
+     <g id="line2d_35">
+      <g>
+       <use xlink:href="#mc71b7dd067" x="62.712" y="69.158948" style="fill: #9a8872; stroke: #9a8872; stroke-width: 0.6"/>
+      </g>
+     </g>
+    </g>
+    <g id="ytick_24">
+     <g id="line2d_36">
+      <g>
+       <use xlink:href="#mc71b7dd067" x="62.712" y="61.601003" style="fill: #9a8872; stroke: #9a8872; stroke-width: 0.6"/>
+      </g>
+     </g>
+    </g>
+    <g id="ytick_25">
+     <g id="line2d_37">
+      <g>
+       <use xlink:href="#mc71b7dd067" x="62.712" y="56.238556" style="fill: #9a8872; stroke: #9a8872; stroke-width: 0.6"/>
+      </g>
+     </g>
+    </g>
+    <g id="ytick_26">
+     <g id="line2d_38">
+      <g>
+       <use xlink:href="#mc71b7dd067" x="62.712" y="52.079119" style="fill: #9a8872; stroke: #9a8872; stroke-width: 0.6"/>
+      </g>
+     </g>
+    </g>
+    <g id="ytick_27">
+     <g id="line2d_39">
+      <g>
+       <use xlink:href="#mc71b7dd067" x="62.712" y="48.680612" style="fill: #9a8872; stroke: #9a8872; stroke-width: 0.6"/>
+      </g>
+     </g>
+    </g>
+    <g id="ytick_28">
+     <g id="line2d_40">
+      <g>
+       <use xlink:href="#mc71b7dd067" x="62.712" y="45.807215" style="fill: #9a8872; stroke: #9a8872; stroke-width: 0.6"/>
+      </g>
+     </g>
+    </g>
+    <g id="ytick_29">
+     <g id="line2d_41">
+      <g>
+       <use xlink:href="#mc71b7dd067" x="62.712" y="43.318165" style="fill: #9a8872; stroke: #9a8872; stroke-width: 0.6"/>
+      </g>
+     </g>
+    </g>
+    <g id="ytick_30">
+     <g id="line2d_42">
+      <g>
+       <use xlink:href="#mc71b7dd067" x="62.712" y="41.122667" style="fill: #9a8872; stroke: #9a8872; stroke-width: 0.6"/>
+      </g>
+     </g>
+    </g>
+    <g id="ytick_31">
+     <g id="line2d_43">
+      <g>
+       <use xlink:href="#mc71b7dd067" x="62.712" y="26.238336" style="fill: #9a8872; stroke: #9a8872; stroke-width: 0.6"/>
+      </g>
+     </g>
+    </g>
+    <g id="ytick_32">
+     <g id="line2d_44">
+      <g>
+       <use xlink:href="#mc71b7dd067" x="62.712" y="18.680392" style="fill: #9a8872; stroke: #9a8872; stroke-width: 0.6"/>
+      </g>
+     </g>
+    </g>
+    <g id="ytick_33">
+     <g id="line2d_45">
+      <g>
+       <use xlink:href="#mc71b7dd067" x="62.712" y="13.317945" style="fill: #9a8872; stroke: #9a8872; stroke-width: 0.6"/>
+      </g>
+     </g>
+    </g>
+    <g id="ytick_34">
+     <g id="line2d_46">
+      <g>
+       <use xlink:href="#mc71b7dd067" x="62.712" y="9.158508" style="fill: #9a8872; stroke: #9a8872; stroke-width: 0.6"/>
+      </g>
+     </g>
+    </g>
+    <g id="ytick_35">
+     <g id="line2d_47">
+      <g>
+       <use xlink:href="#mc71b7dd067" x="62.712" y="5.76" style="fill: #9a8872; stroke: #9a8872; stroke-width: 0.6"/>
+      </g>
+     </g>
+    </g>
+    <g id="text_14">
+     <text style="font-size: 9.5px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: middle; fill: #cbbca6" x="33.016297" y="88.92" transform="rotate(-90 33.016297 88.92)">allelic replacements to build</text>
+    </g>
+   </g>
+   <g id="line2d_48">
+    <path d="M 78.130421 167.920563 
+L 129.525158 142.07978 
+L 180.919895 121.601444 
+L 232.314632 103.318605 
+L 283.709368 86.238776 
+L 335.104105 69.919877 
+L 386.498842 54.126089 
+L 437.893579 38.716647 
+" clip-path="url(#pb7e802a470)" style="fill: none; stroke: #d98c72; stroke-width: 1.9; stroke-linecap: square"/>
+    <defs>
+     <path id="m4f13488107" d="M 0 2 
+C 0.530406 2 1.03916 1.789267 1.414214 1.414214 
+C 1.789267 1.03916 2 0.530406 2 0 
+C 2 -0.530406 1.789267 -1.03916 1.414214 -1.414214 
+C 1.03916 -1.789267 0.530406 -2 0 -2 
+C -0.530406 -2 -1.03916 -1.789267 -1.414214 -1.414214 
+C -1.789267 -1.03916 -2 -0.530406 -2 0 
+C -2 0.530406 -1.789267 1.03916 -1.414214 1.414214 
+C -1.03916 1.789267 -0.530406 2 0 2 
+z
+" style="stroke: #d98c72"/>
+    </defs>
+    <g clip-path="url(#pb7e802a470)">
+     <use xlink:href="#m4f13488107" x="78.130421" y="167.920563" style="fill: #d98c72; stroke: #d98c72"/>
+     <use xlink:href="#m4f13488107" x="129.525158" y="142.07978" style="fill: #d98c72; stroke: #d98c72"/>
+     <use xlink:href="#m4f13488107" x="180.919895" y="121.601444" style="fill: #d98c72; stroke: #d98c72"/>
+     <use xlink:href="#m4f13488107" x="232.314632" y="103.318605" style="fill: #d98c72; stroke: #d98c72"/>
+     <use xlink:href="#m4f13488107" x="283.709368" y="86.238776" style="fill: #d98c72; stroke: #d98c72"/>
+     <use xlink:href="#m4f13488107" x="335.104105" y="69.919877" style="fill: #d98c72; stroke: #d98c72"/>
+     <use xlink:href="#m4f13488107" x="386.498842" y="54.126089" style="fill: #d98c72; stroke: #d98c72"/>
+     <use xlink:href="#m4f13488107" x="437.893579" y="38.716647" style="fill: #d98c72; stroke: #d98c72"/>
+    </g>
+   </g>
+   <g id="line2d_49">
+    <path d="M 129.525158 142.07978 
+L 180.919895 126.963891 
+L 232.314632 118.728047 
+L 283.709368 113.035676 
+L 335.104105 108.681052 
+L 386.498842 105.153546 
+L 437.893579 102.188551 
+" clip-path="url(#pb7e802a470)" style="fill: none; stroke: #6dbdac; stroke-width: 1.9; stroke-linecap: square"/>
+    <defs>
+     <path id="me543c3c921" d="M 0 2 
+C 0.530406 2 1.03916 1.789267 1.414214 1.414214 
+C 1.789267 1.03916 2 0.530406 2 0 
+C 2 -0.530406 1.789267 -1.03916 1.414214 -1.414214 
+C 1.03916 -1.789267 0.530406 -2 0 -2 
+C -0.530406 -2 -1.03916 -1.789267 -1.414214 -1.414214 
+C -1.789267 -1.03916 -2 -0.530406 -2 0 
+C -2 0.530406 -1.789267 1.03916 -1.414214 1.414214 
+C -1.03916 1.789267 -0.530406 2 0 2 
+z
+" style="stroke: #6dbdac"/>
+    </defs>
+    <g clip-path="url(#pb7e802a470)">
+     <use xlink:href="#me543c3c921" x="129.525158" y="142.07978" style="fill: #6dbdac; stroke: #6dbdac"/>
+     <use xlink:href="#me543c3c921" x="180.919895" y="126.963891" style="fill: #6dbdac; stroke: #6dbdac"/>
+     <use xlink:href="#me543c3c921" x="232.314632" y="118.728047" style="fill: #6dbdac; stroke: #6dbdac"/>
+     <use xlink:href="#me543c3c921" x="283.709368" y="113.035676" style="fill: #6dbdac; stroke: #6dbdac"/>
+     <use xlink:href="#me543c3c921" x="335.104105" y="108.681052" style="fill: #6dbdac; stroke: #6dbdac"/>
+     <use xlink:href="#me543c3c921" x="386.498842" y="105.153546" style="fill: #6dbdac; stroke: #6dbdac"/>
+     <use xlink:href="#me543c3c921" x="437.893579" y="102.188551" style="fill: #6dbdac; stroke: #6dbdac"/>
+    </g>
+   </g>
+   <g id="line2d_50">
+    <path d="M 62.712 115.108943 
+L 453.312 115.108943 
+" clip-path="url(#pb7e802a470)" style="fill: none; stroke-dasharray: 4,3; stroke-dashoffset: 0; stroke: #d7a95c"/>
+   </g>
+   <g id="line2d_51">
+    <path d="M 335.104105 69.919877 
+" clip-path="url(#pb7e802a470)" style="fill: none; stroke: #d98c72; stroke-width: 1.9; stroke-linecap: square"/>
+    <defs>
+     <path id="mc1d01a19a4" d="M 0 3 
+C 0.795609 3 1.55874 2.683901 2.12132 2.12132 
+C 2.683901 1.55874 3 0.795609 3 0 
+C 3 -0.795609 2.683901 -1.55874 2.12132 -2.12132 
+C 1.55874 -2.683901 0.795609 -3 0 -3 
+C -0.795609 -3 -1.55874 -2.683901 -2.12132 -2.12132 
+C -2.683901 -1.55874 -3 -0.795609 -3 0 
+C -3 0.795609 -2.683901 1.55874 -2.12132 2.12132 
+C -1.55874 2.683901 -0.795609 3 0 3 
+z
+" style="stroke: #d98c72"/>
+    </defs>
+    <g clip-path="url(#pb7e802a470)">
+     <use xlink:href="#mc1d01a19a4" x="335.104105" y="69.919877" style="fill: #d98c72; stroke: #d98c72"/>
+    </g>
+   </g>
+   <g id="line2d_52">
+    <path d="M 335.104105 108.681052 
+" clip-path="url(#pb7e802a470)" style="fill: none; stroke: #6dbdac; stroke-width: 1.9; stroke-linecap: square"/>
+    <defs>
+     <path id="m546f15d8ba" d="M 0 3 
+C 0.795609 3 1.55874 2.683901 2.12132 2.12132 
+C 2.683901 1.55874 3 0.795609 3 0 
+C 3 -0.795609 2.683901 -1.55874 2.12132 -2.12132 
+C 1.55874 -2.683901 0.795609 -3 0 -3 
+C -0.795609 -3 -1.55874 -2.683901 -2.12132 -2.12132 
+C -2.683901 -1.55874 -3 -0.795609 -3 0 
+C -3 0.795609 -2.683901 1.55874 -2.12132 2.12132 
+C -1.55874 2.683901 -0.795609 3 0 3 
+z
+" style="stroke: #6dbdac"/>
+    </defs>
+    <g clip-path="url(#pb7e802a470)">
+     <use xlink:href="#m546f15d8ba" x="335.104105" y="108.681052" style="fill: #6dbdac; stroke: #6dbdac"/>
+    </g>
+   </g>
+   <g id="patch_3">
+    <path d="M 62.712 172.08 
+L 62.712 5.76 
+" style="fill: none; stroke: #3a3026; stroke-width: 0.9; stroke-linejoin: miter; stroke-linecap: square"/>
+   </g>
+   <g id="patch_4">
+    <path d="M 62.712 172.08 
+L 453.312 172.08 
+" style="fill: none; stroke: #3a3026; stroke-width: 0.9; stroke-linejoin: miter; stroke-linecap: square"/>
+   </g>
+   <g id="text_15">
+    <text style="font-size: 8.2px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; fill: #d7a95c" transform="translate(80.700158 99.41541)">17 replacements: one year,</text>
+    <text style="font-size: 8.2px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; fill: #d7a95c" transform="translate(80.700158 108.597617)">built serially at 3 weeks each</text>
+   </g>
+   <g id="text_16">
+    <text style="font-weight: 700; font-size: 8.4px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: start; fill: #d98c72" x="341.271474" y="64.325872" transform="rotate(-0 341.271474 64.325872)">192 replacements</text>
+   </g>
+   <g id="text_17">
+    <text style="font-weight: 700; font-size: 8.4px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: start; fill: #6dbdac" x="341.271474" y="125.760881" transform="rotate(-0 341.271474 125.760881)">24 replacements</text>
+   </g>
+   <g id="legend_1">
+    <g id="line2d_53">
+     <path d="M 228.98475 147.503438 
+L 237.38475 147.503438 
+L 245.78475 147.503438 
+" style="fill: none; stroke: #d98c72; stroke-width: 1.9; stroke-linecap: square"/>
+     <g>
+      <use xlink:href="#m4f13488107" x="237.38475" y="147.503438" style="fill: #d98c72; stroke: #d98c72"/>
+     </g>
+    </g>
+    <g id="text_18">
+     <text style="font-size: 8.4px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: start; fill: #cbbca6" x="252.50475" y="150.443438" transform="rotate(-0 252.50475 150.443438)">full deconvolution, every subset</text>
+    </g>
+    <g id="line2d_54">
+     <path d="M 228.98475 159.833063 
+L 237.38475 159.833063 
+L 245.78475 159.833063 
+" style="fill: none; stroke: #6dbdac; stroke-width: 1.9; stroke-linecap: square"/>
+     <g>
+      <use xlink:href="#me543c3c921" x="237.38475" y="159.833063" style="fill: #6dbdac; stroke: #6dbdac"/>
+     </g>
+    </g>
+    <g id="text_19">
+     <text style="font-size: 8.4px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: start; fill: #cbbca6" x="252.50475" y="162.773063" transform="rotate(-0 252.50475 162.773063)">singles + the pairs with the two earliest fixers</text>
+    </g>
+   </g>
+  </g>
+  <g id="text_20">
+   <text style="font-size: 8.3px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: start; fill: #9a8872" x="5.76" y="223.92" transform="rotate(-0 5.76 223.92)">Subsets counted as 2ᵏ − 1 strains and k·2ᵏ⁻¹ replacements; the cut assumes fixation order ranks causality.</text>
+  </g>
+ </g>
+ <defs>
+  <clipPath id="pb7e802a470">
+   <rect x="62.712" y="5.76" width="390.6" height="166.32"/>
+  </clipPath>
+ </defs>
+</svg>
+</div><figcaption>Full deconvolution of an endpoint is 2ᵏ − 1 strains, so six mutations is 63 strains and 192 allelic replacements — Palsson's half a year, and only with heavy parallelism. Sequencing frozen time points for fixation order costs nothing and cuts the build to 15 strains and 24 replacements, at the price of leaving six pairwise interactions and every higher-order term untested.</figcaption></figure>
+<p>Palsson Ch 26 gives the empirical shape. Significant adaptation occurs within the first 500 to 2,000 generations, though growth rate continues improving over tens of thousands, so an endpoint is wherever the experiment was stopped rather than an optimum. An endpoint clone often carries only two to six mutations, with the same genes hit in replicate experiments — unless a mutator arose, in which case there are many and they are uninformative. Most changes are point mutations, but up to a third are small insertions or deletions between 1 and 80 base pairs, and large duplications or rearrangements occur occasionally, which matters because a variant-calling pipeline tuned for substitutions will miss a third of the answer. Causality is established by reconstruction in the parent — one mutation, then pairs, then triples — and the cost is concrete: an allelic replacement in E. coli takes up to three weeks, serial introduction of up to six mutations has been done, and doing all the reconstructions of interest can take more than half a year.</p>
+<p><strong>7. The population frequency trajectory is the cheap substitute for reconstruction</strong></p>
+<p>Because known mutations can be screened for in frozen stocks from intermediate time points, the order and dynamics of fixation can be recovered from the archive without building anything. Palsson&#x27;s observation is that the most causal mutations tend to fix first, and that endpoints sometimes show 100% allelic frequency for the causal ones, so the fixation order ranks candidates by likely contribution. That ranking is what makes a reduced reconstruction defensible: build the singles, and build only the pairs involving the two earliest fixers. The method&#x27;s limit is also clear — the ordering is expected to hold if the mutations are relatively independent, so a reconstruction set that finds the singles do not sum is itself the evidence of epistasis, and that is a result rather than a failure.</p>
+<p><strong>8. A learning step is falsifiable or it is a figure</strong></p>
+<p>The DBTL cycle&#x27;s weak joint is the L. The test for whether a measurement is doing work is written before the measurement: name the model assumption each possible outcome would reject. If the expression data show the pathway genes at the intended level and flux is still low, that rejects the transcription-limitation assumption and promotes translation, enzyme folding, cofactor supply or thermodynamic infeasibility. If the metabolite upstream of the bottleneck accumulates, that rejects the hypothesis that the bottleneck is upstream of itself. If neither changes, the measurement had no power and the next round should spend differently. Written in advance, this is an experiment; written afterwards, it is an interpretation, and the difference is whether any outcome could have been surprising.</p>
+<h3>Worked anchor</h3>
+<p>Budget the post-ALE analysis before running the evolution. The selection scheme is to be run for about 1,000 generations on the production phenotype, and the planning question is what the analysis costs if it works.</p>
+<p>Take the common case: six mutations in the endpoint clone. Full deconvolution means every subset, which is 2⁶ − 1 = 63 strains. By size that is 6 singles, 15 pairs, 20 triples, 15 quadruples, 6 quintuples and the sextuple. At up to three weeks per allelic replacement, and reckoning the strains of size k as k serial replacements, the total replacement work is the sum over subsets of their size, which is 6 × 2⁵ = 192 replacements. At three weeks each that is 576 weeks of replacement work, which is Palsson&#x27;s &quot;more than half a year&quot; only if a great deal runs in parallel — about twenty-five constructions at once to finish in a year. This is the number that makes full deconvolution a non-plan.</p>
+<p>Now cut it with what Ch 26 says. Most causal mutations fix first, and frozen stocks from intermediate time points can be sequenced for known mutations without any construction at all. So: sequence six archived time points for the six known mutations — one sequencing run, days, no strain building — and obtain the fixation order. Build the six singles in parallel: six replacements, three weeks of calendar, one round of work. Build only the pairs involving the two earliest fixers: that is 1 pair between them plus 4 pairs of each with the remaining four, so 9 pairs, 18 replacements, a second three-week round. Total 24 replacements across two parallel rounds, roughly six to eight weeks of calendar against 192 replacements and a year.</p>
+<p>What the cut costs is explicit. It tests all six single effects, so no causal mutation is missed outright. It tests nine of fifteen pairwise interactions, so six pairwise interactions are untested, all of them among the four later-fixing mutations. And it tests no higher-order interaction at all. The defence is that the untested interactions are between mutations that fixed late, which under the independence assumption contribute least — and that assumption is checkable from the results already obtained, because if the six single effects sum to the endpoint phenotype within measurement error then epistasis is small and the untested terms are small with it. If they do not sum, the shortfall is a measurement of total epistasis and buys the argument for spending on the remaining 39 strains.</p>
+<p>One more line, because it changes the sequencing plan rather than the strain plan: up to a third of endpoint differences are indels of 1 to 80 base pairs and some are large duplications or rearrangements. A pipeline calling substitutions only would return four of the six mutations, and the deconvolution above would then be a tidy and confident answer to the wrong question. The variant calling has to include indel and copy-number detection before any of this arithmetic is worth doing.</p>
+<p><strong>Assumptions behind this calculation</strong></p>
+<ul>
+<li>six mutations in the ALE endpoint, which is the upper end of Palsson&#x27;s reported two-to-six range rather than a measurement</li>
+<li>full deconvolution counted as every non-empty subset, 2⁶ − 1 = 63 strains, and the replacement work as the sum of subset sizes, 6 × 2⁵ = 192</li>
+<li>an allelic replacement taken at Palsson&#x27;s stated three weeks, treated as the same for every locus</li>
+<li>reconstructions of the same size assumed to run in parallel and those within one strain serially</li>
+<li>mutations assumed relatively independent, which is the condition under which fixation order ranks causality</li>
+<li>frozen intermediate time points assumed to exist and to be sequenceable for known mutations without new construction</li>
+<li>single effects assumed additive when tested against the endpoint phenotype, so a shortfall is read as total epistasis</li>
+<li>up to a third of endpoint differences taken as indels of 1–80 bp, from Palsson §26.2, when judging what a substitution-only pipeline returns</li>
+</ul>
+<h3>Reading map</h3>
+<table><thead><tr><th>Source</th><th>Treatment</th><th>Why</th></tr></thead><tbody><tr><td>Palsson Ch 24 — Analysis of Omic Data, in full</td><td>Read closely</td><td>Twenty pages and the spine of the week. §24.1 with Table 24.1 for the inference-based against knowledge-based contrast and the explicit statement that statistical correlation does not confer causality; §24.2 data mapping and network topology; §24.3 omics as constraints, with the pathogen case confirmed by conditional knockouts; §24.4 omics as validation, with the &gt;98% figure. Read §24.3 and §24.4 as a pair — the distinction between them is the week&#x27;s methodological point.</td></tr><tr><td>Palsson Ch 26 — Adaptive Laboratory Evolution, in full</td><td>Read closely</td><td>§26.1 on generations and what an endpoint means, §26.2 on the genetic basis — two to six mutations, up to a third indels of 1–80 bp, allelic replacement at three weeks and reconstruction at more than half a year — §26.3 on interpreting outcomes, §26.4 a worked nutrient adaptation and §26.6 the complex cases. Every number in the worked anchor comes from §26.2.</td></tr><tr><td>Lee Ch 2 §2.6.2 — Transcriptional Regulation, with §2.6.2.1 iModulons and §2.6.2.2 Activities</td><td>Read closely</td><td>Five pages. Confirmed in the PDF with these titles; the curriculum&#x27;s &quot;transcriptional regulation and iModulons&quot; resolves, with iModulons as the subsection rather than part of the heading. The decomposition into a structure matrix and an activity matrix, distal against proximal causation, and the 67% interpretation that distinguishes ICA&#x27;s variance claim from PCA&#x27;s.</td></tr><tr><td>Lee Ch 2 §2.7.2 — Contextualization of GEMs Within Workflows</td><td>Read closely</td><td>Two pages, and the curriculum&#x27;s fallback pointer resolves to it. Read it as the answer to where in a DBTL cycle the model belongs, which is the question the falsifiable-learning-step session is really asking.</td></tr><tr><td>Palsson Ch 25 — Model-Driven Discovery</td><td>Skim</td><td>§25.2 predicting gap-filling reactions and §25.3 predicting metabolic gene functions. Skim rather than close because the artifact does not need it, but it is the cleanest statement of a model making a falsifiable prediction about biology that was then checked — which is the standard the DBTL plan&#x27;s learning step is held to.</td></tr><tr><td>Lee Ch 9 §9.4.1 and §9.4.2 — Data Analysis</td><td>Skim</td><td>§9.4.1.5 missing values and §9.4.1.6 normalisation for why a metabolomics fold change is a decision rather than a measurement, and §9.4.2.3 pathway analysis for the enrichment-against-network distinction, including the honest statement that pathway enrichment relies on an arbitrary pathway definition that does not reflect the architecture of metabolism. Note that Ch 9 is metabolomics only and has no omics-integration section; the curriculum&#x27;s pointer to one does not resolve, and Palsson Ch 24 is the source.</td></tr><tr><td>Lee Ch 11 §11.5 — Conclusions and Perspectives</td><td>Skip</td><td>The curriculum cites Ch 11 for evolutionary engineering of E. coli. The phrase &quot;adaptive laboratory evolution&quot; occurs exactly once in the chapter, as a clause in the conclusions, and there is no section on it; Ch 11 is organised by product class throughout. Skip it and use Palsson Ch 26, which is already assigned and covers the topic properly.</td></tr></tbody></table>
+<h3>Common misconceptions</h3>
+<ul>
+<li>That constraining a model with expression data and then finding it predicts the expression state is a validation. It is a restatement. The &gt;98% agreement in §24.4 is evidence precisely because those optimal growth solutions were computed without the expression data; the same number obtained after constraining with it would mean nothing. Decide whether you are constraining or validating before running, and withhold the test case either way.</li>
+<li>That a high transcript means a high flux. Four things break the chain, and the week&#x27;s check question is built on them: translation and folding, so protein may not follow mRNA; post-translational regulation and allostery, so active enzyme may not follow protein; thermodynamics, so a reaction near equilibrium carries little net flux at any capacity; and substrate or cofactor supply, so capacity may exceed what arrives. Expression sets an upper bound on capacity and says nothing about which bound is binding.</li>
+<li>That averaging expression across the genes of a reaction is a reasonable aggregation. It is wrong in opposite directions for the two GPR operators. A complex is an AND and is limited by its least-expressed subunit, so averaging invents capacity; isozymes are an OR and their capacities add, so taking a minimum deletes the redundancy that makes the gene non-essential. The logic in the GPR is doing arithmetic, not documentation.</li>
+</ul>
+<h3>Check yourself before moving on</h3>
+<p><strong>Q.</strong> Transcript high, flux low. Four explanations, and the one measurement that discriminates between them?</p>
+<p><strong>A.</strong> The transcript may not become protein, through translation initiation, folding or degradation. The protein may not be active, through post-translational modification, allosteric inhibition by a downstream product, or lack of a cofactor or metal. The reaction may be thermodynamically constrained, sitting near equilibrium so that net flux is small whatever the capacity. Or substrate may not be arriving, because the limitation is upstream and this enzyme is waiting. The single measurement that cuts across all four is ¹³C flux analysis, which reports the flux itself and so settles whether the premise is even true. If the question is instead which of the four, the most informative single measurement is targeted proteomics with the metabolite pool on either side of the step: protein present with substrate accumulating and product low points to activity or thermodynamics, protein present with substrate low points upstream, and protein absent points to translation. The mass action ratio against the equilibrium constant then separates thermodynamics from regulation.</p>
+<p><strong>Q.</strong> You have 1,000 generations of ALE and six mutations in the endpoint. Design the analysis within one quarter.</p>
+<p><strong>A.</strong> Start with the archive, not the bench. Sequence six frozen intermediate time points for the six known mutations, which takes days and no construction, and recover the fixation order; the most causal mutations tend to fix first and the endpoint may show them at 100% frequency. Then one parallel round of six single reconstructions in the parent, three weeks, phenotyped against parent and endpoint. Then one parallel round of the nine pairs involving the two earliest fixers, three weeks. That is about eight weeks and 24 allelic replacements against 63 strains and 192 replacements for the full set. State what is untested: six pairwise interactions among the late fixers and all higher-order terms. Test the assumption that licenses the cut by checking whether the six single effects sum to the endpoint phenotype — a shortfall is a quantitative measurement of total epistasis and is the argument for funding the rest. Before any of it, confirm the variant calling detected indels of 1 to 80 base pairs and copy-number changes, since up to a third of endpoint differences are not substitutions.</p>
+<p><strong>Q.</strong> Your reviewer says the before-and-after comparison in your omics-constrained model is circular. Is it, and what would make it not?</p>
+<p><strong>A.</strong> It is circular if the quantity compared is one the constraint determined. Constraining fluxes from expression and then reporting that the model&#x27;s predicted reaction use matches the expression pattern is a restatement of the constraint. It stops being circular when the prediction is in a different observable from the constraint and was not available to it — growth rate on a substrate not in the training conditions, the identity of a gene the constrained model now calls essential, a by-product secretion rate, or a flux measured by labelling. The structural requirement is a withheld condition: constrain on a subset of conditions, predict the held-out one, and report the error there. This is the same discipline as week 38&#x27;s held-out split, and it fails the same way for the same reason, which is that the easiest split to perform is the one that leaks.</p>
+<hr>
+<h2>Appendix — on the numbers in these notes</h2>
+<p>Every number in these modules — ribosome counts, pool sizes, half-lives, turnover times — is written from working knowledge and is an order-of-magnitude figure. Before any of them enters a notebook, a figure or a proposal, check it against BioNumbers or the primary source and cite that, not these notes. Treat the modules as a map of what matters and a scaffold for reasoning; treat the textbooks and the databases as the authority for values.</p>
+
+<p><strong>Phase 7: hosts and chassis (weeks 40-46).</strong></p>
+<p>Distilled modules: the content you need, a worked anchor, a reading map that tells you what to read closely and what to skip, misconceptions, and a self-test. Written to replace cover-to-cover reading, not to replace reading.</p>
+<p><strong>On the numbers before you read any of them.</strong> Every number in these modules — ribosome counts, pool sizes, half-lives, turnover times — is written from working knowledge and is an order-of-magnitude figure. Before any of them enters a notebook, a figure or a proposal, check it against BioNumbers or the primary source and cite that, not these notes. Treat the modules as a map of what matters and a scaffold for reasoning; treat the textbooks and the databases as the authority for values.</p>
+<p>Every worked anchor states the assumptions it rests on, and every figure built from simulated rather than measured values says so in its title. Treat a calculation here as a conditional inference, not a result.</p>
+<hr>
+
+<section class="study-transfer" aria-label="Week 39 application and teach-back">
+<h3>Apply it to your fermentation experience</h3>
+<p><strong>Transfer prompt.</strong> Combine a model prediction and one omics dataset to explain a fermentation phenotype. What can each dataset support, and why does correlation across layers not establish causation?</p>
+<p class="meta">Use your actual thesis methods and results where you remember them. Mark missing information as unknown; do not assume the organisms were co-cultured, that a metabolite was measured, or that a proposed mechanism was demonstrated.</p>
+<h3>Teach it back</h3>
+<p>Explain the week's concept from memory, work one number, and name one boundary. Then use the <a href="teach-back.html">five-minute teach-back protocol</a> and log it in the tracker.</p>
+</section>
+<nav class="weeknav" aria-label="Week navigation"><a href="week-38.html">&#8592; Week 38</a><a class="idx" href="index.html">Lecture index</a><a class="idx" href="case-study.html">Case study</a><a href="week-40.html">Week 40 &#8594;</a></nav>
+</main>
+<footer class="docfoot"><a href="../metabolic-engineering-tracker.html">&#8592; Course tracker</a><span>Metabolic engineering &middot; 55 weeks</span></footer>
+<script>
+(function(){var root=document.documentElement,key="me.theme";var bs=Array.prototype.slice.call(document.querySelectorAll(".appearance button"));
+function paint(v){bs.forEach(function(b){b.setAttribute("aria-pressed",b.getAttribute("data-appearance")===v?"true":"false");});if(v==="auto")root.removeAttribute("data-theme");else root.setAttribute("data-theme",v);}
+var saved="auto";try{saved=localStorage.getItem(key)||"auto";}catch(e){}
+bs.forEach(function(b){b.addEventListener("click",function(){var v=b.getAttribute("data-appearance");paint(v);try{localStorage.setItem(key,v);}catch(e){}});});paint(saved);})();
+</script>
+</body>
+</html>

@@ -1,0 +1,1400 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="utf-8"><title>Week 53 — Capstone I: the strain — Metabolic engineering</title>
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+
+
+<style>:root{color-scheme:light;--paper:#FAF6EF;--ink:#211A12;--ink-2:#4A3C2C;--ink-3:#8A7458;
+--line:#DFD2BE;--line-2:#EDE4D5;--broth:#9A6B1F;--broth-soft:#F6ECD9;
+--serif:"Newsreader",Georgia,serif;--sans:"Public Sans",system-ui,sans-serif}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--paper:#15120D;--ink:#F1E9DC;--ink-2:#CBBCA6;
+--ink-3:#948872;--line:#352C22;--line-2:#2A231B;--broth:#D7A95C;--broth-soft:#241D14}}
+*{box-sizing:border-box}
+body{margin:0;background:var(--paper);color:var(--ink);font-family:var(--sans);font-size:15.5px;line-height:1.6;
+padding:env(safe-area-inset-top,0) 0 env(safe-area-inset-bottom,0)}
+.wrap{max-width:840px;margin:0 auto;padding:40px 22px 90px}
+h1{font-family:var(--serif);font-size:clamp(28px,5vw,42px);line-height:1.1;font-weight:600;margin:0 0 6px;letter-spacing:-.02em}
+h2{font-family:var(--serif);font-size:26px;font-weight:600;margin:46px 0 10px;letter-spacing:-.01em;padding-bottom:7px;border-bottom:1px solid var(--line)}
+h3{font-family:var(--serif);font-size:20px;font-weight:600;margin:30px 0 4px;color:var(--broth)}
+h4{font-size:14px;font-weight:650;margin:18px 0 4px;color:var(--ink-3);letter-spacing:.02em;text-transform:uppercase}
+p{margin:0 0 12px;max-width:74ch}
+em{color:var(--ink-2)}
+ul{margin:0 0 14px;padding-left:1.15em;max-width:74ch}
+li{margin:.3em 0}li::marker{color:var(--ink-3)}
+hr{border:0;border-top:1px solid var(--line);margin:40px 0}
+strong{font-weight:650}
+table{border-collapse:collapse;width:100%;margin:14px 0 20px;font-size:14px}
+th{text-align:left;font-weight:600;color:var(--ink-3);font-size:12.5px;padding:7px 9px;border-bottom:1.5px solid var(--line)}
+td{padding:8px 9px;border-bottom:1px solid var(--line-2);vertical-align:top}
+tr:nth-child(even) td{background:var(--broth-soft)}
+
+figure.fig{margin:22px 0 26px;padding:0;max-width:100%}
+figure.fig svg{width:100%;height:auto;display:block;background:var(--card);
+  border:1px solid var(--line-2);border-radius:10px;padding:8px 10px}
+figure.fig figcaption{font-size:13px;color:var(--ink-3);margin-top:8px;max-width:74ch;line-height:1.5}
+figure.fig .figtitle{font-family:var(--serif);font-size:15px;color:var(--ink-2);margin-bottom:6px}
+figure.fig .fig-dark{display:none}
+@media (prefers-color-scheme: dark){
+  figure.fig .fig-light{display:none}
+  figure.fig .fig-dark{display:block}
+}
+@media print{figure.fig{break-inside:avoid;page-break-inside:avoid}
+  figure.fig .fig-dark{display:none !important}
+  figure.fig .fig-light{display:block !important}}
+
+@media print{body{background:#fff}.wrap{padding:0;max-width:none}h2,h3{page-break-after:avoid}}</style><script>try{var t=localStorage.getItem("me.theme");if(t&&t!=="auto")document.documentElement.setAttribute("data-theme",t);}catch(e){}</script>
+<meta name="color-scheme" content="light dark">
+<meta name="theme-color" content="#ffffff" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#000000" media="(prefers-color-scheme: dark)">
+<style>
+/* ============================================================
+   COURSE LIBRARY — Apple document shell
+   ============================================================ */
+:root{
+  color-scheme:light;
+  --paper:#FFFFFF;--surface:#F5F5F7;--card:#FFFFFF;--fill:#F5F5F7;
+  --ink:#1D1D1F;--ink-2:#6E6E73;--ink-3:#6E6E73;
+  --line:rgba(0,0,0,.14);--line-2:rgba(0,0,0,.08);
+  --broth:#0071E3;--broth-soft:rgba(0,113,227,.10);
+  --nav-bg:rgba(255,255,255,.84);
+  --sans:-apple-system,BlinkMacSystemFont,"SF Pro Text","SF Pro Display","Helvetica Neue",Arial,sans-serif;
+  --mono:ui-monospace,"SF Mono",Menlo,Consolas,monospace;
+  --serif:var(--sans);
+}
+@media (prefers-color-scheme:dark){
+  :root:not([data-theme="light"]){
+    color-scheme:dark;
+    --paper:#000000;--surface:#1C1C1E;--card:#2C2C2E;--fill:#2C2C2E;
+    --ink:#F5F5F7;--ink-2:#A1A1A6;--ink-3:#8E8E93;
+    --line:rgba(255,255,255,.16);--line-2:rgba(255,255,255,.09);
+    --broth:#5AA9FF;--broth-soft:rgba(10,132,255,.18);
+    --nav-bg:rgba(0,0,0,.74);
+  }
+}
+:root[data-theme="dark"]{
+  color-scheme:dark;
+  --paper:#000000;--surface:#1C1C1E;--card:#2C2C2E;--fill:#2C2C2E;
+  --ink:#F5F5F7;--ink-2:#A1A1A6;--ink-3:#8E8E93;
+  --line:rgba(255,255,255,.16);--line-2:rgba(255,255,255,.09);
+  --broth:#5AA9FF;--broth-soft:rgba(10,132,255,.18);
+  --nav-bg:rgba(0,0,0,.74);
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth;scroll-padding-top:72px;-webkit-text-size-adjust:100%}
+body{
+  margin:0;background:var(--paper);color:var(--ink);
+  font-family:var(--sans);font-size:17px;line-height:1.62;letter-spacing:-.011em;
+  padding:0;
+}
+.docbar{
+  position:sticky;top:0;z-index:80;display:flex;align-items:center;justify-content:space-between;gap:12px;
+  padding:8px max(24px,calc((100vw - 1180px)/2));
+  background:var(--nav-bg);
+  -webkit-backdrop-filter:saturate(180%) blur(20px);backdrop-filter:saturate(180%) blur(20px);
+  border-bottom:1px solid var(--line-2);
+}
+.docback{display:inline-flex;align-items:center;gap:6px;color:var(--ink-2);font-size:13px;font-weight:500;text-decoration:none;white-space:nowrap}
+.docback:hover{color:var(--broth)}
+.appearance{display:inline-flex;gap:2px;padding:2px;background:var(--fill);border-radius:980px}
+.appearance button{border:0;background:none;color:var(--ink-2);font:inherit;font-size:12px;font-weight:500;line-height:1;padding:6px 11px;border-radius:980px;cursor:pointer}
+.appearance button[aria-pressed="true"]{background:var(--card);color:var(--ink);box-shadow:0 1px 2px rgba(0,0,0,.08)}
+.wrap{max-width:900px;margin:0 auto;padding:64px 24px 96px}
+body h1{
+  font-family:var(--sans);font-size:clamp(42px,6.2vw,64px);line-height:1.04;letter-spacing:-.04em;
+  font-weight:700;margin:0 0 16px;max-width:18ch;color:var(--ink);
+}
+.doc-kicker{font-size:13px;font-weight:500;letter-spacing:0;color:var(--ink-2);margin:0 0 12px}
+body h1 + p{font-size:20px;line-height:1.55;color:var(--ink-2);max-width:68ch;margin:0 0 18px}
+body h1 + p strong{color:var(--ink);font-weight:600}
+body h2{
+  font-family:var(--sans);font-size:32px;line-height:1.15;letter-spacing:-.03em;font-weight:600;
+  color:var(--ink);margin:64px 0 14px;padding:0;border:0;
+}
+body h3{font-family:var(--sans);font-size:22px;line-height:1.25;letter-spacing:-.02em;font-weight:600;color:var(--ink);margin:36px 0 8px}
+body h4{font-size:14px;line-height:1.4;font-weight:600;letter-spacing:0;text-transform:none;color:var(--ink-2);margin:24px 0 6px}
+body p{margin:0 0 14px;max-width:72ch}
+body ul,body ol{margin:0 0 16px;padding-left:1.25em;max-width:72ch}
+body li{margin:.32em 0}
+body li::marker{color:var(--ink-3)}
+body strong{font-weight:600;color:var(--ink)}
+body em{color:var(--ink)}
+body a{color:var(--broth);text-decoration:underline;text-underline-offset:2px}
+body a:hover{text-decoration:underline}
+body hr{border:0;border-top:1px solid var(--line-2);margin:56px 0}
+body table{border-collapse:collapse;width:100%;margin:22px 0 30px;font-size:15px;line-height:1.45}
+body th{text-align:left;font-weight:600;font-size:12.5px;color:var(--ink-2);padding:10px 12px;background:var(--surface);border-bottom:1px solid var(--line)}
+body td{padding:11px 12px;border-bottom:1px solid var(--line-2);vertical-align:top}
+body tr:nth-child(even) td{background:transparent}
+body figure.fig{margin:32px 0 36px;padding:0;max-width:100%}
+body figure.fig svg{width:100%;height:auto;display:block;background:var(--surface);border:0;border-radius:20px;padding:18px}
+body figure.fig figcaption{font-size:13px;color:var(--ink-2);margin-top:10px;max-width:72ch;line-height:1.5}
+body figure.fig .figtitle{font-family:var(--sans);font-size:14px;font-weight:600;color:var(--ink);margin-bottom:6px}
+body pre{background:var(--surface);border:1px solid var(--line-2);border-radius:16px;padding:18px;overflow:auto;font-family:var(--mono);font-size:13.5px;line-height:1.55;margin:20px 0 24px}
+body code{font-family:var(--mono);font-size:.88em;background:var(--surface);border-radius:6px;padding:.12em .35em}
+body pre code{background:none;padding:0;font-size:inherit}
+body blockquote{margin:24px 0;padding:2px 0 2px 18px;border-left:3px solid var(--broth);color:var(--ink-2)}
+:root[data-theme="dark"] .fig-light{display:none!important}
+:root[data-theme="dark"] .fig-dark{display:block!important}
+:root[data-theme="light"] .fig-dark{display:none!important}
+:root[data-theme="light"] .fig-light{display:block!important}
+.docfoot{max-width:900px;margin:0 auto;padding:24px 24px 64px;border-top:1px solid var(--line-2);display:flex;justify-content:space-between;gap:12px;font-size:12.5px;color:var(--ink-3)}
+.docfoot a{color:var(--ink-2);text-decoration:none}
+.docfoot a:hover{color:var(--broth)}
+@media (max-width:700px){
+  .docbar{padding:8px 16px}
+  .wrap{padding:40px 18px 80px}
+  body h1{font-size:clamp(38px,11vw,48px)}
+  body h1 + p{font-size:18px}
+  body h2{font-size:28px;margin-top:52px}
+  body h3{font-size:20px}
+  body p,body li{font-size:16.5px}
+  body table{font-size:14px}
+  body th,body td{padding:9px 9px}
+  .docfoot{padding:20px 18px 50px;flex-direction:column;gap:6px}
+}
+@media print{
+  .docbar,.appearance,.docfoot{display:none!important}
+  body{background:#fff;color:#000;font-size:11pt}
+  .wrap{max-width:none;padding:0}
+  body h1{font-size:28pt;max-width:none}
+  body h2{font-size:16pt;page-break-after:avoid}
+  body h3{font-size:13pt;page-break-after:avoid}
+  body a{color:#000;text-decoration:none}
+  body table,body figure{break-inside:avoid}
+}
+
+
+.index-actions{margin:18px 0 36px;display:flex;flex-wrap:wrap;gap:16px;align-items:center}
+.index-actions a{font-size:14px;font-weight:500;color:var(--broth);text-decoration:none}
+.index-actions a:hover{text-decoration:underline}
+.phaseh{display:flex;align-items:baseline;justify-content:space-between;gap:14px;font-size:24px!important;margin:52px 0 2px!important;letter-spacing:-.02em}
+.phaseh span{font-size:12px;font-weight:400;color:var(--ink-3);letter-spacing:0;white-space:nowrap}
+.weeklist{border-top:1px solid var(--line-2);margin-bottom:8px}
+.weekrow{display:flex;align-items:center;gap:14px;min-height:50px;padding:10px 4px;border-bottom:1px solid var(--line-2);text-decoration:none;color:var(--ink)}
+.weekrow:hover{background:var(--surface)}
+.wnum{width:28px;flex:none;font-size:12px;font-weight:600;color:var(--broth);font-variant-numeric:tabular-nums}
+.wtitle{flex:1;font-size:16.5px;font-weight:500;line-height:1.35}
+.warrow{flex:none;color:var(--ink-3);font-size:16px}
+.weeknav{display:flex;align-items:center;justify-content:space-between;gap:14px;margin:52px 0 0;padding-top:22px;border-top:1px solid var(--line-2);font-size:14px}
+.weeknav a{color:var(--broth);text-decoration:none;font-weight:500}
+.weeknav a:hover{text-decoration:underline}
+.weeknav .idx{color:var(--ink-2);font-weight:400}
+.weeknav .empty{visibility:hidden}
+.case-h{max-width:22ch}
+.protocol{max-width:72ch}
+.protocol li{margin:.55em 0}
+.protocol h2{margin-top:38px}
+@media (max-width:700px){.phaseh{font-size:21px!important;margin-top:42px!important}.wtitle{font-size:15.5px}.weeknav{font-size:13px;gap:8px}}
+@media print{.weeknav,.index-actions{display:none!important}}
+</style>
+<style>.sr-only{position:absolute!important;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap;border:0}</style>
+</head><body>
+<header class="docbar"><a class="docback" href="index.html">&#8592; Lecture index</a><div class="appearance" role="group" aria-label="Appearance">
+<button type="button" data-appearance="auto" aria-pressed="true">Auto</button>
+<button type="button" data-appearance="light" aria-pressed="false">Light</button>
+<button type="button" data-appearance="dark" aria-pressed="false">Dark</button>
+</div></header>
+<main class="wrap">
+<p class="doc-kicker">Week 53 of 55 &middot; Process, economics and the application &middot; <strong class="tier-badge">Core</strong></p>
+<h1>Capstone I: the strain</h1>
+<h2 class="sr-only">Week content</h2>
+<p>No new reading and no new technique: the week&#x27;s whole content is assembling fifty-two weeks of separate artifacts into one document that a stranger can check. That sounds like editing and it is not, because the act of putting the chain in one place is what exposes the joints — a stoichiometry that was balanced in week 17 against a biomass equation that changed in week 26, a thermodynamic feasibility established at 1 mM when the process runs at 300, a deletion set validated against a model whose medium is not the medium week 47 designed. The discipline that makes the week worth a card of its own is that every number in the dossier has to carry its provenance and its uncertainty, and the second of those is where most capstones fail: a predicted yield quoted to three significant figures from a flux balance is not a prediction, it is a bound on a bound. The organising arithmetic is the derating chain in the anchor, which takes a flux-model maximum of 0.52 g g⁻¹ down to an expected 0.326 ± 0.044 g g⁻¹ by four named multipliers, each with its own uncertainty, and then does the thing the week exists to do: compares it against the specification week 52 derived, finds that the yield uncertainty is economically almost irrelevant and the titre uncertainty is the whole question, and lets that decide which experiment goes first.</p>
+<h3>Core ideas</h3>
+<p><strong>1. What the dossier is for, and the test it has to pass</strong></p>
+<p>One reader, one hour, no author present. A supervisor reading this document is deciding two things — can this person formulate a question, and will they finish things — and both are answered by whether the numbers connect rather than by whether they are impressive. The practical test is that a stranger can take any number in the final performance estimate and walk it backwards to a measurement, a published value with a section pointer, or an explicit assumption, without asking the author anything. That is harder than it sounds for a document assembled from twenty-two artifacts built over a year, because the common failure is not an error but a disconnection: artifact 11&#x27;s flux model and artifact 23&#x27;s genotype refer to different model versions, and nothing in either says so. The remedy is mechanical and is the first session&#x27;s real work — before writing any prose, build the one-page dependency map of which artifact feeds which number, and reconcile every number that appears in more than one place. Expect three or four genuine conflicts. They are the week&#x27;s most valuable output, because each one is a thing that would have been found by a reviewer instead.</p>
+<p><strong>2. The target justification is an economic argument with biology in it, not the reverse</strong></p>
+<p>Lee §1.3 (printed p9) sets out the three approaches — §1.3.1 rational, §1.3.2 combinatorial, §1.3.3 systems metabolic engineering — and reread at this point it is a framework for explaining what was done rather than a menu for choosing. The justification section has four parts in a fixed order, and the order is the argument: market and price, because a product with no price has no specification; the incumbent route and its cost structure, because the competitor is a petrochemical plant with thirty years of depreciation behind it rather than another fermentation; why biology could win, which has to name a specific advantage — a chiral centre, a selectivity, a feedstock, a functionalisation that chemistry does badly — rather than appealing to renewability; and feasibility, which is where the biology enters. Week 52&#x27;s arithmetic sharpens this considerably. The honest version of the second part is now a number: the incumbent&#x27;s price, the cost of goods the designed configuration can reach, and the gap. If the gap is negative at every accessible scale, say so in the first page and make the dossier an argument about which product this strain should make instead — a verdict of <em>not at this scale</em> with the arithmetic behind it is worth more than an optimistic cost of goods, and brief 8 already licenses exactly that kind of verdict for the consortium replacement.</p>
+<p><strong>3. The chain, and the information lost at each link</strong></p>
+<p>Stoichiometry to thermodynamics to flux model to genotype, and it is worth stating what each link can and cannot carry, because the capstone&#x27;s credibility rests on not overclaiming downstream of a weak link. Stoichiometry gives a hard upper bound on yield from element and redox balances, and it is the most reliable number in the document — it cannot be beaten by any strain. Thermodynamics tells you whether a route can carry flux at the concentrations the process will actually run at, and it rules routes out rather than ranking them. The flux model gives the maximum yield subject to the network and the objective, which is a bound on the stoichiometric bound after the network&#x27;s real reactions are imposed, and its weakness is that it has no kinetics and therefore no rates and no titres at all. The genotype is a set of interventions predicted to move the flux distribution, and the prediction is about the model&#x27;s optimum rather than about the organism&#x27;s behaviour. Two consequences for the write-up. Yield claims may be made from the model with a derating; titre and rate claims may not be made from it at all, since nothing in a constraint-based model predicts either, and any titre in the dossier comes from the literature, from the host&#x27;s known performance envelope or from an explicit assumption. And the uncertainty grows monotonically down the chain, so the right presentation is a funnel — a hard bound at the top, a range at the bottom, and the derating steps between them named and numbered.</p>
+<p><strong>4. Re-running the thermodynamics at the concentrations the process will use</strong></p>
+<p>The max-min driving force analysis from phase 2 was almost certainly done at round laboratory concentrations, and the process the capstone now specifies does not run there. Two changes matter. The product concentration is the titre, and at a titre worth having it is high enough to compress the driving force of the final step — the mass-action ratio is where the thermodynamic cost of a high titre shows up, and it is the quantitative content of the in-situ product removal argument from week 51. The substrate concentration under a fed-batch policy is low by design, from week 50, which can hurt the first step of the pathway as much as the high product helps nothing. So the re-run is not a formality: compute the driving force of the limiting step at the actual titre and the actual residual substrate, and if it collapses, the dossier either specifies product removal or specifies a lower titre, and week 52&#x27;s elasticity says which of those is expensive. Lee §8.2.4 Pathway Feasibility (printed p246) is the right structure to check against, and its five subsections are a checklist worth running explicitly: §8.2.4.1 chassis metabolic model, §8.2.4.2 stoichiometric feasibility, §8.2.4.3 thermodynamic feasibility, §8.2.4.4 kinetic feasibility and §8.2.4.5 toxicity of intermediates. The last two are the ones a capstone usually omits, and intermediate toxicity in particular is a risk-register entry that no flux model and no thermodynamic analysis will produce.</p>
+<p><strong>5. The flux model with the final host and the final medium, which is not the model from week 26</strong></p>
+<p>Three things changed after the strain design was done, and each invalidates part of it. The host was chosen in phase 7 against a matrix, and if the final host is not the one the week 26 design used, the model is a different model with a different network and different essentiality. The medium was designed in week 47, and a defined medium constrains uptake of things the model may have had free — nitrogen source, trace elements, any amino acid the chassis cannot make — so the growth-coupled region computed on a rich-medium model can disappear on the real one. And the oxygen supply was capped in week 49 and the feed policy in week 50, which means the model should be run with an oxygen uptake constraint set to what the vessel can actually deliver rather than to an arbitrary large number. That last one is the most commonly skipped and the most consequential: a design whose growth-coupled region depends on an oxygen uptake rate the 50 m³ vessel cannot supply is a design for a different vessel. Re-run, report the predicted yield and the growth-coupled interval in the final configuration, and if the interval has moved, say what moved it. A capstone that reports the week 26 numbers unchanged after three phases of host and process decisions is, to a reader who notices, evidence that the integration was not done.</p>
+<p><strong>6. Re-validating the deletions, because essentiality is model-dependent and the model changed</strong></p>
+<p>Every deletion in the genotype was predicted non-essential by some model at some point, and essentiality predictions are among the least robust outputs of a reconstruction: they depend on the medium, on the biomass objective&#x27;s composition, on gap-filled reactions that exist to make the model grow rather than because anyone observed them, and on the gene-protein-reaction rules, where an isozyme missing from the GPR turns a survivable deletion into a predicted lethal or the reverse. The validation pass is cheap and belongs in the dossier as a table: for each deletion, the predicted growth rate of the single mutant on the final medium, the predicted growth of the full genotype, and a flag for any deletion whose non-essentiality depends on a reaction that was gap-filled. Two specific traps worth naming in the write-up. A deletion set that is individually non-lethal can be collectively lethal, so the full genotype has to be simulated as one strain and not as a list. And a gene whose deletion the model tolerates because an alternative route carries the flux may be intolerable in practice if that alternative route is kinetically slow — the model has no kinetics, so it cannot distinguish a viable alternative from a theoretical one. Both are risk-register entries with a named first experiment, which is usually a single-mutant growth curve before anything else is built.</p>
+<p><strong>7. The construction plan as a sequence with real durations</strong></p>
+<p>Artifacts 19 and 20 are parts and methods; the capstone needs them as a build sequence with timings, dependencies and decision points, because that is what turns a genotype into a project. The structure that works: order the interventions by how much they are relied on and how likely they are to fail, build the highest-risk one first, and put a characterisation gate after each so that a failure is detected before three more edits are layered on it. Realistic durations matter more than precision here — a genome edit with selection and curing is a small number of weeks, a multiplexed library is longer, a tuning library with a screen is longer again and is usually the schedule&#x27;s long pole — and the plan should state the serial path explicitly, because the common error is to cost the work as if everything can proceed in parallel when each edit depends on the last strain being verified. Verification belongs in the sequence as its own step with its own duration: sequencing, a growth curve on the final medium, and a production check. The one sentence a reviewer looks for is what happens if the third edit fails, and the plan should answer it rather than imply that it will not.</p>
+<p><strong>8. Expected performance as a derating chain, not as a model output</strong></p>
+<figure class="fig"><div class="figtitle">Figure 53.8 — From the flux model's maximum to an expected yield, and what each uncertainty is worth</div><div class="fig-light"><svg role="img" aria-label="Left: four named multipliers take 0.520 g g⁻¹ to 0.326, 63% of the model maximum, with the relative errors combining in quadrature to ±13.6%. Right: priced through week 52's elasticities, that yield uncertainty is worth ±$0.27 per kg and the ±30% uncertainty on a titre taken from a literature analogy is worth ±$17.85 — which is the order the experiments should be run in, and the inverse of the order the course taught them." xmlns:xlink="http://www.w3.org/1999/xlink" width="964.874859pt" height="227.770141pt" viewBox="0 0 964.874859 227.770141" xmlns="http://www.w3.org/2000/svg" version="1.1">
+ <metadata>
+  <rdf:RDF xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:cc="http://creativecommons.org/ns#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+   <cc:Work>
+    <dc:type rdf:resource="http://purl.org/dc/dcmitype/StillImage"/>
+    <dc:date>2026-11-02T23:57:55.743770</dc:date>
+    <dc:format>image/svg+xml</dc:format>
+    <dc:creator>
+     <cc:Agent>
+      <dc:title>Matplotlib v3.10.8, https://matplotlib.org/</dc:title>
+     </cc:Agent>
+    </dc:creator>
+   </cc:Work>
+  </rdf:RDF>
+ </metadata>
+ <defs>
+  <style type="text/css">*{stroke-linejoin: round; stroke-linecap: butt}</style>
+ </defs>
+ <g id="figure_1">
+  <g id="patch_1">
+   <path d="M 0 227.770141 
+L 964.874859 227.770141 
+L 964.874859 0 
+L 0 0 
+L 0 227.770141 
+z
+" style="fill: none"/>
+  </g>
+  <g id="axes_1">
+   <g id="patch_2">
+    <path d="M 65.9664 169.308 
+L 269.61742 169.308 
+L 269.61742 5.76 
+L 65.9664 5.76 
+L 65.9664 169.308 
+z
+" style="fill: none"/>
+   </g>
+   <g id="patch_3">
+    <path d="M 75.223265 169.308 
+L 95.059403 169.308 
+L 95.059403 32.13871 
+L 75.223265 32.13871 
+z
+" clip-path="url(#p97ad2c6f89)" style="fill: #1f6f62; opacity: 0.32; stroke: #1f6f62; stroke-width: 1.1; stroke-linejoin: miter"/>
+   </g>
+   <g id="patch_4">
+    <path d="M 108.283495 48.599025 
+L 128.119634 48.599025 
+L 128.119634 32.13871 
+L 108.283495 32.13871 
+z
+" clip-path="url(#p97ad2c6f89)" style="fill: #a4503a; opacity: 0.3; stroke: #a4503a; stroke-width: 1.1; stroke-linejoin: miter"/>
+   </g>
+   <g id="patch_5">
+    <path d="M 141.343726 66.705371 
+L 161.179864 66.705371 
+L 161.179864 48.599025 
+L 141.343726 48.599025 
+z
+" clip-path="url(#p97ad2c6f89)" style="fill: #a4503a; opacity: 0.3; stroke: #a4503a; stroke-width: 1.1; stroke-linejoin: miter"/>
+   </g>
+   <g id="patch_6">
+    <path d="M 174.403956 73.887555 
+L 194.240095 73.887555 
+L 194.240095 66.705371 
+L 174.403956 66.705371 
+z
+" clip-path="url(#p97ad2c6f89)" style="fill: #a4503a; opacity: 0.3; stroke: #a4503a; stroke-width: 1.1; stroke-linejoin: miter"/>
+   </g>
+   <g id="patch_7">
+    <path d="M 207.464187 83.429599 
+L 227.300325 83.429599 
+L 227.300325 73.887555 
+L 207.464187 73.887555 
+z
+" clip-path="url(#p97ad2c6f89)" style="fill: #a4503a; opacity: 0.3; stroke: #a4503a; stroke-width: 1.1; stroke-linejoin: miter"/>
+   </g>
+   <g id="patch_8">
+    <path d="M 240.524417 169.308 
+L 260.360556 169.308 
+L 260.360556 83.429599 
+L 240.524417 83.429599 
+z
+" clip-path="url(#p97ad2c6f89)" style="fill: #8a5f1b; opacity: 0.32; stroke: #8a5f1b; stroke-width: 1.1; stroke-linejoin: miter"/>
+   </g>
+   <g id="matplotlib.axis_1">
+    <g id="xtick_1">
+     <g id="line2d_1">
+      <defs>
+       <path id="mdd63f1790b" d="M 0 0 
+L 0 3.5 
+" style="stroke: #8a7458; stroke-width: 0.9"/>
+      </defs>
+      <g>
+       <use xlink:href="#mdd63f1790b" x="85.141334" y="169.308" style="fill: #8a7458; stroke: #8a7458; stroke-width: 0.9"/>
+      </g>
+     </g>
+     <g id="text_1">
+      <text style="font-size: 7px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; fill: #8a7458" transform="translate(74.242662 181.626906)">model</text>
+      <text style="font-size: 7px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; fill: #8a7458" transform="translate(67.506802 189.465375)">maximum</text>
+     </g>
+    </g>
+    <g id="xtick_2">
+     <g id="line2d_2">
+      <g>
+       <use xlink:href="#mdd63f1790b" x="118.201564" y="169.308" style="fill: #8a7458; stroke: #8a7458; stroke-width: 0.9"/>
+      </g>
+     </g>
+     <g id="text_2">
+      <text style="font-size: 7px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; fill: #8a7458" transform="translate(102.450471 181.626906)">mainten-</text>
+      <text style="font-size: 7px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; fill: #8a7458" transform="translate(109.760549 189.465375)">ance</text>
+     </g>
+    </g>
+    <g id="xtick_3">
+     <g id="line2d_3">
+      <g>
+       <use xlink:href="#mdd63f1790b" x="151.261795" y="169.308" style="fill: #8a7458; stroke: #8a7458; stroke-width: 0.9"/>
+      </g>
+     </g>
+     <g id="text_3">
+      <text style="font-size: 7px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; fill: #8a7458" transform="translate(145.766795 181.626906)">by-</text>
+      <text style="font-size: 7px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; fill: #8a7458" transform="translate(135.978279 189.465375)">products</text>
+     </g>
+    </g>
+    <g id="xtick_4">
+     <g id="line2d_4">
+      <g>
+       <use xlink:href="#mdd63f1790b" x="184.322025" y="169.308" style="fill: #8a7458; stroke: #8a7458; stroke-width: 0.9"/>
+      </g>
+     </g>
+     <g id="text_4">
+      <text style="font-size: 7px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; fill: #8a7458" transform="translate(172.306635 181.626906)">instab-</text>
+      <text style="font-size: 7px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; fill: #8a7458" transform="translate(177.961322 189.465375)">ility</text>
+     </g>
+    </g>
+    <g id="xtick_5">
+     <g id="line2d_5">
+      <g>
+       <use xlink:href="#mdd63f1790b" x="217.382256" y="169.308" style="fill: #8a7458; stroke: #8a7458; stroke-width: 0.9"/>
+      </g>
+     </g>
+     <g id="text_5">
+      <text style="font-size: 7px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; fill: #8a7458" transform="translate(213.223819 181.626906)">O₂</text>
+      <text style="font-size: 7px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; fill: #8a7458" transform="translate(209.683897 189.465375)">limit</text>
+     </g>
+    </g>
+    <g id="xtick_6">
+     <g id="line2d_6">
+      <g>
+       <use xlink:href="#mdd63f1790b" x="250.442487" y="169.308" style="fill: #8a7458; stroke: #8a7458; stroke-width: 0.9"/>
+      </g>
+     </g>
+     <g id="text_6">
+      <text style="font-size: 7px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: middle; fill: #8a7458" x="250.442487" y="181.626906" transform="rotate(-0 250.442487 181.626906)">expected</text>
+     </g>
+    </g>
+   </g>
+   <g id="matplotlib.axis_2">
+    <g id="ytick_1">
+     <g id="line2d_7">
+      <path d="M 65.9664 169.308 
+L 269.61742 169.308 
+" clip-path="url(#p97ad2c6f89)" style="fill: none; stroke: #e6dccb; stroke-opacity: 0.7; stroke-width: 0.6; stroke-linecap: square"/>
+     </g>
+     <g id="line2d_8">
+      <defs>
+       <path id="m8e669cbbea" d="M 0 0 
+L -3.5 0 
+" style="stroke: #8a7458; stroke-width: 0.9"/>
+      </defs>
+      <g>
+       <use xlink:href="#m8e669cbbea" x="65.9664" y="169.308" style="fill: #8a7458; stroke: #8a7458; stroke-width: 0.9"/>
+      </g>
+     </g>
+     <g id="text_7">
+      <text style="font-size: 9.5px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: end; fill: #8a7458" x="58.9664" y="172.917258" transform="rotate(-0 58.9664 172.917258)">0.0</text>
+     </g>
+    </g>
+    <g id="ytick_2">
+     <g id="line2d_9">
+      <path d="M 65.9664 142.92929 
+L 269.61742 142.92929 
+" clip-path="url(#p97ad2c6f89)" style="fill: none; stroke: #e6dccb; stroke-opacity: 0.7; stroke-width: 0.6; stroke-linecap: square"/>
+     </g>
+     <g id="line2d_10">
+      <g>
+       <use xlink:href="#m8e669cbbea" x="65.9664" y="142.92929" style="fill: #8a7458; stroke: #8a7458; stroke-width: 0.9"/>
+      </g>
+     </g>
+     <g id="text_8">
+      <text style="font-size: 9.5px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: end; fill: #8a7458" x="58.9664" y="146.538548" transform="rotate(-0 58.9664 146.538548)">0.1</text>
+     </g>
+    </g>
+    <g id="ytick_3">
+     <g id="line2d_11">
+      <path d="M 65.9664 116.550581 
+L 269.61742 116.550581 
+" clip-path="url(#p97ad2c6f89)" style="fill: none; stroke: #e6dccb; stroke-opacity: 0.7; stroke-width: 0.6; stroke-linecap: square"/>
+     </g>
+     <g id="line2d_12">
+      <g>
+       <use xlink:href="#m8e669cbbea" x="65.9664" y="116.550581" style="fill: #8a7458; stroke: #8a7458; stroke-width: 0.9"/>
+      </g>
+     </g>
+     <g id="text_9">
+      <text style="font-size: 9.5px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: end; fill: #8a7458" x="58.9664" y="120.159838" transform="rotate(-0 58.9664 120.159838)">0.2</text>
+     </g>
+    </g>
+    <g id="ytick_4">
+     <g id="line2d_13">
+      <path d="M 65.9664 90.171871 
+L 269.61742 90.171871 
+" clip-path="url(#p97ad2c6f89)" style="fill: none; stroke: #e6dccb; stroke-opacity: 0.7; stroke-width: 0.6; stroke-linecap: square"/>
+     </g>
+     <g id="line2d_14">
+      <g>
+       <use xlink:href="#m8e669cbbea" x="65.9664" y="90.171871" style="fill: #8a7458; stroke: #8a7458; stroke-width: 0.9"/>
+      </g>
+     </g>
+     <g id="text_10">
+      <text style="font-size: 9.5px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: end; fill: #8a7458" x="58.9664" y="93.781129" transform="rotate(-0 58.9664 93.781129)">0.3</text>
+     </g>
+    </g>
+    <g id="ytick_5">
+     <g id="line2d_15">
+      <path d="M 65.9664 63.793161 
+L 269.61742 63.793161 
+" clip-path="url(#p97ad2c6f89)" style="fill: none; stroke: #e6dccb; stroke-opacity: 0.7; stroke-width: 0.6; stroke-linecap: square"/>
+     </g>
+     <g id="line2d_16">
+      <g>
+       <use xlink:href="#m8e669cbbea" x="65.9664" y="63.793161" style="fill: #8a7458; stroke: #8a7458; stroke-width: 0.9"/>
+      </g>
+     </g>
+     <g id="text_11">
+      <text style="font-size: 9.5px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: end; fill: #8a7458" x="58.9664" y="67.402419" transform="rotate(-0 58.9664 67.402419)">0.4</text>
+     </g>
+    </g>
+    <g id="ytick_6">
+     <g id="line2d_17">
+      <path d="M 65.9664 37.414452 
+L 269.61742 37.414452 
+" clip-path="url(#p97ad2c6f89)" style="fill: none; stroke: #e6dccb; stroke-opacity: 0.7; stroke-width: 0.6; stroke-linecap: square"/>
+     </g>
+     <g id="line2d_18">
+      <g>
+       <use xlink:href="#m8e669cbbea" x="65.9664" y="37.414452" style="fill: #8a7458; stroke: #8a7458; stroke-width: 0.9"/>
+      </g>
+     </g>
+     <g id="text_12">
+      <text style="font-size: 9.5px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: end; fill: #8a7458" x="58.9664" y="41.023709" transform="rotate(-0 58.9664 41.023709)">0.5</text>
+     </g>
+    </g>
+    <g id="ytick_7">
+     <g id="line2d_19">
+      <path d="M 65.9664 11.035742 
+L 269.61742 11.035742 
+" clip-path="url(#p97ad2c6f89)" style="fill: none; stroke: #e6dccb; stroke-opacity: 0.7; stroke-width: 0.6; stroke-linecap: square"/>
+     </g>
+     <g id="line2d_20">
+      <g>
+       <use xlink:href="#m8e669cbbea" x="65.9664" y="11.035742" style="fill: #8a7458; stroke: #8a7458; stroke-width: 0.9"/>
+      </g>
+     </g>
+     <g id="text_13">
+      <text style="font-size: 9.5px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: end; fill: #8a7458" x="58.9664" y="14.645" transform="rotate(-0 58.9664 14.645)">0.6</text>
+     </g>
+    </g>
+    <g id="text_14">
+     <!-- product yield  (g g$^{-1}$) -->
+     <g style="fill: #4a3c2c" transform="translate(37.863431 138.169) rotate(-90)">
+      <text>
+       <tspan x="0" y="-0.064063" style="font-size: 9.5px; font-family: 'Public Sans, Helvetica, Arial, sans-serif'; fill: #4a3c2c">p</tspan>
+       <tspan x="6.030273" y="-0.064063" style="font-size: 9.5px; font-family: 'Public Sans, Helvetica, Arial, sans-serif'; fill: #4a3c2c">r</tspan>
+       <tspan x="9.936035" y="-0.064063" style="font-size: 9.5px; font-family: 'Public Sans, Helvetica, Arial, sans-serif'; fill: #4a3c2c">o</tspan>
+       <tspan x="15.748291" y="-0.064063" style="font-size: 9.5px; font-family: 'Public Sans, Helvetica, Arial, sans-serif'; fill: #4a3c2c">d</tspan>
+       <tspan x="21.778564" y="-0.064063" style="font-size: 9.5px; font-family: 'Public Sans, Helvetica, Arial, sans-serif'; fill: #4a3c2c">u</tspan>
+       <tspan x="27.799561" y="-0.064063" style="font-size: 9.5px; font-family: 'Public Sans, Helvetica, Arial, sans-serif'; fill: #4a3c2c">c</tspan>
+       <tspan x="33.022705" y="-0.064063" style="font-size: 9.5px; font-family: 'Public Sans, Helvetica, Arial, sans-serif'; fill: #4a3c2c">t</tspan>
+       <tspan x="36.747559" y="-0.064063" style="font-size: 9.5px; font-family: 'Public Sans, Helvetica, Arial, sans-serif'; fill: #4a3c2c"> </tspan>
+       <tspan x="39.767334" y="-0.064063" style="font-size: 9.5px; font-family: 'Public Sans, Helvetica, Arial, sans-serif'; fill: #4a3c2c">y</tspan>
+       <tspan x="45.389404" y="-0.064063" style="font-size: 9.5px; font-family: 'Public Sans, Helvetica, Arial, sans-serif'; fill: #4a3c2c">i</tspan>
+       <tspan x="48.028809" y="-0.064063" style="font-size: 9.5px; font-family: 'Public Sans, Helvetica, Arial, sans-serif'; fill: #4a3c2c">e</tspan>
+       <tspan x="53.873535" y="-0.064063" style="font-size: 9.5px; font-family: 'Public Sans, Helvetica, Arial, sans-serif'; fill: #4a3c2c">l</tspan>
+       <tspan x="56.512939" y="-0.064063" style="font-size: 9.5px; font-family: 'Public Sans, Helvetica, Arial, sans-serif'; fill: #4a3c2c">d</tspan>
+       <tspan x="62.543213" y="-0.064063" style="font-size: 9.5px; font-family: 'Public Sans, Helvetica, Arial, sans-serif'; fill: #4a3c2c"> </tspan>
+       <tspan x="65.562988" y="-0.064063" style="font-size: 9.5px; font-family: 'Public Sans, Helvetica, Arial, sans-serif'; fill: #4a3c2c"> </tspan>
+       <tspan x="68.582764" y="-0.064063" style="font-size: 9.5px; font-family: 'Public Sans, Helvetica, Arial, sans-serif'; fill: #4a3c2c">(</tspan>
+       <tspan x="72.289062" y="-0.064063" style="font-size: 9.5px; font-family: 'Public Sans, Helvetica, Arial, sans-serif'; fill: #4a3c2c">g</tspan>
+       <tspan x="78.319336" y="-0.064063" style="font-size: 9.5px; font-family: 'Public Sans, Helvetica, Arial, sans-serif'; fill: #4a3c2c"> </tspan>
+       <tspan x="81.339111" y="-0.064063" style="font-size: 9.5px; font-family: 'Public Sans, Helvetica, Arial, sans-serif'; fill: #4a3c2c">g</tspan>
+       <tspan x="97.541431" y="-0.064063" style="font-size: 9.5px; font-family: 'Public Sans, Helvetica, Arial, sans-serif'; fill: #4a3c2c">)</tspan>
+       <tspan x="87.465088" y="-3.892188" style="font-size: 6.65px; font-family: 'Public Sans, Helvetica, Arial, sans-serif'; fill: #4a3c2c">−</tspan>
+       <tspan x="93.037061" y="-3.892188" style="font-size: 6.65px; font-family: 'Public Sans, Helvetica, Arial, sans-serif'; fill: #4a3c2c">1</tspan>
+      </text>
+     </g>
+    </g>
+   </g>
+   <g id="line2d_21">
+    <path d="M 95.059403 32.13871 
+L 128.119634 32.13871 
+" clip-path="url(#p97ad2c6f89)" style="fill: none; stroke: #dfd2be; stroke-width: 0.8; stroke-linecap: square"/>
+   </g>
+   <g id="line2d_22">
+    <path d="M 128.119634 48.599025 
+L 161.179864 48.599025 
+" clip-path="url(#p97ad2c6f89)" style="fill: none; stroke: #dfd2be; stroke-width: 0.8; stroke-linecap: square"/>
+   </g>
+   <g id="line2d_23">
+    <path d="M 161.179864 66.705371 
+L 194.240095 66.705371 
+" clip-path="url(#p97ad2c6f89)" style="fill: none; stroke: #dfd2be; stroke-width: 0.8; stroke-linecap: square"/>
+   </g>
+   <g id="line2d_24">
+    <path d="M 194.240095 73.887555 
+L 227.300325 73.887555 
+" clip-path="url(#p97ad2c6f89)" style="fill: none; stroke: #dfd2be; stroke-width: 0.8; stroke-linecap: square"/>
+   </g>
+   <g id="LineCollection_1">
+    <path d="M 250.442487 95.072635 
+L 250.442487 71.786564 
+" clip-path="url(#p97ad2c6f89)" style="fill: none; stroke: #8a5f1b; stroke-width: 1.2"/>
+   </g>
+   <g id="line2d_25">
+    <defs>
+     <path id="m98d87487a4" d="M 3.5 0 
+L -3.5 -0 
+" style="stroke: #8a5f1b"/>
+    </defs>
+    <g clip-path="url(#p97ad2c6f89)">
+     <use xlink:href="#m98d87487a4" x="250.442487" y="95.072635" style="fill: #8a5f1b; stroke: #8a5f1b"/>
+    </g>
+   </g>
+   <g id="line2d_26">
+    <g clip-path="url(#p97ad2c6f89)">
+     <use xlink:href="#m98d87487a4" x="250.442487" y="71.786564" style="fill: #8a5f1b; stroke: #8a5f1b"/>
+    </g>
+   </g>
+   <g id="line2d_27">
+    <path d="M 250.442487 83.429599 
+" clip-path="url(#p97ad2c6f89)" style="fill: none; stroke: #8a5f1b; stroke-width: 1.2; stroke-linecap: square"/>
+   </g>
+   <g id="patch_9">
+    <path d="M 65.9664 169.308 
+L 65.9664 5.76 
+" style="fill: none; stroke: #dfd2be; stroke-width: 0.9; stroke-linejoin: miter; stroke-linecap: square"/>
+   </g>
+   <g id="patch_10">
+    <path d="M 65.9664 169.308 
+L 269.61742 169.308 
+" style="fill: none; stroke: #dfd2be; stroke-width: 0.9; stroke-linejoin: miter; stroke-linecap: square"/>
+   </g>
+   <g id="text_15">
+    <text style="font-size: 8px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: middle; fill: #a4503a" x="118.201564" y="28.973265" transform="rotate(-0 118.201564 28.973265)">×0.88</text>
+   </g>
+   <g id="text_16">
+    <text style="font-size: 8px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: middle; fill: #a4503a" x="151.261795" y="45.433579" transform="rotate(-0 151.261795 45.433579)">×0.85</text>
+   </g>
+   <g id="text_17">
+    <text style="font-size: 8px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: middle; fill: #a4503a" x="184.322025" y="63.539926" transform="rotate(-0 184.322025 63.539926)">×0.93</text>
+   </g>
+   <g id="text_18">
+    <text style="font-size: 8px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: middle; fill: #a4503a" x="217.382256" y="70.72211" transform="rotate(-0 217.382256 70.72211)">×0.90</text>
+   </g>
+   <g id="text_19">
+    <text style="font-weight: 700; font-size: 8.2px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; fill: #8a5f1b" transform="translate(237.474315 56.67842)">0.326</text>
+    <text style="font-weight: 700; font-size: 8.2px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; fill: #8a5f1b" transform="translate(232.61133 65.860626)">± 0.044</text>
+   </g>
+   <g id="text_20">
+    <text style="font-weight: 700; font-size: 8.2px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: middle; fill: #1f6f62" x="85.141334" y="28.973265" transform="rotate(-0 85.141334 28.973265)">0.520</text>
+   </g>
+  </g>
+  <g id="axes_2">
+   <g id="patch_11">
+    <path d="M 338.43742 169.308 
+L 478.8864 169.308 
+L 478.8864 5.76 
+L 338.43742 5.76 
+L 338.43742 169.308 
+z
+" style="fill: none"/>
+   </g>
+   <g id="patch_12">
+    <path d="M 360.781576 169.308 
+L 392.701799 169.308 
+L 392.701799 167.61444 
+L 360.781576 167.61444 
+z
+" clip-path="url(#pfe30ef3c6c)" style="fill: #1f6f62; opacity: 0.32; stroke: #1f6f62; stroke-width: 1.1; stroke-linejoin: miter"/>
+   </g>
+   <g id="patch_13">
+    <path d="M 424.622022 169.308 
+L 456.542244 169.308 
+L 456.542244 57.025359 
+L 424.622022 57.025359 
+z
+" clip-path="url(#pfe30ef3c6c)" style="fill: #a4503a; opacity: 0.32; stroke: #a4503a; stroke-width: 1.1; stroke-linejoin: miter"/>
+   </g>
+   <g id="matplotlib.axis_3">
+    <g id="xtick_7">
+     <g id="line2d_28">
+      <g>
+       <use xlink:href="#mdd63f1790b" x="376.741688" y="169.308" style="fill: #8a7458; stroke: #8a7458; stroke-width: 0.9"/>
+      </g>
+     </g>
+     <g id="text_21">
+      <text style="font-size: 8.4px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; fill: #8a7458" transform="translate(366.671531 182.690688)">yield</text>
+      <text style="font-size: 8.4px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; fill: #8a7458" transform="translate(359.88 192.09685)">±13.6%</text>
+     </g>
+    </g>
+    <g id="xtick_8">
+     <g id="line2d_29">
+      <g>
+       <use xlink:href="#mdd63f1790b" x="440.582133" y="169.308" style="fill: #8a7458; stroke: #8a7458; stroke-width: 0.9"/>
+      </g>
+     </g>
+     <g id="text_22">
+      <text style="font-size: 8.4px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; fill: #8a7458" transform="translate(431.905852 182.690688)">titre</text>
+      <text style="font-size: 8.4px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; fill: #8a7458" transform="translate(427.727508 192.09685)">±30%</text>
+     </g>
+    </g>
+   </g>
+   <g id="matplotlib.axis_4">
+    <g id="ytick_8">
+     <g id="line2d_30">
+      <path d="M 338.43742 169.308 
+L 478.8864 169.308 
+" clip-path="url(#pfe30ef3c6c)" style="fill: none; stroke: #e6dccb; stroke-opacity: 0.7; stroke-width: 0.6; stroke-linecap: square"/>
+     </g>
+     <g id="line2d_31">
+      <g>
+       <use xlink:href="#m8e669cbbea" x="338.43742" y="169.308" style="fill: #8a7458; stroke: #8a7458; stroke-width: 0.9"/>
+      </g>
+     </g>
+     <g id="text_23">
+      <text style="font-size: 9.5px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: end; fill: #8a7458" x="331.43742" y="172.917258" transform="rotate(-0 331.43742 172.917258)">0</text>
+     </g>
+    </g>
+    <g id="ytick_9">
+     <g id="line2d_32">
+      <path d="M 338.43742 137.856462 
+L 478.8864 137.856462 
+" clip-path="url(#pfe30ef3c6c)" style="fill: none; stroke: #e6dccb; stroke-opacity: 0.7; stroke-width: 0.6; stroke-linecap: square"/>
+     </g>
+     <g id="line2d_33">
+      <g>
+       <use xlink:href="#m8e669cbbea" x="338.43742" y="137.856462" style="fill: #8a7458; stroke: #8a7458; stroke-width: 0.9"/>
+      </g>
+     </g>
+     <g id="text_24">
+      <text style="font-size: 9.5px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: end; fill: #8a7458" x="331.43742" y="141.465719" transform="rotate(-0 331.43742 141.465719)">5</text>
+     </g>
+    </g>
+    <g id="ytick_10">
+     <g id="line2d_34">
+      <path d="M 338.43742 106.404923 
+L 478.8864 106.404923 
+" clip-path="url(#pfe30ef3c6c)" style="fill: none; stroke: #e6dccb; stroke-opacity: 0.7; stroke-width: 0.6; stroke-linecap: square"/>
+     </g>
+     <g id="line2d_35">
+      <g>
+       <use xlink:href="#m8e669cbbea" x="338.43742" y="106.404923" style="fill: #8a7458; stroke: #8a7458; stroke-width: 0.9"/>
+      </g>
+     </g>
+     <g id="text_25">
+      <text style="font-size: 9.5px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: end; fill: #8a7458" x="331.43742" y="110.014181" transform="rotate(-0 331.43742 110.014181)">10</text>
+     </g>
+    </g>
+    <g id="ytick_11">
+     <g id="line2d_36">
+      <path d="M 338.43742 74.953385 
+L 478.8864 74.953385 
+" clip-path="url(#pfe30ef3c6c)" style="fill: none; stroke: #e6dccb; stroke-opacity: 0.7; stroke-width: 0.6; stroke-linecap: square"/>
+     </g>
+     <g id="line2d_37">
+      <g>
+       <use xlink:href="#m8e669cbbea" x="338.43742" y="74.953385" style="fill: #8a7458; stroke: #8a7458; stroke-width: 0.9"/>
+      </g>
+     </g>
+     <g id="text_26">
+      <text style="font-size: 9.5px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: end; fill: #8a7458" x="331.43742" y="78.562642" transform="rotate(-0 331.43742 78.562642)">15</text>
+     </g>
+    </g>
+    <g id="ytick_12">
+     <g id="line2d_38">
+      <path d="M 338.43742 43.501846 
+L 478.8864 43.501846 
+" clip-path="url(#pfe30ef3c6c)" style="fill: none; stroke: #e6dccb; stroke-opacity: 0.7; stroke-width: 0.6; stroke-linecap: square"/>
+     </g>
+     <g id="line2d_39">
+      <g>
+       <use xlink:href="#m8e669cbbea" x="338.43742" y="43.501846" style="fill: #8a7458; stroke: #8a7458; stroke-width: 0.9"/>
+      </g>
+     </g>
+     <g id="text_27">
+      <text style="font-size: 9.5px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: end; fill: #8a7458" x="331.43742" y="47.111104" transform="rotate(-0 331.43742 47.111104)">20</text>
+     </g>
+    </g>
+    <g id="ytick_13">
+     <g id="line2d_40">
+      <path d="M 338.43742 12.050308 
+L 478.8864 12.050308 
+" clip-path="url(#pfe30ef3c6c)" style="fill: none; stroke: #e6dccb; stroke-opacity: 0.7; stroke-width: 0.6; stroke-linecap: square"/>
+     </g>
+     <g id="line2d_41">
+      <g>
+       <use xlink:href="#m8e669cbbea" x="338.43742" y="12.050308" style="fill: #8a7458; stroke: #8a7458; stroke-width: 0.9"/>
+      </g>
+     </g>
+     <g id="text_28">
+      <text style="font-size: 9.5px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: end; fill: #8a7458" x="331.43742" y="15.659566" transform="rotate(-0 331.43742 15.659566)">25</text>
+     </g>
+    </g>
+    <g id="text_29">
+     <text style="font-size: 9.5px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: middle; fill: #4a3c2c" x="313.372967" y="87.534" transform="rotate(-90 313.372967 87.534)">cost-of-goods uncertainty  ($ per kg)</text>
+    </g>
+   </g>
+   <g id="patch_14">
+    <path d="M 338.43742 169.308 
+L 338.43742 5.76 
+" style="fill: none; stroke: #dfd2be; stroke-width: 0.9; stroke-linejoin: miter; stroke-linecap: square"/>
+   </g>
+   <g id="patch_15">
+    <path d="M 338.43742 169.308 
+L 478.8864 169.308 
+" style="fill: none; stroke: #dfd2be; stroke-width: 0.9; stroke-linejoin: miter; stroke-linecap: square"/>
+   </g>
+   <g id="text_30">
+    <text style="font-weight: 700; font-size: 8.6px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: middle; fill: #4a3c2c" x="376.741688" y="164.469286" transform="rotate(-0 376.741688 164.469286)">±$0.27/kg</text>
+   </g>
+   <g id="text_31">
+    <text style="font-weight: 700; font-size: 8.6px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: middle; fill: #4a3c2c" x="440.582133" y="53.880205" transform="rotate(-0 440.582133 53.880205)">±$17.85/kg</text>
+   </g>
+   <g id="text_32">
+    <text style="font-size: 8px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; fill: #1f6f62" transform="translate(343.544656 16.870996)">four phases of</text>
+    <text style="font-size: 8px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; fill: #1f6f62" transform="translate(343.544656 25.829246)">modelling</text>
+   </g>
+   <g id="text_33">
+    <text style="font-size: 8px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; fill: #a4503a" transform="translate(416.322764 16.870996)">one literature</text>
+    <text style="font-size: 8px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; fill: #a4503a" transform="translate(416.322764 25.829246)">analogy</text>
+   </g>
+  </g>
+  <g id="text_34">
+   <text style="font-size: 8.3px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: start; fill: #8a7458" x="5.76" y="220.284" transform="rotate(-0 5.76 220.284)">Left: three of the four multipliers are assumed, and the by-product and oxygen terms share a cause, so the quadrature band is understated. Right: each uncertainty priced through week 52's elasticities at the 50 m³ configuration.</text>
+  </g>
+ </g>
+ <defs>
+  <clipPath id="p97ad2c6f89">
+   <rect x="65.9664" y="5.76" width="203.65102" height="163.548"/>
+  </clipPath>
+  <clipPath id="pfe30ef3c6c">
+   <rect x="338.43742" y="5.76" width="140.44898" height="163.548"/>
+  </clipPath>
+ </defs>
+</svg>
+</div><div class="fig-dark"><svg role="img" aria-label="Left: four named multipliers take 0.520 g g⁻¹ to 0.326, 63% of the model maximum, with the relative errors combining in quadrature to ±13.6%. Right: priced through week 52's elasticities, that yield uncertainty is worth ±$0.27 per kg and the ±30% uncertainty on a titre taken from a literature analogy is worth ±$17.85 — which is the order the experiments should be run in, and the inverse of the order the course taught them." xmlns:xlink="http://www.w3.org/1999/xlink" width="964.874859pt" height="227.770141pt" viewBox="0 0 964.874859 227.770141" xmlns="http://www.w3.org/2000/svg" version="1.1">
+ <metadata>
+  <rdf:RDF xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:cc="http://creativecommons.org/ns#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+   <cc:Work>
+    <dc:type rdf:resource="http://purl.org/dc/dcmitype/StillImage"/>
+    <dc:date>2026-11-02T23:57:55.851995</dc:date>
+    <dc:format>image/svg+xml</dc:format>
+    <dc:creator>
+     <cc:Agent>
+      <dc:title>Matplotlib v3.10.8, https://matplotlib.org/</dc:title>
+     </cc:Agent>
+    </dc:creator>
+   </cc:Work>
+  </rdf:RDF>
+ </metadata>
+ <defs>
+  <style type="text/css">*{stroke-linejoin: round; stroke-linecap: butt}</style>
+ </defs>
+ <g id="figure_1">
+  <g id="patch_1">
+   <path d="M 0 227.770141 
+L 964.874859 227.770141 
+L 964.874859 0 
+L 0 0 
+L 0 227.770141 
+z
+" style="fill: none"/>
+  </g>
+  <g id="axes_1">
+   <g id="patch_2">
+    <path d="M 65.9664 169.308 
+L 269.61742 169.308 
+L 269.61742 5.76 
+L 65.9664 5.76 
+L 65.9664 169.308 
+z
+" style="fill: none"/>
+   </g>
+   <g id="patch_3">
+    <path d="M 75.223265 169.308 
+L 95.059403 169.308 
+L 95.059403 32.13871 
+L 75.223265 32.13871 
+z
+" clip-path="url(#p66049b57c0)" style="fill: #6dbdac; opacity: 0.32; stroke: #6dbdac; stroke-width: 1.1; stroke-linejoin: miter"/>
+   </g>
+   <g id="patch_4">
+    <path d="M 108.283495 48.599025 
+L 128.119634 48.599025 
+L 128.119634 32.13871 
+L 108.283495 32.13871 
+z
+" clip-path="url(#p66049b57c0)" style="fill: #d98c72; opacity: 0.3; stroke: #d98c72; stroke-width: 1.1; stroke-linejoin: miter"/>
+   </g>
+   <g id="patch_5">
+    <path d="M 141.343726 66.705371 
+L 161.179864 66.705371 
+L 161.179864 48.599025 
+L 141.343726 48.599025 
+z
+" clip-path="url(#p66049b57c0)" style="fill: #d98c72; opacity: 0.3; stroke: #d98c72; stroke-width: 1.1; stroke-linejoin: miter"/>
+   </g>
+   <g id="patch_6">
+    <path d="M 174.403956 73.887555 
+L 194.240095 73.887555 
+L 194.240095 66.705371 
+L 174.403956 66.705371 
+z
+" clip-path="url(#p66049b57c0)" style="fill: #d98c72; opacity: 0.3; stroke: #d98c72; stroke-width: 1.1; stroke-linejoin: miter"/>
+   </g>
+   <g id="patch_7">
+    <path d="M 207.464187 83.429599 
+L 227.300325 83.429599 
+L 227.300325 73.887555 
+L 207.464187 73.887555 
+z
+" clip-path="url(#p66049b57c0)" style="fill: #d98c72; opacity: 0.3; stroke: #d98c72; stroke-width: 1.1; stroke-linejoin: miter"/>
+   </g>
+   <g id="patch_8">
+    <path d="M 240.524417 169.308 
+L 260.360556 169.308 
+L 260.360556 83.429599 
+L 240.524417 83.429599 
+z
+" clip-path="url(#p66049b57c0)" style="fill: #d7a95c; opacity: 0.32; stroke: #d7a95c; stroke-width: 1.1; stroke-linejoin: miter"/>
+   </g>
+   <g id="matplotlib.axis_1">
+    <g id="xtick_1">
+     <g id="line2d_1">
+      <defs>
+       <path id="ma71d6e4419" d="M 0 0 
+L 0 3.5 
+" style="stroke: #9a8872; stroke-width: 0.9"/>
+      </defs>
+      <g>
+       <use xlink:href="#ma71d6e4419" x="85.141334" y="169.308" style="fill: #9a8872; stroke: #9a8872; stroke-width: 0.9"/>
+      </g>
+     </g>
+     <g id="text_1">
+      <text style="font-size: 7px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; fill: #9a8872" transform="translate(74.242662 181.626906)">model</text>
+      <text style="font-size: 7px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; fill: #9a8872" transform="translate(67.506802 189.465375)">maximum</text>
+     </g>
+    </g>
+    <g id="xtick_2">
+     <g id="line2d_2">
+      <g>
+       <use xlink:href="#ma71d6e4419" x="118.201564" y="169.308" style="fill: #9a8872; stroke: #9a8872; stroke-width: 0.9"/>
+      </g>
+     </g>
+     <g id="text_2">
+      <text style="font-size: 7px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; fill: #9a8872" transform="translate(102.450471 181.626906)">mainten-</text>
+      <text style="font-size: 7px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; fill: #9a8872" transform="translate(109.760549 189.465375)">ance</text>
+     </g>
+    </g>
+    <g id="xtick_3">
+     <g id="line2d_3">
+      <g>
+       <use xlink:href="#ma71d6e4419" x="151.261795" y="169.308" style="fill: #9a8872; stroke: #9a8872; stroke-width: 0.9"/>
+      </g>
+     </g>
+     <g id="text_3">
+      <text style="font-size: 7px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; fill: #9a8872" transform="translate(145.766795 181.626906)">by-</text>
+      <text style="font-size: 7px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; fill: #9a8872" transform="translate(135.978279 189.465375)">products</text>
+     </g>
+    </g>
+    <g id="xtick_4">
+     <g id="line2d_4">
+      <g>
+       <use xlink:href="#ma71d6e4419" x="184.322025" y="169.308" style="fill: #9a8872; stroke: #9a8872; stroke-width: 0.9"/>
+      </g>
+     </g>
+     <g id="text_4">
+      <text style="font-size: 7px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; fill: #9a8872" transform="translate(172.306635 181.626906)">instab-</text>
+      <text style="font-size: 7px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; fill: #9a8872" transform="translate(177.961322 189.465375)">ility</text>
+     </g>
+    </g>
+    <g id="xtick_5">
+     <g id="line2d_5">
+      <g>
+       <use xlink:href="#ma71d6e4419" x="217.382256" y="169.308" style="fill: #9a8872; stroke: #9a8872; stroke-width: 0.9"/>
+      </g>
+     </g>
+     <g id="text_5">
+      <text style="font-size: 7px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; fill: #9a8872" transform="translate(213.223819 181.626906)">O₂</text>
+      <text style="font-size: 7px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; fill: #9a8872" transform="translate(209.683897 189.465375)">limit</text>
+     </g>
+    </g>
+    <g id="xtick_6">
+     <g id="line2d_6">
+      <g>
+       <use xlink:href="#ma71d6e4419" x="250.442487" y="169.308" style="fill: #9a8872; stroke: #9a8872; stroke-width: 0.9"/>
+      </g>
+     </g>
+     <g id="text_6">
+      <text style="font-size: 7px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: middle; fill: #9a8872" x="250.442487" y="181.626906" transform="rotate(-0 250.442487 181.626906)">expected</text>
+     </g>
+    </g>
+   </g>
+   <g id="matplotlib.axis_2">
+    <g id="ytick_1">
+     <g id="line2d_7">
+      <path d="M 65.9664 169.308 
+L 269.61742 169.308 
+" clip-path="url(#p66049b57c0)" style="fill: none; stroke: #2e251c; stroke-opacity: 0.7; stroke-width: 0.6; stroke-linecap: square"/>
+     </g>
+     <g id="line2d_8">
+      <defs>
+       <path id="m67c3a48b49" d="M 0 0 
+L -3.5 0 
+" style="stroke: #9a8872; stroke-width: 0.9"/>
+      </defs>
+      <g>
+       <use xlink:href="#m67c3a48b49" x="65.9664" y="169.308" style="fill: #9a8872; stroke: #9a8872; stroke-width: 0.9"/>
+      </g>
+     </g>
+     <g id="text_7">
+      <text style="font-size: 9.5px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: end; fill: #9a8872" x="58.9664" y="172.917258" transform="rotate(-0 58.9664 172.917258)">0.0</text>
+     </g>
+    </g>
+    <g id="ytick_2">
+     <g id="line2d_9">
+      <path d="M 65.9664 142.92929 
+L 269.61742 142.92929 
+" clip-path="url(#p66049b57c0)" style="fill: none; stroke: #2e251c; stroke-opacity: 0.7; stroke-width: 0.6; stroke-linecap: square"/>
+     </g>
+     <g id="line2d_10">
+      <g>
+       <use xlink:href="#m67c3a48b49" x="65.9664" y="142.92929" style="fill: #9a8872; stroke: #9a8872; stroke-width: 0.9"/>
+      </g>
+     </g>
+     <g id="text_8">
+      <text style="font-size: 9.5px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: end; fill: #9a8872" x="58.9664" y="146.538548" transform="rotate(-0 58.9664 146.538548)">0.1</text>
+     </g>
+    </g>
+    <g id="ytick_3">
+     <g id="line2d_11">
+      <path d="M 65.9664 116.550581 
+L 269.61742 116.550581 
+" clip-path="url(#p66049b57c0)" style="fill: none; stroke: #2e251c; stroke-opacity: 0.7; stroke-width: 0.6; stroke-linecap: square"/>
+     </g>
+     <g id="line2d_12">
+      <g>
+       <use xlink:href="#m67c3a48b49" x="65.9664" y="116.550581" style="fill: #9a8872; stroke: #9a8872; stroke-width: 0.9"/>
+      </g>
+     </g>
+     <g id="text_9">
+      <text style="font-size: 9.5px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: end; fill: #9a8872" x="58.9664" y="120.159838" transform="rotate(-0 58.9664 120.159838)">0.2</text>
+     </g>
+    </g>
+    <g id="ytick_4">
+     <g id="line2d_13">
+      <path d="M 65.9664 90.171871 
+L 269.61742 90.171871 
+" clip-path="url(#p66049b57c0)" style="fill: none; stroke: #2e251c; stroke-opacity: 0.7; stroke-width: 0.6; stroke-linecap: square"/>
+     </g>
+     <g id="line2d_14">
+      <g>
+       <use xlink:href="#m67c3a48b49" x="65.9664" y="90.171871" style="fill: #9a8872; stroke: #9a8872; stroke-width: 0.9"/>
+      </g>
+     </g>
+     <g id="text_10">
+      <text style="font-size: 9.5px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: end; fill: #9a8872" x="58.9664" y="93.781129" transform="rotate(-0 58.9664 93.781129)">0.3</text>
+     </g>
+    </g>
+    <g id="ytick_5">
+     <g id="line2d_15">
+      <path d="M 65.9664 63.793161 
+L 269.61742 63.793161 
+" clip-path="url(#p66049b57c0)" style="fill: none; stroke: #2e251c; stroke-opacity: 0.7; stroke-width: 0.6; stroke-linecap: square"/>
+     </g>
+     <g id="line2d_16">
+      <g>
+       <use xlink:href="#m67c3a48b49" x="65.9664" y="63.793161" style="fill: #9a8872; stroke: #9a8872; stroke-width: 0.9"/>
+      </g>
+     </g>
+     <g id="text_11">
+      <text style="font-size: 9.5px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: end; fill: #9a8872" x="58.9664" y="67.402419" transform="rotate(-0 58.9664 67.402419)">0.4</text>
+     </g>
+    </g>
+    <g id="ytick_6">
+     <g id="line2d_17">
+      <path d="M 65.9664 37.414452 
+L 269.61742 37.414452 
+" clip-path="url(#p66049b57c0)" style="fill: none; stroke: #2e251c; stroke-opacity: 0.7; stroke-width: 0.6; stroke-linecap: square"/>
+     </g>
+     <g id="line2d_18">
+      <g>
+       <use xlink:href="#m67c3a48b49" x="65.9664" y="37.414452" style="fill: #9a8872; stroke: #9a8872; stroke-width: 0.9"/>
+      </g>
+     </g>
+     <g id="text_12">
+      <text style="font-size: 9.5px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: end; fill: #9a8872" x="58.9664" y="41.023709" transform="rotate(-0 58.9664 41.023709)">0.5</text>
+     </g>
+    </g>
+    <g id="ytick_7">
+     <g id="line2d_19">
+      <path d="M 65.9664 11.035742 
+L 269.61742 11.035742 
+" clip-path="url(#p66049b57c0)" style="fill: none; stroke: #2e251c; stroke-opacity: 0.7; stroke-width: 0.6; stroke-linecap: square"/>
+     </g>
+     <g id="line2d_20">
+      <g>
+       <use xlink:href="#m67c3a48b49" x="65.9664" y="11.035742" style="fill: #9a8872; stroke: #9a8872; stroke-width: 0.9"/>
+      </g>
+     </g>
+     <g id="text_13">
+      <text style="font-size: 9.5px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: end; fill: #9a8872" x="58.9664" y="14.645" transform="rotate(-0 58.9664 14.645)">0.6</text>
+     </g>
+    </g>
+    <g id="text_14">
+     <!-- product yield  (g g$^{-1}$) -->
+     <g style="fill: #cbbca6" transform="translate(37.863431 138.169) rotate(-90)">
+      <text>
+       <tspan x="0" y="-0.064063" style="font-size: 9.5px; font-family: 'Public Sans, Helvetica, Arial, sans-serif'; fill: #cbbca6">p</tspan>
+       <tspan x="6.030273" y="-0.064063" style="font-size: 9.5px; font-family: 'Public Sans, Helvetica, Arial, sans-serif'; fill: #cbbca6">r</tspan>
+       <tspan x="9.936035" y="-0.064063" style="font-size: 9.5px; font-family: 'Public Sans, Helvetica, Arial, sans-serif'; fill: #cbbca6">o</tspan>
+       <tspan x="15.748291" y="-0.064063" style="font-size: 9.5px; font-family: 'Public Sans, Helvetica, Arial, sans-serif'; fill: #cbbca6">d</tspan>
+       <tspan x="21.778564" y="-0.064063" style="font-size: 9.5px; font-family: 'Public Sans, Helvetica, Arial, sans-serif'; fill: #cbbca6">u</tspan>
+       <tspan x="27.799561" y="-0.064063" style="font-size: 9.5px; font-family: 'Public Sans, Helvetica, Arial, sans-serif'; fill: #cbbca6">c</tspan>
+       <tspan x="33.022705" y="-0.064063" style="font-size: 9.5px; font-family: 'Public Sans, Helvetica, Arial, sans-serif'; fill: #cbbca6">t</tspan>
+       <tspan x="36.747559" y="-0.064063" style="font-size: 9.5px; font-family: 'Public Sans, Helvetica, Arial, sans-serif'; fill: #cbbca6"> </tspan>
+       <tspan x="39.767334" y="-0.064063" style="font-size: 9.5px; font-family: 'Public Sans, Helvetica, Arial, sans-serif'; fill: #cbbca6">y</tspan>
+       <tspan x="45.389404" y="-0.064063" style="font-size: 9.5px; font-family: 'Public Sans, Helvetica, Arial, sans-serif'; fill: #cbbca6">i</tspan>
+       <tspan x="48.028809" y="-0.064063" style="font-size: 9.5px; font-family: 'Public Sans, Helvetica, Arial, sans-serif'; fill: #cbbca6">e</tspan>
+       <tspan x="53.873535" y="-0.064063" style="font-size: 9.5px; font-family: 'Public Sans, Helvetica, Arial, sans-serif'; fill: #cbbca6">l</tspan>
+       <tspan x="56.512939" y="-0.064063" style="font-size: 9.5px; font-family: 'Public Sans, Helvetica, Arial, sans-serif'; fill: #cbbca6">d</tspan>
+       <tspan x="62.543213" y="-0.064063" style="font-size: 9.5px; font-family: 'Public Sans, Helvetica, Arial, sans-serif'; fill: #cbbca6"> </tspan>
+       <tspan x="65.562988" y="-0.064063" style="font-size: 9.5px; font-family: 'Public Sans, Helvetica, Arial, sans-serif'; fill: #cbbca6"> </tspan>
+       <tspan x="68.582764" y="-0.064063" style="font-size: 9.5px; font-family: 'Public Sans, Helvetica, Arial, sans-serif'; fill: #cbbca6">(</tspan>
+       <tspan x="72.289062" y="-0.064063" style="font-size: 9.5px; font-family: 'Public Sans, Helvetica, Arial, sans-serif'; fill: #cbbca6">g</tspan>
+       <tspan x="78.319336" y="-0.064063" style="font-size: 9.5px; font-family: 'Public Sans, Helvetica, Arial, sans-serif'; fill: #cbbca6"> </tspan>
+       <tspan x="81.339111" y="-0.064063" style="font-size: 9.5px; font-family: 'Public Sans, Helvetica, Arial, sans-serif'; fill: #cbbca6">g</tspan>
+       <tspan x="97.541431" y="-0.064063" style="font-size: 9.5px; font-family: 'Public Sans, Helvetica, Arial, sans-serif'; fill: #cbbca6">)</tspan>
+       <tspan x="87.465088" y="-3.892188" style="font-size: 6.65px; font-family: 'Public Sans, Helvetica, Arial, sans-serif'; fill: #cbbca6">−</tspan>
+       <tspan x="93.037061" y="-3.892188" style="font-size: 6.65px; font-family: 'Public Sans, Helvetica, Arial, sans-serif'; fill: #cbbca6">1</tspan>
+      </text>
+     </g>
+    </g>
+   </g>
+   <g id="line2d_21">
+    <path d="M 95.059403 32.13871 
+L 128.119634 32.13871 
+" clip-path="url(#p66049b57c0)" style="fill: none; stroke: #3a3026; stroke-width: 0.8; stroke-linecap: square"/>
+   </g>
+   <g id="line2d_22">
+    <path d="M 128.119634 48.599025 
+L 161.179864 48.599025 
+" clip-path="url(#p66049b57c0)" style="fill: none; stroke: #3a3026; stroke-width: 0.8; stroke-linecap: square"/>
+   </g>
+   <g id="line2d_23">
+    <path d="M 161.179864 66.705371 
+L 194.240095 66.705371 
+" clip-path="url(#p66049b57c0)" style="fill: none; stroke: #3a3026; stroke-width: 0.8; stroke-linecap: square"/>
+   </g>
+   <g id="line2d_24">
+    <path d="M 194.240095 73.887555 
+L 227.300325 73.887555 
+" clip-path="url(#p66049b57c0)" style="fill: none; stroke: #3a3026; stroke-width: 0.8; stroke-linecap: square"/>
+   </g>
+   <g id="LineCollection_1">
+    <path d="M 250.442487 95.072635 
+L 250.442487 71.786564 
+" clip-path="url(#p66049b57c0)" style="fill: none; stroke: #d7a95c; stroke-width: 1.2"/>
+   </g>
+   <g id="line2d_25">
+    <defs>
+     <path id="m239f875124" d="M 3.5 0 
+L -3.5 -0 
+" style="stroke: #d7a95c"/>
+    </defs>
+    <g clip-path="url(#p66049b57c0)">
+     <use xlink:href="#m239f875124" x="250.442487" y="95.072635" style="fill: #d7a95c; stroke: #d7a95c"/>
+    </g>
+   </g>
+   <g id="line2d_26">
+    <g clip-path="url(#p66049b57c0)">
+     <use xlink:href="#m239f875124" x="250.442487" y="71.786564" style="fill: #d7a95c; stroke: #d7a95c"/>
+    </g>
+   </g>
+   <g id="line2d_27">
+    <path d="M 250.442487 83.429599 
+" clip-path="url(#p66049b57c0)" style="fill: none; stroke: #d7a95c; stroke-width: 1.2; stroke-linecap: square"/>
+   </g>
+   <g id="patch_9">
+    <path d="M 65.9664 169.308 
+L 65.9664 5.76 
+" style="fill: none; stroke: #3a3026; stroke-width: 0.9; stroke-linejoin: miter; stroke-linecap: square"/>
+   </g>
+   <g id="patch_10">
+    <path d="M 65.9664 169.308 
+L 269.61742 169.308 
+" style="fill: none; stroke: #3a3026; stroke-width: 0.9; stroke-linejoin: miter; stroke-linecap: square"/>
+   </g>
+   <g id="text_15">
+    <text style="font-size: 8px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: middle; fill: #d98c72" x="118.201564" y="28.973265" transform="rotate(-0 118.201564 28.973265)">×0.88</text>
+   </g>
+   <g id="text_16">
+    <text style="font-size: 8px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: middle; fill: #d98c72" x="151.261795" y="45.433579" transform="rotate(-0 151.261795 45.433579)">×0.85</text>
+   </g>
+   <g id="text_17">
+    <text style="font-size: 8px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: middle; fill: #d98c72" x="184.322025" y="63.539926" transform="rotate(-0 184.322025 63.539926)">×0.93</text>
+   </g>
+   <g id="text_18">
+    <text style="font-size: 8px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: middle; fill: #d98c72" x="217.382256" y="70.72211" transform="rotate(-0 217.382256 70.72211)">×0.90</text>
+   </g>
+   <g id="text_19">
+    <text style="font-weight: 700; font-size: 8.2px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; fill: #d7a95c" transform="translate(237.474315 56.67842)">0.326</text>
+    <text style="font-weight: 700; font-size: 8.2px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; fill: #d7a95c" transform="translate(232.61133 65.860626)">± 0.044</text>
+   </g>
+   <g id="text_20">
+    <text style="font-weight: 700; font-size: 8.2px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: middle; fill: #6dbdac" x="85.141334" y="28.973265" transform="rotate(-0 85.141334 28.973265)">0.520</text>
+   </g>
+  </g>
+  <g id="axes_2">
+   <g id="patch_11">
+    <path d="M 338.43742 169.308 
+L 478.8864 169.308 
+L 478.8864 5.76 
+L 338.43742 5.76 
+L 338.43742 169.308 
+z
+" style="fill: none"/>
+   </g>
+   <g id="patch_12">
+    <path d="M 360.781576 169.308 
+L 392.701799 169.308 
+L 392.701799 167.61444 
+L 360.781576 167.61444 
+z
+" clip-path="url(#p43464f7ace)" style="fill: #6dbdac; opacity: 0.32; stroke: #6dbdac; stroke-width: 1.1; stroke-linejoin: miter"/>
+   </g>
+   <g id="patch_13">
+    <path d="M 424.622022 169.308 
+L 456.542244 169.308 
+L 456.542244 57.025359 
+L 424.622022 57.025359 
+z
+" clip-path="url(#p43464f7ace)" style="fill: #d98c72; opacity: 0.32; stroke: #d98c72; stroke-width: 1.1; stroke-linejoin: miter"/>
+   </g>
+   <g id="matplotlib.axis_3">
+    <g id="xtick_7">
+     <g id="line2d_28">
+      <g>
+       <use xlink:href="#ma71d6e4419" x="376.741688" y="169.308" style="fill: #9a8872; stroke: #9a8872; stroke-width: 0.9"/>
+      </g>
+     </g>
+     <g id="text_21">
+      <text style="font-size: 8.4px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; fill: #9a8872" transform="translate(366.671531 182.690688)">yield</text>
+      <text style="font-size: 8.4px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; fill: #9a8872" transform="translate(359.88 192.09685)">±13.6%</text>
+     </g>
+    </g>
+    <g id="xtick_8">
+     <g id="line2d_29">
+      <g>
+       <use xlink:href="#ma71d6e4419" x="440.582133" y="169.308" style="fill: #9a8872; stroke: #9a8872; stroke-width: 0.9"/>
+      </g>
+     </g>
+     <g id="text_22">
+      <text style="font-size: 8.4px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; fill: #9a8872" transform="translate(431.905852 182.690688)">titre</text>
+      <text style="font-size: 8.4px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; fill: #9a8872" transform="translate(427.727508 192.09685)">±30%</text>
+     </g>
+    </g>
+   </g>
+   <g id="matplotlib.axis_4">
+    <g id="ytick_8">
+     <g id="line2d_30">
+      <path d="M 338.43742 169.308 
+L 478.8864 169.308 
+" clip-path="url(#p43464f7ace)" style="fill: none; stroke: #2e251c; stroke-opacity: 0.7; stroke-width: 0.6; stroke-linecap: square"/>
+     </g>
+     <g id="line2d_31">
+      <g>
+       <use xlink:href="#m67c3a48b49" x="338.43742" y="169.308" style="fill: #9a8872; stroke: #9a8872; stroke-width: 0.9"/>
+      </g>
+     </g>
+     <g id="text_23">
+      <text style="font-size: 9.5px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: end; fill: #9a8872" x="331.43742" y="172.917258" transform="rotate(-0 331.43742 172.917258)">0</text>
+     </g>
+    </g>
+    <g id="ytick_9">
+     <g id="line2d_32">
+      <path d="M 338.43742 137.856462 
+L 478.8864 137.856462 
+" clip-path="url(#p43464f7ace)" style="fill: none; stroke: #2e251c; stroke-opacity: 0.7; stroke-width: 0.6; stroke-linecap: square"/>
+     </g>
+     <g id="line2d_33">
+      <g>
+       <use xlink:href="#m67c3a48b49" x="338.43742" y="137.856462" style="fill: #9a8872; stroke: #9a8872; stroke-width: 0.9"/>
+      </g>
+     </g>
+     <g id="text_24">
+      <text style="font-size: 9.5px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: end; fill: #9a8872" x="331.43742" y="141.465719" transform="rotate(-0 331.43742 141.465719)">5</text>
+     </g>
+    </g>
+    <g id="ytick_10">
+     <g id="line2d_34">
+      <path d="M 338.43742 106.404923 
+L 478.8864 106.404923 
+" clip-path="url(#p43464f7ace)" style="fill: none; stroke: #2e251c; stroke-opacity: 0.7; stroke-width: 0.6; stroke-linecap: square"/>
+     </g>
+     <g id="line2d_35">
+      <g>
+       <use xlink:href="#m67c3a48b49" x="338.43742" y="106.404923" style="fill: #9a8872; stroke: #9a8872; stroke-width: 0.9"/>
+      </g>
+     </g>
+     <g id="text_25">
+      <text style="font-size: 9.5px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: end; fill: #9a8872" x="331.43742" y="110.014181" transform="rotate(-0 331.43742 110.014181)">10</text>
+     </g>
+    </g>
+    <g id="ytick_11">
+     <g id="line2d_36">
+      <path d="M 338.43742 74.953385 
+L 478.8864 74.953385 
+" clip-path="url(#p43464f7ace)" style="fill: none; stroke: #2e251c; stroke-opacity: 0.7; stroke-width: 0.6; stroke-linecap: square"/>
+     </g>
+     <g id="line2d_37">
+      <g>
+       <use xlink:href="#m67c3a48b49" x="338.43742" y="74.953385" style="fill: #9a8872; stroke: #9a8872; stroke-width: 0.9"/>
+      </g>
+     </g>
+     <g id="text_26">
+      <text style="font-size: 9.5px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: end; fill: #9a8872" x="331.43742" y="78.562642" transform="rotate(-0 331.43742 78.562642)">15</text>
+     </g>
+    </g>
+    <g id="ytick_12">
+     <g id="line2d_38">
+      <path d="M 338.43742 43.501846 
+L 478.8864 43.501846 
+" clip-path="url(#p43464f7ace)" style="fill: none; stroke: #2e251c; stroke-opacity: 0.7; stroke-width: 0.6; stroke-linecap: square"/>
+     </g>
+     <g id="line2d_39">
+      <g>
+       <use xlink:href="#m67c3a48b49" x="338.43742" y="43.501846" style="fill: #9a8872; stroke: #9a8872; stroke-width: 0.9"/>
+      </g>
+     </g>
+     <g id="text_27">
+      <text style="font-size: 9.5px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: end; fill: #9a8872" x="331.43742" y="47.111104" transform="rotate(-0 331.43742 47.111104)">20</text>
+     </g>
+    </g>
+    <g id="ytick_13">
+     <g id="line2d_40">
+      <path d="M 338.43742 12.050308 
+L 478.8864 12.050308 
+" clip-path="url(#p43464f7ace)" style="fill: none; stroke: #2e251c; stroke-opacity: 0.7; stroke-width: 0.6; stroke-linecap: square"/>
+     </g>
+     <g id="line2d_41">
+      <g>
+       <use xlink:href="#m67c3a48b49" x="338.43742" y="12.050308" style="fill: #9a8872; stroke: #9a8872; stroke-width: 0.9"/>
+      </g>
+     </g>
+     <g id="text_28">
+      <text style="font-size: 9.5px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: end; fill: #9a8872" x="331.43742" y="15.659566" transform="rotate(-0 331.43742 15.659566)">25</text>
+     </g>
+    </g>
+    <g id="text_29">
+     <text style="font-size: 9.5px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: middle; fill: #cbbca6" x="313.372967" y="87.534" transform="rotate(-90 313.372967 87.534)">cost-of-goods uncertainty  ($ per kg)</text>
+    </g>
+   </g>
+   <g id="patch_14">
+    <path d="M 338.43742 169.308 
+L 338.43742 5.76 
+" style="fill: none; stroke: #3a3026; stroke-width: 0.9; stroke-linejoin: miter; stroke-linecap: square"/>
+   </g>
+   <g id="patch_15">
+    <path d="M 338.43742 169.308 
+L 478.8864 169.308 
+" style="fill: none; stroke: #3a3026; stroke-width: 0.9; stroke-linejoin: miter; stroke-linecap: square"/>
+   </g>
+   <g id="text_30">
+    <text style="font-weight: 700; font-size: 8.6px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: middle; fill: #cbbca6" x="376.741688" y="164.469286" transform="rotate(-0 376.741688 164.469286)">±$0.27/kg</text>
+   </g>
+   <g id="text_31">
+    <text style="font-weight: 700; font-size: 8.6px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: middle; fill: #cbbca6" x="440.582133" y="53.880205" transform="rotate(-0 440.582133 53.880205)">±$17.85/kg</text>
+   </g>
+   <g id="text_32">
+    <text style="font-size: 8px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; fill: #6dbdac" transform="translate(343.544656 16.870996)">four phases of</text>
+    <text style="font-size: 8px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; fill: #6dbdac" transform="translate(343.544656 25.829246)">modelling</text>
+   </g>
+   <g id="text_33">
+    <text style="font-size: 8px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; fill: #d98c72" transform="translate(416.322764 16.870996)">one literature</text>
+    <text style="font-size: 8px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; fill: #d98c72" transform="translate(416.322764 25.829246)">analogy</text>
+   </g>
+  </g>
+  <g id="text_34">
+   <text style="font-size: 8.3px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: start; fill: #9a8872" x="5.76" y="220.284" transform="rotate(-0 5.76 220.284)">Left: three of the four multipliers are assumed, and the by-product and oxygen terms share a cause, so the quadrature band is understated. Right: each uncertainty priced through week 52's elasticities at the 50 m³ configuration.</text>
+  </g>
+ </g>
+ <defs>
+  <clipPath id="p66049b57c0">
+   <rect x="65.9664" y="5.76" width="203.65102" height="163.548"/>
+  </clipPath>
+  <clipPath id="p43464f7ace">
+   <rect x="338.43742" y="5.76" width="140.44898" height="163.548"/>
+  </clipPath>
+ </defs>
+</svg>
+</div><figcaption>Left: four named multipliers take 0.520 g g⁻¹ to 0.326, 63% of the model maximum, with the relative errors combining in quadrature to ±13.6%. Right: priced through week 52's elasticities, that yield uncertainty is worth ±$0.27 per kg and the ±30% uncertainty on a titre taken from a literature analogy is worth ±$17.85 — which is the order the experiments should be run in, and the inverse of the order the course taught them.</figcaption></figure>
+<p>The format that survives scrutiny is: a hard upper bound from stoichiometry, the flux-model maximum beneath it, then a named multiplier for each mechanism that takes the real strain below the model, then an expected value with a range. Four multipliers cover most cases and each one has a phase of the course behind it — maintenance energy, which the model&#x27;s ATP maintenance term under-represents at low growth rate; by-product formation, including the overflow metabolism from phase 3 that no stoichiometric optimum predicts; genetic instability over the generation count of the seed train and the production batch, which week 47 computed; and oxygen limitation or another transport constraint from the vessel, from week 49. The arithmetic is a product, so the derating compounds, and the anchor shows the result: four multipliers averaging 0.89 take 0.52 g g⁻¹ to 0.326. The uncertainty combines in quadrature on the relative errors, giving ±13.6%, and the honest output is a range of 0.28 to 0.37 g g⁻¹ at one standard deviation. Three rules make this defensible rather than decorative. Each multiplier needs a source or an explicit flag as an assumption. The multipliers are not independent — an oxygen limitation causes overflow metabolism, so applying both at full strength double-counts — and a correlated pair should be stated as such and combined conservatively. And the range has to appear in the executive summary, because a point estimate in the summary and a range in the appendix is how a reader concludes that the author does not believe the range.</p>
+<p><strong>9. The gap to specification, and which gap is worth closing</strong></p>
+<p>Week 52 produced a specification by inverting the cost model, and the comparison is the point of the whole dossier. Three outcomes and each has a different write-up. If the expected performance meets the specification, say by how much and whether the margin survives the lower end of the range — a design that meets spec only at the optimistic end of a ±14% yield range does not meet spec. If it misses, the useful statement is not the size of the miss but which parameter to move, and week 52&#x27;s elasticities decide that: in a capital-intensive configuration titre and cycle time carry elasticities near −1 while yield carries −0.03, so a 14% uncertainty in yield is worth a fifth of a percent in cost of goods and a 14% uncertainty in titre is worth 14%. That ranking has an uncomfortable consequence for a dossier built on constraint-based modelling, and the capstone is better for stating it plainly: the quantity the flux model predicts best is the one the economics cares about least, and the quantity the economics turns on — titre — is one that no model in this course predicts at all. The third outcome is that the specification is unreachable at every accessible scale, which week 52&#x27;s anchor found, and then the dossier&#x27;s conclusion is a scale or product decision with the arithmetic attached, which is a stronger result than a strain that just meets a spec nobody checked.</p>
+<p><strong>10. The risk register, and the two failure modes of risk registers</strong></p>
+<p>The form is familiar — risk, likelihood, impact, mitigation — and two things make it worth reading. First, the impact column should be in the dossier&#x27;s own units, which after week 52 means dollars per kilogram or months of schedule rather than <em>high / medium / low</em>: a risk that moves cost of goods by $0.40 per kg and one that moves it by $18 per kg are not both <em>high</em>, and quantifying the column is usually what reveals that the most-worried-about risk is minor. Second, correlation: registers are written as independent rows and real failures arrive together, so the entry worth adding is the scenario rather than the risk — low titre and long batch time have the same root cause in a burdened strain, arrive together, and multiply in the cost model, so a register that scores them separately understates the joint case. For this dossier the rows that recur across hosts and products are genetic instability over the generation count; intermediate toxicity, which Lee §8.2.4.5 names and which no model predicts; product inhibition compressing both the growth and the pathway driving force; by-product formation that the stoichiometric optimum excludes and the organism does anyway; the oxygen ceiling from week 49; and, for anything going near a food or a therapeutic use, the regulatory path, which brief 8 is explicit is a decisive argument against building rather than a box to tick.</p>
+<p><strong>11. The unknowns section, which is the one a supervisor reads first</strong></p>
+<p>Everything that cannot be known before an experiment, each with the experiment that would resolve it, its approximate duration and what each possible result would mean. Written well this is the strongest section in the dossier, because it is the section that demonstrates the skill the whole year was for: knowing which of your own numbers is load-bearing. The structure that works is ordered by leverage — the unknown whose resolution would change the most of the design first — and leverage is now computable rather than intuitive, because week 52&#x27;s elasticities convert a change in a parameter into a change in cost of goods. For the anchor&#x27;s configuration the ordering comes out as achievable titre, then batch cycle time, then the stage recoveries of the downstream train, then the yield, which is an ordering almost exactly inverted from the amount of modelling effort the course spent on each. Two rules. An unknown with no experiment attached is a hedge and should be deleted or given one. And the first experiment should be the cheapest one that could falsify the design rather than the most interesting one — for most designs in this course that is a small-scale growth and production run of a single intermediate construct on the final medium, which tests the host, the medium and the first intervention at once.</p>
+<h3>Worked anchor</h3>
+<p>Assemble the expected performance of the final strain with its uncertainty, compare it against week 52&#x27;s specification, and let the comparison choose the first experiment.</p>
+<p>Basis. The flux model&#x27;s maximum product yield on glucose is 0.52 g g⁻¹ for the final host on the week 47 defined medium with the week 49 oxygen uptake constraint imposed. The stoichiometric bound from the element and redox balance, above the model, is higher and is not used here except as a sanity ceiling. Every derating multiplier below is stated with its source or flagged as an assumption.</p>
+<p>Step 1 — the derating chain. Each multiplier is the fraction of the preceding value that survives the named mechanism, with a standard deviation on it:</p>
+<p>flux-model maximum                                        0.520 g g⁻¹ × maintenance energy at the process growth rate   0.88 ± 0.05 × by-product formation (overflow, phase 3)        0.85 ± 0.08 × plasmid loss / segregational instability        0.93 ± 0.04 × oxygen limitation at the vessel&#x27;s ceiling       0.90 ± 0.06 ------------ expected yield                                            0.326 g g⁻¹</p>
+<p>That is 63% of the model maximum, which is in the range a reader will accept for a designed strain and well above what an undesigned one would give. Relative uncertainties combine in quadrature: √((0.05/0.88)² + (0.08/0.85)² + (0.04/0.93)² + (0.06/0.90)²) = 13.6%, so the expected yield is 0.326 ± 0.044 g g⁻¹, a one-standard-deviation range of 0.28 to 0.37.</p>
+<p>Two honesty notes on that arithmetic. The by-product and oxygen multipliers are <strong>not independent</strong> — an oxygen limitation is one of the causes of overflow metabolism — so applying both at full strength probably double-counts, and the true expected yield is a little higher than 0.326 with a wider spread than ±13.6%. And three of the four multipliers are assumptions rather than measurements; only the instability figure follows from a calculation, the generation count from week 47&#x27;s seed train through week 33&#x27;s stability model.</p>
+<p>Step 2 — titre and rate, which the model cannot supply. The flux model predicts neither, so both come from elsewhere and the dossier must say so. Titre is taken as 50 ± 15 g L⁻¹ from the host&#x27;s published envelope for this product class in phase 7, a 30% relative uncertainty, which is wider than the yield&#x27;s for a reason: it is a literature analogy rather than a calculation. Volumetric productivity follows from the titre and the 77.5 h cycle of week 52: 50/77.5 = 0.65 g L⁻¹ h⁻¹ expected, 0.45 to 0.84 on the titre range alone, and wider once cycle time is allowed to vary with it.</p>
+<p>Step 3 — the comparison with week 52&#x27;s specification. The specification derived by inverting the cost model, at 50 m³ and a $12 per kg price, was a titre of about 297 g L⁻¹. The expected titre is 50 ± 15. The gap is a factor of six and it is not closable by strain engineering: the specification is unreachable at this scale for this product, which is the result week 52 already reached from the cost side and which the strain side now confirms independently. The dossier&#x27;s conclusion is therefore a configuration conclusion, and the arithmetic for it is week 52&#x27;s step 7 — the same cost model at 50,000 m³ reaches $12.2 per kg at the expected titre of 50 g L⁻¹, with no change to the strain at all.</p>
+<p>Step 4 — what the uncertainties are worth, in money. Using week 52&#x27;s elasticities for the capital-intensive 50 m³ configuration, where titre and cycle time carry −0.97 and yield carries −0.03:</p>
+<p>yield  0.326 ± 0.044  (±13.6%)  → cost of goods ± 0.4%  = ± $0.27 per kg titre  50 ± 15 g L⁻¹  (±30%)    → cost of goods ∓ 29%    = ∓ $17.85 per kg</p>
+<p>The yield, which four phases of modelling were spent pinning down, is worth twenty-seven cents a kilogram of uncertainty. The titre, which was taken from a literature analogy in one afternoon, is worth nearly eighteen dollars. If one experiment can be run before the dossier is submitted, it is a titre measurement, and that conclusion is uncomfortable in exactly the way a real result is.</p>
+<p>Step 5 — the same comparison in the commodity configuration, to check that the conclusion is not an artefact. At 50,000 m³ the cost breakdown inverts: capital charge falls to a small share and raw material rises to dominate, so yield elasticity approaches −1 and titre elasticity falls toward the share of the remaining volume-dependent lines. On the step 7 figures at 50,000 m³ the raw material is $1,980 of $12,160 per tonne at 0.30 g g⁻¹, and at the expected 0.326 it is $1,823 — so a ±13.6% yield uncertainty becomes roughly ±2% of cost of goods there, against ±0.4% at pilot scale. The ranking softens but does not reverse, because even at commodity scale this cost structure is not raw-material-dominated the way NREL&#x27;s is, where feedstock is 34% of the selling price. The general statement for the dossier: yield uncertainty matters in proportion to the raw-material share, titre uncertainty in proportion to everything else, and both numbers should be quoted with the configuration they refer to.</p>
+<p>Step 6 — the deletion re-validation, as the dossier&#x27;s table. Six interventions, each simulated singly and then together on the final medium with the oxygen constraint:</p>
+<p>deletion 1   single µ 0.41 h⁻¹   non-essential, no gap-filled dependency deletion 2   single µ 0.38       non-essential, no gap-filled dependency deletion 3   single µ 0.33       non-essential <strong>but relies on a gap-filled reaction</strong> — flagged deletion 4   single µ 0.40       non-essential, no gap-filled dependency overexpr. 1-2                    no growth prediction; burden not modelled full genotype together  µ 0.21    viable in silico, 49% of wild-type growth</p>
+<p>The flag on deletion 3 is the row that earns the table: its non-essentiality depends on a reaction that exists in the reconstruction to make the model grow rather than because anyone observed it in this organism, so the first wet experiment on the list is a single-mutant growth curve for that deletion, which is cheap, fast and falsifies the design if it fails. The full genotype at 49% of wild-type growth is the other number to carry forward, because week 50&#x27;s feed policy and week 52&#x27;s cycle time were both computed at µ = 0.25 h⁻¹, and 0.21 h⁻¹ lengthens the growth phase from 17.5 h to 20.8 h, adds 3.3 h to the 77.5 h cycle and therefore about 4% to the capital charge per tonne — a small number, but it is the kind of number that should propagate rather than sit in an appendix.</p>
+<p>Step 7 — what the arithmetic chooses, in order of leverage per unit of effort:</p>
+<p>(i)   Measure the achievable titre of the current best strain in a shake flask and in a 2 L fed-batch on the final medium. Resolves the ±$17.85 per kg term. Weeks, not months. (ii)  Growth curve of the deletion-3 single mutant on the final medium. Falsifies or confirms the one in-silico prediction that rests on a gap-filled reaction. Days. (iii) Measure the batch cycle time end to end, including turnaround, on the pilot available. Resolves the second-largest term and is mostly bookkeeping. (iv)  Measure two or three stage recoveries in the downstream train on real broth. Week 51 flagged every one of its seven as assumed. (v)   Refine the yield prediction. Worth $0.27 per kg of uncertainty and comes last, which is the opposite of the order in which the course taught it.</p>
+<p>What this leaves out, and the largest items are not subtle. Every derating multiplier except the instability one is assumed rather than measured, and two of them are correlated in a way the quadrature treatment ignores. The titre is a literature analogy for a product class, not for this product in this host. The flux model&#x27;s 0.52 g g⁻¹ maximum is itself conditional on a biomass objective whose composition was measured for a different organism, which is phase 3&#x27;s standing caveat and does not disappear because the number has been reused for fifty weeks. Burden from the two overexpressions is not in the model at all — no constraint-based model carries it — so the full genotype&#x27;s predicted 49% of wild-type growth is an upper bound on a figure that proteome allocation would reduce further. And the whole comparison rests on week 52&#x27;s cost model, whose own largest input, the installation factor, is assumed. The dossier should carry that chain of conditionals as a single short paragraph rather than scattered caveats, because a reader who can see the chain can judge it, and a reader who finds the caveats one at a time concludes they were hidden.</p>
+<p><strong>Assumptions behind this calculation</strong></p>
+<ul>
+<li>the flux-model maximum of 0.52 g g⁻¹ taken on the final host, the week 47 defined medium and the week 49 oxygen constraint</li>
+<li>derating multipliers of 0.88 maintenance, 0.85 by-product formation, 0.93 instability and 0.90 oxygen limitation, of which only the instability figure follows from a calculation</li>
+<li>those four multipliers treated as independent when the by-product and oxygen terms share a cause, so the quadrature uncertainty of 13.6% is understated and the expected yield slightly understated</li>
+<li>titre 50 ± 15 g L⁻¹ from the host&#x27;s published envelope for this product class, a literature analogy rather than a measurement on this strain</li>
+<li>the biomass objective&#x27;s composition carried from phase 3, measured for a different organism</li>
+<li>burden from the two overexpressions absent from the model entirely, so the predicted 49% of wild-type growth is an upper bound</li>
+<li>the elasticities used to price each uncertainty taken from week 52&#x27;s cost model, whose own assumptions all apply here</li>
+</ul>
+<h3>Reading map</h3>
+<table><thead><tr><th>Source</th><th>Treatment</th><th>Why</th></tr></thead><tbody><tr><td>Your own artifacts 5 through 26 — this week is synthesis, not new reading</td><td>Read closely</td><td>The curriculum&#x27;s first entry and correct: the week&#x27;s reading is the candidate&#x27;s own work, read as a stranger would read it. The practical instruction, which the session list implies and does not state, is to read them in dependency order rather than in number order and to build the one-page map of which artifact supplies which number to the final performance estimate. Expect three or four genuine conflicts between artifacts built months apart — a biomass equation that changed, a model version, a medium — and treat each as a finding to record rather than an embarrassment to tidy away. The conflicts are the week&#x27;s most valuable output because each one is something a reviewer would otherwise find.</td></tr><tr><td>Lee Ch 1 §1.3 General Approaches to Metabolic Engineering (printed p9), with §1.3.1 rational, §1.3.2 combinatorial and §1.3.3 systems metabolic engineering</td><td>Read closely</td><td>Confirmed present in the PDF with those titles and subsections. Assigned as a framework for your own design and that is exactly the right use at this point: the three approaches are a way of explaining which parts of the design came from mechanism, which from screening and which from integration, which is a structure a reader can follow. Read it once and use it as the organising frame for the dossier&#x27;s methods narrative rather than as a source of content — there are no numbers in it to cite.</td></tr><tr><td>Lee Ch 8 §8.2.4 Pathway Feasibility (printed p246) and §8.3 Applications (p247)</td><td>Read closely</td><td>Both confirmed present. §8.2.4&#x27;s five subsections are the checklist the capstone&#x27;s feasibility section should be able to answer item by item: §8.2.4.1 chassis metabolic model, §8.2.4.2 stoichiometric feasibility, §8.2.4.3 thermodynamic feasibility, §8.2.4.4 kinetic feasibility, §8.2.4.5 toxicity of intermediates. The last two are the ones most capstones skip and both are risk-register entries. §8.3 is the applications half, with §8.3.1 available tools, §8.3.2 successful applications and §8.3.3 a worked example on 1,4-butanediol running through §8.3.3.1 to §8.3.3.5 — network construction, pathway search, enzyme assignment for novel reactions, stoichiometric and thermodynamic evaluation, and overall ranking. Read §8.3.3 closely as a model for how to present a pathway selection: it is the closest thing in the book to the document being written this week.</td></tr><tr><td>Any two papers from your log closest to your target</td><td>Read closely</td><td>The curriculum&#x27;s fourth entry. Choose them for a specific job rather than for closeness in the abstract: one that reports an achieved titre, rate and yield for this product class in this host, because that is the only defensible source for the titre the flux model cannot predict and the anchor&#x27;s largest uncertainty rests on it; and one that reports a failure or a limitation, because the risk register needs a source and the successful papers will not supply one. Record for each what was measured against what was modelled, since the gap between those two in someone else&#x27;s paper is the best available prior for the gap in your own.</td></tr><tr><td>Your week 52 techno-economic model and the specification derived from it</td><td>Read closely</td><td>Not in the curriculum&#x27;s `r:[]` for this week and it should be, because the week&#x27;s third objective — stating expected performance against the week 52 specification — cannot be met without it. Reread specifically the cost breakdown and the elasticities, because those are what convert each uncertainty in this week&#x27;s performance estimate into dollars per kilogram and therefore what orders the unknowns section. The dossier should carry the elasticity table and the derating chain on facing pages: together they are the argument that the project&#x27;s remaining risk is concentrated where the modelling effort was not.</td></tr><tr><td>Methods handbook §9 thermodynamic conventions and §12 defending your work</td><td>Skim</td><td>Not in the curriculum&#x27;s list; both earn a skim this week for different reasons. §9 because the re-run of the driving-force analysis at process concentrations has to use the same conventions as the phase 2 artifact it is updating, and a silent convention change between artifacts is the kind of inconsistency the dependency map exists to catch. §12 because this is the week the dossier starts being a document that will be defended rather than a set of calculations, and the handbook&#x27;s framing for that is more useful read before the writing than after it.</td></tr></tbody></table>
+<h3>Common misconceptions</h3>
+<ul>
+<li>That a predicted yield from a flux model is a prediction of performance. It is a bound on a bound: stoichiometry bounds the yield, the network bounds it further, and the real strain sits below both by a product of derating factors — maintenance, by-products, instability, transport limitation — which in the anchor take 0.52 g g⁻¹ to 0.326 ± 0.044. Quote the model maximum only as a ceiling, name each multiplier with its source, and put the range in the summary rather than in an appendix.</li>
+<li>That the capstone&#x27;s job is to show the design is right. Its job is to show which parts of it could be wrong and what would decide: the unknowns section, ordered by how much cost or schedule each unknown moves, is the section a supervisor reads for evidence of judgement. A dossier with no quantified unknowns reads as one whose author has not found them yet, and that is a worse impression than a dossier reporting that the specification cannot be met at this scale.</li>
+<li>That essentiality predictions carried forward from an earlier phase still hold. They are properties of a particular model with a particular medium and a particular biomass objective, all three of which changed in phases 7 and 8, and some depend on gap-filled reactions that exist to make the model grow rather than because anyone observed them. Re-simulate every deletion on the final medium, simulate the full genotype as one strain rather than as a list, and flag any non-essentiality that rests on a gap-filled reaction — in the anchor that flag is what chose the cheapest falsifying experiment.</li>
+</ul>
+<h3>Check yourself before moving on</h3>
+<p><strong>Q.</strong> Which single assumption in your design, if wrong, invalidates the most of it — and how would you test it first?</p>
+<p><strong>A.</strong> Answer it with the elasticity calculation rather than with intuition, because the question is asking for leverage and leverage is computable. Rank every assumption by how much cost of goods or schedule moves if it is wrong, using week 52&#x27;s elasticities, and the top of the list for a capital-intensive configuration is the achievable titre: it carries an elasticity near −1, its uncertainty in the anchor is ±30% because it came from a literature analogy rather than a calculation, and the two together make it worth about ±$17.85 per kg of cost-of-goods uncertainty against ±$0.27 for the yield. So the assumption is: this host can reach a titre of order 50 g L⁻¹ for this product on the designed medium. Below it sit the batch cycle time, which moves the same cost lines, and then the seven assumed stage recoveries from week 51. The yield, which the modelling work was mostly about, is near the bottom. The test, and the important property of it is that it is cheap and falsifying rather than confirmatory: grow the current best strain to the production phase in a 2 L fed-batch on the final medium with the real nitrogen source and measure the titre, the by-product spectrum and the time to reach it. That single run resolves the largest uncertainty, gives a first number for cycle time, and reveals the by-product derating multiplier that the anchor assumed at 0.85, so it collapses three rows of the derating chain at once. Two refinements worth stating. Run it on the final medium rather than on a rich laboratory medium, since the medium is one of the things being tested, and nothing is learned about the designed process from a strain performing well on something else. And define the falsification threshold in advance from the economics — if the titre comes in below the level at which the configuration can reach any defensible price, the result is a decision rather than a disappointment, and knowing that number before the run is what makes the experiment a test rather than a measurement.</p>
+<p><strong>Q.</strong> Your flux model predicts a growth-coupled region between µ = 0.15 and 0.30 h⁻¹, and the strain you build grows at 0.21 h⁻¹ and makes almost no product. Name four explanations and the measurement that distinguishes them.</p>
+<p><strong>A.</strong> The explanations divide into model problems and strain problems and the measurements separate them cleanly. First, the coupling is real but the strain is not the strain: an edit failed silently, a deletion reverted, or a plasmid was lost over the generations between construction and assay — distinguished by sequencing the production culture at the end of the run rather than the glycerol stock at the beginning, and by plating for the marker to get a segregational loss fraction, which week 33&#x27;s model turns into a per-generation rate. Second, the coupling is a modelling artefact resting on a reaction that is not really there: a gap-filled reaction, a missing isozyme in a GPR, or a transport reaction the reconstruction included for convenience, so the real network has a bypass the model lacks — distinguished by flux variability analysis on the final model to find which alternative routes are permitted, then by a labelling experiment or a targeted assay on the suspected bypass, and partly by the gap-filled flag in the deletion table from the anchor&#x27;s step 6. Third, the coupling holds at the stoichiometric level but the pathway cannot carry flux: a kinetically slow enzyme, an unfavourable driving force at the real intracellular concentrations, or an inhibitory intermediate, which Lee §8.2.4.4 and §8.2.4.5 name as exactly the two feasibility checks a stoichiometric analysis cannot make — distinguished by measuring the intracellular intermediates, where an accumulating intermediate upstream of a step localises the bottleneck and a depleted pathway with normal precursors points at the first committed step instead. Fourth, the organism is doing something the objective function does not represent: overflow metabolism, a stress response to the burden of the overexpressions, or a regulatory block that constraint-based models have no way to carry — distinguished by the by-product spectrum in the broth and by the carbon balance, since overflow shows up as acetate or lactate accounting for the missing carbon while burden shows as a lower growth rate with the carbon going to biomass and CO₂. The ordering of the measurements matters as much as the list: sequence first because it is cheapest and a failed edit makes every other interpretation wrong, then close the carbon balance because it partitions the problem between by-products and nothing-happening, and only then reach for metabolomics. And whichever explanation holds, the dossier entry it belongs in already exists — every one of these four is a row in the risk register, which is the test of whether the register was written seriously.</p>
+<p><strong>Q.</strong> A reviewer says your dossier&#x27;s expected titre of 50 g per litre is unsupported. Defend it or concede it, and say what the concession costs.</p>
+<p><strong>A.</strong> Concede it, because it is unsupported in the specific sense the reviewer means: it is an analogy from published performance for this product class in this host, not a measurement on this strain or a prediction from any model in the dossier, and nothing in a constraint-based model predicts a titre at all. The defence is about what kind of number it is rather than about its value. State the provenance explicitly — which paper, which host, which product, what scale and what mode of operation — and state the three ways this process differs from that one, which will usually be the medium, the vessel&#x27;s oxygen supply and the feed policy, each of which can move a titre by tens of per cent. Then quantify the concession rather than apologising for it, which is what turns a weakness into a piece of analysis: at a ±30% uncertainty and an elasticity near −1 in the capital-intensive configuration, the titre uncertainty alone puts the cost of goods between roughly $44 and $79 per kilogram, and the decision the dossier is asking for does not depend on which end it lands at, because even the optimistic end is five times the product&#x27;s price. That is the strongest available answer — the result is robust to the weakest input — and it is only available because the elasticity was computed. Where the concession does cost something is in the specification comparison, since a spec met only at the optimistic end of an unsupported range is not met, and in the schedule, since the first experiment in the plan now has to be the titre measurement and nothing downstream of it can be promised until it reports. Say both. A reviewer who sees an unsupported number defended will stop reading; a reviewer who sees it labelled, bounded, priced and placed first in the experimental plan has been given the thing they were checking for.</p>
+<hr>
+
+<section class="study-transfer" aria-label="Week 53 application and teach-back">
+<h3>Apply it to your fermentation experience</h3>
+<p><strong>Transfer prompt.</strong> State a strain-level hypothesis for a product you care about, the proposed intervention, and the measurable outcome. What competing mechanism could produce the same result?</p>
+<p class="meta">Use your actual thesis methods and results where you remember them. Mark missing information as unknown; do not assume the organisms were co-cultured, that a metabolite was measured, or that a proposed mechanism was demonstrated.</p>
+<h3>Teach it back</h3>
+<p>Explain the week's concept from memory, work one number, and name one boundary. Then use the <a href="teach-back.html">five-minute teach-back protocol</a> and log it in the tracker.</p>
+</section>
+<nav class="weeknav" aria-label="Week navigation"><a href="week-52.html">&#8592; Week 52</a><a class="idx" href="index.html">Lecture index</a><a class="idx" href="case-study.html">Case study</a><a href="week-54.html">Week 54 &#8594;</a></nav>
+</main>
+<footer class="docfoot"><a href="../metabolic-engineering-tracker.html">&#8592; Course tracker</a><span>Metabolic engineering &middot; 55 weeks</span></footer>
+<script>
+(function(){var root=document.documentElement,key="me.theme";var bs=Array.prototype.slice.call(document.querySelectorAll(".appearance button"));
+function paint(v){bs.forEach(function(b){b.setAttribute("aria-pressed",b.getAttribute("data-appearance")===v?"true":"false");});if(v==="auto")root.removeAttribute("data-theme");else root.setAttribute("data-theme",v);}
+var saved="auto";try{saved=localStorage.getItem(key)||"auto";}catch(e){}
+bs.forEach(function(b){b.addEventListener("click",function(){var v=b.getAttribute("data-appearance");paint(v);try{localStorage.setItem(key,v);}catch(e){}});});paint(saved);})();
+</script>
+</body>
+</html>

@@ -1,0 +1,803 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="utf-8"><title>Week 14 — Biosynthesis and the precursor tree — Metabolic engineering</title>
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+
+
+<style>:root{color-scheme:light;--paper:#FAF6EF;--ink:#211A12;--ink-2:#4A3C2C;--ink-3:#8A7458;
+--line:#DFD2BE;--line-2:#EDE4D5;--broth:#9A6B1F;--broth-soft:#F6ECD9;
+--serif:"Newsreader",Georgia,serif;--sans:"Public Sans",system-ui,sans-serif}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--paper:#15120D;--ink:#F1E9DC;--ink-2:#CBBCA6;
+--ink-3:#948872;--line:#352C22;--line-2:#2A231B;--broth:#D7A95C;--broth-soft:#241D14}}
+*{box-sizing:border-box}
+body{margin:0;background:var(--paper);color:var(--ink);font-family:var(--sans);font-size:15.5px;line-height:1.6;
+padding:env(safe-area-inset-top,0) 0 env(safe-area-inset-bottom,0)}
+.wrap{max-width:840px;margin:0 auto;padding:40px 22px 90px}
+h1{font-family:var(--serif);font-size:clamp(28px,5vw,42px);line-height:1.1;font-weight:600;margin:0 0 6px;letter-spacing:-.02em}
+h2{font-family:var(--serif);font-size:26px;font-weight:600;margin:46px 0 10px;letter-spacing:-.01em;padding-bottom:7px;border-bottom:1px solid var(--line)}
+h3{font-family:var(--serif);font-size:20px;font-weight:600;margin:30px 0 4px;color:var(--broth)}
+h4{font-size:14px;font-weight:650;margin:18px 0 4px;color:var(--ink-3);letter-spacing:.02em;text-transform:uppercase}
+p{margin:0 0 12px;max-width:74ch}
+em{color:var(--ink-2)}
+ul{margin:0 0 14px;padding-left:1.15em;max-width:74ch}
+li{margin:.3em 0}li::marker{color:var(--ink-3)}
+hr{border:0;border-top:1px solid var(--line);margin:40px 0}
+strong{font-weight:650}
+table{border-collapse:collapse;width:100%;margin:14px 0 20px;font-size:14px}
+th{text-align:left;font-weight:600;color:var(--ink-3);font-size:12.5px;padding:7px 9px;border-bottom:1.5px solid var(--line)}
+td{padding:8px 9px;border-bottom:1px solid var(--line-2);vertical-align:top}
+tr:nth-child(even) td{background:var(--broth-soft)}
+
+figure.fig{margin:22px 0 26px;padding:0;max-width:100%}
+figure.fig svg{width:100%;height:auto;display:block;background:var(--card);
+  border:1px solid var(--line-2);border-radius:10px;padding:8px 10px}
+figure.fig figcaption{font-size:13px;color:var(--ink-3);margin-top:8px;max-width:74ch;line-height:1.5}
+figure.fig .figtitle{font-family:var(--serif);font-size:15px;color:var(--ink-2);margin-bottom:6px}
+figure.fig .fig-dark{display:none}
+@media (prefers-color-scheme: dark){
+  figure.fig .fig-light{display:none}
+  figure.fig .fig-dark{display:block}
+}
+@media print{figure.fig{break-inside:avoid;page-break-inside:avoid}
+  figure.fig .fig-dark{display:none !important}
+  figure.fig .fig-light{display:block !important}}
+
+@media print{body{background:#fff}.wrap{padding:0;max-width:none}h2,h3{page-break-after:avoid}}</style><script>try{var t=localStorage.getItem("me.theme");if(t&&t!=="auto")document.documentElement.setAttribute("data-theme",t);}catch(e){}</script>
+<meta name="color-scheme" content="light dark">
+<meta name="theme-color" content="#ffffff" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#000000" media="(prefers-color-scheme: dark)">
+<style>
+/* ============================================================
+   COURSE LIBRARY — Apple document shell
+   ============================================================ */
+:root{
+  color-scheme:light;
+  --paper:#FFFFFF;--surface:#F5F5F7;--card:#FFFFFF;--fill:#F5F5F7;
+  --ink:#1D1D1F;--ink-2:#6E6E73;--ink-3:#6E6E73;
+  --line:rgba(0,0,0,.14);--line-2:rgba(0,0,0,.08);
+  --broth:#0071E3;--broth-soft:rgba(0,113,227,.10);
+  --nav-bg:rgba(255,255,255,.84);
+  --sans:-apple-system,BlinkMacSystemFont,"SF Pro Text","SF Pro Display","Helvetica Neue",Arial,sans-serif;
+  --mono:ui-monospace,"SF Mono",Menlo,Consolas,monospace;
+  --serif:var(--sans);
+}
+@media (prefers-color-scheme:dark){
+  :root:not([data-theme="light"]){
+    color-scheme:dark;
+    --paper:#000000;--surface:#1C1C1E;--card:#2C2C2E;--fill:#2C2C2E;
+    --ink:#F5F5F7;--ink-2:#A1A1A6;--ink-3:#8E8E93;
+    --line:rgba(255,255,255,.16);--line-2:rgba(255,255,255,.09);
+    --broth:#5AA9FF;--broth-soft:rgba(10,132,255,.18);
+    --nav-bg:rgba(0,0,0,.74);
+  }
+}
+:root[data-theme="dark"]{
+  color-scheme:dark;
+  --paper:#000000;--surface:#1C1C1E;--card:#2C2C2E;--fill:#2C2C2E;
+  --ink:#F5F5F7;--ink-2:#A1A1A6;--ink-3:#8E8E93;
+  --line:rgba(255,255,255,.16);--line-2:rgba(255,255,255,.09);
+  --broth:#5AA9FF;--broth-soft:rgba(10,132,255,.18);
+  --nav-bg:rgba(0,0,0,.74);
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth;scroll-padding-top:72px;-webkit-text-size-adjust:100%}
+body{
+  margin:0;background:var(--paper);color:var(--ink);
+  font-family:var(--sans);font-size:17px;line-height:1.62;letter-spacing:-.011em;
+  padding:0;
+}
+.docbar{
+  position:sticky;top:0;z-index:80;display:flex;align-items:center;justify-content:space-between;gap:12px;
+  padding:8px max(24px,calc((100vw - 1180px)/2));
+  background:var(--nav-bg);
+  -webkit-backdrop-filter:saturate(180%) blur(20px);backdrop-filter:saturate(180%) blur(20px);
+  border-bottom:1px solid var(--line-2);
+}
+.docback{display:inline-flex;align-items:center;gap:6px;color:var(--ink-2);font-size:13px;font-weight:500;text-decoration:none;white-space:nowrap}
+.docback:hover{color:var(--broth)}
+.appearance{display:inline-flex;gap:2px;padding:2px;background:var(--fill);border-radius:980px}
+.appearance button{border:0;background:none;color:var(--ink-2);font:inherit;font-size:12px;font-weight:500;line-height:1;padding:6px 11px;border-radius:980px;cursor:pointer}
+.appearance button[aria-pressed="true"]{background:var(--card);color:var(--ink);box-shadow:0 1px 2px rgba(0,0,0,.08)}
+.wrap{max-width:900px;margin:0 auto;padding:64px 24px 96px}
+body h1{
+  font-family:var(--sans);font-size:clamp(42px,6.2vw,64px);line-height:1.04;letter-spacing:-.04em;
+  font-weight:700;margin:0 0 16px;max-width:18ch;color:var(--ink);
+}
+.doc-kicker{font-size:13px;font-weight:500;letter-spacing:0;color:var(--ink-2);margin:0 0 12px}
+body h1 + p{font-size:20px;line-height:1.55;color:var(--ink-2);max-width:68ch;margin:0 0 18px}
+body h1 + p strong{color:var(--ink);font-weight:600}
+body h2{
+  font-family:var(--sans);font-size:32px;line-height:1.15;letter-spacing:-.03em;font-weight:600;
+  color:var(--ink);margin:64px 0 14px;padding:0;border:0;
+}
+body h3{font-family:var(--sans);font-size:22px;line-height:1.25;letter-spacing:-.02em;font-weight:600;color:var(--ink);margin:36px 0 8px}
+body h4{font-size:14px;line-height:1.4;font-weight:600;letter-spacing:0;text-transform:none;color:var(--ink-2);margin:24px 0 6px}
+body p{margin:0 0 14px;max-width:72ch}
+body ul,body ol{margin:0 0 16px;padding-left:1.25em;max-width:72ch}
+body li{margin:.32em 0}
+body li::marker{color:var(--ink-3)}
+body strong{font-weight:600;color:var(--ink)}
+body em{color:var(--ink)}
+body a{color:var(--broth);text-decoration:underline;text-underline-offset:2px}
+body a:hover{text-decoration:underline}
+body hr{border:0;border-top:1px solid var(--line-2);margin:56px 0}
+body table{border-collapse:collapse;width:100%;margin:22px 0 30px;font-size:15px;line-height:1.45}
+body th{text-align:left;font-weight:600;font-size:12.5px;color:var(--ink-2);padding:10px 12px;background:var(--surface);border-bottom:1px solid var(--line)}
+body td{padding:11px 12px;border-bottom:1px solid var(--line-2);vertical-align:top}
+body tr:nth-child(even) td{background:transparent}
+body figure.fig{margin:32px 0 36px;padding:0;max-width:100%}
+body figure.fig svg{width:100%;height:auto;display:block;background:var(--surface);border:0;border-radius:20px;padding:18px}
+body figure.fig figcaption{font-size:13px;color:var(--ink-2);margin-top:10px;max-width:72ch;line-height:1.5}
+body figure.fig .figtitle{font-family:var(--sans);font-size:14px;font-weight:600;color:var(--ink);margin-bottom:6px}
+body pre{background:var(--surface);border:1px solid var(--line-2);border-radius:16px;padding:18px;overflow:auto;font-family:var(--mono);font-size:13.5px;line-height:1.55;margin:20px 0 24px}
+body code{font-family:var(--mono);font-size:.88em;background:var(--surface);border-radius:6px;padding:.12em .35em}
+body pre code{background:none;padding:0;font-size:inherit}
+body blockquote{margin:24px 0;padding:2px 0 2px 18px;border-left:3px solid var(--broth);color:var(--ink-2)}
+:root[data-theme="dark"] .fig-light{display:none!important}
+:root[data-theme="dark"] .fig-dark{display:block!important}
+:root[data-theme="light"] .fig-dark{display:none!important}
+:root[data-theme="light"] .fig-light{display:block!important}
+.docfoot{max-width:900px;margin:0 auto;padding:24px 24px 64px;border-top:1px solid var(--line-2);display:flex;justify-content:space-between;gap:12px;font-size:12.5px;color:var(--ink-3)}
+.docfoot a{color:var(--ink-2);text-decoration:none}
+.docfoot a:hover{color:var(--broth)}
+@media (max-width:700px){
+  .docbar{padding:8px 16px}
+  .wrap{padding:40px 18px 80px}
+  body h1{font-size:clamp(38px,11vw,48px)}
+  body h1 + p{font-size:18px}
+  body h2{font-size:28px;margin-top:52px}
+  body h3{font-size:20px}
+  body p,body li{font-size:16.5px}
+  body table{font-size:14px}
+  body th,body td{padding:9px 9px}
+  .docfoot{padding:20px 18px 50px;flex-direction:column;gap:6px}
+}
+@media print{
+  .docbar,.appearance,.docfoot{display:none!important}
+  body{background:#fff;color:#000;font-size:11pt}
+  .wrap{max-width:none;padding:0}
+  body h1{font-size:28pt;max-width:none}
+  body h2{font-size:16pt;page-break-after:avoid}
+  body h3{font-size:13pt;page-break-after:avoid}
+  body a{color:#000;text-decoration:none}
+  body table,body figure{break-inside:avoid}
+}
+
+
+.index-actions{margin:18px 0 36px;display:flex;flex-wrap:wrap;gap:16px;align-items:center}
+.index-actions a{font-size:14px;font-weight:500;color:var(--broth);text-decoration:none}
+.index-actions a:hover{text-decoration:underline}
+.phaseh{display:flex;align-items:baseline;justify-content:space-between;gap:14px;font-size:24px!important;margin:52px 0 2px!important;letter-spacing:-.02em}
+.phaseh span{font-size:12px;font-weight:400;color:var(--ink-3);letter-spacing:0;white-space:nowrap}
+.weeklist{border-top:1px solid var(--line-2);margin-bottom:8px}
+.weekrow{display:flex;align-items:center;gap:14px;min-height:50px;padding:10px 4px;border-bottom:1px solid var(--line-2);text-decoration:none;color:var(--ink)}
+.weekrow:hover{background:var(--surface)}
+.wnum{width:28px;flex:none;font-size:12px;font-weight:600;color:var(--broth);font-variant-numeric:tabular-nums}
+.wtitle{flex:1;font-size:16.5px;font-weight:500;line-height:1.35}
+.warrow{flex:none;color:var(--ink-3);font-size:16px}
+.weeknav{display:flex;align-items:center;justify-content:space-between;gap:14px;margin:52px 0 0;padding-top:22px;border-top:1px solid var(--line-2);font-size:14px}
+.weeknav a{color:var(--broth);text-decoration:none;font-weight:500}
+.weeknav a:hover{text-decoration:underline}
+.weeknav .idx{color:var(--ink-2);font-weight:400}
+.weeknav .empty{visibility:hidden}
+.case-h{max-width:22ch}
+.protocol{max-width:72ch}
+.protocol li{margin:.55em 0}
+.protocol h2{margin-top:38px}
+@media (max-width:700px){.phaseh{font-size:21px!important;margin-top:42px!important}.wtitle{font-size:15.5px}.weeknav{font-size:13px;gap:8px}}
+@media print{.weeknav,.index-actions{display:none!important}}
+</style>
+<style>.sr-only{position:absolute!important;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap;border:0}</style>
+</head><body>
+<header class="docbar"><a class="docback" href="index.html">&#8592; Lecture index</a><div class="appearance" role="group" aria-label="Appearance">
+<button type="button" data-appearance="auto" aria-pressed="true">Auto</button>
+<button type="button" data-appearance="light" aria-pressed="false">Light</button>
+<button type="button" data-appearance="dark" aria-pressed="false">Dark</button>
+</div></header>
+<main class="wrap">
+<p class="doc-kicker">Week 14 of 55 &middot; Quantitative physiology &middot; <strong class="tier-badge">Core</strong></p>
+<h1>Biosynthesis and the precursor tree</h1>
+<h2 class="sr-only">Week content</h2>
+<p>Biosynthesis is where industrial metabolic engineering began and where most of its money still is. It is also the source of every coefficient in a biomass equation, so this week does double duty: it teaches the pathways you may engineer, and it generates the numbers week 16 needs. Treat it as a costing exercise — each amino acid has a price in precursors, NADPH and ATP, and that price is what decides a theoretical yield.</p>
+<h3>Core ideas</h3>
+<p><strong>1. Nitrogen enters by two routes with different prices</strong></p>
+<p>Glutamate dehydrogenase aminates 2-oxoglutarate directly using NADPH, costs no ATP, and has a high Km for ammonium — so it works only when nitrogen is plentiful. The glutamine synthetase–glutamate synthase couple (GS-GOGAT) first makes glutamine at the cost of one ATP, then transfers the amide nitrogen to 2-oxoglutarate, consuming NADPH. The net is one extra ATP per ammonium assimilated, bought in exchange for a far lower Km. That is a clean example of a pattern you will meet repeatedly: the cell pays energy for affinity. Once nitrogen is in glutamate and glutamine, transaminases distribute it, which is why these two metabolites are the nitrogen hub and why glutamate is the most abundant intracellular metabolite in most bacteria at 50–100 mM.</p>
+<p><strong>2. The amino acid families, organised by precursor</strong></p>
+<figure class="fig"><div class="figtitle">Figure 14.2 — Twelve precursors, and what each one builds</div><div class="fig-light"><svg role="img" aria-label="A lookup rather than a memory exercise: find your target's precursor and you know which part of central metabolism you are about to fight." xmlns:xlink="http://www.w3.org/1999/xlink" width="541.338828pt" height="200.122141pt" viewBox="0 0 541.338828 200.122141" xmlns="http://www.w3.org/2000/svg" version="1.1">
+ <metadata>
+  <rdf:RDF xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:cc="http://creativecommons.org/ns#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+   <cc:Work>
+    <dc:type rdf:resource="http://purl.org/dc/dcmitype/StillImage"/>
+    <dc:date>2026-11-02T23:57:45.871431</dc:date>
+    <dc:format>image/svg+xml</dc:format>
+    <dc:creator>
+     <cc:Agent>
+      <dc:title>Matplotlib v3.10.8, https://matplotlib.org/</dc:title>
+     </cc:Agent>
+    </dc:creator>
+   </cc:Work>
+  </rdf:RDF>
+ </metadata>
+ <defs>
+  <style type="text/css">*{stroke-linejoin: round; stroke-linecap: butt}</style>
+ </defs>
+ <g id="figure_1">
+  <g id="patch_1">
+   <path d="M 0 200.122141 
+L 541.338828 200.122141 
+L 541.338828 0 
+L 0 0 
+L 0 200.122141 
+z
+" style="fill: none"/>
+  </g>
+  <g id="axes_1">
+   <g id="patch_2">
+    <path d="M 80.00568 57.20832 
+L 194.38452 57.20832 
+Q 200.1654 57.20832 200.1654 54.957456 
+L 200.1654 36.146664 
+Q 200.1654 33.8958 194.38452 33.8958 
+L 80.00568 33.8958 
+Q 74.2248 33.8958 74.2248 36.146664 
+L 74.2248 54.957456 
+Q 74.2248 57.20832 80.00568 57.20832 
+z
+" clip-path="url(#p07cf64fffe)" style="fill: #f1e9da; stroke: #8a5f1b; stroke-width: 1.2; stroke-linejoin: miter"/>
+   </g>
+   <g id="patch_3">
+    <path d="M 215.03052 57.20832 
+L 329.40936 57.20832 
+Q 335.19024 57.20832 335.19024 54.957456 
+L 335.19024 36.146664 
+Q 335.19024 33.8958 329.40936 33.8958 
+L 215.03052 33.8958 
+Q 209.24964 33.8958 209.24964 36.146664 
+L 209.24964 54.957456 
+Q 209.24964 57.20832 215.03052 57.20832 
+z
+" clip-path="url(#p07cf64fffe)" style="fill: #f1e9da; stroke: #8a5f1b; stroke-width: 1.2; stroke-linejoin: miter"/>
+   </g>
+   <g id="patch_4">
+    <path d="M 350.05536 57.20832 
+L 464.4342 57.20832 
+Q 470.21508 57.20832 470.21508 54.957456 
+L 470.21508 36.146664 
+Q 470.21508 33.8958 464.4342 33.8958 
+L 350.05536 33.8958 
+Q 344.27448 33.8958 344.27448 36.146664 
+L 344.27448 54.957456 
+Q 344.27448 57.20832 350.05536 57.20832 
+z
+" clip-path="url(#p07cf64fffe)" style="fill: #f1e9da; stroke: #8a5f1b; stroke-width: 1.2; stroke-linejoin: miter"/>
+   </g>
+   <g id="patch_5">
+    <path d="M 80.00568 86.308776 
+L 194.38452 86.308776 
+Q 200.1654 86.308776 200.1654 84.057912 
+L 200.1654 65.24712 
+Q 200.1654 62.996256 194.38452 62.996256 
+L 80.00568 62.996256 
+Q 74.2248 62.996256 74.2248 65.24712 
+L 74.2248 84.057912 
+Q 74.2248 86.308776 80.00568 86.308776 
+z
+" clip-path="url(#p07cf64fffe)" style="fill: #f1e9da; stroke: #8a5f1b; stroke-width: 1.2; stroke-linejoin: miter"/>
+   </g>
+   <g id="patch_6">
+    <path d="M 215.03052 86.308776 
+L 329.40936 86.308776 
+Q 335.19024 86.308776 335.19024 84.057912 
+L 335.19024 65.24712 
+Q 335.19024 62.996256 329.40936 62.996256 
+L 215.03052 62.996256 
+Q 209.24964 62.996256 209.24964 65.24712 
+L 209.24964 84.057912 
+Q 209.24964 86.308776 215.03052 86.308776 
+z
+" clip-path="url(#p07cf64fffe)" style="fill: #f1e9da; stroke: #8a5f1b; stroke-width: 1.2; stroke-linejoin: miter"/>
+   </g>
+   <g id="patch_7">
+    <path d="M 350.05536 86.308776 
+L 464.4342 86.308776 
+Q 470.21508 86.308776 470.21508 84.057912 
+L 470.21508 65.24712 
+Q 470.21508 62.996256 464.4342 62.996256 
+L 350.05536 62.996256 
+Q 344.27448 62.996256 344.27448 65.24712 
+L 344.27448 84.057912 
+Q 344.27448 86.308776 350.05536 86.308776 
+z
+" clip-path="url(#p07cf64fffe)" style="fill: #f1e9da; stroke: #8a5f1b; stroke-width: 1.2; stroke-linejoin: miter"/>
+   </g>
+   <g id="patch_8">
+    <path d="M 80.00568 115.409232 
+L 194.38452 115.409232 
+Q 200.1654 115.409232 200.1654 113.158368 
+L 200.1654 94.347576 
+Q 200.1654 92.096712 194.38452 92.096712 
+L 80.00568 92.096712 
+Q 74.2248 92.096712 74.2248 94.347576 
+L 74.2248 113.158368 
+Q 74.2248 115.409232 80.00568 115.409232 
+z
+" clip-path="url(#p07cf64fffe)" style="fill: #f1e9da; stroke: #8a5f1b; stroke-width: 1.2; stroke-linejoin: miter"/>
+   </g>
+   <g id="patch_9">
+    <path d="M 215.03052 115.409232 
+L 329.40936 115.409232 
+Q 335.19024 115.409232 335.19024 113.158368 
+L 335.19024 94.347576 
+Q 335.19024 92.096712 329.40936 92.096712 
+L 215.03052 92.096712 
+Q 209.24964 92.096712 209.24964 94.347576 
+L 209.24964 113.158368 
+Q 209.24964 115.409232 215.03052 115.409232 
+z
+" clip-path="url(#p07cf64fffe)" style="fill: #f1e9da; stroke: #8a5f1b; stroke-width: 1.2; stroke-linejoin: miter"/>
+   </g>
+   <g id="patch_10">
+    <path d="M 350.05536 115.409232 
+L 464.4342 115.409232 
+Q 470.21508 115.409232 470.21508 113.158368 
+L 470.21508 94.347576 
+Q 470.21508 92.096712 464.4342 92.096712 
+L 350.05536 92.096712 
+Q 344.27448 92.096712 344.27448 94.347576 
+L 344.27448 113.158368 
+Q 344.27448 115.409232 350.05536 115.409232 
+z
+" clip-path="url(#p07cf64fffe)" style="fill: #f1e9da; stroke: #8a5f1b; stroke-width: 1.2; stroke-linejoin: miter"/>
+   </g>
+   <g id="patch_11">
+    <path d="M 80.00568 144.509688 
+L 194.38452 144.509688 
+Q 200.1654 144.509688 200.1654 142.258824 
+L 200.1654 123.448032 
+Q 200.1654 121.197168 194.38452 121.197168 
+L 80.00568 121.197168 
+Q 74.2248 121.197168 74.2248 123.448032 
+L 74.2248 142.258824 
+Q 74.2248 144.509688 80.00568 144.509688 
+z
+" clip-path="url(#p07cf64fffe)" style="fill: #f1e9da; stroke: #8a5f1b; stroke-width: 1.2; stroke-linejoin: miter"/>
+   </g>
+   <g id="patch_12">
+    <path d="M 215.03052 144.509688 
+L 329.40936 144.509688 
+Q 335.19024 144.509688 335.19024 142.258824 
+L 335.19024 123.448032 
+Q 335.19024 121.197168 329.40936 121.197168 
+L 215.03052 121.197168 
+Q 209.24964 121.197168 209.24964 123.448032 
+L 209.24964 142.258824 
+Q 209.24964 144.509688 215.03052 144.509688 
+z
+" clip-path="url(#p07cf64fffe)" style="fill: #f1e9da; stroke: #8a5f1b; stroke-width: 1.2; stroke-linejoin: miter"/>
+   </g>
+   <g id="patch_13">
+    <path d="M 350.05536 144.509688 
+L 464.4342 144.509688 
+Q 470.21508 144.509688 470.21508 142.258824 
+L 470.21508 123.448032 
+Q 470.21508 121.197168 464.4342 121.197168 
+L 350.05536 121.197168 
+Q 344.27448 121.197168 344.27448 123.448032 
+L 344.27448 142.258824 
+Q 344.27448 144.509688 350.05536 144.509688 
+z
+" clip-path="url(#p07cf64fffe)" style="fill: #f1e9da; stroke: #8a5f1b; stroke-width: 1.2; stroke-linejoin: miter"/>
+   </g>
+   <g id="text_1">
+    <text style="font-weight: 700; font-size: 8.2px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: middle; fill: #211a12" x="137.1951" y="44.245644" transform="rotate(-0 137.1951 44.245644)">glucose-6-P</text>
+   </g>
+   <g id="text_2">
+    <text style="font-size: 6.8px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: middle; fill: #8a7458" x="137.1951" y="54.181027" transform="rotate(-0 137.1951 54.181027)">sugar alcohols</text>
+   </g>
+   <g id="text_3">
+    <text style="font-weight: 700; font-size: 8.2px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: middle; fill: #211a12" x="272.21994" y="44.277675" transform="rotate(-0 272.21994 44.277675)">fructose-6-P</text>
+   </g>
+   <g id="text_4">
+    <text style="font-size: 6.8px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: middle; fill: #8a7458" x="272.21994" y="54.181027" transform="rotate(-0 272.21994 54.181027)">amino sugars</text>
+   </g>
+   <g id="text_5">
+    <text style="font-weight: 700; font-size: 8.2px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: middle; fill: #211a12" x="407.24478" y="44.277675" transform="rotate(-0 407.24478 44.277675)">ribose-5-P</text>
+   </g>
+   <g id="text_6">
+    <text style="font-size: 6.8px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: middle; fill: #8a7458" x="407.24478" y="54.181027" transform="rotate(-0 407.24478 54.181027)">nucleotides</text>
+   </g>
+   <g id="text_7">
+    <text style="font-weight: 700; font-size: 8.2px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: middle; fill: #211a12" x="137.1951" y="73.3461" transform="rotate(-0 137.1951 73.3461)">erythrose-4-P</text>
+   </g>
+   <g id="text_8">
+    <text style="font-size: 6.8px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: middle; fill: #8a7458" x="137.1951" y="83.281483" transform="rotate(-0 137.1951 83.281483)">aromatics</text>
+   </g>
+   <g id="text_9">
+    <text style="font-weight: 700; font-size: 8.2px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: middle; fill: #211a12" x="272.21994" y="73.378131" transform="rotate(-0 272.21994 73.378131)">GAP</text>
+   </g>
+   <g id="text_10">
+    <text style="font-size: 6.8px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: middle; fill: #8a7458" x="272.21994" y="83.281483" transform="rotate(-0 272.21994 83.281483)">returns to glycolysis</text>
+   </g>
+   <g id="text_11">
+    <text style="font-weight: 700; font-size: 8.2px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: middle; fill: #211a12" x="407.24478" y="73.3461" transform="rotate(-0 407.24478 73.3461)">3-phosphoglycerate</text>
+   </g>
+   <g id="text_12">
+    <text style="font-size: 6.8px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: middle; fill: #8a7458" x="407.24478" y="83.281483" transform="rotate(-0 407.24478 83.281483)">serine family</text>
+   </g>
+   <g id="text_13">
+    <text style="font-weight: 700; font-size: 8.2px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: middle; fill: #211a12" x="137.1951" y="102.478588" transform="rotate(-0 137.1951 102.478588)">PEP</text>
+   </g>
+   <g id="text_14">
+    <text style="font-size: 6.8px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: middle; fill: #8a7458" x="137.1951" y="112.381939" transform="rotate(-0 137.1951 112.381939)">aromatics, C4 acids</text>
+   </g>
+   <g id="text_15">
+    <text style="font-weight: 700; font-size: 8.2px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: middle; fill: #211a12" x="272.21994" y="102.414525" transform="rotate(-0 272.21994 102.414525)">pyruvate</text>
+   </g>
+   <g id="text_16">
+    <text style="font-size: 6.8px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: middle; fill: #8a7458" x="272.21994" y="112.381939" transform="rotate(-0 272.21994 112.381939)">branched-chain AAs</text>
+   </g>
+   <g id="text_17">
+    <text style="font-weight: 700; font-size: 8.2px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: middle; fill: #211a12" x="407.24478" y="102.446556" transform="rotate(-0 407.24478 102.446556)">acetyl-CoA</text>
+   </g>
+   <g id="text_18">
+    <text style="font-size: 6.8px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: middle; fill: #8a7458" x="407.24478" y="112.381939" transform="rotate(-0 407.24478 112.381939)">lipids, polyketides, isoprenoids</text>
+   </g>
+   <g id="text_19">
+    <text style="font-weight: 700; font-size: 8.2px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: middle; fill: #211a12" x="137.1951" y="131.547012" transform="rotate(-0 137.1951 131.547012)">2-oxoglutarate</text>
+   </g>
+   <g id="text_20">
+    <text style="font-size: 6.8px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: middle; fill: #8a7458" x="137.1951" y="141.482395" transform="rotate(-0 137.1951 141.482395)">glutamate family, N entry</text>
+   </g>
+   <g id="text_21">
+    <text style="font-weight: 700; font-size: 8.2px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: middle; fill: #211a12" x="272.21994" y="131.547012" transform="rotate(-0 272.21994 131.547012)">succinyl-CoA</text>
+   </g>
+   <g id="text_22">
+    <text style="font-size: 6.8px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: middle; fill: #8a7458" x="272.21994" y="141.482395" transform="rotate(-0 272.21994 141.482395)">porphyrins, methionine</text>
+   </g>
+   <g id="text_23">
+    <text style="font-weight: 700; font-size: 8.2px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: middle; fill: #211a12" x="407.24478" y="131.579044" transform="rotate(-0 407.24478 131.579044)">oxaloacetate</text>
+   </g>
+   <g id="text_24">
+    <text style="font-size: 6.8px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: middle; fill: #8a7458" x="407.24478" y="141.482395" transform="rotate(-0 407.24478 141.482395)">aspartate family</text>
+   </g>
+   <g id="text_25">
+    <text style="font-weight: 700; font-size: 9.6px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: start; fill: #211a12" x="74.2248" y="18.01806" transform="rotate(-0 74.2248 18.01806)">Twelve precursors build essentially everything</text>
+   </g>
+  </g>
+  <g id="text_26">
+   <text style="font-size: 8.3px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: start; fill: #8a7458" x="5.76" y="192.636" transform="rotate(-0 5.76 192.636)">The first question about any target is which of these it comes from: that decides what you amplify and what you compete with.</text>
+  </g>
+ </g>
+ <defs>
+  <clipPath id="p07cf64fffe">
+   <rect x="65.9664" y="5.76" width="412.92" height="160.776"/>
+  </clipPath>
+ </defs>
+</svg>
+</div><div class="fig-dark"><svg role="img" aria-label="A lookup rather than a memory exercise: find your target's precursor and you know which part of central metabolism you are about to fight." xmlns:xlink="http://www.w3.org/1999/xlink" width="541.338828pt" height="200.122141pt" viewBox="0 0 541.338828 200.122141" xmlns="http://www.w3.org/2000/svg" version="1.1">
+ <metadata>
+  <rdf:RDF xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:cc="http://creativecommons.org/ns#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+   <cc:Work>
+    <dc:type rdf:resource="http://purl.org/dc/dcmitype/StillImage"/>
+    <dc:date>2026-11-02T23:57:45.911228</dc:date>
+    <dc:format>image/svg+xml</dc:format>
+    <dc:creator>
+     <cc:Agent>
+      <dc:title>Matplotlib v3.10.8, https://matplotlib.org/</dc:title>
+     </cc:Agent>
+    </dc:creator>
+   </cc:Work>
+  </rdf:RDF>
+ </metadata>
+ <defs>
+  <style type="text/css">*{stroke-linejoin: round; stroke-linecap: butt}</style>
+ </defs>
+ <g id="figure_1">
+  <g id="patch_1">
+   <path d="M 0 200.122141 
+L 541.338828 200.122141 
+L 541.338828 0 
+L 0 0 
+L 0 200.122141 
+z
+" style="fill: none"/>
+  </g>
+  <g id="axes_1">
+   <g id="patch_2">
+    <path d="M 80.00568 57.20832 
+L 194.38452 57.20832 
+Q 200.1654 57.20832 200.1654 54.957456 
+L 200.1654 36.146664 
+Q 200.1654 33.8958 194.38452 33.8958 
+L 80.00568 33.8958 
+Q 74.2248 33.8958 74.2248 36.146664 
+L 74.2248 54.957456 
+Q 74.2248 57.20832 80.00568 57.20832 
+z
+" clip-path="url(#p56dbd0c874)" style="fill: #241c12; stroke: #d7a95c; stroke-width: 1.2; stroke-linejoin: miter"/>
+   </g>
+   <g id="patch_3">
+    <path d="M 215.03052 57.20832 
+L 329.40936 57.20832 
+Q 335.19024 57.20832 335.19024 54.957456 
+L 335.19024 36.146664 
+Q 335.19024 33.8958 329.40936 33.8958 
+L 215.03052 33.8958 
+Q 209.24964 33.8958 209.24964 36.146664 
+L 209.24964 54.957456 
+Q 209.24964 57.20832 215.03052 57.20832 
+z
+" clip-path="url(#p56dbd0c874)" style="fill: #241c12; stroke: #d7a95c; stroke-width: 1.2; stroke-linejoin: miter"/>
+   </g>
+   <g id="patch_4">
+    <path d="M 350.05536 57.20832 
+L 464.4342 57.20832 
+Q 470.21508 57.20832 470.21508 54.957456 
+L 470.21508 36.146664 
+Q 470.21508 33.8958 464.4342 33.8958 
+L 350.05536 33.8958 
+Q 344.27448 33.8958 344.27448 36.146664 
+L 344.27448 54.957456 
+Q 344.27448 57.20832 350.05536 57.20832 
+z
+" clip-path="url(#p56dbd0c874)" style="fill: #241c12; stroke: #d7a95c; stroke-width: 1.2; stroke-linejoin: miter"/>
+   </g>
+   <g id="patch_5">
+    <path d="M 80.00568 86.308776 
+L 194.38452 86.308776 
+Q 200.1654 86.308776 200.1654 84.057912 
+L 200.1654 65.24712 
+Q 200.1654 62.996256 194.38452 62.996256 
+L 80.00568 62.996256 
+Q 74.2248 62.996256 74.2248 65.24712 
+L 74.2248 84.057912 
+Q 74.2248 86.308776 80.00568 86.308776 
+z
+" clip-path="url(#p56dbd0c874)" style="fill: #241c12; stroke: #d7a95c; stroke-width: 1.2; stroke-linejoin: miter"/>
+   </g>
+   <g id="patch_6">
+    <path d="M 215.03052 86.308776 
+L 329.40936 86.308776 
+Q 335.19024 86.308776 335.19024 84.057912 
+L 335.19024 65.24712 
+Q 335.19024 62.996256 329.40936 62.996256 
+L 215.03052 62.996256 
+Q 209.24964 62.996256 209.24964 65.24712 
+L 209.24964 84.057912 
+Q 209.24964 86.308776 215.03052 86.308776 
+z
+" clip-path="url(#p56dbd0c874)" style="fill: #241c12; stroke: #d7a95c; stroke-width: 1.2; stroke-linejoin: miter"/>
+   </g>
+   <g id="patch_7">
+    <path d="M 350.05536 86.308776 
+L 464.4342 86.308776 
+Q 470.21508 86.308776 470.21508 84.057912 
+L 470.21508 65.24712 
+Q 470.21508 62.996256 464.4342 62.996256 
+L 350.05536 62.996256 
+Q 344.27448 62.996256 344.27448 65.24712 
+L 344.27448 84.057912 
+Q 344.27448 86.308776 350.05536 86.308776 
+z
+" clip-path="url(#p56dbd0c874)" style="fill: #241c12; stroke: #d7a95c; stroke-width: 1.2; stroke-linejoin: miter"/>
+   </g>
+   <g id="patch_8">
+    <path d="M 80.00568 115.409232 
+L 194.38452 115.409232 
+Q 200.1654 115.409232 200.1654 113.158368 
+L 200.1654 94.347576 
+Q 200.1654 92.096712 194.38452 92.096712 
+L 80.00568 92.096712 
+Q 74.2248 92.096712 74.2248 94.347576 
+L 74.2248 113.158368 
+Q 74.2248 115.409232 80.00568 115.409232 
+z
+" clip-path="url(#p56dbd0c874)" style="fill: #241c12; stroke: #d7a95c; stroke-width: 1.2; stroke-linejoin: miter"/>
+   </g>
+   <g id="patch_9">
+    <path d="M 215.03052 115.409232 
+L 329.40936 115.409232 
+Q 335.19024 115.409232 335.19024 113.158368 
+L 335.19024 94.347576 
+Q 335.19024 92.096712 329.40936 92.096712 
+L 215.03052 92.096712 
+Q 209.24964 92.096712 209.24964 94.347576 
+L 209.24964 113.158368 
+Q 209.24964 115.409232 215.03052 115.409232 
+z
+" clip-path="url(#p56dbd0c874)" style="fill: #241c12; stroke: #d7a95c; stroke-width: 1.2; stroke-linejoin: miter"/>
+   </g>
+   <g id="patch_10">
+    <path d="M 350.05536 115.409232 
+L 464.4342 115.409232 
+Q 470.21508 115.409232 470.21508 113.158368 
+L 470.21508 94.347576 
+Q 470.21508 92.096712 464.4342 92.096712 
+L 350.05536 92.096712 
+Q 344.27448 92.096712 344.27448 94.347576 
+L 344.27448 113.158368 
+Q 344.27448 115.409232 350.05536 115.409232 
+z
+" clip-path="url(#p56dbd0c874)" style="fill: #241c12; stroke: #d7a95c; stroke-width: 1.2; stroke-linejoin: miter"/>
+   </g>
+   <g id="patch_11">
+    <path d="M 80.00568 144.509688 
+L 194.38452 144.509688 
+Q 200.1654 144.509688 200.1654 142.258824 
+L 200.1654 123.448032 
+Q 200.1654 121.197168 194.38452 121.197168 
+L 80.00568 121.197168 
+Q 74.2248 121.197168 74.2248 123.448032 
+L 74.2248 142.258824 
+Q 74.2248 144.509688 80.00568 144.509688 
+z
+" clip-path="url(#p56dbd0c874)" style="fill: #241c12; stroke: #d7a95c; stroke-width: 1.2; stroke-linejoin: miter"/>
+   </g>
+   <g id="patch_12">
+    <path d="M 215.03052 144.509688 
+L 329.40936 144.509688 
+Q 335.19024 144.509688 335.19024 142.258824 
+L 335.19024 123.448032 
+Q 335.19024 121.197168 329.40936 121.197168 
+L 215.03052 121.197168 
+Q 209.24964 121.197168 209.24964 123.448032 
+L 209.24964 142.258824 
+Q 209.24964 144.509688 215.03052 144.509688 
+z
+" clip-path="url(#p56dbd0c874)" style="fill: #241c12; stroke: #d7a95c; stroke-width: 1.2; stroke-linejoin: miter"/>
+   </g>
+   <g id="patch_13">
+    <path d="M 350.05536 144.509688 
+L 464.4342 144.509688 
+Q 470.21508 144.509688 470.21508 142.258824 
+L 470.21508 123.448032 
+Q 470.21508 121.197168 464.4342 121.197168 
+L 350.05536 121.197168 
+Q 344.27448 121.197168 344.27448 123.448032 
+L 344.27448 142.258824 
+Q 344.27448 144.509688 350.05536 144.509688 
+z
+" clip-path="url(#p56dbd0c874)" style="fill: #241c12; stroke: #d7a95c; stroke-width: 1.2; stroke-linejoin: miter"/>
+   </g>
+   <g id="text_1">
+    <text style="font-weight: 700; font-size: 8.2px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: middle; fill: #f1e9dc" x="137.1951" y="44.245644" transform="rotate(-0 137.1951 44.245644)">glucose-6-P</text>
+   </g>
+   <g id="text_2">
+    <text style="font-size: 6.8px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: middle; fill: #9a8872" x="137.1951" y="54.181027" transform="rotate(-0 137.1951 54.181027)">sugar alcohols</text>
+   </g>
+   <g id="text_3">
+    <text style="font-weight: 700; font-size: 8.2px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: middle; fill: #f1e9dc" x="272.21994" y="44.277675" transform="rotate(-0 272.21994 44.277675)">fructose-6-P</text>
+   </g>
+   <g id="text_4">
+    <text style="font-size: 6.8px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: middle; fill: #9a8872" x="272.21994" y="54.181027" transform="rotate(-0 272.21994 54.181027)">amino sugars</text>
+   </g>
+   <g id="text_5">
+    <text style="font-weight: 700; font-size: 8.2px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: middle; fill: #f1e9dc" x="407.24478" y="44.277675" transform="rotate(-0 407.24478 44.277675)">ribose-5-P</text>
+   </g>
+   <g id="text_6">
+    <text style="font-size: 6.8px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: middle; fill: #9a8872" x="407.24478" y="54.181027" transform="rotate(-0 407.24478 54.181027)">nucleotides</text>
+   </g>
+   <g id="text_7">
+    <text style="font-weight: 700; font-size: 8.2px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: middle; fill: #f1e9dc" x="137.1951" y="73.3461" transform="rotate(-0 137.1951 73.3461)">erythrose-4-P</text>
+   </g>
+   <g id="text_8">
+    <text style="font-size: 6.8px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: middle; fill: #9a8872" x="137.1951" y="83.281483" transform="rotate(-0 137.1951 83.281483)">aromatics</text>
+   </g>
+   <g id="text_9">
+    <text style="font-weight: 700; font-size: 8.2px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: middle; fill: #f1e9dc" x="272.21994" y="73.378131" transform="rotate(-0 272.21994 73.378131)">GAP</text>
+   </g>
+   <g id="text_10">
+    <text style="font-size: 6.8px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: middle; fill: #9a8872" x="272.21994" y="83.281483" transform="rotate(-0 272.21994 83.281483)">returns to glycolysis</text>
+   </g>
+   <g id="text_11">
+    <text style="font-weight: 700; font-size: 8.2px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: middle; fill: #f1e9dc" x="407.24478" y="73.3461" transform="rotate(-0 407.24478 73.3461)">3-phosphoglycerate</text>
+   </g>
+   <g id="text_12">
+    <text style="font-size: 6.8px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: middle; fill: #9a8872" x="407.24478" y="83.281483" transform="rotate(-0 407.24478 83.281483)">serine family</text>
+   </g>
+   <g id="text_13">
+    <text style="font-weight: 700; font-size: 8.2px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: middle; fill: #f1e9dc" x="137.1951" y="102.478588" transform="rotate(-0 137.1951 102.478588)">PEP</text>
+   </g>
+   <g id="text_14">
+    <text style="font-size: 6.8px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: middle; fill: #9a8872" x="137.1951" y="112.381939" transform="rotate(-0 137.1951 112.381939)">aromatics, C4 acids</text>
+   </g>
+   <g id="text_15">
+    <text style="font-weight: 700; font-size: 8.2px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: middle; fill: #f1e9dc" x="272.21994" y="102.414525" transform="rotate(-0 272.21994 102.414525)">pyruvate</text>
+   </g>
+   <g id="text_16">
+    <text style="font-size: 6.8px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: middle; fill: #9a8872" x="272.21994" y="112.381939" transform="rotate(-0 272.21994 112.381939)">branched-chain AAs</text>
+   </g>
+   <g id="text_17">
+    <text style="font-weight: 700; font-size: 8.2px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: middle; fill: #f1e9dc" x="407.24478" y="102.446556" transform="rotate(-0 407.24478 102.446556)">acetyl-CoA</text>
+   </g>
+   <g id="text_18">
+    <text style="font-size: 6.8px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: middle; fill: #9a8872" x="407.24478" y="112.381939" transform="rotate(-0 407.24478 112.381939)">lipids, polyketides, isoprenoids</text>
+   </g>
+   <g id="text_19">
+    <text style="font-weight: 700; font-size: 8.2px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: middle; fill: #f1e9dc" x="137.1951" y="131.547012" transform="rotate(-0 137.1951 131.547012)">2-oxoglutarate</text>
+   </g>
+   <g id="text_20">
+    <text style="font-size: 6.8px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: middle; fill: #9a8872" x="137.1951" y="141.482395" transform="rotate(-0 137.1951 141.482395)">glutamate family, N entry</text>
+   </g>
+   <g id="text_21">
+    <text style="font-weight: 700; font-size: 8.2px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: middle; fill: #f1e9dc" x="272.21994" y="131.547012" transform="rotate(-0 272.21994 131.547012)">succinyl-CoA</text>
+   </g>
+   <g id="text_22">
+    <text style="font-size: 6.8px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: middle; fill: #9a8872" x="272.21994" y="141.482395" transform="rotate(-0 272.21994 141.482395)">porphyrins, methionine</text>
+   </g>
+   <g id="text_23">
+    <text style="font-weight: 700; font-size: 8.2px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: middle; fill: #f1e9dc" x="407.24478" y="131.579044" transform="rotate(-0 407.24478 131.579044)">oxaloacetate</text>
+   </g>
+   <g id="text_24">
+    <text style="font-size: 6.8px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: middle; fill: #9a8872" x="407.24478" y="141.482395" transform="rotate(-0 407.24478 141.482395)">aspartate family</text>
+   </g>
+   <g id="text_25">
+    <text style="font-weight: 700; font-size: 9.6px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: start; fill: #f1e9dc" x="74.2248" y="18.01806" transform="rotate(-0 74.2248 18.01806)">Twelve precursors build essentially everything</text>
+   </g>
+  </g>
+  <g id="text_26">
+   <text style="font-size: 8.3px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: start; fill: #9a8872" x="5.76" y="192.636" transform="rotate(-0 5.76 192.636)">The first question about any target is which of these it comes from: that decides what you amplify and what you compete with.</text>
+  </g>
+ </g>
+ <defs>
+  <clipPath id="p56dbd0c874">
+   <rect x="65.9664" y="5.76" width="412.92" height="160.776"/>
+  </clipPath>
+ </defs>
+</svg>
+</div><figcaption>A lookup rather than a memory exercise: find your target's precursor and you know which part of central metabolism you are about to fight.</figcaption></figure>
+<p>Learn them as a tree rooted in the twelve precursors, not as twenty separate pathways. Glutamate family from 2-oxoglutarate: glutamate, glutamine, proline, arginine. Aspartate family from oxaloacetate: aspartate, asparagine, methionine, threonine, lysine, isoleucine — the industrially dominant family. Pyruvate family: alanine, valine, leucine. Serine family from 3-phosphoglycerate: serine, glycine, cysteine. Aromatic family from erythrose-4-phosphate plus PEP: phenylalanine, tyrosine, tryptophan. Histidine, alone, from PRPP and ATP. Two engineering consequences follow directly. The aspartate family shares a committed step, aspartokinase, so a lysine strain and a threonine strain compete at the same branch point. And the aromatic family&#x27;s dependence on E4P plus PEP explains why those strains always involve transketolase and PTS interventions, as week 10 established.</p>
+<p><strong>3. Branch-point regulation and what a feedback-resistant design must achieve</strong></p>
+<p>Three architectures solve the problem of regulating a branched pathway from a shared step. Isozymes: several copies of the first enzyme, each inhibited by a different end product — E. coli&#x27;s three aspartokinases are the textbook case, inhibited respectively by lysine, threonine and methionine-related signals. Concerted inhibition: the first step is inhibited only when all end products are present together. Cumulative inhibition: each product contributes partial inhibition and the effects compound. Which architecture is present determines the intervention. Under isozymes you must address every copy that carries flux, which is precisely why industrial lysine strains took several strain generations rather than one deletion. Under cumulative inhibition deletion helps nothing and you must engineer the allosteric site itself. And note from week 6 that the most useful mutations often abolish cooperativity rather than affinity, because the sigmoid is what makes the inhibition sharp.</p>
+<p><strong>4. Nucleotides: expensive, regulated, and salvaged</strong></p>
+<p>Purines are built onto PRPP stepwise, consuming glycine, glutamine, aspartate, formate from tetrahydrofolate and CO₂, at a cost of several ATP; pyrimidines build the ring first and attach PRPP afterwards. Both routes are expensive — on the order of 5–10 ATP-equivalents per nucleotide including the amino acid precursors — which is why salvage pathways exist and why they matter industrially: a fast-growing production strain spends a substantial share of its biosynthetic budget on RNA, and RNA content rises with growth rate (the week 1 growth laws again). The regulatory point worth carrying: PRPP sits at the junction of purine, pyrimidine, histidine and tryptophan synthesis, so its pool is contested and its availability constrains several product classes at once.</p>
+<p><strong>5. Costing an amino acid, which is the week&#x27;s transferable skill</strong></p>
+<p>The procedure: identify the precursors and their count, the NADPH consumed, the ATP consumed, the carbons lost as CO₂, and any nitrogen assimilation cost. Then convert to a theoretical yield on glucose. For lysine: oxaloacetate plus pyruvate, 4 NADPH, 1 ATP, with one CO₂ fixed at the anaplerotic step. Published ceilings cluster near 1.0 mol lysine per mol glucose when anaplerosis carboxylates and NADPH comes from the pentose phosphate pathway, rising towards 1.3 if a non-decarboxylating NADPH route is assumed — so state your assumptions, because the number is assumption-dependent and an interviewer is testing whether you know that. Best published strains reach about 0.55 g/g, roughly two thirds of theoretical, with the gap going to biomass, maintenance, by-products and the carbon lost supplying NADPH.</p>
+<p><strong>6. Where sulfur and one-carbon units come from, briefly</strong></p>
+<p>Sulfate assimilation is costly: reduction to sulfide consumes ATP for activation and several NADPH, which is why cysteine and methionine are among the most expensive amino acids and why methionine remains a hard industrial target. One-carbon units ride on tetrahydrofolate at several oxidation levels and feed purine synthesis, thymidylate, and methionine&#x27;s methyl group via S-adenosylmethionine. You need this only at the level of knowing that these are expensive and regulated — but if your product is a methylated natural product, SAM supply becomes a first-order design constraint and you should recognise it immediately.</p>
+<h3>Worked anchor</h3>
+<p>Cost phenylalanine from glucose, and see where the constraint sits.</p>
+<p>Precursors: erythrose-4-phosphate (C4) plus two phosphoenolpyruvate (C3 each) enter the shikimate pathway, giving chorismate, then prephenate, then phenylpyruvate, then transamination to phenylalanine (C9).</p>
+<p>Carbon: 4 + 3 + 3 = 10 carbons in, 9 in the product, so one CO₂ released at the prephenate dehydratase step. Carbon efficiency of the route itself is 90%.</p>
+<p>Now trace back to glucose. E4P comes from the non-oxidative pentose phosphate branch; PEP comes from glycolysis. If uptake is by the PTS, one PEP per glucose is consumed just to bring the sugar in — so the two PEP the pathway needs come at the expense of PEP that would otherwise be available, and the theoretical yield is roughly halved relative to a non-PTS strain. Published maxima are near 0.3 g/g with PTS and near 0.5 g/g with a permease-plus-glucokinase replacement, the difference being almost entirely this PEP accounting.</p>
+<p>The lesson is the one week 15 develops: for a PEP-derived product, the transporter is a stoichiometric decision, not a logistics detail. Before designing anything in the shikimate pathway, do this arithmetic — it tells you that the first intervention is at the membrane and the second is at transketolase, and only the third is in the pathway itself.</p>
+<p><strong>Assumptions behind this calculation</strong></p>
+<ul>
+<li>the shikimate route as drawn, one CO₂ at prephenate dehydratase</li>
+<li>uptake by the PTS, so one PEP is spent on transport</li>
+<li>no competing drain on E4P or PEP</li>
+</ul>
+<h3>Reading map</h3>
+<table><thead><tr><th>Source</th><th>Treatment</th><th>Why</th></tr></thead><tbody><tr><td>Berg Ch 24 §24.1–24.2</td><td>Read closely</td><td>Nitrogen fixation and assimilation. Read for the GDH versus GS-GOGAT comparison and its ATP cost; skip the nitrogenase mechanism, which this course never uses.</td></tr><tr><td>Berg Ch 24 §24.3</td><td>Read closely</td><td>The amino acid families. Build the tree on one page rooted at the twelve precursors — that page is the week&#x27;s deliverable and you will reuse it in weeks 16 and 42.</td></tr><tr><td>Berg Ch 24 §24.4</td><td>Read closely</td><td>Regulation of amino acid biosynthesis, including the three branch-point architectures. Short and directly actionable for strain design.</td></tr><tr><td>Berg Ch 25 §25.1–25.3</td><td>Skim</td><td>De novo purine and pyrimidine synthesis. Skim for the precursor demand and the cost per nucleotide; the step-by-step mechanism is not needed unless nucleotides are your product.</td></tr><tr><td>Berg Ch 25 §25.4–25.5</td><td>Skim</td><td>Salvage and regulation. Read the regulation of PRPP and the salvage logic; skip the clinical disorders.</td></tr><tr><td>Lee Ch 12 §12.4.1.1–12.4.1.2</td><td>Read closely</td><td>The week&#x27;s content applied to real industrial strains, generation by generation. The best illustration in your stack of what feedback-resistant design actually involves.</td></tr><tr><td>Berg Ch 23</td><td>Skip</td><td>Amino acid catabolism and the urea cycle. Mammalian nitrogen disposal is not used anywhere in this course.</td></tr></tbody></table>
+<h3>Common misconceptions</h3>
+<ul>
+<li>That deleting a feedback-inhibited enzyme relieves the inhibition. It removes the enzyme; you need an allele that still catalyses but no longer binds the effector, which is a point mutation in the allosteric site rather than a knockout.</li>
+<li>That all amino acids cost about the same. Cysteine, methionine, tryptophan and histidine are several times more expensive per mole than alanine or glycine, which matters when a product or a medium is dominated by one of them.</li>
+<li>That NADPH demand for an amino acid is a fixed number. It depends on which route the organism uses and on whether the dehydrogenases are NAD or NADP dependent, which differs between hosts.</li>
+</ul>
+<h3>Check yourself before moving on</h3>
+<p><strong>Q.</strong> Compare GDH and GS-GOGAT for ammonium assimilation, and say when each is used.</p>
+<p><strong>A.</strong> GDH aminates 2-oxoglutarate with NADPH, costing no ATP, but has a high Km for ammonium, so it operates when nitrogen is abundant. GS-GOGAT costs one additional ATP per ammonium — glutamine synthetase consumes it — but has a much lower Km, so it operates under nitrogen limitation. The cell therefore pays one ATP for affinity, which is a recurring pattern. In a defined medium with excess ammonium, expect GDH to dominate; in a fed-batch running nitrogen-limited, expect the GS-GOGAT route and the associated extra ATP demand to appear in your energy balance.</p>
+<p><strong>Q.</strong> Name the precursors of the aromatic amino acids and state the two interventions this implies before any shikimate pathway change.</p>
+<p><strong>A.</strong> Erythrose-4-phosphate and phosphoenolpyruvate. First, raise E4P supply by overexpressing transketolase, and possibly transaldolase, since the non-oxidative pentose phosphate branch is the only source and it usually limits before the shikimate enzymes do. Second, raise PEP availability by replacing PTS uptake with a permease plus glucokinase, or by attenuating pyruvate kinase, since PTS consumes one PEP per glucose imported. Only after those does amplifying the shikimate pathway itself pay.</p>
+<p><strong>Q.</strong> Best lysine strains reach about 0.55 g/g against a theoretical near 0.81 g/g. Where does the missing third go?</p>
+<p><strong>A.</strong> Biomass, which must be made and carries carbon away from product; maintenance, which consumes substrate at no product yield and dominates at low growth rate; by-products such as organic acids and trehalose; and carbon lost as CO₂ supplying the 4 NADPH per lysine through the oxidative pentose phosphate pathway — roughly two carbons per lysine if that is the sole NADPH route. The last item is why later strain generations targeted NADPH supply and anaplerosis rather than the lysine pathway itself.</p>
+<hr>
+
+<section class="study-transfer" aria-label="Week 14 application and teach-back">
+<h3>Apply it to your fermentation experience</h3>
+<p><strong>Transfer prompt.</strong> For cassava carbon entering biomass, identify precursor requirements that compete with product formation. Which measured yield or growth data could reveal that competition?</p>
+<p class="meta">Use your actual thesis methods and results where you remember them. Mark missing information as unknown; do not assume the organisms were co-cultured, that a metabolite was measured, or that a proposed mechanism was demonstrated.</p>
+<h3>Teach it back</h3>
+<p>Explain the week's concept from memory, work one number, and name one boundary. Then use the <a href="teach-back.html">five-minute teach-back protocol</a> and log it in the tracker.</p>
+</section>
+<nav class="weeknav" aria-label="Week navigation"><a href="week-13.html">&#8592; Week 13</a><a class="idx" href="index.html">Lecture index</a><a class="idx" href="case-study.html">Case study</a><a href="week-15.html">Week 15 &#8594;</a></nav>
+</main>
+<footer class="docfoot"><a href="../metabolic-engineering-tracker.html">&#8592; Course tracker</a><span>Metabolic engineering &middot; 55 weeks</span></footer>
+<script>
+(function(){var root=document.documentElement,key="me.theme";var bs=Array.prototype.slice.call(document.querySelectorAll(".appearance button"));
+function paint(v){bs.forEach(function(b){b.setAttribute("aria-pressed",b.getAttribute("data-appearance")===v?"true":"false");});if(v==="auto")root.removeAttribute("data-theme");else root.setAttribute("data-theme",v);}
+var saved="auto";try{saved=localStorage.getItem(key)||"auto";}catch(e){}
+bs.forEach(function(b){b.addEventListener("click",function(){var v=b.getAttribute("data-appearance");paint(v);try{localStorage.setItem(key,v);}catch(e){}});});paint(saved);})();
+</script>
+</body>
+</html>

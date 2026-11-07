@@ -1,0 +1,715 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="utf-8"><title>Week 12 — Respiration, electron transport and aeration — Metabolic engineering</title>
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+
+
+<style>:root{color-scheme:light;--paper:#FAF6EF;--ink:#211A12;--ink-2:#4A3C2C;--ink-3:#8A7458;
+--line:#DFD2BE;--line-2:#EDE4D5;--broth:#9A6B1F;--broth-soft:#F6ECD9;
+--serif:"Newsreader",Georgia,serif;--sans:"Public Sans",system-ui,sans-serif}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--paper:#15120D;--ink:#F1E9DC;--ink-2:#CBBCA6;
+--ink-3:#948872;--line:#352C22;--line-2:#2A231B;--broth:#D7A95C;--broth-soft:#241D14}}
+*{box-sizing:border-box}
+body{margin:0;background:var(--paper);color:var(--ink);font-family:var(--sans);font-size:15.5px;line-height:1.6;
+padding:env(safe-area-inset-top,0) 0 env(safe-area-inset-bottom,0)}
+.wrap{max-width:840px;margin:0 auto;padding:40px 22px 90px}
+h1{font-family:var(--serif);font-size:clamp(28px,5vw,42px);line-height:1.1;font-weight:600;margin:0 0 6px;letter-spacing:-.02em}
+h2{font-family:var(--serif);font-size:26px;font-weight:600;margin:46px 0 10px;letter-spacing:-.01em;padding-bottom:7px;border-bottom:1px solid var(--line)}
+h3{font-family:var(--serif);font-size:20px;font-weight:600;margin:30px 0 4px;color:var(--broth)}
+h4{font-size:14px;font-weight:650;margin:18px 0 4px;color:var(--ink-3);letter-spacing:.02em;text-transform:uppercase}
+p{margin:0 0 12px;max-width:74ch}
+em{color:var(--ink-2)}
+ul{margin:0 0 14px;padding-left:1.15em;max-width:74ch}
+li{margin:.3em 0}li::marker{color:var(--ink-3)}
+hr{border:0;border-top:1px solid var(--line);margin:40px 0}
+strong{font-weight:650}
+table{border-collapse:collapse;width:100%;margin:14px 0 20px;font-size:14px}
+th{text-align:left;font-weight:600;color:var(--ink-3);font-size:12.5px;padding:7px 9px;border-bottom:1.5px solid var(--line)}
+td{padding:8px 9px;border-bottom:1px solid var(--line-2);vertical-align:top}
+tr:nth-child(even) td{background:var(--broth-soft)}
+
+figure.fig{margin:22px 0 26px;padding:0;max-width:100%}
+figure.fig svg{width:100%;height:auto;display:block;background:var(--card);
+  border:1px solid var(--line-2);border-radius:10px;padding:8px 10px}
+figure.fig figcaption{font-size:13px;color:var(--ink-3);margin-top:8px;max-width:74ch;line-height:1.5}
+figure.fig .figtitle{font-family:var(--serif);font-size:15px;color:var(--ink-2);margin-bottom:6px}
+figure.fig .fig-dark{display:none}
+@media (prefers-color-scheme: dark){
+  figure.fig .fig-light{display:none}
+  figure.fig .fig-dark{display:block}
+}
+@media print{figure.fig{break-inside:avoid;page-break-inside:avoid}
+  figure.fig .fig-dark{display:none !important}
+  figure.fig .fig-light{display:block !important}}
+
+@media print{body{background:#fff}.wrap{padding:0;max-width:none}h2,h3{page-break-after:avoid}}</style><script>try{var t=localStorage.getItem("me.theme");if(t&&t!=="auto")document.documentElement.setAttribute("data-theme",t);}catch(e){}</script>
+<meta name="color-scheme" content="light dark">
+<meta name="theme-color" content="#ffffff" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#000000" media="(prefers-color-scheme: dark)">
+<style>
+/* ============================================================
+   COURSE LIBRARY — Apple document shell
+   ============================================================ */
+:root{
+  color-scheme:light;
+  --paper:#FFFFFF;--surface:#F5F5F7;--card:#FFFFFF;--fill:#F5F5F7;
+  --ink:#1D1D1F;--ink-2:#6E6E73;--ink-3:#6E6E73;
+  --line:rgba(0,0,0,.14);--line-2:rgba(0,0,0,.08);
+  --broth:#0071E3;--broth-soft:rgba(0,113,227,.10);
+  --nav-bg:rgba(255,255,255,.84);
+  --sans:-apple-system,BlinkMacSystemFont,"SF Pro Text","SF Pro Display","Helvetica Neue",Arial,sans-serif;
+  --mono:ui-monospace,"SF Mono",Menlo,Consolas,monospace;
+  --serif:var(--sans);
+}
+@media (prefers-color-scheme:dark){
+  :root:not([data-theme="light"]){
+    color-scheme:dark;
+    --paper:#000000;--surface:#1C1C1E;--card:#2C2C2E;--fill:#2C2C2E;
+    --ink:#F5F5F7;--ink-2:#A1A1A6;--ink-3:#8E8E93;
+    --line:rgba(255,255,255,.16);--line-2:rgba(255,255,255,.09);
+    --broth:#5AA9FF;--broth-soft:rgba(10,132,255,.18);
+    --nav-bg:rgba(0,0,0,.74);
+  }
+}
+:root[data-theme="dark"]{
+  color-scheme:dark;
+  --paper:#000000;--surface:#1C1C1E;--card:#2C2C2E;--fill:#2C2C2E;
+  --ink:#F5F5F7;--ink-2:#A1A1A6;--ink-3:#8E8E93;
+  --line:rgba(255,255,255,.16);--line-2:rgba(255,255,255,.09);
+  --broth:#5AA9FF;--broth-soft:rgba(10,132,255,.18);
+  --nav-bg:rgba(0,0,0,.74);
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth;scroll-padding-top:72px;-webkit-text-size-adjust:100%}
+body{
+  margin:0;background:var(--paper);color:var(--ink);
+  font-family:var(--sans);font-size:17px;line-height:1.62;letter-spacing:-.011em;
+  padding:0;
+}
+.docbar{
+  position:sticky;top:0;z-index:80;display:flex;align-items:center;justify-content:space-between;gap:12px;
+  padding:8px max(24px,calc((100vw - 1180px)/2));
+  background:var(--nav-bg);
+  -webkit-backdrop-filter:saturate(180%) blur(20px);backdrop-filter:saturate(180%) blur(20px);
+  border-bottom:1px solid var(--line-2);
+}
+.docback{display:inline-flex;align-items:center;gap:6px;color:var(--ink-2);font-size:13px;font-weight:500;text-decoration:none;white-space:nowrap}
+.docback:hover{color:var(--broth)}
+.appearance{display:inline-flex;gap:2px;padding:2px;background:var(--fill);border-radius:980px}
+.appearance button{border:0;background:none;color:var(--ink-2);font:inherit;font-size:12px;font-weight:500;line-height:1;padding:6px 11px;border-radius:980px;cursor:pointer}
+.appearance button[aria-pressed="true"]{background:var(--card);color:var(--ink);box-shadow:0 1px 2px rgba(0,0,0,.08)}
+.wrap{max-width:900px;margin:0 auto;padding:64px 24px 96px}
+body h1{
+  font-family:var(--sans);font-size:clamp(42px,6.2vw,64px);line-height:1.04;letter-spacing:-.04em;
+  font-weight:700;margin:0 0 16px;max-width:18ch;color:var(--ink);
+}
+.doc-kicker{font-size:13px;font-weight:500;letter-spacing:0;color:var(--ink-2);margin:0 0 12px}
+body h1 + p{font-size:20px;line-height:1.55;color:var(--ink-2);max-width:68ch;margin:0 0 18px}
+body h1 + p strong{color:var(--ink);font-weight:600}
+body h2{
+  font-family:var(--sans);font-size:32px;line-height:1.15;letter-spacing:-.03em;font-weight:600;
+  color:var(--ink);margin:64px 0 14px;padding:0;border:0;
+}
+body h3{font-family:var(--sans);font-size:22px;line-height:1.25;letter-spacing:-.02em;font-weight:600;color:var(--ink);margin:36px 0 8px}
+body h4{font-size:14px;line-height:1.4;font-weight:600;letter-spacing:0;text-transform:none;color:var(--ink-2);margin:24px 0 6px}
+body p{margin:0 0 14px;max-width:72ch}
+body ul,body ol{margin:0 0 16px;padding-left:1.25em;max-width:72ch}
+body li{margin:.32em 0}
+body li::marker{color:var(--ink-3)}
+body strong{font-weight:600;color:var(--ink)}
+body em{color:var(--ink)}
+body a{color:var(--broth);text-decoration:underline;text-underline-offset:2px}
+body a:hover{text-decoration:underline}
+body hr{border:0;border-top:1px solid var(--line-2);margin:56px 0}
+body table{border-collapse:collapse;width:100%;margin:22px 0 30px;font-size:15px;line-height:1.45}
+body th{text-align:left;font-weight:600;font-size:12.5px;color:var(--ink-2);padding:10px 12px;background:var(--surface);border-bottom:1px solid var(--line)}
+body td{padding:11px 12px;border-bottom:1px solid var(--line-2);vertical-align:top}
+body tr:nth-child(even) td{background:transparent}
+body figure.fig{margin:32px 0 36px;padding:0;max-width:100%}
+body figure.fig svg{width:100%;height:auto;display:block;background:var(--surface);border:0;border-radius:20px;padding:18px}
+body figure.fig figcaption{font-size:13px;color:var(--ink-2);margin-top:10px;max-width:72ch;line-height:1.5}
+body figure.fig .figtitle{font-family:var(--sans);font-size:14px;font-weight:600;color:var(--ink);margin-bottom:6px}
+body pre{background:var(--surface);border:1px solid var(--line-2);border-radius:16px;padding:18px;overflow:auto;font-family:var(--mono);font-size:13.5px;line-height:1.55;margin:20px 0 24px}
+body code{font-family:var(--mono);font-size:.88em;background:var(--surface);border-radius:6px;padding:.12em .35em}
+body pre code{background:none;padding:0;font-size:inherit}
+body blockquote{margin:24px 0;padding:2px 0 2px 18px;border-left:3px solid var(--broth);color:var(--ink-2)}
+:root[data-theme="dark"] .fig-light{display:none!important}
+:root[data-theme="dark"] .fig-dark{display:block!important}
+:root[data-theme="light"] .fig-dark{display:none!important}
+:root[data-theme="light"] .fig-light{display:block!important}
+.docfoot{max-width:900px;margin:0 auto;padding:24px 24px 64px;border-top:1px solid var(--line-2);display:flex;justify-content:space-between;gap:12px;font-size:12.5px;color:var(--ink-3)}
+.docfoot a{color:var(--ink-2);text-decoration:none}
+.docfoot a:hover{color:var(--broth)}
+@media (max-width:700px){
+  .docbar{padding:8px 16px}
+  .wrap{padding:40px 18px 80px}
+  body h1{font-size:clamp(38px,11vw,48px)}
+  body h1 + p{font-size:18px}
+  body h2{font-size:28px;margin-top:52px}
+  body h3{font-size:20px}
+  body p,body li{font-size:16.5px}
+  body table{font-size:14px}
+  body th,body td{padding:9px 9px}
+  .docfoot{padding:20px 18px 50px;flex-direction:column;gap:6px}
+}
+@media print{
+  .docbar,.appearance,.docfoot{display:none!important}
+  body{background:#fff;color:#000;font-size:11pt}
+  .wrap{max-width:none;padding:0}
+  body h1{font-size:28pt;max-width:none}
+  body h2{font-size:16pt;page-break-after:avoid}
+  body h3{font-size:13pt;page-break-after:avoid}
+  body a{color:#000;text-decoration:none}
+  body table,body figure{break-inside:avoid}
+}
+
+
+.index-actions{margin:18px 0 36px;display:flex;flex-wrap:wrap;gap:16px;align-items:center}
+.index-actions a{font-size:14px;font-weight:500;color:var(--broth);text-decoration:none}
+.index-actions a:hover{text-decoration:underline}
+.phaseh{display:flex;align-items:baseline;justify-content:space-between;gap:14px;font-size:24px!important;margin:52px 0 2px!important;letter-spacing:-.02em}
+.phaseh span{font-size:12px;font-weight:400;color:var(--ink-3);letter-spacing:0;white-space:nowrap}
+.weeklist{border-top:1px solid var(--line-2);margin-bottom:8px}
+.weekrow{display:flex;align-items:center;gap:14px;min-height:50px;padding:10px 4px;border-bottom:1px solid var(--line-2);text-decoration:none;color:var(--ink)}
+.weekrow:hover{background:var(--surface)}
+.wnum{width:28px;flex:none;font-size:12px;font-weight:600;color:var(--broth);font-variant-numeric:tabular-nums}
+.wtitle{flex:1;font-size:16.5px;font-weight:500;line-height:1.35}
+.warrow{flex:none;color:var(--ink-3);font-size:16px}
+.weeknav{display:flex;align-items:center;justify-content:space-between;gap:14px;margin:52px 0 0;padding-top:22px;border-top:1px solid var(--line-2);font-size:14px}
+.weeknav a{color:var(--broth);text-decoration:none;font-weight:500}
+.weeknav a:hover{text-decoration:underline}
+.weeknav .idx{color:var(--ink-2);font-weight:400}
+.weeknav .empty{visibility:hidden}
+.case-h{max-width:22ch}
+.protocol{max-width:72ch}
+.protocol li{margin:.55em 0}
+.protocol h2{margin-top:38px}
+@media (max-width:700px){.phaseh{font-size:21px!important;margin-top:42px!important}.wtitle{font-size:15.5px}.weeknav{font-size:13px;gap:8px}}
+@media print{.weeknav,.index-actions{display:none!important}}
+</style>
+<style>.sr-only{position:absolute!important;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap;border:0}</style>
+</head><body>
+<header class="docbar"><a class="docback" href="index.html">&#8592; Lecture index</a><div class="appearance" role="group" aria-label="Appearance">
+<button type="button" data-appearance="auto" aria-pressed="true">Auto</button>
+<button type="button" data-appearance="light" aria-pressed="false">Light</button>
+<button type="button" data-appearance="dark" aria-pressed="false">Dark</button>
+</div></header>
+<main class="wrap">
+<p class="doc-kicker">Week 12 of 55 &middot; Metabolism in depth &middot; <strong class="tier-badge">Useful next</strong></p>
+<h1>Respiration, electron transport and aeration</h1>
+<h2 class="sr-only">Week content</h2>
+<p>Where biology meets your mass transfer course. The oxygen demand you compute this week becomes the kLa calculation in week 49 and the vessel cost in week 52, and the chain&#x27;s branching is why a single P/O number was never going to be enough.</p>
+<h3>Core ideas</h3>
+<p><strong>1. E. coli&#x27;s respiratory chain branches at both ends, and that is the point</strong></p>
+<figure class="fig"><div class="figtitle">Figure 12.1 — The branched respiratory chain of E. coli</div><div class="fig-light"><svg role="img" aria-label="Two entries and two exits give a four-fold range in charge separation per NADH, and therefore in effective P/O. Treat any ATP-per-NADH figure as a stated assumption." xmlns:xlink="http://www.w3.org/1999/xlink" width="484.6464pt" height="200.352984pt" viewBox="0 0 484.6464 200.352984" xmlns="http://www.w3.org/2000/svg" version="1.1">
+ <metadata>
+  <rdf:RDF xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:cc="http://creativecommons.org/ns#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+   <cc:Work>
+    <dc:type rdf:resource="http://purl.org/dc/dcmitype/StillImage"/>
+    <dc:date>2026-11-02T23:57:45.664705</dc:date>
+    <dc:format>image/svg+xml</dc:format>
+    <dc:creator>
+     <cc:Agent>
+      <dc:title>Matplotlib v3.10.8, https://matplotlib.org/</dc:title>
+     </cc:Agent>
+    </dc:creator>
+   </cc:Work>
+  </rdf:RDF>
+ </metadata>
+ <defs>
+  <style type="text/css">*{stroke-linejoin: round; stroke-linecap: butt}</style>
+ </defs>
+ <g id="figure_1">
+  <g id="patch_1">
+   <path d="M 0 200.352984 
+L 484.6464 200.352984 
+L 484.6464 -0 
+L 0 -0 
+L 0 200.352984 
+z
+" style="fill: none"/>
+  </g>
+  <g id="axes_1">
+   <g id="patch_2">
+    <path d="M 80.00568 87.75576 
+L 130.38192 87.75576 
+Q 136.1628 87.75576 136.1628 85.504896 
+L 136.1628 73.929024 
+Q 136.1628 71.67816 130.38192 71.67816 
+L 80.00568 71.67816 
+Q 74.2248 71.67816 74.2248 73.929024 
+L 74.2248 85.504896 
+Q 74.2248 87.75576 80.00568 87.75576 
+z
+" clip-path="url(#pdfaa215e50)" style="fill: #f1e9da; stroke: #8a5f1b; stroke-width: 1.2; stroke-linejoin: miter"/>
+   </g>
+   <g id="patch_3">
+    <path d="M 174.97728 58.81608 
+L 254.25792 58.81608 
+Q 260.0388 58.81608 260.0388 56.565216 
+L 260.0388 44.989344 
+Q 260.0388 42.73848 254.25792 42.73848 
+L 174.97728 42.73848 
+Q 169.1964 42.73848 169.1964 44.989344 
+L 169.1964 56.565216 
+Q 169.1964 58.81608 174.97728 58.81608 
+z
+" clip-path="url(#pdfaa215e50)" style="fill: #f1e9da; stroke: #1f6f62; stroke-width: 1.2; stroke-linejoin: miter"/>
+   </g>
+   <g id="patch_4">
+    <path d="M 174.97728 116.69544 
+L 254.25792 116.69544 
+Q 260.0388 116.69544 260.0388 114.444576 
+L 260.0388 102.868704 
+Q 260.0388 100.61784 254.25792 100.61784 
+L 174.97728 100.61784 
+Q 169.1964 100.61784 169.1964 102.868704 
+L 169.1964 114.444576 
+Q 169.1964 116.69544 174.97728 116.69544 
+z
+" clip-path="url(#pdfaa215e50)" style="fill: #f1e9da; stroke: #dfd2be; stroke-width: 0.8; stroke-linejoin: miter"/>
+   </g>
+   <g id="patch_5">
+    <path d="M 290.59488 87.75576 
+L 336.84192 87.75576 
+Q 342.6228 87.75576 342.6228 85.504896 
+L 342.6228 73.929024 
+Q 342.6228 71.67816 336.84192 71.67816 
+L 290.59488 71.67816 
+Q 284.814 71.67816 284.814 73.929024 
+L 284.814 85.504896 
+Q 284.814 87.75576 290.59488 87.75576 
+z
+" clip-path="url(#pdfaa215e50)" style="fill: #f1e9da; stroke: #dfd2be; stroke-width: 0.8; stroke-linejoin: miter"/>
+   </g>
+   <g id="patch_6">
+    <path d="M 373.17888 58.81608 
+L 460.71792 58.81608 
+Q 466.4988 58.81608 466.4988 56.565216 
+L 466.4988 44.989344 
+Q 466.4988 42.73848 460.71792 42.73848 
+L 373.17888 42.73848 
+Q 367.398 42.73848 367.398 44.989344 
+L 367.398 56.565216 
+Q 367.398 58.81608 373.17888 58.81608 
+z
+" clip-path="url(#pdfaa215e50)" style="fill: #f1e9da; stroke: #1f6f62; stroke-width: 1.2; stroke-linejoin: miter"/>
+   </g>
+   <g id="patch_7">
+    <path d="M 373.17888 116.69544 
+L 460.71792 116.69544 
+Q 466.4988 116.69544 466.4988 114.444576 
+L 466.4988 102.868704 
+Q 466.4988 100.61784 460.71792 100.61784 
+L 373.17888 100.61784 
+Q 367.398 100.61784 367.398 102.868704 
+L 367.398 114.444576 
+Q 367.398 116.69544 373.17888 116.69544 
+z
+" clip-path="url(#pdfaa215e50)" style="fill: #f1e9da; stroke: #dfd2be; stroke-width: 0.8; stroke-linejoin: miter"/>
+   </g>
+   <g id="patch_8">
+    <path d="M 138.2274 76.50144 
+Q 152.6796 65.24712 166.249683 54.679728 
+" clip-path="url(#pdfaa215e50)" style="fill: none; stroke: #1f6f62; stroke-linecap: round"/>
+    <path d="M 162.30339 55.471414 
+L 166.249683 54.679728 
+L 164.515256 58.311774 
+z
+" clip-path="url(#pdfaa215e50)" style="fill: #1f6f62; stroke: #1f6f62; stroke-linecap: round"/>
+   </g>
+   <g id="patch_9">
+    <path d="M 138.2274 81.32472 
+Q 152.6796 92.57904 166.249683 103.146432 
+" clip-path="url(#pdfaa215e50)" style="fill: none; stroke: #8a7458; stroke-linecap: round"/>
+    <path d="M 164.515256 99.514386 
+L 166.249683 103.146432 
+L 162.30339 102.354746 
+z
+" clip-path="url(#pdfaa215e50)" style="fill: #8a7458; stroke: #8a7458; stroke-linecap: round"/>
+   </g>
+   <g id="patch_10">
+    <path d="M 262.1034 53.9928 
+Q 272.4264 64.44324 281.963695 74.098276 
+" clip-path="url(#pdfaa215e50)" style="fill: none; stroke: #1f6f62; stroke-linecap: round"/>
+    <path d="M 280.714351 70.272163 
+L 281.963695 74.098276 
+L 278.153199 72.802083 
+z
+" clip-path="url(#pdfaa215e50)" style="fill: #1f6f62; stroke: #1f6f62; stroke-linecap: round"/>
+   </g>
+   <g id="patch_11">
+    <path d="M 262.1034 103.83336 
+Q 272.4264 92.57904 281.993657 82.148645 
+" clip-path="url(#pdfaa215e50)" style="fill: none; stroke: #8a7458; stroke-linecap: round"/>
+    <path d="M 278.233717 83.584909 
+L 281.993657 82.148645 
+L 280.886704 86.018355 
+z
+" clip-path="url(#pdfaa215e50)" style="fill: #8a7458; stroke: #8a7458; stroke-linecap: round"/>
+   </g>
+   <g id="patch_12">
+    <path d="M 344.6874 74.89368 
+Q 355.0104 64.44324 364.547695 54.788204 
+" clip-path="url(#pdfaa215e50)" style="fill: none; stroke: #1f6f62; stroke-linecap: round"/>
+    <path d="M 360.737199 56.084397 
+L 364.547695 54.788204 
+L 363.298351 58.614317 
+z
+" clip-path="url(#pdfaa215e50)" style="fill: #1f6f62; stroke: #1f6f62; stroke-linecap: round"/>
+   </g>
+   <g id="patch_13">
+    <path d="M 344.6874 81.32472 
+Q 355.0104 92.57904 364.577657 103.009435 
+" clip-path="url(#pdfaa215e50)" style="fill: none; stroke: #8a7458; stroke-linecap: round"/>
+    <path d="M 363.470704 99.139725 
+L 364.577657 103.009435 
+L 360.817717 101.573171 
+z
+" clip-path="url(#pdfaa215e50)" style="fill: #8a7458; stroke: #8a7458; stroke-linecap: round"/>
+   </g>
+   <g id="text_1">
+    <text style="font-weight: 700; font-size: 8.6px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: middle; fill: #211a12" x="105.1938" y="82.090023" transform="rotate(-0 105.1938 82.090023)">NADH</text>
+   </g>
+   <g id="text_2">
+    <text style="font-weight: 700; font-size: 8px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: middle; fill: #211a12" x="214.6176" y="52.98478" transform="rotate(-0 214.6176 52.98478)">Complex I (Nuo)</text>
+   </g>
+   <g id="text_3">
+    <text style="font-size: 8px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: middle; fill: #211a12" x="214.6176" y="110.86414" transform="rotate(-0 214.6176 110.86414)">NDH-II</text>
+   </g>
+   <g id="text_4">
+    <text style="font-size: 8.2px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: middle; fill: #211a12" x="313.7184" y="81.979647" transform="rotate(-0 313.7184 81.979647)">Q pool</text>
+   </g>
+   <g id="text_5">
+    <text style="font-weight: 700; font-size: 8px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: middle; fill: #211a12" x="416.9484" y="52.95353" transform="rotate(-0 416.9484 52.95353)">cytochrome bo₃</text>
+   </g>
+   <g id="text_6">
+    <text style="font-size: 8px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: middle; fill: #211a12" x="416.9484" y="110.86414" transform="rotate(-0 416.9484 110.86414)">cytochrome bd</text>
+   </g>
+   <g id="text_7">
+    <text style="font-weight: 700; font-size: 9.6px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: start; fill: #211a12" x="74.2248" y="19.62582" transform="rotate(-0 74.2248 19.62582)">Branched at both ends — which is why P/O is a range, not a number</text>
+   </g>
+   <g id="text_8">
+    <text style="font-weight: 700; font-size: 7.8px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: middle; fill: #1f6f62" x="214.6176" y="36.851992" transform="rotate(-0 214.6176 36.851992)">4 H⁺ / 2e⁻</text>
+   </g>
+   <g id="text_9">
+    <text style="font-weight: 700; font-size: 7.8px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: middle; fill: #8a7458" x="214.6176" y="128.494312" transform="rotate(-0 214.6176 128.494312)">0 H⁺</text>
+   </g>
+   <g id="text_10">
+    <text style="font-weight: 700; font-size: 7.8px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: middle; fill: #1f6f62" x="416.9484" y="36.851992" transform="rotate(-0 416.9484 36.851992)">4 equivalents / 2e⁻</text>
+   </g>
+   <g id="text_11">
+    <text style="font-size: 7.2px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: middle; fill: #8a7458" x="416.9484" y="70.44939" transform="rotate(-0 416.9484 70.44939)">2 pumped + 2 scalar</text>
+   </g>
+   <g id="text_12">
+    <text style="font-size: 7.8px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: middle; fill: #8a7458" x="416.9484" y="128.494312" transform="rotate(-0 416.9484 128.494312)">2 equivalents · high O₂ affinity</text>
+   </g>
+   <g id="text_13">
+    <text style="font-weight: 700; font-size: 8.2px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: start; fill: #1f6f62" x="74.2248" y="147.897807" transform="rotate(-0 74.2248 147.897807)">Nuo + bo₃</text>
+   </g>
+   <g id="text_14">
+    <text style="font-size: 8px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: start; fill: #4a3c2c" x="160.938" y="147.84262" transform="rotate(-0 160.938 147.84262)">8 equivalents ÷ 4.3 H⁺/ATP  =  1.86 ATP per NADH</text>
+   </g>
+   <g id="text_15">
+    <text style="font-weight: 700; font-size: 8.2px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: start; fill: #4a3c2c" x="74.2248" y="160.759887" transform="rotate(-0 74.2248 160.759887)">NDH-II + bd</text>
+   </g>
+   <g id="text_16">
+    <text style="font-size: 8px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: start; fill: #4a3c2c" x="160.938" y="160.7047" transform="rotate(-0 160.938 160.7047)">2 equivalents  =  0.47 ATP per NADH   →  24.5 against 9.6 ATP per glucose</text>
+   </g>
+  </g>
+  <g id="text_17">
+   <text style="font-size: 8.3px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: start; fill: #8a7458" x="5.76" y="192.636" transform="rotate(-0 5.76 192.636)">BiGG records the oxidase count in the reaction name itself: CYTBO3_4pp.</text>
+  </g>
+ </g>
+ <defs>
+  <clipPath id="pdfaa215e50">
+   <rect x="65.9664" y="5.76" width="412.92" height="160.776"/>
+  </clipPath>
+ </defs>
+</svg>
+</div><div class="fig-dark"><svg role="img" aria-label="Two entries and two exits give a four-fold range in charge separation per NADH, and therefore in effective P/O. Treat any ATP-per-NADH figure as a stated assumption." xmlns:xlink="http://www.w3.org/1999/xlink" width="484.6464pt" height="200.352984pt" viewBox="0 0 484.6464 200.352984" xmlns="http://www.w3.org/2000/svg" version="1.1">
+ <metadata>
+  <rdf:RDF xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:cc="http://creativecommons.org/ns#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+   <cc:Work>
+    <dc:type rdf:resource="http://purl.org/dc/dcmitype/StillImage"/>
+    <dc:date>2026-11-02T23:57:45.699477</dc:date>
+    <dc:format>image/svg+xml</dc:format>
+    <dc:creator>
+     <cc:Agent>
+      <dc:title>Matplotlib v3.10.8, https://matplotlib.org/</dc:title>
+     </cc:Agent>
+    </dc:creator>
+   </cc:Work>
+  </rdf:RDF>
+ </metadata>
+ <defs>
+  <style type="text/css">*{stroke-linejoin: round; stroke-linecap: butt}</style>
+ </defs>
+ <g id="figure_1">
+  <g id="patch_1">
+   <path d="M 0 200.352984 
+L 484.6464 200.352984 
+L 484.6464 -0 
+L 0 -0 
+L 0 200.352984 
+z
+" style="fill: none"/>
+  </g>
+  <g id="axes_1">
+   <g id="patch_2">
+    <path d="M 80.00568 87.75576 
+L 130.38192 87.75576 
+Q 136.1628 87.75576 136.1628 85.504896 
+L 136.1628 73.929024 
+Q 136.1628 71.67816 130.38192 71.67816 
+L 80.00568 71.67816 
+Q 74.2248 71.67816 74.2248 73.929024 
+L 74.2248 85.504896 
+Q 74.2248 87.75576 80.00568 87.75576 
+z
+" clip-path="url(#p20d3c2ea81)" style="fill: #241c12; stroke: #d7a95c; stroke-width: 1.2; stroke-linejoin: miter"/>
+   </g>
+   <g id="patch_3">
+    <path d="M 174.97728 58.81608 
+L 254.25792 58.81608 
+Q 260.0388 58.81608 260.0388 56.565216 
+L 260.0388 44.989344 
+Q 260.0388 42.73848 254.25792 42.73848 
+L 174.97728 42.73848 
+Q 169.1964 42.73848 169.1964 44.989344 
+L 169.1964 56.565216 
+Q 169.1964 58.81608 174.97728 58.81608 
+z
+" clip-path="url(#p20d3c2ea81)" style="fill: #241c12; stroke: #6dbdac; stroke-width: 1.2; stroke-linejoin: miter"/>
+   </g>
+   <g id="patch_4">
+    <path d="M 174.97728 116.69544 
+L 254.25792 116.69544 
+Q 260.0388 116.69544 260.0388 114.444576 
+L 260.0388 102.868704 
+Q 260.0388 100.61784 254.25792 100.61784 
+L 174.97728 100.61784 
+Q 169.1964 100.61784 169.1964 102.868704 
+L 169.1964 114.444576 
+Q 169.1964 116.69544 174.97728 116.69544 
+z
+" clip-path="url(#p20d3c2ea81)" style="fill: #241c12; stroke: #3a3026; stroke-width: 0.8; stroke-linejoin: miter"/>
+   </g>
+   <g id="patch_5">
+    <path d="M 290.59488 87.75576 
+L 336.84192 87.75576 
+Q 342.6228 87.75576 342.6228 85.504896 
+L 342.6228 73.929024 
+Q 342.6228 71.67816 336.84192 71.67816 
+L 290.59488 71.67816 
+Q 284.814 71.67816 284.814 73.929024 
+L 284.814 85.504896 
+Q 284.814 87.75576 290.59488 87.75576 
+z
+" clip-path="url(#p20d3c2ea81)" style="fill: #241c12; stroke: #3a3026; stroke-width: 0.8; stroke-linejoin: miter"/>
+   </g>
+   <g id="patch_6">
+    <path d="M 373.17888 58.81608 
+L 460.71792 58.81608 
+Q 466.4988 58.81608 466.4988 56.565216 
+L 466.4988 44.989344 
+Q 466.4988 42.73848 460.71792 42.73848 
+L 373.17888 42.73848 
+Q 367.398 42.73848 367.398 44.989344 
+L 367.398 56.565216 
+Q 367.398 58.81608 373.17888 58.81608 
+z
+" clip-path="url(#p20d3c2ea81)" style="fill: #241c12; stroke: #6dbdac; stroke-width: 1.2; stroke-linejoin: miter"/>
+   </g>
+   <g id="patch_7">
+    <path d="M 373.17888 116.69544 
+L 460.71792 116.69544 
+Q 466.4988 116.69544 466.4988 114.444576 
+L 466.4988 102.868704 
+Q 466.4988 100.61784 460.71792 100.61784 
+L 373.17888 100.61784 
+Q 367.398 100.61784 367.398 102.868704 
+L 367.398 114.444576 
+Q 367.398 116.69544 373.17888 116.69544 
+z
+" clip-path="url(#p20d3c2ea81)" style="fill: #241c12; stroke: #3a3026; stroke-width: 0.8; stroke-linejoin: miter"/>
+   </g>
+   <g id="patch_8">
+    <path d="M 138.2274 76.50144 
+Q 152.6796 65.24712 166.249683 54.679728 
+" clip-path="url(#p20d3c2ea81)" style="fill: none; stroke: #6dbdac; stroke-linecap: round"/>
+    <path d="M 162.30339 55.471414 
+L 166.249683 54.679728 
+L 164.515256 58.311774 
+z
+" clip-path="url(#p20d3c2ea81)" style="fill: #6dbdac; stroke: #6dbdac; stroke-linecap: round"/>
+   </g>
+   <g id="patch_9">
+    <path d="M 138.2274 81.32472 
+Q 152.6796 92.57904 166.249683 103.146432 
+" clip-path="url(#p20d3c2ea81)" style="fill: none; stroke: #9a8872; stroke-linecap: round"/>
+    <path d="M 164.515256 99.514386 
+L 166.249683 103.146432 
+L 162.30339 102.354746 
+z
+" clip-path="url(#p20d3c2ea81)" style="fill: #9a8872; stroke: #9a8872; stroke-linecap: round"/>
+   </g>
+   <g id="patch_10">
+    <path d="M 262.1034 53.9928 
+Q 272.4264 64.44324 281.963695 74.098276 
+" clip-path="url(#p20d3c2ea81)" style="fill: none; stroke: #6dbdac; stroke-linecap: round"/>
+    <path d="M 280.714351 70.272163 
+L 281.963695 74.098276 
+L 278.153199 72.802083 
+z
+" clip-path="url(#p20d3c2ea81)" style="fill: #6dbdac; stroke: #6dbdac; stroke-linecap: round"/>
+   </g>
+   <g id="patch_11">
+    <path d="M 262.1034 103.83336 
+Q 272.4264 92.57904 281.993657 82.148645 
+" clip-path="url(#p20d3c2ea81)" style="fill: none; stroke: #9a8872; stroke-linecap: round"/>
+    <path d="M 278.233717 83.584909 
+L 281.993657 82.148645 
+L 280.886704 86.018355 
+z
+" clip-path="url(#p20d3c2ea81)" style="fill: #9a8872; stroke: #9a8872; stroke-linecap: round"/>
+   </g>
+   <g id="patch_12">
+    <path d="M 344.6874 74.89368 
+Q 355.0104 64.44324 364.547695 54.788204 
+" clip-path="url(#p20d3c2ea81)" style="fill: none; stroke: #6dbdac; stroke-linecap: round"/>
+    <path d="M 360.737199 56.084397 
+L 364.547695 54.788204 
+L 363.298351 58.614317 
+z
+" clip-path="url(#p20d3c2ea81)" style="fill: #6dbdac; stroke: #6dbdac; stroke-linecap: round"/>
+   </g>
+   <g id="patch_13">
+    <path d="M 344.6874 81.32472 
+Q 355.0104 92.57904 364.577657 103.009435 
+" clip-path="url(#p20d3c2ea81)" style="fill: none; stroke: #9a8872; stroke-linecap: round"/>
+    <path d="M 363.470704 99.139725 
+L 364.577657 103.009435 
+L 360.817717 101.573171 
+z
+" clip-path="url(#p20d3c2ea81)" style="fill: #9a8872; stroke: #9a8872; stroke-linecap: round"/>
+   </g>
+   <g id="text_1">
+    <text style="font-weight: 700; font-size: 8.6px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: middle; fill: #f1e9dc" x="105.1938" y="82.090023" transform="rotate(-0 105.1938 82.090023)">NADH</text>
+   </g>
+   <g id="text_2">
+    <text style="font-weight: 700; font-size: 8px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: middle; fill: #f1e9dc" x="214.6176" y="52.98478" transform="rotate(-0 214.6176 52.98478)">Complex I (Nuo)</text>
+   </g>
+   <g id="text_3">
+    <text style="font-size: 8px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: middle; fill: #f1e9dc" x="214.6176" y="110.86414" transform="rotate(-0 214.6176 110.86414)">NDH-II</text>
+   </g>
+   <g id="text_4">
+    <text style="font-size: 8.2px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: middle; fill: #f1e9dc" x="313.7184" y="81.979647" transform="rotate(-0 313.7184 81.979647)">Q pool</text>
+   </g>
+   <g id="text_5">
+    <text style="font-weight: 700; font-size: 8px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: middle; fill: #f1e9dc" x="416.9484" y="52.95353" transform="rotate(-0 416.9484 52.95353)">cytochrome bo₃</text>
+   </g>
+   <g id="text_6">
+    <text style="font-size: 8px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: middle; fill: #f1e9dc" x="416.9484" y="110.86414" transform="rotate(-0 416.9484 110.86414)">cytochrome bd</text>
+   </g>
+   <g id="text_7">
+    <text style="font-weight: 700; font-size: 9.6px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: start; fill: #f1e9dc" x="74.2248" y="19.62582" transform="rotate(-0 74.2248 19.62582)">Branched at both ends — which is why P/O is a range, not a number</text>
+   </g>
+   <g id="text_8">
+    <text style="font-weight: 700; font-size: 7.8px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: middle; fill: #6dbdac" x="214.6176" y="36.851992" transform="rotate(-0 214.6176 36.851992)">4 H⁺ / 2e⁻</text>
+   </g>
+   <g id="text_9">
+    <text style="font-weight: 700; font-size: 7.8px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: middle; fill: #9a8872" x="214.6176" y="128.494312" transform="rotate(-0 214.6176 128.494312)">0 H⁺</text>
+   </g>
+   <g id="text_10">
+    <text style="font-weight: 700; font-size: 7.8px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: middle; fill: #6dbdac" x="416.9484" y="36.851992" transform="rotate(-0 416.9484 36.851992)">4 equivalents / 2e⁻</text>
+   </g>
+   <g id="text_11">
+    <text style="font-size: 7.2px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: middle; fill: #9a8872" x="416.9484" y="70.44939" transform="rotate(-0 416.9484 70.44939)">2 pumped + 2 scalar</text>
+   </g>
+   <g id="text_12">
+    <text style="font-size: 7.8px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: middle; fill: #9a8872" x="416.9484" y="128.494312" transform="rotate(-0 416.9484 128.494312)">2 equivalents · high O₂ affinity</text>
+   </g>
+   <g id="text_13">
+    <text style="font-weight: 700; font-size: 8.2px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: start; fill: #6dbdac" x="74.2248" y="147.897807" transform="rotate(-0 74.2248 147.897807)">Nuo + bo₃</text>
+   </g>
+   <g id="text_14">
+    <text style="font-size: 8px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: start; fill: #cbbca6" x="160.938" y="147.84262" transform="rotate(-0 160.938 147.84262)">8 equivalents ÷ 4.3 H⁺/ATP  =  1.86 ATP per NADH</text>
+   </g>
+   <g id="text_15">
+    <text style="font-weight: 700; font-size: 8.2px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: start; fill: #cbbca6" x="74.2248" y="160.759887" transform="rotate(-0 74.2248 160.759887)">NDH-II + bd</text>
+   </g>
+   <g id="text_16">
+    <text style="font-size: 8px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: start; fill: #cbbca6" x="160.938" y="160.7047" transform="rotate(-0 160.938 160.7047)">2 equivalents  =  0.47 ATP per NADH   →  24.5 against 9.6 ATP per glucose</text>
+   </g>
+  </g>
+  <g id="text_17">
+   <text style="font-size: 8.3px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: start; fill: #9a8872" x="5.76" y="192.636" transform="rotate(-0 5.76 192.636)">BiGG records the oxidase count in the reaction name itself: CYTBO3_4pp.</text>
+  </g>
+ </g>
+ <defs>
+  <clipPath id="p20d3c2ea81">
+   <rect x="65.9664" y="5.76" width="412.92" height="160.776"/>
+  </clipPath>
+ </defs>
+</svg>
+</div><figcaption>Two entries and two exits give a four-fold range in charge separation per NADH, and therefore in effective P/O. Treat any ATP-per-NADH figure as a stated assumption.</figcaption></figure>
+<p>Entry: NADH dehydrogenase I (Nuo), translocating roughly 4 H⁺ per 2 e⁻, or NADH dehydrogenase II (Ndh), translocating none and simply passing electrons to the quinone pool. Exit: cytochrome bo₃, low oxygen affinity, separating 4 charge equivalents per 2 e⁻ — two pumped and two scalar, which is why its BiGG reaction is named CYTBO3_4pp — or cytochrome bd, high oxygen affinity, separating 2 by the scalar route alone. Combine the options and the equivalents per NADH range from 8 down to 2, so with E. coli&#x27;s c₁₀ ATP synthase at 4.3 H⁺ per ATP the effective P/O spans roughly 1.9 down to 0.5. The cell chooses by condition: high oxygen favours the efficient combination, low oxygen forces the high-affinity bd oxidase. A model with a fixed P/O therefore mispredicts systematically at low dissolved oxygen, and that is a real source of error in microaerobic process modelling.</p>
+<p><strong>2. Anaerobic respiration, ranked by what it is worth</strong></p>
+<p>With oxygen absent, many bacteria respire on alternative terminal acceptors, and the ATP yield follows the reduction potential. Nitrate is the best, close enough to oxygen to support substantial growth; then DMSO and TMAO; then fumarate, which is the weakest and which doubles as the reductive TCA arm from week 11. Note the regulatory hierarchy: cells express these in order of preference, so a medium containing nitrate will suppress fumarate respiration. For engineering, this matters in two ways — an unintended electron acceptor in your medium can break a growth-coupled design by giving the cell an escape route, and deliberately supplying one is a way to control redox state.</p>
+<p><strong>3. From electron balance to oxygen demand, which is the week&#x27;s transferable skill</strong></p>
+<p>Oxygen uptake is not an independent parameter to be looked up; it follows from the electron balance. Electrons entering as substrate must leave as product, as biomass, or as water via the respiratory chain. So: available electrons in substrate consumed, minus those in biomass formed, minus those in products formed, divided by four, gives moles of oxygen. Do it this way and the number is consistent with your yields by construction, which is the whole point. Working in degrees of reduction per C-mol — glucose 4.00, biomass 4.20, acetate 4.00, ethanol 6.00, succinate 3.50 — makes the arithmetic routine, and week 17 formalises it.</p>
+<p><strong>4. Oxygen as a substrate with almost no solubility</strong></p>
+<p>Air-saturated water at 30 °C holds about 0.21 mM dissolved oxygen, roughly 7 mg/L. A dense culture consumes that in a few seconds, which is why oxygen must be supplied continuously and why it is the usual limiting nutrient in aerobic fermentation. At steady state OTR = kLa(C<em> − C) must equal OUR. The critical dissolved oxygen concentration — below which the organism&#x27;s respiration becomes oxygen-limited rather than substrate-limited — is typically 1–5% of saturation for bacteria, which is low enough that a setpoint of 20–30% gives comfortable margin. The consequence to carry forward: raising C</em> by oxygen enrichment or head pressure is usually cheaper than raising kLa by agitation, because power input scales steeply and brings shear and heat penalties with it.</p>
+<p><strong>5. Microaerobic operation as a deliberate choice</strong></p>
+<p>Some products are made best at low dissolved oxygen, because the cell&#x27;s product spectrum shifts with redox state: restricting oxygen raises NADH, which drives reductive routes that are unavailable to a fully respiring cell. This is used industrially for several reduced products, and it changes the process problem from supplying oxygen to controlling it precisely at a low setpoint, which is harder. The trade is that growth and ATP yield fall, so titre and rate suffer while yield on the reduced product rises — the titre-rate-yield triangle appearing in its most physical form.</p>
+<p><strong>6. Heat, which is the constraint people forget</strong></p>
+<p>Roughly 460 kJ is released per mole of oxygen consumed, nearly independent of substrate, which makes oxygen uptake a direct proxy for heat generation. At an OUR of 100 mmol L⁻¹ h⁻¹ that is about 13 kW per cubic metre, so a 50 m³ vessel generates several hundred kilowatts of heat requiring removal through a jacket or coils whose area scales as volume to the two-thirds. That is why large aerobic fermenters are sometimes heat-limited rather than oxygen-limited, and why the energy balance from Doran Ch 5 belongs in a process design rather than only in an examination.</p>
+<h3>Worked anchor</h3>
+<p>Compute the oxygen demand of a producing strain from first principles, then the kLa it requires.</p>
+<p>A strain grows at µ = 0.25 h⁻¹ with YX/S = 0.45 g/g on glucose and makes acetate at 0.20 g per g glucose. Biomass is CH₁.₈O₀.₅N₀.₂.</p>
+<p>Per gram of glucose: available electrons in = 0.133 mol e⁻ (24 per mole, 180 g/mol). Biomass at γ = 4.2 per C-mol and 24.6 g per C-mol carries 0.171 mol e⁻ per gram, so 0.45 g carries 0.077. Acetate at γ = 4.0 and 30 g per C-mol carries 0.133 per gram, so 0.20 g carries 0.027. To oxygen: 0.133 − 0.077 − 0.027 = 0.029 mol e⁻, and oxygen accepts 4, so 0.0073 mol O₂ per g glucose.</p>
+<p>Substrate uptake qS = µ/YX/S = 0.25/0.45 = 0.56 g gDW⁻¹ h⁻¹, so qO₂ = 0.0073 × 0.56 × 1000 = 4.1 mmol gDW⁻¹ h⁻¹.</p>
+<p>At 40 gDW/L: OUR = 164 mmol L⁻¹ h⁻¹. Required kLa = OUR/(C* − C) = 164/(0.21 − 0.04) = 965 h⁻¹.</p>
+<p>That is comfortable at bench scale and at or beyond the limit of a large production vessel — which is precisely the conflict week 49 designs around, and the reason the answer to &#x27;can we scale this&#x27; is often decided in week 12 rather than in the fermentation hall.</p>
+<p><strong>Assumptions behind this calculation</strong></p>
+<ul>
+<li>biomass CH₁.₈O₀.₅N₀.₂ at 24.6 g per C-mol and γ = 4.2</li>
+<li>the electron balance closes on biomass, acetate and oxygen alone</li>
+<li>steady state, no accumulation of intermediates</li>
+<li>the kLa correlation applies at this scale and broth viscosity</li>
+</ul>
+<h3>Reading map</h3>
+<table><thead><tr><th>Source</th><th>Treatment</th><th>Why</th></tr></thead><tbody><tr><td>Berg Ch 18 §18.3–18.5</td><td>Skim</td><td>Reread for the chain&#x27;s components only. You covered the mechanism in week 8; this week is about the branching and the numbers.</td></tr><tr><td>Microbiology Ch 8.3–8.4</td><td>Read closely</td><td>Anaerobic respiration and the hierarchy of electron acceptors, which Berg does not cover. Read the acceptor ranking and the regulation.</td></tr><tr><td>Microbiology Ch 9.2</td><td>Skim</td><td>Oxygen requirement classes and how they are determined. Useful vocabulary; the experimental detail can be skimmed.</td></tr><tr><td>Doran Ch 9 §9.1–9.5</td><td>Read closely</td><td>Molecular diffusion, film theory, convective mass transfer and oxygen uptake in cell cultures. The engineering treatment, and better than anything else in your stack.</td></tr><tr><td>Doran Ch 9 §9.6–9.10</td><td>Read closely</td><td>Measuring kLa, with the error in each method. Short, and it is what makes a quoted kLa interpretable rather than decorative.</td></tr><tr><td>Stanbury Ch 9 — Aeration and Agitation, named section &quot;oxygen requirements of industrial fermentations&quot;</td><td>Skim</td><td>The industrial side of oxygen demand; Stanbury numbers no sections, so cite them by name. Skim now; read fully in week 49 when you size the vessel.</td></tr></tbody></table>
+<h3>Common misconceptions</h3>
+<ul>
+<li>That P/O is a constant. In E. coli it varies four-fold, from about 2.4 to 0.6, with which dehydrogenase and which oxidase are expressed, and those shift with dissolved oxygen.</li>
+<li>That you look up qO₂. It follows from the electron balance given your yields, and computing it that way guarantees internal consistency — looking it up guarantees the opposite.</li>
+<li>That oxygen limitation is only about supply. The critical dissolved oxygen concentration is strain-specific and often very low, so a culture at 2% saturation may be perfectly unlimited while one at 10% with poor mixing is not.</li>
+</ul>
+<h3>Check yourself before moving on</h3>
+<p><strong>Q.</strong> Why does E. coli switch terminal oxidase at low oxygen, and what does that do to ATP yield?</p>
+<p><strong>A.</strong> Cytochrome bo₃ has lower oxygen affinity and separates 4 charge equivalents per 2 e⁻; cytochrome bd has much higher affinity and separates 2. At low dissolved oxygen the cell switches to bd in order to keep respiring at all, accepting half the charge separation per electron pair and therefore a lower effective P/O and lower ATP yield per glucose. This is one reason microaerobic operation shifts the product spectrum, and one reason a fixed-P/O model mispredicts at low oxygen.</p>
+<p><strong>Q.</strong> A strain at 35 gDW/L has qO₂ = 5 mmol gDW⁻¹ h⁻¹. What kLa is needed at C* = 0.21 mM and a 0.04 mM setpoint, and is it feasible at 30 m³?</p>
+<p><strong>A.</strong> OUR = 5 × 35 = 175 mmol L⁻¹ h⁻¹; kLa = 175/0.17 = 1,029 h⁻¹. A large stirred tank typically delivers 200–500 h⁻¹ before power and shear become limiting, so this is not feasible as stated. Remedies: oxygen enrichment or head pressure to raise C<em>, a lower setpoint if the critical oxygen concentration permits, or a lower specific demand by capping growth rate through the feed — and raising C</em> is usually cheapest because power scales steeply.</p>
+<p><strong>Q.</strong> How much cooling does that fermentation need per cubic metre?</p>
+<p><strong>A.</strong> About 460 kJ per mole of oxygen consumed. At 175 mmol L⁻¹ h⁻¹ = 175 mol m⁻³ h⁻¹, heat generation is 80.5 MJ m⁻³ h⁻¹ = 22 kW per cubic metre. For 30 m³ that is 670 kW of cooling duty, through a heat transfer area that scales only as volume to the two-thirds — which is why large aerobic fermenters are sometimes heat-limited before they are oxygen-limited.</p>
+<hr>
+
+<section class="study-transfer" aria-label="Week 12 application and teach-back">
+<h3>Apply it to your fermentation experience</h3>
+<p><strong>Transfer prompt.</strong> Relate aeration and oxygen transfer in your fermentation to respiratory versus fermentative metabolism. What dissolved-oxygen or off-gas measurements would support the explanation?</p>
+<p class="meta">Use your actual thesis methods and results where you remember them. Mark missing information as unknown; do not assume the organisms were co-cultured, that a metabolite was measured, or that a proposed mechanism was demonstrated.</p>
+<h3>Teach it back</h3>
+<p>Explain the week's concept from memory, work one number, and name one boundary. Then use the <a href="teach-back.html">five-minute teach-back protocol</a> and log it in the tracker.</p>
+</section>
+<nav class="weeknav" aria-label="Week navigation"><a href="week-11.html">&#8592; Week 11</a><a class="idx" href="index.html">Lecture index</a><a class="idx" href="case-study.html">Case study</a><a href="week-13.html">Week 13 &#8594;</a></nav>
+</main>
+<footer class="docfoot"><a href="../metabolic-engineering-tracker.html">&#8592; Course tracker</a><span>Metabolic engineering &middot; 55 weeks</span></footer>
+<script>
+(function(){var root=document.documentElement,key="me.theme";var bs=Array.prototype.slice.call(document.querySelectorAll(".appearance button"));
+function paint(v){bs.forEach(function(b){b.setAttribute("aria-pressed",b.getAttribute("data-appearance")===v?"true":"false");});if(v==="auto")root.removeAttribute("data-theme");else root.setAttribute("data-theme",v);}
+var saved="auto";try{saved=localStorage.getItem(key)||"auto";}catch(e){}
+bs.forEach(function(b){b.addEventListener("click",function(){var v=b.getAttribute("data-appearance");paint(v);try{localStorage.setItem(key,v);}catch(e){}});});paint(saved);})();
+</script>
+</body>
+</html>

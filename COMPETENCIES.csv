@@ -1,0 +1,17 @@
+competency_id,name,description,weeks
+C01,Cell chemistry and compartments,"Cell size, water, weak interactions, pH, compartments and transport.",1-2
+C02,"Protein structure, folding and catalysis","Folding, stability, catalytic mechanisms and cofactors.","3-4,7"
+C03,Enzyme kinetics and regulation,"Michaelis-Menten, inhibition, allostery and feedback.",5-6
+C04,Bioenergetics and redox,"ATP, proton and electron balances; respiration and fermentation.","8,12"
+C05,Central carbon metabolism,"Glycolysis, PPP, TCA, anaplerosis and redox balancing.",9-13
+C06,Biosynthesis and biomass,"Precursor supply, lipids, membranes, biomass composition.",14-16
+C07,Stoichiometry and growth physiology,"Yields, balances, reconciliation and growth kinetics.",17-18
+C08,Network reconstruction and constraint-based models,"Annotation, stoichiometric matrices, subspaces, FBA and FVA.",19-24
+C09,Strain design and essentiality,"Deletion screens, essentiality, growth coupling and design.",25-26
+C10,Metabolomics and 13C flux,"Sampling, pools, atom mapping, MDVs, flux estimation and tracer design.",27-29
+C11,Kinetic models and control analysis,"ODE models, identifiability, control coefficients and proteome budgets.",30-31
+C12,Molecular toolbox and genome editing,"PCR, assembly, vectors, expression tuning, CRISPR, circuits and protein engineering.",32-38
+C13,Hosts and product classes,"E. coli, yeasts, Gram-positive hosts, anaerobes and product families.",40-46
+C14,"Process, downstream and economics","Media, sterilisation, reactors, aeration, control, DSP, TEA and LCA.",47-52
+C15,"Experimental design, statistics and ML","Replication, randomisation, power, DOE, inference and small-data ML.","30,33,38-39"
+C16,"Communication, portfolio and proposal","Writing, presenting, portfolio evidence and supervisor contact.",53-55

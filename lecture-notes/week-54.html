@@ -1,0 +1,1238 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="utf-8"><title>Week 54 — Capstone II: the process and the economics — Metabolic engineering</title>
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+
+
+<style>:root{color-scheme:light;--paper:#FAF6EF;--ink:#211A12;--ink-2:#4A3C2C;--ink-3:#8A7458;
+--line:#DFD2BE;--line-2:#EDE4D5;--broth:#9A6B1F;--broth-soft:#F6ECD9;
+--serif:"Newsreader",Georgia,serif;--sans:"Public Sans",system-ui,sans-serif}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--paper:#15120D;--ink:#F1E9DC;--ink-2:#CBBCA6;
+--ink-3:#948872;--line:#352C22;--line-2:#2A231B;--broth:#D7A95C;--broth-soft:#241D14}}
+*{box-sizing:border-box}
+body{margin:0;background:var(--paper);color:var(--ink);font-family:var(--sans);font-size:15.5px;line-height:1.6;
+padding:env(safe-area-inset-top,0) 0 env(safe-area-inset-bottom,0)}
+.wrap{max-width:840px;margin:0 auto;padding:40px 22px 90px}
+h1{font-family:var(--serif);font-size:clamp(28px,5vw,42px);line-height:1.1;font-weight:600;margin:0 0 6px;letter-spacing:-.02em}
+h2{font-family:var(--serif);font-size:26px;font-weight:600;margin:46px 0 10px;letter-spacing:-.01em;padding-bottom:7px;border-bottom:1px solid var(--line)}
+h3{font-family:var(--serif);font-size:20px;font-weight:600;margin:30px 0 4px;color:var(--broth)}
+h4{font-size:14px;font-weight:650;margin:18px 0 4px;color:var(--ink-3);letter-spacing:.02em;text-transform:uppercase}
+p{margin:0 0 12px;max-width:74ch}
+em{color:var(--ink-2)}
+ul{margin:0 0 14px;padding-left:1.15em;max-width:74ch}
+li{margin:.3em 0}li::marker{color:var(--ink-3)}
+hr{border:0;border-top:1px solid var(--line);margin:40px 0}
+strong{font-weight:650}
+table{border-collapse:collapse;width:100%;margin:14px 0 20px;font-size:14px}
+th{text-align:left;font-weight:600;color:var(--ink-3);font-size:12.5px;padding:7px 9px;border-bottom:1.5px solid var(--line)}
+td{padding:8px 9px;border-bottom:1px solid var(--line-2);vertical-align:top}
+tr:nth-child(even) td{background:var(--broth-soft)}
+
+figure.fig{margin:22px 0 26px;padding:0;max-width:100%}
+figure.fig svg{width:100%;height:auto;display:block;background:var(--card);
+  border:1px solid var(--line-2);border-radius:10px;padding:8px 10px}
+figure.fig figcaption{font-size:13px;color:var(--ink-3);margin-top:8px;max-width:74ch;line-height:1.5}
+figure.fig .figtitle{font-family:var(--serif);font-size:15px;color:var(--ink-2);margin-bottom:6px}
+figure.fig .fig-dark{display:none}
+@media (prefers-color-scheme: dark){
+  figure.fig .fig-light{display:none}
+  figure.fig .fig-dark{display:block}
+}
+@media print{figure.fig{break-inside:avoid;page-break-inside:avoid}
+  figure.fig .fig-dark{display:none !important}
+  figure.fig .fig-light{display:block !important}}
+
+@media print{body{background:#fff}.wrap{padding:0;max-width:none}h2,h3{page-break-after:avoid}}</style><script>try{var t=localStorage.getItem("me.theme");if(t&&t!=="auto")document.documentElement.setAttribute("data-theme",t);}catch(e){}</script>
+<meta name="color-scheme" content="light dark">
+<meta name="theme-color" content="#ffffff" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#000000" media="(prefers-color-scheme: dark)">
+<style>
+/* ============================================================
+   COURSE LIBRARY — Apple document shell
+   ============================================================ */
+:root{
+  color-scheme:light;
+  --paper:#FFFFFF;--surface:#F5F5F7;--card:#FFFFFF;--fill:#F5F5F7;
+  --ink:#1D1D1F;--ink-2:#6E6E73;--ink-3:#6E6E73;
+  --line:rgba(0,0,0,.14);--line-2:rgba(0,0,0,.08);
+  --broth:#0071E3;--broth-soft:rgba(0,113,227,.10);
+  --nav-bg:rgba(255,255,255,.84);
+  --sans:-apple-system,BlinkMacSystemFont,"SF Pro Text","SF Pro Display","Helvetica Neue",Arial,sans-serif;
+  --mono:ui-monospace,"SF Mono",Menlo,Consolas,monospace;
+  --serif:var(--sans);
+}
+@media (prefers-color-scheme:dark){
+  :root:not([data-theme="light"]){
+    color-scheme:dark;
+    --paper:#000000;--surface:#1C1C1E;--card:#2C2C2E;--fill:#2C2C2E;
+    --ink:#F5F5F7;--ink-2:#A1A1A6;--ink-3:#8E8E93;
+    --line:rgba(255,255,255,.16);--line-2:rgba(255,255,255,.09);
+    --broth:#5AA9FF;--broth-soft:rgba(10,132,255,.18);
+    --nav-bg:rgba(0,0,0,.74);
+  }
+}
+:root[data-theme="dark"]{
+  color-scheme:dark;
+  --paper:#000000;--surface:#1C1C1E;--card:#2C2C2E;--fill:#2C2C2E;
+  --ink:#F5F5F7;--ink-2:#A1A1A6;--ink-3:#8E8E93;
+  --line:rgba(255,255,255,.16);--line-2:rgba(255,255,255,.09);
+  --broth:#5AA9FF;--broth-soft:rgba(10,132,255,.18);
+  --nav-bg:rgba(0,0,0,.74);
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth;scroll-padding-top:72px;-webkit-text-size-adjust:100%}
+body{
+  margin:0;background:var(--paper);color:var(--ink);
+  font-family:var(--sans);font-size:17px;line-height:1.62;letter-spacing:-.011em;
+  padding:0;
+}
+.docbar{
+  position:sticky;top:0;z-index:80;display:flex;align-items:center;justify-content:space-between;gap:12px;
+  padding:8px max(24px,calc((100vw - 1180px)/2));
+  background:var(--nav-bg);
+  -webkit-backdrop-filter:saturate(180%) blur(20px);backdrop-filter:saturate(180%) blur(20px);
+  border-bottom:1px solid var(--line-2);
+}
+.docback{display:inline-flex;align-items:center;gap:6px;color:var(--ink-2);font-size:13px;font-weight:500;text-decoration:none;white-space:nowrap}
+.docback:hover{color:var(--broth)}
+.appearance{display:inline-flex;gap:2px;padding:2px;background:var(--fill);border-radius:980px}
+.appearance button{border:0;background:none;color:var(--ink-2);font:inherit;font-size:12px;font-weight:500;line-height:1;padding:6px 11px;border-radius:980px;cursor:pointer}
+.appearance button[aria-pressed="true"]{background:var(--card);color:var(--ink);box-shadow:0 1px 2px rgba(0,0,0,.08)}
+.wrap{max-width:900px;margin:0 auto;padding:64px 24px 96px}
+body h1{
+  font-family:var(--sans);font-size:clamp(42px,6.2vw,64px);line-height:1.04;letter-spacing:-.04em;
+  font-weight:700;margin:0 0 16px;max-width:18ch;color:var(--ink);
+}
+.doc-kicker{font-size:13px;font-weight:500;letter-spacing:0;color:var(--ink-2);margin:0 0 12px}
+body h1 + p{font-size:20px;line-height:1.55;color:var(--ink-2);max-width:68ch;margin:0 0 18px}
+body h1 + p strong{color:var(--ink);font-weight:600}
+body h2{
+  font-family:var(--sans);font-size:32px;line-height:1.15;letter-spacing:-.03em;font-weight:600;
+  color:var(--ink);margin:64px 0 14px;padding:0;border:0;
+}
+body h3{font-family:var(--sans);font-size:22px;line-height:1.25;letter-spacing:-.02em;font-weight:600;color:var(--ink);margin:36px 0 8px}
+body h4{font-size:14px;line-height:1.4;font-weight:600;letter-spacing:0;text-transform:none;color:var(--ink-2);margin:24px 0 6px}
+body p{margin:0 0 14px;max-width:72ch}
+body ul,body ol{margin:0 0 16px;padding-left:1.25em;max-width:72ch}
+body li{margin:.32em 0}
+body li::marker{color:var(--ink-3)}
+body strong{font-weight:600;color:var(--ink)}
+body em{color:var(--ink)}
+body a{color:var(--broth);text-decoration:underline;text-underline-offset:2px}
+body a:hover{text-decoration:underline}
+body hr{border:0;border-top:1px solid var(--line-2);margin:56px 0}
+body table{border-collapse:collapse;width:100%;margin:22px 0 30px;font-size:15px;line-height:1.45}
+body th{text-align:left;font-weight:600;font-size:12.5px;color:var(--ink-2);padding:10px 12px;background:var(--surface);border-bottom:1px solid var(--line)}
+body td{padding:11px 12px;border-bottom:1px solid var(--line-2);vertical-align:top}
+body tr:nth-child(even) td{background:transparent}
+body figure.fig{margin:32px 0 36px;padding:0;max-width:100%}
+body figure.fig svg{width:100%;height:auto;display:block;background:var(--surface);border:0;border-radius:20px;padding:18px}
+body figure.fig figcaption{font-size:13px;color:var(--ink-2);margin-top:10px;max-width:72ch;line-height:1.5}
+body figure.fig .figtitle{font-family:var(--sans);font-size:14px;font-weight:600;color:var(--ink);margin-bottom:6px}
+body pre{background:var(--surface);border:1px solid var(--line-2);border-radius:16px;padding:18px;overflow:auto;font-family:var(--mono);font-size:13.5px;line-height:1.55;margin:20px 0 24px}
+body code{font-family:var(--mono);font-size:.88em;background:var(--surface);border-radius:6px;padding:.12em .35em}
+body pre code{background:none;padding:0;font-size:inherit}
+body blockquote{margin:24px 0;padding:2px 0 2px 18px;border-left:3px solid var(--broth);color:var(--ink-2)}
+:root[data-theme="dark"] .fig-light{display:none!important}
+:root[data-theme="dark"] .fig-dark{display:block!important}
+:root[data-theme="light"] .fig-dark{display:none!important}
+:root[data-theme="light"] .fig-light{display:block!important}
+.docfoot{max-width:900px;margin:0 auto;padding:24px 24px 64px;border-top:1px solid var(--line-2);display:flex;justify-content:space-between;gap:12px;font-size:12.5px;color:var(--ink-3)}
+.docfoot a{color:var(--ink-2);text-decoration:none}
+.docfoot a:hover{color:var(--broth)}
+@media (max-width:700px){
+  .docbar{padding:8px 16px}
+  .wrap{padding:40px 18px 80px}
+  body h1{font-size:clamp(38px,11vw,48px)}
+  body h1 + p{font-size:18px}
+  body h2{font-size:28px;margin-top:52px}
+  body h3{font-size:20px}
+  body p,body li{font-size:16.5px}
+  body table{font-size:14px}
+  body th,body td{padding:9px 9px}
+  .docfoot{padding:20px 18px 50px;flex-direction:column;gap:6px}
+}
+@media print{
+  .docbar,.appearance,.docfoot{display:none!important}
+  body{background:#fff;color:#000;font-size:11pt}
+  .wrap{max-width:none;padding:0}
+  body h1{font-size:28pt;max-width:none}
+  body h2{font-size:16pt;page-break-after:avoid}
+  body h3{font-size:13pt;page-break-after:avoid}
+  body a{color:#000;text-decoration:none}
+  body table,body figure{break-inside:avoid}
+}
+
+
+.index-actions{margin:18px 0 36px;display:flex;flex-wrap:wrap;gap:16px;align-items:center}
+.index-actions a{font-size:14px;font-weight:500;color:var(--broth);text-decoration:none}
+.index-actions a:hover{text-decoration:underline}
+.phaseh{display:flex;align-items:baseline;justify-content:space-between;gap:14px;font-size:24px!important;margin:52px 0 2px!important;letter-spacing:-.02em}
+.phaseh span{font-size:12px;font-weight:400;color:var(--ink-3);letter-spacing:0;white-space:nowrap}
+.weeklist{border-top:1px solid var(--line-2);margin-bottom:8px}
+.weekrow{display:flex;align-items:center;gap:14px;min-height:50px;padding:10px 4px;border-bottom:1px solid var(--line-2);text-decoration:none;color:var(--ink)}
+.weekrow:hover{background:var(--surface)}
+.wnum{width:28px;flex:none;font-size:12px;font-weight:600;color:var(--broth);font-variant-numeric:tabular-nums}
+.wtitle{flex:1;font-size:16.5px;font-weight:500;line-height:1.35}
+.warrow{flex:none;color:var(--ink-3);font-size:16px}
+.weeknav{display:flex;align-items:center;justify-content:space-between;gap:14px;margin:52px 0 0;padding-top:22px;border-top:1px solid var(--line-2);font-size:14px}
+.weeknav a{color:var(--broth);text-decoration:none;font-weight:500}
+.weeknav a:hover{text-decoration:underline}
+.weeknav .idx{color:var(--ink-2);font-weight:400}
+.weeknav .empty{visibility:hidden}
+.case-h{max-width:22ch}
+.protocol{max-width:72ch}
+.protocol li{margin:.55em 0}
+.protocol h2{margin-top:38px}
+@media (max-width:700px){.phaseh{font-size:21px!important;margin-top:42px!important}.wtitle{font-size:15.5px}.weeknav{font-size:13px;gap:8px}}
+@media print{.weeknav,.index-actions{display:none!important}}
+</style>
+<style>.sr-only{position:absolute!important;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap;border:0}</style>
+</head><body>
+<header class="docbar"><a class="docback" href="index.html">&#8592; Lecture index</a><div class="appearance" role="group" aria-label="Appearance">
+<button type="button" data-appearance="auto" aria-pressed="true">Auto</button>
+<button type="button" data-appearance="light" aria-pressed="false">Light</button>
+<button type="button" data-appearance="dark" aria-pressed="false">Dark</button>
+</div></header>
+<main class="wrap">
+<p class="doc-kicker">Week 54 of 55 &middot; Process, economics and the application &middot; <strong class="tier-badge">Useful next</strong></p>
+<h1>Capstone II: the process and the economics</h1>
+<h2 class="sr-only">Week content</h2>
+<p>The half of a dossier that most applicants cannot write, and the half where the two previous weeks either reconcile or do not. Integration is a specific technical act rather than a tidying pass: every number that changed in week 53 has to be propagated through the process design of weeks 47-51 and the cost model of week 52, and the propagation is what finds the remaining inconsistencies. In the anchor it finds two — the final genotype grows at 0.21 h⁻¹ rather than the 0.25 h⁻¹ that week 50&#x27;s feed policy and week 52&#x27;s cycle time were computed at, which lengthens the batch and raises cost of goods by 4%, and the carbon balance closes to 93.9% rather than to 100%, leaving 6.1% of the input carbon in streams nobody measured. Neither is a disaster and both have to be in the document, because a mass balance that closes exactly is evidence of arithmetic rather than of measurement. The organising discipline of the week is that an integrated dossier has one set of numbers: if the process section says 50 g L⁻¹ and the economics section says 50 g L⁻¹ and the strain section says 50 ± 15, the first two are quoting the third&#x27;s point estimate without its range, and that is the specific failure this week exists to catch.</p>
+<h3>Core ideas</h3>
+<p><strong>1. What integration means operationally, and the one-pass rule</strong></p>
+<p>It means that no number appears twice with two values and no number appears without its uncertainty where the uncertainty is load-bearing. The mechanism is a single propagation pass in a fixed order, because the dependencies run one way: strain performance sets the titre, yield and growth rate; growth rate and the production phase set the batch cycle; cycle and titre set annual output; output sets the capital charge and the fixed-cost allocation per tonne; yield and recovery set the raw-material line; and the sum is the cost of goods. Run it once in that order with the week 53 numbers substituted, and resist the temptation to iterate — if a changed number feeds back upstream, which happens when a lower growth rate changes the oxygen demand profile and therefore the vessel, say so explicitly rather than quietly converging, because the feedback itself is a result. The practical artefact is a single spreadsheet or notebook in which the strain parameters are inputs and the cost of goods is an output, with nothing hard-coded in between. That object is also what makes the sensitivity analysis and the next session&#x27;s feedback calculation possible at all, and a dossier whose economics cannot be re-run from the strain parameters is a dossier whose economics will not be re-run when a reviewer asks.</p>
+<p><strong>2. The overall mass balance, and the streams nobody measures</strong></p>
+<figure class="fig"><div class="figtitle">Figure 54.2 — Carbon closure end to end, and where the energy actually goes</div><div class="fig-light"><svg role="img" aria-label="Left: the balance closes to 93.9%, inside the 90-97% band a real fermentation gives, with 310 kg of carbon a batch named rather than allocated. Right: the two largest duties, metabolic heat removal and the power to transfer the oxygen that causes it, are both consequences of the oxygen demand and therefore of the genotype — which is where a strain decision shows up as a utility bill." xmlns:xlink="http://www.w3.org/1999/xlink" width="1155.141984pt" height="240.456766pt" viewBox="0 0 1155.141984 240.456766" xmlns="http://www.w3.org/2000/svg" version="1.1">
+ <metadata>
+  <rdf:RDF xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:cc="http://creativecommons.org/ns#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+   <cc:Work>
+    <dc:type rdf:resource="http://purl.org/dc/dcmitype/StillImage"/>
+    <dc:date>2026-11-02T23:57:56.021964</dc:date>
+    <dc:format>image/svg+xml</dc:format>
+    <dc:creator>
+     <cc:Agent>
+      <dc:title>Matplotlib v3.10.8, https://matplotlib.org/</dc:title>
+     </cc:Agent>
+    </dc:creator>
+   </cc:Work>
+  </rdf:RDF>
+ </metadata>
+ <defs>
+  <style type="text/css">*{stroke-linejoin: round; stroke-linecap: butt}</style>
+ </defs>
+ <g id="figure_1">
+  <g id="patch_1">
+   <path d="M 0 240.456766 
+L 1155.141984 240.456766 
+L 1155.141984 -0 
+L 0 -0 
+L 0 240.456766 
+z
+" style="fill: none"/>
+  </g>
+  <g id="axes_1">
+   <g id="patch_2">
+    <path d="M 65.9664 181.994625 
+L 227.13736 181.994625 
+L 227.13736 18.446625 
+L 65.9664 18.446625 
+L 65.9664 181.994625 
+z
+" style="fill: none"/>
+   </g>
+   <g id="patch_3">
+    <path d="M 82.659107 181.994625 
+L 112.590856 181.994625 
+L 112.590856 40.317705 
+L 82.659107 40.317705 
+z
+" clip-path="url(#p4aaaa62003)" style="fill: #8a7458; opacity: 0.22; stroke: #8a7458; stroke-width: 1.1; stroke-linejoin: miter"/>
+   </g>
+   <g id="patch_4">
+    <path d="M 140.220164 181.994625 
+L 170.151914 181.994625 
+L 170.151914 150.809625 
+L 140.220164 150.809625 
+z
+" clip-path="url(#p4aaaa62003)" style="fill: #8a5f1b; opacity: 0.32; stroke: #8a5f1b; stroke-width: 1.1; stroke-linejoin: miter"/>
+   </g>
+   <g id="patch_5">
+    <path d="M 140.220164 150.809625 
+L 170.151914 150.809625 
+L 170.151914 123.754905 
+L 140.220164 123.754905 
+z
+" clip-path="url(#p4aaaa62003)" style="fill: #1f6f62; opacity: 0.32; stroke: #1f6f62; stroke-width: 1.1; stroke-linejoin: miter"/>
+   </g>
+   <g id="patch_6">
+    <path d="M 140.220164 123.754905 
+L 170.151914 123.754905 
+L 170.151914 48.910905 
+L 140.220164 48.910905 
+z
+" clip-path="url(#p4aaaa62003)" style="fill: #8a7458; opacity: 0.32; stroke: #8a7458; stroke-width: 1.1; stroke-linejoin: miter"/>
+   </g>
+   <g id="patch_7">
+    <path d="M 140.220164 48.910905 
+L 170.151914 48.910905 
+L 170.151914 40.317705 
+L 140.220164 40.317705 
+z
+" clip-path="url(#p4aaaa62003)" style="fill: #a4503a; opacity: 0.32; stroke: #a4503a; stroke-width: 1.1; stroke-linejoin: miter"/>
+   </g>
+   <g id="matplotlib.axis_1">
+    <g id="xtick_1">
+     <g id="line2d_1">
+      <defs>
+       <path id="m684e08be27" d="M 0 0 
+L 0 3.5 
+" style="stroke: #8a7458; stroke-width: 0.9"/>
+      </defs>
+      <g>
+       <use xlink:href="#m684e08be27" x="97.624981" y="181.994625" style="fill: #8a7458; stroke: #8a7458; stroke-width: 0.9"/>
+      </g>
+     </g>
+     <g id="text_1">
+      <text style="font-size: 9px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: middle; fill: #8a7458" x="97.624981" y="195.833219" transform="rotate(-0 97.624981 195.833219)">in</text>
+     </g>
+    </g>
+    <g id="xtick_2">
+     <g id="line2d_2">
+      <g>
+       <use xlink:href="#m684e08be27" x="155.186039" y="181.994625" style="fill: #8a7458; stroke: #8a7458; stroke-width: 0.9"/>
+      </g>
+     </g>
+     <g id="text_2">
+      <text style="font-size: 9px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: middle; fill: #8a7458" x="155.186039" y="195.833219" transform="rotate(-0 155.186039 195.833219)">out</text>
+     </g>
+    </g>
+   </g>
+   <g id="matplotlib.axis_2">
+    <g id="ytick_1">
+     <g id="line2d_3">
+      <path d="M 65.9664 181.994625 
+L 227.13736 181.994625 
+" clip-path="url(#p4aaaa62003)" style="fill: none; stroke: #e6dccb; stroke-opacity: 0.7; stroke-width: 0.6; stroke-linecap: square"/>
+     </g>
+     <g id="line2d_4">
+      <defs>
+       <path id="mb622d4523d" d="M 0 0 
+L -3.5 0 
+" style="stroke: #8a7458; stroke-width: 0.9"/>
+      </defs>
+      <g>
+       <use xlink:href="#mb622d4523d" x="65.9664" y="181.994625" style="fill: #8a7458; stroke: #8a7458; stroke-width: 0.9"/>
+      </g>
+     </g>
+     <g id="text_3">
+      <text style="font-size: 9.5px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: end; fill: #8a7458" x="58.9664" y="185.603883" transform="rotate(-0 58.9664 185.603883)">0</text>
+     </g>
+    </g>
+    <g id="ytick_2">
+     <g id="line2d_5">
+      <path d="M 65.9664 154.274625 
+L 227.13736 154.274625 
+" clip-path="url(#p4aaaa62003)" style="fill: none; stroke: #e6dccb; stroke-opacity: 0.7; stroke-width: 0.6; stroke-linecap: square"/>
+     </g>
+     <g id="line2d_6">
+      <g>
+       <use xlink:href="#mb622d4523d" x="65.9664" y="154.274625" style="fill: #8a7458; stroke: #8a7458; stroke-width: 0.9"/>
+      </g>
+     </g>
+     <g id="text_4">
+      <text style="font-size: 9.5px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: end; fill: #8a7458" x="58.9664" y="157.883883" transform="rotate(-0 58.9664 157.883883)">1000</text>
+     </g>
+    </g>
+    <g id="ytick_3">
+     <g id="line2d_7">
+      <path d="M 65.9664 126.554625 
+L 227.13736 126.554625 
+" clip-path="url(#p4aaaa62003)" style="fill: none; stroke: #e6dccb; stroke-opacity: 0.7; stroke-width: 0.6; stroke-linecap: square"/>
+     </g>
+     <g id="line2d_8">
+      <g>
+       <use xlink:href="#mb622d4523d" x="65.9664" y="126.554625" style="fill: #8a7458; stroke: #8a7458; stroke-width: 0.9"/>
+      </g>
+     </g>
+     <g id="text_5">
+      <text style="font-size: 9.5px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: end; fill: #8a7458" x="58.9664" y="130.163883" transform="rotate(-0 58.9664 130.163883)">2000</text>
+     </g>
+    </g>
+    <g id="ytick_4">
+     <g id="line2d_9">
+      <path d="M 65.9664 98.834625 
+L 227.13736 98.834625 
+" clip-path="url(#p4aaaa62003)" style="fill: none; stroke: #e6dccb; stroke-opacity: 0.7; stroke-width: 0.6; stroke-linecap: square"/>
+     </g>
+     <g id="line2d_10">
+      <g>
+       <use xlink:href="#mb622d4523d" x="65.9664" y="98.834625" style="fill: #8a7458; stroke: #8a7458; stroke-width: 0.9"/>
+      </g>
+     </g>
+     <g id="text_6">
+      <text style="font-size: 9.5px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: end; fill: #8a7458" x="58.9664" y="102.443883" transform="rotate(-0 58.9664 102.443883)">3000</text>
+     </g>
+    </g>
+    <g id="ytick_5">
+     <g id="line2d_11">
+      <path d="M 65.9664 71.114625 
+L 227.13736 71.114625 
+" clip-path="url(#p4aaaa62003)" style="fill: none; stroke: #e6dccb; stroke-opacity: 0.7; stroke-width: 0.6; stroke-linecap: square"/>
+     </g>
+     <g id="line2d_12">
+      <g>
+       <use xlink:href="#mb622d4523d" x="65.9664" y="71.114625" style="fill: #8a7458; stroke: #8a7458; stroke-width: 0.9"/>
+      </g>
+     </g>
+     <g id="text_7">
+      <text style="font-size: 9.5px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: end; fill: #8a7458" x="58.9664" y="74.723883" transform="rotate(-0 58.9664 74.723883)">4000</text>
+     </g>
+    </g>
+    <g id="ytick_6">
+     <g id="line2d_13">
+      <path d="M 65.9664 43.394625 
+L 227.13736 43.394625 
+" clip-path="url(#p4aaaa62003)" style="fill: none; stroke: #e6dccb; stroke-opacity: 0.7; stroke-width: 0.6; stroke-linecap: square"/>
+     </g>
+     <g id="line2d_14">
+      <g>
+       <use xlink:href="#mb622d4523d" x="65.9664" y="43.394625" style="fill: #8a7458; stroke: #8a7458; stroke-width: 0.9"/>
+      </g>
+     </g>
+     <g id="text_8">
+      <text style="font-size: 9.5px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: end; fill: #8a7458" x="58.9664" y="47.003883" transform="rotate(-0 58.9664 47.003883)">5000</text>
+     </g>
+    </g>
+    <g id="text_9">
+     <text style="font-size: 9.5px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: middle; fill: #4a3c2c" x="28.813197" y="100.220625" transform="rotate(-90 28.813197 100.220625)">carbon  (kg per batch)</text>
+    </g>
+   </g>
+   <g id="patch_8">
+    <path d="M 65.9664 181.994625 
+L 65.9664 18.446625 
+" style="fill: none; stroke: #dfd2be; stroke-width: 0.9; stroke-linejoin: miter; stroke-linecap: square"/>
+   </g>
+   <g id="patch_9">
+    <path d="M 65.9664 181.994625 
+L 227.13736 181.994625 
+" style="fill: none; stroke: #dfd2be; stroke-width: 0.9; stroke-linejoin: miter; stroke-linecap: square"/>
+   </g>
+   <g id="text_10">
+    <text style="font-size: 8.2px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; fill: #4a3c2c" transform="translate(81.863044 28.502099)">glucose</text>
+    <text style="font-size: 8.2px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; fill: #4a3c2c" transform="translate(75.441419 37.684305)">5,111 kg C</text>
+   </g>
+   <g id="text_11">
+    <text style="font-size: 7.8px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; fill: #4a3c2c" transform="translate(140.187492 164.187291)">product</text>
+    <text style="font-size: 7.8px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; fill: #4a3c2c" transform="translate(142.796836 172.921584)">22.0%</text>
+   </g>
+   <g id="text_12">
+    <text style="font-size: 7.8px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; fill: #4a3c2c" transform="translate(138.988242 135.067431)">biomass</text>
+    <text style="font-size: 7.8px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; fill: #4a3c2c" transform="translate(142.796836 143.801724)">19.1%</text>
+   </g>
+   <g id="text_13">
+    <text style="font-size: 7.8px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; fill: #4a3c2c" transform="translate(125.867179 84.118071)">CO₂, measured</text>
+    <text style="font-size: 7.8px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; fill: #4a3c2c" transform="translate(142.796836 92.852364)">52.8%</text>
+   </g>
+   <g id="patch_10">
+    <path d="M 172.454356 42.318174 
+Q 172.454356 42.551434 172.454356 41.666659 
+" style="fill: none; stroke: #a4503a; stroke-linecap: round"/>
+    <path d="M 174.254356 38.066659 
+L 172.454356 41.666659 
+L 170.654356 38.066659 
+z
+" style="fill: #a4503a; stroke: #a4503a; stroke-linecap: round"/>
+   </g>
+   <g id="text_14">
+    <text style="font-size: 7.8px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; fill: #a4503a" transform="translate(175.908019 52.925006)">unaccounted</text>
+    <text style="font-size: 7.8px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; fill: #a4503a" transform="translate(175.908019 61.6593)">310 kg C, 6.1%</text>
+   </g>
+   <g id="text_15">
+    <text style="font-size: 8.8px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: start; fill: #8a7458" x="65.9664" y="12.446625" transform="rotate(-0 65.9664 12.446625)">closes to 93.9%</text>
+   </g>
+  </g>
+  <g id="axes_2">
+   <g id="patch_11">
+    <path d="M 301.598344 181.994625 
+L 478.8864 181.994625 
+L 478.8864 18.446625 
+L 301.598344 18.446625 
+L 301.598344 181.994625 
+z
+" style="fill: none"/>
+   </g>
+   <g id="patch_12">
+    <path d="M 309.656892 181.994625 
+L 334.627041 181.994625 
+L 334.627041 48.938625 
+L 309.656892 48.938625 
+z
+" clip-path="url(#pee7937d017)" style="fill: #a4503a; opacity: 0.32; stroke: #a4503a; stroke-width: 1.1; stroke-linejoin: miter"/>
+   </g>
+   <g id="patch_13">
+    <path d="M 355.057162 181.994625 
+L 380.027311 181.994625 
+L 380.027311 125.168625 
+L 355.057162 125.168625 
+z
+" clip-path="url(#pee7937d017)" style="fill: #8a5f1b; opacity: 0.32; stroke: #8a5f1b; stroke-width: 1.1; stroke-linejoin: miter"/>
+   </g>
+   <g id="patch_14">
+    <path d="M 400.457433 181.994625 
+L 425.427582 181.994625 
+L 425.427582 164.669625 
+L 400.457433 164.669625 
+z
+" clip-path="url(#pee7937d017)" style="fill: #8a5f1b; opacity: 0.32; stroke: #8a5f1b; stroke-width: 1.1; stroke-linejoin: miter"/>
+   </g>
+   <g id="patch_15">
+    <path d="M 445.857703 181.994625 
+L 470.827852 181.994625 
+L 470.827852 156.769425 
+L 445.857703 156.769425 
+z
+" clip-path="url(#pee7937d017)" style="fill: #1f6f62; opacity: 0.32; stroke: #1f6f62; stroke-width: 1.1; stroke-linejoin: miter"/>
+   </g>
+   <g id="matplotlib.axis_3">
+    <g id="xtick_3">
+     <g id="line2d_15">
+      <g>
+       <use xlink:href="#m684e08be27" x="322.141966" y="181.994625" style="fill: #8a7458; stroke: #8a7458; stroke-width: 0.9"/>
+      </g>
+     </g>
+     <g id="text_16">
+      <text style="font-size: 7.2px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; fill: #8a7458" transform="translate(304.334904 194.4655)">metabolic</text>
+      <text style="font-size: 7.2px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; fill: #8a7458" transform="translate(314.027904 202.527925)">heat</text>
+     </g>
+    </g>
+    <g id="xtick_4">
+     <g id="line2d_16">
+      <g>
+       <use xlink:href="#m684e08be27" x="367.542237" y="181.994625" style="fill: #8a7458; stroke: #8a7458; stroke-width: 0.9"/>
+      </g>
+     </g>
+     <g id="text_17">
+      <text style="font-size: 7.2px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: middle; fill: #8a7458" x="367.542237" y="194.4655" transform="rotate(-0 367.542237 194.4655)">evaporation</text>
+     </g>
+    </g>
+    <g id="xtick_5">
+     <g id="line2d_17">
+      <g>
+       <use xlink:href="#m684e08be27" x="412.942507" y="181.994625" style="fill: #8a7458; stroke: #8a7458; stroke-width: 0.9"/>
+      </g>
+     </g>
+     <g id="text_18">
+      <text style="font-size: 7.2px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; fill: #8a7458" transform="translate(398.14707 194.4655)">medium</text>
+      <text style="font-size: 7.2px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; fill: #8a7458" transform="translate(391.983195 202.527925)">sterilisation</text>
+     </g>
+    </g>
+    <g id="xtick_6">
+     <g id="line2d_18">
+      <g>
+       <use xlink:href="#m684e08be27" x="458.342778" y="181.994625" style="fill: #8a7458; stroke: #8a7458; stroke-width: 0.9"/>
+      </g>
+     </g>
+     <g id="text_19">
+      <text style="font-size: 7.2px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; fill: #8a7458" transform="translate(438.177153 194.4655)">agitation +</text>
+      <text style="font-size: 7.2px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; fill: #8a7458" transform="translate(435.51934 202.527925)">compression</text>
+     </g>
+    </g>
+   </g>
+   <g id="matplotlib.axis_4">
+    <g id="ytick_7">
+     <g id="line2d_19">
+      <path d="M 301.598344 181.994625 
+L 478.8864 181.994625 
+" clip-path="url(#pee7937d017)" style="fill: none; stroke: #e6dccb; stroke-opacity: 0.7; stroke-width: 0.6; stroke-linecap: square"/>
+     </g>
+     <g id="line2d_20">
+      <g>
+       <use xlink:href="#mb622d4523d" x="301.598344" y="181.994625" style="fill: #8a7458; stroke: #8a7458; stroke-width: 0.9"/>
+      </g>
+     </g>
+     <g id="text_20">
+      <text style="font-size: 9.5px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: end; fill: #8a7458" x="294.598344" y="185.603883" transform="rotate(-0 294.598344 185.603883)">0</text>
+     </g>
+    </g>
+    <g id="ytick_8">
+     <g id="line2d_21">
+      <path d="M 301.598344 154.274625 
+L 478.8864 154.274625 
+" clip-path="url(#pee7937d017)" style="fill: none; stroke: #e6dccb; stroke-opacity: 0.7; stroke-width: 0.6; stroke-linecap: square"/>
+     </g>
+     <g id="line2d_22">
+      <g>
+       <use xlink:href="#mb622d4523d" x="301.598344" y="154.274625" style="fill: #8a7458; stroke: #8a7458; stroke-width: 0.9"/>
+      </g>
+     </g>
+     <g id="text_21">
+      <text style="font-size: 9.5px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: end; fill: #8a7458" x="294.598344" y="157.883883" transform="rotate(-0 294.598344 157.883883)">20</text>
+     </g>
+    </g>
+    <g id="ytick_9">
+     <g id="line2d_23">
+      <path d="M 301.598344 126.554625 
+L 478.8864 126.554625 
+" clip-path="url(#pee7937d017)" style="fill: none; stroke: #e6dccb; stroke-opacity: 0.7; stroke-width: 0.6; stroke-linecap: square"/>
+     </g>
+     <g id="line2d_24">
+      <g>
+       <use xlink:href="#mb622d4523d" x="301.598344" y="126.554625" style="fill: #8a7458; stroke: #8a7458; stroke-width: 0.9"/>
+      </g>
+     </g>
+     <g id="text_22">
+      <text style="font-size: 9.5px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: end; fill: #8a7458" x="294.598344" y="130.163883" transform="rotate(-0 294.598344 130.163883)">40</text>
+     </g>
+    </g>
+    <g id="ytick_10">
+     <g id="line2d_25">
+      <path d="M 301.598344 98.834625 
+L 478.8864 98.834625 
+" clip-path="url(#pee7937d017)" style="fill: none; stroke: #e6dccb; stroke-opacity: 0.7; stroke-width: 0.6; stroke-linecap: square"/>
+     </g>
+     <g id="line2d_26">
+      <g>
+       <use xlink:href="#mb622d4523d" x="301.598344" y="98.834625" style="fill: #8a7458; stroke: #8a7458; stroke-width: 0.9"/>
+      </g>
+     </g>
+     <g id="text_23">
+      <text style="font-size: 9.5px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: end; fill: #8a7458" x="294.598344" y="102.443883" transform="rotate(-0 294.598344 102.443883)">60</text>
+     </g>
+    </g>
+    <g id="ytick_11">
+     <g id="line2d_27">
+      <path d="M 301.598344 71.114625 
+L 478.8864 71.114625 
+" clip-path="url(#pee7937d017)" style="fill: none; stroke: #e6dccb; stroke-opacity: 0.7; stroke-width: 0.6; stroke-linecap: square"/>
+     </g>
+     <g id="line2d_28">
+      <g>
+       <use xlink:href="#mb622d4523d" x="301.598344" y="71.114625" style="fill: #8a7458; stroke: #8a7458; stroke-width: 0.9"/>
+      </g>
+     </g>
+     <g id="text_24">
+      <text style="font-size: 9.5px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: end; fill: #8a7458" x="294.598344" y="74.723883" transform="rotate(-0 294.598344 74.723883)">80</text>
+     </g>
+    </g>
+    <g id="ytick_12">
+     <g id="line2d_29">
+      <path d="M 301.598344 43.394625 
+L 478.8864 43.394625 
+" clip-path="url(#pee7937d017)" style="fill: none; stroke: #e6dccb; stroke-opacity: 0.7; stroke-width: 0.6; stroke-linecap: square"/>
+     </g>
+     <g id="line2d_30">
+      <g>
+       <use xlink:href="#mb622d4523d" x="301.598344" y="43.394625" style="fill: #8a7458; stroke: #8a7458; stroke-width: 0.9"/>
+      </g>
+     </g>
+     <g id="text_25">
+      <text style="font-size: 9.5px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: end; fill: #8a7458" x="294.598344" y="47.003883" transform="rotate(-0 294.598344 47.003883)">100</text>
+     </g>
+    </g>
+    <g id="text_26">
+     <text style="font-size: 9.5px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: middle; fill: #4a3c2c" x="270.489516" y="100.220625" transform="rotate(-90 270.489516 100.220625)">duty  (GJ per tonne of product)</text>
+    </g>
+   </g>
+   <g id="patch_16">
+    <path d="M 301.598344 181.994625 
+L 301.598344 18.446625 
+" style="fill: none; stroke: #dfd2be; stroke-width: 0.9; stroke-linejoin: miter; stroke-linecap: square"/>
+   </g>
+   <g id="patch_17">
+    <path d="M 301.598344 181.994625 
+L 478.8864 181.994625 
+" style="fill: none; stroke: #dfd2be; stroke-width: 0.9; stroke-linejoin: miter; stroke-linecap: square"/>
+   </g>
+   <g id="text_27">
+    <text style="font-weight: 700; font-size: 8.4px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: middle; fill: #4a3c2c" x="322.141966" y="45.612225" transform="rotate(-0 322.141966 45.612225)">96.0</text>
+   </g>
+   <g id="text_28">
+    <text style="font-weight: 700; font-size: 8.4px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: middle; fill: #4a3c2c" x="367.542237" y="121.842225" transform="rotate(-0 367.542237 121.842225)">41.0</text>
+   </g>
+   <g id="text_29">
+    <text style="font-weight: 700; font-size: 8.4px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: middle; fill: #4a3c2c" x="412.942507" y="161.343225" transform="rotate(-0 412.942507 161.343225)">12.5</text>
+   </g>
+   <g id="text_30">
+    <text style="font-weight: 700; font-size: 8.4px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: middle; fill: #4a3c2c" x="458.342778" y="153.443025" transform="rotate(-0 458.342778 153.443025)">18.2</text>
+   </g>
+   <g id="text_31">
+    <text style="font-size: 8px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: start; fill: #a4503a" x="301.711844" y="26.762625" transform="rotate(-0 301.711844 26.762625)">■ oxygen demand</text>
+   </g>
+   <g id="text_32">
+    <text style="font-size: 8px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: start; fill: #8a5f1b" x="374.352277" y="26.762625" transform="rotate(-0 374.352277 26.762625)">■ steam</text>
+   </g>
+   <g id="text_33">
+    <text style="font-size: 8px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: start; fill: #1f6f62" x="415.212521" y="26.762625" transform="rotate(-0 415.212521 26.762625)">■ electrical</text>
+   </g>
+  </g>
+  <g id="text_34">
+   <text style="font-size: 8.3px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: start; fill: #8a7458" x="5.76" y="232.970625" transform="rotate(-0 5.76 232.970625)">Left: the CO₂ row is the only measured stream; computed by difference it would be 3,011 kg C and the balance would close by construction. Right: electrical duty shown as primary energy at 5.1 MWh per tonne; vessel losses and the downstream train's minor duties omitted.</text>
+  </g>
+ </g>
+ <defs>
+  <clipPath id="p4aaaa62003">
+   <rect x="65.9664" y="18.446625" width="161.17096" height="163.548"/>
+  </clipPath>
+  <clipPath id="pee7937d017">
+   <rect x="301.598344" y="18.446625" width="177.288056" height="163.548"/>
+  </clipPath>
+ </defs>
+</svg>
+</div><div class="fig-dark"><svg role="img" aria-label="Left: the balance closes to 93.9%, inside the 90-97% band a real fermentation gives, with 310 kg of carbon a batch named rather than allocated. Right: the two largest duties, metabolic heat removal and the power to transfer the oxygen that causes it, are both consequences of the oxygen demand and therefore of the genotype — which is where a strain decision shows up as a utility bill." xmlns:xlink="http://www.w3.org/1999/xlink" width="1155.141984pt" height="240.456766pt" viewBox="0 0 1155.141984 240.456766" xmlns="http://www.w3.org/2000/svg" version="1.1">
+ <metadata>
+  <rdf:RDF xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:cc="http://creativecommons.org/ns#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+   <cc:Work>
+    <dc:type rdf:resource="http://purl.org/dc/dcmitype/StillImage"/>
+    <dc:date>2026-11-02T23:57:56.125002</dc:date>
+    <dc:format>image/svg+xml</dc:format>
+    <dc:creator>
+     <cc:Agent>
+      <dc:title>Matplotlib v3.10.8, https://matplotlib.org/</dc:title>
+     </cc:Agent>
+    </dc:creator>
+   </cc:Work>
+  </rdf:RDF>
+ </metadata>
+ <defs>
+  <style type="text/css">*{stroke-linejoin: round; stroke-linecap: butt}</style>
+ </defs>
+ <g id="figure_1">
+  <g id="patch_1">
+   <path d="M 0 240.456766 
+L 1155.141984 240.456766 
+L 1155.141984 -0 
+L 0 -0 
+L 0 240.456766 
+z
+" style="fill: none"/>
+  </g>
+  <g id="axes_1">
+   <g id="patch_2">
+    <path d="M 65.9664 181.994625 
+L 227.13736 181.994625 
+L 227.13736 18.446625 
+L 65.9664 18.446625 
+L 65.9664 181.994625 
+z
+" style="fill: none"/>
+   </g>
+   <g id="patch_3">
+    <path d="M 82.659107 181.994625 
+L 112.590856 181.994625 
+L 112.590856 40.317705 
+L 82.659107 40.317705 
+z
+" clip-path="url(#p1351cb1eaf)" style="fill: #9a8872; opacity: 0.22; stroke: #9a8872; stroke-width: 1.1; stroke-linejoin: miter"/>
+   </g>
+   <g id="patch_4">
+    <path d="M 140.220164 181.994625 
+L 170.151914 181.994625 
+L 170.151914 150.809625 
+L 140.220164 150.809625 
+z
+" clip-path="url(#p1351cb1eaf)" style="fill: #d7a95c; opacity: 0.32; stroke: #d7a95c; stroke-width: 1.1; stroke-linejoin: miter"/>
+   </g>
+   <g id="patch_5">
+    <path d="M 140.220164 150.809625 
+L 170.151914 150.809625 
+L 170.151914 123.754905 
+L 140.220164 123.754905 
+z
+" clip-path="url(#p1351cb1eaf)" style="fill: #6dbdac; opacity: 0.32; stroke: #6dbdac; stroke-width: 1.1; stroke-linejoin: miter"/>
+   </g>
+   <g id="patch_6">
+    <path d="M 140.220164 123.754905 
+L 170.151914 123.754905 
+L 170.151914 48.910905 
+L 140.220164 48.910905 
+z
+" clip-path="url(#p1351cb1eaf)" style="fill: #9a8872; opacity: 0.32; stroke: #9a8872; stroke-width: 1.1; stroke-linejoin: miter"/>
+   </g>
+   <g id="patch_7">
+    <path d="M 140.220164 48.910905 
+L 170.151914 48.910905 
+L 170.151914 40.317705 
+L 140.220164 40.317705 
+z
+" clip-path="url(#p1351cb1eaf)" style="fill: #d98c72; opacity: 0.32; stroke: #d98c72; stroke-width: 1.1; stroke-linejoin: miter"/>
+   </g>
+   <g id="matplotlib.axis_1">
+    <g id="xtick_1">
+     <g id="line2d_1">
+      <defs>
+       <path id="m363141a190" d="M 0 0 
+L 0 3.5 
+" style="stroke: #9a8872; stroke-width: 0.9"/>
+      </defs>
+      <g>
+       <use xlink:href="#m363141a190" x="97.624981" y="181.994625" style="fill: #9a8872; stroke: #9a8872; stroke-width: 0.9"/>
+      </g>
+     </g>
+     <g id="text_1">
+      <text style="font-size: 9px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: middle; fill: #9a8872" x="97.624981" y="195.833219" transform="rotate(-0 97.624981 195.833219)">in</text>
+     </g>
+    </g>
+    <g id="xtick_2">
+     <g id="line2d_2">
+      <g>
+       <use xlink:href="#m363141a190" x="155.186039" y="181.994625" style="fill: #9a8872; stroke: #9a8872; stroke-width: 0.9"/>
+      </g>
+     </g>
+     <g id="text_2">
+      <text style="font-size: 9px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: middle; fill: #9a8872" x="155.186039" y="195.833219" transform="rotate(-0 155.186039 195.833219)">out</text>
+     </g>
+    </g>
+   </g>
+   <g id="matplotlib.axis_2">
+    <g id="ytick_1">
+     <g id="line2d_3">
+      <path d="M 65.9664 181.994625 
+L 227.13736 181.994625 
+" clip-path="url(#p1351cb1eaf)" style="fill: none; stroke: #2e251c; stroke-opacity: 0.7; stroke-width: 0.6; stroke-linecap: square"/>
+     </g>
+     <g id="line2d_4">
+      <defs>
+       <path id="m093196babc" d="M 0 0 
+L -3.5 0 
+" style="stroke: #9a8872; stroke-width: 0.9"/>
+      </defs>
+      <g>
+       <use xlink:href="#m093196babc" x="65.9664" y="181.994625" style="fill: #9a8872; stroke: #9a8872; stroke-width: 0.9"/>
+      </g>
+     </g>
+     <g id="text_3">
+      <text style="font-size: 9.5px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: end; fill: #9a8872" x="58.9664" y="185.603883" transform="rotate(-0 58.9664 185.603883)">0</text>
+     </g>
+    </g>
+    <g id="ytick_2">
+     <g id="line2d_5">
+      <path d="M 65.9664 154.274625 
+L 227.13736 154.274625 
+" clip-path="url(#p1351cb1eaf)" style="fill: none; stroke: #2e251c; stroke-opacity: 0.7; stroke-width: 0.6; stroke-linecap: square"/>
+     </g>
+     <g id="line2d_6">
+      <g>
+       <use xlink:href="#m093196babc" x="65.9664" y="154.274625" style="fill: #9a8872; stroke: #9a8872; stroke-width: 0.9"/>
+      </g>
+     </g>
+     <g id="text_4">
+      <text style="font-size: 9.5px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: end; fill: #9a8872" x="58.9664" y="157.883883" transform="rotate(-0 58.9664 157.883883)">1000</text>
+     </g>
+    </g>
+    <g id="ytick_3">
+     <g id="line2d_7">
+      <path d="M 65.9664 126.554625 
+L 227.13736 126.554625 
+" clip-path="url(#p1351cb1eaf)" style="fill: none; stroke: #2e251c; stroke-opacity: 0.7; stroke-width: 0.6; stroke-linecap: square"/>
+     </g>
+     <g id="line2d_8">
+      <g>
+       <use xlink:href="#m093196babc" x="65.9664" y="126.554625" style="fill: #9a8872; stroke: #9a8872; stroke-width: 0.9"/>
+      </g>
+     </g>
+     <g id="text_5">
+      <text style="font-size: 9.5px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: end; fill: #9a8872" x="58.9664" y="130.163883" transform="rotate(-0 58.9664 130.163883)">2000</text>
+     </g>
+    </g>
+    <g id="ytick_4">
+     <g id="line2d_9">
+      <path d="M 65.9664 98.834625 
+L 227.13736 98.834625 
+" clip-path="url(#p1351cb1eaf)" style="fill: none; stroke: #2e251c; stroke-opacity: 0.7; stroke-width: 0.6; stroke-linecap: square"/>
+     </g>
+     <g id="line2d_10">
+      <g>
+       <use xlink:href="#m093196babc" x="65.9664" y="98.834625" style="fill: #9a8872; stroke: #9a8872; stroke-width: 0.9"/>
+      </g>
+     </g>
+     <g id="text_6">
+      <text style="font-size: 9.5px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: end; fill: #9a8872" x="58.9664" y="102.443883" transform="rotate(-0 58.9664 102.443883)">3000</text>
+     </g>
+    </g>
+    <g id="ytick_5">
+     <g id="line2d_11">
+      <path d="M 65.9664 71.114625 
+L 227.13736 71.114625 
+" clip-path="url(#p1351cb1eaf)" style="fill: none; stroke: #2e251c; stroke-opacity: 0.7; stroke-width: 0.6; stroke-linecap: square"/>
+     </g>
+     <g id="line2d_12">
+      <g>
+       <use xlink:href="#m093196babc" x="65.9664" y="71.114625" style="fill: #9a8872; stroke: #9a8872; stroke-width: 0.9"/>
+      </g>
+     </g>
+     <g id="text_7">
+      <text style="font-size: 9.5px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: end; fill: #9a8872" x="58.9664" y="74.723883" transform="rotate(-0 58.9664 74.723883)">4000</text>
+     </g>
+    </g>
+    <g id="ytick_6">
+     <g id="line2d_13">
+      <path d="M 65.9664 43.394625 
+L 227.13736 43.394625 
+" clip-path="url(#p1351cb1eaf)" style="fill: none; stroke: #2e251c; stroke-opacity: 0.7; stroke-width: 0.6; stroke-linecap: square"/>
+     </g>
+     <g id="line2d_14">
+      <g>
+       <use xlink:href="#m093196babc" x="65.9664" y="43.394625" style="fill: #9a8872; stroke: #9a8872; stroke-width: 0.9"/>
+      </g>
+     </g>
+     <g id="text_8">
+      <text style="font-size: 9.5px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: end; fill: #9a8872" x="58.9664" y="47.003883" transform="rotate(-0 58.9664 47.003883)">5000</text>
+     </g>
+    </g>
+    <g id="text_9">
+     <text style="font-size: 9.5px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: middle; fill: #cbbca6" x="28.813197" y="100.220625" transform="rotate(-90 28.813197 100.220625)">carbon  (kg per batch)</text>
+    </g>
+   </g>
+   <g id="patch_8">
+    <path d="M 65.9664 181.994625 
+L 65.9664 18.446625 
+" style="fill: none; stroke: #3a3026; stroke-width: 0.9; stroke-linejoin: miter; stroke-linecap: square"/>
+   </g>
+   <g id="patch_9">
+    <path d="M 65.9664 181.994625 
+L 227.13736 181.994625 
+" style="fill: none; stroke: #3a3026; stroke-width: 0.9; stroke-linejoin: miter; stroke-linecap: square"/>
+   </g>
+   <g id="text_10">
+    <text style="font-size: 8.2px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; fill: #cbbca6" transform="translate(81.863044 28.502099)">glucose</text>
+    <text style="font-size: 8.2px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; fill: #cbbca6" transform="translate(75.441419 37.684305)">5,111 kg C</text>
+   </g>
+   <g id="text_11">
+    <text style="font-size: 7.8px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; fill: #cbbca6" transform="translate(140.187492 164.187291)">product</text>
+    <text style="font-size: 7.8px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; fill: #cbbca6" transform="translate(142.796836 172.921584)">22.0%</text>
+   </g>
+   <g id="text_12">
+    <text style="font-size: 7.8px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; fill: #cbbca6" transform="translate(138.988242 135.067431)">biomass</text>
+    <text style="font-size: 7.8px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; fill: #cbbca6" transform="translate(142.796836 143.801724)">19.1%</text>
+   </g>
+   <g id="text_13">
+    <text style="font-size: 7.8px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; fill: #cbbca6" transform="translate(125.867179 84.118071)">CO₂, measured</text>
+    <text style="font-size: 7.8px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; fill: #cbbca6" transform="translate(142.796836 92.852364)">52.8%</text>
+   </g>
+   <g id="patch_10">
+    <path d="M 172.454356 42.318174 
+Q 172.454356 42.551434 172.454356 41.666659 
+" style="fill: none; stroke: #d98c72; stroke-linecap: round"/>
+    <path d="M 174.254356 38.066659 
+L 172.454356 41.666659 
+L 170.654356 38.066659 
+z
+" style="fill: #d98c72; stroke: #d98c72; stroke-linecap: round"/>
+   </g>
+   <g id="text_14">
+    <text style="font-size: 7.8px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; fill: #d98c72" transform="translate(175.908019 52.925006)">unaccounted</text>
+    <text style="font-size: 7.8px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; fill: #d98c72" transform="translate(175.908019 61.6593)">310 kg C, 6.1%</text>
+   </g>
+   <g id="text_15">
+    <text style="font-size: 8.8px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: start; fill: #9a8872" x="65.9664" y="12.446625" transform="rotate(-0 65.9664 12.446625)">closes to 93.9%</text>
+   </g>
+  </g>
+  <g id="axes_2">
+   <g id="patch_11">
+    <path d="M 301.598344 181.994625 
+L 478.8864 181.994625 
+L 478.8864 18.446625 
+L 301.598344 18.446625 
+L 301.598344 181.994625 
+z
+" style="fill: none"/>
+   </g>
+   <g id="patch_12">
+    <path d="M 309.656892 181.994625 
+L 334.627041 181.994625 
+L 334.627041 48.938625 
+L 309.656892 48.938625 
+z
+" clip-path="url(#p6768de55d8)" style="fill: #d98c72; opacity: 0.32; stroke: #d98c72; stroke-width: 1.1; stroke-linejoin: miter"/>
+   </g>
+   <g id="patch_13">
+    <path d="M 355.057162 181.994625 
+L 380.027311 181.994625 
+L 380.027311 125.168625 
+L 355.057162 125.168625 
+z
+" clip-path="url(#p6768de55d8)" style="fill: #d7a95c; opacity: 0.32; stroke: #d7a95c; stroke-width: 1.1; stroke-linejoin: miter"/>
+   </g>
+   <g id="patch_14">
+    <path d="M 400.457433 181.994625 
+L 425.427582 181.994625 
+L 425.427582 164.669625 
+L 400.457433 164.669625 
+z
+" clip-path="url(#p6768de55d8)" style="fill: #d7a95c; opacity: 0.32; stroke: #d7a95c; stroke-width: 1.1; stroke-linejoin: miter"/>
+   </g>
+   <g id="patch_15">
+    <path d="M 445.857703 181.994625 
+L 470.827852 181.994625 
+L 470.827852 156.769425 
+L 445.857703 156.769425 
+z
+" clip-path="url(#p6768de55d8)" style="fill: #6dbdac; opacity: 0.32; stroke: #6dbdac; stroke-width: 1.1; stroke-linejoin: miter"/>
+   </g>
+   <g id="matplotlib.axis_3">
+    <g id="xtick_3">
+     <g id="line2d_15">
+      <g>
+       <use xlink:href="#m363141a190" x="322.141966" y="181.994625" style="fill: #9a8872; stroke: #9a8872; stroke-width: 0.9"/>
+      </g>
+     </g>
+     <g id="text_16">
+      <text style="font-size: 7.2px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; fill: #9a8872" transform="translate(304.334904 194.4655)">metabolic</text>
+      <text style="font-size: 7.2px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; fill: #9a8872" transform="translate(314.027904 202.527925)">heat</text>
+     </g>
+    </g>
+    <g id="xtick_4">
+     <g id="line2d_16">
+      <g>
+       <use xlink:href="#m363141a190" x="367.542237" y="181.994625" style="fill: #9a8872; stroke: #9a8872; stroke-width: 0.9"/>
+      </g>
+     </g>
+     <g id="text_17">
+      <text style="font-size: 7.2px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: middle; fill: #9a8872" x="367.542237" y="194.4655" transform="rotate(-0 367.542237 194.4655)">evaporation</text>
+     </g>
+    </g>
+    <g id="xtick_5">
+     <g id="line2d_17">
+      <g>
+       <use xlink:href="#m363141a190" x="412.942507" y="181.994625" style="fill: #9a8872; stroke: #9a8872; stroke-width: 0.9"/>
+      </g>
+     </g>
+     <g id="text_18">
+      <text style="font-size: 7.2px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; fill: #9a8872" transform="translate(398.14707 194.4655)">medium</text>
+      <text style="font-size: 7.2px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; fill: #9a8872" transform="translate(391.983195 202.527925)">sterilisation</text>
+     </g>
+    </g>
+    <g id="xtick_6">
+     <g id="line2d_18">
+      <g>
+       <use xlink:href="#m363141a190" x="458.342778" y="181.994625" style="fill: #9a8872; stroke: #9a8872; stroke-width: 0.9"/>
+      </g>
+     </g>
+     <g id="text_19">
+      <text style="font-size: 7.2px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; fill: #9a8872" transform="translate(438.177153 194.4655)">agitation +</text>
+      <text style="font-size: 7.2px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; fill: #9a8872" transform="translate(435.51934 202.527925)">compression</text>
+     </g>
+    </g>
+   </g>
+   <g id="matplotlib.axis_4">
+    <g id="ytick_7">
+     <g id="line2d_19">
+      <path d="M 301.598344 181.994625 
+L 478.8864 181.994625 
+" clip-path="url(#p6768de55d8)" style="fill: none; stroke: #2e251c; stroke-opacity: 0.7; stroke-width: 0.6; stroke-linecap: square"/>
+     </g>
+     <g id="line2d_20">
+      <g>
+       <use xlink:href="#m093196babc" x="301.598344" y="181.994625" style="fill: #9a8872; stroke: #9a8872; stroke-width: 0.9"/>
+      </g>
+     </g>
+     <g id="text_20">
+      <text style="font-size: 9.5px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: end; fill: #9a8872" x="294.598344" y="185.603883" transform="rotate(-0 294.598344 185.603883)">0</text>
+     </g>
+    </g>
+    <g id="ytick_8">
+     <g id="line2d_21">
+      <path d="M 301.598344 154.274625 
+L 478.8864 154.274625 
+" clip-path="url(#p6768de55d8)" style="fill: none; stroke: #2e251c; stroke-opacity: 0.7; stroke-width: 0.6; stroke-linecap: square"/>
+     </g>
+     <g id="line2d_22">
+      <g>
+       <use xlink:href="#m093196babc" x="301.598344" y="154.274625" style="fill: #9a8872; stroke: #9a8872; stroke-width: 0.9"/>
+      </g>
+     </g>
+     <g id="text_21">
+      <text style="font-size: 9.5px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: end; fill: #9a8872" x="294.598344" y="157.883883" transform="rotate(-0 294.598344 157.883883)">20</text>
+     </g>
+    </g>
+    <g id="ytick_9">
+     <g id="line2d_23">
+      <path d="M 301.598344 126.554625 
+L 478.8864 126.554625 
+" clip-path="url(#p6768de55d8)" style="fill: none; stroke: #2e251c; stroke-opacity: 0.7; stroke-width: 0.6; stroke-linecap: square"/>
+     </g>
+     <g id="line2d_24">
+      <g>
+       <use xlink:href="#m093196babc" x="301.598344" y="126.554625" style="fill: #9a8872; stroke: #9a8872; stroke-width: 0.9"/>
+      </g>
+     </g>
+     <g id="text_22">
+      <text style="font-size: 9.5px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: end; fill: #9a8872" x="294.598344" y="130.163883" transform="rotate(-0 294.598344 130.163883)">40</text>
+     </g>
+    </g>
+    <g id="ytick_10">
+     <g id="line2d_25">
+      <path d="M 301.598344 98.834625 
+L 478.8864 98.834625 
+" clip-path="url(#p6768de55d8)" style="fill: none; stroke: #2e251c; stroke-opacity: 0.7; stroke-width: 0.6; stroke-linecap: square"/>
+     </g>
+     <g id="line2d_26">
+      <g>
+       <use xlink:href="#m093196babc" x="301.598344" y="98.834625" style="fill: #9a8872; stroke: #9a8872; stroke-width: 0.9"/>
+      </g>
+     </g>
+     <g id="text_23">
+      <text style="font-size: 9.5px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: end; fill: #9a8872" x="294.598344" y="102.443883" transform="rotate(-0 294.598344 102.443883)">60</text>
+     </g>
+    </g>
+    <g id="ytick_11">
+     <g id="line2d_27">
+      <path d="M 301.598344 71.114625 
+L 478.8864 71.114625 
+" clip-path="url(#p6768de55d8)" style="fill: none; stroke: #2e251c; stroke-opacity: 0.7; stroke-width: 0.6; stroke-linecap: square"/>
+     </g>
+     <g id="line2d_28">
+      <g>
+       <use xlink:href="#m093196babc" x="301.598344" y="71.114625" style="fill: #9a8872; stroke: #9a8872; stroke-width: 0.9"/>
+      </g>
+     </g>
+     <g id="text_24">
+      <text style="font-size: 9.5px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: end; fill: #9a8872" x="294.598344" y="74.723883" transform="rotate(-0 294.598344 74.723883)">80</text>
+     </g>
+    </g>
+    <g id="ytick_12">
+     <g id="line2d_29">
+      <path d="M 301.598344 43.394625 
+L 478.8864 43.394625 
+" clip-path="url(#p6768de55d8)" style="fill: none; stroke: #2e251c; stroke-opacity: 0.7; stroke-width: 0.6; stroke-linecap: square"/>
+     </g>
+     <g id="line2d_30">
+      <g>
+       <use xlink:href="#m093196babc" x="301.598344" y="43.394625" style="fill: #9a8872; stroke: #9a8872; stroke-width: 0.9"/>
+      </g>
+     </g>
+     <g id="text_25">
+      <text style="font-size: 9.5px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: end; fill: #9a8872" x="294.598344" y="47.003883" transform="rotate(-0 294.598344 47.003883)">100</text>
+     </g>
+    </g>
+    <g id="text_26">
+     <text style="font-size: 9.5px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: middle; fill: #cbbca6" x="270.489516" y="100.220625" transform="rotate(-90 270.489516 100.220625)">duty  (GJ per tonne of product)</text>
+    </g>
+   </g>
+   <g id="patch_16">
+    <path d="M 301.598344 181.994625 
+L 301.598344 18.446625 
+" style="fill: none; stroke: #3a3026; stroke-width: 0.9; stroke-linejoin: miter; stroke-linecap: square"/>
+   </g>
+   <g id="patch_17">
+    <path d="M 301.598344 181.994625 
+L 478.8864 181.994625 
+" style="fill: none; stroke: #3a3026; stroke-width: 0.9; stroke-linejoin: miter; stroke-linecap: square"/>
+   </g>
+   <g id="text_27">
+    <text style="font-weight: 700; font-size: 8.4px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: middle; fill: #cbbca6" x="322.141966" y="45.612225" transform="rotate(-0 322.141966 45.612225)">96.0</text>
+   </g>
+   <g id="text_28">
+    <text style="font-weight: 700; font-size: 8.4px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: middle; fill: #cbbca6" x="367.542237" y="121.842225" transform="rotate(-0 367.542237 121.842225)">41.0</text>
+   </g>
+   <g id="text_29">
+    <text style="font-weight: 700; font-size: 8.4px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: middle; fill: #cbbca6" x="412.942507" y="161.343225" transform="rotate(-0 412.942507 161.343225)">12.5</text>
+   </g>
+   <g id="text_30">
+    <text style="font-weight: 700; font-size: 8.4px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: middle; fill: #cbbca6" x="458.342778" y="153.443025" transform="rotate(-0 458.342778 153.443025)">18.2</text>
+   </g>
+   <g id="text_31">
+    <text style="font-size: 8px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: start; fill: #d98c72" x="301.711844" y="26.762625" transform="rotate(-0 301.711844 26.762625)">■ oxygen demand</text>
+   </g>
+   <g id="text_32">
+    <text style="font-size: 8px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: start; fill: #d7a95c" x="374.352277" y="26.762625" transform="rotate(-0 374.352277 26.762625)">■ steam</text>
+   </g>
+   <g id="text_33">
+    <text style="font-size: 8px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: start; fill: #6dbdac" x="415.212521" y="26.762625" transform="rotate(-0 415.212521 26.762625)">■ electrical</text>
+   </g>
+  </g>
+  <g id="text_34">
+   <text style="font-size: 8.3px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: start; fill: #9a8872" x="5.76" y="232.970625" transform="rotate(-0 5.76 232.970625)">Left: the CO₂ row is the only measured stream; computed by difference it would be 3,011 kg C and the balance would close by construction. Right: electrical duty shown as primary energy at 5.1 MWh per tonne; vessel losses and the downstream train's minor duties omitted.</text>
+  </g>
+ </g>
+ <defs>
+  <clipPath id="p1351cb1eaf">
+   <rect x="65.9664" y="18.446625" width="161.17096" height="163.548"/>
+  </clipPath>
+  <clipPath id="p6768de55d8">
+   <rect x="301.598344" y="18.446625" width="177.288056" height="163.548"/>
+  </clipPath>
+ </defs>
+</svg>
+</div><figcaption>Left: the balance closes to 93.9%, inside the 90-97% band a real fermentation gives, with 310 kg of carbon a batch named rather than allocated. Right: the two largest duties, metabolic heat removal and the power to transfer the oxygen that causes it, are both consequences of the oxygen demand and therefore of the genotype — which is where a strain decision shows up as a utility bill.</figcaption></figure>
+<p>Carbon in, carbon out, end to end, as a single table. In goes the substrate and anything else carbonaceous — antifoam, a complex nitrogen source, the carbon in the base used for pH control. Out goes product, biomass, carbon dioxide in the off-gas, by-products in the broth, carbon in the aqueous waste, and carbon in whatever the recovery train discards. The closure is the test, and the usual figure for a real fermentation is 90-97%, which is why a reported 100% should be treated as a red flag rather than as a success: either something was computed by difference and presented as measured, or the unmeasured streams were assumed to be zero. The anchor closes to 93.9% with the off-gas measured and 6.1% of input carbon unaccounted. Naming where the gap is, rather than closing it arithmetically, is the deliverable: evaporative loss of volatiles in the off-gas that the analyser does not see, soluble organic acids below the detection limit of the method from phase 5, carbon in the biomass that the assumed CH₁·₈O₀·₅N₀·₂ formula misrepresents for this organism on this medium, sampling losses over a long batch, and carbon in the discarded centrifuge cake. Brief 8 asks for exactly this on the candidate&#x27;s own consortium data, and the same list applies — in a mixed culture it applies with more force, because cross-feeding means some of the missing carbon has been eaten by another member.</p>
+<p><strong>3. The energy balance, and where the energy actually is</strong></p>
+<p>Four duties and the ranking surprises people. First, oxygen transfer: the metabolic heat is the dominant thermal load on an aerobic fermentation and it is a stoichiometric consequence of the oxygen demand, at Doran&#x27;s 460 kJ per gmol of O₂ consumed — week 49&#x27;s design gave 1.12 MW for this vessel, which over a 40 h production phase is 161 GJ per batch and 96 GJ per tonne of product, all of which has to be removed by cooling water. Second, the electrical duty of putting the oxygen in: agitation at about 2 kW m⁻³ is 100 kW for 50 m³, and compressing 1,500 m³ h⁻¹ of air to 2 bar absolute is about 42 kW at a reasonable efficiency, so 8.5 MWh per batch and about 5 MWh per tonne of product, which at $0.08 per kWh is $405 per tonne. Third, sterilisation: heating 50 m³ of medium from 20 to 121 °C is 21 GJ, 9.4 tonnes of steam, 12.5 GJ per tonne of product — large as a one-off and modest as a per-tonne number, which is the right way to see week 47&#x27;s result that most hand-computed cycles are over-specified. Fourth, concentration: week 51&#x27;s triple-effect evaporation is about 41 GJ per tonne of product. The lesson for a strain designer is that the two largest duties, cooling and aeration power, are both set by the oxygen demand, which is set by the yield and the biomass, which is set by the genotype — so the energy balance is the clearest place in the whole dossier where a strain decision shows up as a utility bill.</p>
+<p><strong>4. Recomputing the cost of goods, and why it barely moves</strong></p>
+<p>Substituting week 53&#x27;s numbers into week 52&#x27;s model changes the cost of goods from $61,480 to $61,290 per tonne on the yield alone, because the yield rose from the assumed 0.30 to the derated 0.326 g g⁻¹ and yield elasticity is −0.03. Substituting the lower growth rate moves it the other way and by more: µ = 0.21 h⁻¹ lengthens the growth phase from 17.5 to 20.8 h, the cycle from 77.5 to 80.8 h, and the cost of goods to $63,800, up 3.8%. That asymmetry is the week&#x27;s confirmation of week 52&#x27;s rule, from the other direction — a 9% improvement in the number the models predict well is worth one-third of one per cent, and a 16% worsening in the growth rate is worth twelve times as much, because growth rate acts through annual output and yield does not. The sensitivity table should be updated rather than re-derived, and the update is a one-line change to the base case with the same ±30% ranges, because the elasticities are properties of the cost structure and the cost structure has not changed. What has changed is the credibility of the base case, which now rests on a derating chain with named multipliers rather than on a round assumed number.</p>
+<p><strong>5. The feedback loop, which is the week&#x27;s actual intellectual content</strong></p>
+<p>The dossier&#x27;s argument is a loop and this is where it closes: the economics now demands a specific strain parameter, with arithmetic, and that demand is the handover from engineering back to biology. The method is to price each candidate improvement per tonne of product and then divide by the effort it would take, because the ranking that matters is cost saved per unit of work and not cost saved. In the anchor&#x27;s configuration, from the integrated model: raising titre from 50 to 60 g L⁻¹ saves $9,910 per tonne; lifting overall recovery from 67.3% to 75% saves $6,240; shortening the cycle from 77.5 to 70 h saves $5,690; and raising yield from 0.326 to 0.40 g g⁻¹ saves about $350. The ranking is titre, then recovery, then cycle, then yield, and the gap between the first and the last is a factor of twenty-eight. The honest version of the conclusion also names the effort: titre is the hardest of the four to move and the most likely to fail, recovery is a downstream programme rather than a strain programme, cycle time is partly free because turnaround is scheduling rather than science, and yield is the one this course taught how to move. A capstone that states that tension explicitly is making an argument; one that quietly recommends more yield work because that is what it knows how to do is not.</p>
+<p><strong>6. Scale-up and scale-down as the integration view</strong></p>
+<p>Shuler §10.2 is the right reading here and the integration question it answers is which of the design&#x27;s numbers survive a change of scale. §10.2.3 on aeration, agitation and heat transfer carries the criteria, §10.2.4 states the four scale-up criteria with Table 10.2&#x27;s ratios from 80 L to 10,000 L and the statement that physical conditions in a large fermenter can never exactly duplicate a smaller one under geometric similarity, and §10.2.5 is scale-down, which is the direction the capstone actually needs: the laboratory experiments that will test this design have to be designed so that their results mean something at 50 m³. Three practical consequences for the dossier. Any titre measured in a shake flask is not a titre at scale, because oxygen transfer, mixing time and the absence of a pH and feed control loop all differ; the scale-down experiment that means something is a controlled fed-batch at a few litres with the oxygen transfer coefficient matched, not the geometry. Mixing time grows with scale, so a feed point that is well mixed in 2 L is a local excursion at 50 m³, which week 50 already allowed for by setting the growth rate below the overflow threshold. And the sterilisation cycle does not scale with the vessel the way the del factor does, which week 47&#x27;s ln-of-volume result makes precise. Naming which laboratory results are scale-independent and which are not is the single most useful paragraph the process section can contain.</p>
+<p><strong>7. The executive first page, and what belongs on it</strong></p>
+<p>One page, five elements, and the discipline is that each is a number or a sentence that could be wrong. The problem and why it is worth solving, in three sentences with the market size and the incumbent&#x27;s price. The approach, in three sentences, naming the host, the route and the one thing that is new. The result: predicted titre, rate and yield with ranges, and cost of goods with its accuracy class. The verdict, which is the sentence most capstones omit — whether this should be built, at what scale, and at what product price — and a verdict of <em>not at this scale, and here is the scale</em> is a stronger result than an optimistic cost. And the three main uncertainties, each with the experiment that would resolve it and roughly what it costs. What does not belong on the first page: the pathway diagram, the list of genetic parts, the modelling methods, and any sentence that begins by explaining what metabolic engineering is. A reader who gets through that page knows whether to read the rest, which is the only job it has.</p>
+<p><strong>8. Traceability as a mechanical check, not a virtue</strong></p>
+<p>Two passes, both of which can be done without thinking hard, and both of which catch things. First pass: every figure and table is referenced from the text, and every reference points at the right one — a figure nobody refers to is either unnecessary or evidence that the text it supported got cut, and both are worth knowing. Second pass, the harder one: take every number in the executive summary and the conclusions and trace it to its origin, which must be a measurement, a cited section with a page or section pointer, a calculation shown in the document, or an assumption listed in the assumptions table. There is no fifth category, and anything that falls outside the four is either deleted or promoted into one of them. For a document assembled from twenty-nine artifacts the yield of this pass is usually a handful of orphan numbers that were true when they were written and have since been superseded — the week 51 capital charge placeholder of $900 per tonne is exactly that kind of number, and it survived into an anchor because nothing re-checked it. An assumptions table at the back, with every assumption numbered and referenced from the point of use, is the cheapest way to make the pass finite.</p>
+<p><strong>9. Reproducibility, and the four things that actually break</strong></p>
+<p>The instruction is a fresh clone into a fresh environment, restart and run everything, and the value is in what fails rather than in the virtue of having tried. Four failures recur and each has a specific fix. Unpinned dependencies: a notebook that worked against last year&#x27;s solver version and fails against this one, fixed by pinning every version in a lock file and recording the solver and its version explicitly, since constraint-based results can differ between solvers at the degenerate optimum. Absolute paths and machine-local data, fixed by relative paths and by a data directory that the repository describes but does not contain. Hidden state, which is the commonest and the most embarrassing: a notebook whose cells were run out of order and whose outputs cannot be regenerated top to bottom, caught only by restart-and-run-all and fixed by making each notebook a function of its inputs. And undocumented provenance: a CSV whose origin nobody recorded, which is fatal in a way the others are not, because a result resting on data of unknown origin cannot be defended at all. Each data file needs a line saying where it came from, when, by what method and with what processing already applied. The repository README then becomes the portfolio index of week 55 rather than a separate task.</p>
+<p><strong>10. Cutting every sentence that asserts rather than demonstrates</strong></p>
+<p>The last session is an editing pass with one rule, and it is worth stating why the rule is about evidence rather than about style. An assertion in a technical document is a claim the reader has to take on trust, and a reader deciding whether to supervise someone is specifically calibrating how much of what this person writes needs checking. So <em>the strain is expected to perform well</em> goes, and <em>the derating chain gives 0.326 ± 0.044 g g⁻¹, 63% of the model maximum</em> stays. <em>Downstream processing is a significant cost</em> goes, and <em>recovery is 35% of cost of goods at 50 g L⁻¹ and 66% at 10</em> stays. <em>The process is environmentally favourable</em> goes entirely, because week 52 established that a cradle-to-gate screening LCA cannot support it. The pass has a useful side effect: sentences that cannot be converted usually mark places where the work was not done, and the right response to finding three of them in the conclusions is to do the work or to move the claim into the unknowns section. Reading aloud is the mechanism because the ear catches the hedge — any sentence containing <em>should</em>, <em>is expected to</em>, <em>significant</em> or <em>promising</em> is a candidate, and the test is whether a number can be put in its place.</p>
+<h3>Worked anchor</h3>
+<p>Close the mass and energy balances over the whole process, recompute the cost of goods with week 53&#x27;s numbers, and derive the feedback to the strain.</p>
+<p>Basis. One 50 m³ batch. Titre 50 g L⁻¹ so 2,500 kg of product in the broth, biomass 40 g L⁻¹ so 2,000 kg, product yield 0.30 g g⁻¹ and Y_XS 0.45 g g⁻¹ as designed. Overall recovery 67.3%, so 1,682 kg of product leaves the plant. Carbon mass fractions: glucose 0.400, biomass 0.488 from CH₁·₈O₀·₅N₀·₂ at MW 24.6, product taken as 0.45, which is an assumption about the molecule and is flagged.</p>
+<p>Step 1 — substrate demand. Product needs 2,500/0.30 = 8,333 kg of glucose, biomass needs 2,000/0.45 = 4,444 kg, so 12,778 kg of glucose per batch. At $400 per tonne that is $5,111 of sugar per batch, $3,038 per tonne of product leaving the plant before any recovery loss — the week 52 figure of $1,980 per tonne grossed the raw material from the product term only, so this is the first number the integration pass corrects, and it corrects it upward by 53%.</p>
+<p>Step 2 — the carbon balance, as the dossier&#x27;s table:</p>
+<p>IN   glucose              12,778 kg      5,111 kg C OUT  product               2,500 kg      1,125 kg C   22.0% of input C biomass               2,000 kg        976 kg C   19.1% CO₂, measured off-gas  9,900 kg      2,700 kg C   52.8% ------- accounted                            4,801 kg C   93.9% unaccounted                            310 kg C    6.1%</p>
+<p>The carbon dioxide figure is the only one here that is a measurement rather than a stoichiometric consequence, which is the point of doing the balance at all: computed by difference it would be 3,011 kg C and the balance would close to exactly 100%, which would tell nobody anything. The 310 kg of carbon in the gap is 6.1% of input, within the 90-97% closure band a real fermentation gives, and the dossier names the candidates rather than distributing the gap: soluble organic acids below the phase 5 method&#x27;s detection limit, volatiles stripped into the off-gas that the analyser does not resolve, an assumed biomass formula that is not this organism&#x27;s on this medium, sampling over a 78 h batch, and carbon in the discarded cake. The first of those is both the largest suspect and the cheapest to settle, and it is a row in week 53&#x27;s experiment list rather than a hedge.</p>
+<p>Step 3 — the energy balance, per batch and per tonne of product leaving the plant:</p>
+<p>duty                        per batch        per tonne product metabolic heat removal      161 GJ           96 GJ   (cooling water) agitation + compression     8.5 MWh          5.1 MWh (electricity) medium sterilisation        21 GJ, 9.4 t steam  12.5 GJ evaporation, triple effect  68 GJ            41 GJ</p>
+<p>At $0.08 per kWh and $20 per tonne of steam that is $405 per tonne of electricity and about $240 of steam across sterilisation and evaporation. Two readings. The cooling duty is the largest single energy flow in the process and it is not a cost line of its own — it appears as cooling water and as the capital of the heat-transfer surface, which is why it is routinely under-weighted; week 49 sized 48 m³ h⁻¹ of cooling water for it. And both of the top two duties are consequences of the oxygen demand, so they are consequences of the genotype: a strain with a higher product yield consumes less oxygen per kilogram of product, and the saving appears here rather than in the sugar bill.</p>
+<p>Step 4 — the cost of goods, recomputed with week 53&#x27;s numbers. Yield rises from 0.30 to 0.326 g g⁻¹ and growth rate falls from 0.25 to 0.21 h⁻¹:</p>
+<p>yield 0.30 → 0.326, µ unchanged         $61,480 → $61,290 /t   −0.3% µ 0.25 → 0.21 (cycle 77.5 → 80.8 h)     $61,290 → $63,800 /t   +4.1%</p>
+<p>The second line is the integration pass earning its keep. Nothing in week 53 flagged the growth rate as a problem — 0.21 h⁻¹ was reported as 49% of wild type and read as a success — but week 50&#x27;s feed policy and week 52&#x27;s cycle time were both computed at 0.25, and propagating the real figure costs twelve times what the yield improvement gained. That is the asymmetry week 52&#x27;s elasticity rule predicts, observed rather than asserted.</p>
+<p>Step 5 — the feedback, priced per tonne of product at the integrated base case:</p>
+<p>titre     50 → 60 g L⁻¹                 saves $9,910 /t recovery  67.3% → 75%                   saves $6,240 /t cycle     80.8 → 70 h                   saves $5,690 /t yield     0.326 → 0.40 g g⁻¹            saves   $350 /t</p>
+<p>Ranked by money the order is titre, recovery, cycle, yield, spanning a factor of twenty-eight. Ranked by money per unit of effort it reorders, and the dossier should say so: the cycle-time saving is partly scheduling rather than science, since turnaround is 20 h of the 80.8 and week 47&#x27;s sterilisation result says the hold time is probably over-specified, so several of those hours are available for the cost of a calculation already done. Recovery is a downstream measurement programme, cheap to start and outside the strain work entirely. Titre is the largest prize and the hardest, and it is the one quantity in the whole dossier that no model here predicts. Yield is the one this course taught how to move and is worth less than a tenth of any of the others at this configuration. <strong>The sentence the week exists to produce: at 50 m³ the economics demands titre, and if titre cannot be moved it demands a different scale rather than a different strain.</strong></p>
+<p>Step 6 — the check that the conclusion is configuration-specific and not a law. Re-run the feedback at 50,000 m³, where week 52&#x27;s step 7 put cost of goods at $12,160 per tonne with raw material at $1,980 of it. There the capital charge is a small share, the raw-material line is the largest single one, and the same four improvements reorder: yield rises toward the top and titre falls toward the share of the remaining volume-dependent lines. So the ranking in step 5 is a property of a pilot-scale capital structure, and the dossier must state the scale alongside the ranking. A reader who takes <em>titre over yield</em> away as a general rule has been misled, and so has one who takes away the reverse.</p>
+<p>What this leaves out. The product&#x27;s carbon fraction of 0.45 is an assumption about a molecule and moves the product row of the balance in proportion. The measured off-gas figure of 2,700 kg C is presented as a measurement in a worked example where no measurement exists; on real data it is the one number in the balance with an instrument behind it and the one whose calibration should be checked first. The biomass formula is generic and is a known contributor to the gap. The energy balance omits heat losses from the vessel, pump work, the chilled-water duty at the fermentation temperature of 32 °C rather than cooling-tower water, and all of the downstream train&#x27;s smaller duties. The electricity price and the steam price are assumed. And the whole cost structure still rests on week 52&#x27;s assumed installation factor of 4.0, which at 71% of the cost of goods is the single number most worth replacing with a real one before any of this is shown to anybody.</p>
+<p><strong>Assumptions behind this calculation</strong></p>
+<ul>
+<li>one 50 m³ batch at 50 g L⁻¹ product and 40 g L⁻¹ biomass, with Y_PS 0.30 and Y_XS 0.45 g g⁻¹ as designed</li>
+<li>carbon mass fractions of 0.400 for glucose, 0.488 for biomass from the generic CH₁·₈O₀·₅N₀·₂ formula, and 0.45 for the product, the last being an assumption about the molecule</li>
+<li>an off-gas carbon dioxide figure of 2,700 kg C presented as a measurement; computed by difference it would be 3,011 kg and the balance would close to exactly 100%</li>
+<li>the 6.1% carbon gap left unaccounted rather than allocated, with candidate streams named and none quantified</li>
+<li>metabolic heat from Doran&#x27;s 460 kJ per gmol O₂, agitation at 2 kW m⁻³ and air at 0.5 vvm compressed to 2 bar at 70% efficiency</li>
+<li>the energy balance omitting vessel heat losses, pump work, the chilled-water duty at 32 °C and the downstream train&#x27;s smaller duties</li>
+<li>steam at $20 per tonne and electricity at $0.08 per kWh, as in week 52</li>
+<li>week 52&#x27;s installation factor of 4.0 and its whole capital build-up carried through unchanged, so every cost figure here inherits that assumption</li>
+</ul>
+<h3>Reading map</h3>
+<table><thead><tr><th>Source</th><th>Treatment</th><th>Why</th></tr></thead><tbody><tr><td>Your own artifacts 27 and 28 — integration, not new reading</td><td>Read closely</td><td>The curriculum&#x27;s first entry and correct. Artifact 27 is the process design package from week 47 and artifact 28 is the techno-economic model from week 52, and the week&#x27;s work is to make them consistent with artifact 29&#x27;s strain half rather than to extend either. Read them in that order and in one sitting, because the inconsistencies between them are only visible side by side — in the anchor the two found this way were the growth rate that week 50&#x27;s feed policy assumed and the raw-material gross-up that week 52&#x27;s cost model used.</td></tr><tr><td>Stanbury Ch 12, reread with your final numbers</td><td>Read closely</td><td>The curriculum&#x27;s second entry. Reread specifically <em>batch-process cycle times</em> (printed p342) and <em>recovery costs</em> (p343) now that the final numbers exist, because both are now checkable against your own: the chapter&#x27;s batch cycle equation t = (1/µₘ)ln(X_f/X₀) + t_T + t_L + t_D is the one the anchor uses, its turnaround range of 15-25 h is the one the anchor&#x27;s 20 h sits in, and its recovery split — about 1:1 for older processes and 1:8 or 1:10 for recombinant products at very low titre — is the ratio your own train can now be compared against. The chapter&#x27;s own caveat stands throughout: 1999 money, ratios travel, absolute figures do not, and week 52&#x27;s CEPCI entry is how they come forward.</td></tr><tr><td>Shuler Ch 10 §10.2 scale-up and its difficulties (printed p286), with §10.2.3 (292), §10.2.4 and Table 10.2 (297) and §10.2.5 scale-down (301)</td><td>Read closely</td><td><strong>Substituted for the curriculum&#x27;s `Shuler Ch 10, reread for the integration view`, which names no section.</strong> The replacement is from the verified Lee-style chapter table in the README — §10.1 is a one-paragraph introduction, §10.3 is instrumentation and control, §10.4 is sterilisation of process fluids and §10.5 is the summary, so §10.2 is the only part of the chapter that bears on integration. <strong>This one is applied in `c8.js` rather than only flagged, since the correct section number is already in the README&#x27;s tables.</strong> Read §10.2.4 for the four scale-up criteria, Table 10.2&#x27;s ratios from 80 L to 10,000 L and the statement that a large fermenter cannot exactly duplicate a small one under geometric similarity; read §10.2.5 on scale-down, which is the direction this dossier needs, because it governs whether the laboratory experiments in week 53&#x27;s list will mean anything at 50 m³.</td></tr><tr><td>Lee Ch 1 §1.7 The Future of Metabolic Engineering (printed p17)</td><td>Skim</td><td>Confirmed present. The curriculum assigns it as the forward-looking frame for the conclusion and that is a reasonable use, with one caution carried from week 52: the section&#x27;s ambitions are mostly about yield and pathway scope, and the integrated cost model in this week says yield is worth about a thirtieth of titre at this configuration. Use it for the conclusion&#x27;s last paragraph, and let the tension between the field&#x27;s stated direction and your own elasticity table be the content of that paragraph rather than something to smooth over.</td></tr><tr><td>Doran §5.9 metabolic heat and §8.6 — the 460 kJ per gmol O₂ and Example 8.2&#x27;s 898 kW against 150 kW</td><td>Skim</td><td>Not in the curriculum&#x27;s `r:[]` for this week and needed for the energy balance, which the week&#x27;s third session asks for and which nothing on the assigned list supports. Both sections are verified in the README&#x27;s Doran table from phase 8&#x27;s first half, and week 49 already used them; this week only needs the one constant and the worked example&#x27;s order of magnitude, so a skim to re-establish them is enough. The whole of the anchor&#x27;s dominant energy flow, 96 GJ per tonne of cooling duty, comes from that single stoichiometric coefficient.</td></tr><tr><td>Methods handbook §8 reproducibility and repository engineering</td><td>Read closely</td><td>Not in the curriculum&#x27;s `r:[]`, and the week&#x27;s eighth, ninth and tenth sessions are entirely about what it covers — clean-environment runs, pinned dependencies and data provenance. Read it before the fresh-clone pass rather than after, since the pass is cheap to run once and expensive to run repeatedly, and the handbook&#x27;s provenance format is what the data-file documentation should match. §13, on what the handbook will not give you, is the right companion for the honest paragraph.</td></tr></tbody></table>
+<h3>Common misconceptions</h3>
+<ul>
+<li>That a mass balance closing to 100% is a good result. It usually means something was computed by difference and reported as measured: the off-gas carbon dioxide is the stream most often back-calculated, and once it is, the balance closes by construction and tests nothing. A real fermentation closes to 90-97%, and the deliverable is the named list of candidate streams in the gap — undetected organic acids, stripped volatiles, an assumed biomass formula, sampling, discarded cake — not a redistributed remainder.</li>
+<li>That integration is an editing task. It is a propagation task with a direction: strain performance sets cycle time, cycle time and titre set annual output, output sets the capital charge, and the sum is the cost of goods. Running it properly in the anchor found that the final genotype&#x27;s growth rate of 0.21 h⁻¹ against the 0.25 assumed by weeks 50 and 52 costs 4.1% on cost of goods — twelve times what the yield improvement from the same week gained — which no amount of rereading either document would have found.</li>
+<li>That the feedback from economics to biology is a general ranking. It is specific to a cost structure: at 50 m³ the anchor ranks titre, recovery, cycle time and then yield across a factor of twenty-eight, and at 50,000 m³ the same model with the same strain reorders them because raw material becomes the largest line. Quote the ranking with its scale attached, and recompute it whenever the configuration moves rather than carrying it forward as a conclusion.</li>
+</ul>
+<h3>Check yourself before moving on</h3>
+<p><strong>Q.</strong> What is your cost of goods, what is the largest contributor, and what strain change reduces it most per unit of effort?</p>
+<p><strong>A.</strong> For the integrated anchor: $63,800 per tonne, or $63.8 per kilogram, after propagating week 53&#x27;s derated yield of 0.326 g g⁻¹ and its final growth rate of 0.21 h⁻¹ into week 52&#x27;s model. The largest contributor is the capital charge at about 70% of the total, with fixed costs at about a quarter behind it, so roughly 95% of the cost is in lines that scale with annual output rather than with anything biological — raw material is 3-5% and utilities under 1%. Which strain change wins depends on whether the question is per tonne or per unit of effort, and both answers belong in the dossier. Per tonne the ranking is titre 50 → 60 g L⁻¹ at $9,910, recovery 67.3% → 75% at $6,240, cycle 80.8 → 70 h at $5,690, and yield 0.326 → 0.40 g g⁻¹ at $350, a span of twenty-eight to one. Per unit of effort it reorders, and the reordering is the useful part: a few hours of the cycle are available from scheduling and from week 47&#x27;s finding that the sterilisation hold is over-specified, so cycle time is partly free; recovery is a downstream measurement programme that needs no strain work at all and whose first step — a material balance across each stage, which week 51 flagged as entirely assumed — is cheap; titre is the largest prize, the hardest to move, the most likely to fail, and the one quantity no model in this course predicts; and yield, which the course spent four phases learning to predict, is worth less than a tenth of any of the others here. The honest answer therefore has three parts: the number, the fact that it is dominated by capital at this scale, and the recommendation that the next work is a titre measurement and a downstream material balance rather than more flux modelling — plus the caveat that at commodity scale the raw-material line dominates and the ranking inverts, so the recommendation is attached to a configuration and not to a strain.</p>
+<p><strong>Q.</strong> Your carbon balance closes to 94%. A reviewer asks where the other 6% went. Answer without closing the balance arithmetically.</p>
+<p><strong>A.</strong> Name the candidate streams, rank them by how much carbon each could plausibly hold, and say how each would be measured — then say which one you would check first and why. For the anchor&#x27;s 310 kg of unaccounted carbon per batch, the candidates in order: soluble organic acids and other by-products below the detection limit of the analytical method from phase 5, which is both the largest suspect and the one an overflow-prone host makes most likely, measured by extending the HPLC or GC method&#x27;s target list and its calibration range rather than by a new instrument; volatile carbon stripped into the off-gas and not resolved by the analyser, which an aerated vessel at 1,500 m³ h⁻¹ moves a lot of gas past, measured by a cold trap or by mass spectrometry on the exhaust; the biomass carbon fraction, where the generic CH₁·₈O₀·₅N₀·₂ formula at 48.8% carbon is an assumption about a different organism on a different medium and a few per cent of error there is 30-50 kg of carbon on its own, measured by elemental analysis of the actual biomass, which is a one-off; sampling, which over a 78 h batch with hourly samples removes real volume and real carbon and is usually recorded nowhere; and carbon in the discarded centrifuge cake and the aqueous waste, which the downstream train sends out and nobody assays. Two things make this an answer rather than a list. Each candidate has a direction — some would add to the accounted total and none would subtract — so the balance should close upward as the measurements come in, and a gap that grows under better measurement means an error in the input stream instead, most likely the substrate feed total. And the one number in the balance with an instrument behind it is the off-gas carbon dioxide at 52.8% of the input, so a calibration error there of a few per cent swamps everything else on the list; the first thing to check is not the missing carbon but the measured carbon. Finally, say plainly what you have not done: the 6.1% is unaccounted, not allocated, and the dossier should carry it as a line in the table with that word rather than distributing it pro rata, because a distributed remainder is indistinguishable from a measurement and cannot be audited.</p>
+<p><strong>Q.</strong> Your repository passes a fresh-clone run. Name three things that can still be wrong with it, and what each would cost you.</p>
+<p><strong>A.</strong> A clean run proves the code executes, not that the result is reproducible in any stronger sense. First, undocumented data provenance: every notebook runs, and a CSV in the data directory has no record of where it came from, when, by what method or what processing was already applied to it. This is the one that cannot be repaired later — the code can be rerun and the figures regenerated, but a result resting on data of unknown origin cannot be defended at all, and the cost is the whole chain of conclusions downstream of that file. The fix is a provenance line per file and it takes minutes per file at the time and is impossible a year later. Second, unpinned or under-specified dependencies, including the solver: a constraint-based result at a degenerate optimum can differ between solvers and between versions of the same solver, and a flux distribution that is one of many optima will not reproduce even on the same code. A clean run today against whatever the environment resolved to proves nothing about next year, and the cost is a reviewer who runs it and gets different numbers — which is worse than a repository that does not run, because it looks like an error rather than like drift. The fix is a lock file plus an explicit record of the solver and version, and a note in any notebook whose output is one optimum among several. Third, hidden coupling between the document and the code: the numbers in the dossier were copied out of notebook outputs by hand at some point and have since diverged from what the notebooks now produce, which the fresh-clone run does not test at all because it never compares the two. That is the same failure as the week 51 capital-charge placeholder, one level up, and the cost is the specific one this week exists to prevent — a document whose executive summary and whose appendix disagree. The fix is to generate the dossier&#x27;s key figures and tables from the notebooks rather than pasting them, or failing that, a single final pass that re-reads each quoted number from the regenerated output. Worth adding as a fourth if the question allows it: a repository that runs and is unreadable, with no README saying what each artifact shows and does not show, which costs nothing technically and everything practically, since week 55&#x27;s portfolio index is the thing a supervisor actually opens.</p>
+<hr>
+
+<section class="study-transfer" aria-label="Week 54 application and teach-back">
+<h3>Apply it to your fermentation experience</h3>
+<p><strong>Transfer prompt.</strong> Connect the proposed strain to a plausible fermentation and recovery process. What titre, productivity, or yield threshold would make the process worth further study, and why?</p>
+<p class="meta">Use your actual thesis methods and results where you remember them. Mark missing information as unknown; do not assume the organisms were co-cultured, that a metabolite was measured, or that a proposed mechanism was demonstrated.</p>
+<h3>Teach it back</h3>
+<p>Explain the week's concept from memory, work one number, and name one boundary. Then use the <a href="teach-back.html">five-minute teach-back protocol</a> and log it in the tracker.</p>
+</section>
+<nav class="weeknav" aria-label="Week navigation"><a href="week-53.html">&#8592; Week 53</a><a class="idx" href="index.html">Lecture index</a><a class="idx" href="case-study.html">Case study</a><a href="week-55.html">Week 55 &#8594;</a></nav>
+</main>
+<footer class="docfoot"><a href="../metabolic-engineering-tracker.html">&#8592; Course tracker</a><span>Metabolic engineering &middot; 55 weeks</span></footer>
+<script>
+(function(){var root=document.documentElement,key="me.theme";var bs=Array.prototype.slice.call(document.querySelectorAll(".appearance button"));
+function paint(v){bs.forEach(function(b){b.setAttribute("aria-pressed",b.getAttribute("data-appearance")===v?"true":"false");});if(v==="auto")root.removeAttribute("data-theme");else root.setAttribute("data-theme",v);}
+var saved="auto";try{saved=localStorage.getItem(key)||"auto";}catch(e){}
+bs.forEach(function(b){b.addEventListener("click",function(){var v=b.getAttribute("data-appearance");paint(v);try{localStorage.setItem(key,v);}catch(e){}});});paint(saved);})();
+</script>
+</body>
+</html>

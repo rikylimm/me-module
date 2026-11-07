@@ -1,0 +1,39 @@
+name: verify
+
+on:
+  push:
+  pull_request:
+
+permissions:
+  contents: read
+
+jobs:
+  verify:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Install practice dependencies
+        run: python -m pip install -r practice/requirements.txt
+      - name: Run practice tests
+        run: python -m unittest discover -s practice/tests -v
+      - name: Run all labs
+        run: python practice/run_all.py
+      - name: Rebuild search index
+        run: python tools/build_search_index.py
+      - name: Search index is current
+        run: git diff --exit-code -- search-index.json
+      - name: Check local links
+        run: python tools/check_links.py
+      - name: Check HTML structure
+        run: python tools/check_html.py
+      - name: Static accessibility checks
+        run: python tools/check_a11y.py
+      - name: Validate manifest
+        run: python -m json.tool manifest.webmanifest > /dev/null
+      - name: Check service worker syntax
+        run: node --check sw.js
+      - name: Verify checksums
+        run: sha256sum -c SHA256SUMS.txt

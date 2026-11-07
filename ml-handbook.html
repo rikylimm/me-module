@@ -1,0 +1,291 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="utf-8"><title>Machine learning — Metabolic engineering</title>
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+
+
+<style>:root{color-scheme:light;--paper:#FAF6EF;--ink:#211A12;--ink-2:#4A3C2C;--ink-3:#8A7458;
+--line:#DFD2BE;--line-2:#EDE4D5;--broth:#9A6B1F;--broth-soft:#F6ECD9;
+--serif:"Newsreader",Georgia,serif;--sans:"Public Sans",system-ui,sans-serif}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--paper:#15120D;--ink:#F1E9DC;--ink-2:#CBBCA6;
+--ink-3:#948872;--line:#352C22;--line-2:#2A231B;--broth:#D7A95C;--broth-soft:#241D14}}
+*{box-sizing:border-box}
+body{margin:0;background:var(--paper);color:var(--ink);font-family:var(--sans);font-size:15.5px;line-height:1.6;
+padding:env(safe-area-inset-top,0) 0 env(safe-area-inset-bottom,0)}
+.wrap{max-width:840px;margin:0 auto;padding:40px 22px 90px}
+h1{font-family:var(--serif);font-size:clamp(28px,5vw,42px);line-height:1.1;font-weight:600;margin:0 0 6px;letter-spacing:-.02em}
+h2{font-family:var(--serif);font-size:26px;font-weight:600;margin:46px 0 10px;letter-spacing:-.01em;padding-bottom:7px;border-bottom:1px solid var(--line)}
+h3{font-family:var(--serif);font-size:20px;font-weight:600;margin:30px 0 4px;color:var(--broth)}
+h4{font-size:14px;font-weight:650;margin:18px 0 4px;color:var(--ink-3);letter-spacing:.02em;text-transform:uppercase}
+p{margin:0 0 12px;max-width:74ch}
+em{color:var(--ink-2)}
+ul{margin:0 0 14px;padding-left:1.15em;max-width:74ch}
+li{margin:.3em 0}li::marker{color:var(--ink-3)}
+hr{border:0;border-top:1px solid var(--line);margin:40px 0}
+strong{font-weight:650}
+table{border-collapse:collapse;width:100%;margin:14px 0 20px;font-size:14px}
+th{text-align:left;font-weight:600;color:var(--ink-3);font-size:12.5px;padding:7px 9px;border-bottom:1.5px solid var(--line)}
+td{padding:8px 9px;border-bottom:1px solid var(--line-2);vertical-align:top}
+tr:nth-child(even) td{background:var(--broth-soft)}
+
+figure.fig{margin:22px 0 26px;padding:0;max-width:100%}
+figure.fig svg{width:100%;height:auto;display:block;background:var(--card);
+  border:1px solid var(--line-2);border-radius:10px;padding:8px 10px}
+figure.fig figcaption{font-size:13px;color:var(--ink-3);margin-top:8px;max-width:74ch;line-height:1.5}
+figure.fig .figtitle{font-family:var(--serif);font-size:15px;color:var(--ink-2);margin-bottom:6px}
+figure.fig .fig-dark{display:none}
+@media (prefers-color-scheme: dark){
+  figure.fig .fig-light{display:none}
+  figure.fig .fig-dark{display:block}
+}
+@media print{figure.fig{break-inside:avoid;page-break-inside:avoid}
+  figure.fig .fig-dark{display:none !important}
+  figure.fig .fig-light{display:block !important}}
+
+@media print{body{background:#fff}.wrap{padding:0;max-width:none}h2,h3{page-break-after:avoid}}</style><script>try{var t=localStorage.getItem("me.theme");if(t&&t!=="auto")document.documentElement.setAttribute("data-theme",t);}catch(e){}</script>
+<meta name="color-scheme" content="light dark">
+<meta name="theme-color" content="#ffffff" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#000000" media="(prefers-color-scheme: dark)">
+</head><body>
+<header class="docbar">
+<a class="docback" href="metabolic-engineering-tracker.html">&#8592; Course tracker</a>
+<div class="appearance" role="group" aria-label="Appearance">
+<button type="button" data-appearance="auto" aria-pressed="true">Auto</button>
+<button type="button" data-appearance="light" aria-pressed="false">Light</button>
+<button type="button" data-appearance="dark" aria-pressed="false">Dark</button>
+</div>
+</header><main class="wrap">
+<p class="doc-kicker">Design&ndash;build&ndash;test&ndash;learn &middot; 13 sections</p>
+<h1>Machine learning</h1>
+<p><strong>A working handbook. Thirteen sections. Every method here is sized for the data a metabolic engineering project actually produces, which is tens to hundreds of measured constructs, not millions.</strong></p>
+<h2>How to read this handbook</h2>
+<p>This is the companion to the methods handbook, and it has the same relationship to machine learning that the methods handbook has to the bench: it is a set of written procedures and decision rules, not a tutorial, and none of it substitutes for having done the thing. Read it alongside Brief 16, which is the practical exercise, and week 30&#x27;s identifiability work, which is the same problem in a mechanistic coat.</p>
+<p>Three framing points before any method.</p>
+<p><strong>The field&#x27;s data sets are small and that is the single most consequential fact.</strong> The authors of ART — the Automated Recommendation Tool, Radivojević, Costello, Workman and Garcia Martin, <em>Nature Communications</em> 11:4879 (2020) — state it plainly: data sets collected in synthetic biology are typically under 100 instances, which is not enough for deep learning, so their tool does not use it. Any method you choose has to be defensible at that scale. A hundred constructs with four parts each is not a small version of a large problem; it is a different problem, where the variance of your performance estimate is often larger than the difference between the methods you are comparing.</p>
+<p><strong>The output of the Learn phase is a list of constructs to build, not a model.</strong> The question a reviewer asks is never &quot;what was your R²&quot;, it is &quot;what did you build next and was it better&quot;. Every section below ends up pointing at that, and §9 is where the conversion happens. A model that improves correlation but changes nothing about the next round has produced nothing.</p>
+<p><strong>Machine learning is where this field&#x27;s reporting is weakest, which is an opportunity.</strong> There is now a community standard for reporting it — the DOME recommendations: Walsh, Fishman, Garcia-Gasulla, Titma, Pollastri, the ELIXIR Machine Learning focus group, Harrow, Psomopoulos and Tosatto, <em>Nature Methods</em> (2021), doi:10.1038/s41592-021-01205-4 — covering <strong>D</strong>ata, <strong>O</strong>ptimization, <strong>M</strong>odel and <strong>E</strong>valuation, with a checklist written as questions. §12 maps it onto a DBTL paper. An applicant who can answer the DOME checklist about their own work is, in practice, ahead of most of the published literature in this specific field.</p>
+<hr>
+<h2>1. What machine learning can and cannot be asked, at this data scale</h2>
+<p><strong>The honest capability list.</strong> With 50–500 measured constructs from one library, in one host, one medium and one assay, a model can: interpolate within the design space it has seen, which means predicting a combination of parts it has not seen from parts it has; rank candidate combinations well enough to make the next batch better than random; estimate how much of the variance is explained by main effects against interactions; and tell you, through a learning curve, roughly how many more constructs would be needed to do better. That is a genuinely useful list and it is worth saying out loud, because the two failure modes in interviews are claiming more and dismissing it entirely.</p>
+<p><strong>The honest incapability list, which is longer.</strong> It cannot extrapolate to a part type absent from the training set — a model trained on five promoters knows nothing about a sixth. It cannot transfer across host, medium, carbon source or assay without new data, which is the same portability problem Lee §22.5 describes for environmental biocatalysts and which is empirical rather than theoretical: it sometimes transfers, and you cannot know which case you are in without measuring. It cannot discover mechanism; a model that fits does not identify which step limits, and a feature importance is not a control coefficient. It cannot beat the measurement noise floor (§3). And it cannot tell you the yield ceiling, which is a stoichiometric question answered in phase 4 and which no amount of data will move.</p>
+<p><strong>The decision rule for whether to use it at all.</strong> Ask three questions in order. Is the design space combinatorially large enough that you cannot build all of it — a four-module, five-variant library is 625 strains, so yes, and a two-module three-variant library is nine, so no, just build them. Is the measurement reproducible enough that there is signal above the replicate noise, and do you know, numerically, what that floor is. And is there a decision waiting on the answer, with a batch size attached. If any answer is no, the right method is a designed experiment, not a model, and saying so is a stronger answer than a model nobody needed.</p>
+<hr>
+<h2>2. Framing the task so the answer is usable</h2>
+<p>Three different jobs get called &quot;prediction&quot; and they need different models, different metrics and different validation.</p>
+<p><strong>Regression</strong> predicts the phenotype value: titre, specific productivity, fluorescence. Use it when the number itself feeds a downstream calculation — a cost model, a specification threshold. Metric: error in the units of the measurement, reported alongside the noise floor, never R² alone.</p>
+<p><strong>Ranking</strong> predicts the order without the values. Use it when the decision is which N of M candidates to build, which is the usual case. Metrics are rank correlation and, better, precision at N: of the N constructs the model would have picked, how many are in the true top N. This is almost always the right framing for a DBTL round and is almost never the one reported.</p>
+<p><strong>Recommendation</strong> proposes the next batch, which requires a model, an acquisition rule and a batch-diversity constraint (§9). It is the only one of the three that is a decision rather than a description.</p>
+<p><strong>Write the target down with its transformation before modelling.</strong> Titres are bounded below by zero, often log-normal, and frequently have a point mass at zero from constructs that do not function at all. Modelling log(titre + c) changes what &quot;error&quot; means and makes a multiplicative error additive, which is usually right for biology; it also makes the zero-producers a separate problem. A defensible framing is a two-part model — a classifier for functions-at-all, a regressor on the functioning subset — and reporting both, since lumping them hides the thing you most want to know, which is which designs are dead.</p>
+<hr>
+<h2>3. Data: provenance, replicates and the noise floor</h2>
+<p><strong>The noise floor is the first number to compute and the last one most people report.</strong> Take the biological replicates — not technical, not the same culture measured twice — and compute the standard deviation of the phenotype within a construct, pooled across constructs. That is the floor. No model can predict better than it, and a model whose test error approaches it has finished; one that beats it has leaked (§6).</p>
+<p><strong>Worked example.</strong> Twelve constructs measured in triplicate, pooled within-construct standard deviation 0.18 in log₁₀ units, which is a factor of 1.5 on titre. The total standard deviation across the library&#x27;s construct means is 0.52 log₁₀ units. The maximum fraction of variance any model could explain is therefore 1 − (0.18² / 0.52²) = 1 − 0.120 = <strong>0.88</strong>, so a reported R² of 0.85 is at 97% of the achievable ceiling and a reported R² of 0.95 is impossible and indicates leakage or a data-handling error. Compute this before fitting anything; it reframes every subsequent result and it takes ten minutes.</p>
+<p><strong>Provenance, per the DOME data items.</strong> For every data set record: where it came from, with a citation or an internal experiment identifier; how many instances and how many are replicated; what was measured and by what instrument; what normalisation was already applied, which for plate-based assays usually means something, and whether plate position, batch and day were recorded. <strong>Plate and batch are features until proven otherwise.</strong> If the strongest predictor in your model turns out to be plate column, you have learned something about the assay rather than about biology, and finding that out is a good outcome from an otherwise bad model.</p>
+<p><strong>Redundancy between splits is a DOME item and the one that bites hardest here</strong> — see §6. Record it explicitly: how much do training and test constructs share, in parts, in sequence, in lineage.</p>
+<hr>
+<h2>4. Representation: how a construct becomes a feature vector</h2>
+<p><strong>One-hot by part is the default and the right starting point.</strong> Four modules with five variants each gives 20 binary columns, one per part, with exactly four hot per construct. It is interpretable, it suits a linear model, and its coefficients are directly comparable with the additive baseline of §5.</p>
+<p><strong>Interactions, added deliberately rather than automatically.</strong> Pairwise interactions between 20 one-hot columns are 190 additional terms, which on 100 constructs guarantees overfitting unless strongly regularised. The defensible approach is to add interactions only between modules where a mechanism suggests one — a precursor module and the committed step that consumes it — and to report how much they improve the model over the additive form. If pairwise interaction terms are the whole story, say so, because that is a finding about pathway architecture.</p>
+<p><strong>Continuous features beat categorical ones where you have them.</strong> A promoter measured at a relative strength is one column rather than five, and it extrapolates to a sixth promoter of known strength, which a one-hot encoding cannot. Phase 6&#x27;s expression-level characterisation is what buys this, which is a reason to characterise parts on a continuous scale rather than labelling them strong, medium and weak.</p>
+<p><strong>Sequence features are a trap at this scale.</strong> k-mer or embedding representations of a ribosome binding site carry hundreds to thousands of dimensions and will fit 100 constructs perfectly and predict nothing. They become reasonable when the library is in the thousands and measured by sorting-and-sequencing rather than individually, which is the regime phase 6&#x27;s screening ladder describes at its top rung.</p>
+<p><strong>Physics-informed features are the cheapest win available.</strong> Predicted RBS strength from a thermodynamic calculator, codon adaptation index, predicted secondary structure, and — the one this course is built for — the <strong>flux-model-predicted yield of the design</strong>, which converts a stoichiometric calculation into a single highly informative column. A hybrid of this kind is the best-supported approach in the field: Zhang et al., <em>Nature Communications</em> 11 (2020), combined a mechanistic model with machine learning for tryptophan metabolism in yeast, and the general pattern of mechanistic-feature-plus-statistical-model consistently beats either half alone at these data volumes.</p>
+<hr>
+<h2>5. Baselines, computed before any model</h2>
+<p>A result is a comparison, and without these three the comparison does not exist. Compute all of them, report all of them.</p>
+<p><strong>The mean.</strong> Predict the library average for everything. Its error is the library standard deviation. Any reported error must be compared against this and surprisingly many published figures are not.</p>
+<p><strong>The additive model.</strong> Each part contributes a fixed effect; the construct&#x27;s predicted phenotype is the sum of its parts&#x27; effects plus an intercept. On a combinatorial library this is ordinary least squares on the one-hot matrix with no interaction terms, it has as many parameters as parts, and it is extremely hard to beat at n &lt; 200. <strong>If a method does not beat the additive model on a held-out leave-one-part-out split, report that it does not.</strong></p>
+<p><strong>The regularised linear model.</strong> Ridge or LASSO on the same matrix, with the penalty chosen by nested cross-validation (§7). This is the honest workhorse of the field and frequently the final model.</p>
+<p><strong>Worked example, and the reason this section exists.</strong> A library of 96 constructs, phenotype standard deviation 0.52 log₁₀, noise floor 0.18. Mean predictor: RMSE 0.52. Additive model, leave-one-part-out: RMSE 0.31. Random forest, same split: RMSE 0.29. Gradient boosting with tuned hyperparameters: RMSE 0.285. The ceiling, from the noise floor, is 0.18. So the additive model closes 62% of the available gap and everything else closes a further 7%, on 96 constructs, where the standard error on an RMSE difference of 0.025 is larger than the difference itself. <strong>The correct report is that the additive model is the model</strong>, with the ensemble methods noted as not distinguishable from it on this data set — and that report is far more credible to a reviewer than a headline about gradient boosting.</p>
+<hr>
+<h2>6. Splits and leakage: the section that matters most</h2>
+<p><strong>The failure.</strong> A random train–test split on a combinatorial library leaks, because test constructs share parts with training constructs. The model has seen every part in every test construct and is interpolating within a design space it has already been shown. Performance on that split answers a question nobody asked — &quot;can you predict a combination of known parts&quot; — while being reported as if it answered &quot;can you predict a new design&quot;.</p>
+<p><strong>The three splits, in increasing honesty.</strong></p>
+<ul>
+<li><strong>Random split.</strong> Every construct independently assigned. Answers: interpolation within the library. Legitimate if labelled as such.</li>
+<li><strong>Leave-one-part-out.</strong> Hold out every construct containing a particular part variant; train on the rest; repeat for each variant. Answers: can the model predict the effect of a part it has never seen in combination, which is nearly the real question.</li>
+<li><strong>Leave-one-module-out, or leave-one-library-out.</strong> Hold out a whole module&#x27;s variation, or a whole second library from a different experiment. Answers: does any of this transfer. This is the split that tells you whether the model is usable in the next round rather than in the next spreadsheet.</li>
+</ul>
+<p><strong>Report at least two and quantify the gap.</strong> The difference between the random and the leave-one-part-out RMSE is the leakage, in the units of the measurement, and naming it is the single most valuable number a DBTL machine-learning section can contain.</p>
+<p><strong>Worked example.</strong> The same 96-construct library. Random 5-fold split: RMSE 0.22, R² 0.82. Leave-one-part-out: RMSE 0.31, R² 0.64. Leave-one-module-out: RMSE 0.44, R² 0.28. <strong>Leakage, random to leave-one-part-out, is 0.09 log₁₀ units — half the entire noise floor — and the apparent R² falls by 0.18.</strong> The headline R² of 0.82 is not wrong, it is answering the easy question; and the 0.28 at module level is the number that predicts what happens when the next round introduces a new module, which is what the next round will do.</p>
+<p><strong>Two further leakage routes, both common.</strong> Normalising or scaling using statistics computed on the whole data set before splitting leaks the test distribution into training, and the fix is to fit every transformation inside the training fold. And selecting features or hyperparameters using test performance leaks by choice rather than by arithmetic, which is what nested cross-validation exists to prevent: an inner loop for selection, an outer loop for the estimate, reported from the outer loop only.</p>
+<hr>
+<h2>7. Model families at this scale, and choosing between them</h2>
+<p><strong>Regularised linear models (ridge, LASSO, elastic net).</strong> The default. Coefficients are part effects and read directly as biology; regularisation handles the one-hot matrix&#x27;s collinearity; they are stable at n &lt; 200. LASSO additionally selects, which is useful when you want to know which parts matter and dangerous when you report the selected set as if it were certain — bootstrap the selection and report how often each part is chosen.</p>
+<p><strong>Gaussian processes.</strong> The natural choice when the next step is active learning, because the predictive variance is principled and the acquisition rules of §9 are built on it. Expensive to explain in an interview and worth it if you can.</p>
+<p><strong>Tree ensembles (random forest, gradient boosting).</strong> Capture interactions without being told where they are, which is exactly the right property if interactions are the story and the wrong one if n is small, because they will find interactions in noise. Use them as a diagnostic — if a tuned forest substantially beats the additive model, interactions are real — rather than as a default final model.</p>
+<p><strong>Neural networks: not at this scale, and say why.</strong> Below a few thousand instances they underperform regularised linear and tree models on tabular biological data, and ART&#x27;s authors say as much about synthetic biology data specifically. The defensible position is to name the data volume at which you would reconsider, which is the learning curve of §10, rather than to dismiss the family.</p>
+<p><strong>Hyperparameters.</strong> Chosen in an inner loop, never on the test set, with the search space reported — the DOME optimization items ask for the algorithm, the parameters, the features, the fitting and the regularisation protocol, and a paper that names &quot;random forest&quot; and nothing else fails that section.</p>
+<p><strong>The ensemble point worth knowing.</strong> ART&#x27;s own approach is a Bayesian ensemble over several model families rather than a single best model, which both improves the prediction and produces the uncertainty the recommendation step needs. Ensembling is also the cheapest defensible way to avoid the model-selection argument entirely: if eight families give similar predictions, average them and report the spread.</p>
+<hr>
+<h2>8. Uncertainty and calibration</h2>
+<p><strong>A point prediction cannot support a decision.</strong> The decision in §9 is which constructs to build, and it depends on the probability that a candidate exceeds the current best, which requires a distribution rather than a number. Report predictive intervals.</p>
+<p><strong>Calibration is a measurable property and must be measured.</strong> Of the held-out predictions with a nominal 80% interval, what fraction actually contain the measurement? Plot nominal against empirical coverage across levels — the calibration curve — and report it. An uncalibrated model is not merely imprecise; it is misleading in a specific direction, and overconfidence is the usual direction.</p>
+<p><strong>Worked example.</strong> 96 constructs, leave-one-part-out, a ridge model with intervals from the residual variance. Nominal 50% coverage, empirical 0.41. Nominal 80%, empirical 0.68. Nominal 95%, empirical 0.84. The model is systematically overconfident, because the interval was built from the training residuals and ignores both parameter uncertainty and the fact that the held-out part was never seen. Two fixes, both cheap: widen the intervals by the ratio implied by the calibration curve and say you have done so, which is honest and crude; or take the intervals from the spread of a bootstrap ensemble, which is principled and usually lands close to calibrated. Recheck coverage after either.</p>
+<p><strong>Where the uncertainty comes from matters for what to do about it.</strong> Noise uncertainty is irreducible and is the floor of §3 — more data will not help, only better measurement. Parameter uncertainty shrinks with more constructs. Structural uncertainty — the model form is wrong — shrinks with neither and shows up as poor coverage specifically on the leave-one-module-out split. Distinguishing the three decides whether the next round should be more constructs, more replicates of fewer constructs, or a different model.</p>
+<hr>
+<h2>9. From prediction to recommendation: the step that produces a decision</h2>
+<p><strong>The acquisition rule.</strong> Given a calibrated predictive distribution for every candidate construct, rank candidates by one of: predicted mean, which is pure exploitation and converges on a local optimum; upper confidence bound, mean plus k standard deviations, which trades off explicitly and where k is a dial you should report; or expected improvement over the current best, which is the standard Bayesian-optimisation choice and behaves well when most candidates are poor.</p>
+<p><strong>Batch construction, which is where the literature is thinnest and the practice most important.</strong> You will build a batch of N, not one construct, so the top N by acquisition score is wrong: those N are usually near-identical, differing in one part, so the batch buys one experiment&#x27;s worth of information at N experiments&#x27; cost. Impose diversity — maximise the acquisition score subject to a minimum Hamming distance between selected constructs, or cluster the candidates and take the best of each cluster. Report the diversity constraint; a batch of N near-duplicates is the commonest avoidable waste in a DBTL round.</p>
+<p><strong>Worked example, in the units that matter.</strong> Phase 6&#x27;s screen allows 192 picks a week. The library is 625 designs. The current best is 1.4 g L⁻¹. Three strategies on the model from §5–8: random 192 picks, expected best 1.9 g L⁻¹ by the order statistics of the fitted distribution; pure exploitation on predicted mean, expected best 2.4 g L⁻¹ but with the batch collapsing onto one module combination and almost no information gained about the other three modules; upper confidence bound at k = 1 with a minimum Hamming distance of 2, expected best 2.3 g L⁻¹ and coverage of all four modules, so round three can still improve. <strong>The right report is the comparison, in grams per litre and in modules covered, not the model&#x27;s R².</strong></p>
+<p><strong>Active learning across rounds, stated as a protocol.</strong> Round 1: a space-filling design — not random, a designed sample covering each part variant a balanced number of times — because the model&#x27;s quality is set by this round and random sampling leaves parts unmeasured. Round 2: fit, validate on leave-one-part-out, recommend with exploration weighted high. Round 3: exploitation weighted high, and stop when the expected improvement of the best candidate falls below the noise floor, because beyond that point you cannot tell whether you improved.</p>
+<p><strong>The falsification clause.</strong> Every recommendation should come with the result that would show the model was not helping: if the recommended batch&#x27;s best does not beat a randomly selected batch&#x27;s best by more than the noise floor, the model added nothing in that round, and running a small random control arm alongside the recommended batch is what makes that statement possible. It costs a few per cent of the screen and it is the only thing that converts &quot;we used machine learning&quot; into evidence.</p>
+<hr>
+<h2>10. Evaluating the cycle rather than the model</h2>
+<p><strong>Round-over-round improvement is the real metric, and it is confounded.</strong> The second round is better than the first partly because of the model and partly because of regression to the mean, selection of the first round&#x27;s lucky measurements, and improvements in protocol and operator skill. Separate them: re-measure the first round&#x27;s best constructs alongside the second round&#x27;s, in the same batch, with the same controls. The difference between a construct&#x27;s first and second measurement is the regression-to-the-mean term, and it is usually a substantial fraction of the apparent gain.</p>
+<p><strong>The learning curve answers &quot;how much data do I need&quot;, and should replace the assertion.</strong> Fit the model on 25%, 50%, 75% and 100% of the constructs with the same split protocol, plot test error against training size, and extrapolate. If the curve is still falling steeply, more constructs are the cheapest improvement available; if it has flattened well above the noise floor, more constructs will not help and the representation or the model form is the limit. <strong>This single plot answers the question every reviewer asks about a small-data model</strong> and almost nobody includes it.</p>
+<p><strong>Worked example.</strong> RMSE at n = 24, 48, 72, 96: 0.48, 0.38, 0.33, 0.31, against a floor of 0.18. The curve is flattening and the gap to the floor is 0.13, so doubling the library again would be expected to buy perhaps 0.03 — about a quarter of what remains — and the remaining error is mostly structural. The conclusion to write down is that the next investment belongs in features or model form, or in reducing the noise floor by better measurement, rather than in more constructs.</p>
+<hr>
+<h2>11. Mechanistic and statistical models together</h2>
+<p><strong>The three hybrid patterns, in increasing ambition.</strong></p>
+<p><strong>Mechanistic features into a statistical model.</strong> Run the flux model, the thermodynamic driving force and the proteome-cost calculation of week 31 for every candidate design, and feed those as columns. Cheap, robust at small n, and it makes the statistical model&#x27;s extrapolation behaviour better because the features carry the physics. This is the pattern to default to and the one this course&#x27;s first seven phases make available to you.</p>
+<p><strong>Statistical correction of a mechanistic model.</strong> Fit the model to the residuals of the mechanistic prediction rather than to the phenotype. The mechanistic part carries the trend, the statistical part carries what the mechanism misses, and the result degrades gracefully outside the training set because the mechanism still applies there. Report both the mechanistic prediction and the corrected one, so the reader can see what the correction contributed.</p>
+<p><strong>Constrained or informed learning.</strong> Impose the stoichiometric yield ceiling as a hard bound on predictions — no model should predict above the theoretical maximum, and one that does is announcing an error — and impose monotonicity where mechanism demands it. These constraints cost nothing and prevent the embarrassing predictions.</p>
+<p><strong>The point to make in an interview.</strong> A purely statistical model cannot know the yield ceiling and a purely mechanistic model cannot know the burden, the regulation or the assay&#x27;s quirks. Candidates who can do both halves are rare, and this course&#x27;s structure — seven phases of mechanism followed by this handbook — is the argument that you are one of them. Make the argument with a residual plot rather than a sentence.</p>
+<hr>
+<h2>12. Reporting: the DOME checklist on a DBTL paper</h2>
+<p>Answer these in the methods and the supplement. They are the DOME recommendations&#x27; four groups, specialised to this field; the published checklist is written as questions and is intended to be answerable in a supplementary table.</p>
+<p><strong>Data.</strong> Provenance: which experiment or publication, with identifiers. Size: number of constructs, number replicated, number of measurements. Splits: how, and why that split answers the question asked. <strong>Redundancy between splits: how much do train and test share, in parts and in sequence</strong> — the item this field most often leaves blank. Availability: where the data and the construct definitions are.</p>
+<p><strong>Optimization.</strong> Algorithm, and the alternatives compared against it, including the additive baseline. Encoding of the design into features, stated explicitly. Hyperparameters and the search space. Fitting and regularisation protocol. Whether any transformation was fitted on the full data set rather than inside the fold. Configuration available and version-pinned, which §8 of the methods handbook already requires for everything else.</p>
+<p><strong>Model.</strong> Interpretable or black box, and if the former, what the coefficients say. The output: point, interval, or distribution. Execution time, which matters when a recommendation has to be produced between rounds. Software availability, with the version of every library and the random seed.</p>
+<p><strong>Evaluation.</strong> Method, with every split reported and not just the favourable one. Performance measures in the units of the measurement, against the noise floor and against the baselines. Comparison against at least the mean and the additive model. Confidence: intervals on the performance estimate itself, not only on the predictions — with 96 constructs, the uncertainty on an RMSE is substantial and quoting it to three decimals is the tell that it has not been computed. And the experimental validation, which in a DBTL context is the next round&#x27;s measured result against the recommendation.</p>
+<hr>
+<h2>13. What this handbook will not give you</h2>
+<p>It will not make you a machine learning researcher, and the claim to avoid in an application is any implication that it has. What it supports is a specific and defensible claim: that you can take a design–build–test–learn data set, state what it can and cannot support, validate a model honestly including the leakage comparison, produce a calibrated recommendation for the next round expressed as constructs to build, and say what would show the model was not helping. That claim is both true after working through this handbook and Brief 16, and rarer in this field than it should be.</p>
+<p>It gives no experience of the data volumes where deep learning becomes appropriate, because this field mostly does not have them yet and the honest response to a group that does is to say you would need to learn that regime rather than that you know it.</p>
+<p>It gives no experience of production machine learning engineering — pipelines, monitoring, drift, serving — which is a separate discipline that a research group will not expect of you and a company will.</p>
+<p>And it gives nothing about the parts of the field moving fastest at the sequence level: protein structure and function prediction, generative design of enzymes, and the large sequence models. Those sit at a different data scale and on different infrastructure, and a candidate who claims the small-data DBTL competence this handbook builds and names those as the adjacent thing they have not done is in a stronger position than one who gestures at all of it. Say which one you have done.</p>
+<p><strong>One sentence worth being able to say aloud, and meaning it:</strong> <em>I can say what a model of this size can and cannot be asked to decide, and I can show you the split that proves it.</em></p>
+</main><footer class="docfoot"><a href="metabolic-engineering-tracker.html">&#8592; Course tracker</a><span>Metabolic engineering &middot; 55 weeks</span></footer>
+<script>
+(function(){
+  var root=document.documentElement,key="me.theme";
+  var bs=Array.prototype.slice.call(document.querySelectorAll(".appearance button"));
+  function paint(v){
+    bs.forEach(function(b){b.setAttribute("aria-pressed",b.getAttribute("data-appearance")===v?"true":"false");});
+    if(v==="auto")root.removeAttribute("data-theme");else root.setAttribute("data-theme",v);
+  }
+  var saved="auto";try{saved=localStorage.getItem(key)||"auto";}catch(e){}
+  bs.forEach(function(b){b.addEventListener("click",function(){
+    var v=b.getAttribute("data-appearance");paint(v);
+    try{localStorage.setItem(key,v);}catch(e){}
+  });});
+  paint(saved);
+})();
+</script>
+<style>
+/* ============================================================
+   COURSE LIBRARY — Apple document shell
+   ============================================================ */
+:root{
+  color-scheme:light;
+  --paper:#FFFFFF;--surface:#F5F5F7;--card:#FFFFFF;--fill:#F5F5F7;
+  --ink:#1D1D1F;--ink-2:#6E6E73;--ink-3:#6E6E73;
+  --line:rgba(0,0,0,.14);--line-2:rgba(0,0,0,.08);
+  --broth:#0071E3;--broth-soft:rgba(0,113,227,.10);
+  --nav-bg:rgba(255,255,255,.84);
+  --sans:-apple-system,BlinkMacSystemFont,"SF Pro Text","SF Pro Display","Helvetica Neue",Arial,sans-serif;
+  --mono:ui-monospace,"SF Mono",Menlo,Consolas,monospace;
+  --serif:var(--sans);
+}
+@media (prefers-color-scheme:dark){
+  :root:not([data-theme="light"]){
+    color-scheme:dark;
+    --paper:#000000;--surface:#1C1C1E;--card:#2C2C2E;--fill:#2C2C2E;
+    --ink:#F5F5F7;--ink-2:#A1A1A6;--ink-3:#8E8E93;
+    --line:rgba(255,255,255,.16);--line-2:rgba(255,255,255,.09);
+    --broth:#5AA9FF;--broth-soft:rgba(10,132,255,.18);
+    --nav-bg:rgba(0,0,0,.74);
+  }
+}
+:root[data-theme="dark"]{
+  color-scheme:dark;
+  --paper:#000000;--surface:#1C1C1E;--card:#2C2C2E;--fill:#2C2C2E;
+  --ink:#F5F5F7;--ink-2:#A1A1A6;--ink-3:#8E8E93;
+  --line:rgba(255,255,255,.16);--line-2:rgba(255,255,255,.09);
+  --broth:#5AA9FF;--broth-soft:rgba(10,132,255,.18);
+  --nav-bg:rgba(0,0,0,.74);
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth;scroll-padding-top:72px;-webkit-text-size-adjust:100%}
+body{
+  margin:0;background:var(--paper);color:var(--ink);
+  font-family:var(--sans);font-size:17px;line-height:1.62;letter-spacing:-.011em;
+  padding:0;
+}
+.docbar{
+  position:sticky;top:0;z-index:80;display:flex;align-items:center;justify-content:space-between;gap:12px;
+  padding:8px max(24px,calc((100vw - 1180px)/2));
+  background:var(--nav-bg);
+  -webkit-backdrop-filter:saturate(180%) blur(20px);backdrop-filter:saturate(180%) blur(20px);
+  border-bottom:1px solid var(--line-2);
+}
+.docback{display:inline-flex;align-items:center;gap:6px;color:var(--ink-2);font-size:13px;font-weight:500;text-decoration:none;white-space:nowrap}
+.docback:hover{color:var(--broth)}
+.appearance{display:inline-flex;gap:2px;padding:2px;background:var(--fill);border-radius:980px}
+.appearance button{border:0;background:none;color:var(--ink-2);font:inherit;font-size:12px;font-weight:500;line-height:1;padding:6px 11px;border-radius:980px;cursor:pointer}
+.appearance button[aria-pressed="true"]{background:var(--card);color:var(--ink);box-shadow:0 1px 2px rgba(0,0,0,.08)}
+.wrap{max-width:900px;margin:0 auto;padding:64px 24px 96px}
+body h1{
+  font-family:var(--sans);font-size:clamp(42px,6.2vw,64px);line-height:1.04;letter-spacing:-.04em;
+  font-weight:700;margin:0 0 16px;max-width:18ch;color:var(--ink);
+}
+.doc-kicker{font-size:13px;font-weight:500;letter-spacing:0;color:var(--ink-2);margin:0 0 12px}
+body h1 + p{font-size:20px;line-height:1.55;color:var(--ink-2);max-width:68ch;margin:0 0 18px}
+body h1 + p strong{color:var(--ink);font-weight:600}
+body h2{
+  font-family:var(--sans);font-size:32px;line-height:1.15;letter-spacing:-.03em;font-weight:600;
+  color:var(--ink);margin:64px 0 14px;padding:0;border:0;
+}
+body h3{font-family:var(--sans);font-size:22px;line-height:1.25;letter-spacing:-.02em;font-weight:600;color:var(--ink);margin:36px 0 8px}
+body h4{font-size:14px;line-height:1.4;font-weight:600;letter-spacing:0;text-transform:none;color:var(--ink-2);margin:24px 0 6px}
+body p{margin:0 0 14px;max-width:72ch}
+body ul,body ol{margin:0 0 16px;padding-left:1.25em;max-width:72ch}
+body li{margin:.32em 0}
+body li::marker{color:var(--ink-3)}
+body strong{font-weight:600;color:var(--ink)}
+body em{color:var(--ink)}
+body a{color:var(--broth);text-decoration:underline;text-underline-offset:2px}
+body a:hover{text-decoration:underline}
+body hr{border:0;border-top:1px solid var(--line-2);margin:56px 0}
+body table{border-collapse:collapse;width:100%;margin:22px 0 30px;font-size:15px;line-height:1.45}
+body th{text-align:left;font-weight:600;font-size:12.5px;color:var(--ink-2);padding:10px 12px;background:var(--surface);border-bottom:1px solid var(--line)}
+body td{padding:11px 12px;border-bottom:1px solid var(--line-2);vertical-align:top}
+body tr:nth-child(even) td{background:transparent}
+body figure.fig{margin:32px 0 36px;padding:0;max-width:100%}
+body figure.fig svg{width:100%;height:auto;display:block;background:var(--surface);border:0;border-radius:20px;padding:18px}
+body figure.fig figcaption{font-size:13px;color:var(--ink-2);margin-top:10px;max-width:72ch;line-height:1.5}
+body figure.fig .figtitle{font-family:var(--sans);font-size:14px;font-weight:600;color:var(--ink);margin-bottom:6px}
+body pre{background:var(--surface);border:1px solid var(--line-2);border-radius:16px;padding:18px;overflow:auto;font-family:var(--mono);font-size:13.5px;line-height:1.55;margin:20px 0 24px}
+body code{font-family:var(--mono);font-size:.88em;background:var(--surface);border-radius:6px;padding:.12em .35em}
+body pre code{background:none;padding:0;font-size:inherit}
+body blockquote{margin:24px 0;padding:2px 0 2px 18px;border-left:3px solid var(--broth);color:var(--ink-2)}
+:root[data-theme="dark"] .fig-light{display:none!important}
+:root[data-theme="dark"] .fig-dark{display:block!important}
+:root[data-theme="light"] .fig-dark{display:none!important}
+:root[data-theme="light"] .fig-light{display:block!important}
+.docfoot{max-width:900px;margin:0 auto;padding:24px 24px 64px;border-top:1px solid var(--line-2);display:flex;justify-content:space-between;gap:12px;font-size:12.5px;color:var(--ink-3)}
+.docfoot a{color:var(--ink-2);text-decoration:none}
+.docfoot a:hover{color:var(--broth)}
+@media (max-width:700px){
+  .docbar{padding:8px 16px}
+  .wrap{padding:40px 18px 80px}
+  body h1{font-size:clamp(38px,11vw,48px)}
+  body h1 + p{font-size:18px}
+  body h2{font-size:28px;margin-top:52px}
+  body h3{font-size:20px}
+  body p,body li{font-size:16.5px}
+  body table{font-size:14px}
+  body th,body td{padding:9px 9px}
+  .docfoot{padding:20px 18px 50px;flex-direction:column;gap:6px}
+}
+@media print{
+  .docbar,.appearance,.docfoot{display:none!important}
+  body{background:#fff;color:#000;font-size:11pt}
+  .wrap{max-width:none;padding:0}
+  body h1{font-size:28pt;max-width:none}
+  body h2{font-size:16pt;page-break-after:avoid}
+  body h3{font-size:13pt;page-break-after:avoid}
+  body a{color:#000;text-decoration:none}
+  body table,body figure{break-inside:avoid}
+}
+</style>
+</body></html>

@@ -1,0 +1,56 @@
+week,phase,title,tier,core_path,rationale
+1,Phase 1 · Molecular foundations,The cell as a chemical plant,Core,yes,Prerequisite for the quantitative or design work that follows.
+2,Phase 1 · Molecular foundations,"Water, bonds and the chemistry of the cytosol",Core,yes,Prerequisite for the quantitative or design work that follows.
+3,Phase 1 · Molecular foundations,Protein structure and folding,Core,yes,Prerequisite for the quantitative or design work that follows.
+4,Phase 1 · Molecular foundations,Enzyme catalysis,Core,yes,Prerequisite for the quantitative or design work that follows.
+5,Phase 1 · Molecular foundations,Enzyme kinetics I,Core,yes,Prerequisite for the quantitative or design work that follows.
+6,Phase 1 · Molecular foundations,Enzyme kinetics II: allostery and regulation,Core,yes,Prerequisite for the quantitative or design work that follows.
+7,Phase 1 · Molecular foundations,Nucleic acids and the central dogma,Core,yes,Prerequisite for the quantitative or design work that follows.
+8,Phase 2 · Metabolism in depth,Bioenergetics,Core,yes,Prerequisite for the quantitative or design work that follows.
+9,Phase 2 · Metabolism in depth,Glycolysis and gluconeogenesis,Core,yes,Prerequisite for the quantitative or design work that follows.
+10,Phase 2 · Metabolism in depth,The pentose phosphate pathway and the NADPH economy,Useful next,no,Deepens a core method; take after the core week it supports.
+11,Phase 2 · Metabolism in depth,"TCA cycle, anaplerosis and the glyoxylate shunt",Useful next,no,Deepens a core method; take after the core week it supports.
+12,Phase 2 · Metabolism in depth,"Respiration, electron transport and aeration",Useful next,no,Deepens a core method; take after the core week it supports.
+13,Phase 2 · Metabolism in depth,Fermentation routes and redox balancing,Core,yes,Prerequisite for the quantitative or design work that follows.
+14,Phase 3 · Quantitative physiology,Biosynthesis and the precursor tree,Core,yes,Prerequisite for the quantitative or design work that follows.
+15,Phase 3 · Quantitative physiology,"Lipids, membranes, transport and uptake",Useful next,no,Deepens a core method; take after the core week it supports.
+16,Phase 3 · Quantitative physiology,Biomass composition and the biomass equation,Core,yes,Prerequisite for the quantitative or design work that follows.
+17,Phase 3 · Quantitative physiology,"Stoichiometry, yields and data reconciliation",Core,yes,Prerequisite for the quantitative or design work that follows.
+18,Phase 3 · Quantitative physiology,Growth kinetics and physiological states,Core,yes,Prerequisite for the quantitative or design work that follows.
+19,Phase 4 · Constraint-based modelling,Genome annotation and what it is worth,Useful next,no,Deepens a core method; take after the core week it supports.
+20,Phase 4 · Constraint-based modelling,Network reconstruction and the stoichiometric matrix,Core,yes,Prerequisite for the quantitative or design work that follows.
+21,Phase 4 · Constraint-based modelling,"Curation, GPRs and gap filling",Useful next,no,Deepens a core method; take after the core week it supports.
+22,Phase 4 · Constraint-based modelling,The four subspaces of S,Core,yes,Prerequisite for the quantitative or design work that follows.
+23,Phase 4 · Constraint-based modelling,Flux balance analysis,Core,yes,Prerequisite for the quantitative or design work that follows.
+24,Phase 4 · Constraint-based modelling,"FBA extensions: variability, loops and alternatives",Useful next,no,Deepens a core method; take after the core week it supports.
+25,Phase 4 · Constraint-based modelling,"Gene deletions, essentiality and phase planes",Useful next,no,Deepens a core method; take after the core week it supports.
+26,Phase 4 · Constraint-based modelling,Strain design and growth coupling,Core,yes,Prerequisite for the quantitative or design work that follows.
+27,Phase 5 · Measurement and control of flux,Metabolomics and intracellular measurement,Core,yes,Prerequisite for the quantitative or design work that follows.
+28,Phase 5 · Measurement and control of flux,13C metabolic flux analysis I: principles and atom mapping,Core,yes,Prerequisite for the quantitative or design work that follows.
+29,Phase 5 · Measurement and control of flux,"13C metabolic flux analysis II: estimation, statistics and design",Core,yes,Prerequisite for the quantitative or design work that follows.
+30,Phase 5 · Measurement and control of flux,Kinetic models of metabolism,Useful next,no,Deepens a core method; take after the core week it supports.
+31,Phase 5 · Measurement and control of flux,Metabolic control analysis and proteome-constrained models,Useful next,no,Deepens a core method; take after the core week it supports.
+32,Phase 6 · The molecular toolbox,"DNA manipulation: PCR, cloning and assembly",Core,yes,Prerequisite for the quantitative or design work that follows.
+33,Phase 6 · The molecular toolbox,"Vectors, expression systems and chassis preparation",Useful next,no,Deepens a core method; take after the core week it supports.
+34,Phase 6 · The molecular toolbox,"Tuning expression: promoters, RBS, copy number and burden",Core,yes,Prerequisite for the quantitative or design work that follows.
+35,Phase 6 · The molecular toolbox,"Genome editing: recombineering, CRISPR and multiplexing",Useful next,no,Deepens a core method; take after the core week it supports.
+36,Phase 6 · The molecular toolbox,Dynamic regulation and biosensors,Useful next,no,Deepens a core method; take after the core week it supports.
+37,Phase 6 · The molecular toolbox,Enzyme engineering: rational design and directed evolution,Optional depth,no,Specialist or enrichment material; take after the core path.
+38,Phase 6 · The molecular toolbox,Data-driven protein design and high-throughput screening,Useful next,no,Deepens a core method; take after the core week it supports.
+39,Phase 6 · The molecular toolbox,"Omics, the design-build-test-learn cycle and adaptive evolution",Core,yes,Prerequisite for the quantitative or design work that follows.
+40,"Phase 7 · Hosts, products and the literature",Escherichia coli as a platform,Useful next,no,Deepens a core method; take after the core week it supports.
+41,"Phase 7 · Hosts, products and the literature",Yeasts: Saccharomyces and the non-conventional species,Useful next,no,Deepens a core method; take after the core week it supports.
+42,"Phase 7 · Hosts, products and the literature","Corynebacterium, Bacillus and Pseudomonas",Optional depth,no,Specialist or enrichment material; take after the core path.
+43,"Phase 7 · Hosts, products and the literature",Lactic acid bacteria and food-grade hosts,Optional depth,no,Specialist or enrichment material; take after the core path.
+44,"Phase 7 · Hosts, products and the literature","Clostridia, actinomycetes, fungi and photosynthetic hosts",Useful next,no,Deepens a core method; take after the core week it supports.
+45,"Phase 7 · Hosts, products and the literature","Product classes I: bulk chemicals, organic acids and alcohols",Core,yes,Prerequisite for the quantitative or design work that follows.
+46,"Phase 7 · Hosts, products and the literature","Product classes II: amino acids, natural products and proteins",Useful next,no,Deepens a core method; take after the core week it supports.
+47,"Phase 8 · Process, economics and the application","Media, sterilisation and inoculum development",Core,yes,Prerequisite for the quantitative or design work that follows.
+48,"Phase 8 · Process, economics and the application","Heterogeneous reaction, immobilisation and reactor choice",Useful next,no,Deepens a core method; take after the core week it supports.
+49,"Phase 8 · Process, economics and the application","Fermenter design, aeration and mixing",Core,yes,Prerequisite for the quantitative or design work that follows.
+50,"Phase 8 · Process, economics and the application","Instrumentation, control and feeding strategies",Useful next,no,Deepens a core method; take after the core week it supports.
+51,"Phase 8 · Process, economics and the application",Downstream processing,Core,yes,Prerequisite for the quantitative or design work that follows.
+52,"Phase 8 · Process, economics and the application",Techno-economics and life-cycle assessment,Useful next,no,Deepens a core method; take after the core week it supports.
+53,"Phase 8 · Process, economics and the application",Capstone I: the strain,Core,yes,Prerequisite for the quantitative or design work that follows.
+54,"Phase 8 · Process, economics and the application",Capstone II: the process and the economics,Useful next,no,Deepens a core method; take after the core week it supports.
+55,"Phase 8 · Process, economics and the application","The application: proposal, portfolio and supervisors",Core,yes,Prerequisite for the quantitative or design work that follows.

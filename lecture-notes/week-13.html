@@ -1,0 +1,694 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="utf-8"><title>Week 13 — Fermentation routes and redox balancing — Metabolic engineering</title>
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+
+
+<style>:root{color-scheme:light;--paper:#FAF6EF;--ink:#211A12;--ink-2:#4A3C2C;--ink-3:#8A7458;
+--line:#DFD2BE;--line-2:#EDE4D5;--broth:#9A6B1F;--broth-soft:#F6ECD9;
+--serif:"Newsreader",Georgia,serif;--sans:"Public Sans",system-ui,sans-serif}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--paper:#15120D;--ink:#F1E9DC;--ink-2:#CBBCA6;
+--ink-3:#948872;--line:#352C22;--line-2:#2A231B;--broth:#D7A95C;--broth-soft:#241D14}}
+*{box-sizing:border-box}
+body{margin:0;background:var(--paper);color:var(--ink);font-family:var(--sans);font-size:15.5px;line-height:1.6;
+padding:env(safe-area-inset-top,0) 0 env(safe-area-inset-bottom,0)}
+.wrap{max-width:840px;margin:0 auto;padding:40px 22px 90px}
+h1{font-family:var(--serif);font-size:clamp(28px,5vw,42px);line-height:1.1;font-weight:600;margin:0 0 6px;letter-spacing:-.02em}
+h2{font-family:var(--serif);font-size:26px;font-weight:600;margin:46px 0 10px;letter-spacing:-.01em;padding-bottom:7px;border-bottom:1px solid var(--line)}
+h3{font-family:var(--serif);font-size:20px;font-weight:600;margin:30px 0 4px;color:var(--broth)}
+h4{font-size:14px;font-weight:650;margin:18px 0 4px;color:var(--ink-3);letter-spacing:.02em;text-transform:uppercase}
+p{margin:0 0 12px;max-width:74ch}
+em{color:var(--ink-2)}
+ul{margin:0 0 14px;padding-left:1.15em;max-width:74ch}
+li{margin:.3em 0}li::marker{color:var(--ink-3)}
+hr{border:0;border-top:1px solid var(--line);margin:40px 0}
+strong{font-weight:650}
+table{border-collapse:collapse;width:100%;margin:14px 0 20px;font-size:14px}
+th{text-align:left;font-weight:600;color:var(--ink-3);font-size:12.5px;padding:7px 9px;border-bottom:1.5px solid var(--line)}
+td{padding:8px 9px;border-bottom:1px solid var(--line-2);vertical-align:top}
+tr:nth-child(even) td{background:var(--broth-soft)}
+
+figure.fig{margin:22px 0 26px;padding:0;max-width:100%}
+figure.fig svg{width:100%;height:auto;display:block;background:var(--card);
+  border:1px solid var(--line-2);border-radius:10px;padding:8px 10px}
+figure.fig figcaption{font-size:13px;color:var(--ink-3);margin-top:8px;max-width:74ch;line-height:1.5}
+figure.fig .figtitle{font-family:var(--serif);font-size:15px;color:var(--ink-2);margin-bottom:6px}
+figure.fig .fig-dark{display:none}
+@media (prefers-color-scheme: dark){
+  figure.fig .fig-light{display:none}
+  figure.fig .fig-dark{display:block}
+}
+@media print{figure.fig{break-inside:avoid;page-break-inside:avoid}
+  figure.fig .fig-dark{display:none !important}
+  figure.fig .fig-light{display:block !important}}
+
+@media print{body{background:#fff}.wrap{padding:0;max-width:none}h2,h3{page-break-after:avoid}}</style><script>try{var t=localStorage.getItem("me.theme");if(t&&t!=="auto")document.documentElement.setAttribute("data-theme",t);}catch(e){}</script>
+<meta name="color-scheme" content="light dark">
+<meta name="theme-color" content="#ffffff" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#000000" media="(prefers-color-scheme: dark)">
+<style>
+/* ============================================================
+   COURSE LIBRARY — Apple document shell
+   ============================================================ */
+:root{
+  color-scheme:light;
+  --paper:#FFFFFF;--surface:#F5F5F7;--card:#FFFFFF;--fill:#F5F5F7;
+  --ink:#1D1D1F;--ink-2:#6E6E73;--ink-3:#6E6E73;
+  --line:rgba(0,0,0,.14);--line-2:rgba(0,0,0,.08);
+  --broth:#0071E3;--broth-soft:rgba(0,113,227,.10);
+  --nav-bg:rgba(255,255,255,.84);
+  --sans:-apple-system,BlinkMacSystemFont,"SF Pro Text","SF Pro Display","Helvetica Neue",Arial,sans-serif;
+  --mono:ui-monospace,"SF Mono",Menlo,Consolas,monospace;
+  --serif:var(--sans);
+}
+@media (prefers-color-scheme:dark){
+  :root:not([data-theme="light"]){
+    color-scheme:dark;
+    --paper:#000000;--surface:#1C1C1E;--card:#2C2C2E;--fill:#2C2C2E;
+    --ink:#F5F5F7;--ink-2:#A1A1A6;--ink-3:#8E8E93;
+    --line:rgba(255,255,255,.16);--line-2:rgba(255,255,255,.09);
+    --broth:#5AA9FF;--broth-soft:rgba(10,132,255,.18);
+    --nav-bg:rgba(0,0,0,.74);
+  }
+}
+:root[data-theme="dark"]{
+  color-scheme:dark;
+  --paper:#000000;--surface:#1C1C1E;--card:#2C2C2E;--fill:#2C2C2E;
+  --ink:#F5F5F7;--ink-2:#A1A1A6;--ink-3:#8E8E93;
+  --line:rgba(255,255,255,.16);--line-2:rgba(255,255,255,.09);
+  --broth:#5AA9FF;--broth-soft:rgba(10,132,255,.18);
+  --nav-bg:rgba(0,0,0,.74);
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth;scroll-padding-top:72px;-webkit-text-size-adjust:100%}
+body{
+  margin:0;background:var(--paper);color:var(--ink);
+  font-family:var(--sans);font-size:17px;line-height:1.62;letter-spacing:-.011em;
+  padding:0;
+}
+.docbar{
+  position:sticky;top:0;z-index:80;display:flex;align-items:center;justify-content:space-between;gap:12px;
+  padding:8px max(24px,calc((100vw - 1180px)/2));
+  background:var(--nav-bg);
+  -webkit-backdrop-filter:saturate(180%) blur(20px);backdrop-filter:saturate(180%) blur(20px);
+  border-bottom:1px solid var(--line-2);
+}
+.docback{display:inline-flex;align-items:center;gap:6px;color:var(--ink-2);font-size:13px;font-weight:500;text-decoration:none;white-space:nowrap}
+.docback:hover{color:var(--broth)}
+.appearance{display:inline-flex;gap:2px;padding:2px;background:var(--fill);border-radius:980px}
+.appearance button{border:0;background:none;color:var(--ink-2);font:inherit;font-size:12px;font-weight:500;line-height:1;padding:6px 11px;border-radius:980px;cursor:pointer}
+.appearance button[aria-pressed="true"]{background:var(--card);color:var(--ink);box-shadow:0 1px 2px rgba(0,0,0,.08)}
+.wrap{max-width:900px;margin:0 auto;padding:64px 24px 96px}
+body h1{
+  font-family:var(--sans);font-size:clamp(42px,6.2vw,64px);line-height:1.04;letter-spacing:-.04em;
+  font-weight:700;margin:0 0 16px;max-width:18ch;color:var(--ink);
+}
+.doc-kicker{font-size:13px;font-weight:500;letter-spacing:0;color:var(--ink-2);margin:0 0 12px}
+body h1 + p{font-size:20px;line-height:1.55;color:var(--ink-2);max-width:68ch;margin:0 0 18px}
+body h1 + p strong{color:var(--ink);font-weight:600}
+body h2{
+  font-family:var(--sans);font-size:32px;line-height:1.15;letter-spacing:-.03em;font-weight:600;
+  color:var(--ink);margin:64px 0 14px;padding:0;border:0;
+}
+body h3{font-family:var(--sans);font-size:22px;line-height:1.25;letter-spacing:-.02em;font-weight:600;color:var(--ink);margin:36px 0 8px}
+body h4{font-size:14px;line-height:1.4;font-weight:600;letter-spacing:0;text-transform:none;color:var(--ink-2);margin:24px 0 6px}
+body p{margin:0 0 14px;max-width:72ch}
+body ul,body ol{margin:0 0 16px;padding-left:1.25em;max-width:72ch}
+body li{margin:.32em 0}
+body li::marker{color:var(--ink-3)}
+body strong{font-weight:600;color:var(--ink)}
+body em{color:var(--ink)}
+body a{color:var(--broth);text-decoration:underline;text-underline-offset:2px}
+body a:hover{text-decoration:underline}
+body hr{border:0;border-top:1px solid var(--line-2);margin:56px 0}
+body table{border-collapse:collapse;width:100%;margin:22px 0 30px;font-size:15px;line-height:1.45}
+body th{text-align:left;font-weight:600;font-size:12.5px;color:var(--ink-2);padding:10px 12px;background:var(--surface);border-bottom:1px solid var(--line)}
+body td{padding:11px 12px;border-bottom:1px solid var(--line-2);vertical-align:top}
+body tr:nth-child(even) td{background:transparent}
+body figure.fig{margin:32px 0 36px;padding:0;max-width:100%}
+body figure.fig svg{width:100%;height:auto;display:block;background:var(--surface);border:0;border-radius:20px;padding:18px}
+body figure.fig figcaption{font-size:13px;color:var(--ink-2);margin-top:10px;max-width:72ch;line-height:1.5}
+body figure.fig .figtitle{font-family:var(--sans);font-size:14px;font-weight:600;color:var(--ink);margin-bottom:6px}
+body pre{background:var(--surface);border:1px solid var(--line-2);border-radius:16px;padding:18px;overflow:auto;font-family:var(--mono);font-size:13.5px;line-height:1.55;margin:20px 0 24px}
+body code{font-family:var(--mono);font-size:.88em;background:var(--surface);border-radius:6px;padding:.12em .35em}
+body pre code{background:none;padding:0;font-size:inherit}
+body blockquote{margin:24px 0;padding:2px 0 2px 18px;border-left:3px solid var(--broth);color:var(--ink-2)}
+:root[data-theme="dark"] .fig-light{display:none!important}
+:root[data-theme="dark"] .fig-dark{display:block!important}
+:root[data-theme="light"] .fig-dark{display:none!important}
+:root[data-theme="light"] .fig-light{display:block!important}
+.docfoot{max-width:900px;margin:0 auto;padding:24px 24px 64px;border-top:1px solid var(--line-2);display:flex;justify-content:space-between;gap:12px;font-size:12.5px;color:var(--ink-3)}
+.docfoot a{color:var(--ink-2);text-decoration:none}
+.docfoot a:hover{color:var(--broth)}
+@media (max-width:700px){
+  .docbar{padding:8px 16px}
+  .wrap{padding:40px 18px 80px}
+  body h1{font-size:clamp(38px,11vw,48px)}
+  body h1 + p{font-size:18px}
+  body h2{font-size:28px;margin-top:52px}
+  body h3{font-size:20px}
+  body p,body li{font-size:16.5px}
+  body table{font-size:14px}
+  body th,body td{padding:9px 9px}
+  .docfoot{padding:20px 18px 50px;flex-direction:column;gap:6px}
+}
+@media print{
+  .docbar,.appearance,.docfoot{display:none!important}
+  body{background:#fff;color:#000;font-size:11pt}
+  .wrap{max-width:none;padding:0}
+  body h1{font-size:28pt;max-width:none}
+  body h2{font-size:16pt;page-break-after:avoid}
+  body h3{font-size:13pt;page-break-after:avoid}
+  body a{color:#000;text-decoration:none}
+  body table,body figure{break-inside:avoid}
+}
+
+
+.index-actions{margin:18px 0 36px;display:flex;flex-wrap:wrap;gap:16px;align-items:center}
+.index-actions a{font-size:14px;font-weight:500;color:var(--broth);text-decoration:none}
+.index-actions a:hover{text-decoration:underline}
+.phaseh{display:flex;align-items:baseline;justify-content:space-between;gap:14px;font-size:24px!important;margin:52px 0 2px!important;letter-spacing:-.02em}
+.phaseh span{font-size:12px;font-weight:400;color:var(--ink-3);letter-spacing:0;white-space:nowrap}
+.weeklist{border-top:1px solid var(--line-2);margin-bottom:8px}
+.weekrow{display:flex;align-items:center;gap:14px;min-height:50px;padding:10px 4px;border-bottom:1px solid var(--line-2);text-decoration:none;color:var(--ink)}
+.weekrow:hover{background:var(--surface)}
+.wnum{width:28px;flex:none;font-size:12px;font-weight:600;color:var(--broth);font-variant-numeric:tabular-nums}
+.wtitle{flex:1;font-size:16.5px;font-weight:500;line-height:1.35}
+.warrow{flex:none;color:var(--ink-3);font-size:16px}
+.weeknav{display:flex;align-items:center;justify-content:space-between;gap:14px;margin:52px 0 0;padding-top:22px;border-top:1px solid var(--line-2);font-size:14px}
+.weeknav a{color:var(--broth);text-decoration:none;font-weight:500}
+.weeknav a:hover{text-decoration:underline}
+.weeknav .idx{color:var(--ink-2);font-weight:400}
+.weeknav .empty{visibility:hidden}
+.case-h{max-width:22ch}
+.protocol{max-width:72ch}
+.protocol li{margin:.55em 0}
+.protocol h2{margin-top:38px}
+@media (max-width:700px){.phaseh{font-size:21px!important;margin-top:42px!important}.wtitle{font-size:15.5px}.weeknav{font-size:13px;gap:8px}}
+@media print{.weeknav,.index-actions{display:none!important}}
+</style>
+<style>.sr-only{position:absolute!important;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap;border:0}</style>
+</head><body>
+<header class="docbar"><a class="docback" href="index.html">&#8592; Lecture index</a><div class="appearance" role="group" aria-label="Appearance">
+<button type="button" data-appearance="auto" aria-pressed="true">Auto</button>
+<button type="button" data-appearance="light" aria-pressed="false">Light</button>
+<button type="button" data-appearance="dark" aria-pressed="false">Dark</button>
+</div></header>
+<main class="wrap">
+<p class="doc-kicker">Week 13 of 55 &middot; Metabolism in depth &middot; <strong class="tier-badge">Core</strong></p>
+<h1>Fermentation routes and redox balancing</h1>
+<h2 class="sr-only">Week content</h2>
+<p class="meta" style="border-left:3px solid var(--broth);padding-left:14px"><strong>Case thread:</strong> Which product mix is consistent with the reported pH, and what is missing? <a href="../CASE-THREAD.md">Open the case thread</a>.</p>
+<p>Anaerobic metabolism is a redox-balancing exercise with ATP as the prize. By Friday you should be able to write a product spectrum that balances electrons, detect what is missing from one that does not, and explain why fermentation persists in the presence of oxygen. The week closes phase 2, so budget two sessions for consolidating the pathway atlas into something you will actually reuse in phase 4.</p>
+<h3>Core ideas</h3>
+<p><strong>1. The anaerobic pyruvate node, and the choice the cell makes there</strong></p>
+<figure class="fig"><div class="figtitle">Figure 13.1 — The anaerobic pyruvate node</div><div class="fig-light"><svg role="img" aria-label="Three fates with different ATP and redox consequences. H₂ from formate carries electrons with no carbon, which is why omitting gas measurement breaks a balance." xmlns:xlink="http://www.w3.org/1999/xlink" width="538.734703pt" height="206.566141pt" viewBox="0 0 538.734703 206.566141" xmlns="http://www.w3.org/2000/svg" version="1.1">
+ <metadata>
+  <rdf:RDF xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:cc="http://creativecommons.org/ns#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+   <cc:Work>
+    <dc:type rdf:resource="http://purl.org/dc/dcmitype/StillImage"/>
+    <dc:date>2026-11-02T23:57:45.737652</dc:date>
+    <dc:format>image/svg+xml</dc:format>
+    <dc:creator>
+     <cc:Agent>
+      <dc:title>Matplotlib v3.10.8, https://matplotlib.org/</dc:title>
+     </cc:Agent>
+    </dc:creator>
+   </cc:Work>
+  </rdf:RDF>
+ </metadata>
+ <defs>
+  <style type="text/css">*{stroke-linejoin: round; stroke-linecap: butt}</style>
+ </defs>
+ <g id="figure_1">
+  <g id="patch_1">
+   <path d="M 0 206.566141 
+L 538.734703 206.566141 
+L 538.734703 0 
+L 0 0 
+L 0 206.566141 
+z
+" style="fill: none"/>
+  </g>
+  <g id="axes_1">
+   <g id="patch_2">
+    <path d="M 80.00568 100.5624 
+L 138.64032 100.5624 
+Q 144.4212 100.5624 144.4212 98.23392 
+L 144.4212 86.25888 
+Q 144.4212 83.9304 138.64032 83.9304 
+L 80.00568 83.9304 
+Q 74.2248 83.9304 74.2248 86.25888 
+L 74.2248 98.23392 
+Q 74.2248 100.5624 80.00568 100.5624 
+z
+" clip-path="url(#pa966e57c46)" style="fill: #f1e9da; stroke: #8a5f1b; stroke-width: 1.2; stroke-linejoin: miter"/>
+   </g>
+   <g id="patch_3">
+    <path d="M 203.88168 53.9928 
+L 262.51632 53.9928 
+Q 268.2972 53.9928 268.2972 51.66432 
+L 268.2972 39.68928 
+Q 268.2972 37.3608 262.51632 37.3608 
+L 203.88168 37.3608 
+Q 198.1008 37.3608 198.1008 39.68928 
+L 198.1008 51.66432 
+Q 198.1008 53.9928 203.88168 53.9928 
+z
+" clip-path="url(#pa966e57c46)" style="fill: #f1e9da; stroke: #dfd2be; stroke-width: 0.8; stroke-linejoin: miter"/>
+   </g>
+   <g id="patch_4">
+    <path d="M 191.49408 107.2152 
+L 274.90392 107.2152 
+Q 280.6848 107.2152 280.6848 104.88672 
+L 280.6848 89.58528 
+Q 280.6848 87.2568 274.90392 87.2568 
+L 191.49408 87.2568 
+Q 185.7132 87.2568 185.7132 89.58528 
+L 185.7132 104.88672 
+Q 185.7132 107.2152 191.49408 107.2152 
+z
+" clip-path="url(#pa966e57c46)" style="fill: #f1e9da; stroke: #8a5f1b; stroke-width: 1.2; stroke-linejoin: miter"/>
+   </g>
+   <g id="patch_5">
+    <path d="M 336.01608 75.6144 
+L 394.65072 75.6144 
+Q 400.4316 75.6144 400.4316 73.28592 
+L 400.4316 61.31088 
+Q 400.4316 58.9824 394.65072 58.9824 
+L 336.01608 58.9824 
+Q 330.2352 58.9824 330.2352 61.31088 
+L 330.2352 73.28592 
+Q 330.2352 75.6144 336.01608 75.6144 
+z
+" clip-path="url(#pa966e57c46)" style="fill: #f1e9da; stroke: #dfd2be; stroke-width: 0.8; stroke-linejoin: miter"/>
+   </g>
+   <g id="patch_6">
+    <path d="M 336.01608 133.8264 
+L 394.65072 133.8264 
+Q 400.4316 133.8264 400.4316 131.49792 
+L 400.4316 119.52288 
+Q 400.4316 117.1944 394.65072 117.1944 
+L 336.01608 117.1944 
+Q 330.2352 117.1944 330.2352 119.52288 
+L 330.2352 131.49792 
+Q 330.2352 133.8264 336.01608 133.8264 
+z
+" clip-path="url(#pa966e57c46)" style="fill: #f1e9da; stroke: #1f6f62; stroke-width: 1.2; stroke-linejoin: miter"/>
+   </g>
+   <g id="patch_7">
+    <path d="M 191.49408 158.7744 
+L 274.90392 158.7744 
+Q 280.6848 158.7744 280.6848 156.44592 
+L 280.6848 144.47088 
+Q 280.6848 142.1424 274.90392 142.1424 
+L 191.49408 142.1424 
+Q 185.7132 142.1424 185.7132 144.47088 
+L 185.7132 156.44592 
+Q 185.7132 158.7744 191.49408 158.7744 
+z
+" clip-path="url(#pa966e57c46)" style="fill: #f1e9da; stroke: #a4503a; stroke-width: 1.2; stroke-linejoin: miter"/>
+   </g>
+   <g id="patch_8">
+    <path d="M 146.4858 87.2568 
+Q 171.261 68.13 195.151211 49.686424 
+" clip-path="url(#pa966e57c46)" style="fill: none; stroke: #8a7458; stroke-linecap: round"/>
+    <path d="M 191.201633 50.461557 
+L 195.151211 49.686424 
+L 193.401571 53.311166 
+z
+" clip-path="url(#pa966e57c46)" style="fill: #8a7458; stroke: #8a7458; stroke-linecap: round"/>
+   </g>
+   <g id="patch_9">
+    <path d="M 146.4858 93.9096 
+Q 165.0672 95.5728 182.535018 97.136325 
+" clip-path="url(#pa966e57c46)" style="fill: none; stroke: #8a5f1b; stroke-linecap: round"/>
+    <path d="M 179.109828 95.022543 
+L 182.535018 97.136325 
+L 178.788879 98.608208 
+z
+" clip-path="url(#pa966e57c46)" style="fill: #8a5f1b; stroke: #8a5f1b; stroke-linecap: round"/>
+   </g>
+   <g id="patch_10">
+    <path d="M 282.7494 92.2464 
+Q 305.46 81.4356 327.161106 71.105344 
+" clip-path="url(#pa966e57c46)" style="fill: none; stroke: #8a7458; stroke-linecap: round"/>
+    <path d="M 323.136938 71.027411 
+L 327.161106 71.105344 
+L 324.684259 74.277918 
+z
+" clip-path="url(#pa966e57c46)" style="fill: #8a7458; stroke: #8a7458; stroke-linecap: round"/>
+   </g>
+   <g id="patch_11">
+    <path d="M 282.7494 102.2256 
+Q 305.46 111.3732 327.133532 120.10308 
+" clip-path="url(#pa966e57c46)" style="fill: none; stroke: #1f6f62; stroke-linecap: round"/>
+    <path d="M 324.466755 117.088399 
+L 327.133532 120.10308 
+L 323.121721 120.427693 
+z
+" clip-path="url(#pa966e57c46)" style="fill: #1f6f62; stroke: #1f6f62; stroke-linecap: round"/>
+   </g>
+   <g id="patch_12">
+    <path d="M 233.199 108.0468 
+Q 233.199 124.6788 233.199 140.192766 
+" clip-path="url(#pa966e57c46)" style="fill: none; stroke-dasharray: 3.5,2.5; stroke-dashoffset: 0; stroke: #a4503a; stroke-linecap: round"/>
+    <path d="M 234.999 136.592766 
+L 233.199 140.192766 
+L 231.399 136.592766 
+z
+" clip-path="url(#pa966e57c46)" style="fill: #a4503a; stroke-dasharray: 3.5,2.5; stroke-dashoffset: 0; stroke: #a4503a; stroke-linecap: round"/>
+   </g>
+   <g id="text_1">
+    <text style="font-weight: 700; font-size: 8.8px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: middle; fill: #211a12" x="109.323" y="94.6059" transform="rotate(-0 109.323 94.6059)">pyruvate</text>
+   </g>
+   <g id="text_2">
+    <text style="font-size: 8.4px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: middle; fill: #211a12" x="233.199" y="47.994675" transform="rotate(-0 233.199 47.994675)">lactate</text>
+   </g>
+   <g id="text_3">
+    <text style="font-weight: 700; font-size: 8.4px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: middle; fill: #211a12" x="233.199" y="95.862022" transform="rotate(-0 233.199 95.862022)">acetyl-CoA</text>
+   </g>
+   <g id="text_4">
+    <text style="font-size: 7px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: middle; fill: #8a7458" x="233.199" y="106.153002" transform="rotate(-0 233.199 106.153002)">+ formate</text>
+   </g>
+   <g id="text_5">
+    <text style="font-size: 8.4px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: middle; fill: #211a12" x="365.3334" y="69.616275" transform="rotate(-0 365.3334 69.616275)">ethanol</text>
+   </g>
+   <g id="text_6">
+    <text style="font-weight: 700; font-size: 8.4px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: middle; fill: #211a12" x="365.3334" y="127.828275" transform="rotate(-0 365.3334 127.828275)">acetate</text>
+   </g>
+   <g id="text_7">
+    <text style="font-size: 8.2px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: middle; fill: #211a12" x="233.199" y="152.721088" transform="rotate(-0 233.199 152.721088)">CO₂ + H₂</text>
+   </g>
+   <g id="text_8">
+    <text style="font-weight: 700; font-size: 9.6px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: start; fill: #211a12" x="74.2248" y="20.0139" transform="rotate(-0 74.2248 20.0139)">The anaerobic pyruvate node: ATP traded against redox</text>
+   </g>
+   <g id="text_9">
+    <text style="font-style: italic; font-size: 7.4px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: start; fill: #8a7458" x="150.615" y="64.350737" transform="rotate(-0 150.615 64.350737)">LDH</text>
+   </g>
+   <g id="text_10">
+    <text style="font-size: 7.6px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: start; fill: #8a7458" x="272.4264" y="47.773925" transform="rotate(-0 272.4264 47.773925)">− 1 NADH · no extra ATP</text>
+   </g>
+   <g id="text_11">
+    <text style="font-style: italic; font-size: 7.4px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: start; fill: #8a5f1b" x="148.5504" y="107.593937" transform="rotate(-0 148.5504 107.593937)">PFL</text>
+   </g>
+   <g id="text_12">
+    <text style="font-size: 7.6px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: start; fill: #8a7458" x="408.69" y="61.079525" transform="rotate(-0 408.69 61.079525)">− 2 NADH · no extra ATP</text>
+   </g>
+   <g id="text_13">
+    <text style="font-weight: 700; font-size: 7.8px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: start; fill: #1f6f62" x="408.69" y="119.346712" transform="rotate(-0 408.69 119.346712)">+ 1 ATP</text>
+   </g>
+   <g id="text_14">
+    <text style="font-size: 7.2px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: start; fill: #8a7458" x="408.69" y="129.16035" transform="rotate(-0 408.69 129.16035)">no NADH used</text>
+   </g>
+   <g id="text_15">
+    <text style="font-size: 7.6px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: start; fill: #a4503a" x="293.0724" y="150.892325" transform="rotate(-0 293.0724 150.892325)">carries electrons with no carbon —</text>
+   </g>
+   <g id="text_16">
+    <text style="font-size: 7.6px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: start; fill: #a4503a" x="293.0724" y="160.871525" transform="rotate(-0 293.0724 160.871525)">omit it and your balance will not close</text>
+   </g>
+  </g>
+  <g id="text_17">
+   <text style="font-size: 8.3px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: start; fill: #8a7458" x="5.76" y="199.08" transform="rotate(-0 5.76 199.08)">Acetate is the ATP-rich, electron-poor option and ethanol the reverse. The ratio is set by how much NADH must be disposed of.</text>
+  </g>
+ </g>
+ <defs>
+  <clipPath id="pa966e57c46">
+   <rect x="65.9664" y="5.76" width="412.92" height="166.32"/>
+  </clipPath>
+ </defs>
+</svg>
+</div><div class="fig-dark"><svg role="img" aria-label="Three fates with different ATP and redox consequences. H₂ from formate carries electrons with no carbon, which is why omitting gas measurement breaks a balance." xmlns:xlink="http://www.w3.org/1999/xlink" width="538.734703pt" height="206.566141pt" viewBox="0 0 538.734703 206.566141" xmlns="http://www.w3.org/2000/svg" version="1.1">
+ <metadata>
+  <rdf:RDF xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:cc="http://creativecommons.org/ns#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+   <cc:Work>
+    <dc:type rdf:resource="http://purl.org/dc/dcmitype/StillImage"/>
+    <dc:date>2026-11-02T23:57:45.771471</dc:date>
+    <dc:format>image/svg+xml</dc:format>
+    <dc:creator>
+     <cc:Agent>
+      <dc:title>Matplotlib v3.10.8, https://matplotlib.org/</dc:title>
+     </cc:Agent>
+    </dc:creator>
+   </cc:Work>
+  </rdf:RDF>
+ </metadata>
+ <defs>
+  <style type="text/css">*{stroke-linejoin: round; stroke-linecap: butt}</style>
+ </defs>
+ <g id="figure_1">
+  <g id="patch_1">
+   <path d="M 0 206.566141 
+L 538.734703 206.566141 
+L 538.734703 0 
+L 0 0 
+L 0 206.566141 
+z
+" style="fill: none"/>
+  </g>
+  <g id="axes_1">
+   <g id="patch_2">
+    <path d="M 80.00568 100.5624 
+L 138.64032 100.5624 
+Q 144.4212 100.5624 144.4212 98.23392 
+L 144.4212 86.25888 
+Q 144.4212 83.9304 138.64032 83.9304 
+L 80.00568 83.9304 
+Q 74.2248 83.9304 74.2248 86.25888 
+L 74.2248 98.23392 
+Q 74.2248 100.5624 80.00568 100.5624 
+z
+" clip-path="url(#pd7339bb022)" style="fill: #241c12; stroke: #d7a95c; stroke-width: 1.2; stroke-linejoin: miter"/>
+   </g>
+   <g id="patch_3">
+    <path d="M 203.88168 53.9928 
+L 262.51632 53.9928 
+Q 268.2972 53.9928 268.2972 51.66432 
+L 268.2972 39.68928 
+Q 268.2972 37.3608 262.51632 37.3608 
+L 203.88168 37.3608 
+Q 198.1008 37.3608 198.1008 39.68928 
+L 198.1008 51.66432 
+Q 198.1008 53.9928 203.88168 53.9928 
+z
+" clip-path="url(#pd7339bb022)" style="fill: #241c12; stroke: #3a3026; stroke-width: 0.8; stroke-linejoin: miter"/>
+   </g>
+   <g id="patch_4">
+    <path d="M 191.49408 107.2152 
+L 274.90392 107.2152 
+Q 280.6848 107.2152 280.6848 104.88672 
+L 280.6848 89.58528 
+Q 280.6848 87.2568 274.90392 87.2568 
+L 191.49408 87.2568 
+Q 185.7132 87.2568 185.7132 89.58528 
+L 185.7132 104.88672 
+Q 185.7132 107.2152 191.49408 107.2152 
+z
+" clip-path="url(#pd7339bb022)" style="fill: #241c12; stroke: #d7a95c; stroke-width: 1.2; stroke-linejoin: miter"/>
+   </g>
+   <g id="patch_5">
+    <path d="M 336.01608 75.6144 
+L 394.65072 75.6144 
+Q 400.4316 75.6144 400.4316 73.28592 
+L 400.4316 61.31088 
+Q 400.4316 58.9824 394.65072 58.9824 
+L 336.01608 58.9824 
+Q 330.2352 58.9824 330.2352 61.31088 
+L 330.2352 73.28592 
+Q 330.2352 75.6144 336.01608 75.6144 
+z
+" clip-path="url(#pd7339bb022)" style="fill: #241c12; stroke: #3a3026; stroke-width: 0.8; stroke-linejoin: miter"/>
+   </g>
+   <g id="patch_6">
+    <path d="M 336.01608 133.8264 
+L 394.65072 133.8264 
+Q 400.4316 133.8264 400.4316 131.49792 
+L 400.4316 119.52288 
+Q 400.4316 117.1944 394.65072 117.1944 
+L 336.01608 117.1944 
+Q 330.2352 117.1944 330.2352 119.52288 
+L 330.2352 131.49792 
+Q 330.2352 133.8264 336.01608 133.8264 
+z
+" clip-path="url(#pd7339bb022)" style="fill: #241c12; stroke: #6dbdac; stroke-width: 1.2; stroke-linejoin: miter"/>
+   </g>
+   <g id="patch_7">
+    <path d="M 191.49408 158.7744 
+L 274.90392 158.7744 
+Q 280.6848 158.7744 280.6848 156.44592 
+L 280.6848 144.47088 
+Q 280.6848 142.1424 274.90392 142.1424 
+L 191.49408 142.1424 
+Q 185.7132 142.1424 185.7132 144.47088 
+L 185.7132 156.44592 
+Q 185.7132 158.7744 191.49408 158.7744 
+z
+" clip-path="url(#pd7339bb022)" style="fill: #241c12; stroke: #d98c72; stroke-width: 1.2; stroke-linejoin: miter"/>
+   </g>
+   <g id="patch_8">
+    <path d="M 146.4858 87.2568 
+Q 171.261 68.13 195.151211 49.686424 
+" clip-path="url(#pd7339bb022)" style="fill: none; stroke: #9a8872; stroke-linecap: round"/>
+    <path d="M 191.201633 50.461557 
+L 195.151211 49.686424 
+L 193.401571 53.311166 
+z
+" clip-path="url(#pd7339bb022)" style="fill: #9a8872; stroke: #9a8872; stroke-linecap: round"/>
+   </g>
+   <g id="patch_9">
+    <path d="M 146.4858 93.9096 
+Q 165.0672 95.5728 182.535018 97.136325 
+" clip-path="url(#pd7339bb022)" style="fill: none; stroke: #d7a95c; stroke-linecap: round"/>
+    <path d="M 179.109828 95.022543 
+L 182.535018 97.136325 
+L 178.788879 98.608208 
+z
+" clip-path="url(#pd7339bb022)" style="fill: #d7a95c; stroke: #d7a95c; stroke-linecap: round"/>
+   </g>
+   <g id="patch_10">
+    <path d="M 282.7494 92.2464 
+Q 305.46 81.4356 327.161106 71.105344 
+" clip-path="url(#pd7339bb022)" style="fill: none; stroke: #9a8872; stroke-linecap: round"/>
+    <path d="M 323.136938 71.027411 
+L 327.161106 71.105344 
+L 324.684259 74.277918 
+z
+" clip-path="url(#pd7339bb022)" style="fill: #9a8872; stroke: #9a8872; stroke-linecap: round"/>
+   </g>
+   <g id="patch_11">
+    <path d="M 282.7494 102.2256 
+Q 305.46 111.3732 327.133532 120.10308 
+" clip-path="url(#pd7339bb022)" style="fill: none; stroke: #6dbdac; stroke-linecap: round"/>
+    <path d="M 324.466755 117.088399 
+L 327.133532 120.10308 
+L 323.121721 120.427693 
+z
+" clip-path="url(#pd7339bb022)" style="fill: #6dbdac; stroke: #6dbdac; stroke-linecap: round"/>
+   </g>
+   <g id="patch_12">
+    <path d="M 233.199 108.0468 
+Q 233.199 124.6788 233.199 140.192766 
+" clip-path="url(#pd7339bb022)" style="fill: none; stroke-dasharray: 3.5,2.5; stroke-dashoffset: 0; stroke: #d98c72; stroke-linecap: round"/>
+    <path d="M 234.999 136.592766 
+L 233.199 140.192766 
+L 231.399 136.592766 
+z
+" clip-path="url(#pd7339bb022)" style="fill: #d98c72; stroke-dasharray: 3.5,2.5; stroke-dashoffset: 0; stroke: #d98c72; stroke-linecap: round"/>
+   </g>
+   <g id="text_1">
+    <text style="font-weight: 700; font-size: 8.8px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: middle; fill: #f1e9dc" x="109.323" y="94.6059" transform="rotate(-0 109.323 94.6059)">pyruvate</text>
+   </g>
+   <g id="text_2">
+    <text style="font-size: 8.4px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: middle; fill: #f1e9dc" x="233.199" y="47.994675" transform="rotate(-0 233.199 47.994675)">lactate</text>
+   </g>
+   <g id="text_3">
+    <text style="font-weight: 700; font-size: 8.4px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: middle; fill: #f1e9dc" x="233.199" y="95.862022" transform="rotate(-0 233.199 95.862022)">acetyl-CoA</text>
+   </g>
+   <g id="text_4">
+    <text style="font-size: 7px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: middle; fill: #9a8872" x="233.199" y="106.153002" transform="rotate(-0 233.199 106.153002)">+ formate</text>
+   </g>
+   <g id="text_5">
+    <text style="font-size: 8.4px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: middle; fill: #f1e9dc" x="365.3334" y="69.616275" transform="rotate(-0 365.3334 69.616275)">ethanol</text>
+   </g>
+   <g id="text_6">
+    <text style="font-weight: 700; font-size: 8.4px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: middle; fill: #f1e9dc" x="365.3334" y="127.828275" transform="rotate(-0 365.3334 127.828275)">acetate</text>
+   </g>
+   <g id="text_7">
+    <text style="font-size: 8.2px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: middle; fill: #f1e9dc" x="233.199" y="152.721088" transform="rotate(-0 233.199 152.721088)">CO₂ + H₂</text>
+   </g>
+   <g id="text_8">
+    <text style="font-weight: 700; font-size: 9.6px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: start; fill: #f1e9dc" x="74.2248" y="20.0139" transform="rotate(-0 74.2248 20.0139)">The anaerobic pyruvate node: ATP traded against redox</text>
+   </g>
+   <g id="text_9">
+    <text style="font-style: italic; font-size: 7.4px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: start; fill: #9a8872" x="150.615" y="64.350737" transform="rotate(-0 150.615 64.350737)">LDH</text>
+   </g>
+   <g id="text_10">
+    <text style="font-size: 7.6px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: start; fill: #9a8872" x="272.4264" y="47.773925" transform="rotate(-0 272.4264 47.773925)">− 1 NADH · no extra ATP</text>
+   </g>
+   <g id="text_11">
+    <text style="font-style: italic; font-size: 7.4px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: start; fill: #d7a95c" x="148.5504" y="107.593937" transform="rotate(-0 148.5504 107.593937)">PFL</text>
+   </g>
+   <g id="text_12">
+    <text style="font-size: 7.6px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: start; fill: #9a8872" x="408.69" y="61.079525" transform="rotate(-0 408.69 61.079525)">− 2 NADH · no extra ATP</text>
+   </g>
+   <g id="text_13">
+    <text style="font-weight: 700; font-size: 7.8px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: start; fill: #6dbdac" x="408.69" y="119.346712" transform="rotate(-0 408.69 119.346712)">+ 1 ATP</text>
+   </g>
+   <g id="text_14">
+    <text style="font-size: 7.2px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: start; fill: #9a8872" x="408.69" y="129.16035" transform="rotate(-0 408.69 129.16035)">no NADH used</text>
+   </g>
+   <g id="text_15">
+    <text style="font-size: 7.6px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: start; fill: #d98c72" x="293.0724" y="150.892325" transform="rotate(-0 293.0724 150.892325)">carries electrons with no carbon —</text>
+   </g>
+   <g id="text_16">
+    <text style="font-size: 7.6px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: start; fill: #d98c72" x="293.0724" y="160.871525" transform="rotate(-0 293.0724 160.871525)">omit it and your balance will not close</text>
+   </g>
+  </g>
+  <g id="text_17">
+   <text style="font-size: 8.3px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: start; fill: #9a8872" x="5.76" y="199.08" transform="rotate(-0 5.76 199.08)">Acetate is the ATP-rich, electron-poor option and ethanol the reverse. The ratio is set by how much NADH must be disposed of.</text>
+  </g>
+ </g>
+ <defs>
+  <clipPath id="pd7339bb022">
+   <rect x="65.9664" y="5.76" width="412.92" height="166.32"/>
+  </clipPath>
+ </defs>
+</svg>
+</div><figcaption>Three fates with different ATP and redox consequences. H₂ from formate carries electrons with no carbon, which is why omitting gas measurement breaks a balance.</figcaption></figure>
+<p>Without a terminal electron acceptor, glycolytic NADH must be reoxidised by reducing something the cell made itself, and the options at the pyruvate node determine the product spectrum. Lactate dehydrogenase reduces pyruvate directly, consuming one NADH and making no ATP beyond glycolysis. Pyruvate formate lyase cleaves pyruvate to acetyl-CoA and formate without redox chemistry, and the acetyl-CoA can then go to ethanol, consuming two NADH, or to acetate via phosphotransacetylase and acetate kinase, consuming none but making an extra ATP. So the cell trades ATP against redox: acetate is the ATP-rich, electron-poor option and ethanol the reverse, and the ratio it chooses is set by how much NADH needs disposing of. That is the whole logic of mixed-acid fermentation.</p>
+<p><strong>2. Mixed-acid fermentation, and why hydrogen matters to your balance</strong></p>
+<p>E. coli anaerobically produces a mixture: ethanol, acetate, formate, lactate, succinate, and from formate via formate hydrogen lyase, CO₂ and H₂. The hydrogen is the trap for a careless balance: it carries electrons and no carbon, so omitting it leaves carbon closing while electrons do not. Succinate is the other subtlety, since its formation fixes CO₂ and consumes NADH, making it an electron sink that also conserves carbon. When you see a published anaerobic product spectrum, check first whether gas was measured; a great many are reported without it and cannot be balanced as published.</p>
+<p><strong>3. Homolactic and heterolactic fermentation, with the numbers</strong></p>
+<p>Homolactic: glucose through the EMP pathway to 2 pyruvate, both reduced to lactate by LDH. Net 2 ATP, 2 lactate, no CO₂, and a theoretical mass yield of 1.0 g/g since 180 g of glucose becomes 180 g of lactate. Heterolactic: glucose through the phosphoketolase pathway to lactate plus ethanol plus CO₂, with 1 ATP per glucose and roughly half the mass yield. Homolactic is therefore the chassis for lactate, which is why lactate production uses homofermentative lactobacilli. The limit in practice is not stoichiometry but pH: the undissociated acid mechanism from week 2 sets a titre ceiling well before the carbon runs out, which is why these processes run neutralised and pay for it downstream.</p>
+<p><strong>4. Overflow metabolism: fermentation in the presence of oxygen</strong></p>
+<p>Above a critical growth rate, E. coli excretes acetate and yeast excretes ethanol even when oxygen is abundant. The modern explanation is proteome allocation, not any deficiency: respiration yields more ATP per glucose but requires more protein per unit of ATP flux, because the respiratory chain and TCA enzymes are expensive. Above a threshold flux the cell gets more ATP per gram of protein invested by fermenting part of the carbon, so it does. This is the week-1 growth laws cashed out, it explains the Crabtree effect and the Warburg effect by the same mechanism, and it is why proteome-constrained models in week 31 reproduce the acetate switch without any ad hoc bound. The process consequence is direct: suppress overflow by holding growth below the critical rate with a controlled feed, which is week 50&#x27;s exponential feeding.</p>
+<p><strong>5. Redox balancing as a design constraint and as a diagnostic</strong></p>
+<p>Two uses, and you should practise both. As a constraint: when designing an anaerobic pathway, the NADH produced by glycolysis must equal the NADH consumed by your route plus any remaining sinks, or the design cannot carry flux — which is the stoichiometric basis of growth coupling in week 26, where you delete every sink but the product. As a diagnostic: given a measured product spectrum, compute carbon and electron closure separately and read the pattern. Carbon short with electrons complete implicates a carbon-bearing, electron-poor stream, almost always CO₂. Both short by a similar factor implicates biomass under-reporting. Both high by a similar factor implicates one over-reported stream. Electrons short with carbon complete implicates H₂ or another reduced gas.</p>
+<h3>Worked anchor</h3>
+<p>Close a mixed-acid balance, and name what is missing.</p>
+<p>Per 100 mol glucose: 60 ethanol, 60 formate, 50 acetate, 20 lactate, 30 succinate.</p>
+<p>Carbon in: 600 C-mol. Out: ethanol 120, formate 60, acetate 100, lactate 60, succinate 120 = 460 C-mol, so 77% recovery.</p>
+<p>Electrons, using γ per C-mol (glucose 4.00, ethanol 6.00, acetate 4.00, lactate 4.00, succinate 3.50, formate 2.00): in 2,400. Out: ethanol 60×2×6 = 720; acetate 50×2×4 = 400; lactate 20×3×4 = 240; succinate 30×4×3.5 = 420; formate 60×1×2 = 120. Total 1,900, so 79%.</p>
+<p>Both balances short by a similar factor points at a stream carrying both carbon and electrons in roughly biomass proportion — and indeed biomass is entirely absent from this spectrum. Assigning the missing 140 C-mol to biomass at γ = 4.2 supplies 588 electrons, which brings electrons to 2,488, slightly over. The small excess sits within the uncertainty of the biomass formula, and the residual can be trimmed by noting that succinate formation fixes CO₂, so some of the carbon came from outside glucose.</p>
+<p>The method is the lesson: read the <em>pattern</em> of the two closures before you guess at a missing stream. Both short in proportion means biomass; carbon short alone means CO₂; electrons short alone means H₂.</p>
+<p><strong>Assumptions behind this calculation</strong></p>
+<ul>
+<li>the listed products are everything the analytics measured</li>
+<li>γ per C-mol as tabulated</li>
+<li>no biomass term in the balance</li>
+<li>the sample is representative of the whole fermentation</li>
+</ul>
+<h3>Reading map</h3>
+<table><thead><tr><th>Source</th><th>Treatment</th><th>Why</th></tr></thead><tbody><tr><td>Microbiology Ch 8.4</td><td>Read closely</td><td>Fermentation in full, with each named pathway and its balanced equation. The week&#x27;s core text and better on this than Berg.</td></tr><tr><td>Berg Ch 16 §16.1</td><td>Skim</td><td>NAD⁺ regeneration and the logic of fermentation. Short; read it for the framing and move on.</td></tr><tr><td>Lactobacillus Ch 4</td><td>Read closely</td><td>Lactate production with real numbers and real constraints. Read it for what limits titre in practice rather than in theory — it is the clearest published example of the week 2 acid mechanism deciding a process.</td></tr><tr><td>Lee Ch 15 §15.1.1–15.1.2</td><td>Skim</td><td>Lactic acid bacteria metabolism and tooling. Skim now for the metabolic content; the host material returns properly in week 43.</td></tr><tr><td>Shuler Ch 5 §5.10</td><td>Skim</td><td>Overall stoichiometries from the engineering side. Use as a cross-check on your own ledger.</td></tr></tbody></table>
+<h3>Common misconceptions</h3>
+<ul>
+<li>That overflow metabolism is oxygen limitation. It happens with oxygen in excess, and the explanation is proteome efficiency — more ATP per gram of protein from fermentation than from respiration above a threshold flux.</li>
+<li>That a product spectrum without gas measurement can be balanced. Formate, CO₂ and H₂ carry carbon and electrons in different proportions, and omitting them makes the balance uninterpretable rather than merely incomplete.</li>
+<li>That homolactic fermentation&#x27;s 1.0 g/g ceiling is reachable. The undissociated acid poisons the cell long before the carbon runs out, which is why the real constraint is pH tolerance.</li>
+</ul>
+<h3>Check yourself before moving on</h3>
+<p><strong>Q.</strong> Write the homolactic and heterolactic equations and compute ATP and mass yield for each.</p>
+<p><strong>A.</strong> Homolactic: C₆H₁₂O₆ → 2 CH₃CHOHCOOH, via EMP, net 2 ATP, no CO₂, mass yield 180/180 = 1.0 g/g. Heterolactic: C₆H₁₂O₆ → lactate + ethanol + CO₂, via phosphoketolase, net 1 ATP, mass yield roughly 90/180 = 0.5 g/g for lactate alone. Homolactic is therefore the lactate chassis, with twice the ATP and twice the yield; the trade is that homofermentative lactobacilli are nutritionally fastidious, so complex medium cost partly offsets the yield advantage.</p>
+<p><strong>Q.</strong> A product spectrum closes to 95% on carbon and 101% on electrons. What is missing and how do you know?</p>
+<p><strong>A.</strong> A carbon-bearing, electron-poor stream — almost certainly CO₂, because it carries carbon and no available electrons, so omitting it depresses carbon closure while leaving electrons intact or slightly high. Measure it by off-gas integration rather than inferring it. Had both balances been short by a similar factor the diagnosis would instead be under-reported biomass; had electrons alone been short, H₂ or another reduced gas.</p>
+<p><strong>Q.</strong> Why does a cell ferment when oxygen is available, and what does that imply for process control?</p>
+<p><strong>A.</strong> Because respiration yields more ATP per glucose but requires more protein per unit of ATP flux; above a critical flux the cell obtains more ATP per gram of protein invested by fermenting part of the carbon. It is a proteome allocation optimum, not a defect. The process implication is that overflow is controllable by rate rather than by oxygen: hold the specific growth rate below the critical value with an exponential or feedback-controlled feed, and the carbon stops going to acetate — which is why fed-batch exists and why simply adding more air does not fix acetate.</p>
+<hr>
+
+<section class="study-transfer" aria-label="Week 13 application and teach-back">
+<h3>Apply it to your fermentation experience</h3>
+<p><strong>Transfer prompt.</strong> Write a carbon and electron balance for a fermentation product you measured. Which unmeasured by-products could make an apparent yield or redox balance misleading?</p>
+<p class="meta">Use your actual thesis methods and results where you remember them. Mark missing information as unknown; do not assume the organisms were co-cultured, that a metabolite was measured, or that a proposed mechanism was demonstrated.</p>
+<h3>Teach it back</h3>
+<p>Explain the week's concept from memory, work one number, and name one boundary. Then use the <a href="teach-back.html">five-minute teach-back protocol</a> and log it in the tracker.</p>
+</section>
+<nav class="weeknav" aria-label="Week navigation"><a href="week-12.html">&#8592; Week 12</a><a class="idx" href="index.html">Lecture index</a><a class="idx" href="case-study.html">Case study</a><a href="week-14.html">Week 14 &#8594;</a></nav>
+</main>
+<footer class="docfoot"><a href="../metabolic-engineering-tracker.html">&#8592; Course tracker</a><span>Metabolic engineering &middot; 55 weeks</span></footer>
+<script>
+(function(){var root=document.documentElement,key="me.theme";var bs=Array.prototype.slice.call(document.querySelectorAll(".appearance button"));
+function paint(v){bs.forEach(function(b){b.setAttribute("aria-pressed",b.getAttribute("data-appearance")===v?"true":"false");});if(v==="auto")root.removeAttribute("data-theme");else root.setAttribute("data-theme",v);}
+var saved="auto";try{saved=localStorage.getItem(key)||"auto";}catch(e){}
+bs.forEach(function(b){b.addEventListener("click",function(){var v=b.getAttribute("data-appearance");paint(v);try{localStorage.setItem(key,v);}catch(e){}});});paint(saved);})();
+</script>
+</body>
+</html>

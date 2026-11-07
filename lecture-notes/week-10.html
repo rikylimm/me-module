@@ -1,0 +1,737 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="utf-8"><title>Week 10 — The pentose phosphate pathway and the NADPH economy — Metabolic engineering</title>
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+
+
+<style>:root{color-scheme:light;--paper:#FAF6EF;--ink:#211A12;--ink-2:#4A3C2C;--ink-3:#8A7458;
+--line:#DFD2BE;--line-2:#EDE4D5;--broth:#9A6B1F;--broth-soft:#F6ECD9;
+--serif:"Newsreader",Georgia,serif;--sans:"Public Sans",system-ui,sans-serif}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--paper:#15120D;--ink:#F1E9DC;--ink-2:#CBBCA6;
+--ink-3:#948872;--line:#352C22;--line-2:#2A231B;--broth:#D7A95C;--broth-soft:#241D14}}
+*{box-sizing:border-box}
+body{margin:0;background:var(--paper);color:var(--ink);font-family:var(--sans);font-size:15.5px;line-height:1.6;
+padding:env(safe-area-inset-top,0) 0 env(safe-area-inset-bottom,0)}
+.wrap{max-width:840px;margin:0 auto;padding:40px 22px 90px}
+h1{font-family:var(--serif);font-size:clamp(28px,5vw,42px);line-height:1.1;font-weight:600;margin:0 0 6px;letter-spacing:-.02em}
+h2{font-family:var(--serif);font-size:26px;font-weight:600;margin:46px 0 10px;letter-spacing:-.01em;padding-bottom:7px;border-bottom:1px solid var(--line)}
+h3{font-family:var(--serif);font-size:20px;font-weight:600;margin:30px 0 4px;color:var(--broth)}
+h4{font-size:14px;font-weight:650;margin:18px 0 4px;color:var(--ink-3);letter-spacing:.02em;text-transform:uppercase}
+p{margin:0 0 12px;max-width:74ch}
+em{color:var(--ink-2)}
+ul{margin:0 0 14px;padding-left:1.15em;max-width:74ch}
+li{margin:.3em 0}li::marker{color:var(--ink-3)}
+hr{border:0;border-top:1px solid var(--line);margin:40px 0}
+strong{font-weight:650}
+table{border-collapse:collapse;width:100%;margin:14px 0 20px;font-size:14px}
+th{text-align:left;font-weight:600;color:var(--ink-3);font-size:12.5px;padding:7px 9px;border-bottom:1.5px solid var(--line)}
+td{padding:8px 9px;border-bottom:1px solid var(--line-2);vertical-align:top}
+tr:nth-child(even) td{background:var(--broth-soft)}
+
+figure.fig{margin:22px 0 26px;padding:0;max-width:100%}
+figure.fig svg{width:100%;height:auto;display:block;background:var(--card);
+  border:1px solid var(--line-2);border-radius:10px;padding:8px 10px}
+figure.fig figcaption{font-size:13px;color:var(--ink-3);margin-top:8px;max-width:74ch;line-height:1.5}
+figure.fig .figtitle{font-family:var(--serif);font-size:15px;color:var(--ink-2);margin-bottom:6px}
+figure.fig .fig-dark{display:none}
+@media (prefers-color-scheme: dark){
+  figure.fig .fig-light{display:none}
+  figure.fig .fig-dark{display:block}
+}
+@media print{figure.fig{break-inside:avoid;page-break-inside:avoid}
+  figure.fig .fig-dark{display:none !important}
+  figure.fig .fig-light{display:block !important}}
+
+@media print{body{background:#fff}.wrap{padding:0;max-width:none}h2,h3{page-break-after:avoid}}</style><script>try{var t=localStorage.getItem("me.theme");if(t&&t!=="auto")document.documentElement.setAttribute("data-theme",t);}catch(e){}</script>
+<meta name="color-scheme" content="light dark">
+<meta name="theme-color" content="#ffffff" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#000000" media="(prefers-color-scheme: dark)">
+<style>
+/* ============================================================
+   COURSE LIBRARY — Apple document shell
+   ============================================================ */
+:root{
+  color-scheme:light;
+  --paper:#FFFFFF;--surface:#F5F5F7;--card:#FFFFFF;--fill:#F5F5F7;
+  --ink:#1D1D1F;--ink-2:#6E6E73;--ink-3:#6E6E73;
+  --line:rgba(0,0,0,.14);--line-2:rgba(0,0,0,.08);
+  --broth:#0071E3;--broth-soft:rgba(0,113,227,.10);
+  --nav-bg:rgba(255,255,255,.84);
+  --sans:-apple-system,BlinkMacSystemFont,"SF Pro Text","SF Pro Display","Helvetica Neue",Arial,sans-serif;
+  --mono:ui-monospace,"SF Mono",Menlo,Consolas,monospace;
+  --serif:var(--sans);
+}
+@media (prefers-color-scheme:dark){
+  :root:not([data-theme="light"]){
+    color-scheme:dark;
+    --paper:#000000;--surface:#1C1C1E;--card:#2C2C2E;--fill:#2C2C2E;
+    --ink:#F5F5F7;--ink-2:#A1A1A6;--ink-3:#8E8E93;
+    --line:rgba(255,255,255,.16);--line-2:rgba(255,255,255,.09);
+    --broth:#5AA9FF;--broth-soft:rgba(10,132,255,.18);
+    --nav-bg:rgba(0,0,0,.74);
+  }
+}
+:root[data-theme="dark"]{
+  color-scheme:dark;
+  --paper:#000000;--surface:#1C1C1E;--card:#2C2C2E;--fill:#2C2C2E;
+  --ink:#F5F5F7;--ink-2:#A1A1A6;--ink-3:#8E8E93;
+  --line:rgba(255,255,255,.16);--line-2:rgba(255,255,255,.09);
+  --broth:#5AA9FF;--broth-soft:rgba(10,132,255,.18);
+  --nav-bg:rgba(0,0,0,.74);
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth;scroll-padding-top:72px;-webkit-text-size-adjust:100%}
+body{
+  margin:0;background:var(--paper);color:var(--ink);
+  font-family:var(--sans);font-size:17px;line-height:1.62;letter-spacing:-.011em;
+  padding:0;
+}
+.docbar{
+  position:sticky;top:0;z-index:80;display:flex;align-items:center;justify-content:space-between;gap:12px;
+  padding:8px max(24px,calc((100vw - 1180px)/2));
+  background:var(--nav-bg);
+  -webkit-backdrop-filter:saturate(180%) blur(20px);backdrop-filter:saturate(180%) blur(20px);
+  border-bottom:1px solid var(--line-2);
+}
+.docback{display:inline-flex;align-items:center;gap:6px;color:var(--ink-2);font-size:13px;font-weight:500;text-decoration:none;white-space:nowrap}
+.docback:hover{color:var(--broth)}
+.appearance{display:inline-flex;gap:2px;padding:2px;background:var(--fill);border-radius:980px}
+.appearance button{border:0;background:none;color:var(--ink-2);font:inherit;font-size:12px;font-weight:500;line-height:1;padding:6px 11px;border-radius:980px;cursor:pointer}
+.appearance button[aria-pressed="true"]{background:var(--card);color:var(--ink);box-shadow:0 1px 2px rgba(0,0,0,.08)}
+.wrap{max-width:900px;margin:0 auto;padding:64px 24px 96px}
+body h1{
+  font-family:var(--sans);font-size:clamp(42px,6.2vw,64px);line-height:1.04;letter-spacing:-.04em;
+  font-weight:700;margin:0 0 16px;max-width:18ch;color:var(--ink);
+}
+.doc-kicker{font-size:13px;font-weight:500;letter-spacing:0;color:var(--ink-2);margin:0 0 12px}
+body h1 + p{font-size:20px;line-height:1.55;color:var(--ink-2);max-width:68ch;margin:0 0 18px}
+body h1 + p strong{color:var(--ink);font-weight:600}
+body h2{
+  font-family:var(--sans);font-size:32px;line-height:1.15;letter-spacing:-.03em;font-weight:600;
+  color:var(--ink);margin:64px 0 14px;padding:0;border:0;
+}
+body h3{font-family:var(--sans);font-size:22px;line-height:1.25;letter-spacing:-.02em;font-weight:600;color:var(--ink);margin:36px 0 8px}
+body h4{font-size:14px;line-height:1.4;font-weight:600;letter-spacing:0;text-transform:none;color:var(--ink-2);margin:24px 0 6px}
+body p{margin:0 0 14px;max-width:72ch}
+body ul,body ol{margin:0 0 16px;padding-left:1.25em;max-width:72ch}
+body li{margin:.32em 0}
+body li::marker{color:var(--ink-3)}
+body strong{font-weight:600;color:var(--ink)}
+body em{color:var(--ink)}
+body a{color:var(--broth);text-decoration:underline;text-underline-offset:2px}
+body a:hover{text-decoration:underline}
+body hr{border:0;border-top:1px solid var(--line-2);margin:56px 0}
+body table{border-collapse:collapse;width:100%;margin:22px 0 30px;font-size:15px;line-height:1.45}
+body th{text-align:left;font-weight:600;font-size:12.5px;color:var(--ink-2);padding:10px 12px;background:var(--surface);border-bottom:1px solid var(--line)}
+body td{padding:11px 12px;border-bottom:1px solid var(--line-2);vertical-align:top}
+body tr:nth-child(even) td{background:transparent}
+body figure.fig{margin:32px 0 36px;padding:0;max-width:100%}
+body figure.fig svg{width:100%;height:auto;display:block;background:var(--surface);border:0;border-radius:20px;padding:18px}
+body figure.fig figcaption{font-size:13px;color:var(--ink-2);margin-top:10px;max-width:72ch;line-height:1.5}
+body figure.fig .figtitle{font-family:var(--sans);font-size:14px;font-weight:600;color:var(--ink);margin-bottom:6px}
+body pre{background:var(--surface);border:1px solid var(--line-2);border-radius:16px;padding:18px;overflow:auto;font-family:var(--mono);font-size:13.5px;line-height:1.55;margin:20px 0 24px}
+body code{font-family:var(--mono);font-size:.88em;background:var(--surface);border-radius:6px;padding:.12em .35em}
+body pre code{background:none;padding:0;font-size:inherit}
+body blockquote{margin:24px 0;padding:2px 0 2px 18px;border-left:3px solid var(--broth);color:var(--ink-2)}
+:root[data-theme="dark"] .fig-light{display:none!important}
+:root[data-theme="dark"] .fig-dark{display:block!important}
+:root[data-theme="light"] .fig-dark{display:none!important}
+:root[data-theme="light"] .fig-light{display:block!important}
+.docfoot{max-width:900px;margin:0 auto;padding:24px 24px 64px;border-top:1px solid var(--line-2);display:flex;justify-content:space-between;gap:12px;font-size:12.5px;color:var(--ink-3)}
+.docfoot a{color:var(--ink-2);text-decoration:none}
+.docfoot a:hover{color:var(--broth)}
+@media (max-width:700px){
+  .docbar{padding:8px 16px}
+  .wrap{padding:40px 18px 80px}
+  body h1{font-size:clamp(38px,11vw,48px)}
+  body h1 + p{font-size:18px}
+  body h2{font-size:28px;margin-top:52px}
+  body h3{font-size:20px}
+  body p,body li{font-size:16.5px}
+  body table{font-size:14px}
+  body th,body td{padding:9px 9px}
+  .docfoot{padding:20px 18px 50px;flex-direction:column;gap:6px}
+}
+@media print{
+  .docbar,.appearance,.docfoot{display:none!important}
+  body{background:#fff;color:#000;font-size:11pt}
+  .wrap{max-width:none;padding:0}
+  body h1{font-size:28pt;max-width:none}
+  body h2{font-size:16pt;page-break-after:avoid}
+  body h3{font-size:13pt;page-break-after:avoid}
+  body a{color:#000;text-decoration:none}
+  body table,body figure{break-inside:avoid}
+}
+
+
+.index-actions{margin:18px 0 36px;display:flex;flex-wrap:wrap;gap:16px;align-items:center}
+.index-actions a{font-size:14px;font-weight:500;color:var(--broth);text-decoration:none}
+.index-actions a:hover{text-decoration:underline}
+.phaseh{display:flex;align-items:baseline;justify-content:space-between;gap:14px;font-size:24px!important;margin:52px 0 2px!important;letter-spacing:-.02em}
+.phaseh span{font-size:12px;font-weight:400;color:var(--ink-3);letter-spacing:0;white-space:nowrap}
+.weeklist{border-top:1px solid var(--line-2);margin-bottom:8px}
+.weekrow{display:flex;align-items:center;gap:14px;min-height:50px;padding:10px 4px;border-bottom:1px solid var(--line-2);text-decoration:none;color:var(--ink)}
+.weekrow:hover{background:var(--surface)}
+.wnum{width:28px;flex:none;font-size:12px;font-weight:600;color:var(--broth);font-variant-numeric:tabular-nums}
+.wtitle{flex:1;font-size:16.5px;font-weight:500;line-height:1.35}
+.warrow{flex:none;color:var(--ink-3);font-size:16px}
+.weeknav{display:flex;align-items:center;justify-content:space-between;gap:14px;margin:52px 0 0;padding-top:22px;border-top:1px solid var(--line-2);font-size:14px}
+.weeknav a{color:var(--broth);text-decoration:none;font-weight:500}
+.weeknav a:hover{text-decoration:underline}
+.weeknav .idx{color:var(--ink-2);font-weight:400}
+.weeknav .empty{visibility:hidden}
+.case-h{max-width:22ch}
+.protocol{max-width:72ch}
+.protocol li{margin:.55em 0}
+.protocol h2{margin-top:38px}
+@media (max-width:700px){.phaseh{font-size:21px!important;margin-top:42px!important}.wtitle{font-size:15.5px}.weeknav{font-size:13px;gap:8px}}
+@media print{.weeknav,.index-actions{display:none!important}}
+</style>
+<style>.sr-only{position:absolute!important;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap;border:0}</style>
+</head><body>
+<header class="docbar"><a class="docback" href="index.html">&#8592; Lecture index</a><div class="appearance" role="group" aria-label="Appearance">
+<button type="button" data-appearance="auto" aria-pressed="true">Auto</button>
+<button type="button" data-appearance="light" aria-pressed="false">Light</button>
+<button type="button" data-appearance="dark" aria-pressed="false">Dark</button>
+</div></header>
+<main class="wrap">
+<p class="doc-kicker">Week 10 of 55 &middot; Metabolism in depth &middot; <strong class="tier-badge">Useful next</strong></p>
+<h1>The pentose phosphate pathway and the NADPH economy</h1>
+<h2 class="sr-only">Week content</h2>
+<p>The pathway that decides whether a reductive product is affordable. Most cofactor-driven yield failures trace back to this week, and the central skill is computing the glycolysis-to-pentose split required by a stated NADPH demand, together with the carbon that split costs.</p>
+<h3>Core ideas</h3>
+<p><strong>1. Two branches with entirely different characters</strong></p>
+<p>The oxidative branch — glucose-6-phosphate dehydrogenase, lactonase, 6-phosphogluconate dehydrogenase — is irreversible and generates 2 NADPH per glucose-6-phosphate while releasing one carbon as CO₂, leaving ribulose-5-phosphate. The non-oxidative branch — ribulose-5-phosphate epimerase and isomerase, then transketolase and transaldolase — is fully reversible and simply rearranges carbon skeletons without redox chemistry, interconverting pentoses with fructose-6-phosphate, erythrose-4-phosphate, sedoheptulose-7-phosphate and glyceraldehyde-3-phosphate. Reversibility is why the pathway can run in several directions depending on what the cell needs, and why its flux is impossible to determine from extracellular rates.</p>
+<p><strong>2. The carbon rearrangement, worth doing on paper once</strong></p>
+<figure class="fig"><div class="figtitle">Figure 10.2 — The two branches of the pentose phosphate pathway</div><div class="fig-light"><svg role="img" aria-label="The oxidative branch trades one carbon for two NADPH; the non-oxidative branch rearranges skeletons and trades nothing. That asymmetry is the NADPH-versus-carbon argument in one picture." xmlns:xlink="http://www.w3.org/1999/xlink" width="681.100453pt" height="206.566141pt" viewBox="0 0 681.100453 206.566141" xmlns="http://www.w3.org/2000/svg" version="1.1">
+ <metadata>
+  <rdf:RDF xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:cc="http://creativecommons.org/ns#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+   <cc:Work>
+    <dc:type rdf:resource="http://purl.org/dc/dcmitype/StillImage"/>
+    <dc:date>2026-11-02T23:57:45.281067</dc:date>
+    <dc:format>image/svg+xml</dc:format>
+    <dc:creator>
+     <cc:Agent>
+      <dc:title>Matplotlib v3.10.8, https://matplotlib.org/</dc:title>
+     </cc:Agent>
+    </dc:creator>
+   </cc:Work>
+  </rdf:RDF>
+ </metadata>
+ <defs>
+  <style type="text/css">*{stroke-linejoin: round; stroke-linecap: butt}</style>
+ </defs>
+ <g id="figure_1">
+  <g id="patch_1">
+   <path d="M 0 206.566141 
+L 681.100453 206.566141 
+L 681.100453 0 
+L 0 0 
+L 0 206.566141 
+z
+" style="fill: none"/>
+  </g>
+  <g id="axes_1">
+   <g id="patch_2">
+    <path d="M 84.13488 67.2984 
+L 146.89872 67.2984 
+Q 152.6796 67.2984 152.6796 64.96992 
+L 152.6796 48.00528 
+Q 152.6796 45.6768 146.89872 45.6768 
+L 84.13488 45.6768 
+Q 78.354 45.6768 78.354 48.00528 
+L 78.354 64.96992 
+Q 78.354 67.2984 84.13488 67.2984 
+z
+" clip-path="url(#p2d2503263f)" style="fill: #f1e9da; stroke: #dfd2be; stroke-width: 0.8; stroke-linejoin: miter"/>
+   </g>
+   <g id="patch_3">
+    <path d="M 154.7442 56.4876 
+Q 160.938 56.4876 166.013766 56.4876 
+" clip-path="url(#p2d2503263f)" style="fill: none; stroke: #8a5f1b; stroke-linecap: round"/>
+    <path d="M 162.413766 54.6876 
+L 166.013766 56.4876 
+L 162.413766 58.2876 
+z
+" clip-path="url(#p2d2503263f)" style="fill: #8a5f1b; stroke: #8a5f1b; stroke-linecap: round"/>
+   </g>
+   <g id="patch_4">
+    <path d="M 174.97728 67.2984 
+L 237.74112 67.2984 
+Q 243.522 67.2984 243.522 64.96992 
+L 243.522 48.00528 
+Q 243.522 45.6768 237.74112 45.6768 
+L 174.97728 45.6768 
+Q 169.1964 45.6768 169.1964 48.00528 
+L 169.1964 64.96992 
+Q 169.1964 67.2984 174.97728 67.2984 
+z
+" clip-path="url(#p2d2503263f)" style="fill: #f1e9da; stroke: #dfd2be; stroke-width: 0.8; stroke-linejoin: miter"/>
+   </g>
+   <g id="patch_5">
+    <path d="M 245.5866 56.4876 
+Q 251.7804 56.4876 256.856166 56.4876 
+" clip-path="url(#p2d2503263f)" style="fill: none; stroke: #8a5f1b; stroke-linecap: round"/>
+    <path d="M 253.256166 54.6876 
+L 256.856166 56.4876 
+L 253.256166 58.2876 
+z
+" clip-path="url(#p2d2503263f)" style="fill: #8a5f1b; stroke: #8a5f1b; stroke-linecap: round"/>
+   </g>
+   <g id="patch_6">
+    <path d="M 265.81968 67.2984 
+L 328.58352 67.2984 
+Q 334.3644 67.2984 334.3644 64.96992 
+L 334.3644 48.00528 
+Q 334.3644 45.6768 328.58352 45.6768 
+L 265.81968 45.6768 
+Q 260.0388 45.6768 260.0388 48.00528 
+L 260.0388 64.96992 
+Q 260.0388 67.2984 265.81968 67.2984 
+z
+" clip-path="url(#p2d2503263f)" style="fill: #f1e9da; stroke: #dfd2be; stroke-width: 0.8; stroke-linejoin: miter"/>
+   </g>
+   <g id="patch_7">
+    <path d="M 336.429 56.4876 
+Q 342.6228 56.4876 347.698566 56.4876 
+" clip-path="url(#p2d2503263f)" style="fill: none; stroke: #8a5f1b; stroke-linecap: round"/>
+    <path d="M 344.098566 54.6876 
+L 347.698566 56.4876 
+L 344.098566 58.2876 
+z
+" clip-path="url(#p2d2503263f)" style="fill: #8a5f1b; stroke: #8a5f1b; stroke-linecap: round"/>
+   </g>
+   <g id="patch_8">
+    <path d="M 356.66208 67.2984 
+L 419.42592 67.2984 
+Q 425.2068 67.2984 425.2068 64.96992 
+L 425.2068 48.00528 
+Q 425.2068 45.6768 419.42592 45.6768 
+L 356.66208 45.6768 
+Q 350.8812 45.6768 350.8812 48.00528 
+L 350.8812 64.96992 
+Q 350.8812 67.2984 356.66208 67.2984 
+z
+" clip-path="url(#p2d2503263f)" style="fill: #f1e9da; stroke: #8a5f1b; stroke-width: 1.2; stroke-linejoin: miter"/>
+   </g>
+   <g id="patch_9">
+    <path d="M 84.13488 150.4584 
+L 155.15712 150.4584 
+Q 160.938 150.4584 160.938 148.12992 
+L 160.938 122.84928 
+Q 160.938 120.5208 155.15712 120.5208 
+L 84.13488 120.5208 
+Q 78.354 120.5208 78.354 122.84928 
+L 78.354 148.12992 
+Q 78.354 150.4584 84.13488 150.4584 
+z
+" clip-path="url(#p2d2503263f)" style="fill: #f1e9da; stroke: #8a5f1b; stroke-width: 1.2; stroke-linejoin: miter"/>
+   </g>
+   <g id="patch_10">
+    <path d="M 163.0026 135.4896 
+Q 187.7778 135.4896 211.434966 135.4896 
+" clip-path="url(#p2d2503263f)" style="fill: none; stroke: #8a7458; stroke-linecap: round"/>
+    <path d="M 207.834966 133.6896 
+L 211.434966 135.4896 
+L 207.834966 137.2896 
+z
+" clip-path="url(#p2d2503263f)" style="fill: #8a7458; stroke: #8a7458; stroke-linecap: round"/>
+   </g>
+   <g id="patch_11">
+    <path d="M 220.39848 133.8264 
+L 283.16232 133.8264 
+Q 288.9432 133.8264 288.9432 131.49792 
+L 288.9432 116.19648 
+Q 288.9432 113.868 283.16232 113.868 
+L 220.39848 113.868 
+Q 214.6176 113.868 214.6176 116.19648 
+L 214.6176 131.49792 
+Q 214.6176 133.8264 220.39848 133.8264 
+z
+" clip-path="url(#p2d2503263f)" style="fill: #f1e9da; stroke: #1f6f62; stroke-width: 1.2; stroke-linejoin: miter"/>
+   </g>
+   <g id="patch_12">
+    <path d="M 220.39848 160.4376 
+L 283.16232 160.4376 
+Q 288.9432 160.4376 288.9432 158.10912 
+L 288.9432 142.80768 
+Q 288.9432 140.4792 283.16232 140.4792 
+L 220.39848 140.4792 
+Q 214.6176 140.4792 214.6176 142.80768 
+L 214.6176 158.10912 
+Q 214.6176 160.4376 220.39848 160.4376 
+z
+" clip-path="url(#p2d2503263f)" style="fill: #f1e9da; stroke: #1f6f62; stroke-width: 1.2; stroke-linejoin: miter"/>
+   </g>
+   <g id="text_1">
+    <text style="font-size: 7.8px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: middle; fill: #211a12" x="115.5168" y="58.639912" transform="rotate(-0 115.5168 58.639912)">glucose-6-P</text>
+   </g>
+   <g id="text_2">
+    <text style="font-size: 7.8px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; fill: #211a12" transform="translate(184.291294 54.420935)">6-phospho-</text>
+    <text style="font-size: 7.8px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; fill: #211a12" transform="translate(176.535169 62.85889)">gluconolactone</text>
+   </g>
+   <g id="text_3">
+    <text style="font-size: 7.8px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; fill: #211a12" transform="translate(275.133694 54.420935)">6-phospho-</text>
+    <text style="font-size: 7.8px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; fill: #211a12" transform="translate(277.849678 62.85889)">gluconate</text>
+   </g>
+   <g id="text_4">
+    <text style="font-weight: 700; font-size: 7.8px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: middle; fill: #211a12" x="388.044" y="58.639912" transform="rotate(-0 388.044 58.639912)">ribulose-5-P</text>
+   </g>
+   <g id="text_5">
+    <text style="font-weight: 700; font-size: 10.5px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: middle; fill: #211a12" x="119.646" y="134.727904" transform="rotate(-0 119.646 134.727904)">3 × C₅</text>
+   </g>
+   <g id="text_6">
+    <text style="font-size: 9.1px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: middle; fill: #8a7458" x="119.646" y="144.986071" transform="rotate(-0 119.646 144.986071)">15 carbons</text>
+   </g>
+   <g id="text_7">
+    <text style="font-size: 9.2px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: middle; fill: #211a12" x="251.7804" y="122.726785" transform="rotate(-0 251.7804 122.726785)">2 × C₆</text>
+   </g>
+   <g id="text_8">
+    <text style="font-size: 7.8px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: middle; fill: #8a7458" x="251.7804" y="132.984952" transform="rotate(-0 251.7804 132.984952)">fructose-6-P</text>
+   </g>
+   <g id="text_9">
+    <text style="font-size: 9.2px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: middle; fill: #211a12" x="251.7804" y="149.337985" transform="rotate(-0 251.7804 149.337985)">1 × C₃</text>
+   </g>
+   <g id="text_10">
+    <text style="font-size: 7.8px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: middle; fill: #8a7458" x="251.7804" y="159.596153" transform="rotate(-0 251.7804 159.596153)">GAP</text>
+   </g>
+   <g id="text_11">
+    <text style="font-weight: 700; font-size: 9.6px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: start; fill: #8a5f1b" x="74.2248" y="20.0514" transform="rotate(-0 74.2248 20.0514)">Oxidative branch — irreversible, 2 NADPH, one carbon lost</text>
+   </g>
+   <g id="text_12">
+    <text style="font-size: 7.6px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: middle; fill: #1f6f62" x="119.646" y="39.457925" transform="rotate(-0 119.646 39.457925)">+ NADPH</text>
+   </g>
+   <g id="text_13">
+    <text style="font-size: 7.6px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: middle; fill: #1f6f62" x="301.3308" y="39.457925" transform="rotate(-0 301.3308 39.457925)">+ NADPH</text>
+   </g>
+   <g id="text_14">
+    <text style="font-size: 7.6px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: middle; fill: #a4503a" x="301.3308" y="79.374725" transform="rotate(-0 301.3308 79.374725)">− CO₂</text>
+   </g>
+   <g id="text_15">
+    <text style="font-weight: 700; font-size: 7.8px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; fill: #8a5f1b" transform="translate(435.5298 54.272766)">2 NADPH</text>
+    <text style="font-weight: 700; font-size: 7.8px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; fill: #8a5f1b" transform="translate(435.5298 63.007059)">1 C lost</text>
+   </g>
+   <g id="text_16">
+    <text style="font-weight: 700; font-size: 9.6px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: start; fill: #1f6f62" x="74.2248" y="98.2218" transform="rotate(-0 74.2248 98.2218)">Non-oxidative branch — reversible, no redox, carbon conserved</text>
+   </g>
+   <g id="text_17">
+    <text style="font-style: italic; font-size: 7px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; fill: #8a7458" transform="translate(162.880222 153.460328)">transketolase,</text>
+    <text style="font-style: italic; font-size: 7px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; fill: #8a7458" transform="translate(164.205847 161.298797)">transaldolase</text>
+   </g>
+   <g id="text_18">
+    <text style="font-size: 8px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: start; fill: #4a3c2c" x="301.3308" y="124.3915" transform="rotate(-0 301.3308 124.3915)">15 carbons in, 15 out — the branch rearranges</text>
+   </g>
+   <g id="text_19">
+    <text style="font-size: 8px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: start; fill: #4a3c2c" x="301.3308" y="134.3707" transform="rotate(-0 301.3308 134.3707)">skeletons and returns them to glycolysis</text>
+   </g>
+   <g id="text_20">
+    <text style="font-size: 8px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: start; fill: #a4503a" x="301.3308" y="151.0027" transform="rotate(-0 301.3308 151.0027)">Supplying 12 NADPH needs 6 G6P cycled,</text>
+   </g>
+   <g id="text_21">
+    <text style="font-size: 8px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: start; fill: #a4503a" x="301.3308" y="160.9819" transform="rotate(-0 301.3308 160.9819)">so 6 CO₂ — one glucose of carbon, unavoidably.</text>
+   </g>
+  </g>
+  <g id="text_22">
+   <text style="font-size: 8.3px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: start; fill: #8a7458" x="5.76" y="199.08" transform="rotate(-0 5.76 199.08)">The oxidative branch trades one carbon for two NADPH; the non-oxidative branch trades nothing. That asymmetry is the whole NADPH-versus-carbon argument.</text>
+  </g>
+ </g>
+ <defs>
+  <clipPath id="p2d2503263f">
+   <rect x="65.9664" y="5.76" width="412.92" height="166.32"/>
+  </clipPath>
+ </defs>
+</svg>
+</div><div class="fig-dark"><svg role="img" aria-label="The oxidative branch trades one carbon for two NADPH; the non-oxidative branch rearranges skeletons and trades nothing. That asymmetry is the NADPH-versus-carbon argument in one picture." xmlns:xlink="http://www.w3.org/1999/xlink" width="681.100453pt" height="206.566141pt" viewBox="0 0 681.100453 206.566141" xmlns="http://www.w3.org/2000/svg" version="1.1">
+ <metadata>
+  <rdf:RDF xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:cc="http://creativecommons.org/ns#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+   <cc:Work>
+    <dc:type rdf:resource="http://purl.org/dc/dcmitype/StillImage"/>
+    <dc:date>2026-11-02T23:57:45.322761</dc:date>
+    <dc:format>image/svg+xml</dc:format>
+    <dc:creator>
+     <cc:Agent>
+      <dc:title>Matplotlib v3.10.8, https://matplotlib.org/</dc:title>
+     </cc:Agent>
+    </dc:creator>
+   </cc:Work>
+  </rdf:RDF>
+ </metadata>
+ <defs>
+  <style type="text/css">*{stroke-linejoin: round; stroke-linecap: butt}</style>
+ </defs>
+ <g id="figure_1">
+  <g id="patch_1">
+   <path d="M 0 206.566141 
+L 681.100453 206.566141 
+L 681.100453 0 
+L 0 0 
+L 0 206.566141 
+z
+" style="fill: none"/>
+  </g>
+  <g id="axes_1">
+   <g id="patch_2">
+    <path d="M 84.13488 67.2984 
+L 146.89872 67.2984 
+Q 152.6796 67.2984 152.6796 64.96992 
+L 152.6796 48.00528 
+Q 152.6796 45.6768 146.89872 45.6768 
+L 84.13488 45.6768 
+Q 78.354 45.6768 78.354 48.00528 
+L 78.354 64.96992 
+Q 78.354 67.2984 84.13488 67.2984 
+z
+" clip-path="url(#pd4829cb465)" style="fill: #241c12; stroke: #3a3026; stroke-width: 0.8; stroke-linejoin: miter"/>
+   </g>
+   <g id="patch_3">
+    <path d="M 154.7442 56.4876 
+Q 160.938 56.4876 166.013766 56.4876 
+" clip-path="url(#pd4829cb465)" style="fill: none; stroke: #d7a95c; stroke-linecap: round"/>
+    <path d="M 162.413766 54.6876 
+L 166.013766 56.4876 
+L 162.413766 58.2876 
+z
+" clip-path="url(#pd4829cb465)" style="fill: #d7a95c; stroke: #d7a95c; stroke-linecap: round"/>
+   </g>
+   <g id="patch_4">
+    <path d="M 174.97728 67.2984 
+L 237.74112 67.2984 
+Q 243.522 67.2984 243.522 64.96992 
+L 243.522 48.00528 
+Q 243.522 45.6768 237.74112 45.6768 
+L 174.97728 45.6768 
+Q 169.1964 45.6768 169.1964 48.00528 
+L 169.1964 64.96992 
+Q 169.1964 67.2984 174.97728 67.2984 
+z
+" clip-path="url(#pd4829cb465)" style="fill: #241c12; stroke: #3a3026; stroke-width: 0.8; stroke-linejoin: miter"/>
+   </g>
+   <g id="patch_5">
+    <path d="M 245.5866 56.4876 
+Q 251.7804 56.4876 256.856166 56.4876 
+" clip-path="url(#pd4829cb465)" style="fill: none; stroke: #d7a95c; stroke-linecap: round"/>
+    <path d="M 253.256166 54.6876 
+L 256.856166 56.4876 
+L 253.256166 58.2876 
+z
+" clip-path="url(#pd4829cb465)" style="fill: #d7a95c; stroke: #d7a95c; stroke-linecap: round"/>
+   </g>
+   <g id="patch_6">
+    <path d="M 265.81968 67.2984 
+L 328.58352 67.2984 
+Q 334.3644 67.2984 334.3644 64.96992 
+L 334.3644 48.00528 
+Q 334.3644 45.6768 328.58352 45.6768 
+L 265.81968 45.6768 
+Q 260.0388 45.6768 260.0388 48.00528 
+L 260.0388 64.96992 
+Q 260.0388 67.2984 265.81968 67.2984 
+z
+" clip-path="url(#pd4829cb465)" style="fill: #241c12; stroke: #3a3026; stroke-width: 0.8; stroke-linejoin: miter"/>
+   </g>
+   <g id="patch_7">
+    <path d="M 336.429 56.4876 
+Q 342.6228 56.4876 347.698566 56.4876 
+" clip-path="url(#pd4829cb465)" style="fill: none; stroke: #d7a95c; stroke-linecap: round"/>
+    <path d="M 344.098566 54.6876 
+L 347.698566 56.4876 
+L 344.098566 58.2876 
+z
+" clip-path="url(#pd4829cb465)" style="fill: #d7a95c; stroke: #d7a95c; stroke-linecap: round"/>
+   </g>
+   <g id="patch_8">
+    <path d="M 356.66208 67.2984 
+L 419.42592 67.2984 
+Q 425.2068 67.2984 425.2068 64.96992 
+L 425.2068 48.00528 
+Q 425.2068 45.6768 419.42592 45.6768 
+L 356.66208 45.6768 
+Q 350.8812 45.6768 350.8812 48.00528 
+L 350.8812 64.96992 
+Q 350.8812 67.2984 356.66208 67.2984 
+z
+" clip-path="url(#pd4829cb465)" style="fill: #241c12; stroke: #d7a95c; stroke-width: 1.2; stroke-linejoin: miter"/>
+   </g>
+   <g id="patch_9">
+    <path d="M 84.13488 150.4584 
+L 155.15712 150.4584 
+Q 160.938 150.4584 160.938 148.12992 
+L 160.938 122.84928 
+Q 160.938 120.5208 155.15712 120.5208 
+L 84.13488 120.5208 
+Q 78.354 120.5208 78.354 122.84928 
+L 78.354 148.12992 
+Q 78.354 150.4584 84.13488 150.4584 
+z
+" clip-path="url(#pd4829cb465)" style="fill: #241c12; stroke: #d7a95c; stroke-width: 1.2; stroke-linejoin: miter"/>
+   </g>
+   <g id="patch_10">
+    <path d="M 163.0026 135.4896 
+Q 187.7778 135.4896 211.434966 135.4896 
+" clip-path="url(#pd4829cb465)" style="fill: none; stroke: #9a8872; stroke-linecap: round"/>
+    <path d="M 207.834966 133.6896 
+L 211.434966 135.4896 
+L 207.834966 137.2896 
+z
+" clip-path="url(#pd4829cb465)" style="fill: #9a8872; stroke: #9a8872; stroke-linecap: round"/>
+   </g>
+   <g id="patch_11">
+    <path d="M 220.39848 133.8264 
+L 283.16232 133.8264 
+Q 288.9432 133.8264 288.9432 131.49792 
+L 288.9432 116.19648 
+Q 288.9432 113.868 283.16232 113.868 
+L 220.39848 113.868 
+Q 214.6176 113.868 214.6176 116.19648 
+L 214.6176 131.49792 
+Q 214.6176 133.8264 220.39848 133.8264 
+z
+" clip-path="url(#pd4829cb465)" style="fill: #241c12; stroke: #6dbdac; stroke-width: 1.2; stroke-linejoin: miter"/>
+   </g>
+   <g id="patch_12">
+    <path d="M 220.39848 160.4376 
+L 283.16232 160.4376 
+Q 288.9432 160.4376 288.9432 158.10912 
+L 288.9432 142.80768 
+Q 288.9432 140.4792 283.16232 140.4792 
+L 220.39848 140.4792 
+Q 214.6176 140.4792 214.6176 142.80768 
+L 214.6176 158.10912 
+Q 214.6176 160.4376 220.39848 160.4376 
+z
+" clip-path="url(#pd4829cb465)" style="fill: #241c12; stroke: #6dbdac; stroke-width: 1.2; stroke-linejoin: miter"/>
+   </g>
+   <g id="text_1">
+    <text style="font-size: 7.8px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: middle; fill: #f1e9dc" x="115.5168" y="58.639912" transform="rotate(-0 115.5168 58.639912)">glucose-6-P</text>
+   </g>
+   <g id="text_2">
+    <text style="font-size: 7.8px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; fill: #f1e9dc" transform="translate(184.291294 54.420935)">6-phospho-</text>
+    <text style="font-size: 7.8px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; fill: #f1e9dc" transform="translate(176.535169 62.85889)">gluconolactone</text>
+   </g>
+   <g id="text_3">
+    <text style="font-size: 7.8px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; fill: #f1e9dc" transform="translate(275.133694 54.420935)">6-phospho-</text>
+    <text style="font-size: 7.8px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; fill: #f1e9dc" transform="translate(277.849678 62.85889)">gluconate</text>
+   </g>
+   <g id="text_4">
+    <text style="font-weight: 700; font-size: 7.8px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: middle; fill: #f1e9dc" x="388.044" y="58.639912" transform="rotate(-0 388.044 58.639912)">ribulose-5-P</text>
+   </g>
+   <g id="text_5">
+    <text style="font-weight: 700; font-size: 10.5px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: middle; fill: #f1e9dc" x="119.646" y="134.727904" transform="rotate(-0 119.646 134.727904)">3 × C₅</text>
+   </g>
+   <g id="text_6">
+    <text style="font-size: 9.1px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: middle; fill: #9a8872" x="119.646" y="144.986071" transform="rotate(-0 119.646 144.986071)">15 carbons</text>
+   </g>
+   <g id="text_7">
+    <text style="font-size: 9.2px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: middle; fill: #f1e9dc" x="251.7804" y="122.726785" transform="rotate(-0 251.7804 122.726785)">2 × C₆</text>
+   </g>
+   <g id="text_8">
+    <text style="font-size: 7.8px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: middle; fill: #9a8872" x="251.7804" y="132.984952" transform="rotate(-0 251.7804 132.984952)">fructose-6-P</text>
+   </g>
+   <g id="text_9">
+    <text style="font-size: 9.2px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: middle; fill: #f1e9dc" x="251.7804" y="149.337985" transform="rotate(-0 251.7804 149.337985)">1 × C₃</text>
+   </g>
+   <g id="text_10">
+    <text style="font-size: 7.8px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: middle; fill: #9a8872" x="251.7804" y="159.596153" transform="rotate(-0 251.7804 159.596153)">GAP</text>
+   </g>
+   <g id="text_11">
+    <text style="font-weight: 700; font-size: 9.6px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: start; fill: #d7a95c" x="74.2248" y="20.0514" transform="rotate(-0 74.2248 20.0514)">Oxidative branch — irreversible, 2 NADPH, one carbon lost</text>
+   </g>
+   <g id="text_12">
+    <text style="font-size: 7.6px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: middle; fill: #6dbdac" x="119.646" y="39.457925" transform="rotate(-0 119.646 39.457925)">+ NADPH</text>
+   </g>
+   <g id="text_13">
+    <text style="font-size: 7.6px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: middle; fill: #6dbdac" x="301.3308" y="39.457925" transform="rotate(-0 301.3308 39.457925)">+ NADPH</text>
+   </g>
+   <g id="text_14">
+    <text style="font-size: 7.6px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: middle; fill: #d98c72" x="301.3308" y="79.374725" transform="rotate(-0 301.3308 79.374725)">− CO₂</text>
+   </g>
+   <g id="text_15">
+    <text style="font-weight: 700; font-size: 7.8px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; fill: #d7a95c" transform="translate(435.5298 54.272766)">2 NADPH</text>
+    <text style="font-weight: 700; font-size: 7.8px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; fill: #d7a95c" transform="translate(435.5298 63.007059)">1 C lost</text>
+   </g>
+   <g id="text_16">
+    <text style="font-weight: 700; font-size: 9.6px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: start; fill: #6dbdac" x="74.2248" y="98.2218" transform="rotate(-0 74.2248 98.2218)">Non-oxidative branch — reversible, no redox, carbon conserved</text>
+   </g>
+   <g id="text_17">
+    <text style="font-style: italic; font-size: 7px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; fill: #9a8872" transform="translate(162.880222 153.460328)">transketolase,</text>
+    <text style="font-style: italic; font-size: 7px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; fill: #9a8872" transform="translate(164.205847 161.298797)">transaldolase</text>
+   </g>
+   <g id="text_18">
+    <text style="font-size: 8px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: start; fill: #cbbca6" x="301.3308" y="124.3915" transform="rotate(-0 301.3308 124.3915)">15 carbons in, 15 out — the branch rearranges</text>
+   </g>
+   <g id="text_19">
+    <text style="font-size: 8px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: start; fill: #cbbca6" x="301.3308" y="134.3707" transform="rotate(-0 301.3308 134.3707)">skeletons and returns them to glycolysis</text>
+   </g>
+   <g id="text_20">
+    <text style="font-size: 8px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: start; fill: #d98c72" x="301.3308" y="151.0027" transform="rotate(-0 301.3308 151.0027)">Supplying 12 NADPH needs 6 G6P cycled,</text>
+   </g>
+   <g id="text_21">
+    <text style="font-size: 8px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: start; fill: #d98c72" x="301.3308" y="160.9819" transform="rotate(-0 301.3308 160.9819)">so 6 CO₂ — one glucose of carbon, unavoidably.</text>
+   </g>
+  </g>
+  <g id="text_22">
+   <text style="font-size: 8.3px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: start; fill: #9a8872" x="5.76" y="199.08" transform="rotate(-0 5.76 199.08)">The oxidative branch trades one carbon for two NADPH; the non-oxidative branch trades nothing. That asymmetry is the whole NADPH-versus-carbon argument.</text>
+  </g>
+ </g>
+ <defs>
+  <clipPath id="pd4829cb465">
+   <rect x="65.9664" y="5.76" width="412.92" height="166.32"/>
+  </clipPath>
+ </defs>
+</svg>
+</div><figcaption>The oxidative branch trades one carbon for two NADPH; the non-oxidative branch rearranges skeletons and trades nothing. That asymmetry is the NADPH-versus-carbon argument in one picture.</figcaption></figure>
+<p>Three pentoses, fifteen carbons, become two fructose-6-phosphate and one glyceraldehyde-3-phosphate: twelve plus three, fifteen carbons conserved. Transketolase moves two-carbon units, transaldolase moves three. Work this through by hand once, tracking individual carbons, then immediately encode the three reactions in your notebook and confirm the columns balance — the transketolase and transaldolase coefficients are the ones most often mistyped. Two things then become permanent: you will never again mis-state the stoichiometry, and you will understand why 1-¹³C glucose resolves the pathway&#x27;s flux — because the oxidative branch specifically releases glucose C1 as CO₂ while glycolysis retains it and places it at C3 of pyruvate, giving distinguishable labelling downstream. That is the week 28 argument, and it is visible here.</p>
+<p><strong>3. Four flux modes, and the condition that selects each</strong></p>
+<p>Mode 1, NADPH only: oxidative branch runs, pentoses recycle completely to F6P and GAP, net result is glucose oxidised to CO₂ with NADPH produced. Mode 2, ribose only: non-oxidative branch runs in reverse from F6P and GAP to make R5P without any NADPH, used when nucleotide demand is high and reductant is not. Mode 3, both: oxidative branch runs and the pentose is used directly for biosynthesis. Mode 4, NADPH plus ATP: pentoses recycle through to pyruvate with glycolytic ATP generation. Knowing the modes lets you answer the question a model will put to you: what does the cell do when it needs ribose but not NADPH, or the reverse?</p>
+<p><strong>4. The carbon cost of NADPH, which is the week&#x27;s central number</strong></p>
+<p>Two NADPH per decarboxylation means that supplying 2n NADPH costs n carbons. Twelve NADPH requires six glucose-6-phosphate cycled and releases six CO₂ — one whole glucose equivalent of carbon — even with perfect recycling of the pentoses, because the loss is intrinsic to the NADPH-generating step. This single calculation is why strains needing heavy NADPH acquire a transhydrogenase, an NADP-dependent GAPDH, or a non-decarboxylating route: each converts a carbon cost into an ATP or redox cost, which is usually cheaper. Compute this for your own target before reading any strain paper and you will know what the authors were fighting.</p>
+<p><strong>5. R5P and E4P: the pathway&#x27;s other job</strong></p>
+<p>Ribose-5-phosphate is the nucleotide precursor, so every growing cell needs a flux of it proportional to its RNA and DNA synthesis — and RNA content scales with growth rate, so pentose demand rises with µ. Erythrose-4-phosphate, available only from the non-oxidative branch, is one of the two aromatic amino acid precursors with PEP. That makes the non-oxidative branch, and transketolase in particular, a standard overexpression target in aromatic strains: the shikimate pathway cannot run faster than E4P is supplied, however much you amplify the shikimate enzymes themselves.</p>
+<p><strong>6. The glutathione couple as a redox buffer</strong></p>
+<p>NADPH reduces oxidised glutathione (GSSG) to two GSH via glutathione reductase, and the GSH/GSSG couple is held at high ratio and high total concentration — millimolar — so it buffers the cell&#x27;s reducing environment and absorbs oxidative insults. Two consequences. The thiol-reducing environment of the cytoplasm, which blocks disulfide formation from week 3, is maintained by this system at NADPH&#x27;s expense. And oxidative stress consumes NADPH that your pathway wanted, which is one reason a producing strain under stress underperforms its NADPH budget.</p>
+<h3>Worked anchor</h3>
+<p>A product requires 14 NADPH per mole. What does supplying it from the oxidative pentose phosphate pathway cost, and what are the alternatives worth?</p>
+<p>Two NADPH per G6P with one CO₂ released, so 14 NADPH needs 7 G6P cycled and releases 7 CO₂. The 7 ribulose-5-phosphate produced carry 35 carbons and recycle intact through the non-oxidative branch into F6P and triose phosphates, so the only carbon loss is those 7 decarboxylations — slightly more than one glucose equivalent.</p>
+<p>Compare: a transhydrogenase supplying all 14 NADPH from NADH costs no carbon but spends proton-motive force for each, raising oxygen demand by roughly 14 × (H⁺ per NADPH) / (H⁺ per O) worth of extra respiration. An NADP-dependent GAPDH converts glycolytic NADH production directly to NADPH at no carbon and no PMF cost, but removes the NADH the respiratory chain was using for ATP, so the cell must make that ATP elsewhere.</p>
+<p>The decision rule: if the process is carbon-limited and oxygen transfer has headroom, take the transhydrogenase. If oxygen transfer is the constraint — which week 49 will tell you — take the carbon loss instead. There is no context-free answer, and saying so is the correct answer.</p>
+<p><strong>Assumptions behind this calculation</strong></p>
+<ul>
+<li>two NADPH per G6P through the oxidative branch</li>
+<li>the non-oxidative branch recycles pentose carbon intact</li>
+<li>transhydrogenase at 1 H⁺ per NADPH</li>
+<li>no competing biosynthetic demand on the pentose pool</li>
+</ul>
+<h3>Reading map</h3>
+<table><thead><tr><th>Source</th><th>Treatment</th><th>Why</th></tr></thead><tbody><tr><td>Berg Ch 20 §20.3–20.4</td><td>Read closely</td><td>Both branches and the carbon rearrangement. Work the three-pentose-to-two-F6P transformation on paper; this is the week&#x27;s irreducible exercise.</td></tr><tr><td>Berg Ch 20 §20.5</td><td>Skim</td><td>Coordination of the pentose pathway with glycolysis, plus G6PD deficiency. Read the coordination; the clinical material illustrates redox buffering but is not needed.</td></tr><tr><td>Berg Ch 20 §20.1–20.2</td><td>Skip</td><td>The Calvin cycle. Not used until week 44, and then only in outline — skip it now.</td></tr><tr><td><a href="https://www.kegg.jp/pathway/map00030" target="_blank" rel="noopener">KEGG map00030 — pentose phosphate pathway</a></td><td>Read closely</td><td>Both branches with the carbon rearrangement explicit, and it lets you check which enzymes your host actually has.</td></tr><tr><td>Palsson Ch 2 §2.3</td><td>Read closely</td><td>Module-by-module reconstruction, adding the pentose pathway to glycolysis. Reproduce Tables 2.3–2.4 and the partitioned matrix structure; it is the direct precursor of everything in phase 4.</td></tr><tr><td>Lee Ch 11 §11.3.1 (no cofactor-engineering section exists in Ch 11)</td><td>Read closely</td><td>Documented interventions on NADPH supply in E. coli with their yield effects. This is the week&#x27;s content applied, and it is where your own design arguments should come from.</td></tr></tbody></table>
+<h3>Common misconceptions</h3>
+<ul>
+<li>That recycling the pentoses recovers the lost carbon. The CO₂ is released at the dehydrogenase step and is gone; recycling conserves only the remaining 5 carbons of each pentose.</li>
+<li>That the pentose pathway is &#x27;the NADPH pathway&#x27;. It has four flux modes, one of which makes no NADPH at all, and labelling studies of glucose-limited aerobic E. coli put the oxidative branch at only about 35–60% of total NADPH supply, with NADP-dependent isocitrate dehydrogenase supplying much of the rest. Quote that range rather than assuming the pathway dominates.</li>
+<li>That amplifying shikimate enzymes raises aromatic flux. It usually does not, because E4P supply from the non-oxidative branch limits first — which is why transketolase is the standard target.</li>
+</ul>
+<h3>Check yourself before moving on</h3>
+<p><strong>Q.</strong> State the oxidative branch stoichiometry and compute the carbon cost of 10 NADPH.</p>
+<p><strong>A.</strong> G6P + 2 NADP⁺ + H₂O → ribulose-5-phosphate + CO₂ + 2 NADPH + 2 H⁺. Ten NADPH requires 5 G6P cycled and releases 5 CO₂, so five carbons — a little under one glucose equivalent. The five pentoses (25 C) recycle intact to F6P and triose phosphates, so no further carbon is lost.</p>
+<p><strong>Q.</strong> Why can extracellular rates never reveal the pentose phosphate split ratio?</p>
+<p><strong>A.</strong> Carbon entering the oxidative branch returns to glycolysis as fructose-6-phosphate and triose phosphate, so the cycle has no distinct external signature apart from CO₂, which has several other sources. The cycle flux lies in the null space of the external stoichiometry: it can take any value without changing any measurable uptake or excretion rate. Resolving it requires labelling, because the oxidative branch releases glucose C1 as CO₂ while glycolysis retains it, giving different downstream mass isotopomer distributions.</p>
+<p><strong>Q.</strong> An aromatic amino acid strain has ample shikimate pathway expression and low titre. What do you suspect and what do you amplify?</p>
+<p><strong>A.</strong> Precursor limitation rather than pathway capacity: the shikimate route needs erythrose-4-phosphate plus PEP, and E4P comes only from the non-oxidative pentose phosphate branch. Amplify transketolase, and consider transaldolase, to raise E4P supply; address PEP availability separately by replacing PTS uptake with a permease plus glucokinase, or by attenuating pyruvate kinase. Confirm the diagnosis by measuring intracellular E4P and PEP before building anything.</p>
+<hr>
+
+<section class="study-transfer" aria-label="Week 10 application and teach-back">
+<h3>Apply it to your fermentation experience</h3>
+<p><strong>Transfer prompt.</strong> Ask whether NADPH supply could constrain an anabolic or product-forming route in your system. Which fluxes or products would help distinguish a redox limitation from a carbon limitation?</p>
+<p class="meta">Use your actual thesis methods and results where you remember them. Mark missing information as unknown; do not assume the organisms were co-cultured, that a metabolite was measured, or that a proposed mechanism was demonstrated.</p>
+<h3>Teach it back</h3>
+<p>Explain the week's concept from memory, work one number, and name one boundary. Then use the <a href="teach-back.html">five-minute teach-back protocol</a> and log it in the tracker.</p>
+</section>
+<nav class="weeknav" aria-label="Week navigation"><a href="week-09.html">&#8592; Week 9</a><a class="idx" href="index.html">Lecture index</a><a class="idx" href="case-study.html">Case study</a><a href="week-11.html">Week 11 &#8594;</a></nav>
+</main>
+<footer class="docfoot"><a href="../metabolic-engineering-tracker.html">&#8592; Course tracker</a><span>Metabolic engineering &middot; 55 weeks</span></footer>
+<script>
+(function(){var root=document.documentElement,key="me.theme";var bs=Array.prototype.slice.call(document.querySelectorAll(".appearance button"));
+function paint(v){bs.forEach(function(b){b.setAttribute("aria-pressed",b.getAttribute("data-appearance")===v?"true":"false");});if(v==="auto")root.removeAttribute("data-theme");else root.setAttribute("data-theme",v);}
+var saved="auto";try{saved=localStorage.getItem(key)||"auto";}catch(e){}
+bs.forEach(function(b){b.addEventListener("click",function(){var v=b.getAttribute("data-appearance");paint(v);try{localStorage.setItem(key,v);}catch(e){}});});paint(saved);})();
+</script>
+</body>
+</html>

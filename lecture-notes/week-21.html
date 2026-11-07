@@ -1,0 +1,1253 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="utf-8"><title>Week 21 — Curation, GPRs and gap filling — Metabolic engineering</title>
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+
+
+<style>:root{color-scheme:light;--paper:#FAF6EF;--ink:#211A12;--ink-2:#4A3C2C;--ink-3:#8A7458;
+--line:#DFD2BE;--line-2:#EDE4D5;--broth:#9A6B1F;--broth-soft:#F6ECD9;
+--serif:"Newsreader",Georgia,serif;--sans:"Public Sans",system-ui,sans-serif}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--paper:#15120D;--ink:#F1E9DC;--ink-2:#CBBCA6;
+--ink-3:#948872;--line:#352C22;--line-2:#2A231B;--broth:#D7A95C;--broth-soft:#241D14}}
+*{box-sizing:border-box}
+body{margin:0;background:var(--paper);color:var(--ink);font-family:var(--sans);font-size:15.5px;line-height:1.6;
+padding:env(safe-area-inset-top,0) 0 env(safe-area-inset-bottom,0)}
+.wrap{max-width:840px;margin:0 auto;padding:40px 22px 90px}
+h1{font-family:var(--serif);font-size:clamp(28px,5vw,42px);line-height:1.1;font-weight:600;margin:0 0 6px;letter-spacing:-.02em}
+h2{font-family:var(--serif);font-size:26px;font-weight:600;margin:46px 0 10px;letter-spacing:-.01em;padding-bottom:7px;border-bottom:1px solid var(--line)}
+h3{font-family:var(--serif);font-size:20px;font-weight:600;margin:30px 0 4px;color:var(--broth)}
+h4{font-size:14px;font-weight:650;margin:18px 0 4px;color:var(--ink-3);letter-spacing:.02em;text-transform:uppercase}
+p{margin:0 0 12px;max-width:74ch}
+em{color:var(--ink-2)}
+ul{margin:0 0 14px;padding-left:1.15em;max-width:74ch}
+li{margin:.3em 0}li::marker{color:var(--ink-3)}
+hr{border:0;border-top:1px solid var(--line);margin:40px 0}
+strong{font-weight:650}
+table{border-collapse:collapse;width:100%;margin:14px 0 20px;font-size:14px}
+th{text-align:left;font-weight:600;color:var(--ink-3);font-size:12.5px;padding:7px 9px;border-bottom:1.5px solid var(--line)}
+td{padding:8px 9px;border-bottom:1px solid var(--line-2);vertical-align:top}
+tr:nth-child(even) td{background:var(--broth-soft)}
+
+figure.fig{margin:22px 0 26px;padding:0;max-width:100%}
+figure.fig svg{width:100%;height:auto;display:block;background:var(--card);
+  border:1px solid var(--line-2);border-radius:10px;padding:8px 10px}
+figure.fig figcaption{font-size:13px;color:var(--ink-3);margin-top:8px;max-width:74ch;line-height:1.5}
+figure.fig .figtitle{font-family:var(--serif);font-size:15px;color:var(--ink-2);margin-bottom:6px}
+figure.fig .fig-dark{display:none}
+@media (prefers-color-scheme: dark){
+  figure.fig .fig-light{display:none}
+  figure.fig .fig-dark{display:block}
+}
+@media print{figure.fig{break-inside:avoid;page-break-inside:avoid}
+  figure.fig .fig-dark{display:none !important}
+  figure.fig .fig-light{display:block !important}}
+
+@media print{body{background:#fff}.wrap{padding:0;max-width:none}h2,h3{page-break-after:avoid}}</style><script>try{var t=localStorage.getItem("me.theme");if(t&&t!=="auto")document.documentElement.setAttribute("data-theme",t);}catch(e){}</script>
+<meta name="color-scheme" content="light dark">
+<meta name="theme-color" content="#ffffff" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#000000" media="(prefers-color-scheme: dark)">
+<style>
+/* ============================================================
+   COURSE LIBRARY — Apple document shell
+   ============================================================ */
+:root{
+  color-scheme:light;
+  --paper:#FFFFFF;--surface:#F5F5F7;--card:#FFFFFF;--fill:#F5F5F7;
+  --ink:#1D1D1F;--ink-2:#6E6E73;--ink-3:#6E6E73;
+  --line:rgba(0,0,0,.14);--line-2:rgba(0,0,0,.08);
+  --broth:#0071E3;--broth-soft:rgba(0,113,227,.10);
+  --nav-bg:rgba(255,255,255,.84);
+  --sans:-apple-system,BlinkMacSystemFont,"SF Pro Text","SF Pro Display","Helvetica Neue",Arial,sans-serif;
+  --mono:ui-monospace,"SF Mono",Menlo,Consolas,monospace;
+  --serif:var(--sans);
+}
+@media (prefers-color-scheme:dark){
+  :root:not([data-theme="light"]){
+    color-scheme:dark;
+    --paper:#000000;--surface:#1C1C1E;--card:#2C2C2E;--fill:#2C2C2E;
+    --ink:#F5F5F7;--ink-2:#A1A1A6;--ink-3:#8E8E93;
+    --line:rgba(255,255,255,.16);--line-2:rgba(255,255,255,.09);
+    --broth:#5AA9FF;--broth-soft:rgba(10,132,255,.18);
+    --nav-bg:rgba(0,0,0,.74);
+  }
+}
+:root[data-theme="dark"]{
+  color-scheme:dark;
+  --paper:#000000;--surface:#1C1C1E;--card:#2C2C2E;--fill:#2C2C2E;
+  --ink:#F5F5F7;--ink-2:#A1A1A6;--ink-3:#8E8E93;
+  --line:rgba(255,255,255,.16);--line-2:rgba(255,255,255,.09);
+  --broth:#5AA9FF;--broth-soft:rgba(10,132,255,.18);
+  --nav-bg:rgba(0,0,0,.74);
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth;scroll-padding-top:72px;-webkit-text-size-adjust:100%}
+body{
+  margin:0;background:var(--paper);color:var(--ink);
+  font-family:var(--sans);font-size:17px;line-height:1.62;letter-spacing:-.011em;
+  padding:0;
+}
+.docbar{
+  position:sticky;top:0;z-index:80;display:flex;align-items:center;justify-content:space-between;gap:12px;
+  padding:8px max(24px,calc((100vw - 1180px)/2));
+  background:var(--nav-bg);
+  -webkit-backdrop-filter:saturate(180%) blur(20px);backdrop-filter:saturate(180%) blur(20px);
+  border-bottom:1px solid var(--line-2);
+}
+.docback{display:inline-flex;align-items:center;gap:6px;color:var(--ink-2);font-size:13px;font-weight:500;text-decoration:none;white-space:nowrap}
+.docback:hover{color:var(--broth)}
+.appearance{display:inline-flex;gap:2px;padding:2px;background:var(--fill);border-radius:980px}
+.appearance button{border:0;background:none;color:var(--ink-2);font:inherit;font-size:12px;font-weight:500;line-height:1;padding:6px 11px;border-radius:980px;cursor:pointer}
+.appearance button[aria-pressed="true"]{background:var(--card);color:var(--ink);box-shadow:0 1px 2px rgba(0,0,0,.08)}
+.wrap{max-width:900px;margin:0 auto;padding:64px 24px 96px}
+body h1{
+  font-family:var(--sans);font-size:clamp(42px,6.2vw,64px);line-height:1.04;letter-spacing:-.04em;
+  font-weight:700;margin:0 0 16px;max-width:18ch;color:var(--ink);
+}
+.doc-kicker{font-size:13px;font-weight:500;letter-spacing:0;color:var(--ink-2);margin:0 0 12px}
+body h1 + p{font-size:20px;line-height:1.55;color:var(--ink-2);max-width:68ch;margin:0 0 18px}
+body h1 + p strong{color:var(--ink);font-weight:600}
+body h2{
+  font-family:var(--sans);font-size:32px;line-height:1.15;letter-spacing:-.03em;font-weight:600;
+  color:var(--ink);margin:64px 0 14px;padding:0;border:0;
+}
+body h3{font-family:var(--sans);font-size:22px;line-height:1.25;letter-spacing:-.02em;font-weight:600;color:var(--ink);margin:36px 0 8px}
+body h4{font-size:14px;line-height:1.4;font-weight:600;letter-spacing:0;text-transform:none;color:var(--ink-2);margin:24px 0 6px}
+body p{margin:0 0 14px;max-width:72ch}
+body ul,body ol{margin:0 0 16px;padding-left:1.25em;max-width:72ch}
+body li{margin:.32em 0}
+body li::marker{color:var(--ink-3)}
+body strong{font-weight:600;color:var(--ink)}
+body em{color:var(--ink)}
+body a{color:var(--broth);text-decoration:underline;text-underline-offset:2px}
+body a:hover{text-decoration:underline}
+body hr{border:0;border-top:1px solid var(--line-2);margin:56px 0}
+body table{border-collapse:collapse;width:100%;margin:22px 0 30px;font-size:15px;line-height:1.45}
+body th{text-align:left;font-weight:600;font-size:12.5px;color:var(--ink-2);padding:10px 12px;background:var(--surface);border-bottom:1px solid var(--line)}
+body td{padding:11px 12px;border-bottom:1px solid var(--line-2);vertical-align:top}
+body tr:nth-child(even) td{background:transparent}
+body figure.fig{margin:32px 0 36px;padding:0;max-width:100%}
+body figure.fig svg{width:100%;height:auto;display:block;background:var(--surface);border:0;border-radius:20px;padding:18px}
+body figure.fig figcaption{font-size:13px;color:var(--ink-2);margin-top:10px;max-width:72ch;line-height:1.5}
+body figure.fig .figtitle{font-family:var(--sans);font-size:14px;font-weight:600;color:var(--ink);margin-bottom:6px}
+body pre{background:var(--surface);border:1px solid var(--line-2);border-radius:16px;padding:18px;overflow:auto;font-family:var(--mono);font-size:13.5px;line-height:1.55;margin:20px 0 24px}
+body code{font-family:var(--mono);font-size:.88em;background:var(--surface);border-radius:6px;padding:.12em .35em}
+body pre code{background:none;padding:0;font-size:inherit}
+body blockquote{margin:24px 0;padding:2px 0 2px 18px;border-left:3px solid var(--broth);color:var(--ink-2)}
+:root[data-theme="dark"] .fig-light{display:none!important}
+:root[data-theme="dark"] .fig-dark{display:block!important}
+:root[data-theme="light"] .fig-dark{display:none!important}
+:root[data-theme="light"] .fig-light{display:block!important}
+.docfoot{max-width:900px;margin:0 auto;padding:24px 24px 64px;border-top:1px solid var(--line-2);display:flex;justify-content:space-between;gap:12px;font-size:12.5px;color:var(--ink-3)}
+.docfoot a{color:var(--ink-2);text-decoration:none}
+.docfoot a:hover{color:var(--broth)}
+@media (max-width:700px){
+  .docbar{padding:8px 16px}
+  .wrap{padding:40px 18px 80px}
+  body h1{font-size:clamp(38px,11vw,48px)}
+  body h1 + p{font-size:18px}
+  body h2{font-size:28px;margin-top:52px}
+  body h3{font-size:20px}
+  body p,body li{font-size:16.5px}
+  body table{font-size:14px}
+  body th,body td{padding:9px 9px}
+  .docfoot{padding:20px 18px 50px;flex-direction:column;gap:6px}
+}
+@media print{
+  .docbar,.appearance,.docfoot{display:none!important}
+  body{background:#fff;color:#000;font-size:11pt}
+  .wrap{max-width:none;padding:0}
+  body h1{font-size:28pt;max-width:none}
+  body h2{font-size:16pt;page-break-after:avoid}
+  body h3{font-size:13pt;page-break-after:avoid}
+  body a{color:#000;text-decoration:none}
+  body table,body figure{break-inside:avoid}
+}
+
+
+.index-actions{margin:18px 0 36px;display:flex;flex-wrap:wrap;gap:16px;align-items:center}
+.index-actions a{font-size:14px;font-weight:500;color:var(--broth);text-decoration:none}
+.index-actions a:hover{text-decoration:underline}
+.phaseh{display:flex;align-items:baseline;justify-content:space-between;gap:14px;font-size:24px!important;margin:52px 0 2px!important;letter-spacing:-.02em}
+.phaseh span{font-size:12px;font-weight:400;color:var(--ink-3);letter-spacing:0;white-space:nowrap}
+.weeklist{border-top:1px solid var(--line-2);margin-bottom:8px}
+.weekrow{display:flex;align-items:center;gap:14px;min-height:50px;padding:10px 4px;border-bottom:1px solid var(--line-2);text-decoration:none;color:var(--ink)}
+.weekrow:hover{background:var(--surface)}
+.wnum{width:28px;flex:none;font-size:12px;font-weight:600;color:var(--broth);font-variant-numeric:tabular-nums}
+.wtitle{flex:1;font-size:16.5px;font-weight:500;line-height:1.35}
+.warrow{flex:none;color:var(--ink-3);font-size:16px}
+.weeknav{display:flex;align-items:center;justify-content:space-between;gap:14px;margin:52px 0 0;padding-top:22px;border-top:1px solid var(--line-2);font-size:14px}
+.weeknav a{color:var(--broth);text-decoration:none;font-weight:500}
+.weeknav a:hover{text-decoration:underline}
+.weeknav .idx{color:var(--ink-2);font-weight:400}
+.weeknav .empty{visibility:hidden}
+.case-h{max-width:22ch}
+.protocol{max-width:72ch}
+.protocol li{margin:.55em 0}
+.protocol h2{margin-top:38px}
+@media (max-width:700px){.phaseh{font-size:21px!important;margin-top:42px!important}.wtitle{font-size:15.5px}.weeknav{font-size:13px;gap:8px}}
+@media print{.weeknav,.index-actions{display:none!important}}
+</style>
+<style>.sr-only{position:absolute!important;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap;border:0}</style>
+</head><body>
+<header class="docbar"><a class="docback" href="index.html">&#8592; Lecture index</a><div class="appearance" role="group" aria-label="Appearance">
+<button type="button" data-appearance="auto" aria-pressed="true">Auto</button>
+<button type="button" data-appearance="light" aria-pressed="false">Light</button>
+<button type="button" data-appearance="dark" aria-pressed="false">Dark</button>
+</div></header>
+<main class="wrap">
+<p class="doc-kicker">Week 21 of 55 &middot; Constraint-based modelling &middot; <strong class="tier-badge">Useful next</strong></p>
+<h1>Curation, GPRs and gap filling</h1>
+<h2 class="sr-only">Week content</h2>
+<p>The unglamorous ninety per cent of modelling. Curation is where a draft becomes trustworthy, and knowing what it involves is what lets you judge whether a published model deserves the weight you are about to put on it. The week&#x27;s practical output is your own gene-deletion implementation, which forces you to understand GPR logic rather than call a function.</p>
+<h3>Core ideas</h3>
+<p><strong>1. The four-step process, and what each consumes</strong></p>
+<p>Draft reconstruction from the annotated genome, which is automatable and produces something incomplete and partly wrong. Curation against literature, which is manual, slow and the bulk of the work: checking stoichiometry, charge balance, directionality, localisation and evidence for every reaction. Conversion to a computational model by adding bounds, a medium and an objective. Validation against experimental data, which sends you back to curation. Published genome-scale reconstructions have taken person-years; the 96-step standard operating procedure exists because the work is too detailed to carry in your head.</p>
+<p><strong>2. GPR logic, and why AND versus OR decides essentiality</strong></p>
+<figure class="fig"><div class="figtitle">Figure 21.2 — AND or OR is the most consequential word in a reconstruction</div><div class="fig-light"><svg role="img" aria-label="Left: the same two genes as subunits of one complex, where either deletion is lethal, or as isozymes, where neither single deletion does anything. Right: how the predicted essential-gene count moves with the share of multi-gene reactions written as AND — a boolean operator, chosen hundreds of times, setting the model's most-cited output." xmlns:xlink="http://www.w3.org/1999/xlink" width="1012.239328pt" height="224.134141pt" viewBox="0 0 1012.239328 224.134141" xmlns="http://www.w3.org/2000/svg" version="1.1">
+ <metadata>
+  <rdf:RDF xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:cc="http://creativecommons.org/ns#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+   <cc:Work>
+    <dc:type rdf:resource="http://purl.org/dc/dcmitype/StillImage"/>
+    <dc:date>2026-11-02T23:57:47.347986</dc:date>
+    <dc:format>image/svg+xml</dc:format>
+    <dc:creator>
+     <cc:Agent>
+      <dc:title>Matplotlib v3.10.8, https://matplotlib.org/</dc:title>
+     </cc:Agent>
+    </dc:creator>
+   </cc:Work>
+  </rdf:RDF>
+ </metadata>
+ <defs>
+  <style type="text/css">*{stroke-linejoin: round; stroke-linecap: butt}</style>
+ </defs>
+ <g id="figure_1">
+  <g id="patch_1">
+   <path d="M 0 224.134141 
+L 1012.239328 224.134141 
+L 1012.239328 -0 
+L 0 -0 
+L 0 224.134141 
+z
+" style="fill: none"/>
+  </g>
+  <g id="axes_1">
+   <g id="patch_2">
+    <path d="M 72.965044 61.22772 
+L 102.709281 61.22772 
+L 102.709281 43.54236 
+L 72.965044 43.54236 
+z
+" clip-path="url(#p1e106db87d)" style="fill: #1f6f62; opacity: 0.22; stroke: #1f6f62; stroke-width: 1.1; stroke-linejoin: miter"/>
+   </g>
+   <g id="patch_3">
+    <path d="M 72.965044 90.1674 
+L 102.709281 90.1674 
+L 102.709281 72.48204 
+L 72.965044 72.48204 
+z
+" clip-path="url(#p1e106db87d)" style="fill: #1f6f62; opacity: 0.22; stroke: #1f6f62; stroke-width: 1.1; stroke-linejoin: miter"/>
+   </g>
+   <g id="patch_4">
+    <path d="M 139.452163 75.69756 
+L 169.1964 75.69756 
+L 169.1964 58.0122 
+L 139.452163 58.0122 
+z
+" clip-path="url(#p1e106db87d)" style="fill: #8a5f1b; opacity: 0.22; stroke: #8a5f1b; stroke-width: 1.1; stroke-linejoin: miter"/>
+   </g>
+   <g id="patch_5">
+    <path d="M 198.940637 75.69756 
+L 228.684875 75.69756 
+L 228.684875 58.0122 
+L 198.940637 58.0122 
+z
+" clip-path="url(#p1e106db87d)" style="fill: #8a5f1b; opacity: 0.22; stroke: #8a5f1b; stroke-width: 1.1; stroke-linejoin: miter"/>
+   </g>
+   <g id="patch_6">
+    <path d="M 72.965044 124.73424 
+L 102.709281 124.73424 
+L 102.709281 107.04888 
+L 72.965044 107.04888 
+z
+" clip-path="url(#p1e106db87d)" style="fill: #1f6f62; opacity: 0.22; stroke: #1f6f62; stroke-width: 1.1; stroke-linejoin: miter"/>
+   </g>
+   <g id="patch_7">
+    <path d="M 72.965044 153.67392 
+L 102.709281 153.67392 
+L 102.709281 135.98856 
+L 72.965044 135.98856 
+z
+" clip-path="url(#p1e106db87d)" style="fill: #1f6f62; opacity: 0.22; stroke: #1f6f62; stroke-width: 1.1; stroke-linejoin: miter"/>
+   </g>
+   <g id="patch_8">
+    <path d="M 139.452163 139.20408 
+L 169.1964 139.20408 
+L 169.1964 121.51872 
+L 139.452163 121.51872 
+z
+" clip-path="url(#p1e106db87d)" style="fill: #8a5f1b; opacity: 0.22; stroke: #8a5f1b; stroke-width: 1.1; stroke-linejoin: miter"/>
+   </g>
+   <g id="patch_9">
+    <path d="M 198.940637 139.20408 
+L 228.684875 139.20408 
+L 228.684875 121.51872 
+L 198.940637 121.51872 
+z
+" clip-path="url(#p1e106db87d)" style="fill: #8a5f1b; opacity: 0.22; stroke: #8a5f1b; stroke-width: 1.1; stroke-linejoin: miter"/>
+   </g>
+   <g id="line2d_1">
+    <path d="M 102.709281 52.38504 
+L 139.452163 66.85488 
+" clip-path="url(#p1e106db87d)" style="fill: none; stroke: #dfd2be; stroke-linecap: square"/>
+   </g>
+   <g id="line2d_2">
+    <path d="M 102.709281 81.32472 
+L 139.452163 66.85488 
+" clip-path="url(#p1e106db87d)" style="fill: none; stroke: #dfd2be; stroke-linecap: square"/>
+   </g>
+   <g id="line2d_3">
+    <path d="M 169.1964 66.85488 
+L 198.940637 66.85488 
+" clip-path="url(#p1e106db87d)" style="fill: none; stroke: #dfd2be; stroke-linecap: square"/>
+   </g>
+   <g id="line2d_4">
+    <path d="M 102.709281 115.89156 
+L 139.452163 130.3614 
+" clip-path="url(#p1e106db87d)" style="fill: none; stroke: #dfd2be; stroke-linecap: square"/>
+   </g>
+   <g id="line2d_5">
+    <path d="M 102.709281 144.83124 
+L 139.452163 130.3614 
+" clip-path="url(#p1e106db87d)" style="fill: none; stroke: #dfd2be; stroke-linecap: square"/>
+   </g>
+   <g id="line2d_6">
+    <path d="M 169.1964 130.3614 
+L 198.940637 130.3614 
+" clip-path="url(#p1e106db87d)" style="fill: none; stroke: #dfd2be; stroke-linecap: square"/>
+   </g>
+   <g id="text_1">
+    <text style="font-size: 8px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: middle; fill: #4a3c2c" x="87.837163" y="54.59254" transform="rotate(-0 87.837163 54.59254)">gene A</text>
+   </g>
+   <g id="text_2">
+    <text style="font-size: 8px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: middle; fill: #4a3c2c" x="87.837163" y="83.53222" transform="rotate(-0 87.837163 83.53222)">gene B</text>
+   </g>
+   <g id="text_3">
+    <text style="font-size: 8px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: middle; fill: #4a3c2c" x="154.324281" y="69.06238" transform="rotate(-0 154.324281 69.06238)">complex</text>
+   </g>
+   <g id="text_4">
+    <text style="font-size: 8px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: middle; fill: #4a3c2c" x="213.812756" y="69.06238" transform="rotate(-0 213.812756 69.06238)">flux</text>
+   </g>
+   <g id="text_5">
+    <text style="font-weight: 700; font-size: 8.6px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: middle; fill: #a4503a" x="121.080722" y="45.15012" transform="rotate(-0 121.080722 45.15012)">AND</text>
+   </g>
+   <g id="text_6">
+    <text style="font-size: 8px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; fill: #8a7458" transform="translate(69.465722 14.25039)">subunits of one complex:</text>
+    <text style="font-size: 8px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; fill: #8a7458" transform="translate(69.465722 23.20864)">either deletion is lethal</text>
+   </g>
+   <g id="text_7">
+    <text style="font-size: 8px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: middle; fill: #4a3c2c" x="87.837163" y="118.09906" transform="rotate(-0 87.837163 118.09906)">gene A</text>
+   </g>
+   <g id="text_8">
+    <text style="font-size: 8px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: middle; fill: #4a3c2c" x="87.837163" y="147.03874" transform="rotate(-0 87.837163 147.03874)">gene B</text>
+   </g>
+   <g id="text_9">
+    <text style="font-size: 8px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: middle; fill: #4a3c2c" x="154.324281" y="132.5689" transform="rotate(-0 154.324281 132.5689)">either one</text>
+   </g>
+   <g id="text_10">
+    <text style="font-size: 8px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: middle; fill: #4a3c2c" x="213.812756" y="132.5689" transform="rotate(-0 213.812756 132.5689)">flux</text>
+   </g>
+   <g id="text_11">
+    <text style="font-weight: 700; font-size: 8.6px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: middle; fill: #1f6f62" x="121.080722" y="115.89156" transform="rotate(-0 121.080722 115.89156)">OR</text>
+   </g>
+   <g id="text_12">
+    <text style="font-size: 8px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; fill: #8a7458" transform="translate(69.465722 96.24615)">isozymes:</text>
+    <text style="font-size: 8px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; fill: #8a7458" transform="translate(69.465722 105.2044)">neither single deletion matters</text>
+   </g>
+  </g>
+  <g id="axes_2">
+   <g id="patch_10">
+    <path d="M 303.920298 166.536 
+L 478.8864 166.536 
+L 478.8864 5.76 
+L 303.920298 5.76 
+L 303.920298 166.536 
+z
+" style="fill: none"/>
+   </g>
+   <g id="patch_11">
+    <path d="M 338.913519 166.536 
+L 408.899959 166.536 
+L 408.899959 5.76 
+L 338.913519 5.76 
+z
+" clip-path="url(#p41941fe8c4)" style="fill: #8a5f1b; opacity: 0.12; stroke: #8a5f1b; stroke-linejoin: miter"/>
+   </g>
+   <g id="matplotlib.axis_1">
+    <g id="xtick_1">
+     <g id="line2d_7">
+      <path d="M 303.920298 166.536 
+L 303.920298 5.76 
+" clip-path="url(#p41941fe8c4)" style="fill: none; stroke: #e6dccb; stroke-opacity: 0.7; stroke-width: 0.6; stroke-linecap: square"/>
+     </g>
+     <g id="line2d_8">
+      <defs>
+       <path id="m9a0c760236" d="M 0 0 
+L 0 3.5 
+" style="stroke: #8a7458; stroke-width: 0.9"/>
+      </defs>
+      <g>
+       <use xlink:href="#m9a0c760236" x="303.920298" y="166.536" style="fill: #8a7458; stroke: #8a7458; stroke-width: 0.9"/>
+      </g>
+     </g>
+     <g id="text_13">
+      <text style="font-size: 9.5px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: middle; fill: #8a7458" x="303.920298" y="180.754516" transform="rotate(-0 303.920298 180.754516)">0</text>
+     </g>
+    </g>
+    <g id="xtick_2">
+     <g id="line2d_9">
+      <path d="M 338.913519 166.536 
+L 338.913519 5.76 
+" clip-path="url(#p41941fe8c4)" style="fill: none; stroke: #e6dccb; stroke-opacity: 0.7; stroke-width: 0.6; stroke-linecap: square"/>
+     </g>
+     <g id="line2d_10">
+      <g>
+       <use xlink:href="#m9a0c760236" x="338.913519" y="166.536" style="fill: #8a7458; stroke: #8a7458; stroke-width: 0.9"/>
+      </g>
+     </g>
+     <g id="text_14">
+      <text style="font-size: 9.5px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: middle; fill: #8a7458" x="338.913519" y="180.754516" transform="rotate(-0 338.913519 180.754516)">20</text>
+     </g>
+    </g>
+    <g id="xtick_3">
+     <g id="line2d_11">
+      <path d="M 373.906739 166.536 
+L 373.906739 5.76 
+" clip-path="url(#p41941fe8c4)" style="fill: none; stroke: #e6dccb; stroke-opacity: 0.7; stroke-width: 0.6; stroke-linecap: square"/>
+     </g>
+     <g id="line2d_12">
+      <g>
+       <use xlink:href="#m9a0c760236" x="373.906739" y="166.536" style="fill: #8a7458; stroke: #8a7458; stroke-width: 0.9"/>
+      </g>
+     </g>
+     <g id="text_15">
+      <text style="font-size: 9.5px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: middle; fill: #8a7458" x="373.906739" y="180.754516" transform="rotate(-0 373.906739 180.754516)">40</text>
+     </g>
+    </g>
+    <g id="xtick_4">
+     <g id="line2d_13">
+      <path d="M 408.899959 166.536 
+L 408.899959 5.76 
+" clip-path="url(#p41941fe8c4)" style="fill: none; stroke: #e6dccb; stroke-opacity: 0.7; stroke-width: 0.6; stroke-linecap: square"/>
+     </g>
+     <g id="line2d_14">
+      <g>
+       <use xlink:href="#m9a0c760236" x="408.899959" y="166.536" style="fill: #8a7458; stroke: #8a7458; stroke-width: 0.9"/>
+      </g>
+     </g>
+     <g id="text_16">
+      <text style="font-size: 9.5px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: middle; fill: #8a7458" x="408.899959" y="180.754516" transform="rotate(-0 408.899959 180.754516)">60</text>
+     </g>
+    </g>
+    <g id="xtick_5">
+     <g id="line2d_15">
+      <path d="M 443.89318 166.536 
+L 443.89318 5.76 
+" clip-path="url(#p41941fe8c4)" style="fill: none; stroke: #e6dccb; stroke-opacity: 0.7; stroke-width: 0.6; stroke-linecap: square"/>
+     </g>
+     <g id="line2d_16">
+      <g>
+       <use xlink:href="#m9a0c760236" x="443.89318" y="166.536" style="fill: #8a7458; stroke: #8a7458; stroke-width: 0.9"/>
+      </g>
+     </g>
+     <g id="text_17">
+      <text style="font-size: 9.5px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: middle; fill: #8a7458" x="443.89318" y="180.754516" transform="rotate(-0 443.89318 180.754516)">80</text>
+     </g>
+    </g>
+    <g id="xtick_6">
+     <g id="line2d_17">
+      <path d="M 478.8864 166.536 
+L 478.8864 5.76 
+" clip-path="url(#p41941fe8c4)" style="fill: none; stroke: #e6dccb; stroke-opacity: 0.7; stroke-width: 0.6; stroke-linecap: square"/>
+     </g>
+     <g id="line2d_18">
+      <g>
+       <use xlink:href="#m9a0c760236" x="478.8864" y="166.536" style="fill: #8a7458; stroke: #8a7458; stroke-width: 0.9"/>
+      </g>
+     </g>
+     <g id="text_18">
+      <text style="font-size: 9.5px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: middle; fill: #8a7458" x="478.8864" y="180.754516" transform="rotate(-0 478.8864 180.754516)">100</text>
+     </g>
+    </g>
+    <g id="text_19">
+     <text style="font-size: 9.5px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: middle; fill: #4a3c2c" x="391.403349" y="193.948734" transform="rotate(-0 391.403349 193.948734)">multi-gene reactions written as AND  (%)</text>
+    </g>
+   </g>
+   <g id="matplotlib.axis_2">
+    <g id="ytick_1">
+     <g id="line2d_19">
+      <path d="M 303.920298 166.536 
+L 478.8864 166.536 
+" clip-path="url(#p41941fe8c4)" style="fill: none; stroke: #e6dccb; stroke-opacity: 0.7; stroke-width: 0.6; stroke-linecap: square"/>
+     </g>
+     <g id="line2d_20">
+      <defs>
+       <path id="mbdf9b747ac" d="M 0 0 
+L -3.5 0 
+" style="stroke: #8a7458; stroke-width: 0.9"/>
+      </defs>
+      <g>
+       <use xlink:href="#mbdf9b747ac" x="303.920298" y="166.536" style="fill: #8a7458; stroke: #8a7458; stroke-width: 0.9"/>
+      </g>
+     </g>
+     <g id="text_20">
+      <text style="font-size: 9.5px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: end; fill: #8a7458" x="296.920298" y="170.145258" transform="rotate(-0 296.920298 170.145258)">100</text>
+     </g>
+    </g>
+    <g id="ytick_2">
+     <g id="line2d_21">
+      <path d="M 303.920298 129.996 
+L 478.8864 129.996 
+" clip-path="url(#p41941fe8c4)" style="fill: none; stroke: #e6dccb; stroke-opacity: 0.7; stroke-width: 0.6; stroke-linecap: square"/>
+     </g>
+     <g id="line2d_22">
+      <g>
+       <use xlink:href="#mbdf9b747ac" x="303.920298" y="129.996" style="fill: #8a7458; stroke: #8a7458; stroke-width: 0.9"/>
+      </g>
+     </g>
+     <g id="text_21">
+      <text style="font-size: 9.5px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: end; fill: #8a7458" x="296.920298" y="133.605258" transform="rotate(-0 296.920298 133.605258)">150</text>
+     </g>
+    </g>
+    <g id="ytick_3">
+     <g id="line2d_23">
+      <path d="M 303.920298 93.456 
+L 478.8864 93.456 
+" clip-path="url(#p41941fe8c4)" style="fill: none; stroke: #e6dccb; stroke-opacity: 0.7; stroke-width: 0.6; stroke-linecap: square"/>
+     </g>
+     <g id="line2d_24">
+      <g>
+       <use xlink:href="#mbdf9b747ac" x="303.920298" y="93.456" style="fill: #8a7458; stroke: #8a7458; stroke-width: 0.9"/>
+      </g>
+     </g>
+     <g id="text_22">
+      <text style="font-size: 9.5px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: end; fill: #8a7458" x="296.920298" y="97.065258" transform="rotate(-0 296.920298 97.065258)">200</text>
+     </g>
+    </g>
+    <g id="ytick_4">
+     <g id="line2d_25">
+      <path d="M 303.920298 56.916 
+L 478.8864 56.916 
+" clip-path="url(#p41941fe8c4)" style="fill: none; stroke: #e6dccb; stroke-opacity: 0.7; stroke-width: 0.6; stroke-linecap: square"/>
+     </g>
+     <g id="line2d_26">
+      <g>
+       <use xlink:href="#mbdf9b747ac" x="303.920298" y="56.916" style="fill: #8a7458; stroke: #8a7458; stroke-width: 0.9"/>
+      </g>
+     </g>
+     <g id="text_23">
+      <text style="font-size: 9.5px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: end; fill: #8a7458" x="296.920298" y="60.525258" transform="rotate(-0 296.920298 60.525258)">250</text>
+     </g>
+    </g>
+    <g id="ytick_5">
+     <g id="line2d_27">
+      <path d="M 303.920298 20.376 
+L 478.8864 20.376 
+" clip-path="url(#p41941fe8c4)" style="fill: none; stroke: #e6dccb; stroke-opacity: 0.7; stroke-width: 0.6; stroke-linecap: square"/>
+     </g>
+     <g id="line2d_28">
+      <g>
+       <use xlink:href="#mbdf9b747ac" x="303.920298" y="20.376" style="fill: #8a7458; stroke: #8a7458; stroke-width: 0.9"/>
+      </g>
+     </g>
+     <g id="text_24">
+      <text style="font-size: 9.5px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: end; fill: #8a7458" x="296.920298" y="23.985258" transform="rotate(-0 296.920298 23.985258)">300</text>
+     </g>
+    </g>
+    <g id="text_25">
+     <text style="font-size: 9.5px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: middle; fill: #4a3c2c" x="272.81147" y="86.148" transform="rotate(-90 272.81147 86.148)">predicted essential genes</text>
+    </g>
+   </g>
+   <g id="line2d_29">
+    <path d="M 303.920298 151.92 
+L 305.687633 150.591273 
+L 307.454967 149.262545 
+L 309.222301 147.933818 
+L 310.989636 146.605091 
+L 312.75697 145.276364 
+L 314.524304 143.947636 
+L 316.291639 142.618909 
+L 318.058973 141.290182 
+L 319.826308 139.961455 
+L 321.593642 138.632727 
+L 323.360976 137.304 
+L 325.128311 135.975273 
+L 326.895645 134.646545 
+L 328.662979 133.317818 
+L 330.430314 131.989091 
+L 332.197648 130.660364 
+L 333.964982 129.331636 
+L 335.732317 128.002909 
+L 337.499651 126.674182 
+L 339.266986 125.345455 
+L 341.03432 124.016727 
+L 342.801654 122.688 
+L 344.568989 121.359273 
+L 346.336323 120.030545 
+L 348.103657 118.701818 
+L 349.870992 117.373091 
+L 351.638326 116.044364 
+L 353.40566 114.715636 
+L 355.172995 113.386909 
+L 356.940329 112.058182 
+L 358.707663 110.729455 
+L 360.474998 109.400727 
+L 362.242332 108.072 
+L 364.009667 106.743273 
+L 365.777001 105.414545 
+L 367.544335 104.085818 
+L 369.31167 102.757091 
+L 371.079004 101.428364 
+L 372.846338 100.099636 
+L 374.613673 98.770909 
+L 376.381007 97.442182 
+L 378.148341 96.113455 
+L 379.915676 94.784727 
+L 381.68301 93.456 
+L 383.450345 92.127273 
+L 385.217679 90.798545 
+L 386.985013 89.469818 
+L 388.752348 88.141091 
+L 390.519682 86.812364 
+L 392.287016 85.483636 
+L 394.054351 84.154909 
+L 395.821685 82.826182 
+L 397.589019 81.497455 
+L 399.356354 80.168727 
+L 401.123688 78.84 
+L 402.891022 77.511273 
+L 404.658357 76.182545 
+L 406.425691 74.853818 
+L 408.193026 73.525091 
+L 409.96036 72.196364 
+L 411.727694 70.867636 
+L 413.495029 69.538909 
+L 415.262363 68.210182 
+L 417.029697 66.881455 
+L 418.797032 65.552727 
+L 420.564366 64.224 
+L 422.3317 62.895273 
+L 424.099035 61.566545 
+L 425.866369 60.237818 
+L 427.633704 58.909091 
+L 429.401038 57.580364 
+L 431.168372 56.251636 
+L 432.935707 54.922909 
+L 434.703041 53.594182 
+L 436.470375 52.265455 
+L 438.23771 50.936727 
+L 440.005044 49.608 
+L 441.772378 48.279273 
+L 443.539713 46.950545 
+L 445.307047 45.621818 
+L 447.074382 44.293091 
+L 448.841716 42.964364 
+L 450.60905 41.635636 
+L 452.376385 40.306909 
+L 454.143719 38.978182 
+L 455.911053 37.649455 
+L 457.678388 36.320727 
+L 459.445722 34.992 
+L 461.213056 33.663273 
+L 462.980391 32.334545 
+L 464.747725 31.005818 
+L 466.515059 29.677091 
+L 468.282394 28.348364 
+L 470.049728 27.019636 
+L 471.817063 25.690909 
+L 473.584397 24.362182 
+L 475.351731 23.033455 
+L 477.119066 21.704727 
+L 478.8864 20.376 
+" clip-path="url(#p41941fe8c4)" style="fill: none; stroke: #1f6f62; stroke-width: 1.9; stroke-linecap: square"/>
+   </g>
+   <g id="patch_12">
+    <path d="M 303.920298 166.536 
+L 303.920298 5.76 
+" style="fill: none; stroke: #dfd2be; stroke-width: 0.9; stroke-linejoin: miter; stroke-linecap: square"/>
+   </g>
+   <g id="patch_13">
+    <path d="M 303.920298 166.536 
+L 478.8864 166.536 
+" style="fill: none; stroke: #dfd2be; stroke-width: 0.9; stroke-linejoin: miter; stroke-linecap: square"/>
+   </g>
+   <g id="text_26">
+    <text style="font-size: 8px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; fill: #8a5f1b" transform="translate(343.860489 131.99975)">where curation</text>
+    <text style="font-size: 8px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; fill: #8a5f1b" transform="translate(346.119864 140.958)">actually lands</text>
+   </g>
+  </g>
+  <g id="text_27">
+   <text style="font-size: 8.3px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: start; fill: #8a7458" x="5.76" y="216.648" transform="rotate(-0 5.76 216.648)">Right panel is arithmetic on a schematic network of 300 multi-gene reactions, not a specific model: the point is that the single most consequential curation decision in a reconstruction is a boolean operator, and it is made hundreds of times.</text>
+  </g>
+ </g>
+ <defs>
+  <clipPath id="p1e106db87d">
+   <rect x="65.9664" y="5.76" width="174.966102" height="160.776"/>
+  </clipPath>
+  <clipPath id="p41941fe8c4">
+   <rect x="303.920298" y="5.76" width="174.966102" height="160.776"/>
+  </clipPath>
+ </defs>
+</svg>
+</div><div class="fig-dark"><svg role="img" aria-label="Left: the same two genes as subunits of one complex, where either deletion is lethal, or as isozymes, where neither single deletion does anything. Right: how the predicted essential-gene count moves with the share of multi-gene reactions written as AND — a boolean operator, chosen hundreds of times, setting the model's most-cited output." xmlns:xlink="http://www.w3.org/1999/xlink" width="1012.239328pt" height="224.134141pt" viewBox="0 0 1012.239328 224.134141" xmlns="http://www.w3.org/2000/svg" version="1.1">
+ <metadata>
+  <rdf:RDF xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:cc="http://creativecommons.org/ns#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+   <cc:Work>
+    <dc:type rdf:resource="http://purl.org/dc/dcmitype/StillImage"/>
+    <dc:date>2026-11-02T23:57:47.461139</dc:date>
+    <dc:format>image/svg+xml</dc:format>
+    <dc:creator>
+     <cc:Agent>
+      <dc:title>Matplotlib v3.10.8, https://matplotlib.org/</dc:title>
+     </cc:Agent>
+    </dc:creator>
+   </cc:Work>
+  </rdf:RDF>
+ </metadata>
+ <defs>
+  <style type="text/css">*{stroke-linejoin: round; stroke-linecap: butt}</style>
+ </defs>
+ <g id="figure_1">
+  <g id="patch_1">
+   <path d="M 0 224.134141 
+L 1012.239328 224.134141 
+L 1012.239328 -0 
+L 0 -0 
+L 0 224.134141 
+z
+" style="fill: none"/>
+  </g>
+  <g id="axes_1">
+   <g id="patch_2">
+    <path d="M 72.965044 61.22772 
+L 102.709281 61.22772 
+L 102.709281 43.54236 
+L 72.965044 43.54236 
+z
+" clip-path="url(#pc733d22b6b)" style="fill: #6dbdac; opacity: 0.22; stroke: #6dbdac; stroke-width: 1.1; stroke-linejoin: miter"/>
+   </g>
+   <g id="patch_3">
+    <path d="M 72.965044 90.1674 
+L 102.709281 90.1674 
+L 102.709281 72.48204 
+L 72.965044 72.48204 
+z
+" clip-path="url(#pc733d22b6b)" style="fill: #6dbdac; opacity: 0.22; stroke: #6dbdac; stroke-width: 1.1; stroke-linejoin: miter"/>
+   </g>
+   <g id="patch_4">
+    <path d="M 139.452163 75.69756 
+L 169.1964 75.69756 
+L 169.1964 58.0122 
+L 139.452163 58.0122 
+z
+" clip-path="url(#pc733d22b6b)" style="fill: #d7a95c; opacity: 0.22; stroke: #d7a95c; stroke-width: 1.1; stroke-linejoin: miter"/>
+   </g>
+   <g id="patch_5">
+    <path d="M 198.940637 75.69756 
+L 228.684875 75.69756 
+L 228.684875 58.0122 
+L 198.940637 58.0122 
+z
+" clip-path="url(#pc733d22b6b)" style="fill: #d7a95c; opacity: 0.22; stroke: #d7a95c; stroke-width: 1.1; stroke-linejoin: miter"/>
+   </g>
+   <g id="patch_6">
+    <path d="M 72.965044 124.73424 
+L 102.709281 124.73424 
+L 102.709281 107.04888 
+L 72.965044 107.04888 
+z
+" clip-path="url(#pc733d22b6b)" style="fill: #6dbdac; opacity: 0.22; stroke: #6dbdac; stroke-width: 1.1; stroke-linejoin: miter"/>
+   </g>
+   <g id="patch_7">
+    <path d="M 72.965044 153.67392 
+L 102.709281 153.67392 
+L 102.709281 135.98856 
+L 72.965044 135.98856 
+z
+" clip-path="url(#pc733d22b6b)" style="fill: #6dbdac; opacity: 0.22; stroke: #6dbdac; stroke-width: 1.1; stroke-linejoin: miter"/>
+   </g>
+   <g id="patch_8">
+    <path d="M 139.452163 139.20408 
+L 169.1964 139.20408 
+L 169.1964 121.51872 
+L 139.452163 121.51872 
+z
+" clip-path="url(#pc733d22b6b)" style="fill: #d7a95c; opacity: 0.22; stroke: #d7a95c; stroke-width: 1.1; stroke-linejoin: miter"/>
+   </g>
+   <g id="patch_9">
+    <path d="M 198.940637 139.20408 
+L 228.684875 139.20408 
+L 228.684875 121.51872 
+L 198.940637 121.51872 
+z
+" clip-path="url(#pc733d22b6b)" style="fill: #d7a95c; opacity: 0.22; stroke: #d7a95c; stroke-width: 1.1; stroke-linejoin: miter"/>
+   </g>
+   <g id="line2d_1">
+    <path d="M 102.709281 52.38504 
+L 139.452163 66.85488 
+" clip-path="url(#pc733d22b6b)" style="fill: none; stroke: #3a3026; stroke-linecap: square"/>
+   </g>
+   <g id="line2d_2">
+    <path d="M 102.709281 81.32472 
+L 139.452163 66.85488 
+" clip-path="url(#pc733d22b6b)" style="fill: none; stroke: #3a3026; stroke-linecap: square"/>
+   </g>
+   <g id="line2d_3">
+    <path d="M 169.1964 66.85488 
+L 198.940637 66.85488 
+" clip-path="url(#pc733d22b6b)" style="fill: none; stroke: #3a3026; stroke-linecap: square"/>
+   </g>
+   <g id="line2d_4">
+    <path d="M 102.709281 115.89156 
+L 139.452163 130.3614 
+" clip-path="url(#pc733d22b6b)" style="fill: none; stroke: #3a3026; stroke-linecap: square"/>
+   </g>
+   <g id="line2d_5">
+    <path d="M 102.709281 144.83124 
+L 139.452163 130.3614 
+" clip-path="url(#pc733d22b6b)" style="fill: none; stroke: #3a3026; stroke-linecap: square"/>
+   </g>
+   <g id="line2d_6">
+    <path d="M 169.1964 130.3614 
+L 198.940637 130.3614 
+" clip-path="url(#pc733d22b6b)" style="fill: none; stroke: #3a3026; stroke-linecap: square"/>
+   </g>
+   <g id="text_1">
+    <text style="font-size: 8px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: middle; fill: #cbbca6" x="87.837163" y="54.59254" transform="rotate(-0 87.837163 54.59254)">gene A</text>
+   </g>
+   <g id="text_2">
+    <text style="font-size: 8px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: middle; fill: #cbbca6" x="87.837163" y="83.53222" transform="rotate(-0 87.837163 83.53222)">gene B</text>
+   </g>
+   <g id="text_3">
+    <text style="font-size: 8px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: middle; fill: #cbbca6" x="154.324281" y="69.06238" transform="rotate(-0 154.324281 69.06238)">complex</text>
+   </g>
+   <g id="text_4">
+    <text style="font-size: 8px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: middle; fill: #cbbca6" x="213.812756" y="69.06238" transform="rotate(-0 213.812756 69.06238)">flux</text>
+   </g>
+   <g id="text_5">
+    <text style="font-weight: 700; font-size: 8.6px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: middle; fill: #d98c72" x="121.080722" y="45.15012" transform="rotate(-0 121.080722 45.15012)">AND</text>
+   </g>
+   <g id="text_6">
+    <text style="font-size: 8px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; fill: #9a8872" transform="translate(69.465722 14.25039)">subunits of one complex:</text>
+    <text style="font-size: 8px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; fill: #9a8872" transform="translate(69.465722 23.20864)">either deletion is lethal</text>
+   </g>
+   <g id="text_7">
+    <text style="font-size: 8px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: middle; fill: #cbbca6" x="87.837163" y="118.09906" transform="rotate(-0 87.837163 118.09906)">gene A</text>
+   </g>
+   <g id="text_8">
+    <text style="font-size: 8px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: middle; fill: #cbbca6" x="87.837163" y="147.03874" transform="rotate(-0 87.837163 147.03874)">gene B</text>
+   </g>
+   <g id="text_9">
+    <text style="font-size: 8px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: middle; fill: #cbbca6" x="154.324281" y="132.5689" transform="rotate(-0 154.324281 132.5689)">either one</text>
+   </g>
+   <g id="text_10">
+    <text style="font-size: 8px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: middle; fill: #cbbca6" x="213.812756" y="132.5689" transform="rotate(-0 213.812756 132.5689)">flux</text>
+   </g>
+   <g id="text_11">
+    <text style="font-weight: 700; font-size: 8.6px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: middle; fill: #6dbdac" x="121.080722" y="115.89156" transform="rotate(-0 121.080722 115.89156)">OR</text>
+   </g>
+   <g id="text_12">
+    <text style="font-size: 8px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; fill: #9a8872" transform="translate(69.465722 96.24615)">isozymes:</text>
+    <text style="font-size: 8px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; fill: #9a8872" transform="translate(69.465722 105.2044)">neither single deletion matters</text>
+   </g>
+  </g>
+  <g id="axes_2">
+   <g id="patch_10">
+    <path d="M 303.920298 166.536 
+L 478.8864 166.536 
+L 478.8864 5.76 
+L 303.920298 5.76 
+L 303.920298 166.536 
+z
+" style="fill: none"/>
+   </g>
+   <g id="patch_11">
+    <path d="M 338.913519 166.536 
+L 408.899959 166.536 
+L 408.899959 5.76 
+L 338.913519 5.76 
+z
+" clip-path="url(#p77a8f9aa44)" style="fill: #d7a95c; opacity: 0.12; stroke: #d7a95c; stroke-linejoin: miter"/>
+   </g>
+   <g id="matplotlib.axis_1">
+    <g id="xtick_1">
+     <g id="line2d_7">
+      <path d="M 303.920298 166.536 
+L 303.920298 5.76 
+" clip-path="url(#p77a8f9aa44)" style="fill: none; stroke: #2e251c; stroke-opacity: 0.7; stroke-width: 0.6; stroke-linecap: square"/>
+     </g>
+     <g id="line2d_8">
+      <defs>
+       <path id="m0d1aed9f4c" d="M 0 0 
+L 0 3.5 
+" style="stroke: #9a8872; stroke-width: 0.9"/>
+      </defs>
+      <g>
+       <use xlink:href="#m0d1aed9f4c" x="303.920298" y="166.536" style="fill: #9a8872; stroke: #9a8872; stroke-width: 0.9"/>
+      </g>
+     </g>
+     <g id="text_13">
+      <text style="font-size: 9.5px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: middle; fill: #9a8872" x="303.920298" y="180.754516" transform="rotate(-0 303.920298 180.754516)">0</text>
+     </g>
+    </g>
+    <g id="xtick_2">
+     <g id="line2d_9">
+      <path d="M 338.913519 166.536 
+L 338.913519 5.76 
+" clip-path="url(#p77a8f9aa44)" style="fill: none; stroke: #2e251c; stroke-opacity: 0.7; stroke-width: 0.6; stroke-linecap: square"/>
+     </g>
+     <g id="line2d_10">
+      <g>
+       <use xlink:href="#m0d1aed9f4c" x="338.913519" y="166.536" style="fill: #9a8872; stroke: #9a8872; stroke-width: 0.9"/>
+      </g>
+     </g>
+     <g id="text_14">
+      <text style="font-size: 9.5px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: middle; fill: #9a8872" x="338.913519" y="180.754516" transform="rotate(-0 338.913519 180.754516)">20</text>
+     </g>
+    </g>
+    <g id="xtick_3">
+     <g id="line2d_11">
+      <path d="M 373.906739 166.536 
+L 373.906739 5.76 
+" clip-path="url(#p77a8f9aa44)" style="fill: none; stroke: #2e251c; stroke-opacity: 0.7; stroke-width: 0.6; stroke-linecap: square"/>
+     </g>
+     <g id="line2d_12">
+      <g>
+       <use xlink:href="#m0d1aed9f4c" x="373.906739" y="166.536" style="fill: #9a8872; stroke: #9a8872; stroke-width: 0.9"/>
+      </g>
+     </g>
+     <g id="text_15">
+      <text style="font-size: 9.5px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: middle; fill: #9a8872" x="373.906739" y="180.754516" transform="rotate(-0 373.906739 180.754516)">40</text>
+     </g>
+    </g>
+    <g id="xtick_4">
+     <g id="line2d_13">
+      <path d="M 408.899959 166.536 
+L 408.899959 5.76 
+" clip-path="url(#p77a8f9aa44)" style="fill: none; stroke: #2e251c; stroke-opacity: 0.7; stroke-width: 0.6; stroke-linecap: square"/>
+     </g>
+     <g id="line2d_14">
+      <g>
+       <use xlink:href="#m0d1aed9f4c" x="408.899959" y="166.536" style="fill: #9a8872; stroke: #9a8872; stroke-width: 0.9"/>
+      </g>
+     </g>
+     <g id="text_16">
+      <text style="font-size: 9.5px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: middle; fill: #9a8872" x="408.899959" y="180.754516" transform="rotate(-0 408.899959 180.754516)">60</text>
+     </g>
+    </g>
+    <g id="xtick_5">
+     <g id="line2d_15">
+      <path d="M 443.89318 166.536 
+L 443.89318 5.76 
+" clip-path="url(#p77a8f9aa44)" style="fill: none; stroke: #2e251c; stroke-opacity: 0.7; stroke-width: 0.6; stroke-linecap: square"/>
+     </g>
+     <g id="line2d_16">
+      <g>
+       <use xlink:href="#m0d1aed9f4c" x="443.89318" y="166.536" style="fill: #9a8872; stroke: #9a8872; stroke-width: 0.9"/>
+      </g>
+     </g>
+     <g id="text_17">
+      <text style="font-size: 9.5px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: middle; fill: #9a8872" x="443.89318" y="180.754516" transform="rotate(-0 443.89318 180.754516)">80</text>
+     </g>
+    </g>
+    <g id="xtick_6">
+     <g id="line2d_17">
+      <path d="M 478.8864 166.536 
+L 478.8864 5.76 
+" clip-path="url(#p77a8f9aa44)" style="fill: none; stroke: #2e251c; stroke-opacity: 0.7; stroke-width: 0.6; stroke-linecap: square"/>
+     </g>
+     <g id="line2d_18">
+      <g>
+       <use xlink:href="#m0d1aed9f4c" x="478.8864" y="166.536" style="fill: #9a8872; stroke: #9a8872; stroke-width: 0.9"/>
+      </g>
+     </g>
+     <g id="text_18">
+      <text style="font-size: 9.5px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: middle; fill: #9a8872" x="478.8864" y="180.754516" transform="rotate(-0 478.8864 180.754516)">100</text>
+     </g>
+    </g>
+    <g id="text_19">
+     <text style="font-size: 9.5px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: middle; fill: #cbbca6" x="391.403349" y="193.948734" transform="rotate(-0 391.403349 193.948734)">multi-gene reactions written as AND  (%)</text>
+    </g>
+   </g>
+   <g id="matplotlib.axis_2">
+    <g id="ytick_1">
+     <g id="line2d_19">
+      <path d="M 303.920298 166.536 
+L 478.8864 166.536 
+" clip-path="url(#p77a8f9aa44)" style="fill: none; stroke: #2e251c; stroke-opacity: 0.7; stroke-width: 0.6; stroke-linecap: square"/>
+     </g>
+     <g id="line2d_20">
+      <defs>
+       <path id="m8312800a65" d="M 0 0 
+L -3.5 0 
+" style="stroke: #9a8872; stroke-width: 0.9"/>
+      </defs>
+      <g>
+       <use xlink:href="#m8312800a65" x="303.920298" y="166.536" style="fill: #9a8872; stroke: #9a8872; stroke-width: 0.9"/>
+      </g>
+     </g>
+     <g id="text_20">
+      <text style="font-size: 9.5px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: end; fill: #9a8872" x="296.920298" y="170.145258" transform="rotate(-0 296.920298 170.145258)">100</text>
+     </g>
+    </g>
+    <g id="ytick_2">
+     <g id="line2d_21">
+      <path d="M 303.920298 129.996 
+L 478.8864 129.996 
+" clip-path="url(#p77a8f9aa44)" style="fill: none; stroke: #2e251c; stroke-opacity: 0.7; stroke-width: 0.6; stroke-linecap: square"/>
+     </g>
+     <g id="line2d_22">
+      <g>
+       <use xlink:href="#m8312800a65" x="303.920298" y="129.996" style="fill: #9a8872; stroke: #9a8872; stroke-width: 0.9"/>
+      </g>
+     </g>
+     <g id="text_21">
+      <text style="font-size: 9.5px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: end; fill: #9a8872" x="296.920298" y="133.605258" transform="rotate(-0 296.920298 133.605258)">150</text>
+     </g>
+    </g>
+    <g id="ytick_3">
+     <g id="line2d_23">
+      <path d="M 303.920298 93.456 
+L 478.8864 93.456 
+" clip-path="url(#p77a8f9aa44)" style="fill: none; stroke: #2e251c; stroke-opacity: 0.7; stroke-width: 0.6; stroke-linecap: square"/>
+     </g>
+     <g id="line2d_24">
+      <g>
+       <use xlink:href="#m8312800a65" x="303.920298" y="93.456" style="fill: #9a8872; stroke: #9a8872; stroke-width: 0.9"/>
+      </g>
+     </g>
+     <g id="text_22">
+      <text style="font-size: 9.5px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: end; fill: #9a8872" x="296.920298" y="97.065258" transform="rotate(-0 296.920298 97.065258)">200</text>
+     </g>
+    </g>
+    <g id="ytick_4">
+     <g id="line2d_25">
+      <path d="M 303.920298 56.916 
+L 478.8864 56.916 
+" clip-path="url(#p77a8f9aa44)" style="fill: none; stroke: #2e251c; stroke-opacity: 0.7; stroke-width: 0.6; stroke-linecap: square"/>
+     </g>
+     <g id="line2d_26">
+      <g>
+       <use xlink:href="#m8312800a65" x="303.920298" y="56.916" style="fill: #9a8872; stroke: #9a8872; stroke-width: 0.9"/>
+      </g>
+     </g>
+     <g id="text_23">
+      <text style="font-size: 9.5px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: end; fill: #9a8872" x="296.920298" y="60.525258" transform="rotate(-0 296.920298 60.525258)">250</text>
+     </g>
+    </g>
+    <g id="ytick_5">
+     <g id="line2d_27">
+      <path d="M 303.920298 20.376 
+L 478.8864 20.376 
+" clip-path="url(#p77a8f9aa44)" style="fill: none; stroke: #2e251c; stroke-opacity: 0.7; stroke-width: 0.6; stroke-linecap: square"/>
+     </g>
+     <g id="line2d_28">
+      <g>
+       <use xlink:href="#m8312800a65" x="303.920298" y="20.376" style="fill: #9a8872; stroke: #9a8872; stroke-width: 0.9"/>
+      </g>
+     </g>
+     <g id="text_24">
+      <text style="font-size: 9.5px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: end; fill: #9a8872" x="296.920298" y="23.985258" transform="rotate(-0 296.920298 23.985258)">300</text>
+     </g>
+    </g>
+    <g id="text_25">
+     <text style="font-size: 9.5px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: middle; fill: #cbbca6" x="272.81147" y="86.148" transform="rotate(-90 272.81147 86.148)">predicted essential genes</text>
+    </g>
+   </g>
+   <g id="line2d_29">
+    <path d="M 303.920298 151.92 
+L 305.687633 150.591273 
+L 307.454967 149.262545 
+L 309.222301 147.933818 
+L 310.989636 146.605091 
+L 312.75697 145.276364 
+L 314.524304 143.947636 
+L 316.291639 142.618909 
+L 318.058973 141.290182 
+L 319.826308 139.961455 
+L 321.593642 138.632727 
+L 323.360976 137.304 
+L 325.128311 135.975273 
+L 326.895645 134.646545 
+L 328.662979 133.317818 
+L 330.430314 131.989091 
+L 332.197648 130.660364 
+L 333.964982 129.331636 
+L 335.732317 128.002909 
+L 337.499651 126.674182 
+L 339.266986 125.345455 
+L 341.03432 124.016727 
+L 342.801654 122.688 
+L 344.568989 121.359273 
+L 346.336323 120.030545 
+L 348.103657 118.701818 
+L 349.870992 117.373091 
+L 351.638326 116.044364 
+L 353.40566 114.715636 
+L 355.172995 113.386909 
+L 356.940329 112.058182 
+L 358.707663 110.729455 
+L 360.474998 109.400727 
+L 362.242332 108.072 
+L 364.009667 106.743273 
+L 365.777001 105.414545 
+L 367.544335 104.085818 
+L 369.31167 102.757091 
+L 371.079004 101.428364 
+L 372.846338 100.099636 
+L 374.613673 98.770909 
+L 376.381007 97.442182 
+L 378.148341 96.113455 
+L 379.915676 94.784727 
+L 381.68301 93.456 
+L 383.450345 92.127273 
+L 385.217679 90.798545 
+L 386.985013 89.469818 
+L 388.752348 88.141091 
+L 390.519682 86.812364 
+L 392.287016 85.483636 
+L 394.054351 84.154909 
+L 395.821685 82.826182 
+L 397.589019 81.497455 
+L 399.356354 80.168727 
+L 401.123688 78.84 
+L 402.891022 77.511273 
+L 404.658357 76.182545 
+L 406.425691 74.853818 
+L 408.193026 73.525091 
+L 409.96036 72.196364 
+L 411.727694 70.867636 
+L 413.495029 69.538909 
+L 415.262363 68.210182 
+L 417.029697 66.881455 
+L 418.797032 65.552727 
+L 420.564366 64.224 
+L 422.3317 62.895273 
+L 424.099035 61.566545 
+L 425.866369 60.237818 
+L 427.633704 58.909091 
+L 429.401038 57.580364 
+L 431.168372 56.251636 
+L 432.935707 54.922909 
+L 434.703041 53.594182 
+L 436.470375 52.265455 
+L 438.23771 50.936727 
+L 440.005044 49.608 
+L 441.772378 48.279273 
+L 443.539713 46.950545 
+L 445.307047 45.621818 
+L 447.074382 44.293091 
+L 448.841716 42.964364 
+L 450.60905 41.635636 
+L 452.376385 40.306909 
+L 454.143719 38.978182 
+L 455.911053 37.649455 
+L 457.678388 36.320727 
+L 459.445722 34.992 
+L 461.213056 33.663273 
+L 462.980391 32.334545 
+L 464.747725 31.005818 
+L 466.515059 29.677091 
+L 468.282394 28.348364 
+L 470.049728 27.019636 
+L 471.817063 25.690909 
+L 473.584397 24.362182 
+L 475.351731 23.033455 
+L 477.119066 21.704727 
+L 478.8864 20.376 
+" clip-path="url(#p77a8f9aa44)" style="fill: none; stroke: #6dbdac; stroke-width: 1.9; stroke-linecap: square"/>
+   </g>
+   <g id="patch_12">
+    <path d="M 303.920298 166.536 
+L 303.920298 5.76 
+" style="fill: none; stroke: #3a3026; stroke-width: 0.9; stroke-linejoin: miter; stroke-linecap: square"/>
+   </g>
+   <g id="patch_13">
+    <path d="M 303.920298 166.536 
+L 478.8864 166.536 
+" style="fill: none; stroke: #3a3026; stroke-width: 0.9; stroke-linejoin: miter; stroke-linecap: square"/>
+   </g>
+   <g id="text_26">
+    <text style="font-size: 8px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; fill: #d7a95c" transform="translate(343.860489 131.99975)">where curation</text>
+    <text style="font-size: 8px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; fill: #d7a95c" transform="translate(346.119864 140.958)">actually lands</text>
+   </g>
+  </g>
+  <g id="text_27">
+   <text style="font-size: 8.3px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: start; fill: #9a8872" x="5.76" y="216.648" transform="rotate(-0 5.76 216.648)">Right panel is arithmetic on a schematic network of 300 multi-gene reactions, not a specific model: the point is that the single most consequential curation decision in a reconstruction is a boolean operator, and it is made hundreds of times.</text>
+  </g>
+ </g>
+ <defs>
+  <clipPath id="pc733d22b6b">
+   <rect x="65.9664" y="5.76" width="174.966102" height="160.776"/>
+  </clipPath>
+  <clipPath id="p77a8f9aa44">
+   <rect x="303.920298" y="5.76" width="174.966102" height="160.776"/>
+  </clipPath>
+ </defs>
+</svg>
+</div><figcaption>Left: the same two genes as subunits of one complex, where either deletion is lethal, or as isozymes, where neither single deletion does anything. Right: how the predicted essential-gene count moves with the share of multi-gene reactions written as AND — a boolean operator, chosen hundreds of times, setting the model's most-cited output.</figcaption></figure>
+<p>A gene-protein-reaction association maps genes to a reaction with Boolean logic. AND denotes a complex: all subunits required, so deleting any one gene removes the reaction. OR denotes isozymes or alternative complexes: either suffices, so only the double deletion removes the reaction. Real GPRs nest both — (a AND b) OR (c AND d) is a reaction catalysed by either of two heterodimers. Getting this right is what lets a model predict gene essentiality rather than merely reaction essentiality, and writing AND where the truth is OR is a leading cause of false positives. Implement the deletion logic yourself from the GPR strings this week and validate it against the library&#x27;s function; the exercise takes an afternoon and removes any mystery from week 25.</p>
+<p><strong>3. Dead ends, blocked reactions and what they signify</strong></p>
+<p>A dead-end metabolite is produced but never consumed, or vice versa. At steady state it forces every reaction touching it to zero flux, so whole pathway segments go silent without complaint. Blocked reactions are those that cannot carry flux in any steady state. In a typical draft, a substantial fraction of reactions are blocked, and each blockage is a knowledge gap: a missing transporter, a missing biosynthetic step, or a reaction that genuinely should not be there. Finding them is mechanical — compute flux variability on an open medium and collect the reactions with zero range — and interpreting them is the curation work.</p>
+<p><strong>4. Gap filling is hypothesis generation, not evidence</strong></p>
+<p>Algorithmic gap filling searches a universal reaction database for the smallest set of additions that restores flux. That is a parsimony argument, and parsimony is not evidence. Before accepting a fill, look for a homologue of the candidate enzyme in the genome; if there is none, the fill is a claim that the organism does something with no known gene. Record every fill in the provenance log at the lowest confidence class, and then check whether any conclusion you draw depends on one. The specific trap to avoid is filling gaps until the model grows: that guarantees growth and destroys the model&#x27;s evidential value.</p>
+<p><strong>5. Thermodynamic directionality, which is curation not computation</strong></p>
+<p>Every reaction needs bounds, and the choice of reversible or irreversible is a thermodynamic judgement made at curation time. Set too many reactions reversible and the model finds unphysical routes, including loops; set too many irreversible and you exclude flux the cell genuinely carries. Good practice is to assign directionality from ΔrG′° with physiological concentration ranges, flagging the marginal cases rather than deciding them silently. This is where week 8&#x27;s conventions earn their keep, and it is the main reason two models of the same organism give different answers.</p>
+<p><strong>6. Quality control as a test suite</strong></p>
+<p>Treat a model like code. Standardised test suites check mass and charge balance on every reaction, metabolite and reaction identifiers against databases, the presence of gene associations, absence of duplicated reactions, correct exchange formulation, blocked reaction fraction, and whether the model produces energy from nothing — a stoichiometrically balanced cycle generating ATP with no substrate, which is the most embarrassing failure and still appears in published models. Run such a suite on any model before you use it, including your own.</p>
+<h3>Worked anchor</h3>
+<p>Implement gene deletion from a GPR, and find out why it matters.</p>
+<p>Take the GPR &#x27;(b0727 and b0726) or b2910&#x27;. Two subunits forming a complex, or a single alternative gene.</p>
+<p>Delete b2910 alone: the complex remains, so the reaction stays active. Delete b0727 alone: the complex is broken, but b2910 still provides the activity, so the reaction stays active. Delete b0727 and b2910 together: no route remains, so the reaction is knocked out.</p>
+<p>The implementation is a Boolean evaluation with deleted genes set false. Write it, run it over every gene in the core model, and compare with the library&#x27;s built-in function. They should agree exactly; where they do not, you have either a parsing bug or a GPR with syntax you did not anticipate, and both are worth finding now.</p>
+<p>Then do the instructive variant: change the GPR to &#x27;(b0727 and b0726) and b2910&#x27; — the same genes with the wrong connective — and rerun. Every one of the three genes now reads as essential. That single character is the difference between three correct predictions and three false positives, and it is why week 25&#x27;s confusion matrix is dominated by false positives rather than false negatives.</p>
+<p><strong>Assumptions behind this calculation</strong></p>
+<ul>
+<li>the curated GPR is correct</li>
+<li>deletion means complete loss of function</li>
+<li>no regulatory or expression-level compensation</li>
+</ul>
+<h3>Reading map</h3>
+<table><thead><tr><th>Source</th><th>Treatment</th><th>Why</th></tr></thead><tbody><tr><td>Palsson Ch 3 §3.2</td><td>Read closely</td><td>The four-step process, step by step, with what data each consumes. The week&#x27;s primary text.</td></tr><tr><td>Palsson Ch 3 §3.3–3.4</td><td>Skim</td><td>That reconstruction is iterative and labour-intensive, and the many uses of a reconstruction. Read for perspective.</td></tr><tr><td>Lee Ch 2 §2.3</td><td>Read closely</td><td>Assembling the reactome and curation from the engineering side, including what distinguishes a draft from a curated model.</td></tr><tr><td><a href="https://cobrapy.readthedocs.io/" target="_blank" rel="noopener">COBRApy documentation — model structure and gene reaction rules</a></td><td>Read closely</td><td>You are implementing deletion logic this week; read how the library represents GPRs before writing your own parser.</td></tr><tr><td>Lee Ch 7 §7.2.2</td><td>Skim</td><td>Thermodynamic assignment of reaction directions. Skim now, apply properly in week 24 when loops appear.</td></tr></tbody></table>
+<h3>Common misconceptions</h3>
+<ul>
+<li>That gap filling completes a model. It generates hypotheses at the lowest evidence class, and a model with dozens of unflagged fills is not a reconstruction.</li>
+<li>That directionality comes from the solver. It is a curation decision made from thermodynamics, and it is the main reason two models of one organism disagree.</li>
+<li>That a published model is validated. Some produce ATP from nothing; run a test suite before you trust one, including your own.</li>
+</ul>
+<h3>Check yourself before moving on</h3>
+<p><strong>Q.</strong> Why does writing AND where the truth is OR produce a false essentiality prediction?</p>
+<p><strong>A.</strong> AND models a protein complex, so deleting any one listed gene removes the reaction and the model calls that gene essential. If the genes are in fact isozymes, the organism retains the activity after a single deletion and the gene is experimentally non-essential. The error produces a false positive for every gene in the mis-written rule, and because isozymes are common it is a leading contributor to the precision deficit typically seen in deletion screens.</p>
+<p><strong>Q.</strong> What is a blocked reaction, how do you find them, and what does a high fraction mean?</p>
+<p><strong>A.</strong> A reaction that cannot carry flux in any steady state, usually because it touches a dead-end metabolite. Find them by running flux variability analysis on a permissive medium and collecting reactions whose minimum and maximum flux are both zero. A high blocked fraction means the reconstruction has substantial knowledge gaps — missing transporters, missing biosynthetic steps, or reactions wrongly included — and each blockage is a curation task rather than a computational one.</p>
+<p><strong>Q.</strong> A model produces ATP with no substrate uptake. What has gone wrong and why does it matter?</p>
+<p><strong>A.</strong> A stoichiometrically balanced cycle exists that generates ATP from nothing, usually created by a reaction with the wrong directionality or an unbalanced proton or water stoichiometry. It matters because every energetic prediction the model makes is then meaningless: growth yields, maintenance fitting and any ATP-limited design all rest on the energy balance. It is a standard test in quality-control suites, and the fact that it still appears in published models is the reason you run the suite yourself.</p>
+<hr>
+
+<section class="study-transfer" aria-label="Week 21 application and teach-back">
+<h3>Apply it to your fermentation experience</h3>
+<p><strong>Transfer prompt.</strong> Choose one uncertain reaction in a model for an organism relevant to your work. What evidence would justify including it, and how would you record a gap-filling choice?</p>
+<p class="meta">Use your actual thesis methods and results where you remember them. Mark missing information as unknown; do not assume the organisms were co-cultured, that a metabolite was measured, or that a proposed mechanism was demonstrated.</p>
+<h3>Teach it back</h3>
+<p>Explain the week's concept from memory, work one number, and name one boundary. Then use the <a href="teach-back.html">five-minute teach-back protocol</a> and log it in the tracker.</p>
+</section>
+<nav class="weeknav" aria-label="Week navigation"><a href="week-20.html">&#8592; Week 20</a><a class="idx" href="index.html">Lecture index</a><a class="idx" href="case-study.html">Case study</a><a href="week-22.html">Week 22 &#8594;</a></nav>
+</main>
+<footer class="docfoot"><a href="../metabolic-engineering-tracker.html">&#8592; Course tracker</a><span>Metabolic engineering &middot; 55 weeks</span></footer>
+<script>
+(function(){var root=document.documentElement,key="me.theme";var bs=Array.prototype.slice.call(document.querySelectorAll(".appearance button"));
+function paint(v){bs.forEach(function(b){b.setAttribute("aria-pressed",b.getAttribute("data-appearance")===v?"true":"false");});if(v==="auto")root.removeAttribute("data-theme");else root.setAttribute("data-theme",v);}
+var saved="auto";try{saved=localStorage.getItem(key)||"auto";}catch(e){}
+bs.forEach(function(b){b.addEventListener("click",function(){var v=b.getAttribute("data-appearance");paint(v);try{localStorage.setItem(key,v);}catch(e){}});});paint(saved);})();
+</script>
+</body>
+</html>

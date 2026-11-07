@@ -1,0 +1,594 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="utf-8"><title>Methods handbook — Metabolic engineering</title>
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+
+
+<style>:root{color-scheme:light;--paper:#FAF6EF;--ink:#211A12;--ink-2:#4A3C2C;--ink-3:#8A7458;
+--line:#DFD2BE;--line-2:#EDE4D5;--broth:#9A6B1F;--broth-soft:#F6ECD9;
+--serif:"Newsreader",Georgia,serif;--sans:"Public Sans",system-ui,sans-serif}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--paper:#15120D;--ink:#F1E9DC;--ink-2:#CBBCA6;
+--ink-3:#948872;--line:#352C22;--line-2:#2A231B;--broth:#D7A95C;--broth-soft:#241D14}}
+*{box-sizing:border-box}
+body{margin:0;background:var(--paper);color:var(--ink);font-family:var(--sans);font-size:15.5px;line-height:1.6;
+padding:env(safe-area-inset-top,0) 0 env(safe-area-inset-bottom,0)}
+.wrap{max-width:840px;margin:0 auto;padding:40px 22px 90px}
+h1{font-family:var(--serif);font-size:clamp(28px,5vw,42px);line-height:1.1;font-weight:600;margin:0 0 6px;letter-spacing:-.02em}
+h2{font-family:var(--serif);font-size:26px;font-weight:600;margin:46px 0 10px;letter-spacing:-.01em;padding-bottom:7px;border-bottom:1px solid var(--line)}
+h3{font-family:var(--serif);font-size:20px;font-weight:600;margin:30px 0 4px;color:var(--broth)}
+h4{font-size:14px;font-weight:650;margin:18px 0 4px;color:var(--ink-3);letter-spacing:.02em;text-transform:uppercase}
+p{margin:0 0 12px;max-width:74ch}
+em{color:var(--ink-2)}
+ul{margin:0 0 14px;padding-left:1.15em;max-width:74ch}
+li{margin:.3em 0}li::marker{color:var(--ink-3)}
+hr{border:0;border-top:1px solid var(--line);margin:40px 0}
+strong{font-weight:650}
+table{border-collapse:collapse;width:100%;margin:14px 0 20px;font-size:14px}
+th{text-align:left;font-weight:600;color:var(--ink-3);font-size:12.5px;padding:7px 9px;border-bottom:1.5px solid var(--line)}
+td{padding:8px 9px;border-bottom:1px solid var(--line-2);vertical-align:top}
+tr:nth-child(even) td{background:var(--broth-soft)}
+
+figure.fig{margin:22px 0 26px;padding:0;max-width:100%}
+figure.fig svg{width:100%;height:auto;display:block;background:var(--card);
+  border:1px solid var(--line-2);border-radius:10px;padding:8px 10px}
+figure.fig figcaption{font-size:13px;color:var(--ink-3);margin-top:8px;max-width:74ch;line-height:1.5}
+figure.fig .figtitle{font-family:var(--serif);font-size:15px;color:var(--ink-2);margin-bottom:6px}
+figure.fig .fig-dark{display:none}
+@media (prefers-color-scheme: dark){
+  figure.fig .fig-light{display:none}
+  figure.fig .fig-dark{display:block}
+}
+@media print{figure.fig{break-inside:avoid;page-break-inside:avoid}
+  figure.fig .fig-dark{display:none !important}
+  figure.fig .fig-light{display:block !important}}
+
+@media print{body{background:#fff}.wrap{padding:0;max-width:none}h2,h3{page-break-after:avoid}}</style><script>try{var t=localStorage.getItem("me.theme");if(t&&t!=="auto")document.documentElement.setAttribute("data-theme",t);}catch(e){}</script>
+<meta name="color-scheme" content="light dark">
+<meta name="theme-color" content="#ffffff" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#000000" media="(prefers-color-scheme: dark)">
+</head><body>
+<header class="docbar">
+<a class="docback" href="metabolic-engineering-tracker.html">&#8592; Course tracker</a>
+<div class="appearance" role="group" aria-label="Appearance">
+<button type="button" data-appearance="auto" aria-pressed="true">Auto</button>
+<button type="button" data-appearance="light" aria-pressed="false">Light</button>
+<button type="button" data-appearance="dark" aria-pressed="false">Dark</button>
+</div>
+</header><main class="wrap">
+<p class="doc-kicker">Metabolic engineering &middot; 42 entries</p>
+<h1>Methods handbook</h1>
+<p><strong>What each procedure is for, how it works, how it is done, and how it fails.</strong></p>
+<p>Forty-two entries in sections 1–12: wet-lab methods, reproducibility and repository engineering, a thermodynamic conventions card, curation of incomplete data, biosafety and dual use, and how to defend the work aloud — followed by four closing sections on what the handbook will not give you, the Python the course assumes, formulating a model from scratch, and appraising a paper.</p>
+<p>Companion to the 55-week course and the design briefs. Last revised 5 November 2026.</p>
+<hr>
+<h2>How to read this handbook</h2>
+<p>This is a reference, not a protocol collection. For each method it gives the purpose, the principle it rests on, the shape of the procedure, the controls that make the result interpretable, the usual failure modes, and how to read the output. It deliberately stops short of volumes and incubation times, because those belong to a kit insert, a published protocol or a laboratory&#x27;s own standard operating procedure — and because a number copied from a handbook into a real experiment without a source is how people waste a month.</p>
+<p><strong>What to use alongside it.</strong> Addgene&#x27;s protocol collection and Plasmids 101 series for cloning; the original methods paper for anything you intend to cite; Cold Spring Harbor Protocols or a current <em>Nature Protocols</em> entry for step-level detail; the supplier&#x27;s insert for any kit. When you write the thirty bench protocols in the tracker, write them from those sources and cite them — this handbook tells you which method you need and what to think about, not what to pipette.</p>
+<p><strong>The honest frame.</strong> None of this constitutes experience. Knowing that a diagnostic digest cannot detect a point mutation is useful and demonstrates you have thought it through; it is not the same as having run one. Label everything you write as a paper design, and name the techniques you have never performed when asked.</p>
+<p><strong>Weeks</strong> in each entry point to where the course covers the underlying theory, and <strong>bench</strong> identifiers point to the protocol you write in the tracker&#x27;s bench plan. Sections 1 to 7 are wet-lab methods you will mostly write up rather than perform. Sections 8 to 12 are things you will actually do: repository engineering, thermodynamic bookkeeping, model curation, biosafety awareness and defending your work at a whiteboard.</p>
+<hr>
+<h2>1. Working with cells</h2>
+<h3>1.1 Aseptic technique and culture maintenance</h3>
+<p><em>Week 1 · bench b1</em></p>
+<p><strong>Purpose.</strong> Everything downstream assumes the culture contains what you think it contains.</p>
+<p><strong>Principle.</strong> Contaminants are ubiquitous and most grow faster than an engineered strain carrying a metabolic burden. Sterility is maintained by physical barriers, by flame or laminar airflow, and by never passing an open vessel under a non-sterile surface.</p>
+<p><strong>Procedure in outline.</strong> Streak from a glycerol stock to single colonies on selective medium; pick one colony into liquid medium; grow to mid-exponential phase; make fresh glycerol stocks at 15–25% glycerol and freeze at −80 °C. Work from stocks, never from a plate that has been in the fridge for a month.</p>
+<p><strong>Controls.</strong> An uninoculated medium blank incubated alongside every experiment. A plate of the parent strain without selection, to confirm the selection is working rather than the marker having been lost.</p>
+<p><strong>How it fails.</strong> Slow contaminants that only show at 48 hours; plasmid-free revertants outgrowing producers; a glycerol stock made from a late-stationary culture that has already drifted. Microscopy and a selective-plate check catch most of it.</p>
+<p><strong>Reading the result.</strong> Any growth in the blank invalidates the experiment, not just casts doubt on it.</p>
+<h3>1.2 Growth measurement and optical density calibration</h3>
+<p><em>Week 18 · bench b6</em></p>
+<p><strong>Purpose.</strong> Convert a turbidity reading into biomass you can put in a mass balance.</p>
+<p><strong>Principle.</strong> Optical density is light scattering, not concentration. The relationship to dry weight is linear only over a limited range and depends on cell size and shape, which change with growth rate and condition.</p>
+<p><strong>Procedure in outline.</strong> Build a calibration curve of OD600 against gravimetric dry cell weight across the range you will use, with ash correction. Check dilution linearity, and establish the OD above which you must dilute before reading. Calibrate plate reader against spectrophotometer if you use both — the path lengths differ.</p>
+<p><strong>Controls.</strong> Medium blank. A dilution series run on the same day as the experiment, since lamp and cuvette state drift.</p>
+<p><strong>How it fails.</strong> Reading above the linear range, which silently compresses high-biomass points; applying a literature conversion factor from a different strain or morphology; filamentous or flocculating cultures, for which OD is close to meaningless.</p>
+<p><strong>Reading the result.</strong> An uncalibrated OD cannot support a yield claim. Brief 2 and Brief 3 both depend on this.</p>
+<h3>1.3 Bioreactor batch and fed-batch operation</h3>
+<p><em>Weeks 49 and 50 · bench b23, b24</em></p>
+<p><strong>Purpose.</strong> Controlled physiology: known growth rate, known dissolved oxygen, known pH.</p>
+<p><strong>Principle.</strong> A fermenter is a reactor with online measurement and feedback. What distinguishes it from a flask is that you can hold a variable rather than observe it.</p>
+<p><strong>Procedure in outline.</strong> Calibrate pH and dissolved oxygen probes before sterilisation and verify after. Sterilise in place or in the autoclave, with heat-labile components added separately through a filter. Inoculate from a seed culture at a defined ratio and physiological state. Log every parameter; sample on a schedule set before the run, not improvised. For fed-batch, calibrate the pump gravimetrically and program the feed profile from the derivation, not by eye.</p>
+<p><strong>Controls.</strong> A parallel vessel with the parent strain wherever a comparison is being made. Offline measurement of at least one online variable, to catch probe drift.</p>
+<p><strong>How it fails.</strong> Probe drift over a long run; foam fouling the exhaust filter and causing pressure excursions; wall growth that accumulates biomass outside the measured volume; a feed solution that precipitates or is contaminated.</p>
+<p><strong>Reading the result.</strong> Close the mass balance at the end of every run. If it does not close, something above went wrong and the run tells you less than you think.</p>
+<h3>1.4 Chemostat operation</h3>
+<p><em>Week 18 · bench b11</em></p>
+<p><strong>Purpose.</strong> The only clean way to study physiology at a controlled growth rate, and the correct experiment for Monod and maintenance parameters.</p>
+<p><strong>Principle.</strong> At steady state the specific growth rate equals the dilution rate, so you set µ rather than measure it.</p>
+<p><strong>Procedure in outline.</strong> Hold the working volume constant by weir or level control; calibrate the feed pump gravimetrically; allow at least five volume changes after any setpoint change before sampling, and demonstrate steady state rather than assuming it by showing biomass and substrate stable across two or more residence times.</p>
+<p><strong>Controls.</strong> Residual substrate measured with an assay validated near its detection limit — this is the usual weak point. Periodic plating to detect evolved variants, which chemostats select for strongly.</p>
+<p><strong>How it fails.</strong> Wall growth, which decouples biomass from dilution; evolution over long runs; feed sterility failures; the dilution rate set too close to washout.</p>
+<p><strong>Reading the result.</strong> Report the number of volume changes before sampling. A chemostat result without that number is not a steady-state result.</p>
+<hr>
+<h2>2. DNA: construction and verification</h2>
+<h3>2.1 Nucleic acid extraction and quality control</h3>
+<p><em>Week 19 · bench b12</em></p>
+<p><strong>Purpose.</strong> Template for everything that follows.</p>
+<p><strong>Principle.</strong> Lysis, removal of protein and RNA, then selective binding or precipitation of DNA.</p>
+<p><strong>Procedure in outline.</strong> Genomic DNA by column or by salting-out; plasmid DNA by alkaline lysis. Quantify by fluorometry rather than absorbance where accuracy matters, since absorbance counts RNA and free nucleotides as DNA. Check purity ratios and integrity on a gel or fragment analyser.</p>
+<p><strong>Controls.</strong> A no-template control carried through the whole extraction.</p>
+<p><strong>How it fails.</strong> Low A260/A230 indicating salt or phenol carryover, which inhibits downstream enzymes; sheared genomic DNA, which ruins long-read sequencing or long-range PCR; RNA inflating the yield estimate.</p>
+<p><strong>Reading the result.</strong> Each failed ratio predicts a specific downstream failure. Record them; do not discard the numbers once the DNA &quot;passes&quot;.</p>
+<h3>2.2 PCR</h3>
+<p><em>Week 32 · bench b13</em></p>
+<p><strong>Purpose.</strong> Amplify a defined fragment for cloning, screening or sequencing.</p>
+<p><strong>Principle.</strong> Thermal cycling of denaturation, primer annealing and extension, with exponential amplification of the sequence flanked by the primers.</p>
+<p><strong>Procedure in outline.</strong> Design primers with matched melting temperatures, checked for hairpins, self-dimers and cross-dimers; choose a high-fidelity polymerase for anything that will be cloned and a cheap one for screening only; optimise annealing by gradient if the first attempt is unclean; verify product size on a gel before proceeding.</p>
+<p><strong>Controls.</strong> No-template control in every run, without exception. A positive control amplicon known to work, which distinguishes a bad reaction from a bad template.</p>
+<p><strong>How it fails.</strong> Non-specific bands from too low an annealing temperature; no product from secondary structure or a GC-rich region; mispriming on a repeated sequence; polymerase inhibition by carryover from the extraction; and, most insidiously, amplification of a contaminating plasmid from a previous experiment.</p>
+<p><strong>Reading the result.</strong> A band of the right size proves length, not sequence. Anything that matters gets sequenced.</p>
+<h3>2.3 Primer and construct design</h3>
+<p><em>Week 32 · bench b19</em></p>
+<p><strong>Purpose.</strong> The design decisions that determine whether the construction works at all.</p>
+<p><strong>Principle.</strong> Assembly methods differ in what they require at the fragment junctions: compatible restriction ends, homology overlaps of 20–40 bases, or type IIS-defined four-base overhangs.</p>
+<p><strong>Procedure in outline.</strong> Choose the assembly method first, then design to its requirement. For Gibson, design overlaps and check that no two junctions are similar enough to misassemble. For Golden Gate, domesticate the parts by removing internal type IIS sites with synonymous substitutions. Keep every design file, annotated, in the repository.</p>
+<p><strong>Controls.</strong> In silico assembly simulation before ordering anything. A backbone-only control in the transformation, to quantify the background of uncut or self-ligated vector.</p>
+<p><strong>How it fails.</strong> Repeated sequences causing misassembly; internal restriction sites that were not domesticated; overlaps too short for the polymerase to bridge; a synonymous substitution that accidentally creates a strong secondary structure near the start codon.</p>
+<p><strong>Reading the result.</strong> Compare colony count against the backbone-only control. A high background means your result is mostly vector.</p>
+<h3>2.4 Assembly: restriction, Gibson, Golden Gate, yeast</h3>
+<p><em>Week 32 · bench b19</em></p>
+<p><strong>Purpose.</strong> Join fragments into a construct.</p>
+<p><strong>Principle.</strong> Restriction-ligation cuts and rejoins at defined sequences, leaving a scar. Gibson uses exonuclease chew-back, annealing of homologous overlaps and gap repair in one isothermal reaction. Golden Gate uses type IIS enzymes that cut outside their recognition site, so digestion and ligation proceed in one pot and the sites disappear from the product. Yeast assembly uses the host&#x27;s own homologous recombination to join many fragments at once.</p>
+<p><strong>Procedure in outline.</strong> Gibson for a one-off multi-fragment construct; Golden Gate or MoClo when the same parts will be recombined into a library; yeast assembly for very large constructs or pathway-scale assemblies; restriction-ligation when the parts already exist with compatible ends.</p>
+<p><strong>Controls.</strong> Backbone-only and no-insert controls. A known-good assembly run alongside a new one, to separate a bad reaction from a bad design.</p>
+<p><strong>How it fails.</strong> Misassembly with repeats; incomplete digestion leaving parental plasmid; a fragment present at the wrong molar ratio; and toxicity of the assembled construct, which shows as no colonies rather than wrong colonies.</p>
+<p><strong>Reading the result.</strong> Screen a realistic number of clones. If the design has a 10% success rate, picking four colonies is not a test of the design.</p>
+<h3>2.5 Transformation and competent cell preparation</h3>
+<p><em>Week 33 · bench b15</em></p>
+<p><strong>Purpose.</strong> Get the construct into the host, at an efficiency the experiment requires.</p>
+<p><strong>Principle.</strong> Chemical competence by divalent cations and heat shock; electrocompetence by a high-voltage pulse that transiently permeabilises the membrane. Efficiency differs by orders of magnitude between them and between hosts.</p>
+<p><strong>Procedure in outline.</strong> Prepare cells at mid-exponential phase, wash thoroughly for electroporation to remove salt, and determine efficiency with a control plasmid of known concentration before using the batch for anything important.</p>
+<p><strong>Controls.</strong> A control plasmid to measure efficiency in transformants per microgram. A no-DNA control to detect contamination and to confirm the selection kills the untransformed parent.</p>
+<p><strong>How it fails.</strong> Arcing from residual salt; low efficiency from cells harvested too late; recovery time too short for the resistance marker to be expressed before plating; and, in non-model hosts, restriction-modification systems degrading incoming DNA, which is why methylation state sometimes matters more than technique.</p>
+<p><strong>Reading the result.</strong> Compare the efficiency you measured against the efficiency your library requires. Brief 11 of the design briefs and the library calculations in week 34 both depend on this number being real rather than assumed.</p>
+<h3>2.6 Verification: colony PCR, diagnostic digest, sequencing</h3>
+<p><em>Week 32 · bench b14</em></p>
+<p><strong>Purpose.</strong> Establish that the construct is what you designed, before you spend months on it.</p>
+<p><strong>Principle.</strong> Each check has a different blind spot. Colony PCR confirms a junction exists. A diagnostic digest confirms overall architecture and orientation. Sanger sequencing confirms the bases it covers. Whole-plasmid sequencing is the only complete check.</p>
+<p><strong>Procedure in outline.</strong> Colony PCR to triage; diagnostic digest designed so that the correct construct and the two likeliest wrong ones give distinguishable patterns; Sanger across every junction and the whole coding sequence; whole-plasmid sequencing for anything going into a long project.</p>
+<p><strong>Controls.</strong> Parental plasmid alongside every digest. A known-correct clone, once you have one, as a reference pattern.</p>
+<p><strong>How it fails.</strong> A junction PCR that passes while an internal region is deleted; a digest that cannot resolve two fragments of similar size; sequencing coverage that stops short of the region that actually matters.</p>
+<p><strong>Reading the result.</strong> State explicitly which regions were sequenced and which were not. &quot;Sequence verified&quot; without that statement means little.</p>
+<hr>
+<h2>3. Genome engineering</h2>
+<h3>3.1 Lambda-Red recombineering</h3>
+<p><em>Week 35 · bench b21</em></p>
+<p><strong>Purpose.</strong> Chromosomal deletions, insertions and point changes in <em>E. coli</em> and relatives.</p>
+<p><strong>Principle.</strong> Phage-derived Exo, Beta and Gam proteins promote recombination between a linear donor and the chromosome at short homology arms, typically 40–50 bases.</p>
+<p><strong>Procedure in outline.</strong> Induce the Red functions; electroporate a linear donor carrying a selectable marker flanked by homology arms; select; verify; then remove the marker by a site-specific recombinase or by counterselection, leaving a scar or a clean deletion depending on the system.</p>
+<p><strong>Controls.</strong> A no-donor electroporation to measure background resistance. PCR across both junctions plus an internal primer pair, to distinguish true replacement from a tandem insertion.</p>
+<p><strong>How it fails.</strong> Background colonies from spontaneous resistance; recombination into a paralogous locus; polar effects on downstream genes in an operon; and a donor that is itself a plasmid, which gives false positives unless templates are removed.</p>
+<p><strong>Reading the result.</strong> Two junction PCRs and the loss of an internal amplicon together, not one of the three.</p>
+<h3>3.2 CRISPR-Cas9 editing</h3>
+<p><em>Week 35 · bench b21</em></p>
+<p><strong>Purpose.</strong> Targeted double-strand breaks that force repair from a donor, enabling markerless edits and strong counterselection.</p>
+<p><strong>Principle.</strong> A guide RNA directs Cas9 to a 20-base protospacer adjacent to a PAM; the nuclease cuts; the cell repairs by homology-directed repair from a supplied donor, or by non-homologous end joining where that pathway exists. In most bacteria NHEJ is absent, so an unrepaired break is lethal — which is why Cas9 functions chiefly as a selection against unedited cells rather than as a mutagen.</p>
+<p><strong>Procedure in outline.</strong> Identify protospacers with an available PAM close to the intended edit; check predicted efficiency and off-targets against the host genome; design a donor with homology arms and, crucially, with the protospacer or PAM destroyed in the edited product so the edit cannot be re-cut; deliver Cas9, guide and donor; select; verify by sequencing; then cure the Cas9 and guide plasmids.</p>
+<p><strong>Controls.</strong> A guide targeting a neutral locus, to measure cutting efficiency independently of the edit. A no-donor control, which should give few or no survivors in a host lacking NHEJ — if it gives many, your cutting is not working.</p>
+<p><strong>How it fails.</strong> The edit is re-cut because the protospacer survives in the product; the guide is inefficient for reasons that remain poorly predicted; the donor has homology arms too short for the host&#x27;s recombination machinery; Cas9 expression is toxic; escape mutants arise by mutating Cas9 or the guide rather than the target; off-target cuts in a genome with near-identical sequences elsewhere.</p>
+<p><strong>Reading the result.</strong> Sequence the locus, and sequence it in several independent clones. A single verified clone can carry an unnoticed second-site change.</p>
+<h3>3.3 CRISPR interference and activation</h3>
+<p><em>Week 35 · bench b21</em></p>
+<p><strong>Purpose.</strong> Graded, reversible knockdown — the only practical way to interrogate an essential gene.</p>
+<p><strong>Principle.</strong> A catalytically dead Cas9 bound to a promoter or early coding region blocks transcription initiation or elongation without cutting. Repression strength is tuned by guide position, guide mismatches and dCas9 abundance.</p>
+<p><strong>Procedure in outline.</strong> Target the non-template strand near the transcription start for strongest repression; build a guide series spanning a range of predicted strengths; induce dCas9; measure both the transcript and the phenotype.</p>
+<p><strong>Controls.</strong> A non-targeting guide, expressed at the same level, as the correct comparator — dCas9 expression alone imposes burden. Measurement of the target transcript to confirm the knockdown actually occurred.</p>
+<p><strong>How it fails.</strong> Polar repression of downstream operon genes, which is often mistaken for a phenotype of the target gene; incomplete repression leaving enough activity to mask the phenotype; and titration of dCas9 across many guides in a pooled library.</p>
+<p><strong>Reading the result.</strong> Knockdown is quantitative. Report the fold reduction in transcript, not merely that a guide was present.</p>
+<h3>3.4 Multiplex editing and library-scale genome engineering</h3>
+<p><em>Week 35 · bench b21</em></p>
+<p><strong>Purpose.</strong> Many edits at once, or a library of variants across a defined set of sites.</p>
+<p><strong>Principle.</strong> Oligo-mediated recombineering with mismatch repair disabled allows multiple allelic replacements per cycle; iterating the cycle compounds diversity. Pooled guide libraries deliver knockdowns or edits genome-wide.</p>
+<p><strong>Procedure in outline.</strong> Design degenerate oligos at the target sites; cycle induction, electroporation and recovery; track allele frequencies by amplicon sequencing; apply the screen or selection that makes the library useful.</p>
+<p><strong>Controls.</strong> Allele frequency measured at the start, to establish a baseline against which enrichment is called.</p>
+<p><strong>How it fails.</strong> Coverage below the library size, so the result is sampling noise; recombination efficiency varying by orders of magnitude between loci; the mutator background accumulating off-target mutations; and the screen rather than the library being the real bottleneck.</p>
+<p><strong>Reading the result.</strong> Enrichment, not presence. A variant found in the output means nothing without its frequency in the input.</p>
+<hr>
+<h2>4. Expression and protein analysis</h2>
+<h3>4.1 Induction and expression testing</h3>
+<p><em>Week 34 · bench b3</em></p>
+<p><strong>Purpose.</strong> Establish whether the gene produces active, soluble protein, and at what level.</p>
+<p><strong>Principle.</strong> Transcript abundance, total protein and soluble active protein are three different quantities, and the gap between them is where most expression problems live.</p>
+<p><strong>Procedure in outline.</strong> Induce across a range of inducer concentrations and temperatures; sample at several times; lyse; separate soluble and insoluble fractions by centrifugation; run both on a gel; quantify by densitometry against a standard.</p>
+<p><strong>Controls.</strong> Uninduced culture. Empty-vector strain. For a burden claim, a strain expressing an equivalent mass of inert protein from the same promoter — not the empty vector, which conflates synthesis cost with metabolic drain.</p>
+<p><strong>How it fails.</strong> Reading total protein as if it were active protein; inclusion bodies misidentified as good expression on a gel; a tag that alters solubility or activity; proteolysis during lysis.</p>
+<p><strong>Reading the result.</strong> Report soluble fraction as well as total. This single number resolves the commonest cause of a high-transcript, low-flux result.</p>
+<h3>4.2 Cell disruption and lysate preparation</h3>
+<p><em>Week 31 · bench b18</em></p>
+<p><strong>Purpose.</strong> Release intracellular contents without destroying what you came to measure.</p>
+<p><strong>Principle.</strong> Mechanical methods — bead milling, high-pressure homogenisation, sonication — deposit energy as heat; chemical and enzymatic methods are gentler but less complete and introduce reagents into the sample.</p>
+<p><strong>Procedure in outline.</strong> Choose the method for the analyte; keep everything cold; include protease inhibitors for protein work; clarify by centrifugation; determine total protein; confirm that disruption was complete by microscopy or by a release assay.</p>
+<p><strong>Controls.</strong> An undisrupted control, to quantify how much of the measured signal is extracellular. A dilution series of the lysate in the activity assay, to confirm linearity.</p>
+<p><strong>How it fails.</strong> Incomplete lysis giving a falsely low specific activity; heat inactivation during sonication; proteolysis; and interference from the disruption reagents in the assay that follows.</p>
+<p><strong>Reading the result.</strong> Specific activity, in units per milligram of total protein, with the dilution linearity shown.</p>
+<h3>4.3 Enzyme activity assays</h3>
+<p><em>Week 5 · bench b4</em></p>
+<p><strong>Purpose.</strong> Measure what the enzyme actually does, in the preparation you actually have.</p>
+<p><strong>Principle.</strong> A continuous assay follows a spectroscopic change directly or through a coupling enzyme supplied in excess; the measured rate is the initial rate only while substrate depletion and product inhibition are negligible.</p>
+<p><strong>Procedure in outline.</strong> Establish the linear range in both time and enzyme concentration before measuring anything; set substrate concentrations relative to the expected KM across a range that will constrain both parameters; include every cofactor at saturation unless the cofactor is the variable; run blanks for the non-enzymatic rate and for the coupling system alone.</p>
+<p><strong>Controls.</strong> No-enzyme and no-substrate blanks. A coupling-enzyme-only control, to prove the coupling step is not rate-limiting. A heat-killed enzyme control.</p>
+<p><strong>How it fails.</strong> Measuring a rate after the linear phase has ended; a coupling enzyme that becomes limiting at high rates; inner filter effects in fluorescence assays; pH or temperature not actually controlled at the stated value.</p>
+<p><strong>Reading the result.</strong> Report assay conditions with every number. Brief 1 exists because published kinetic parameters are so often reported without them.</p>
+<h3>4.4 Protein quantification and proteomics</h3>
+<p><em>Weeks 3 and 39 · bench b3</em></p>
+<p><strong>Purpose.</strong> How much of each protein is present, in absolute or relative terms.</p>
+<p><strong>Principle.</strong> Colorimetric assays measure total protein with known interferences. Mass spectrometry identifies and quantifies peptides after proteolytic digestion, with absolute quantification requiring isotope-labelled standards.</p>
+<p><strong>Procedure in outline.</strong> For total protein, choose the assay for your buffer&#x27;s interferences and build the standard curve in the same buffer. For proteomics, digest, separate by liquid chromatography, acquire, then search against a protein database; for absolute numbers, spike labelled peptide standards for the targets that matter.</p>
+<p><strong>Controls.</strong> Standard curve in matched buffer. For proteomics, a decoy database for false discovery control, and technical replicates to estimate the measurement error.</p>
+<p><strong>How it fails.</strong> Buffer components shifting the colorimetric result; missing values in proteomics mistaken for absence; relative fold changes over-interpreted as absolute abundance; and the dynamic range of the instrument hiding low-abundance proteins, which frequently include your pathway enzymes.</p>
+<p><strong>Reading the result.</strong> State whether the quantification is relative or absolute. A heterologous pathway&#x27;s proteome fraction, which you need for burden arguments, requires absolute numbers.</p>
+<hr>
+<h2>5. Metabolite and flux measurement</h2>
+<p><strong>The primary protocol source for this section</strong>, which it previously lacked: Nagrath (ed.), <em>Metabolic Flux Analysis in Eukaryotic Cells: Methods and Protocols</em>, Methods in Molecular Biology vol. 2088 (Springer, 2020), ISBN 978-1-0716-0158-7. It is an edited volume, so cite the chapter author rather than a section number. The four chapters that bear directly on the entries below: <strong>Mairinger &amp; Hann</strong> on the accuracy and precision of isotopologue and tandem mass isotopologue ratios under measurement uncertainty, which is §5.4&#x27;s error budget written from the instrument&#x27;s side; <strong>Dudek et al.</strong> on a data processing workflow for non-targeted stable-isotope-labelling experiments, producing metabolite levels and mass isotopomer distributions with a similarity and variability analysis; <strong>Damini et al.</strong> on polar metabolite analysis by reverse-phase ion pairing and hydrophilic interaction chromatography for ¹³C-MFA, which is the chromatography §5.2 and §5.3 assume and do not specify; and <strong>Lim et al.</strong> on ²H tracing to interrogate mitochondrial against cytosolic NAD(P)H metabolism in mammalian cells, which is the compartmentation problem every entry in this section quietly ignores. The volume is eukaryote-centred, which is the gap: everything else cited here is bacterial, and a protocol that works on <em>E. coli</em> lysate is not a protocol for a compartmented cell.</p>
+<h3>5.1 Metabolite sampling and quenching</h3>
+<p><em>Week 27 · bench b16</em></p>
+<p><strong>Purpose.</strong> Capture the intracellular concentration as it was in the reactor, not as it became during sampling.</p>
+<p><strong>Principle.</strong> Glycolytic intermediates and nucleotides turn over in seconds, so metabolism must be arrested faster than it can respond. The conflict is that every fast quench also damages the membrane and causes leakage.</p>
+<p><strong>Procedure in outline.</strong> Rapid sampling into cold quenching solution or by fast filtration; separation of cells from medium; extraction; addition of internal standards as early as the method allows. Use a differential method — measuring the whole broth and the filtrate separately — to account for leakage rather than assuming it away.</p>
+<p><strong>Controls.</strong> Leakage control by measuring an exclusively intracellular metabolite in the filtrate. Internal standards, ideally uniformly labelled cell extract, carried through the entire procedure.</p>
+<p><strong>How it fails.</strong> Sampling slower than the turnover time, which measures the procedure; leakage of up to half the pool for some metabolites; incomplete extraction; and degradation between extraction and analysis.</p>
+<p><strong>Reading the result.</strong> Report the error budget, not just the concentration. Brief 5&#x27;s thermodynamic conclusions rest on these numbers.</p>
+<h3>5.2 Extracellular analytics: HPLC and GC</h3>
+<p><em>Week 17 · bench b9</em></p>
+<p><strong>Purpose.</strong> Substrate consumed and products formed — the raw material of every yield and balance.</p>
+<p><strong>Principle.</strong> Separation by partitioning between a stationary and mobile phase, with detection by refractive index, ultraviolet absorbance or flame ionisation depending on the analyte.</p>
+<p><strong>Procedure in outline.</strong> Choose column and mobile phase for the analyte class; build standard curves across the concentration range you will see; include an internal standard; verify resolution between analytes that co-elute, particularly among organic acids; filter all samples.</p>
+<p><strong>Controls.</strong> Standards run within the same sequence, not from last month. A spiked sample to check recovery from the broth matrix. A medium blank, since complex media contain peaks.</p>
+<p><strong>How it fails.</strong> Co-elution of two acids reported as one; detector response drifting across a long sequence; sugars degrading in stored samples; matrix effects in complex medium.</p>
+<p><strong>Reading the result.</strong> Every carbon balance in Brief 3 and Brief 14 is only as good as this method&#x27;s validation, which is why method validation appears in the bench plan as its own protocol.</p>
+<h3>5.3 Off-gas analysis</h3>
+<p><em>Week 50 · bench b25</em></p>
+<p><strong>Purpose.</strong> Oxygen uptake, carbon dioxide evolution and the respiratory quotient — the only real-time window on metabolism.</p>
+<p><strong>Principle.</strong> Inlet and outlet gas composition with a known gas flow gives the molar rates directly, by difference.</p>
+<p><strong>Procedure in outline.</strong> Calibrate the analyser with certified gas mixtures; measure the inlet flow accurately, since errors propagate directly; compute OUR and CER with the inert-gas balance to correct for volume change; derive RQ.</p>
+<p><strong>Controls.</strong> Calibration before and after the run. A sterile vessel run to confirm there is no apparent consumption from leaks or probe drift.</p>
+<p><strong>How it fails.</strong> Leaks, which look like consumption; flow measurement error; condensation in the sample line; and neglecting the change in total molar flow, which biases both rates.</p>
+<p><strong>Reading the result.</strong> RQ is a diagnostic rather than a measurement of anything in particular: a rise above unity suggests fermentative overflow, a fall suggests a more reduced substrate or product. Confirm with an acetate or ethanol assay before acting on it.</p>
+<h3>5.4 13C labelling experiments</h3>
+<p><em>Week 29 · bench b17</em></p>
+<p><strong>Purpose.</strong> The actual flux distribution, including cycles invisible to any rate measurement.</p>
+<p><strong>Principle.</strong> Different pathways rearrange carbon skeletons differently, so a tracer produces a labelling pattern that depends on the flux split. Fitting the measured pattern recovers the fluxes.</p>
+<p><strong>Procedure in outline.</strong> Select the tracer by in silico design for the fluxes you care about; switch the culture to labelled medium under metabolic steady state; sample after sufficient time for isotopic steady state, or sample a time course for instationary analysis; derivatise where the method requires; analyse by GC-MS or LC-MS; correct for natural isotope abundance; then fit.</p>
+<p><strong>Controls.</strong> An unlabelled culture analysed identically, to establish the natural abundance baseline for your own instrument and derivatisation. Parallel labelling experiments with a second tracer, which is the strongest available validation.</p>
+<p><strong>How it fails.</strong> Isotopic steady state not actually reached; the culture not at metabolic steady state during the labelling window; incomplete natural abundance correction; and a network model missing a reaction, which the chi-squared statistic will reveal if you test it.</p>
+<p><strong>Reading the result.</strong> Fluxes with confidence intervals and a goodness-of-fit statistic. Fluxes without both are an opinion.</p>
+<hr>
+<h3>5.5  Flux sampling</h3>
+<p><em>Week 24 · Brief 6</em></p>
+<p><strong>Purpose.</strong> FVA gives a range per reaction; sampling gives the joint distribution, so you can ask how often a design meets a target and which fluxes must move together.</p>
+<p><strong>Principle.</strong> FVA maximises and minimises each flux separately at optimal growth, which loses the correlations between reactions. Uniform sampling of the steady-state polytope recovers the joint distribution: each sample is a complete flux vector satisfying mass balance and bounds, so the covariance between two pathways, and the fraction of the space in which a design works, become estimable. The polytope is thin and high-dimensional, so naive rejection sampling is useless; hit-and-run or optGP are the standard samplers.</p>
+<p><strong>Procedure in outline.</strong> Fix the bounds and the objective; sample 10^4 to 10^6 flux vectors with a fixed seed; hold growth at 90 to 100% of its optimum; thin the chain; check convergence with a trace plot, the Geweke statistic and an effective sample size; then compute quantiles, correlations and the fraction of samples meeting the design criterion. Compare the marginals with FVA: the FVA interval should contain the sampled 99% interval.</p>
+<p><strong>Controls.</strong> Two chains from different seeds; a convergence diagnostic; a check that the sampler reproduces an analytically known case on a small network; sensitivity to the bounds. If a bound dominates, the distribution is a statement about your bounds rather than about the cell.</p>
+<p><strong>How it fails.</strong> A non-uniform sampler; insufficient burn-in; bounds so wide that the sample is the box rather than the steady-state polytope; loops and thermodynamically infeasible cycles; and the common error of reporting a sampled distribution as the probability that the cell will do something. It is a probability over the feasible space you defined, nothing more.</p>
+<p><strong>Reading the result.</strong> Report the median and 90% interval per flux, the correlation between competing routes, and the fraction of samples meeting the target. A single sampled vector is not a result; the distribution is.</p>
+<hr>
+<h3>5.6  Enzyme-constrained models</h3>
+<p><em>Week 31 · Briefs 10 and 16</em></p>
+<p><strong>Purpose.</strong> Predict the proteome cost of a pathway, explain why overexpressing one enzyme saturates, and make flux predictions respect the protein budget.</p>
+<p><strong>Principle.</strong> Every flux carries an enzyme, so v_i is bounded by kcat_i times the enzyme concentration. Summing the enzyme mass required for all fluxes and constraining it to a measured protein pool, in grams of protein per gram dry weight, turns a stoichiometric model into an enzyme-constrained one. GECKO, sMOMENT and ecGEM differ in implementation but share the constraint: the sum of v_i divided by kcat_i, multiplied by molecular weight, is at most the protein pool, with a dilution term for growth. The shadow price of the pool is the marginal cost of one more gram of enzyme per gram dry weight.</p>
+<p><strong>Procedure in outline.</strong> Obtain or build an ecModel for the host; set the total protein pool from measured protein content and growth rate; assign kcat from BRENDA as a range; calibrate against measured growth, substrate uptake and, where available, proteomics; then simulate the design with the pool constraint on and off.</p>
+<p><strong>Controls.</strong> Compare predictions with and without the constraint; check that the model reproduces the measured enzyme fractions for a few abundant enzymes; vary kcat across its literature range and see whether the ranking of designs changes; check that the pool is not simply fitting the growth rate.</p>
+<p><strong>How it fails.</strong> kcat values spanning orders of magnitude; the pool fraction assigned to unmodeled proteins; crowding and excluded volume; post-translational regulation; and the temptation to fit the pool until the model matches one experiment. The constraint is only as good as the kcat set and the pool estimate.</p>
+<p><strong>Reading the result.</strong> Report the predicted enzyme cost, the shadow price of the protein pool, and the ranking of designs with the constraint. If a design only works when the pool is unconstrained, it is not a design.</p>
+<hr>
+<h2>6. Screening, selection and evolution</h2>
+<h3>6.1 Plate and microtitre screening</h3>
+<p><em>Week 38 · bench b20</em></p>
+<p><strong>Purpose.</strong> Find the better variants in a library.</p>
+<p><strong>Principle.</strong> Throughput and information content trade against each other. A colorimetric plate assay is cheap and coarse; a robotic microtitre assay is slower and quantitative.</p>
+<p><strong>Procedure in outline.</strong> Establish the assay&#x27;s signal-to-noise and its variance on identical clones before screening anything; compute the number of variants you must screen for the library size; pick hits with a threshold set from the null distribution; then rescreen every hit in replicate before believing it.</p>
+<p><strong>Controls.</strong> Parent strain in multiple wells on every plate, to measure plate position effects. A known-improved variant as a positive control, once one exists.</p>
+<p><strong>How it fails.</strong> Plate edge effects mistaken for hits; false positives from assay noise, which dominate when the hit rate is low; and screening far fewer variants than the library requires for coverage.</p>
+<p><strong>Reading the result.</strong> The rescreen is the result; the primary screen is a filter. Expect most primary hits not to survive it.</p>
+<h3>6.2 Biosensor-based selection and flow cytometry</h3>
+<p><em>Weeks 36 and 38 · bench b26</em></p>
+<p><strong>Purpose.</strong> Convert a chemical phenotype into a fluorescent or growth signal, raising throughput by orders of magnitude.</p>
+<p><strong>Principle.</strong> A transcription factor or riboswitch responsive to the product drives a reporter; sorting or selection then acts on the reporter rather than on the product.</p>
+<p><strong>Procedure in outline.</strong> Characterise the sensor first — dynamic range, operating point, response time, specificity — using exogenous product addition across a concentration range. Establish the gate from positive and negative control strains. Sort, recover, rescreen individually by the primary analytical method.</p>
+<p><strong>Controls.</strong> Non-fluorescent and constitutively fluorescent strains for gating. A sensor-only strain without the pathway, to confirm the signal tracks product rather than something correlated with it.</p>
+<p><strong>How it fails.</strong> Sensor escape, where mutations in the reporter or sensor give signal without product — the single most common failure, and the reason every sorted hit must be reconfirmed analytically. Also crosstalk with related metabolites, and a dynamic range that does not span the concentrations of interest.</p>
+<p><strong>Reading the result.</strong> No sorted variant is a hit until the product has been measured directly.</p>
+<h3>6.3 Adaptive laboratory evolution</h3>
+<p><em>Week 39 · bench b22</em></p>
+<p><strong>Purpose.</strong> Improve a phenotype that can be selected but not designed.</p>
+<p><strong>Principle.</strong> Serial passage or continuous culture under a selective pressure enriches variants with a growth advantage. The experiment works precisely to the extent that the pressure aligns with what you want.</p>
+<p><strong>Procedure in outline.</strong> Define the selection so that the desired phenotype is the growth advantage — growth coupling, substrate utilisation, or tolerance. Run parallel independent lineages, never one. Archive samples throughout. Sequence endpoints and populations, identify candidate mutations, and reconstruct each individually in the parent strain.</p>
+<p><strong>Controls.</strong> Parallel lineages, which distinguish repeatable adaptation from chance. The ancestral strain sequenced to the same depth. The reconstruction step, without which you have a strain and no mechanism.</p>
+<p><strong>How it fails.</strong> The population adapting to something you did not intend, usually the vessel or the medium rather than the stated pressure; hitchhiking mutations mistaken for causal ones; loss of the production phenotype while growth improves.</p>
+<p><strong>Reading the result.</strong> A causal mutation is one reconstructed in the parent and shown to reproduce the phenotype. Everything before that is a candidate.</p>
+<hr>
+<h2>7. Omics and data</h2>
+<h3>7.1 RNA extraction and sequencing</h3>
+<p><em>Week 39</em></p>
+<p><strong>Purpose.</strong> Transcript abundance across conditions, as a window on regulation.</p>
+<p><strong>Principle.</strong> RNA is extracted, depleted of ribosomal RNA, converted to cDNA, sequenced and mapped; counts are normalised before any comparison.</p>
+<p><strong>Procedure in outline.</strong> Stabilise RNA at sampling, since transcript half-lives are minutes; extract with care for integrity; assess integrity before library preparation; sequence to a depth appropriate to the question; normalise; test for differential expression with a method that models count data rather than treating it as continuous.</p>
+<p><strong>Controls.</strong> Biological replicates — at least three, and technical replicates are not a substitute. Spike-in standards where absolute comparison is intended.</p>
+<p><strong>How it fails.</strong> Degraded RNA biasing coverage; too few biological replicates, which is the dominant problem in the published literature; normalisation chosen after seeing the result; and over-interpretation of fold change as a proxy for flux, which it is not.</p>
+<p><strong>Reading the result.</strong> State the normalisation and the significance threshold, and justify both. Brief 7 and the omics integration work in week 39 both depend on this discipline.</p>
+<h3>7.2 Mapping omics data onto a model</h3>
+<p><em>Week 39</em></p>
+<p><strong>Purpose.</strong> Connect measurements to the network, either as constraints or as validation.</p>
+<p><strong>Principle.</strong> Gene-protein-reaction associations translate gene-level data to reaction-level information, with Boolean logic that must be respected: AND for complexes, OR for isozymes.</p>
+<p><strong>Procedure in outline.</strong> Record data provenance; map through the GPRs with the logic handled correctly; decide explicitly whether the data will constrain the model or test it; and if it constrains, report predictions both with and without.</p>
+<p><strong>Controls.</strong> The unconstrained model as a baseline. A randomised data set mapped the same way, to show the improvement is not an artefact of adding constraints at all.</p>
+<p><strong>How it fails.</strong> Circularity, where the data constrains the model and is then used to validate it; mishandled complex and isozyme logic; and integration methods that improve one prediction while degrading others silently.</p>
+<p><strong>Reading the result.</strong> Report where integration helped and where it hurt. A method that only ever helps has not been tested properly.</p>
+<hr>
+<h2>8. Reproducibility and repository engineering</h2>
+<h3>8.1 Packaging a repository that runs from a clean clone</h3>
+<p><em>Week 1, re-verified at week 23 · Artifact 1</em></p>
+<p><strong>Purpose.</strong> A stranger clones the repository, runs one command, and every notebook executes. This is correct practice regardless of whether anyone does it; it is also the only way you will still be able to run your own week 5 notebook in week 50.</p>
+<p><strong>Principle.</strong> Reproducibility fails at three points: undeclared dependencies, undeclared data, and undeclared order. Each has a standard remedy.</p>
+<p><strong>Procedure in outline.</strong> Pin dependencies in a lock file as well as a loose specification — `requirements.txt` with exact versions, or `pyproject.toml` with a lock file if you use a modern packaging tool, or `environment.yml` for conda. Record the Python version and the solver version explicitly, since COBRApy results can differ between solvers. Give the repository a single entry point: a `Makefile` with `make setup`, `make test` and `make all`, or an equivalent script, so the reader does not have to infer the order. Commit raw data where licence permits, and where it does not, commit the download script and the checksum. Record a `data/PROVENANCE.md` giving, for every file, its source, accession, download date and any processing you applied.</p>
+<p><strong>The clean-clone test.</strong> Clone into a new directory, build the environment from scratch, restart the kernel and run every notebook end to end, on a machine or container that is not your working one. Do this before you send the link to anyone, and again after any dependency change.</p>
+<p><strong>How it fails.</strong> A package installed interactively months ago and never declared; an absolute path to your home directory; a data file that exists only on your laptop; a notebook whose cells were executed out of order so the stored outputs cannot be regenerated; a solver difference that changes a flux in the fourth decimal and a conclusion in the first.</p>
+<p><strong>Reading the result.</strong> If the clean-clone test fails at cell three, the notebook is currently worth less than not having it. Fix it or remove it from the index.</p>
+<h3>8.2 A README template for each artifact</h3>
+<p><em>Week 1 onward · every artifact</em></p>
+<p><strong>Purpose.</strong> A reader decides in roughly ninety seconds whether to look further. The README decides it.</p>
+<p><strong>Principle.</strong> Question first, answer second, caveat third. Methods belong below the fold; most student READMEs invert this and lead with the tooling.</p>
+<p><strong>The skeleton.</strong> Keep it to one screen:</p>
+<ul>
+<li><strong>Question.</strong> One sentence. What this artifact set out to determine.</li>
+<li><strong>Answer.</strong> One to three sentences, with the number and its interval.</li>
+<li><strong>What this does not show.</strong> The honest paragraph, naming the specific limitation and, where relevant, the experiment that would resolve it.</li>
+<li><strong>How to run it.</strong> The exact commands, in order, assuming nothing.</li>
+<li><strong>Data.</strong> Source, accession, date, and what you did to it.</li>
+<li><strong>Key figure.</strong> One image, embedded, with axes labelled and units stated.</li>
+<li><strong>Self-assessment.</strong> Your own score against the brief&#x27;s rubric, with the reasoning.</li>
+</ul>
+<p><strong>How it fails.</strong> A README that describes the code rather than the finding; an answer with no interval; a limitations section that says &quot;further work is needed&quot;; a run instruction that assumes your environment.</p>
+<p><strong>Reading the result.</strong> Hand the README alone to someone outside the field and ask what the work found. If they cannot say, rewrite it.</p>
+<h3>8.3 Model provenance and a curation log</h3>
+<p><em>Weeks 21 and 23 · Artifact 12</em></p>
+<p><strong>Purpose.</strong> Every manual decision taken on a model must be recoverable a year later, by you or by anyone else.</p>
+<p><strong>Principle.</strong> A genome-scale model is a knowledge base, and a knowledge base without a change history is a snapshot of someone&#x27;s opinion. The provenance note is what makes a reconstruction correctable rather than merely usable.</p>
+<p><strong>Procedure in outline.</strong> Record, for every reaction or parameter you add, change or remove: the identifier, what changed, the evidence, the evidence type, the confidence, the date and the consequence you observed. Evidence type matters more than confidence — &quot;experimental in this organism&quot;, &quot;experimental in a related organism&quot;, &quot;sequence homology&quot;, &quot;inferred to close a gap&quot;, &quot;guessed to make the model grow&quot; are five quite different claims, and the last one is legitimate only if it is labelled as such. Keep the log as a plain text or CSV file under version control rather than in notebook comments, and reference the commit that made each change.</p>
+<p><strong>How it fails.</strong> Changes made interactively and never recorded; a gap-fill that becomes indistinguishable from curated biochemistry after a few months; confidence scores assigned without a rubric; and the specific trap of tuning bounds until the model reproduces an experiment, then presenting the agreement as validation.</p>
+<p><strong>Reading the result.</strong> Any model prediction should be traceable to the evidence class it rests on. If a conclusion depends on a reaction labelled &quot;inferred to close a gap&quot;, say so when you report it.</p>
+<h3>8.4  MEMOTE, and model quality as a testable property</h3>
+<p><em>Week 21 · Artifact 12</em></p>
+<p><strong>Purpose.</strong> Test a genome-scale model against community quality standards before you use it or publish it.</p>
+<p><strong>Principle.</strong> A model is a knowledge base with checkable properties: stoichiometric consistency, mass and charge balance, GPR completeness, dead-end metabolites, futile cycles, biomass composition and annotation coverage. MEMOTE runs a standard battery of tests and scores the model, so the conversation moves from whether it grows to which tests fail and why.</p>
+<p><strong>Procedure in outline.</strong> Run memote report snapshot on the model file; read the score and the failing tests; classify each failure as a model error, a known gap, or a test that does not apply to your question; fix or document it; rerun and version the report with the model. Do not tune the model to the score.</p>
+<p><strong>Controls.</strong> The same MEMOTE version before and after curation; the report committed with the model; a comparison against the previous release; and an explicit list of the failures you accept, with the reason.</p>
+<p><strong>How it fails.</strong> A high score does not mean the model is right for your question; gap-filling can hide a missing reaction, and the biomass reaction is often the weakest part; tests can be gamed by adding metabolites or reactions that satisfy the checker but not the biology.</p>
+<p><strong>Reading the result.</strong> Report the score and the specific failures that matter for your question. A number without the failure list is not a quality statement.</p>
+<hr>
+<h2>9. Thermodynamic conventions: a reference card</h2>
+<h3>9.1 The three Gibbs energies, and which answers which question</h3>
+<p><em>Week 8 · Briefs 5 and 14</em></p>
+<p><strong>Purpose.</strong> This single confusion causes more errors for engineers entering biochemistry than any other, and it recurs in weeks 12, 27 and 52. Keep this card to hand.</p>
+<p><strong>The three quantities.</strong></p>
+<ul>
+<li><strong>ΔrG°</strong> — the chemical standard state: 1 M, 1 bar, 298.15 K, each species defined with its own protonation and metal-binding state. This is the quantity your chemical engineering thermodynamics text tabulates.</li>
+<li><strong>ΔrG°′</strong> — the transformed biochemical standard state: pH fixed (usually 7), specified ionic strength and temperature, water activity taken as unity, hydrogen ion activity taken as unity, and all protonation states of a metabolite summed into one pseudo-species. Tables in biochemistry report this quantity, which is why the two literatures appear to disagree about the same reaction.</li>
+<li><strong>ΔrG′</strong> — the actual driving force at prevailing concentrations: ΔrG°′ + RT ln Q. This is the only one of the three that answers whether a reaction can proceed forward in a cell.</li>
+</ul>
+<p><strong>Numbers worth memorising.</strong> At 310 K, RT = 2.577 kJ/mol. A ten-fold concentration ratio is therefore worth 5.93 kJ/mol, and a thousand-fold ratio 17.8 kJ/mol. Intracellular metabolites span roughly 1 µM to 10 mM, so the RT ln Q term routinely reaches 20 to 30 kJ/mol and frequently dominates ΔrG°′ entirely.</p>
+<p><strong>The conversions that catch people.</strong> Transforming from ΔrG° to ΔrG°′ requires the protonation state and the number of protons released or consumed, so you cannot convert a tabulated chemical value by inspection. Magnesium binding matters for every phosphorylated metabolite, which is why ATP hydrolysis is quoted anywhere between −28 and −36 kJ/mol depending on free magnesium. Temperature corrections need ΔrH°′, which is tabulated far less often than ΔrG°′ and is frequently assumed to be zero without saying so.</p>
+<p><strong>Sign conventions.</strong> Negative ΔrG′ means forward-feasible. In flux models, exchange reactions are written with uptake as negative flux, so an uptake limit is a lower bound — unrelated to thermodynamics but the other sign convention that costs people a day.</p>
+<p><strong>What the standard state does not tell you.</strong> A reaction with ΔrG°′ of +15 kJ/mol can carry substantial forward flux at physiological concentrations; one with −15 kJ/mol can sit near equilibrium. Never judge feasibility from a tabulated value alone, and never report a pathway as infeasible without stating the concentrations you assumed.</p>
+<h3>9.2  Max-min driving force</h3>
+<p><em>Week 8 · Brief 5</em></p>
+<p><strong>Purpose.</strong> Decide whether a pathway can carry flux at physiological concentrations, and which step is the thermodynamic bottleneck.</p>
+<p><strong>Principle.</strong> The actual driving force is the transformed standard free energy plus RT ln Q. With metabolite concentrations bounded, typically from 1 µM to 10 mM, the largest margin B such that every reaction in the pathway has a driving force at or below minus B is the max-min driving force. It is a linear program in log concentrations: the constraints are the standard free energies and the bounds, and the objective is B. A positive MDF means a feasible concentration profile exists; the reaction with the smallest margin is the bottleneck.</p>
+<p><strong>Procedure in outline.</strong> Collect standard transformed free energies from eQuilibrator at the same pH, ionic strength and magnesium; set concentration bounds per compartment; solve the linear program; identify the bottleneck; test the sensitivity to the free-energy uncertainty and to the bounds; compare alternative routes and the effect of coupling to ATP hydrolysis.</p>
+<p><strong>Controls.</strong> Consistency of the free-energy set; bounds checked against measured metabolomics; a sensitivity analysis on the least certain value; and a check that the MDF is not being bought by an implausible concentration.</p>
+<p><strong>How it fails.</strong> Free-energy uncertainty for charged species, pH and magnesium; concentration bounds that dominate the answer; compartment pH; neglected transport; and the category error of treating a positive MDF as proof that the pathway will carry flux. It is necessary, not sufficient: kinetics, enzyme capacity and regulation can still limit.</p>
+<p><strong>Reading the result.</strong> Report the MDF in kJ per mol, the bottleneck reaction, the concentration profile, and the sensitivity. A negative MDF says no concentration adjustment within your bounds makes the route feasible; change the route or couple it to ATP.</p>
+<hr>
+<h2>10. Curating incomplete and conflicting data</h2>
+<h3>10.1 Gap-filling a network</h3>
+<p><em>Week 21 · Artifact 12, Brief 7</em></p>
+<p><strong>Purpose.</strong> A draft reconstruction contains dead ends and blocked reactions. Resolving them is most of the curation work and the main source of a model&#x27;s errors.</p>
+<p><strong>Principle.</strong> A gap is a statement that the organism must do something the annotation does not account for. Filling it is a hypothesis about biology, and algorithms generate those hypotheses by finding the smallest set of reactions from a universal database that restores flux — which is a parsimony argument, not evidence.</p>
+<p><strong>Procedure in outline.</strong> Enumerate dead ends and blocked reactions first and classify them: a missing transporter, a missing biosynthetic step, an orphan reaction with no gene, or a genuine metabolic absence. Search for homologues of the candidate enzyme in the organism before adding anything. Where you add a reaction without gene evidence, label it as such in the provenance log and give it the lowest confidence class. Then test whether any conclusion in your work depends on it; if one does, that gap becomes an experimental priority rather than a modelling decision.</p>
+<p><strong>How it fails.</strong> Filling gaps until the model grows, which guarantees growth and destroys the model&#x27;s evidential value; adding a reaction whose gene is absent from the genome; and the common error of accepting an algorithmic fill because the algorithm is well cited.</p>
+<p><strong>Reading the result.</strong> Report the number of gap-filled reactions and the fraction of your conclusions that depend on them. A model with forty unflagged fills is not a reconstruction.</p>
+<h3>10.2 Conflicting kinetic parameters: ranges, not imputation</h3>
+<p><em>Weeks 5 and 30 · Briefs 1 and 10</em></p>
+<p><strong>Purpose.</strong> BRENDA will give you five kcat values spanning an order of magnitude for the same enzyme. You need a defensible way to proceed.</p>
+<p><strong>Principle.</strong> This is not a missing-data problem and should not be treated as one. Imputing a point value — taking the mean, or the most recent paper — discards the information that the parameter is uncertain, and that information is often the most important thing you have. Carry the range.</p>
+<p><strong>Procedure in outline.</strong> Tabulate every value with its assay pH, temperature, buffer, organism and construct. Exclude values measured on a different substrate or a non-comparable construct, with the exclusion stated. From what remains, define a plausible interval rather than a point. In a kinetic model, sample from that interval to build a parameter ensemble, and report predictions as intervals. Then test sensitivity: if the conclusion flips across the interval, the correct output of the study is that this parameter must be measured, not a prediction.</p>
+<p><strong>How it fails.</strong> Averaging incomparable measurements; propagating a point estimate through a model and reporting four significant figures; and silently choosing the value that gives the expected answer.</p>
+<p><strong>Reading the result.</strong> State, for every parameter that matters, whether the conclusion survives the full range. This is the distinction between a model that informs an experiment and one that decorates an opinion.</p>
+<h3>10.3 Documenting a curation decision</h3>
+<p><em>Week 21 · Artifact 12</em></p>
+<p><strong>Purpose.</strong> Make each judgement auditable.</p>
+<p><strong>The minimum record.</strong> Identifier; what changed; why; the evidence with its citation; the evidence class, from experimental in this organism down to assumed; the alternative you rejected and why; the date; and the effect on at least one model prediction you checked afterwards.</p>
+<p><strong>Why the last field matters.</strong> A change whose effect you did not check is a change you do not understand. Recording the observed consequence turns the log from bookkeeping into a record of what the model is sensitive to — which is itself a result, and often a more durable one than the prediction you were chasing.</p>
+<h2>11. Biosafety, ethics and dual use</h2>
+<h3>11.1 Containment, approval and regulated organisms</h3>
+<p><em>Weeks 35 and 55</em></p>
+<p><strong>Purpose.</strong> Work with engineered organisms sits inside a legal and institutional framework, and a PhD candidate is expected to know that it exists even before they know its detail.</p>
+<p><strong>Principle.</strong> Containment level is assigned from the risk group of the organism and the nature of the modification, not from how the work feels. Most metabolic engineering in <em>E. coli</em> K-12, <em>S. cerevisiae</em>, <em>C. glutamicum</em> and lactic acid bacteria is BSL-1 or BSL-2 work with laboratory strains specifically chosen for their inability to survive outside culture. That choice of chassis is itself a biosafety decision.</p>
+<p><strong>What to know in outline.</strong> That institutional biosafety approval precedes work rather than following it; that genetic modification, deliberate release and contained use are regulated separately in most jurisdictions and the rules differ substantially between them; that a food-grade or probiotic application changes the approval path entirely, which is part of why GRAS and QPS status matters so much for lactic acid bacteria; that strains and sequences can be export-controlled; and that material transfer agreements govern what you may receive and send.</p>
+<p><strong>How it goes wrong.</strong> Assuming a widely used laboratory strain is automatically exempt; treating a sequence as unregulated because it is published; overlooking that the host is fine but the pathway product is controlled.</p>
+<p><strong>Reading the result.</strong> You are not expected to be a compliance officer. You are expected not to be surprised that compliance exists, and to say &quot;I would check with the institutional biosafety committee&quot; rather than guessing, in an interview.</p>
+<h3>11.2 Dual use and responsible design</h3>
+<p><em>Weeks 35 and 55</em></p>
+<p><strong>Purpose.</strong> Pathway engineering can produce useful molecules and harmful ones with much the same tools, and funders and admissions panels increasingly ask about this.</p>
+<p><strong>Principle.</strong> Dual-use concern attaches to capability, not intent. A route to a precursor is a route to a precursor whatever the stated purpose, which is why the question is asked at the design stage rather than at publication.</p>
+<p><strong>What to know in outline.</strong> That controlled-substance precursors, toxins and some natural products carry restrictions irrespective of the host; that screening of synthesised DNA orders exists and why; that responsible publication norms sometimes withhold specific enabling detail; and that engineered organisms intended for environmental release face a different and far higher bar than contained industrial use, which is directly relevant to anything framed as bioremediation or plant-associated.</p>
+<p><strong>How to handle it in an application.</strong> If your proposed target has any dual-use dimension, name it in the proposal with the mitigation, rather than leaving a reviewer to notice. Candidates who raise it unprompted read as serious; candidates who have not considered it read as inexperienced.</p>
+<h2>12. Defending your work</h2>
+<h3>12.1 The chalk talk</h3>
+<p><em>Weeks 40 to 55, monthly</em></p>
+<p><strong>Purpose.</strong> Several interview formats ask you to explain a project at a whiteboard, with no slides, under interruption. It is a distinct skill from writing, and nothing else in this course rehearses it.</p>
+<p><strong>Principle.</strong> A chalk talk tests whether your understanding is load-bearing. Slides let you hide behind prepared structure; a whiteboard does not, and interruptions mean you must be able to re-enter your own argument at any point.</p>
+<p><strong>Procedure in outline.</strong> Once a month from week 40, take one paper from your log or one of your own briefs and present it aloud for ten minutes with nothing but a whiteboard, recording yourself if there is no audience. Then construct and answer the three hardest questions you can raise against your own argument. Build a standard opening that works for any project: the problem, the specific gap, your claim, and the one experiment that would refute it, in under ninety seconds.</p>
+<p><strong>How it fails.</strong> Narrating methods instead of making an argument; losing the thread after an interruption; drawing a pathway from memory incorrectly under pressure, which happens to everyone and is survivable if you say so rather than bluffing; and running long, which is the commonest fault.</p>
+<p><strong>Reading the result.</strong> Watch the recording. If you cannot follow your own argument on replay, neither could they.</p>
+<h3>12.2 Dissecting a paper for its hidden assumptions</h3>
+<p><em>Weeks 40 to 46, using the eleven-point protocol</em></p>
+<p><strong>Purpose.</strong> To discuss a group&#x27;s recent work critically rather than admiringly, which is what an interview is actually testing.</p>
+<p><strong>Principle.</strong> Most flux and yield claims rest on assumptions the paper does not state. Finding them is a repeatable procedure, not a talent.</p>
+<p><strong>Where to look, in order.</strong> Was biomass measured gravimetrically or inferred from optical density? Does the carbon balance close, and is it reported at all? Is the yield quoted against theoretical maximum, and computed how? Were fluxes measured by labelling or inferred from a model? If modelled, which objective function, and is it defended? Are kinetic parameters taken from a different organism or assay condition? Is the control for an expression or burden claim an empty vector or an inert protein at matched expression? How many biological replicates, and are technical replicates being presented as biological ones? Was the titre achieved under the same conditions as the yield, or in separate runs? Is the strain&#x27;s performance reported after the number of generations a real seed train would impose?</p>
+<p><strong>Procedure in outline.</strong> Fill the eleven-point protocol in the tracker&#x27;s paper log for every paper you read closely. Then add the two questions that matter most for an interview: what would you do next, and what does this paper not show. Prepare one substantive alternative per paper — a different host, a missing control, a different measurement.</p>
+<p><strong>How it fails.</strong> Criticising the obvious limitation the authors already stated in their discussion; attacking a paper&#x27;s scope rather than its claims; and failing to separate a weak claim from weak work, since many excellent papers overstate one sentence in an abstract.</p>
+<p><strong>Reading the result.</strong> For each group on your shortlist, you should be able to name one specific unresolved result in their recent work and sketch what you would try next. That sentence is the single most effective element of an outreach email, and it comes directly out of this protocol.</p>
+<hr>
+<h2>13. What this handbook will not give you</h2>
+<p>Volumes, times, temperatures and concentrations. Those are specific to a strain, a kit, a vessel and a laboratory, and copying them from a reference without a source is how experiments fail invisibly. Take them from the original methods paper, the supplier insert, or the host laboratory&#x27;s own standard operating procedure, and cite which.</p>
+<p>It also will not give you judgement under failure. Knowing that a diagnostic digest cannot detect a point mutation is useful; knowing, at the bench, which of six plausible explanations to test first at eleven at night is a different kind of knowledge, and it is acquired only one way. When you are asked about this in an interview, say so, name the techniques you have never performed, and point at what you wrote instead.</p>
+<h2>14. Computing: the Python this course assumes and never teaches</h2>
+<p><strong>Read this before phase 4, not when phase 4 breaks.</strong> Statistics handbook §10 covers the same libraries from the statistics side; this section is the learning path and the failure modes. The week plan assumes Python and Jupyter from week 1 session 1 and sets coding exercises from week 1 onward, but no session anywhere teaches the libraries those exercises need. That is a real hole and it is the one most likely to cost you weeks: the stoichiometric matrix work of phases 3-4 is linear algebra, the kinetic fitting of phases 5-6 is `scipy.optimize` and `solve_ivp`, and the statistics handbook is `statsmodels` from end to end.</p>
+<p><strong>What is needed, in the order it becomes needed.</strong> `numpy` for arrays, broadcasting, boolean indexing and `linalg.solve`, which is the whole of the matrix work. `pandas` for reading a plate reader&#x27;s CSV into tidy long format, then `groupby` and `merge`, where most analysis time is actually lost. `matplotlib` built from axes objects rather than the implicit interface, with units on every label — this repository&#x27;s own figure modules are the worked examples. `scipy` for `optimize.curve_fit` and `least_squares` (weeks 5 and 18), `integrate.solve_ivp` (weeks 18 and 50) and `stats`. `cobrapy` for phase 4, which assumes the numpy fluency above. `statsmodels` for the formula interface, `anova_lm`, `multipletests` and the power calculators. `pyDOE3` for the screening and response-surface matrices, so you never type a design by hand — pyDOE2 is unmaintained and pyDOE3 is its live fork, with `pbdesign`, `ccdesign` and `bbdesign` keeping their names.</p>
+<p><strong>How to learn it, which is the part that decides whether it sticks.</strong> Not a tutorial, and not a course: use this plan&#x27;s own exercises as the practice, because you already know what the answer should look like and will therefore notice when the code is wrong. Week 5&#x27;s Lineweaver-Burk against a weighted nonlinear fit, week 18&#x27;s Monod identifiability, week 29&#x27;s chi-squared with its degrees of freedom, and week 31&#x27;s control coefficients are better exercises than anything generic, and each produces a number you can check by hand first.</p>
+<p><strong>Four to six weeks is the honest estimate</strong> for someone who describes their programming as weak, and it belongs before phase 4 rather than inside it.</p>
+<p><strong>How it fails.</strong> Code that runs and computes the wrong thing, which is the normal failure and is caught only by hand-checking one case. A notebook whose cells were run out of order, which §8 covers. Pinning nothing, so the environment that produced a figure no longer exists. And the subtler one: reaching for a library function whose assumptions you have not read — `ttest_ind` defaults to equal variances, `curve_fit` returns a covariance matrix that assumes the model is linear near the optimum, and a solver returns one optimum out of many at a degenerate vertex. The library is not the method; the method is in the handbook that explains the library&#x27;s defaults.</p>
+<h2>15. Formulating a model from scratch, before you solve anything</h2>
+<p><strong>The skill this plan assumes and never teaches.</strong> Every balance in the course — the carbon balance of week 54, the oxygen demand of week 49, the fed-batch policy of week 50, the del factor of week 47 — is a model somebody formulated before anybody solved it, and formulation is a separate skill from solution. The reference is Rice and Do, <em>Applied Mathematics and Modeling for Chemical Engineers</em>, 2nd edn, Ch 1, <em>Formulation of Physicochemical Problems</em>, whose section numbers are verified from the book&#x27;s contents.</p>
+<p><strong>The procedure, which is five decisions in a fixed order.</strong></p>
+<p>1. <strong>Choose the control volume and say what it is.</strong> A well-mixed vessel, a differential slice of a packed bed, a single cell, the whole plant. Everything downstream depends on this and it is the decision most often left implicit. Rice §1.2 works the same cooling problem twice — §1.2.1 as plug flow, §1.2.2 with a parabolic velocity profile — which is the cleanest demonstration available that the control volume is a modelling choice rather than a fact about the apparatus. 2. <strong>Write the conservation statement in words before symbols.</strong> In minus out plus generation equals accumulation, for each conserved quantity separately: total mass, each element, electrons, energy, momentum. Writing it in words first is what catches the term that was forgotten. 3. <strong>Decide what accumulates.</strong> Steady state means the accumulation term is zero and is an assumption about a timescale, not a property of the process — a chemostat is at steady state and a fed-batch never is, and a ¹³C labelling experiment is at metabolic steady state while its isotopic state is still moving, which is the distinction week 29 rests on. 4. <strong>Write the rate laws and the equilibrium relations, and keep them apart.</strong> Rice §1.3 is the worked case of combining a rate with an equilibrium in one model, which is the structure of every adsorption and ion-exchange step in week 51. 5. <strong>State the boundary and initial conditions with their sign conventions.</strong> Rice §1.4 is explicitly about sign conventions, and it is there because getting them wrong is the commonest silent error in a formulated model: the equation solves, the answer is plausible, and the flux runs the wrong way.</p>
+<p><strong>Then check the model before solving it.</strong> Rice §1.12 summarises the model-building process and §1.13 makes the point that matters most here: <strong>build the hierarchy, simplest first.</strong> A model that cannot reproduce the limiting case you already know — zero flux at zero substrate, the stoichiometric ceiling at infinite enzyme — is wrong regardless of how it fits. Count the equations against the unknowns; check every term has the same units; and take the limits.</p>
+<p><strong>What this does and does not help with, because the distinction is worth being clear about.</strong> It is the right discipline for mass and energy balances and for kinetic models, which are differential equations in time or space. It is <strong>not</strong> how flux analysis works: a flux balance or a ¹³C-MFA problem is a steady-state linear-algebra problem — a stoichiometric matrix, its null space, and a constrained optimisation or a weighted least-squares fit — so the ODE machinery in Rice&#x27;s Chs 2, 3, 6 and 8 has almost nothing to say to phases 4 and 5. The part of Rice that touches flux work is the elementary matrix material of §1.5 to §1.11, and the part that pays off most is §7.3 stability and §7.4 stiffness, because biological kinetic models are stiff: a naive explicit solver on a model with fast binding and slow growth either crawls or returns oscillations that look like a biological result and are an artefact of the step size.</p>
+<p><strong>How it fails.</strong> A control volume that changes silently halfway through a derivation. A steady-state assumption applied to a transient. Mixing a rate law and an equilibrium relation into one expression and losing the ability to say which is limiting. Boundary conditions written from the figure rather than from the physics. And the failure this handbook keeps returning to: a model that fits and was never checked against a limiting case it should reproduce exactly.</p>
+<h2>16. Appraising someone else&#x27;s paper</h2>
+<p><strong>The gap this fills.</strong> §12 is about defending your own work and assumes you can already judge other people&#x27;s. The 55 weeks teach you to compute; the paper log asks you to read two papers a week and never says what reading one critically consists of. This section is that, and it is adapted from a literature-informed teaching module reviewed for this course — the framework below is its contribution and is worth having whatever one makes of the rest of it.</p>
+<p><strong>The evidence ladder, which is the whole of it.</strong> A claim about an engineered strain can sit at five different levels, and <strong>a result at one rung does not establish the next</strong>:</p>
+<p>1. <strong>Molecular target engagement</strong> — the guide is expressed, dCas9 binds, the edit is in the genome. 2. <strong>Expression or catalytic change</strong> — transcript abundance moved, enzyme activity moved. 3. <strong>Measured phenotype</strong> — titre, rate, yield, growth, by-product spectrum. 4. <strong>Causal mechanism</strong> — the phenotype is <em>because</em> of the stated redistribution of flux. 5. <strong>Scale-transfer validation</strong> — it still holds in a controlled vessel, at volume, over a campaign.</p>
+<p>Most papers establish rungs 1–3 and write their abstract at rung 4. The reading question that catches this, and it is the one to ask of every figure: <strong>what did the researchers measure directly?</strong> A transcript knockdown is not an activity change; an activity change is not a flux change; a flux change inferred from a model constrained by the measured rates is not an independent observation of flux.</p>
+<p><strong>The recording standard.</strong> For every claim you intend to rely on, write down: the assay; the <strong>denominator</strong> (per gram dry weight, per OD, per cell, per litre of broth — papers switch between these and conclusions change with them); the controls, including the non-targeting or parent control rather than only a blank; the number of <strong>biological</strong> replicates, in §1&#x27;s sense; the uncertainty, and whether it is SD, SEM or an interval; the organism and strain background; the conditions, including medium, carbon source and growth phase at sampling; and <strong>whether the proposed mechanism was directly tested or only proposed</strong>. Eight items, and a paper that does not supply them has told you something.</p>
+<p><strong>Three specific traps worth naming, because they recur.</strong></p>
+<p><em>Non-additive multiplex outcomes read as failures.</em> Repressing several genes and seeing a competing by-product rise is an informative phenotype rather than an editing failure: the cell is a connected network, and relieving one sink loads another. Distinguish the observation from the cofactor-redistribution hypothesis offered to explain it.</p>
+<p><em>Selection misaligned with the claim.</em> An assay that rewards soluble expression or survival is not an assay for the target reaction, and a variant selected in vitro can fail in a cell on cofactors, competing pathways or turnover. Ask what the selection actually selected.</p>
+<p><em>Landscapes and models that are not portable.</em> An epistasis measurement, a control-coefficient set or a trained model belongs to one host, one medium and one assay. Portability is an empirical question — Lee §22.5 makes the same point for environmental biocatalysts, and the machine learning handbook §1 refuses to assume transfer for exactly this reason.</p>
+<p><strong>How it fails.</strong> Reading the abstract and the figures and skipping the supplementary methods, where the denominator and the replicate structure live. Accepting a flux claim with no tracer. Accepting a mechanism because it is the only one offered. And the subtle one: recording a number from a paper into your own dossier <strong>without its conditions</strong>, after which it looks like a fact rather than a measurement made somewhere specific — which is what this handbook&#x27;s §10 on curating conflicting data exists to prevent.</p>
+</main><footer class="docfoot"><a href="metabolic-engineering-tracker.html">&#8592; Course tracker</a><span>Metabolic engineering &middot; 55 weeks</span></footer>
+<script>
+(function(){
+  var root=document.documentElement,key="me.theme";
+  var bs=Array.prototype.slice.call(document.querySelectorAll(".appearance button"));
+  function paint(v){
+    bs.forEach(function(b){b.setAttribute("aria-pressed",b.getAttribute("data-appearance")===v?"true":"false");});
+    if(v==="auto")root.removeAttribute("data-theme");else root.setAttribute("data-theme",v);
+  }
+  var saved="auto";try{saved=localStorage.getItem(key)||"auto";}catch(e){}
+  bs.forEach(function(b){b.addEventListener("click",function(){
+    var v=b.getAttribute("data-appearance");paint(v);
+    try{localStorage.setItem(key,v);}catch(e){}
+  });});
+  paint(saved);
+})();
+</script>
+<style>
+/* ============================================================
+   COURSE LIBRARY — Apple document shell
+   ============================================================ */
+:root{
+  color-scheme:light;
+  --paper:#FFFFFF;--surface:#F5F5F7;--card:#FFFFFF;--fill:#F5F5F7;
+  --ink:#1D1D1F;--ink-2:#6E6E73;--ink-3:#6E6E73;
+  --line:rgba(0,0,0,.14);--line-2:rgba(0,0,0,.08);
+  --broth:#0071E3;--broth-soft:rgba(0,113,227,.10);
+  --nav-bg:rgba(255,255,255,.84);
+  --sans:-apple-system,BlinkMacSystemFont,"SF Pro Text","SF Pro Display","Helvetica Neue",Arial,sans-serif;
+  --mono:ui-monospace,"SF Mono",Menlo,Consolas,monospace;
+  --serif:var(--sans);
+}
+@media (prefers-color-scheme:dark){
+  :root:not([data-theme="light"]){
+    color-scheme:dark;
+    --paper:#000000;--surface:#1C1C1E;--card:#2C2C2E;--fill:#2C2C2E;
+    --ink:#F5F5F7;--ink-2:#A1A1A6;--ink-3:#8E8E93;
+    --line:rgba(255,255,255,.16);--line-2:rgba(255,255,255,.09);
+    --broth:#5AA9FF;--broth-soft:rgba(10,132,255,.18);
+    --nav-bg:rgba(0,0,0,.74);
+  }
+}
+:root[data-theme="dark"]{
+  color-scheme:dark;
+  --paper:#000000;--surface:#1C1C1E;--card:#2C2C2E;--fill:#2C2C2E;
+  --ink:#F5F5F7;--ink-2:#A1A1A6;--ink-3:#8E8E93;
+  --line:rgba(255,255,255,.16);--line-2:rgba(255,255,255,.09);
+  --broth:#5AA9FF;--broth-soft:rgba(10,132,255,.18);
+  --nav-bg:rgba(0,0,0,.74);
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth;scroll-padding-top:72px;-webkit-text-size-adjust:100%}
+body{
+  margin:0;background:var(--paper);color:var(--ink);
+  font-family:var(--sans);font-size:17px;line-height:1.62;letter-spacing:-.011em;
+  padding:0;
+}
+.docbar{
+  position:sticky;top:0;z-index:80;display:flex;align-items:center;justify-content:space-between;gap:12px;
+  padding:8px max(24px,calc((100vw - 1180px)/2));
+  background:var(--nav-bg);
+  -webkit-backdrop-filter:saturate(180%) blur(20px);backdrop-filter:saturate(180%) blur(20px);
+  border-bottom:1px solid var(--line-2);
+}
+.docback{display:inline-flex;align-items:center;gap:6px;color:var(--ink-2);font-size:13px;font-weight:500;text-decoration:none;white-space:nowrap}
+.docback:hover{color:var(--broth)}
+.appearance{display:inline-flex;gap:2px;padding:2px;background:var(--fill);border-radius:980px}
+.appearance button{border:0;background:none;color:var(--ink-2);font:inherit;font-size:12px;font-weight:500;line-height:1;padding:6px 11px;border-radius:980px;cursor:pointer}
+.appearance button[aria-pressed="true"]{background:var(--card);color:var(--ink);box-shadow:0 1px 2px rgba(0,0,0,.08)}
+.wrap{max-width:900px;margin:0 auto;padding:64px 24px 96px}
+body h1{
+  font-family:var(--sans);font-size:clamp(42px,6.2vw,64px);line-height:1.04;letter-spacing:-.04em;
+  font-weight:700;margin:0 0 16px;max-width:18ch;color:var(--ink);
+}
+.doc-kicker{font-size:13px;font-weight:500;letter-spacing:0;color:var(--ink-2);margin:0 0 12px}
+body h1 + p{font-size:20px;line-height:1.55;color:var(--ink-2);max-width:68ch;margin:0 0 18px}
+body h1 + p strong{color:var(--ink);font-weight:600}
+body h2{
+  font-family:var(--sans);font-size:32px;line-height:1.15;letter-spacing:-.03em;font-weight:600;
+  color:var(--ink);margin:64px 0 14px;padding:0;border:0;
+}
+body h3{font-family:var(--sans);font-size:22px;line-height:1.25;letter-spacing:-.02em;font-weight:600;color:var(--ink);margin:36px 0 8px}
+body h4{font-size:14px;line-height:1.4;font-weight:600;letter-spacing:0;text-transform:none;color:var(--ink-2);margin:24px 0 6px}
+body p{margin:0 0 14px;max-width:72ch}
+body ul,body ol{margin:0 0 16px;padding-left:1.25em;max-width:72ch}
+body li{margin:.32em 0}
+body li::marker{color:var(--ink-3)}
+body strong{font-weight:600;color:var(--ink)}
+body em{color:var(--ink)}
+body a{color:var(--broth);text-decoration:underline;text-underline-offset:2px}
+body a:hover{text-decoration:underline}
+body hr{border:0;border-top:1px solid var(--line-2);margin:56px 0}
+body table{border-collapse:collapse;width:100%;margin:22px 0 30px;font-size:15px;line-height:1.45}
+body th{text-align:left;font-weight:600;font-size:12.5px;color:var(--ink-2);padding:10px 12px;background:var(--surface);border-bottom:1px solid var(--line)}
+body td{padding:11px 12px;border-bottom:1px solid var(--line-2);vertical-align:top}
+body tr:nth-child(even) td{background:transparent}
+body figure.fig{margin:32px 0 36px;padding:0;max-width:100%}
+body figure.fig svg{width:100%;height:auto;display:block;background:var(--surface);border:0;border-radius:20px;padding:18px}
+body figure.fig figcaption{font-size:13px;color:var(--ink-2);margin-top:10px;max-width:72ch;line-height:1.5}
+body figure.fig .figtitle{font-family:var(--sans);font-size:14px;font-weight:600;color:var(--ink);margin-bottom:6px}
+body pre{background:var(--surface);border:1px solid var(--line-2);border-radius:16px;padding:18px;overflow:auto;font-family:var(--mono);font-size:13.5px;line-height:1.55;margin:20px 0 24px}
+body code{font-family:var(--mono);font-size:.88em;background:var(--surface);border-radius:6px;padding:.12em .35em}
+body pre code{background:none;padding:0;font-size:inherit}
+body blockquote{margin:24px 0;padding:2px 0 2px 18px;border-left:3px solid var(--broth);color:var(--ink-2)}
+:root[data-theme="dark"] .fig-light{display:none!important}
+:root[data-theme="dark"] .fig-dark{display:block!important}
+:root[data-theme="light"] .fig-dark{display:none!important}
+:root[data-theme="light"] .fig-light{display:block!important}
+.docfoot{max-width:900px;margin:0 auto;padding:24px 24px 64px;border-top:1px solid var(--line-2);display:flex;justify-content:space-between;gap:12px;font-size:12.5px;color:var(--ink-3)}
+.docfoot a{color:var(--ink-2);text-decoration:none}
+.docfoot a:hover{color:var(--broth)}
+@media (max-width:700px){
+  .docbar{padding:8px 16px}
+  .wrap{padding:40px 18px 80px}
+  body h1{font-size:clamp(38px,11vw,48px)}
+  body h1 + p{font-size:18px}
+  body h2{font-size:28px;margin-top:52px}
+  body h3{font-size:20px}
+  body p,body li{font-size:16.5px}
+  body table{font-size:14px}
+  body th,body td{padding:9px 9px}
+  .docfoot{padding:20px 18px 50px;flex-direction:column;gap:6px}
+}
+@media print{
+  .docbar,.appearance,.docfoot{display:none!important}
+  body{background:#fff;color:#000;font-size:11pt}
+  .wrap{max-width:none;padding:0}
+  body h1{font-size:28pt;max-width:none}
+  body h2{font-size:16pt;page-break-after:avoid}
+  body h3{font-size:13pt;page-break-after:avoid}
+  body a{color:#000;text-decoration:none}
+  body table,body figure{break-inside:avoid}
+}
+</style>
+</body></html>

@@ -1,0 +1,1933 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="utf-8"><title>Week 50 — Instrumentation, control and feeding strategies — Metabolic engineering</title>
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+
+
+<style>:root{color-scheme:light;--paper:#FAF6EF;--ink:#211A12;--ink-2:#4A3C2C;--ink-3:#8A7458;
+--line:#DFD2BE;--line-2:#EDE4D5;--broth:#9A6B1F;--broth-soft:#F6ECD9;
+--serif:"Newsreader",Georgia,serif;--sans:"Public Sans",system-ui,sans-serif}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--paper:#15120D;--ink:#F1E9DC;--ink-2:#CBBCA6;
+--ink-3:#948872;--line:#352C22;--line-2:#2A231B;--broth:#D7A95C;--broth-soft:#241D14}}
+*{box-sizing:border-box}
+body{margin:0;background:var(--paper);color:var(--ink);font-family:var(--sans);font-size:15.5px;line-height:1.6;
+padding:env(safe-area-inset-top,0) 0 env(safe-area-inset-bottom,0)}
+.wrap{max-width:840px;margin:0 auto;padding:40px 22px 90px}
+h1{font-family:var(--serif);font-size:clamp(28px,5vw,42px);line-height:1.1;font-weight:600;margin:0 0 6px;letter-spacing:-.02em}
+h2{font-family:var(--serif);font-size:26px;font-weight:600;margin:46px 0 10px;letter-spacing:-.01em;padding-bottom:7px;border-bottom:1px solid var(--line)}
+h3{font-family:var(--serif);font-size:20px;font-weight:600;margin:30px 0 4px;color:var(--broth)}
+h4{font-size:14px;font-weight:650;margin:18px 0 4px;color:var(--ink-3);letter-spacing:.02em;text-transform:uppercase}
+p{margin:0 0 12px;max-width:74ch}
+em{color:var(--ink-2)}
+ul{margin:0 0 14px;padding-left:1.15em;max-width:74ch}
+li{margin:.3em 0}li::marker{color:var(--ink-3)}
+hr{border:0;border-top:1px solid var(--line);margin:40px 0}
+strong{font-weight:650}
+table{border-collapse:collapse;width:100%;margin:14px 0 20px;font-size:14px}
+th{text-align:left;font-weight:600;color:var(--ink-3);font-size:12.5px;padding:7px 9px;border-bottom:1.5px solid var(--line)}
+td{padding:8px 9px;border-bottom:1px solid var(--line-2);vertical-align:top}
+tr:nth-child(even) td{background:var(--broth-soft)}
+
+figure.fig{margin:22px 0 26px;padding:0;max-width:100%}
+figure.fig svg{width:100%;height:auto;display:block;background:var(--card);
+  border:1px solid var(--line-2);border-radius:10px;padding:8px 10px}
+figure.fig figcaption{font-size:13px;color:var(--ink-3);margin-top:8px;max-width:74ch;line-height:1.5}
+figure.fig .figtitle{font-family:var(--serif);font-size:15px;color:var(--ink-2);margin-bottom:6px}
+figure.fig .fig-dark{display:none}
+@media (prefers-color-scheme: dark){
+  figure.fig .fig-light{display:none}
+  figure.fig .fig-dark{display:block}
+}
+@media print{figure.fig{break-inside:avoid;page-break-inside:avoid}
+  figure.fig .fig-dark{display:none !important}
+  figure.fig .fig-light{display:block !important}}
+
+@media print{body{background:#fff}.wrap{padding:0;max-width:none}h2,h3{page-break-after:avoid}}</style><script>try{var t=localStorage.getItem("me.theme");if(t&&t!=="auto")document.documentElement.setAttribute("data-theme",t);}catch(e){}</script>
+<meta name="color-scheme" content="light dark">
+<meta name="theme-color" content="#ffffff" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#000000" media="(prefers-color-scheme: dark)">
+<style>
+/* ============================================================
+   COURSE LIBRARY — Apple document shell
+   ============================================================ */
+:root{
+  color-scheme:light;
+  --paper:#FFFFFF;--surface:#F5F5F7;--card:#FFFFFF;--fill:#F5F5F7;
+  --ink:#1D1D1F;--ink-2:#6E6E73;--ink-3:#6E6E73;
+  --line:rgba(0,0,0,.14);--line-2:rgba(0,0,0,.08);
+  --broth:#0071E3;--broth-soft:rgba(0,113,227,.10);
+  --nav-bg:rgba(255,255,255,.84);
+  --sans:-apple-system,BlinkMacSystemFont,"SF Pro Text","SF Pro Display","Helvetica Neue",Arial,sans-serif;
+  --mono:ui-monospace,"SF Mono",Menlo,Consolas,monospace;
+  --serif:var(--sans);
+}
+@media (prefers-color-scheme:dark){
+  :root:not([data-theme="light"]){
+    color-scheme:dark;
+    --paper:#000000;--surface:#1C1C1E;--card:#2C2C2E;--fill:#2C2C2E;
+    --ink:#F5F5F7;--ink-2:#A1A1A6;--ink-3:#8E8E93;
+    --line:rgba(255,255,255,.16);--line-2:rgba(255,255,255,.09);
+    --broth:#5AA9FF;--broth-soft:rgba(10,132,255,.18);
+    --nav-bg:rgba(0,0,0,.74);
+  }
+}
+:root[data-theme="dark"]{
+  color-scheme:dark;
+  --paper:#000000;--surface:#1C1C1E;--card:#2C2C2E;--fill:#2C2C2E;
+  --ink:#F5F5F7;--ink-2:#A1A1A6;--ink-3:#8E8E93;
+  --line:rgba(255,255,255,.16);--line-2:rgba(255,255,255,.09);
+  --broth:#5AA9FF;--broth-soft:rgba(10,132,255,.18);
+  --nav-bg:rgba(0,0,0,.74);
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth;scroll-padding-top:72px;-webkit-text-size-adjust:100%}
+body{
+  margin:0;background:var(--paper);color:var(--ink);
+  font-family:var(--sans);font-size:17px;line-height:1.62;letter-spacing:-.011em;
+  padding:0;
+}
+.docbar{
+  position:sticky;top:0;z-index:80;display:flex;align-items:center;justify-content:space-between;gap:12px;
+  padding:8px max(24px,calc((100vw - 1180px)/2));
+  background:var(--nav-bg);
+  -webkit-backdrop-filter:saturate(180%) blur(20px);backdrop-filter:saturate(180%) blur(20px);
+  border-bottom:1px solid var(--line-2);
+}
+.docback{display:inline-flex;align-items:center;gap:6px;color:var(--ink-2);font-size:13px;font-weight:500;text-decoration:none;white-space:nowrap}
+.docback:hover{color:var(--broth)}
+.appearance{display:inline-flex;gap:2px;padding:2px;background:var(--fill);border-radius:980px}
+.appearance button{border:0;background:none;color:var(--ink-2);font:inherit;font-size:12px;font-weight:500;line-height:1;padding:6px 11px;border-radius:980px;cursor:pointer}
+.appearance button[aria-pressed="true"]{background:var(--card);color:var(--ink);box-shadow:0 1px 2px rgba(0,0,0,.08)}
+.wrap{max-width:900px;margin:0 auto;padding:64px 24px 96px}
+body h1{
+  font-family:var(--sans);font-size:clamp(42px,6.2vw,64px);line-height:1.04;letter-spacing:-.04em;
+  font-weight:700;margin:0 0 16px;max-width:18ch;color:var(--ink);
+}
+.doc-kicker{font-size:13px;font-weight:500;letter-spacing:0;color:var(--ink-2);margin:0 0 12px}
+body h1 + p{font-size:20px;line-height:1.55;color:var(--ink-2);max-width:68ch;margin:0 0 18px}
+body h1 + p strong{color:var(--ink);font-weight:600}
+body h2{
+  font-family:var(--sans);font-size:32px;line-height:1.15;letter-spacing:-.03em;font-weight:600;
+  color:var(--ink);margin:64px 0 14px;padding:0;border:0;
+}
+body h3{font-family:var(--sans);font-size:22px;line-height:1.25;letter-spacing:-.02em;font-weight:600;color:var(--ink);margin:36px 0 8px}
+body h4{font-size:14px;line-height:1.4;font-weight:600;letter-spacing:0;text-transform:none;color:var(--ink-2);margin:24px 0 6px}
+body p{margin:0 0 14px;max-width:72ch}
+body ul,body ol{margin:0 0 16px;padding-left:1.25em;max-width:72ch}
+body li{margin:.32em 0}
+body li::marker{color:var(--ink-3)}
+body strong{font-weight:600;color:var(--ink)}
+body em{color:var(--ink)}
+body a{color:var(--broth);text-decoration:underline;text-underline-offset:2px}
+body a:hover{text-decoration:underline}
+body hr{border:0;border-top:1px solid var(--line-2);margin:56px 0}
+body table{border-collapse:collapse;width:100%;margin:22px 0 30px;font-size:15px;line-height:1.45}
+body th{text-align:left;font-weight:600;font-size:12.5px;color:var(--ink-2);padding:10px 12px;background:var(--surface);border-bottom:1px solid var(--line)}
+body td{padding:11px 12px;border-bottom:1px solid var(--line-2);vertical-align:top}
+body tr:nth-child(even) td{background:transparent}
+body figure.fig{margin:32px 0 36px;padding:0;max-width:100%}
+body figure.fig svg{width:100%;height:auto;display:block;background:var(--surface);border:0;border-radius:20px;padding:18px}
+body figure.fig figcaption{font-size:13px;color:var(--ink-2);margin-top:10px;max-width:72ch;line-height:1.5}
+body figure.fig .figtitle{font-family:var(--sans);font-size:14px;font-weight:600;color:var(--ink);margin-bottom:6px}
+body pre{background:var(--surface);border:1px solid var(--line-2);border-radius:16px;padding:18px;overflow:auto;font-family:var(--mono);font-size:13.5px;line-height:1.55;margin:20px 0 24px}
+body code{font-family:var(--mono);font-size:.88em;background:var(--surface);border-radius:6px;padding:.12em .35em}
+body pre code{background:none;padding:0;font-size:inherit}
+body blockquote{margin:24px 0;padding:2px 0 2px 18px;border-left:3px solid var(--broth);color:var(--ink-2)}
+:root[data-theme="dark"] .fig-light{display:none!important}
+:root[data-theme="dark"] .fig-dark{display:block!important}
+:root[data-theme="light"] .fig-dark{display:none!important}
+:root[data-theme="light"] .fig-light{display:block!important}
+.docfoot{max-width:900px;margin:0 auto;padding:24px 24px 64px;border-top:1px solid var(--line-2);display:flex;justify-content:space-between;gap:12px;font-size:12.5px;color:var(--ink-3)}
+.docfoot a{color:var(--ink-2);text-decoration:none}
+.docfoot a:hover{color:var(--broth)}
+@media (max-width:700px){
+  .docbar{padding:8px 16px}
+  .wrap{padding:40px 18px 80px}
+  body h1{font-size:clamp(38px,11vw,48px)}
+  body h1 + p{font-size:18px}
+  body h2{font-size:28px;margin-top:52px}
+  body h3{font-size:20px}
+  body p,body li{font-size:16.5px}
+  body table{font-size:14px}
+  body th,body td{padding:9px 9px}
+  .docfoot{padding:20px 18px 50px;flex-direction:column;gap:6px}
+}
+@media print{
+  .docbar,.appearance,.docfoot{display:none!important}
+  body{background:#fff;color:#000;font-size:11pt}
+  .wrap{max-width:none;padding:0}
+  body h1{font-size:28pt;max-width:none}
+  body h2{font-size:16pt;page-break-after:avoid}
+  body h3{font-size:13pt;page-break-after:avoid}
+  body a{color:#000;text-decoration:none}
+  body table,body figure{break-inside:avoid}
+}
+
+
+.index-actions{margin:18px 0 36px;display:flex;flex-wrap:wrap;gap:16px;align-items:center}
+.index-actions a{font-size:14px;font-weight:500;color:var(--broth);text-decoration:none}
+.index-actions a:hover{text-decoration:underline}
+.phaseh{display:flex;align-items:baseline;justify-content:space-between;gap:14px;font-size:24px!important;margin:52px 0 2px!important;letter-spacing:-.02em}
+.phaseh span{font-size:12px;font-weight:400;color:var(--ink-3);letter-spacing:0;white-space:nowrap}
+.weeklist{border-top:1px solid var(--line-2);margin-bottom:8px}
+.weekrow{display:flex;align-items:center;gap:14px;min-height:50px;padding:10px 4px;border-bottom:1px solid var(--line-2);text-decoration:none;color:var(--ink)}
+.weekrow:hover{background:var(--surface)}
+.wnum{width:28px;flex:none;font-size:12px;font-weight:600;color:var(--broth);font-variant-numeric:tabular-nums}
+.wtitle{flex:1;font-size:16.5px;font-weight:500;line-height:1.35}
+.warrow{flex:none;color:var(--ink-3);font-size:16px}
+.weeknav{display:flex;align-items:center;justify-content:space-between;gap:14px;margin:52px 0 0;padding-top:22px;border-top:1px solid var(--line-2);font-size:14px}
+.weeknav a{color:var(--broth);text-decoration:none;font-weight:500}
+.weeknav a:hover{text-decoration:underline}
+.weeknav .idx{color:var(--ink-2);font-weight:400}
+.weeknav .empty{visibility:hidden}
+.case-h{max-width:22ch}
+.protocol{max-width:72ch}
+.protocol li{margin:.55em 0}
+.protocol h2{margin-top:38px}
+@media (max-width:700px){.phaseh{font-size:21px!important;margin-top:42px!important}.wtitle{font-size:15.5px}.weeknav{font-size:13px;gap:8px}}
+@media print{.weeknav,.index-actions{display:none!important}}
+</style>
+<style>.sr-only{position:absolute!important;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap;border:0}</style>
+</head><body>
+<header class="docbar"><a class="docback" href="index.html">&#8592; Lecture index</a><div class="appearance" role="group" aria-label="Appearance">
+<button type="button" data-appearance="auto" aria-pressed="true">Auto</button>
+<button type="button" data-appearance="light" aria-pressed="false">Light</button>
+<button type="button" data-appearance="dark" aria-pressed="false">Dark</button>
+</div></header>
+<main class="wrap">
+<p class="doc-kicker">Week 50 of 55 &middot; Process, economics and the application &middot; <strong class="tier-badge">Useful next</strong></p>
+<h1>Instrumentation, control and feeding strategies</h1>
+<h2 class="sr-only">Week content</h2>
+<p>Control applied to a catalyst that adapts to the control action, which is the one sentence that makes this week different from a process-control course. The content divides into what can be measured, what has to be inferred, and what the feed rate is actually allowed to be — and the third of those is where the arithmetic lives. The result that organises the week is that the feed profile is not set by the strain&#x27;s maximum growth rate, nor by the overflow threshold, but by the vessel&#x27;s oxygen transfer capacity from week 49: once cell density is high enough, the exponential feed has to stop being exponential, and the correct policy becomes constant oxygen uptake rate with a growth rate that falls as the reciprocal of biomass. Every feeding strategy in the textbooks is a way of implementing that without saying so.</p>
+<h3>Core ideas</h3>
+<p><strong>1. What is measured, and what each measurement&#x27;s failure mode is</strong></p>
+<p>Stanbury Ch 8 is organised as a catalogue and it should be read as one, with a failure mode written beside each entry, because that column is what the control philosophy document needs and no book supplies it. The chapter&#x27;s named sections: methods of measuring process variables, covering temperature (mercury-in-glass, electrical resistance, thermistors, and temperature control), flow measurement and control for gases and liquids, pressure measurement and control, safety valves, agitator shaft power, rate of stirring, foam sensing and control, weight, microbial biomass, measurement and control of dissolved oxygen, inlet and exit-gas analysis, pH measurement and control, redox, carbon dioxide electrodes; then on-line analysis of other chemical factors — ion-specific sensors, enzyme and microbial electrodes, near infra-red spectroscopy, mass spectrometers; then control systems, from manual through two-position, proportional, integral and derivative and their combinations; then computer applications, with data logging, data analysis and process control. The failure modes worth writing in: a dissolved-oxygen probe drifts and fouls and reads a bulk average in a vessel with gradients; a pH probe drifts and cannot be recalibrated in situ; a weight signal is the most reliable measurement on the vessel and is usually ignored; exit-gas analysis is the most informative and has the longest dead time, because it includes the headspace residence time. That last one is the reason the off-gas soft sensor is a diagnostic rather than a control input.</p>
+<p><strong>2. The DO cascade, and why it is a cascade rather than a loop</strong></p>
+<p>Dissolved oxygen has four actuators and they must be ordered, because they differ by two orders of magnitude in cost per unit of transfer. Agitation first: cheapest, fastest, and bounded above by shear tolerance and by the motor. Aeration rate second: cheap, but bounded by flooding of the impeller at high gas rate and by foam, and with a side effect — raising the gas rate strips CO₂, which changes pH control. Head pressure third: raises C* in proportion to absolute pressure, which is the week 49 design decision reappearing as a control action, and bounded by the vessel rating and by dissolved CO₂ rising in the same proportion. Oxygen enrichment last: unbounded in effect and the only one with a significant per-kilogram operating cost. The reason for the order is that each step should be exhausted before the next begins, and the reason it is a cascade rather than four independent loops is that they interact — more air both raises k_L a and strips CO₂ and increases foam, so a controller allowed to use them in parallel will hunt. Write the setpoints and the handover points explicitly, including what happens on reverse: coming down from enrichment should be the first thing to go, not the last.</p>
+<p><strong>3. The exponential feed, derived rather than quoted</strong></p>
+<figure class="fig"><div class="figtitle">Figure 50.3 — Where the exponential feed stops being exponential</div><div class="fig-light"><svg role="img" aria-label="Left: biomass under a constant-μ feed at 0.12 h⁻¹, with the exponential valid only to the point where oxygen demand meets the vessel's transfer capacity, here just under nine hours and 46 g L⁻¹. Right: past that point the growth rate is a fixed oxygen supply divided by a rising biomass, so it falls as 1/X and the acetate threshold stops being the active constraint." xmlns:xlink="http://www.w3.org/1999/xlink" width="582.56pt" height="224.151pt" viewBox="0 0 582.56 224.151" xmlns="http://www.w3.org/2000/svg" version="1.1">
+ <metadata>
+  <rdf:RDF xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:cc="http://creativecommons.org/ns#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+   <cc:Work>
+    <dc:type rdf:resource="http://purl.org/dc/dcmitype/StillImage"/>
+    <dc:date>2026-11-02T23:57:58.214552</dc:date>
+    <dc:format>image/svg+xml</dc:format>
+    <dc:creator>
+     <cc:Agent>
+      <dc:title>Matplotlib v3.10.8, https://matplotlib.org/</dc:title>
+     </cc:Agent>
+    </dc:creator>
+   </cc:Work>
+  </rdf:RDF>
+ </metadata>
+ <defs>
+  <style type="text/css">*{stroke-linejoin: round; stroke-linecap: butt}</style>
+ </defs>
+ <g id="figure_1">
+  <g id="patch_1">
+   <path d="M 0 224.151 
+L 582.56 224.151 
+L 582.56 0 
+L 0 0 
+L 0 224.151 
+z
+" style="fill: none"/>
+  </g>
+  <g id="axes_1">
+   <g id="patch_2">
+    <path d="M 65.9664 166.536 
+L 233.820059 166.536 
+L 233.820059 5.76 
+L 65.9664 5.76 
+L 65.9664 166.536 
+z
+" style="fill: none"/>
+   </g>
+   <g id="matplotlib.axis_1">
+    <g id="xtick_1">
+     <g id="line2d_1">
+      <defs>
+       <path id="m6e54850769" d="M 0 0 
+L 0 3.5 
+" style="stroke: #8a7458; stroke-width: 0.9"/>
+      </defs>
+      <g>
+       <use xlink:href="#m6e54850769" x="65.9664" y="166.536" style="fill: #8a7458; stroke: #8a7458; stroke-width: 0.9"/>
+      </g>
+     </g>
+     <g id="text_1">
+      <text style="font-size: 9.5px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: middle; fill: #8a7458" x="65.9664" y="180.754516" transform="rotate(-0 65.9664 180.754516)">0</text>
+     </g>
+    </g>
+    <g id="xtick_2">
+     <g id="line2d_2">
+      <g>
+       <use xlink:href="#m6e54850769" x="118.420668" y="166.536" style="fill: #8a7458; stroke: #8a7458; stroke-width: 0.9"/>
+      </g>
+     </g>
+     <g id="text_2">
+      <text style="font-size: 9.5px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: middle; fill: #8a7458" x="118.420668" y="180.754516" transform="rotate(-0 118.420668 180.754516)">5</text>
+     </g>
+    </g>
+    <g id="xtick_3">
+     <g id="line2d_3">
+      <g>
+       <use xlink:href="#m6e54850769" x="170.874937" y="166.536" style="fill: #8a7458; stroke: #8a7458; stroke-width: 0.9"/>
+      </g>
+     </g>
+     <g id="text_3">
+      <text style="font-size: 9.5px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: middle; fill: #8a7458" x="170.874937" y="180.754516" transform="rotate(-0 170.874937 180.754516)">10</text>
+     </g>
+    </g>
+    <g id="xtick_4">
+     <g id="line2d_4">
+      <g>
+       <use xlink:href="#m6e54850769" x="223.329205" y="166.536" style="fill: #8a7458; stroke: #8a7458; stroke-width: 0.9"/>
+      </g>
+     </g>
+     <g id="text_4">
+      <text style="font-size: 9.5px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: middle; fill: #8a7458" x="223.329205" y="180.754516" transform="rotate(-0 223.329205 180.754516)">15</text>
+     </g>
+    </g>
+    <g id="text_5">
+     <text style="font-size: 9.5px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: middle; fill: #4a3c2c" x="149.893229" y="193.948734" transform="rotate(-0 149.893229 193.948734)">time from start of feed  (h)</text>
+    </g>
+   </g>
+   <g id="matplotlib.axis_2">
+    <g id="ytick_1">
+     <g id="line2d_5">
+      <path d="M 65.9664 166.536 
+L 233.820059 166.536 
+" clip-path="url(#paa5f7aa7fc)" style="fill: none; stroke: #e6dccb; stroke-opacity: 0.7; stroke-width: 0.6; stroke-linecap: square"/>
+     </g>
+     <g id="line2d_6">
+      <defs>
+       <path id="m04fed3e16d" d="M 0 0 
+L -3.5 0 
+" style="stroke: #8a7458; stroke-width: 0.9"/>
+      </defs>
+      <g>
+       <use xlink:href="#m04fed3e16d" x="65.9664" y="166.536" style="fill: #8a7458; stroke: #8a7458; stroke-width: 0.9"/>
+      </g>
+     </g>
+     <g id="text_6">
+      <text style="font-size: 9.5px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: end; fill: #8a7458" x="58.9664" y="170.145258" transform="rotate(-0 58.9664 170.145258)">0</text>
+     </g>
+    </g>
+    <g id="ytick_2">
+     <g id="line2d_7">
+      <path d="M 65.9664 132.688421 
+L 233.820059 132.688421 
+" clip-path="url(#paa5f7aa7fc)" style="fill: none; stroke: #e6dccb; stroke-opacity: 0.7; stroke-width: 0.6; stroke-linecap: square"/>
+     </g>
+     <g id="line2d_8">
+      <g>
+       <use xlink:href="#m04fed3e16d" x="65.9664" y="132.688421" style="fill: #8a7458; stroke: #8a7458; stroke-width: 0.9"/>
+      </g>
+     </g>
+     <g id="text_7">
+      <text style="font-size: 9.5px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: end; fill: #8a7458" x="58.9664" y="136.297679" transform="rotate(-0 58.9664 136.297679)">20</text>
+     </g>
+    </g>
+    <g id="ytick_3">
+     <g id="line2d_9">
+      <path d="M 65.9664 98.840842 
+L 233.820059 98.840842 
+" clip-path="url(#paa5f7aa7fc)" style="fill: none; stroke: #e6dccb; stroke-opacity: 0.7; stroke-width: 0.6; stroke-linecap: square"/>
+     </g>
+     <g id="line2d_10">
+      <g>
+       <use xlink:href="#m04fed3e16d" x="65.9664" y="98.840842" style="fill: #8a7458; stroke: #8a7458; stroke-width: 0.9"/>
+      </g>
+     </g>
+     <g id="text_8">
+      <text style="font-size: 9.5px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: end; fill: #8a7458" x="58.9664" y="102.4501" transform="rotate(-0 58.9664 102.4501)">40</text>
+     </g>
+    </g>
+    <g id="ytick_4">
+     <g id="line2d_11">
+      <path d="M 65.9664 64.993263 
+L 233.820059 64.993263 
+" clip-path="url(#paa5f7aa7fc)" style="fill: none; stroke: #e6dccb; stroke-opacity: 0.7; stroke-width: 0.6; stroke-linecap: square"/>
+     </g>
+     <g id="line2d_12">
+      <g>
+       <use xlink:href="#m04fed3e16d" x="65.9664" y="64.993263" style="fill: #8a7458; stroke: #8a7458; stroke-width: 0.9"/>
+      </g>
+     </g>
+     <g id="text_9">
+      <text style="font-size: 9.5px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: end; fill: #8a7458" x="58.9664" y="68.602521" transform="rotate(-0 58.9664 68.602521)">60</text>
+     </g>
+    </g>
+    <g id="ytick_5">
+     <g id="line2d_13">
+      <path d="M 65.9664 31.145684 
+L 233.820059 31.145684 
+" clip-path="url(#paa5f7aa7fc)" style="fill: none; stroke: #e6dccb; stroke-opacity: 0.7; stroke-width: 0.6; stroke-linecap: square"/>
+     </g>
+     <g id="line2d_14">
+      <g>
+       <use xlink:href="#m04fed3e16d" x="65.9664" y="31.145684" style="fill: #8a7458; stroke: #8a7458; stroke-width: 0.9"/>
+      </g>
+     </g>
+     <g id="text_10">
+      <text style="font-size: 9.5px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: end; fill: #8a7458" x="58.9664" y="34.754942" transform="rotate(-0 58.9664 34.754942)">80</text>
+     </g>
+    </g>
+    <g id="text_11">
+     <!-- biomass  (g L$^{-1}$) -->
+     <g style="fill: #4a3c2c" transform="translate(40.88265 124.8605) rotate(-90)">
+      <text>
+       <tspan x="0" y="-0.064063" style="font-size: 9.5px; font-family: 'Public Sans, Helvetica, Arial, sans-serif'; fill: #4a3c2c">b</tspan>
+       <tspan x="6.030273" y="-0.064063" style="font-size: 9.5px; font-family: 'Public Sans, Helvetica, Arial, sans-serif'; fill: #4a3c2c">i</tspan>
+       <tspan x="8.669678" y="-0.064063" style="font-size: 9.5px; font-family: 'Public Sans, Helvetica, Arial, sans-serif'; fill: #4a3c2c">o</tspan>
+       <tspan x="14.481934" y="-0.064063" style="font-size: 9.5px; font-family: 'Public Sans, Helvetica, Arial, sans-serif'; fill: #4a3c2c">m</tspan>
+       <tspan x="23.736084" y="-0.064063" style="font-size: 9.5px; font-family: 'Public Sans, Helvetica, Arial, sans-serif'; fill: #4a3c2c">a</tspan>
+       <tspan x="29.557617" y="-0.064063" style="font-size: 9.5px; font-family: 'Public Sans, Helvetica, Arial, sans-serif'; fill: #4a3c2c">s</tspan>
+       <tspan x="34.50708" y="-0.064063" style="font-size: 9.5px; font-family: 'Public Sans, Helvetica, Arial, sans-serif'; fill: #4a3c2c">s</tspan>
+       <tspan x="39.456543" y="-0.064063" style="font-size: 9.5px; font-family: 'Public Sans, Helvetica, Arial, sans-serif'; fill: #4a3c2c"> </tspan>
+       <tspan x="42.476318" y="-0.064063" style="font-size: 9.5px; font-family: 'Public Sans, Helvetica, Arial, sans-serif'; fill: #4a3c2c"> </tspan>
+       <tspan x="45.496094" y="-0.064063" style="font-size: 9.5px; font-family: 'Public Sans, Helvetica, Arial, sans-serif'; fill: #4a3c2c">(</tspan>
+       <tspan x="49.202393" y="-0.064063" style="font-size: 9.5px; font-family: 'Public Sans, Helvetica, Arial, sans-serif'; fill: #4a3c2c">g</tspan>
+       <tspan x="55.232666" y="-0.064063" style="font-size: 9.5px; font-family: 'Public Sans, Helvetica, Arial, sans-serif'; fill: #4a3c2c"> </tspan>
+       <tspan x="58.252441" y="-0.064063" style="font-size: 9.5px; font-family: 'Public Sans, Helvetica, Arial, sans-serif'; fill: #4a3c2c">L</tspan>
+       <tspan x="73.717212" y="-0.064063" style="font-size: 9.5px; font-family: 'Public Sans, Helvetica, Arial, sans-serif'; fill: #4a3c2c">)</tspan>
+       <tspan x="63.640869" y="-3.892188" style="font-size: 6.65px; font-family: 'Public Sans, Helvetica, Arial, sans-serif'; fill: #4a3c2c">−</tspan>
+       <tspan x="69.212842" y="-3.892188" style="font-size: 6.65px; font-family: 'Public Sans, Helvetica, Arial, sans-serif'; fill: #4a3c2c">1</tspan>
+      </text>
+     </g>
+    </g>
+   </g>
+   <g id="line2d_15">
+    <path d="M 65.9664 132.688421 
+L 73.959431 129.709071 
+L 81.952463 126.492292 
+L 89.524808 123.21271 
+L 97.097154 119.694708 
+L 104.669499 115.925988 
+L 111.821159 112.125518 
+L 118.972818 108.080715 
+L 126.124478 103.782103 
+L 133.276138 99.220784 
+L 140.427797 94.388604 
+L 147.579457 89.278329 
+L 154.731117 83.883836 
+L 161.882776 78.200309 
+L 169.034436 72.224435 
+L 176.186096 65.954607 
+L 183.337755 59.391117 
+L 190.489415 52.536336 
+L 198.06176 44.966011 
+L 205.634106 37.082732 
+L 213.627137 28.434793 
+L 222.040854 18.988246 
+L 230.875258 8.717594 
+L 233.820059 5.21975 
+L 233.820059 5.21975 
+" clip-path="url(#paa5f7aa7fc)" style="fill: none; stroke: #1f6f62; stroke-width: 1.9; stroke-linecap: square"/>
+   </g>
+   <g id="line2d_16">
+    <path d="M 65.9664 132.688421 
+L 73.959431 129.709071 
+L 81.952463 126.492292 
+L 89.524808 123.21271 
+L 97.097154 119.694708 
+L 104.669499 115.925988 
+L 111.821159 112.125518 
+L 118.972818 108.080715 
+L 126.124478 103.782103 
+L 133.276138 99.220784 
+L 140.427797 94.388604 
+L 147.579457 89.278329 
+L 148.000143 88.968927 
+L 148.000143 88.968927 
+" clip-path="url(#paa5f7aa7fc)" style="fill: none; stroke: #1f6f62; stroke-width: 2.6; stroke-linecap: square"/>
+   </g>
+   <g id="line2d_17">
+    <path d="M 148.000143 166.536 
+L 148.000143 5.76 
+" clip-path="url(#paa5f7aa7fc)" style="fill: none; stroke-dasharray: 4.4,3.3; stroke-dashoffset: 0; stroke: #a4503a; stroke-width: 1.1"/>
+   </g>
+   <g id="line2d_18">
+    <path d="M 148.000143 88.968927 
+" clip-path="url(#paa5f7aa7fc)" style="fill: none; stroke: #a4503a; stroke-width: 1.9; stroke-linecap: square"/>
+    <defs>
+     <path id="m3982be7f14" d="M 0 2.4 
+C 0.636487 2.4 1.246992 2.147121 1.697056 1.697056 
+C 2.147121 1.246992 2.4 0.636487 2.4 0 
+C 2.4 -0.636487 2.147121 -1.246992 1.697056 -1.697056 
+C 1.246992 -2.147121 0.636487 -2.4 0 -2.4 
+C -0.636487 -2.4 -1.246992 -2.147121 -1.697056 -1.697056 
+C -2.147121 -1.246992 -2.4 -0.636487 -2.4 0 
+C -2.4 0.636487 -2.147121 1.246992 -1.697056 1.697056 
+C -1.246992 2.147121 -0.636487 2.4 0 2.4 
+z
+" style="stroke: #a4503a"/>
+    </defs>
+    <g clip-path="url(#paa5f7aa7fc)">
+     <use xlink:href="#m3982be7f14" x="148.000143" y="88.968927" style="fill: #a4503a; stroke: #a4503a"/>
+    </g>
+   </g>
+   <g id="patch_3">
+    <path d="M 65.9664 166.536 
+L 65.9664 5.76 
+" style="fill: none; stroke: #dfd2be; stroke-width: 0.9; stroke-linejoin: miter; stroke-linecap: square"/>
+   </g>
+   <g id="patch_4">
+    <path d="M 65.9664 166.536 
+L 233.820059 166.536 
+" style="fill: none; stroke: #dfd2be; stroke-width: 0.9; stroke-linejoin: miter; stroke-linecap: square"/>
+   </g>
+   <g id="text_12">
+    <text style="font-size: 8.2px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; fill: #a4503a" transform="translate(137.064677 147.48314)">oxygen ceiling at 7.8 h</text>
+    <!-- and 46 g L$^{-1}$ -->
+    <g style="fill: #a4503a" transform="translate(178.438802 158.044484)">
+     <text>
+      <tspan x="0" y="-0.857813" style="font-size: 8.2px; font-family: 'Public Sans, Helvetica, Arial, sans-serif'; fill: #a4503a">a</tspan>
+      <tspan x="5.055542" y="-0.857813" style="font-size: 8.2px; font-family: 'Public Sans, Helvetica, Arial, sans-serif'; fill: #a4503a">n</tspan>
+      <tspan x="10.284302" y="-0.857813" style="font-size: 8.2px; font-family: 'Public Sans, Helvetica, Arial, sans-serif'; fill: #a4503a">d</tspan>
+      <tspan x="15.521118" y="-0.857813" style="font-size: 8.2px; font-family: 'Public Sans, Helvetica, Arial, sans-serif'; fill: #a4503a"> </tspan>
+      <tspan x="18.143555" y="-0.857813" style="font-size: 8.2px; font-family: 'Public Sans, Helvetica, Arial, sans-serif'; fill: #a4503a">4</tspan>
+      <tspan x="23.392456" y="-0.857813" style="font-size: 8.2px; font-family: 'Public Sans, Helvetica, Arial, sans-serif'; fill: #a4503a">6</tspan>
+      <tspan x="28.641357" y="-0.857813" style="font-size: 8.2px; font-family: 'Public Sans, Helvetica, Arial, sans-serif'; fill: #a4503a"> </tspan>
+      <tspan x="31.263794" y="-0.857813" style="font-size: 8.2px; font-family: 'Public Sans, Helvetica, Arial, sans-serif'; fill: #a4503a">g</tspan>
+      <tspan x="36.50061" y="-0.857813" style="font-size: 8.2px; font-family: 'Public Sans, Helvetica, Arial, sans-serif'; fill: #a4503a"> </tspan>
+      <tspan x="39.123047" y="-0.857813" style="font-size: 8.2px; font-family: 'Public Sans, Helvetica, Arial, sans-serif'; fill: #a4503a">L</tspan>
+      <tspan x="43.795923" y="-3.920313" style="font-size: 5.74px; font-family: 'Public Sans, Helvetica, Arial, sans-serif'; fill: #a4503a">−</tspan>
+      <tspan x="48.634741" y="-3.920313" style="font-size: 5.74px; font-family: 'Public Sans, Helvetica, Arial, sans-serif'; fill: #a4503a">1</tspan>
+     </text>
+    </g>
+   </g>
+   <g id="text_13">
+    <text style="font-size: 8.2px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; fill: #1f6f62" transform="translate(70.162741 27.222129)">the exponential</text>
+    <text style="font-size: 8.2px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; fill: #1f6f62" transform="translate(70.162741 36.404336)">is only valid here</text>
+   </g>
+  </g>
+  <g id="axes_2">
+   <g id="patch_5">
+    <path d="M 302.640059 166.536 
+L 478.8864 166.536 
+L 478.8864 5.76 
+L 302.640059 5.76 
+L 302.640059 166.536 
+z
+" style="fill: none"/>
+   </g>
+   <g id="matplotlib.axis_3">
+    <g id="xtick_5">
+     <g id="line2d_19">
+      <g>
+       <use xlink:href="#m6e54850769" x="302.640059" y="166.536" style="fill: #8a7458; stroke: #8a7458; stroke-width: 0.9"/>
+      </g>
+     </g>
+     <g id="text_14">
+      <text style="font-size: 9.5px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: middle; fill: #8a7458" x="302.640059" y="180.754516" transform="rotate(-0 302.640059 180.754516)">20</text>
+     </g>
+    </g>
+    <g id="xtick_6">
+     <g id="line2d_20">
+      <g>
+       <use xlink:href="#m6e54850769" x="337.889327" y="166.536" style="fill: #8a7458; stroke: #8a7458; stroke-width: 0.9"/>
+      </g>
+     </g>
+     <g id="text_15">
+      <text style="font-size: 9.5px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: middle; fill: #8a7458" x="337.889327" y="180.754516" transform="rotate(-0 337.889327 180.754516)">40</text>
+     </g>
+    </g>
+    <g id="xtick_7">
+     <g id="line2d_21">
+      <g>
+       <use xlink:href="#m6e54850769" x="373.138595" y="166.536" style="fill: #8a7458; stroke: #8a7458; stroke-width: 0.9"/>
+      </g>
+     </g>
+     <g id="text_16">
+      <text style="font-size: 9.5px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: middle; fill: #8a7458" x="373.138595" y="180.754516" transform="rotate(-0 373.138595 180.754516)">60</text>
+     </g>
+    </g>
+    <g id="xtick_8">
+     <g id="line2d_22">
+      <g>
+       <use xlink:href="#m6e54850769" x="408.387863" y="166.536" style="fill: #8a7458; stroke: #8a7458; stroke-width: 0.9"/>
+      </g>
+     </g>
+     <g id="text_17">
+      <text style="font-size: 9.5px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: middle; fill: #8a7458" x="408.387863" y="180.754516" transform="rotate(-0 408.387863 180.754516)">80</text>
+     </g>
+    </g>
+    <g id="xtick_9">
+     <g id="line2d_23">
+      <g>
+       <use xlink:href="#m6e54850769" x="443.637132" y="166.536" style="fill: #8a7458; stroke: #8a7458; stroke-width: 0.9"/>
+      </g>
+     </g>
+     <g id="text_18">
+      <text style="font-size: 9.5px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: middle; fill: #8a7458" x="443.637132" y="180.754516" transform="rotate(-0 443.637132 180.754516)">100</text>
+     </g>
+    </g>
+    <g id="xtick_10">
+     <g id="line2d_24">
+      <g>
+       <use xlink:href="#m6e54850769" x="478.8864" y="166.536" style="fill: #8a7458; stroke: #8a7458; stroke-width: 0.9"/>
+      </g>
+     </g>
+     <g id="text_19">
+      <text style="font-size: 9.5px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: middle; fill: #8a7458" x="478.8864" y="180.754516" transform="rotate(-0 478.8864 180.754516)">120</text>
+     </g>
+    </g>
+    <g id="text_20">
+     <!-- biomass  (g L$^{-1}$) -->
+     <g style="fill: #4a3c2c" transform="translate(352.050729 195.280219)">
+      <text>
+       <tspan x="0" y="-0.064063" style="font-size: 9.5px; font-family: 'Public Sans, Helvetica, Arial, sans-serif'; fill: #4a3c2c">b</tspan>
+       <tspan x="6.030273" y="-0.064063" style="font-size: 9.5px; font-family: 'Public Sans, Helvetica, Arial, sans-serif'; fill: #4a3c2c">i</tspan>
+       <tspan x="8.669678" y="-0.064063" style="font-size: 9.5px; font-family: 'Public Sans, Helvetica, Arial, sans-serif'; fill: #4a3c2c">o</tspan>
+       <tspan x="14.481934" y="-0.064063" style="font-size: 9.5px; font-family: 'Public Sans, Helvetica, Arial, sans-serif'; fill: #4a3c2c">m</tspan>
+       <tspan x="23.736084" y="-0.064063" style="font-size: 9.5px; font-family: 'Public Sans, Helvetica, Arial, sans-serif'; fill: #4a3c2c">a</tspan>
+       <tspan x="29.557617" y="-0.064063" style="font-size: 9.5px; font-family: 'Public Sans, Helvetica, Arial, sans-serif'; fill: #4a3c2c">s</tspan>
+       <tspan x="34.50708" y="-0.064063" style="font-size: 9.5px; font-family: 'Public Sans, Helvetica, Arial, sans-serif'; fill: #4a3c2c">s</tspan>
+       <tspan x="39.456543" y="-0.064063" style="font-size: 9.5px; font-family: 'Public Sans, Helvetica, Arial, sans-serif'; fill: #4a3c2c"> </tspan>
+       <tspan x="42.476318" y="-0.064063" style="font-size: 9.5px; font-family: 'Public Sans, Helvetica, Arial, sans-serif'; fill: #4a3c2c"> </tspan>
+       <tspan x="45.496094" y="-0.064063" style="font-size: 9.5px; font-family: 'Public Sans, Helvetica, Arial, sans-serif'; fill: #4a3c2c">(</tspan>
+       <tspan x="49.202393" y="-0.064063" style="font-size: 9.5px; font-family: 'Public Sans, Helvetica, Arial, sans-serif'; fill: #4a3c2c">g</tspan>
+       <tspan x="55.232666" y="-0.064063" style="font-size: 9.5px; font-family: 'Public Sans, Helvetica, Arial, sans-serif'; fill: #4a3c2c"> </tspan>
+       <tspan x="58.252441" y="-0.064063" style="font-size: 9.5px; font-family: 'Public Sans, Helvetica, Arial, sans-serif'; fill: #4a3c2c">L</tspan>
+       <tspan x="73.717212" y="-0.064063" style="font-size: 9.5px; font-family: 'Public Sans, Helvetica, Arial, sans-serif'; fill: #4a3c2c">)</tspan>
+       <tspan x="63.640869" y="-3.892188" style="font-size: 6.65px; font-family: 'Public Sans, Helvetica, Arial, sans-serif'; fill: #4a3c2c">−</tspan>
+       <tspan x="69.212842" y="-3.892188" style="font-size: 6.65px; font-family: 'Public Sans, Helvetica, Arial, sans-serif'; fill: #4a3c2c">1</tspan>
+      </text>
+     </g>
+    </g>
+   </g>
+   <g id="matplotlib.axis_4">
+    <g id="ytick_6">
+     <g id="line2d_25">
+      <path d="M 302.640059 166.536 
+L 478.8864 166.536 
+" clip-path="url(#p3d5baf3910)" style="fill: none; stroke: #e6dccb; stroke-opacity: 0.7; stroke-width: 0.6; stroke-linecap: square"/>
+     </g>
+     <g id="line2d_26">
+      <g>
+       <use xlink:href="#m04fed3e16d" x="302.640059" y="166.536" style="fill: #8a7458; stroke: #8a7458; stroke-width: 0.9"/>
+      </g>
+     </g>
+     <g id="text_21">
+      <text style="font-size: 9.5px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: end; fill: #8a7458" x="295.640059" y="170.145258" transform="rotate(-0 295.640059 170.145258)">0.00</text>
+     </g>
+    </g>
+    <g id="ytick_7">
+     <g id="line2d_27">
+      <path d="M 302.640059 138.816 
+L 478.8864 138.816 
+" clip-path="url(#p3d5baf3910)" style="fill: none; stroke: #e6dccb; stroke-opacity: 0.7; stroke-width: 0.6; stroke-linecap: square"/>
+     </g>
+     <g id="line2d_28">
+      <g>
+       <use xlink:href="#m04fed3e16d" x="302.640059" y="138.816" style="fill: #8a7458; stroke: #8a7458; stroke-width: 0.9"/>
+      </g>
+     </g>
+     <g id="text_22">
+      <text style="font-size: 9.5px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: end; fill: #8a7458" x="295.640059" y="142.425258" transform="rotate(-0 295.640059 142.425258)">0.05</text>
+     </g>
+    </g>
+    <g id="ytick_8">
+     <g id="line2d_29">
+      <path d="M 302.640059 111.096 
+L 478.8864 111.096 
+" clip-path="url(#p3d5baf3910)" style="fill: none; stroke: #e6dccb; stroke-opacity: 0.7; stroke-width: 0.6; stroke-linecap: square"/>
+     </g>
+     <g id="line2d_30">
+      <g>
+       <use xlink:href="#m04fed3e16d" x="302.640059" y="111.096" style="fill: #8a7458; stroke: #8a7458; stroke-width: 0.9"/>
+      </g>
+     </g>
+     <g id="text_23">
+      <text style="font-size: 9.5px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: end; fill: #8a7458" x="295.640059" y="114.705258" transform="rotate(-0 295.640059 114.705258)">0.10</text>
+     </g>
+    </g>
+    <g id="ytick_9">
+     <g id="line2d_31">
+      <path d="M 302.640059 83.376 
+L 478.8864 83.376 
+" clip-path="url(#p3d5baf3910)" style="fill: none; stroke: #e6dccb; stroke-opacity: 0.7; stroke-width: 0.6; stroke-linecap: square"/>
+     </g>
+     <g id="line2d_32">
+      <g>
+       <use xlink:href="#m04fed3e16d" x="302.640059" y="83.376" style="fill: #8a7458; stroke: #8a7458; stroke-width: 0.9"/>
+      </g>
+     </g>
+     <g id="text_24">
+      <text style="font-size: 9.5px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: end; fill: #8a7458" x="295.640059" y="86.985258" transform="rotate(-0 295.640059 86.985258)">0.15</text>
+     </g>
+    </g>
+    <g id="ytick_10">
+     <g id="line2d_33">
+      <path d="M 302.640059 55.656 
+L 478.8864 55.656 
+" clip-path="url(#p3d5baf3910)" style="fill: none; stroke: #e6dccb; stroke-opacity: 0.7; stroke-width: 0.6; stroke-linecap: square"/>
+     </g>
+     <g id="line2d_34">
+      <g>
+       <use xlink:href="#m04fed3e16d" x="302.640059" y="55.656" style="fill: #8a7458; stroke: #8a7458; stroke-width: 0.9"/>
+      </g>
+     </g>
+     <g id="text_25">
+      <text style="font-size: 9.5px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: end; fill: #8a7458" x="295.640059" y="59.265258" transform="rotate(-0 295.640059 59.265258)">0.20</text>
+     </g>
+    </g>
+    <g id="ytick_11">
+     <g id="line2d_35">
+      <path d="M 302.640059 27.936 
+L 478.8864 27.936 
+" clip-path="url(#p3d5baf3910)" style="fill: none; stroke: #e6dccb; stroke-opacity: 0.7; stroke-width: 0.6; stroke-linecap: square"/>
+     </g>
+     <g id="line2d_36">
+      <g>
+       <use xlink:href="#m04fed3e16d" x="302.640059" y="27.936" style="fill: #8a7458; stroke: #8a7458; stroke-width: 0.9"/>
+      </g>
+     </g>
+     <g id="text_26">
+      <text style="font-size: 9.5px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: end; fill: #8a7458" x="295.640059" y="31.545258" transform="rotate(-0 295.640059 31.545258)">0.25</text>
+     </g>
+    </g>
+    <g id="text_27">
+     <!-- supported growth rate  (h$^{-1}$) -->
+     <g style="fill: #4a3c2c" transform="translate(268.492715 154.453) rotate(-90)">
+      <text>
+       <tspan x="0" y="-0.064063" style="font-size: 9.5px; font-family: 'Public Sans, Helvetica, Arial, sans-serif'; fill: #4a3c2c">s</tspan>
+       <tspan x="4.949463" y="-0.064063" style="font-size: 9.5px; font-family: 'Public Sans, Helvetica, Arial, sans-serif'; fill: #4a3c2c">u</tspan>
+       <tspan x="10.970459" y="-0.064063" style="font-size: 9.5px; font-family: 'Public Sans, Helvetica, Arial, sans-serif'; fill: #4a3c2c">p</tspan>
+       <tspan x="17.000732" y="-0.064063" style="font-size: 9.5px; font-family: 'Public Sans, Helvetica, Arial, sans-serif'; fill: #4a3c2c">p</tspan>
+       <tspan x="23.031006" y="-0.064063" style="font-size: 9.5px; font-family: 'Public Sans, Helvetica, Arial, sans-serif'; fill: #4a3c2c">o</tspan>
+       <tspan x="28.843262" y="-0.064063" style="font-size: 9.5px; font-family: 'Public Sans, Helvetica, Arial, sans-serif'; fill: #4a3c2c">r</tspan>
+       <tspan x="32.749023" y="-0.064063" style="font-size: 9.5px; font-family: 'Public Sans, Helvetica, Arial, sans-serif'; fill: #4a3c2c">t</tspan>
+       <tspan x="36.473877" y="-0.064063" style="font-size: 9.5px; font-family: 'Public Sans, Helvetica, Arial, sans-serif'; fill: #4a3c2c">e</tspan>
+       <tspan x="42.318604" y="-0.064063" style="font-size: 9.5px; font-family: 'Public Sans, Helvetica, Arial, sans-serif'; fill: #4a3c2c">d</tspan>
+       <tspan x="48.348877" y="-0.064063" style="font-size: 9.5px; font-family: 'Public Sans, Helvetica, Arial, sans-serif'; fill: #4a3c2c"> </tspan>
+       <tspan x="51.368652" y="-0.064063" style="font-size: 9.5px; font-family: 'Public Sans, Helvetica, Arial, sans-serif'; fill: #4a3c2c">g</tspan>
+       <tspan x="57.398926" y="-0.064063" style="font-size: 9.5px; font-family: 'Public Sans, Helvetica, Arial, sans-serif'; fill: #4a3c2c">r</tspan>
+       <tspan x="61.304688" y="-0.064063" style="font-size: 9.5px; font-family: 'Public Sans, Helvetica, Arial, sans-serif'; fill: #4a3c2c">o</tspan>
+       <tspan x="67.116943" y="-0.064063" style="font-size: 9.5px; font-family: 'Public Sans, Helvetica, Arial, sans-serif'; fill: #4a3c2c">w</tspan>
+       <tspan x="74.886719" y="-0.064063" style="font-size: 9.5px; font-family: 'Public Sans, Helvetica, Arial, sans-serif'; fill: #4a3c2c">t</tspan>
+       <tspan x="78.611572" y="-0.064063" style="font-size: 9.5px; font-family: 'Public Sans, Helvetica, Arial, sans-serif'; fill: #4a3c2c">h</tspan>
+       <tspan x="84.632568" y="-0.064063" style="font-size: 9.5px; font-family: 'Public Sans, Helvetica, Arial, sans-serif'; fill: #4a3c2c"> </tspan>
+       <tspan x="87.652344" y="-0.064063" style="font-size: 9.5px; font-family: 'Public Sans, Helvetica, Arial, sans-serif'; fill: #4a3c2c">r</tspan>
+       <tspan x="91.558105" y="-0.064063" style="font-size: 9.5px; font-family: 'Public Sans, Helvetica, Arial, sans-serif'; fill: #4a3c2c">a</tspan>
+       <tspan x="97.379639" y="-0.064063" style="font-size: 9.5px; font-family: 'Public Sans, Helvetica, Arial, sans-serif'; fill: #4a3c2c">t</tspan>
+       <tspan x="101.104492" y="-0.064063" style="font-size: 9.5px; font-family: 'Public Sans, Helvetica, Arial, sans-serif'; fill: #4a3c2c">e</tspan>
+       <tspan x="106.949219" y="-0.064063" style="font-size: 9.5px; font-family: 'Public Sans, Helvetica, Arial, sans-serif'; fill: #4a3c2c"> </tspan>
+       <tspan x="109.968994" y="-0.064063" style="font-size: 9.5px; font-family: 'Public Sans, Helvetica, Arial, sans-serif'; fill: #4a3c2c"> </tspan>
+       <tspan x="112.98877" y="-0.064063" style="font-size: 9.5px; font-family: 'Public Sans, Helvetica, Arial, sans-serif'; fill: #4a3c2c">(</tspan>
+       <tspan x="116.695068" y="-0.064063" style="font-size: 9.5px; font-family: 'Public Sans, Helvetica, Arial, sans-serif'; fill: #4a3c2c">h</tspan>
+       <tspan x="132.88811" y="-0.064063" style="font-size: 9.5px; font-family: 'Public Sans, Helvetica, Arial, sans-serif'; fill: #4a3c2c">)</tspan>
+       <tspan x="122.811768" y="-3.892188" style="font-size: 6.65px; font-family: 'Public Sans, Helvetica, Arial, sans-serif'; fill: #4a3c2c">−</tspan>
+       <tspan x="128.38374" y="-3.892188" style="font-size: 6.65px; font-family: 'Public Sans, Helvetica, Arial, sans-serif'; fill: #4a3c2c">1</tspan>
+      </text>
+     </g>
+    </g>
+   </g>
+   <g id="line2d_37">
+    <path d="M 302.640059 7.146 
+L 304.411379 15.037579 
+L 306.182699 22.208466 
+L 308.839679 31.815615 
+L 311.496659 40.265277 
+L 314.153639 47.75475 
+L 316.810619 54.438903 
+L 319.467599 60.441 
+L 322.124579 65.860369 
+L 324.781559 70.777944 
+L 327.438539 75.260336 
+L 330.095519 79.362864 
+L 332.752499 83.131854 
+L 336.295139 87.705023 
+L 339.837779 91.830939 
+L 343.380419 95.572154 
+L 346.923059 98.980076 
+L 350.465699 102.097343 
+L 354.008339 104.95962 
+L 358.436639 108.22423 
+L 362.864939 111.186 
+L 367.293239 113.885202 
+L 371.721539 116.35527 
+L 377.035499 119.055984 
+L 382.349459 121.507017 
+L 388.549079 124.094816 
+L 394.748699 126.430673 
+L 401.833979 128.836435 
+L 408.919259 131.001319 
+L 416.890199 133.191533 
+L 424.86114 135.160016 
+L 433.71774 137.125936 
+L 443.46 139.060014 
+L 454.08792 140.93971 
+L 465.6015 142.748574 
+L 478.00074 144.475403 
+L 478.8864 144.591 
+L 478.8864 144.591 
+" clip-path="url(#p3d5baf3910)" style="fill: none; stroke: #1f6f62; stroke-width: 1.9; stroke-linecap: square"/>
+   </g>
+   <g id="line2d_38">
+    <path d="M 302.640059 55.656 
+L 478.8864 55.656 
+" clip-path="url(#p3d5baf3910)" style="fill: none; stroke: #a4503a; stroke-width: 1.3; stroke-linecap: square"/>
+   </g>
+   <g id="line2d_39">
+    <path d="M 302.640059 100.008 
+L 478.8864 100.008 
+" clip-path="url(#p3d5baf3910)" style="fill: none; stroke-dasharray: 3.6,2.7; stroke-dashoffset: 0; stroke: #8a7458; stroke-width: 0.9"/>
+   </g>
+   <g id="line2d_40">
+    <path d="M 347.808719 100.008 
+" clip-path="url(#p3d5baf3910)" style="fill: none; stroke: #4a3c2c; stroke-width: 1.9; stroke-linecap: square"/>
+    <defs>
+     <path id="m5116f32600" d="M 0 2.25 
+C 0.596707 2.25 1.169055 2.012926 1.59099 1.59099 
+C 2.012926 1.169055 2.25 0.596707 2.25 0 
+C 2.25 -0.596707 2.012926 -1.169055 1.59099 -1.59099 
+C 1.169055 -2.012926 0.596707 -2.25 0 -2.25 
+C -0.596707 -2.25 -1.169055 -2.012926 -1.59099 -1.59099 
+C -2.012926 -1.169055 -2.25 -0.596707 -2.25 0 
+C -2.25 0.596707 -2.012926 1.169055 -1.59099 1.59099 
+C -1.169055 2.012926 -0.596707 2.25 0 2.25 
+z
+" style="stroke: #4a3c2c"/>
+    </defs>
+    <g clip-path="url(#p3d5baf3910)">
+     <use xlink:href="#m5116f32600" x="347.808719" y="100.008" style="fill: #4a3c2c; stroke: #4a3c2c"/>
+    </g>
+   </g>
+   <g id="patch_6">
+    <path d="M 302.640059 166.536 
+L 302.640059 5.76 
+" style="fill: none; stroke: #dfd2be; stroke-width: 0.9; stroke-linejoin: miter; stroke-linecap: square"/>
+   </g>
+   <g id="patch_7">
+    <path d="M 302.640059 166.536 
+L 478.8864 166.536 
+" style="fill: none; stroke: #dfd2be; stroke-width: 0.9; stroke-linejoin: miter; stroke-linecap: square"/>
+   </g>
+   <g id="text_28">
+    <!-- acetate threshold, 0.20 h$^{-1}$ -->
+    <g style="fill: #a4503a" transform="translate(363.267473 49.0032)">
+     <text>
+      <tspan x="0" y="-0.857813" style="font-size: 8.2px; font-family: 'Public Sans, Helvetica, Arial, sans-serif'; fill: #a4503a">a</tspan>
+      <tspan x="5.055542" y="-0.857813" style="font-size: 8.2px; font-family: 'Public Sans, Helvetica, Arial, sans-serif'; fill: #a4503a">c</tspan>
+      <tspan x="9.591431" y="-0.857813" style="font-size: 8.2px; font-family: 'Public Sans, Helvetica, Arial, sans-serif'; fill: #a4503a">e</tspan>
+      <tspan x="14.667114" y="-0.857813" style="font-size: 8.2px; font-family: 'Public Sans, Helvetica, Arial, sans-serif'; fill: #a4503a">t</tspan>
+      <tspan x="17.901855" y="-0.857813" style="font-size: 8.2px; font-family: 'Public Sans, Helvetica, Arial, sans-serif'; fill: #a4503a">a</tspan>
+      <tspan x="22.957397" y="-0.857813" style="font-size: 8.2px; font-family: 'Public Sans, Helvetica, Arial, sans-serif'; fill: #a4503a">t</tspan>
+      <tspan x="26.192139" y="-0.857813" style="font-size: 8.2px; font-family: 'Public Sans, Helvetica, Arial, sans-serif'; fill: #a4503a">e</tspan>
+      <tspan x="31.267822" y="-0.857813" style="font-size: 8.2px; font-family: 'Public Sans, Helvetica, Arial, sans-serif'; fill: #a4503a"> </tspan>
+      <tspan x="33.890259" y="-0.857813" style="font-size: 8.2px; font-family: 'Public Sans, Helvetica, Arial, sans-serif'; fill: #a4503a">t</tspan>
+      <tspan x="37.125" y="-0.857813" style="font-size: 8.2px; font-family: 'Public Sans, Helvetica, Arial, sans-serif'; fill: #a4503a">h</tspan>
+      <tspan x="42.35376" y="-0.857813" style="font-size: 8.2px; font-family: 'Public Sans, Helvetica, Arial, sans-serif'; fill: #a4503a">r</tspan>
+      <tspan x="45.745605" y="-0.857813" style="font-size: 8.2px; font-family: 'Public Sans, Helvetica, Arial, sans-serif'; fill: #a4503a">e</tspan>
+      <tspan x="50.821289" y="-0.857813" style="font-size: 8.2px; font-family: 'Public Sans, Helvetica, Arial, sans-serif'; fill: #a4503a">s</tspan>
+      <tspan x="55.119507" y="-0.857813" style="font-size: 8.2px; font-family: 'Public Sans, Helvetica, Arial, sans-serif'; fill: #a4503a">h</tspan>
+      <tspan x="60.348267" y="-0.857813" style="font-size: 8.2px; font-family: 'Public Sans, Helvetica, Arial, sans-serif'; fill: #a4503a">o</tspan>
+      <tspan x="65.395752" y="-0.857813" style="font-size: 8.2px; font-family: 'Public Sans, Helvetica, Arial, sans-serif'; fill: #a4503a">l</tspan>
+      <tspan x="67.687866" y="-0.857813" style="font-size: 8.2px; font-family: 'Public Sans, Helvetica, Arial, sans-serif'; fill: #a4503a">d</tspan>
+      <tspan x="72.924683" y="-0.857813" style="font-size: 8.2px; font-family: 'Public Sans, Helvetica, Arial, sans-serif'; fill: #a4503a">,</tspan>
+      <tspan x="75.547119" y="-0.857813" style="font-size: 8.2px; font-family: 'Public Sans, Helvetica, Arial, sans-serif'; fill: #a4503a"> </tspan>
+      <tspan x="78.169556" y="-0.857813" style="font-size: 8.2px; font-family: 'Public Sans, Helvetica, Arial, sans-serif'; fill: #a4503a">0</tspan>
+      <tspan x="83.418457" y="-0.857813" style="font-size: 8.2px; font-family: 'Public Sans, Helvetica, Arial, sans-serif'; fill: #a4503a">.</tspan>
+      <tspan x="85.540894" y="-0.857813" style="font-size: 8.2px; font-family: 'Public Sans, Helvetica, Arial, sans-serif'; fill: #a4503a">2</tspan>
+      <tspan x="90.789795" y="-0.857813" style="font-size: 8.2px; font-family: 'Public Sans, Helvetica, Arial, sans-serif'; fill: #a4503a">0</tspan>
+      <tspan x="96.038696" y="-0.857813" style="font-size: 8.2px; font-family: 'Public Sans, Helvetica, Arial, sans-serif'; fill: #a4503a"> </tspan>
+      <tspan x="98.661133" y="-0.857813" style="font-size: 8.2px; font-family: 'Public Sans, Helvetica, Arial, sans-serif'; fill: #a4503a">h</tspan>
+      <tspan x="103.966455" y="-3.920313" style="font-size: 5.74px; font-family: 'Public Sans, Helvetica, Arial, sans-serif'; fill: #a4503a">−</tspan>
+      <tspan x="108.805273" y="-3.920313" style="font-size: 5.74px; font-family: 'Public Sans, Helvetica, Arial, sans-serif'; fill: #a4503a">1</tspan>
+     </text>
+    </g>
+   </g>
+   <g id="text_29">
+    <!-- chosen setpoint, 0.12 h$^{-1}$ -->
+    <g style="fill: #8a7458" transform="translate(369.991473 96.1272)">
+     <text>
+      <tspan x="0" y="-0.857813" style="font-size: 8.2px; font-family: 'Public Sans, Helvetica, Arial, sans-serif'; fill: #8a7458">c</tspan>
+      <tspan x="4.535889" y="-0.857813" style="font-size: 8.2px; font-family: 'Public Sans, Helvetica, Arial, sans-serif'; fill: #8a7458">h</tspan>
+      <tspan x="9.764648" y="-0.857813" style="font-size: 8.2px; font-family: 'Public Sans, Helvetica, Arial, sans-serif'; fill: #8a7458">o</tspan>
+      <tspan x="14.812134" y="-0.857813" style="font-size: 8.2px; font-family: 'Public Sans, Helvetica, Arial, sans-serif'; fill: #8a7458">s</tspan>
+      <tspan x="19.110352" y="-0.857813" style="font-size: 8.2px; font-family: 'Public Sans, Helvetica, Arial, sans-serif'; fill: #8a7458">e</tspan>
+      <tspan x="24.186035" y="-0.857813" style="font-size: 8.2px; font-family: 'Public Sans, Helvetica, Arial, sans-serif'; fill: #8a7458">n</tspan>
+      <tspan x="29.414795" y="-0.857813" style="font-size: 8.2px; font-family: 'Public Sans, Helvetica, Arial, sans-serif'; fill: #8a7458"> </tspan>
+      <tspan x="32.037231" y="-0.857813" style="font-size: 8.2px; font-family: 'Public Sans, Helvetica, Arial, sans-serif'; fill: #8a7458">s</tspan>
+      <tspan x="36.335449" y="-0.857813" style="font-size: 8.2px; font-family: 'Public Sans, Helvetica, Arial, sans-serif'; fill: #8a7458">e</tspan>
+      <tspan x="41.411133" y="-0.857813" style="font-size: 8.2px; font-family: 'Public Sans, Helvetica, Arial, sans-serif'; fill: #8a7458">t</tspan>
+      <tspan x="44.645874" y="-0.857813" style="font-size: 8.2px; font-family: 'Public Sans, Helvetica, Arial, sans-serif'; fill: #8a7458">p</tspan>
+      <tspan x="49.88269" y="-0.857813" style="font-size: 8.2px; font-family: 'Public Sans, Helvetica, Arial, sans-serif'; fill: #8a7458">o</tspan>
+      <tspan x="54.930176" y="-0.857813" style="font-size: 8.2px; font-family: 'Public Sans, Helvetica, Arial, sans-serif'; fill: #8a7458">i</tspan>
+      <tspan x="57.22229" y="-0.857813" style="font-size: 8.2px; font-family: 'Public Sans, Helvetica, Arial, sans-serif'; fill: #8a7458">n</tspan>
+      <tspan x="62.45105" y="-0.857813" style="font-size: 8.2px; font-family: 'Public Sans, Helvetica, Arial, sans-serif'; fill: #8a7458">t</tspan>
+      <tspan x="65.685791" y="-0.857813" style="font-size: 8.2px; font-family: 'Public Sans, Helvetica, Arial, sans-serif'; fill: #8a7458">,</tspan>
+      <tspan x="68.308228" y="-0.857813" style="font-size: 8.2px; font-family: 'Public Sans, Helvetica, Arial, sans-serif'; fill: #8a7458"> </tspan>
+      <tspan x="70.930664" y="-0.857813" style="font-size: 8.2px; font-family: 'Public Sans, Helvetica, Arial, sans-serif'; fill: #8a7458">0</tspan>
+      <tspan x="76.179565" y="-0.857813" style="font-size: 8.2px; font-family: 'Public Sans, Helvetica, Arial, sans-serif'; fill: #8a7458">.</tspan>
+      <tspan x="78.802002" y="-0.857813" style="font-size: 8.2px; font-family: 'Public Sans, Helvetica, Arial, sans-serif'; fill: #8a7458">1</tspan>
+      <tspan x="84.050903" y="-0.857813" style="font-size: 8.2px; font-family: 'Public Sans, Helvetica, Arial, sans-serif'; fill: #8a7458">2</tspan>
+      <tspan x="89.299805" y="-0.857813" style="font-size: 8.2px; font-family: 'Public Sans, Helvetica, Arial, sans-serif'; fill: #8a7458"> </tspan>
+      <tspan x="91.922241" y="-0.857813" style="font-size: 8.2px; font-family: 'Public Sans, Helvetica, Arial, sans-serif'; fill: #8a7458">h</tspan>
+      <tspan x="97.227563" y="-3.920313" style="font-size: 5.74px; font-family: 'Public Sans, Helvetica, Arial, sans-serif'; fill: #8a7458">−</tspan>
+      <tspan x="102.066382" y="-3.920313" style="font-size: 5.74px; font-family: 'Public Sans, Helvetica, Arial, sans-serif'; fill: #8a7458">1</tspan>
+     </text>
+    </g>
+   </g>
+   <g id="text_30">
+    <text style="font-size: 8px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; fill: #4a3c2c" transform="translate(305.283754 151.4788)">beyond here the oxygen supply</text>
+    <text style="font-size: 8px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; fill: #4a3c2c" transform="translate(305.283754 160.43705)">sets μ, not the strain</text>
+   </g>
+  </g>
+  <g id="text_31">
+   <!-- Illustrative simulation. Y$_{XS}$ 0.45 g g⁻¹, q$_{O2}$ = μ/Y$_{XO}$ + m$_O$ with Y$_{XO}$ 1.0 g DW per g O₂ and m$_O$ 0.01 g g⁻¹ h⁻¹, OTR capacity 5.95 kg m⁻³ h⁻¹. -->
+   <g style="fill: #8a7458" transform="translate(5.76 216.648)">
+    <text>
+     <tspan x="0" y="-0.921875" style="font-size: 8.3px; font-family: 'Public Sans, Helvetica, Arial, sans-serif'; fill: #8a7458">I</tspan>
+     <tspan x="2.433105" y="-0.921875" style="font-size: 8.3px; font-family: 'Public Sans, Helvetica, Arial, sans-serif'; fill: #8a7458">l</tspan>
+     <tspan x="4.72522" y="-0.921875" style="font-size: 8.3px; font-family: 'Public Sans, Helvetica, Arial, sans-serif'; fill: #8a7458">l</tspan>
+     <tspan x="7.017334" y="-0.921875" style="font-size: 8.3px; font-family: 'Public Sans, Helvetica, Arial, sans-serif'; fill: #8a7458">u</tspan>
+     <tspan x="12.246094" y="-0.921875" style="font-size: 8.3px; font-family: 'Public Sans, Helvetica, Arial, sans-serif'; fill: #8a7458">s</tspan>
+     <tspan x="16.544312" y="-0.921875" style="font-size: 8.3px; font-family: 'Public Sans, Helvetica, Arial, sans-serif'; fill: #8a7458">t</tspan>
+     <tspan x="19.779053" y="-0.921875" style="font-size: 8.3px; font-family: 'Public Sans, Helvetica, Arial, sans-serif'; fill: #8a7458">r</tspan>
+     <tspan x="23.170898" y="-0.921875" style="font-size: 8.3px; font-family: 'Public Sans, Helvetica, Arial, sans-serif'; fill: #8a7458">a</tspan>
+     <tspan x="28.22644" y="-0.921875" style="font-size: 8.3px; font-family: 'Public Sans, Helvetica, Arial, sans-serif'; fill: #8a7458">t</tspan>
+     <tspan x="31.461182" y="-0.921875" style="font-size: 8.3px; font-family: 'Public Sans, Helvetica, Arial, sans-serif'; fill: #8a7458">i</tspan>
+     <tspan x="33.753296" y="-0.921875" style="font-size: 8.3px; font-family: 'Public Sans, Helvetica, Arial, sans-serif'; fill: #8a7458">v</tspan>
+     <tspan x="38.63562" y="-0.921875" style="font-size: 8.3px; font-family: 'Public Sans, Helvetica, Arial, sans-serif'; fill: #8a7458">e</tspan>
+     <tspan x="43.711304" y="-0.921875" style="font-size: 8.3px; font-family: 'Public Sans, Helvetica, Arial, sans-serif'; fill: #8a7458"> </tspan>
+     <tspan x="46.33374" y="-0.921875" style="font-size: 8.3px; font-family: 'Public Sans, Helvetica, Arial, sans-serif'; fill: #8a7458">s</tspan>
+     <tspan x="50.631958" y="-0.921875" style="font-size: 8.3px; font-family: 'Public Sans, Helvetica, Arial, sans-serif'; fill: #8a7458">i</tspan>
+     <tspan x="52.924072" y="-0.921875" style="font-size: 8.3px; font-family: 'Public Sans, Helvetica, Arial, sans-serif'; fill: #8a7458">m</tspan>
+     <tspan x="60.960571" y="-0.921875" style="font-size: 8.3px; font-family: 'Public Sans, Helvetica, Arial, sans-serif'; fill: #8a7458">u</tspan>
+     <tspan x="66.189331" y="-0.921875" style="font-size: 8.3px; font-family: 'Public Sans, Helvetica, Arial, sans-serif'; fill: #8a7458">l</tspan>
+     <tspan x="68.481445" y="-0.921875" style="font-size: 8.3px; font-family: 'Public Sans, Helvetica, Arial, sans-serif'; fill: #8a7458">a</tspan>
+     <tspan x="73.536987" y="-0.921875" style="font-size: 8.3px; font-family: 'Public Sans, Helvetica, Arial, sans-serif'; fill: #8a7458">t</tspan>
+     <tspan x="76.771729" y="-0.921875" style="font-size: 8.3px; font-family: 'Public Sans, Helvetica, Arial, sans-serif'; fill: #8a7458">i</tspan>
+     <tspan x="79.063843" y="-0.921875" style="font-size: 8.3px; font-family: 'Public Sans, Helvetica, Arial, sans-serif'; fill: #8a7458">o</tspan>
+     <tspan x="84.111328" y="-0.921875" style="font-size: 8.3px; font-family: 'Public Sans, Helvetica, Arial, sans-serif'; fill: #8a7458">n</tspan>
+     <tspan x="89.340088" y="-0.921875" style="font-size: 8.3px; font-family: 'Public Sans, Helvetica, Arial, sans-serif'; fill: #8a7458">.</tspan>
+     <tspan x="91.962524" y="-0.921875" style="font-size: 8.3px; font-family: 'Public Sans, Helvetica, Arial, sans-serif'; fill: #8a7458"> </tspan>
+     <tspan x="94.584961" y="-0.921875" style="font-size: 8.3px; font-family: 'Public Sans, Helvetica, Arial, sans-serif'; fill: #8a7458">Y</tspan>
+     <tspan x="107.541687" y="-0.921875" style="font-size: 8.3px; font-family: 'Public Sans, Helvetica, Arial, sans-serif'; fill: #8a7458"> </tspan>
+     <tspan x="110.164124" y="-0.921875" style="font-size: 8.3px; font-family: 'Public Sans, Helvetica, Arial, sans-serif'; fill: #8a7458">0</tspan>
+     <tspan x="115.413025" y="-0.921875" style="font-size: 8.3px; font-family: 'Public Sans, Helvetica, Arial, sans-serif'; fill: #8a7458">.</tspan>
+     <tspan x="118.035461" y="-0.921875" style="font-size: 8.3px; font-family: 'Public Sans, Helvetica, Arial, sans-serif'; fill: #8a7458">4</tspan>
+     <tspan x="123.284363" y="-0.921875" style="font-size: 8.3px; font-family: 'Public Sans, Helvetica, Arial, sans-serif'; fill: #8a7458">5</tspan>
+     <tspan x="128.533264" y="-0.921875" style="font-size: 8.3px; font-family: 'Public Sans, Helvetica, Arial, sans-serif'; fill: #8a7458"> </tspan>
+     <tspan x="131.155701" y="-0.921875" style="font-size: 8.3px; font-family: 'Public Sans, Helvetica, Arial, sans-serif'; fill: #8a7458">g</tspan>
+     <tspan x="136.392517" y="-0.921875" style="font-size: 8.3px; font-family: 'Public Sans, Helvetica, Arial, sans-serif'; fill: #8a7458"> </tspan>
+     <tspan x="139.014954" y="-0.921875" style="font-size: 8.3px; font-family: 'Public Sans, Helvetica, Arial, sans-serif'; fill: #8a7458">g</tspan>
+     <tspan x="144.25177" y="-0.921875" style="font-size: 8.3px; font-family: 'Public Sans, Helvetica, Arial, sans-serif'; fill: #8a7458">⁻</tspan>
+     <tspan x="148.606384" y="-0.921875" style="font-size: 8.3px; font-family: 'Public Sans, Helvetica, Arial, sans-serif'; fill: #8a7458">¹</tspan>
+     <tspan x="151.913635" y="-0.921875" style="font-size: 8.3px; font-family: 'Public Sans, Helvetica, Arial, sans-serif'; fill: #8a7458">,</tspan>
+     <tspan x="154.536072" y="-0.921875" style="font-size: 8.3px; font-family: 'Public Sans, Helvetica, Arial, sans-serif'; fill: #8a7458"> </tspan>
+     <tspan x="157.158508" y="-0.921875" style="font-size: 8.3px; font-family: 'Public Sans, Helvetica, Arial, sans-serif'; fill: #8a7458">q</tspan>
+     <tspan x="170.910425" y="-0.921875" style="font-size: 8.3px; font-family: 'Public Sans, Helvetica, Arial, sans-serif'; fill: #8a7458"> </tspan>
+     <tspan x="173.532861" y="-0.921875" style="font-size: 8.3px; font-family: 'Public Sans, Helvetica, Arial, sans-serif'; fill: #8a7458">=</tspan>
+     <tspan x="180.445459" y="-0.921875" style="font-size: 8.3px; font-family: 'Public Sans, Helvetica, Arial, sans-serif'; fill: #8a7458"> </tspan>
+     <tspan x="183.067896" y="-0.921875" style="font-size: 8.3px; font-family: 'Public Sans, Helvetica, Arial, sans-serif'; fill: #8a7458">μ</tspan>
+     <tspan x="188.316797" y="-0.921875" style="font-size: 8.3px; font-family: 'Public Sans, Helvetica, Arial, sans-serif'; fill: #8a7458">/</tspan>
+     <tspan x="191.096338" y="-0.921875" style="font-size: 8.3px; font-family: 'Public Sans, Helvetica, Arial, sans-serif'; fill: #8a7458">Y</tspan>
+     <tspan x="204.932849" y="-0.921875" style="font-size: 8.3px; font-family: 'Public Sans, Helvetica, Arial, sans-serif'; fill: #8a7458"> </tspan>
+     <tspan x="207.555286" y="-0.921875" style="font-size: 8.3px; font-family: 'Public Sans, Helvetica, Arial, sans-serif'; fill: #8a7458">+</tspan>
+     <tspan x="214.467883" y="-0.921875" style="font-size: 8.3px; font-family: 'Public Sans, Helvetica, Arial, sans-serif'; fill: #8a7458"> </tspan>
+     <tspan x="217.09032" y="-0.921875" style="font-size: 8.3px; font-family: 'Public Sans, Helvetica, Arial, sans-serif'; fill: #8a7458">m</tspan>
+     <tspan x="229.967688" y="-0.921875" style="font-size: 8.3px; font-family: 'Public Sans, Helvetica, Arial, sans-serif'; fill: #8a7458"> </tspan>
+     <tspan x="232.590125" y="-0.921875" style="font-size: 8.3px; font-family: 'Public Sans, Helvetica, Arial, sans-serif'; fill: #8a7458">w</tspan>
+     <tspan x="239.337561" y="-0.921875" style="font-size: 8.3px; font-family: 'Public Sans, Helvetica, Arial, sans-serif'; fill: #8a7458">i</tspan>
+     <tspan x="241.629675" y="-0.921875" style="font-size: 8.3px; font-family: 'Public Sans, Helvetica, Arial, sans-serif'; fill: #8a7458">t</tspan>
+     <tspan x="244.864417" y="-0.921875" style="font-size: 8.3px; font-family: 'Public Sans, Helvetica, Arial, sans-serif'; fill: #8a7458">h</tspan>
+     <tspan x="250.093176" y="-0.921875" style="font-size: 8.3px; font-family: 'Public Sans, Helvetica, Arial, sans-serif'; fill: #8a7458"> </tspan>
+     <tspan x="252.715613" y="-0.921875" style="font-size: 8.3px; font-family: 'Public Sans, Helvetica, Arial, sans-serif'; fill: #8a7458">Y</tspan>
+     <tspan x="266.552124" y="-0.921875" style="font-size: 8.3px; font-family: 'Public Sans, Helvetica, Arial, sans-serif'; fill: #8a7458"> </tspan>
+     <tspan x="269.174561" y="-0.921875" style="font-size: 8.3px; font-family: 'Public Sans, Helvetica, Arial, sans-serif'; fill: #8a7458">1</tspan>
+     <tspan x="274.423462" y="-0.921875" style="font-size: 8.3px; font-family: 'Public Sans, Helvetica, Arial, sans-serif'; fill: #8a7458">.</tspan>
+     <tspan x="277.045898" y="-0.921875" style="font-size: 8.3px; font-family: 'Public Sans, Helvetica, Arial, sans-serif'; fill: #8a7458">0</tspan>
+     <tspan x="282.2948" y="-0.921875" style="font-size: 8.3px; font-family: 'Public Sans, Helvetica, Arial, sans-serif'; fill: #8a7458"> </tspan>
+     <tspan x="284.917236" y="-0.921875" style="font-size: 8.3px; font-family: 'Public Sans, Helvetica, Arial, sans-serif'; fill: #8a7458">g</tspan>
+     <tspan x="290.154053" y="-0.921875" style="font-size: 8.3px; font-family: 'Public Sans, Helvetica, Arial, sans-serif'; fill: #8a7458"> </tspan>
+     <tspan x="292.776489" y="-0.921875" style="font-size: 8.3px; font-family: 'Public Sans, Helvetica, Arial, sans-serif'; fill: #8a7458">D</tspan>
+     <tspan x="299.12915" y="-0.921875" style="font-size: 8.3px; font-family: 'Public Sans, Helvetica, Arial, sans-serif'; fill: #8a7458">W</tspan>
+     <tspan x="307.286499" y="-0.921875" style="font-size: 8.3px; font-family: 'Public Sans, Helvetica, Arial, sans-serif'; fill: #8a7458"> </tspan>
+     <tspan x="309.908936" y="-0.921875" style="font-size: 8.3px; font-family: 'Public Sans, Helvetica, Arial, sans-serif'; fill: #8a7458">p</tspan>
+     <tspan x="315.145752" y="-0.921875" style="font-size: 8.3px; font-family: 'Public Sans, Helvetica, Arial, sans-serif'; fill: #8a7458">e</tspan>
+     <tspan x="320.221436" y="-0.921875" style="font-size: 8.3px; font-family: 'Public Sans, Helvetica, Arial, sans-serif'; fill: #8a7458">r</tspan>
+     <tspan x="323.613281" y="-0.921875" style="font-size: 8.3px; font-family: 'Public Sans, Helvetica, Arial, sans-serif'; fill: #8a7458"> </tspan>
+     <tspan x="326.235718" y="-0.921875" style="font-size: 8.3px; font-family: 'Public Sans, Helvetica, Arial, sans-serif'; fill: #8a7458">g</tspan>
+     <tspan x="331.472534" y="-0.921875" style="font-size: 8.3px; font-family: 'Public Sans, Helvetica, Arial, sans-serif'; fill: #8a7458"> </tspan>
+     <tspan x="334.094971" y="-0.921875" style="font-size: 8.3px; font-family: 'Public Sans, Helvetica, Arial, sans-serif'; fill: #8a7458">O</tspan>
+     <tspan x="340.588623" y="-0.921875" style="font-size: 8.3px; font-family: 'Public Sans, Helvetica, Arial, sans-serif'; fill: #8a7458">₂</tspan>
+     <tspan x="343.895874" y="-0.921875" style="font-size: 8.3px; font-family: 'Public Sans, Helvetica, Arial, sans-serif'; fill: #8a7458"> </tspan>
+     <tspan x="346.518311" y="-0.921875" style="font-size: 8.3px; font-family: 'Public Sans, Helvetica, Arial, sans-serif'; fill: #8a7458">a</tspan>
+     <tspan x="351.573853" y="-0.921875" style="font-size: 8.3px; font-family: 'Public Sans, Helvetica, Arial, sans-serif'; fill: #8a7458">n</tspan>
+     <tspan x="356.802612" y="-0.921875" style="font-size: 8.3px; font-family: 'Public Sans, Helvetica, Arial, sans-serif'; fill: #8a7458">d</tspan>
+     <tspan x="362.039429" y="-0.921875" style="font-size: 8.3px; font-family: 'Public Sans, Helvetica, Arial, sans-serif'; fill: #8a7458"> </tspan>
+     <tspan x="364.661865" y="-0.921875" style="font-size: 8.3px; font-family: 'Public Sans, Helvetica, Arial, sans-serif'; fill: #8a7458">m</tspan>
+     <tspan x="377.539233" y="-0.921875" style="font-size: 8.3px; font-family: 'Public Sans, Helvetica, Arial, sans-serif'; fill: #8a7458"> </tspan>
+     <tspan x="380.16167" y="-0.921875" style="font-size: 8.3px; font-family: 'Public Sans, Helvetica, Arial, sans-serif'; fill: #8a7458">0</tspan>
+     <tspan x="385.410571" y="-0.921875" style="font-size: 8.3px; font-family: 'Public Sans, Helvetica, Arial, sans-serif'; fill: #8a7458">.</tspan>
+     <tspan x="388.033008" y="-0.921875" style="font-size: 8.3px; font-family: 'Public Sans, Helvetica, Arial, sans-serif'; fill: #8a7458">0</tspan>
+     <tspan x="393.281909" y="-0.921875" style="font-size: 8.3px; font-family: 'Public Sans, Helvetica, Arial, sans-serif'; fill: #8a7458">1</tspan>
+     <tspan x="398.530811" y="-0.921875" style="font-size: 8.3px; font-family: 'Public Sans, Helvetica, Arial, sans-serif'; fill: #8a7458"> </tspan>
+     <tspan x="401.153247" y="-0.921875" style="font-size: 8.3px; font-family: 'Public Sans, Helvetica, Arial, sans-serif'; fill: #8a7458">g</tspan>
+     <tspan x="406.390063" y="-0.921875" style="font-size: 8.3px; font-family: 'Public Sans, Helvetica, Arial, sans-serif'; fill: #8a7458"> </tspan>
+     <tspan x="409.0125" y="-0.921875" style="font-size: 8.3px; font-family: 'Public Sans, Helvetica, Arial, sans-serif'; fill: #8a7458">g</tspan>
+     <tspan x="414.249316" y="-0.921875" style="font-size: 8.3px; font-family: 'Public Sans, Helvetica, Arial, sans-serif'; fill: #8a7458">⁻</tspan>
+     <tspan x="418.603931" y="-0.921875" style="font-size: 8.3px; font-family: 'Public Sans, Helvetica, Arial, sans-serif'; fill: #8a7458">¹</tspan>
+     <tspan x="421.911182" y="-0.921875" style="font-size: 8.3px; font-family: 'Public Sans, Helvetica, Arial, sans-serif'; fill: #8a7458"> </tspan>
+     <tspan x="424.533618" y="-0.921875" style="font-size: 8.3px; font-family: 'Public Sans, Helvetica, Arial, sans-serif'; fill: #8a7458">h</tspan>
+     <tspan x="429.762378" y="-0.921875" style="font-size: 8.3px; font-family: 'Public Sans, Helvetica, Arial, sans-serif'; fill: #8a7458">⁻</tspan>
+     <tspan x="434.116992" y="-0.921875" style="font-size: 8.3px; font-family: 'Public Sans, Helvetica, Arial, sans-serif'; fill: #8a7458">¹</tspan>
+     <tspan x="437.424243" y="-0.921875" style="font-size: 8.3px; font-family: 'Public Sans, Helvetica, Arial, sans-serif'; fill: #8a7458">,</tspan>
+     <tspan x="440.04668" y="-0.921875" style="font-size: 8.3px; font-family: 'Public Sans, Helvetica, Arial, sans-serif'; fill: #8a7458"> </tspan>
+     <tspan x="442.669116" y="-0.921875" style="font-size: 8.3px; font-family: 'Public Sans, Helvetica, Arial, sans-serif'; fill: #8a7458">O</tspan>
+     <tspan x="449.162769" y="-0.921875" style="font-size: 8.3px; font-family: 'Public Sans, Helvetica, Arial, sans-serif'; fill: #8a7458">T</tspan>
+     <tspan x="454.202197" y="-0.921875" style="font-size: 8.3px; font-family: 'Public Sans, Helvetica, Arial, sans-serif'; fill: #8a7458">R</tspan>
+     <tspan x="459.934497" y="-0.921875" style="font-size: 8.3px; font-family: 'Public Sans, Helvetica, Arial, sans-serif'; fill: #8a7458"> </tspan>
+     <tspan x="462.556934" y="-0.921875" style="font-size: 8.3px; font-family: 'Public Sans, Helvetica, Arial, sans-serif'; fill: #8a7458">c</tspan>
+     <tspan x="467.092822" y="-0.921875" style="font-size: 8.3px; font-family: 'Public Sans, Helvetica, Arial, sans-serif'; fill: #8a7458">a</tspan>
+     <tspan x="472.148364" y="-0.921875" style="font-size: 8.3px; font-family: 'Public Sans, Helvetica, Arial, sans-serif'; fill: #8a7458">p</tspan>
+     <tspan x="477.385181" y="-0.921875" style="font-size: 8.3px; font-family: 'Public Sans, Helvetica, Arial, sans-serif'; fill: #8a7458">a</tspan>
+     <tspan x="482.440723" y="-0.921875" style="font-size: 8.3px; font-family: 'Public Sans, Helvetica, Arial, sans-serif'; fill: #8a7458">c</tspan>
+     <tspan x="486.976611" y="-0.921875" style="font-size: 8.3px; font-family: 'Public Sans, Helvetica, Arial, sans-serif'; fill: #8a7458">i</tspan>
+     <tspan x="489.268726" y="-0.921875" style="font-size: 8.3px; font-family: 'Public Sans, Helvetica, Arial, sans-serif'; fill: #8a7458">t</tspan>
+     <tspan x="492.503467" y="-0.921875" style="font-size: 8.3px; font-family: 'Public Sans, Helvetica, Arial, sans-serif'; fill: #8a7458">y</tspan>
+     <tspan x="497.385791" y="-0.921875" style="font-size: 8.3px; font-family: 'Public Sans, Helvetica, Arial, sans-serif'; fill: #8a7458"> </tspan>
+     <tspan x="500.008228" y="-0.921875" style="font-size: 8.3px; font-family: 'Public Sans, Helvetica, Arial, sans-serif'; fill: #8a7458">5</tspan>
+     <tspan x="505.257129" y="-0.921875" style="font-size: 8.3px; font-family: 'Public Sans, Helvetica, Arial, sans-serif'; fill: #8a7458">.</tspan>
+     <tspan x="507.879565" y="-0.921875" style="font-size: 8.3px; font-family: 'Public Sans, Helvetica, Arial, sans-serif'; fill: #8a7458">9</tspan>
+     <tspan x="513.128467" y="-0.921875" style="font-size: 8.3px; font-family: 'Public Sans, Helvetica, Arial, sans-serif'; fill: #8a7458">5</tspan>
+     <tspan x="518.377368" y="-0.921875" style="font-size: 8.3px; font-family: 'Public Sans, Helvetica, Arial, sans-serif'; fill: #8a7458"> </tspan>
+     <tspan x="520.999805" y="-0.921875" style="font-size: 8.3px; font-family: 'Public Sans, Helvetica, Arial, sans-serif'; fill: #8a7458">k</tspan>
+     <tspan x="525.777393" y="-0.921875" style="font-size: 8.3px; font-family: 'Public Sans, Helvetica, Arial, sans-serif'; fill: #8a7458">g</tspan>
+     <tspan x="531.014209" y="-0.921875" style="font-size: 8.3px; font-family: 'Public Sans, Helvetica, Arial, sans-serif'; fill: #8a7458"> </tspan>
+     <tspan x="533.636646" y="-0.921875" style="font-size: 8.3px; font-family: 'Public Sans, Helvetica, Arial, sans-serif'; fill: #8a7458">m</tspan>
+     <tspan x="541.673145" y="-0.921875" style="font-size: 8.3px; font-family: 'Public Sans, Helvetica, Arial, sans-serif'; fill: #8a7458">⁻</tspan>
+     <tspan x="546.027759" y="-0.921875" style="font-size: 8.3px; font-family: 'Public Sans, Helvetica, Arial, sans-serif'; fill: #8a7458">³</tspan>
+     <tspan x="549.33501" y="-0.921875" style="font-size: 8.3px; font-family: 'Public Sans, Helvetica, Arial, sans-serif'; fill: #8a7458"> </tspan>
+     <tspan x="551.957446" y="-0.921875" style="font-size: 8.3px; font-family: 'Public Sans, Helvetica, Arial, sans-serif'; fill: #8a7458">h</tspan>
+     <tspan x="557.186206" y="-0.921875" style="font-size: 8.3px; font-family: 'Public Sans, Helvetica, Arial, sans-serif'; fill: #8a7458">⁻</tspan>
+     <tspan x="561.54082" y="-0.921875" style="font-size: 8.3px; font-family: 'Public Sans, Helvetica, Arial, sans-serif'; fill: #8a7458">¹</tspan>
+     <tspan x="564.848071" y="-0.921875" style="font-size: 8.3px; font-family: 'Public Sans, Helvetica, Arial, sans-serif'; fill: #8a7458">.</tspan>
+     <tspan x="99.700952" y="0.390625" style="font-style: oblique; font-size: 5.81px; font-family: 'Public Sans, Helvetica, Arial, sans-serif'; fill: #8a7458">X</tspan>
+     <tspan x="103.657166" y="0.390625" style="font-style: oblique; font-size: 5.81px; font-family: 'Public Sans, Helvetica, Arial, sans-serif'; fill: #8a7458">S</tspan>
+     <tspan x="162.471887" y="0.390625" style="font-style: oblique; font-size: 5.81px; font-family: 'Public Sans, Helvetica, Arial, sans-serif'; fill: #8a7458">O</tspan>
+     <tspan x="196.212329" y="0.390625" style="font-style: oblique; font-size: 5.81px; font-family: 'Public Sans, Helvetica, Arial, sans-serif'; fill: #8a7458">X</tspan>
+     <tspan x="200.168542" y="0.390625" style="font-style: oblique; font-size: 5.81px; font-family: 'Public Sans, Helvetica, Arial, sans-serif'; fill: #8a7458">O</tspan>
+     <tspan x="225.203381" y="0.390625" style="font-style: oblique; font-size: 5.81px; font-family: 'Public Sans, Helvetica, Arial, sans-serif'; fill: #8a7458">O</tspan>
+     <tspan x="257.831604" y="0.390625" style="font-style: oblique; font-size: 5.81px; font-family: 'Public Sans, Helvetica, Arial, sans-serif'; fill: #8a7458">X</tspan>
+     <tspan x="261.787817" y="0.390625" style="font-style: oblique; font-size: 5.81px; font-family: 'Public Sans, Helvetica, Arial, sans-serif'; fill: #8a7458">O</tspan>
+     <tspan x="372.774927" y="0.390625" style="font-style: oblique; font-size: 5.81px; font-family: 'Public Sans, Helvetica, Arial, sans-serif'; fill: #8a7458">O</tspan>
+     <tspan x="167.017444" y="0.390625" style="font-size: 5.81px; font-family: 'Public Sans, Helvetica, Arial, sans-serif'; fill: #8a7458">2</tspan>
+    </text>
+   </g>
+  </g>
+ </g>
+ <defs>
+  <clipPath id="paa5f7aa7fc">
+   <rect x="65.9664" y="5.76" width="167.853659" height="160.776"/>
+  </clipPath>
+  <clipPath id="p3d5baf3910">
+   <rect x="302.640059" y="5.76" width="176.246341" height="160.776"/>
+  </clipPath>
+ </defs>
+</svg>
+</div><div class="fig-dark"><svg role="img" aria-label="Left: biomass under a constant-μ feed at 0.12 h⁻¹, with the exponential valid only to the point where oxygen demand meets the vessel's transfer capacity, here just under nine hours and 46 g L⁻¹. Right: past that point the growth rate is a fixed oxygen supply divided by a rising biomass, so it falls as 1/X and the acetate threshold stops being the active constraint." xmlns:xlink="http://www.w3.org/1999/xlink" width="582.56pt" height="224.151pt" viewBox="0 0 582.56 224.151" xmlns="http://www.w3.org/2000/svg" version="1.1">
+ <metadata>
+  <rdf:RDF xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:cc="http://creativecommons.org/ns#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+   <cc:Work>
+    <dc:type rdf:resource="http://purl.org/dc/dcmitype/StillImage"/>
+    <dc:date>2026-11-02T23:57:58.393828</dc:date>
+    <dc:format>image/svg+xml</dc:format>
+    <dc:creator>
+     <cc:Agent>
+      <dc:title>Matplotlib v3.10.8, https://matplotlib.org/</dc:title>
+     </cc:Agent>
+    </dc:creator>
+   </cc:Work>
+  </rdf:RDF>
+ </metadata>
+ <defs>
+  <style type="text/css">*{stroke-linejoin: round; stroke-linecap: butt}</style>
+ </defs>
+ <g id="figure_1">
+  <g id="patch_1">
+   <path d="M 0 224.151 
+L 582.56 224.151 
+L 582.56 0 
+L 0 0 
+L 0 224.151 
+z
+" style="fill: none"/>
+  </g>
+  <g id="axes_1">
+   <g id="patch_2">
+    <path d="M 65.9664 166.536 
+L 233.820059 166.536 
+L 233.820059 5.76 
+L 65.9664 5.76 
+L 65.9664 166.536 
+z
+" style="fill: none"/>
+   </g>
+   <g id="matplotlib.axis_1">
+    <g id="xtick_1">
+     <g id="line2d_1">
+      <defs>
+       <path id="md34d85a583" d="M 0 0 
+L 0 3.5 
+" style="stroke: #9a8872; stroke-width: 0.9"/>
+      </defs>
+      <g>
+       <use xlink:href="#md34d85a583" x="65.9664" y="166.536" style="fill: #9a8872; stroke: #9a8872; stroke-width: 0.9"/>
+      </g>
+     </g>
+     <g id="text_1">
+      <text style="font-size: 9.5px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: middle; fill: #9a8872" x="65.9664" y="180.754516" transform="rotate(-0 65.9664 180.754516)">0</text>
+     </g>
+    </g>
+    <g id="xtick_2">
+     <g id="line2d_2">
+      <g>
+       <use xlink:href="#md34d85a583" x="118.420668" y="166.536" style="fill: #9a8872; stroke: #9a8872; stroke-width: 0.9"/>
+      </g>
+     </g>
+     <g id="text_2">
+      <text style="font-size: 9.5px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: middle; fill: #9a8872" x="118.420668" y="180.754516" transform="rotate(-0 118.420668 180.754516)">5</text>
+     </g>
+    </g>
+    <g id="xtick_3">
+     <g id="line2d_3">
+      <g>
+       <use xlink:href="#md34d85a583" x="170.874937" y="166.536" style="fill: #9a8872; stroke: #9a8872; stroke-width: 0.9"/>
+      </g>
+     </g>
+     <g id="text_3">
+      <text style="font-size: 9.5px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: middle; fill: #9a8872" x="170.874937" y="180.754516" transform="rotate(-0 170.874937 180.754516)">10</text>
+     </g>
+    </g>
+    <g id="xtick_4">
+     <g id="line2d_4">
+      <g>
+       <use xlink:href="#md34d85a583" x="223.329205" y="166.536" style="fill: #9a8872; stroke: #9a8872; stroke-width: 0.9"/>
+      </g>
+     </g>
+     <g id="text_4">
+      <text style="font-size: 9.5px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: middle; fill: #9a8872" x="223.329205" y="180.754516" transform="rotate(-0 223.329205 180.754516)">15</text>
+     </g>
+    </g>
+    <g id="text_5">
+     <text style="font-size: 9.5px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: middle; fill: #cbbca6" x="149.893229" y="193.948734" transform="rotate(-0 149.893229 193.948734)">time from start of feed  (h)</text>
+    </g>
+   </g>
+   <g id="matplotlib.axis_2">
+    <g id="ytick_1">
+     <g id="line2d_5">
+      <path d="M 65.9664 166.536 
+L 233.820059 166.536 
+" clip-path="url(#p99e071abc1)" style="fill: none; stroke: #2e251c; stroke-opacity: 0.7; stroke-width: 0.6; stroke-linecap: square"/>
+     </g>
+     <g id="line2d_6">
+      <defs>
+       <path id="m14ea7f80aa" d="M 0 0 
+L -3.5 0 
+" style="stroke: #9a8872; stroke-width: 0.9"/>
+      </defs>
+      <g>
+       <use xlink:href="#m14ea7f80aa" x="65.9664" y="166.536" style="fill: #9a8872; stroke: #9a8872; stroke-width: 0.9"/>
+      </g>
+     </g>
+     <g id="text_6">
+      <text style="font-size: 9.5px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: end; fill: #9a8872" x="58.9664" y="170.145258" transform="rotate(-0 58.9664 170.145258)">0</text>
+     </g>
+    </g>
+    <g id="ytick_2">
+     <g id="line2d_7">
+      <path d="M 65.9664 132.688421 
+L 233.820059 132.688421 
+" clip-path="url(#p99e071abc1)" style="fill: none; stroke: #2e251c; stroke-opacity: 0.7; stroke-width: 0.6; stroke-linecap: square"/>
+     </g>
+     <g id="line2d_8">
+      <g>
+       <use xlink:href="#m14ea7f80aa" x="65.9664" y="132.688421" style="fill: #9a8872; stroke: #9a8872; stroke-width: 0.9"/>
+      </g>
+     </g>
+     <g id="text_7">
+      <text style="font-size: 9.5px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: end; fill: #9a8872" x="58.9664" y="136.297679" transform="rotate(-0 58.9664 136.297679)">20</text>
+     </g>
+    </g>
+    <g id="ytick_3">
+     <g id="line2d_9">
+      <path d="M 65.9664 98.840842 
+L 233.820059 98.840842 
+" clip-path="url(#p99e071abc1)" style="fill: none; stroke: #2e251c; stroke-opacity: 0.7; stroke-width: 0.6; stroke-linecap: square"/>
+     </g>
+     <g id="line2d_10">
+      <g>
+       <use xlink:href="#m14ea7f80aa" x="65.9664" y="98.840842" style="fill: #9a8872; stroke: #9a8872; stroke-width: 0.9"/>
+      </g>
+     </g>
+     <g id="text_8">
+      <text style="font-size: 9.5px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: end; fill: #9a8872" x="58.9664" y="102.4501" transform="rotate(-0 58.9664 102.4501)">40</text>
+     </g>
+    </g>
+    <g id="ytick_4">
+     <g id="line2d_11">
+      <path d="M 65.9664 64.993263 
+L 233.820059 64.993263 
+" clip-path="url(#p99e071abc1)" style="fill: none; stroke: #2e251c; stroke-opacity: 0.7; stroke-width: 0.6; stroke-linecap: square"/>
+     </g>
+     <g id="line2d_12">
+      <g>
+       <use xlink:href="#m14ea7f80aa" x="65.9664" y="64.993263" style="fill: #9a8872; stroke: #9a8872; stroke-width: 0.9"/>
+      </g>
+     </g>
+     <g id="text_9">
+      <text style="font-size: 9.5px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: end; fill: #9a8872" x="58.9664" y="68.602521" transform="rotate(-0 58.9664 68.602521)">60</text>
+     </g>
+    </g>
+    <g id="ytick_5">
+     <g id="line2d_13">
+      <path d="M 65.9664 31.145684 
+L 233.820059 31.145684 
+" clip-path="url(#p99e071abc1)" style="fill: none; stroke: #2e251c; stroke-opacity: 0.7; stroke-width: 0.6; stroke-linecap: square"/>
+     </g>
+     <g id="line2d_14">
+      <g>
+       <use xlink:href="#m14ea7f80aa" x="65.9664" y="31.145684" style="fill: #9a8872; stroke: #9a8872; stroke-width: 0.9"/>
+      </g>
+     </g>
+     <g id="text_10">
+      <text style="font-size: 9.5px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: end; fill: #9a8872" x="58.9664" y="34.754942" transform="rotate(-0 58.9664 34.754942)">80</text>
+     </g>
+    </g>
+    <g id="text_11">
+     <!-- biomass  (g L$^{-1}$) -->
+     <g style="fill: #cbbca6" transform="translate(40.88265 124.8605) rotate(-90)">
+      <text>
+       <tspan x="0" y="-0.064063" style="font-size: 9.5px; font-family: 'Public Sans, Helvetica, Arial, sans-serif'; fill: #cbbca6">b</tspan>
+       <tspan x="6.030273" y="-0.064063" style="font-size: 9.5px; font-family: 'Public Sans, Helvetica, Arial, sans-serif'; fill: #cbbca6">i</tspan>
+       <tspan x="8.669678" y="-0.064063" style="font-size: 9.5px; font-family: 'Public Sans, Helvetica, Arial, sans-serif'; fill: #cbbca6">o</tspan>
+       <tspan x="14.481934" y="-0.064063" style="font-size: 9.5px; font-family: 'Public Sans, Helvetica, Arial, sans-serif'; fill: #cbbca6">m</tspan>
+       <tspan x="23.736084" y="-0.064063" style="font-size: 9.5px; font-family: 'Public Sans, Helvetica, Arial, sans-serif'; fill: #cbbca6">a</tspan>
+       <tspan x="29.557617" y="-0.064063" style="font-size: 9.5px; font-family: 'Public Sans, Helvetica, Arial, sans-serif'; fill: #cbbca6">s</tspan>
+       <tspan x="34.50708" y="-0.064063" style="font-size: 9.5px; font-family: 'Public Sans, Helvetica, Arial, sans-serif'; fill: #cbbca6">s</tspan>
+       <tspan x="39.456543" y="-0.064063" style="font-size: 9.5px; font-family: 'Public Sans, Helvetica, Arial, sans-serif'; fill: #cbbca6"> </tspan>
+       <tspan x="42.476318" y="-0.064063" style="font-size: 9.5px; font-family: 'Public Sans, Helvetica, Arial, sans-serif'; fill: #cbbca6"> </tspan>
+       <tspan x="45.496094" y="-0.064063" style="font-size: 9.5px; font-family: 'Public Sans, Helvetica, Arial, sans-serif'; fill: #cbbca6">(</tspan>
+       <tspan x="49.202393" y="-0.064063" style="font-size: 9.5px; font-family: 'Public Sans, Helvetica, Arial, sans-serif'; fill: #cbbca6">g</tspan>
+       <tspan x="55.232666" y="-0.064063" style="font-size: 9.5px; font-family: 'Public Sans, Helvetica, Arial, sans-serif'; fill: #cbbca6"> </tspan>
+       <tspan x="58.252441" y="-0.064063" style="font-size: 9.5px; font-family: 'Public Sans, Helvetica, Arial, sans-serif'; fill: #cbbca6">L</tspan>
+       <tspan x="73.717212" y="-0.064063" style="font-size: 9.5px; font-family: 'Public Sans, Helvetica, Arial, sans-serif'; fill: #cbbca6">)</tspan>
+       <tspan x="63.640869" y="-3.892188" style="font-size: 6.65px; font-family: 'Public Sans, Helvetica, Arial, sans-serif'; fill: #cbbca6">−</tspan>
+       <tspan x="69.212842" y="-3.892188" style="font-size: 6.65px; font-family: 'Public Sans, Helvetica, Arial, sans-serif'; fill: #cbbca6">1</tspan>
+      </text>
+     </g>
+    </g>
+   </g>
+   <g id="line2d_15">
+    <path d="M 65.9664 132.688421 
+L 73.959431 129.709071 
+L 81.952463 126.492292 
+L 89.524808 123.21271 
+L 97.097154 119.694708 
+L 104.669499 115.925988 
+L 111.821159 112.125518 
+L 118.972818 108.080715 
+L 126.124478 103.782103 
+L 133.276138 99.220784 
+L 140.427797 94.388604 
+L 147.579457 89.278329 
+L 154.731117 83.883836 
+L 161.882776 78.200309 
+L 169.034436 72.224435 
+L 176.186096 65.954607 
+L 183.337755 59.391117 
+L 190.489415 52.536336 
+L 198.06176 44.966011 
+L 205.634106 37.082732 
+L 213.627137 28.434793 
+L 222.040854 18.988246 
+L 230.875258 8.717594 
+L 233.820059 5.21975 
+L 233.820059 5.21975 
+" clip-path="url(#p99e071abc1)" style="fill: none; stroke: #6dbdac; stroke-width: 1.9; stroke-linecap: square"/>
+   </g>
+   <g id="line2d_16">
+    <path d="M 65.9664 132.688421 
+L 73.959431 129.709071 
+L 81.952463 126.492292 
+L 89.524808 123.21271 
+L 97.097154 119.694708 
+L 104.669499 115.925988 
+L 111.821159 112.125518 
+L 118.972818 108.080715 
+L 126.124478 103.782103 
+L 133.276138 99.220784 
+L 140.427797 94.388604 
+L 147.579457 89.278329 
+L 148.000143 88.968927 
+L 148.000143 88.968927 
+" clip-path="url(#p99e071abc1)" style="fill: none; stroke: #6dbdac; stroke-width: 2.6; stroke-linecap: square"/>
+   </g>
+   <g id="line2d_17">
+    <path d="M 148.000143 166.536 
+L 148.000143 5.76 
+" clip-path="url(#p99e071abc1)" style="fill: none; stroke-dasharray: 4.4,3.3; stroke-dashoffset: 0; stroke: #d98c72; stroke-width: 1.1"/>
+   </g>
+   <g id="line2d_18">
+    <path d="M 148.000143 88.968927 
+" clip-path="url(#p99e071abc1)" style="fill: none; stroke: #d98c72; stroke-width: 1.9; stroke-linecap: square"/>
+    <defs>
+     <path id="m50f4a8b424" d="M 0 2.4 
+C 0.636487 2.4 1.246992 2.147121 1.697056 1.697056 
+C 2.147121 1.246992 2.4 0.636487 2.4 0 
+C 2.4 -0.636487 2.147121 -1.246992 1.697056 -1.697056 
+C 1.246992 -2.147121 0.636487 -2.4 0 -2.4 
+C -0.636487 -2.4 -1.246992 -2.147121 -1.697056 -1.697056 
+C -2.147121 -1.246992 -2.4 -0.636487 -2.4 0 
+C -2.4 0.636487 -2.147121 1.246992 -1.697056 1.697056 
+C -1.246992 2.147121 -0.636487 2.4 0 2.4 
+z
+" style="stroke: #d98c72"/>
+    </defs>
+    <g clip-path="url(#p99e071abc1)">
+     <use xlink:href="#m50f4a8b424" x="148.000143" y="88.968927" style="fill: #d98c72; stroke: #d98c72"/>
+    </g>
+   </g>
+   <g id="patch_3">
+    <path d="M 65.9664 166.536 
+L 65.9664 5.76 
+" style="fill: none; stroke: #3a3026; stroke-width: 0.9; stroke-linejoin: miter; stroke-linecap: square"/>
+   </g>
+   <g id="patch_4">
+    <path d="M 65.9664 166.536 
+L 233.820059 166.536 
+" style="fill: none; stroke: #3a3026; stroke-width: 0.9; stroke-linejoin: miter; stroke-linecap: square"/>
+   </g>
+   <g id="text_12">
+    <text style="font-size: 8.2px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; fill: #d98c72" transform="translate(137.064677 147.48314)">oxygen ceiling at 7.8 h</text>
+    <!-- and 46 g L$^{-1}$ -->
+    <g style="fill: #d98c72" transform="translate(178.438802 158.044484)">
+     <text>
+      <tspan x="0" y="-0.857813" style="font-size: 8.2px; font-family: 'Public Sans, Helvetica, Arial, sans-serif'; fill: #d98c72">a</tspan>
+      <tspan x="5.055542" y="-0.857813" style="font-size: 8.2px; font-family: 'Public Sans, Helvetica, Arial, sans-serif'; fill: #d98c72">n</tspan>
+      <tspan x="10.284302" y="-0.857813" style="font-size: 8.2px; font-family: 'Public Sans, Helvetica, Arial, sans-serif'; fill: #d98c72">d</tspan>
+      <tspan x="15.521118" y="-0.857813" style="font-size: 8.2px; font-family: 'Public Sans, Helvetica, Arial, sans-serif'; fill: #d98c72"> </tspan>
+      <tspan x="18.143555" y="-0.857813" style="font-size: 8.2px; font-family: 'Public Sans, Helvetica, Arial, sans-serif'; fill: #d98c72">4</tspan>
+      <tspan x="23.392456" y="-0.857813" style="font-size: 8.2px; font-family: 'Public Sans, Helvetica, Arial, sans-serif'; fill: #d98c72">6</tspan>
+      <tspan x="28.641357" y="-0.857813" style="font-size: 8.2px; font-family: 'Public Sans, Helvetica, Arial, sans-serif'; fill: #d98c72"> </tspan>
+      <tspan x="31.263794" y="-0.857813" style="font-size: 8.2px; font-family: 'Public Sans, Helvetica, Arial, sans-serif'; fill: #d98c72">g</tspan>
+      <tspan x="36.50061" y="-0.857813" style="font-size: 8.2px; font-family: 'Public Sans, Helvetica, Arial, sans-serif'; fill: #d98c72"> </tspan>
+      <tspan x="39.123047" y="-0.857813" style="font-size: 8.2px; font-family: 'Public Sans, Helvetica, Arial, sans-serif'; fill: #d98c72">L</tspan>
+      <tspan x="43.795923" y="-3.920313" style="font-size: 5.74px; font-family: 'Public Sans, Helvetica, Arial, sans-serif'; fill: #d98c72">−</tspan>
+      <tspan x="48.634741" y="-3.920313" style="font-size: 5.74px; font-family: 'Public Sans, Helvetica, Arial, sans-serif'; fill: #d98c72">1</tspan>
+     </text>
+    </g>
+   </g>
+   <g id="text_13">
+    <text style="font-size: 8.2px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; fill: #6dbdac" transform="translate(70.162741 27.222129)">the exponential</text>
+    <text style="font-size: 8.2px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; fill: #6dbdac" transform="translate(70.162741 36.404336)">is only valid here</text>
+   </g>
+  </g>
+  <g id="axes_2">
+   <g id="patch_5">
+    <path d="M 302.640059 166.536 
+L 478.8864 166.536 
+L 478.8864 5.76 
+L 302.640059 5.76 
+L 302.640059 166.536 
+z
+" style="fill: none"/>
+   </g>
+   <g id="matplotlib.axis_3">
+    <g id="xtick_5">
+     <g id="line2d_19">
+      <g>
+       <use xlink:href="#md34d85a583" x="302.640059" y="166.536" style="fill: #9a8872; stroke: #9a8872; stroke-width: 0.9"/>
+      </g>
+     </g>
+     <g id="text_14">
+      <text style="font-size: 9.5px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: middle; fill: #9a8872" x="302.640059" y="180.754516" transform="rotate(-0 302.640059 180.754516)">20</text>
+     </g>
+    </g>
+    <g id="xtick_6">
+     <g id="line2d_20">
+      <g>
+       <use xlink:href="#md34d85a583" x="337.889327" y="166.536" style="fill: #9a8872; stroke: #9a8872; stroke-width: 0.9"/>
+      </g>
+     </g>
+     <g id="text_15">
+      <text style="font-size: 9.5px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: middle; fill: #9a8872" x="337.889327" y="180.754516" transform="rotate(-0 337.889327 180.754516)">40</text>
+     </g>
+    </g>
+    <g id="xtick_7">
+     <g id="line2d_21">
+      <g>
+       <use xlink:href="#md34d85a583" x="373.138595" y="166.536" style="fill: #9a8872; stroke: #9a8872; stroke-width: 0.9"/>
+      </g>
+     </g>
+     <g id="text_16">
+      <text style="font-size: 9.5px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: middle; fill: #9a8872" x="373.138595" y="180.754516" transform="rotate(-0 373.138595 180.754516)">60</text>
+     </g>
+    </g>
+    <g id="xtick_8">
+     <g id="line2d_22">
+      <g>
+       <use xlink:href="#md34d85a583" x="408.387863" y="166.536" style="fill: #9a8872; stroke: #9a8872; stroke-width: 0.9"/>
+      </g>
+     </g>
+     <g id="text_17">
+      <text style="font-size: 9.5px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: middle; fill: #9a8872" x="408.387863" y="180.754516" transform="rotate(-0 408.387863 180.754516)">80</text>
+     </g>
+    </g>
+    <g id="xtick_9">
+     <g id="line2d_23">
+      <g>
+       <use xlink:href="#md34d85a583" x="443.637132" y="166.536" style="fill: #9a8872; stroke: #9a8872; stroke-width: 0.9"/>
+      </g>
+     </g>
+     <g id="text_18">
+      <text style="font-size: 9.5px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: middle; fill: #9a8872" x="443.637132" y="180.754516" transform="rotate(-0 443.637132 180.754516)">100</text>
+     </g>
+    </g>
+    <g id="xtick_10">
+     <g id="line2d_24">
+      <g>
+       <use xlink:href="#md34d85a583" x="478.8864" y="166.536" style="fill: #9a8872; stroke: #9a8872; stroke-width: 0.9"/>
+      </g>
+     </g>
+     <g id="text_19">
+      <text style="font-size: 9.5px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: middle; fill: #9a8872" x="478.8864" y="180.754516" transform="rotate(-0 478.8864 180.754516)">120</text>
+     </g>
+    </g>
+    <g id="text_20">
+     <!-- biomass  (g L$^{-1}$) -->
+     <g style="fill: #cbbca6" transform="translate(352.050729 195.280219)">
+      <text>
+       <tspan x="0" y="-0.064063" style="font-size: 9.5px; font-family: 'Public Sans, Helvetica, Arial, sans-serif'; fill: #cbbca6">b</tspan>
+       <tspan x="6.030273" y="-0.064063" style="font-size: 9.5px; font-family: 'Public Sans, Helvetica, Arial, sans-serif'; fill: #cbbca6">i</tspan>
+       <tspan x="8.669678" y="-0.064063" style="font-size: 9.5px; font-family: 'Public Sans, Helvetica, Arial, sans-serif'; fill: #cbbca6">o</tspan>
+       <tspan x="14.481934" y="-0.064063" style="font-size: 9.5px; font-family: 'Public Sans, Helvetica, Arial, sans-serif'; fill: #cbbca6">m</tspan>
+       <tspan x="23.736084" y="-0.064063" style="font-size: 9.5px; font-family: 'Public Sans, Helvetica, Arial, sans-serif'; fill: #cbbca6">a</tspan>
+       <tspan x="29.557617" y="-0.064063" style="font-size: 9.5px; font-family: 'Public Sans, Helvetica, Arial, sans-serif'; fill: #cbbca6">s</tspan>
+       <tspan x="34.50708" y="-0.064063" style="font-size: 9.5px; font-family: 'Public Sans, Helvetica, Arial, sans-serif'; fill: #cbbca6">s</tspan>
+       <tspan x="39.456543" y="-0.064063" style="font-size: 9.5px; font-family: 'Public Sans, Helvetica, Arial, sans-serif'; fill: #cbbca6"> </tspan>
+       <tspan x="42.476318" y="-0.064063" style="font-size: 9.5px; font-family: 'Public Sans, Helvetica, Arial, sans-serif'; fill: #cbbca6"> </tspan>
+       <tspan x="45.496094" y="-0.064063" style="font-size: 9.5px; font-family: 'Public Sans, Helvetica, Arial, sans-serif'; fill: #cbbca6">(</tspan>
+       <tspan x="49.202393" y="-0.064063" style="font-size: 9.5px; font-family: 'Public Sans, Helvetica, Arial, sans-serif'; fill: #cbbca6">g</tspan>
+       <tspan x="55.232666" y="-0.064063" style="font-size: 9.5px; font-family: 'Public Sans, Helvetica, Arial, sans-serif'; fill: #cbbca6"> </tspan>
+       <tspan x="58.252441" y="-0.064063" style="font-size: 9.5px; font-family: 'Public Sans, Helvetica, Arial, sans-serif'; fill: #cbbca6">L</tspan>
+       <tspan x="73.717212" y="-0.064063" style="font-size: 9.5px; font-family: 'Public Sans, Helvetica, Arial, sans-serif'; fill: #cbbca6">)</tspan>
+       <tspan x="63.640869" y="-3.892188" style="font-size: 6.65px; font-family: 'Public Sans, Helvetica, Arial, sans-serif'; fill: #cbbca6">−</tspan>
+       <tspan x="69.212842" y="-3.892188" style="font-size: 6.65px; font-family: 'Public Sans, Helvetica, Arial, sans-serif'; fill: #cbbca6">1</tspan>
+      </text>
+     </g>
+    </g>
+   </g>
+   <g id="matplotlib.axis_4">
+    <g id="ytick_6">
+     <g id="line2d_25">
+      <path d="M 302.640059 166.536 
+L 478.8864 166.536 
+" clip-path="url(#pa9da7753cd)" style="fill: none; stroke: #2e251c; stroke-opacity: 0.7; stroke-width: 0.6; stroke-linecap: square"/>
+     </g>
+     <g id="line2d_26">
+      <g>
+       <use xlink:href="#m14ea7f80aa" x="302.640059" y="166.536" style="fill: #9a8872; stroke: #9a8872; stroke-width: 0.9"/>
+      </g>
+     </g>
+     <g id="text_21">
+      <text style="font-size: 9.5px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: end; fill: #9a8872" x="295.640059" y="170.145258" transform="rotate(-0 295.640059 170.145258)">0.00</text>
+     </g>
+    </g>
+    <g id="ytick_7">
+     <g id="line2d_27">
+      <path d="M 302.640059 138.816 
+L 478.8864 138.816 
+" clip-path="url(#pa9da7753cd)" style="fill: none; stroke: #2e251c; stroke-opacity: 0.7; stroke-width: 0.6; stroke-linecap: square"/>
+     </g>
+     <g id="line2d_28">
+      <g>
+       <use xlink:href="#m14ea7f80aa" x="302.640059" y="138.816" style="fill: #9a8872; stroke: #9a8872; stroke-width: 0.9"/>
+      </g>
+     </g>
+     <g id="text_22">
+      <text style="font-size: 9.5px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: end; fill: #9a8872" x="295.640059" y="142.425258" transform="rotate(-0 295.640059 142.425258)">0.05</text>
+     </g>
+    </g>
+    <g id="ytick_8">
+     <g id="line2d_29">
+      <path d="M 302.640059 111.096 
+L 478.8864 111.096 
+" clip-path="url(#pa9da7753cd)" style="fill: none; stroke: #2e251c; stroke-opacity: 0.7; stroke-width: 0.6; stroke-linecap: square"/>
+     </g>
+     <g id="line2d_30">
+      <g>
+       <use xlink:href="#m14ea7f80aa" x="302.640059" y="111.096" style="fill: #9a8872; stroke: #9a8872; stroke-width: 0.9"/>
+      </g>
+     </g>
+     <g id="text_23">
+      <text style="font-size: 9.5px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: end; fill: #9a8872" x="295.640059" y="114.705258" transform="rotate(-0 295.640059 114.705258)">0.10</text>
+     </g>
+    </g>
+    <g id="ytick_9">
+     <g id="line2d_31">
+      <path d="M 302.640059 83.376 
+L 478.8864 83.376 
+" clip-path="url(#pa9da7753cd)" style="fill: none; stroke: #2e251c; stroke-opacity: 0.7; stroke-width: 0.6; stroke-linecap: square"/>
+     </g>
+     <g id="line2d_32">
+      <g>
+       <use xlink:href="#m14ea7f80aa" x="302.640059" y="83.376" style="fill: #9a8872; stroke: #9a8872; stroke-width: 0.9"/>
+      </g>
+     </g>
+     <g id="text_24">
+      <text style="font-size: 9.5px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: end; fill: #9a8872" x="295.640059" y="86.985258" transform="rotate(-0 295.640059 86.985258)">0.15</text>
+     </g>
+    </g>
+    <g id="ytick_10">
+     <g id="line2d_33">
+      <path d="M 302.640059 55.656 
+L 478.8864 55.656 
+" clip-path="url(#pa9da7753cd)" style="fill: none; stroke: #2e251c; stroke-opacity: 0.7; stroke-width: 0.6; stroke-linecap: square"/>
+     </g>
+     <g id="line2d_34">
+      <g>
+       <use xlink:href="#m14ea7f80aa" x="302.640059" y="55.656" style="fill: #9a8872; stroke: #9a8872; stroke-width: 0.9"/>
+      </g>
+     </g>
+     <g id="text_25">
+      <text style="font-size: 9.5px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: end; fill: #9a8872" x="295.640059" y="59.265258" transform="rotate(-0 295.640059 59.265258)">0.20</text>
+     </g>
+    </g>
+    <g id="ytick_11">
+     <g id="line2d_35">
+      <path d="M 302.640059 27.936 
+L 478.8864 27.936 
+" clip-path="url(#pa9da7753cd)" style="fill: none; stroke: #2e251c; stroke-opacity: 0.7; stroke-width: 0.6; stroke-linecap: square"/>
+     </g>
+     <g id="line2d_36">
+      <g>
+       <use xlink:href="#m14ea7f80aa" x="302.640059" y="27.936" style="fill: #9a8872; stroke: #9a8872; stroke-width: 0.9"/>
+      </g>
+     </g>
+     <g id="text_26">
+      <text style="font-size: 9.5px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: end; fill: #9a8872" x="295.640059" y="31.545258" transform="rotate(-0 295.640059 31.545258)">0.25</text>
+     </g>
+    </g>
+    <g id="text_27">
+     <!-- supported growth rate  (h$^{-1}$) -->
+     <g style="fill: #cbbca6" transform="translate(268.492715 154.453) rotate(-90)">
+      <text>
+       <tspan x="0" y="-0.064063" style="font-size: 9.5px; font-family: 'Public Sans, Helvetica, Arial, sans-serif'; fill: #cbbca6">s</tspan>
+       <tspan x="4.949463" y="-0.064063" style="font-size: 9.5px; font-family: 'Public Sans, Helvetica, Arial, sans-serif'; fill: #cbbca6">u</tspan>
+       <tspan x="10.970459" y="-0.064063" style="font-size: 9.5px; font-family: 'Public Sans, Helvetica, Arial, sans-serif'; fill: #cbbca6">p</tspan>
+       <tspan x="17.000732" y="-0.064063" style="font-size: 9.5px; font-family: 'Public Sans, Helvetica, Arial, sans-serif'; fill: #cbbca6">p</tspan>
+       <tspan x="23.031006" y="-0.064063" style="font-size: 9.5px; font-family: 'Public Sans, Helvetica, Arial, sans-serif'; fill: #cbbca6">o</tspan>
+       <tspan x="28.843262" y="-0.064063" style="font-size: 9.5px; font-family: 'Public Sans, Helvetica, Arial, sans-serif'; fill: #cbbca6">r</tspan>
+       <tspan x="32.749023" y="-0.064063" style="font-size: 9.5px; font-family: 'Public Sans, Helvetica, Arial, sans-serif'; fill: #cbbca6">t</tspan>
+       <tspan x="36.473877" y="-0.064063" style="font-size: 9.5px; font-family: 'Public Sans, Helvetica, Arial, sans-serif'; fill: #cbbca6">e</tspan>
+       <tspan x="42.318604" y="-0.064063" style="font-size: 9.5px; font-family: 'Public Sans, Helvetica, Arial, sans-serif'; fill: #cbbca6">d</tspan>
+       <tspan x="48.348877" y="-0.064063" style="font-size: 9.5px; font-family: 'Public Sans, Helvetica, Arial, sans-serif'; fill: #cbbca6"> </tspan>
+       <tspan x="51.368652" y="-0.064063" style="font-size: 9.5px; font-family: 'Public Sans, Helvetica, Arial, sans-serif'; fill: #cbbca6">g</tspan>
+       <tspan x="57.398926" y="-0.064063" style="font-size: 9.5px; font-family: 'Public Sans, Helvetica, Arial, sans-serif'; fill: #cbbca6">r</tspan>
+       <tspan x="61.304688" y="-0.064063" style="font-size: 9.5px; font-family: 'Public Sans, Helvetica, Arial, sans-serif'; fill: #cbbca6">o</tspan>
+       <tspan x="67.116943" y="-0.064063" style="font-size: 9.5px; font-family: 'Public Sans, Helvetica, Arial, sans-serif'; fill: #cbbca6">w</tspan>
+       <tspan x="74.886719" y="-0.064063" style="font-size: 9.5px; font-family: 'Public Sans, Helvetica, Arial, sans-serif'; fill: #cbbca6">t</tspan>
+       <tspan x="78.611572" y="-0.064063" style="font-size: 9.5px; font-family: 'Public Sans, Helvetica, Arial, sans-serif'; fill: #cbbca6">h</tspan>
+       <tspan x="84.632568" y="-0.064063" style="font-size: 9.5px; font-family: 'Public Sans, Helvetica, Arial, sans-serif'; fill: #cbbca6"> </tspan>
+       <tspan x="87.652344" y="-0.064063" style="font-size: 9.5px; font-family: 'Public Sans, Helvetica, Arial, sans-serif'; fill: #cbbca6">r</tspan>
+       <tspan x="91.558105" y="-0.064063" style="font-size: 9.5px; font-family: 'Public Sans, Helvetica, Arial, sans-serif'; fill: #cbbca6">a</tspan>
+       <tspan x="97.379639" y="-0.064063" style="font-size: 9.5px; font-family: 'Public Sans, Helvetica, Arial, sans-serif'; fill: #cbbca6">t</tspan>
+       <tspan x="101.104492" y="-0.064063" style="font-size: 9.5px; font-family: 'Public Sans, Helvetica, Arial, sans-serif'; fill: #cbbca6">e</tspan>
+       <tspan x="106.949219" y="-0.064063" style="font-size: 9.5px; font-family: 'Public Sans, Helvetica, Arial, sans-serif'; fill: #cbbca6"> </tspan>
+       <tspan x="109.968994" y="-0.064063" style="font-size: 9.5px; font-family: 'Public Sans, Helvetica, Arial, sans-serif'; fill: #cbbca6"> </tspan>
+       <tspan x="112.98877" y="-0.064063" style="font-size: 9.5px; font-family: 'Public Sans, Helvetica, Arial, sans-serif'; fill: #cbbca6">(</tspan>
+       <tspan x="116.695068" y="-0.064063" style="font-size: 9.5px; font-family: 'Public Sans, Helvetica, Arial, sans-serif'; fill: #cbbca6">h</tspan>
+       <tspan x="132.88811" y="-0.064063" style="font-size: 9.5px; font-family: 'Public Sans, Helvetica, Arial, sans-serif'; fill: #cbbca6">)</tspan>
+       <tspan x="122.811768" y="-3.892188" style="font-size: 6.65px; font-family: 'Public Sans, Helvetica, Arial, sans-serif'; fill: #cbbca6">−</tspan>
+       <tspan x="128.38374" y="-3.892188" style="font-size: 6.65px; font-family: 'Public Sans, Helvetica, Arial, sans-serif'; fill: #cbbca6">1</tspan>
+      </text>
+     </g>
+    </g>
+   </g>
+   <g id="line2d_37">
+    <path d="M 302.640059 7.146 
+L 304.411379 15.037579 
+L 306.182699 22.208466 
+L 308.839679 31.815615 
+L 311.496659 40.265277 
+L 314.153639 47.75475 
+L 316.810619 54.438903 
+L 319.467599 60.441 
+L 322.124579 65.860369 
+L 324.781559 70.777944 
+L 327.438539 75.260336 
+L 330.095519 79.362864 
+L 332.752499 83.131854 
+L 336.295139 87.705023 
+L 339.837779 91.830939 
+L 343.380419 95.572154 
+L 346.923059 98.980076 
+L 350.465699 102.097343 
+L 354.008339 104.95962 
+L 358.436639 108.22423 
+L 362.864939 111.186 
+L 367.293239 113.885202 
+L 371.721539 116.35527 
+L 377.035499 119.055984 
+L 382.349459 121.507017 
+L 388.549079 124.094816 
+L 394.748699 126.430673 
+L 401.833979 128.836435 
+L 408.919259 131.001319 
+L 416.890199 133.191533 
+L 424.86114 135.160016 
+L 433.71774 137.125936 
+L 443.46 139.060014 
+L 454.08792 140.93971 
+L 465.6015 142.748574 
+L 478.00074 144.475403 
+L 478.8864 144.591 
+L 478.8864 144.591 
+" clip-path="url(#pa9da7753cd)" style="fill: none; stroke: #6dbdac; stroke-width: 1.9; stroke-linecap: square"/>
+   </g>
+   <g id="line2d_38">
+    <path d="M 302.640059 55.656 
+L 478.8864 55.656 
+" clip-path="url(#pa9da7753cd)" style="fill: none; stroke: #d98c72; stroke-width: 1.3; stroke-linecap: square"/>
+   </g>
+   <g id="line2d_39">
+    <path d="M 302.640059 100.008 
+L 478.8864 100.008 
+" clip-path="url(#pa9da7753cd)" style="fill: none; stroke-dasharray: 3.6,2.7; stroke-dashoffset: 0; stroke: #9a8872; stroke-width: 0.9"/>
+   </g>
+   <g id="line2d_40">
+    <path d="M 347.808719 100.008 
+" clip-path="url(#pa9da7753cd)" style="fill: none; stroke: #cbbca6; stroke-width: 1.9; stroke-linecap: square"/>
+    <defs>
+     <path id="m0b0fe881f1" d="M 0 2.25 
+C 0.596707 2.25 1.169055 2.012926 1.59099 1.59099 
+C 2.012926 1.169055 2.25 0.596707 2.25 0 
+C 2.25 -0.596707 2.012926 -1.169055 1.59099 -1.59099 
+C 1.169055 -2.012926 0.596707 -2.25 0 -2.25 
+C -0.596707 -2.25 -1.169055 -2.012926 -1.59099 -1.59099 
+C -2.012926 -1.169055 -2.25 -0.596707 -2.25 0 
+C -2.25 0.596707 -2.012926 1.169055 -1.59099 1.59099 
+C -1.169055 2.012926 -0.596707 2.25 0 2.25 
+z
+" style="stroke: #cbbca6"/>
+    </defs>
+    <g clip-path="url(#pa9da7753cd)">
+     <use xlink:href="#m0b0fe881f1" x="347.808719" y="100.008" style="fill: #cbbca6; stroke: #cbbca6"/>
+    </g>
+   </g>
+   <g id="patch_6">
+    <path d="M 302.640059 166.536 
+L 302.640059 5.76 
+" style="fill: none; stroke: #3a3026; stroke-width: 0.9; stroke-linejoin: miter; stroke-linecap: square"/>
+   </g>
+   <g id="patch_7">
+    <path d="M 302.640059 166.536 
+L 478.8864 166.536 
+" style="fill: none; stroke: #3a3026; stroke-width: 0.9; stroke-linejoin: miter; stroke-linecap: square"/>
+   </g>
+   <g id="text_28">
+    <!-- acetate threshold, 0.20 h$^{-1}$ -->
+    <g style="fill: #d98c72" transform="translate(363.267473 49.0032)">
+     <text>
+      <tspan x="0" y="-0.857813" style="font-size: 8.2px; font-family: 'Public Sans, Helvetica, Arial, sans-serif'; fill: #d98c72">a</tspan>
+      <tspan x="5.055542" y="-0.857813" style="font-size: 8.2px; font-family: 'Public Sans, Helvetica, Arial, sans-serif'; fill: #d98c72">c</tspan>
+      <tspan x="9.591431" y="-0.857813" style="font-size: 8.2px; font-family: 'Public Sans, Helvetica, Arial, sans-serif'; fill: #d98c72">e</tspan>
+      <tspan x="14.667114" y="-0.857813" style="font-size: 8.2px; font-family: 'Public Sans, Helvetica, Arial, sans-serif'; fill: #d98c72">t</tspan>
+      <tspan x="17.901855" y="-0.857813" style="font-size: 8.2px; font-family: 'Public Sans, Helvetica, Arial, sans-serif'; fill: #d98c72">a</tspan>
+      <tspan x="22.957397" y="-0.857813" style="font-size: 8.2px; font-family: 'Public Sans, Helvetica, Arial, sans-serif'; fill: #d98c72">t</tspan>
+      <tspan x="26.192139" y="-0.857813" style="font-size: 8.2px; font-family: 'Public Sans, Helvetica, Arial, sans-serif'; fill: #d98c72">e</tspan>
+      <tspan x="31.267822" y="-0.857813" style="font-size: 8.2px; font-family: 'Public Sans, Helvetica, Arial, sans-serif'; fill: #d98c72"> </tspan>
+      <tspan x="33.890259" y="-0.857813" style="font-size: 8.2px; font-family: 'Public Sans, Helvetica, Arial, sans-serif'; fill: #d98c72">t</tspan>
+      <tspan x="37.125" y="-0.857813" style="font-size: 8.2px; font-family: 'Public Sans, Helvetica, Arial, sans-serif'; fill: #d98c72">h</tspan>
+      <tspan x="42.35376" y="-0.857813" style="font-size: 8.2px; font-family: 'Public Sans, Helvetica, Arial, sans-serif'; fill: #d98c72">r</tspan>
+      <tspan x="45.745605" y="-0.857813" style="font-size: 8.2px; font-family: 'Public Sans, Helvetica, Arial, sans-serif'; fill: #d98c72">e</tspan>
+      <tspan x="50.821289" y="-0.857813" style="font-size: 8.2px; font-family: 'Public Sans, Helvetica, Arial, sans-serif'; fill: #d98c72">s</tspan>
+      <tspan x="55.119507" y="-0.857813" style="font-size: 8.2px; font-family: 'Public Sans, Helvetica, Arial, sans-serif'; fill: #d98c72">h</tspan>
+      <tspan x="60.348267" y="-0.857813" style="font-size: 8.2px; font-family: 'Public Sans, Helvetica, Arial, sans-serif'; fill: #d98c72">o</tspan>
+      <tspan x="65.395752" y="-0.857813" style="font-size: 8.2px; font-family: 'Public Sans, Helvetica, Arial, sans-serif'; fill: #d98c72">l</tspan>
+      <tspan x="67.687866" y="-0.857813" style="font-size: 8.2px; font-family: 'Public Sans, Helvetica, Arial, sans-serif'; fill: #d98c72">d</tspan>
+      <tspan x="72.924683" y="-0.857813" style="font-size: 8.2px; font-family: 'Public Sans, Helvetica, Arial, sans-serif'; fill: #d98c72">,</tspan>
+      <tspan x="75.547119" y="-0.857813" style="font-size: 8.2px; font-family: 'Public Sans, Helvetica, Arial, sans-serif'; fill: #d98c72"> </tspan>
+      <tspan x="78.169556" y="-0.857813" style="font-size: 8.2px; font-family: 'Public Sans, Helvetica, Arial, sans-serif'; fill: #d98c72">0</tspan>
+      <tspan x="83.418457" y="-0.857813" style="font-size: 8.2px; font-family: 'Public Sans, Helvetica, Arial, sans-serif'; fill: #d98c72">.</tspan>
+      <tspan x="85.540894" y="-0.857813" style="font-size: 8.2px; font-family: 'Public Sans, Helvetica, Arial, sans-serif'; fill: #d98c72">2</tspan>
+      <tspan x="90.789795" y="-0.857813" style="font-size: 8.2px; font-family: 'Public Sans, Helvetica, Arial, sans-serif'; fill: #d98c72">0</tspan>
+      <tspan x="96.038696" y="-0.857813" style="font-size: 8.2px; font-family: 'Public Sans, Helvetica, Arial, sans-serif'; fill: #d98c72"> </tspan>
+      <tspan x="98.661133" y="-0.857813" style="font-size: 8.2px; font-family: 'Public Sans, Helvetica, Arial, sans-serif'; fill: #d98c72">h</tspan>
+      <tspan x="103.966455" y="-3.920313" style="font-size: 5.74px; font-family: 'Public Sans, Helvetica, Arial, sans-serif'; fill: #d98c72">−</tspan>
+      <tspan x="108.805273" y="-3.920313" style="font-size: 5.74px; font-family: 'Public Sans, Helvetica, Arial, sans-serif'; fill: #d98c72">1</tspan>
+     </text>
+    </g>
+   </g>
+   <g id="text_29">
+    <!-- chosen setpoint, 0.12 h$^{-1}$ -->
+    <g style="fill: #9a8872" transform="translate(369.991473 96.1272)">
+     <text>
+      <tspan x="0" y="-0.857813" style="font-size: 8.2px; font-family: 'Public Sans, Helvetica, Arial, sans-serif'; fill: #9a8872">c</tspan>
+      <tspan x="4.535889" y="-0.857813" style="font-size: 8.2px; font-family: 'Public Sans, Helvetica, Arial, sans-serif'; fill: #9a8872">h</tspan>
+      <tspan x="9.764648" y="-0.857813" style="font-size: 8.2px; font-family: 'Public Sans, Helvetica, Arial, sans-serif'; fill: #9a8872">o</tspan>
+      <tspan x="14.812134" y="-0.857813" style="font-size: 8.2px; font-family: 'Public Sans, Helvetica, Arial, sans-serif'; fill: #9a8872">s</tspan>
+      <tspan x="19.110352" y="-0.857813" style="font-size: 8.2px; font-family: 'Public Sans, Helvetica, Arial, sans-serif'; fill: #9a8872">e</tspan>
+      <tspan x="24.186035" y="-0.857813" style="font-size: 8.2px; font-family: 'Public Sans, Helvetica, Arial, sans-serif'; fill: #9a8872">n</tspan>
+      <tspan x="29.414795" y="-0.857813" style="font-size: 8.2px; font-family: 'Public Sans, Helvetica, Arial, sans-serif'; fill: #9a8872"> </tspan>
+      <tspan x="32.037231" y="-0.857813" style="font-size: 8.2px; font-family: 'Public Sans, Helvetica, Arial, sans-serif'; fill: #9a8872">s</tspan>
+      <tspan x="36.335449" y="-0.857813" style="font-size: 8.2px; font-family: 'Public Sans, Helvetica, Arial, sans-serif'; fill: #9a8872">e</tspan>
+      <tspan x="41.411133" y="-0.857813" style="font-size: 8.2px; font-family: 'Public Sans, Helvetica, Arial, sans-serif'; fill: #9a8872">t</tspan>
+      <tspan x="44.645874" y="-0.857813" style="font-size: 8.2px; font-family: 'Public Sans, Helvetica, Arial, sans-serif'; fill: #9a8872">p</tspan>
+      <tspan x="49.88269" y="-0.857813" style="font-size: 8.2px; font-family: 'Public Sans, Helvetica, Arial, sans-serif'; fill: #9a8872">o</tspan>
+      <tspan x="54.930176" y="-0.857813" style="font-size: 8.2px; font-family: 'Public Sans, Helvetica, Arial, sans-serif'; fill: #9a8872">i</tspan>
+      <tspan x="57.22229" y="-0.857813" style="font-size: 8.2px; font-family: 'Public Sans, Helvetica, Arial, sans-serif'; fill: #9a8872">n</tspan>
+      <tspan x="62.45105" y="-0.857813" style="font-size: 8.2px; font-family: 'Public Sans, Helvetica, Arial, sans-serif'; fill: #9a8872">t</tspan>
+      <tspan x="65.685791" y="-0.857813" style="font-size: 8.2px; font-family: 'Public Sans, Helvetica, Arial, sans-serif'; fill: #9a8872">,</tspan>
+      <tspan x="68.308228" y="-0.857813" style="font-size: 8.2px; font-family: 'Public Sans, Helvetica, Arial, sans-serif'; fill: #9a8872"> </tspan>
+      <tspan x="70.930664" y="-0.857813" style="font-size: 8.2px; font-family: 'Public Sans, Helvetica, Arial, sans-serif'; fill: #9a8872">0</tspan>
+      <tspan x="76.179565" y="-0.857813" style="font-size: 8.2px; font-family: 'Public Sans, Helvetica, Arial, sans-serif'; fill: #9a8872">.</tspan>
+      <tspan x="78.802002" y="-0.857813" style="font-size: 8.2px; font-family: 'Public Sans, Helvetica, Arial, sans-serif'; fill: #9a8872">1</tspan>
+      <tspan x="84.050903" y="-0.857813" style="font-size: 8.2px; font-family: 'Public Sans, Helvetica, Arial, sans-serif'; fill: #9a8872">2</tspan>
+      <tspan x="89.299805" y="-0.857813" style="font-size: 8.2px; font-family: 'Public Sans, Helvetica, Arial, sans-serif'; fill: #9a8872"> </tspan>
+      <tspan x="91.922241" y="-0.857813" style="font-size: 8.2px; font-family: 'Public Sans, Helvetica, Arial, sans-serif'; fill: #9a8872">h</tspan>
+      <tspan x="97.227563" y="-3.920313" style="font-size: 5.74px; font-family: 'Public Sans, Helvetica, Arial, sans-serif'; fill: #9a8872">−</tspan>
+      <tspan x="102.066382" y="-3.920313" style="font-size: 5.74px; font-family: 'Public Sans, Helvetica, Arial, sans-serif'; fill: #9a8872">1</tspan>
+     </text>
+    </g>
+   </g>
+   <g id="text_30">
+    <text style="font-size: 8px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; fill: #cbbca6" transform="translate(305.283754 151.4788)">beyond here the oxygen supply</text>
+    <text style="font-size: 8px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; fill: #cbbca6" transform="translate(305.283754 160.43705)">sets μ, not the strain</text>
+   </g>
+  </g>
+  <g id="text_31">
+   <!-- Illustrative simulation. Y$_{XS}$ 0.45 g g⁻¹, q$_{O2}$ = μ/Y$_{XO}$ + m$_O$ with Y$_{XO}$ 1.0 g DW per g O₂ and m$_O$ 0.01 g g⁻¹ h⁻¹, OTR capacity 5.95 kg m⁻³ h⁻¹. -->
+   <g style="fill: #9a8872" transform="translate(5.76 216.648)">
+    <text>
+     <tspan x="0" y="-0.921875" style="font-size: 8.3px; font-family: 'Public Sans, Helvetica, Arial, sans-serif'; fill: #9a8872">I</tspan>
+     <tspan x="2.433105" y="-0.921875" style="font-size: 8.3px; font-family: 'Public Sans, Helvetica, Arial, sans-serif'; fill: #9a8872">l</tspan>
+     <tspan x="4.72522" y="-0.921875" style="font-size: 8.3px; font-family: 'Public Sans, Helvetica, Arial, sans-serif'; fill: #9a8872">l</tspan>
+     <tspan x="7.017334" y="-0.921875" style="font-size: 8.3px; font-family: 'Public Sans, Helvetica, Arial, sans-serif'; fill: #9a8872">u</tspan>
+     <tspan x="12.246094" y="-0.921875" style="font-size: 8.3px; font-family: 'Public Sans, Helvetica, Arial, sans-serif'; fill: #9a8872">s</tspan>
+     <tspan x="16.544312" y="-0.921875" style="font-size: 8.3px; font-family: 'Public Sans, Helvetica, Arial, sans-serif'; fill: #9a8872">t</tspan>
+     <tspan x="19.779053" y="-0.921875" style="font-size: 8.3px; font-family: 'Public Sans, Helvetica, Arial, sans-serif'; fill: #9a8872">r</tspan>
+     <tspan x="23.170898" y="-0.921875" style="font-size: 8.3px; font-family: 'Public Sans, Helvetica, Arial, sans-serif'; fill: #9a8872">a</tspan>
+     <tspan x="28.22644" y="-0.921875" style="font-size: 8.3px; font-family: 'Public Sans, Helvetica, Arial, sans-serif'; fill: #9a8872">t</tspan>
+     <tspan x="31.461182" y="-0.921875" style="font-size: 8.3px; font-family: 'Public Sans, Helvetica, Arial, sans-serif'; fill: #9a8872">i</tspan>
+     <tspan x="33.753296" y="-0.921875" style="font-size: 8.3px; font-family: 'Public Sans, Helvetica, Arial, sans-serif'; fill: #9a8872">v</tspan>
+     <tspan x="38.63562" y="-0.921875" style="font-size: 8.3px; font-family: 'Public Sans, Helvetica, Arial, sans-serif'; fill: #9a8872">e</tspan>
+     <tspan x="43.711304" y="-0.921875" style="font-size: 8.3px; font-family: 'Public Sans, Helvetica, Arial, sans-serif'; fill: #9a8872"> </tspan>
+     <tspan x="46.33374" y="-0.921875" style="font-size: 8.3px; font-family: 'Public Sans, Helvetica, Arial, sans-serif'; fill: #9a8872">s</tspan>
+     <tspan x="50.631958" y="-0.921875" style="font-size: 8.3px; font-family: 'Public Sans, Helvetica, Arial, sans-serif'; fill: #9a8872">i</tspan>
+     <tspan x="52.924072" y="-0.921875" style="font-size: 8.3px; font-family: 'Public Sans, Helvetica, Arial, sans-serif'; fill: #9a8872">m</tspan>
+     <tspan x="60.960571" y="-0.921875" style="font-size: 8.3px; font-family: 'Public Sans, Helvetica, Arial, sans-serif'; fill: #9a8872">u</tspan>
+     <tspan x="66.189331" y="-0.921875" style="font-size: 8.3px; font-family: 'Public Sans, Helvetica, Arial, sans-serif'; fill: #9a8872">l</tspan>
+     <tspan x="68.481445" y="-0.921875" style="font-size: 8.3px; font-family: 'Public Sans, Helvetica, Arial, sans-serif'; fill: #9a8872">a</tspan>
+     <tspan x="73.536987" y="-0.921875" style="font-size: 8.3px; font-family: 'Public Sans, Helvetica, Arial, sans-serif'; fill: #9a8872">t</tspan>
+     <tspan x="76.771729" y="-0.921875" style="font-size: 8.3px; font-family: 'Public Sans, Helvetica, Arial, sans-serif'; fill: #9a8872">i</tspan>
+     <tspan x="79.063843" y="-0.921875" style="font-size: 8.3px; font-family: 'Public Sans, Helvetica, Arial, sans-serif'; fill: #9a8872">o</tspan>
+     <tspan x="84.111328" y="-0.921875" style="font-size: 8.3px; font-family: 'Public Sans, Helvetica, Arial, sans-serif'; fill: #9a8872">n</tspan>
+     <tspan x="89.340088" y="-0.921875" style="font-size: 8.3px; font-family: 'Public Sans, Helvetica, Arial, sans-serif'; fill: #9a8872">.</tspan>
+     <tspan x="91.962524" y="-0.921875" style="font-size: 8.3px; font-family: 'Public Sans, Helvetica, Arial, sans-serif'; fill: #9a8872"> </tspan>
+     <tspan x="94.584961" y="-0.921875" style="font-size: 8.3px; font-family: 'Public Sans, Helvetica, Arial, sans-serif'; fill: #9a8872">Y</tspan>
+     <tspan x="107.541687" y="-0.921875" style="font-size: 8.3px; font-family: 'Public Sans, Helvetica, Arial, sans-serif'; fill: #9a8872"> </tspan>
+     <tspan x="110.164124" y="-0.921875" style="font-size: 8.3px; font-family: 'Public Sans, Helvetica, Arial, sans-serif'; fill: #9a8872">0</tspan>
+     <tspan x="115.413025" y="-0.921875" style="font-size: 8.3px; font-family: 'Public Sans, Helvetica, Arial, sans-serif'; fill: #9a8872">.</tspan>
+     <tspan x="118.035461" y="-0.921875" style="font-size: 8.3px; font-family: 'Public Sans, Helvetica, Arial, sans-serif'; fill: #9a8872">4</tspan>
+     <tspan x="123.284363" y="-0.921875" style="font-size: 8.3px; font-family: 'Public Sans, Helvetica, Arial, sans-serif'; fill: #9a8872">5</tspan>
+     <tspan x="128.533264" y="-0.921875" style="font-size: 8.3px; font-family: 'Public Sans, Helvetica, Arial, sans-serif'; fill: #9a8872"> </tspan>
+     <tspan x="131.155701" y="-0.921875" style="font-size: 8.3px; font-family: 'Public Sans, Helvetica, Arial, sans-serif'; fill: #9a8872">g</tspan>
+     <tspan x="136.392517" y="-0.921875" style="font-size: 8.3px; font-family: 'Public Sans, Helvetica, Arial, sans-serif'; fill: #9a8872"> </tspan>
+     <tspan x="139.014954" y="-0.921875" style="font-size: 8.3px; font-family: 'Public Sans, Helvetica, Arial, sans-serif'; fill: #9a8872">g</tspan>
+     <tspan x="144.25177" y="-0.921875" style="font-size: 8.3px; font-family: 'Public Sans, Helvetica, Arial, sans-serif'; fill: #9a8872">⁻</tspan>
+     <tspan x="148.606384" y="-0.921875" style="font-size: 8.3px; font-family: 'Public Sans, Helvetica, Arial, sans-serif'; fill: #9a8872">¹</tspan>
+     <tspan x="151.913635" y="-0.921875" style="font-size: 8.3px; font-family: 'Public Sans, Helvetica, Arial, sans-serif'; fill: #9a8872">,</tspan>
+     <tspan x="154.536072" y="-0.921875" style="font-size: 8.3px; font-family: 'Public Sans, Helvetica, Arial, sans-serif'; fill: #9a8872"> </tspan>
+     <tspan x="157.158508" y="-0.921875" style="font-size: 8.3px; font-family: 'Public Sans, Helvetica, Arial, sans-serif'; fill: #9a8872">q</tspan>
+     <tspan x="170.910425" y="-0.921875" style="font-size: 8.3px; font-family: 'Public Sans, Helvetica, Arial, sans-serif'; fill: #9a8872"> </tspan>
+     <tspan x="173.532861" y="-0.921875" style="font-size: 8.3px; font-family: 'Public Sans, Helvetica, Arial, sans-serif'; fill: #9a8872">=</tspan>
+     <tspan x="180.445459" y="-0.921875" style="font-size: 8.3px; font-family: 'Public Sans, Helvetica, Arial, sans-serif'; fill: #9a8872"> </tspan>
+     <tspan x="183.067896" y="-0.921875" style="font-size: 8.3px; font-family: 'Public Sans, Helvetica, Arial, sans-serif'; fill: #9a8872">μ</tspan>
+     <tspan x="188.316797" y="-0.921875" style="font-size: 8.3px; font-family: 'Public Sans, Helvetica, Arial, sans-serif'; fill: #9a8872">/</tspan>
+     <tspan x="191.096338" y="-0.921875" style="font-size: 8.3px; font-family: 'Public Sans, Helvetica, Arial, sans-serif'; fill: #9a8872">Y</tspan>
+     <tspan x="204.932849" y="-0.921875" style="font-size: 8.3px; font-family: 'Public Sans, Helvetica, Arial, sans-serif'; fill: #9a8872"> </tspan>
+     <tspan x="207.555286" y="-0.921875" style="font-size: 8.3px; font-family: 'Public Sans, Helvetica, Arial, sans-serif'; fill: #9a8872">+</tspan>
+     <tspan x="214.467883" y="-0.921875" style="font-size: 8.3px; font-family: 'Public Sans, Helvetica, Arial, sans-serif'; fill: #9a8872"> </tspan>
+     <tspan x="217.09032" y="-0.921875" style="font-size: 8.3px; font-family: 'Public Sans, Helvetica, Arial, sans-serif'; fill: #9a8872">m</tspan>
+     <tspan x="229.967688" y="-0.921875" style="font-size: 8.3px; font-family: 'Public Sans, Helvetica, Arial, sans-serif'; fill: #9a8872"> </tspan>
+     <tspan x="232.590125" y="-0.921875" style="font-size: 8.3px; font-family: 'Public Sans, Helvetica, Arial, sans-serif'; fill: #9a8872">w</tspan>
+     <tspan x="239.337561" y="-0.921875" style="font-size: 8.3px; font-family: 'Public Sans, Helvetica, Arial, sans-serif'; fill: #9a8872">i</tspan>
+     <tspan x="241.629675" y="-0.921875" style="font-size: 8.3px; font-family: 'Public Sans, Helvetica, Arial, sans-serif'; fill: #9a8872">t</tspan>
+     <tspan x="244.864417" y="-0.921875" style="font-size: 8.3px; font-family: 'Public Sans, Helvetica, Arial, sans-serif'; fill: #9a8872">h</tspan>
+     <tspan x="250.093176" y="-0.921875" style="font-size: 8.3px; font-family: 'Public Sans, Helvetica, Arial, sans-serif'; fill: #9a8872"> </tspan>
+     <tspan x="252.715613" y="-0.921875" style="font-size: 8.3px; font-family: 'Public Sans, Helvetica, Arial, sans-serif'; fill: #9a8872">Y</tspan>
+     <tspan x="266.552124" y="-0.921875" style="font-size: 8.3px; font-family: 'Public Sans, Helvetica, Arial, sans-serif'; fill: #9a8872"> </tspan>
+     <tspan x="269.174561" y="-0.921875" style="font-size: 8.3px; font-family: 'Public Sans, Helvetica, Arial, sans-serif'; fill: #9a8872">1</tspan>
+     <tspan x="274.423462" y="-0.921875" style="font-size: 8.3px; font-family: 'Public Sans, Helvetica, Arial, sans-serif'; fill: #9a8872">.</tspan>
+     <tspan x="277.045898" y="-0.921875" style="font-size: 8.3px; font-family: 'Public Sans, Helvetica, Arial, sans-serif'; fill: #9a8872">0</tspan>
+     <tspan x="282.2948" y="-0.921875" style="font-size: 8.3px; font-family: 'Public Sans, Helvetica, Arial, sans-serif'; fill: #9a8872"> </tspan>
+     <tspan x="284.917236" y="-0.921875" style="font-size: 8.3px; font-family: 'Public Sans, Helvetica, Arial, sans-serif'; fill: #9a8872">g</tspan>
+     <tspan x="290.154053" y="-0.921875" style="font-size: 8.3px; font-family: 'Public Sans, Helvetica, Arial, sans-serif'; fill: #9a8872"> </tspan>
+     <tspan x="292.776489" y="-0.921875" style="font-size: 8.3px; font-family: 'Public Sans, Helvetica, Arial, sans-serif'; fill: #9a8872">D</tspan>
+     <tspan x="299.12915" y="-0.921875" style="font-size: 8.3px; font-family: 'Public Sans, Helvetica, Arial, sans-serif'; fill: #9a8872">W</tspan>
+     <tspan x="307.286499" y="-0.921875" style="font-size: 8.3px; font-family: 'Public Sans, Helvetica, Arial, sans-serif'; fill: #9a8872"> </tspan>
+     <tspan x="309.908936" y="-0.921875" style="font-size: 8.3px; font-family: 'Public Sans, Helvetica, Arial, sans-serif'; fill: #9a8872">p</tspan>
+     <tspan x="315.145752" y="-0.921875" style="font-size: 8.3px; font-family: 'Public Sans, Helvetica, Arial, sans-serif'; fill: #9a8872">e</tspan>
+     <tspan x="320.221436" y="-0.921875" style="font-size: 8.3px; font-family: 'Public Sans, Helvetica, Arial, sans-serif'; fill: #9a8872">r</tspan>
+     <tspan x="323.613281" y="-0.921875" style="font-size: 8.3px; font-family: 'Public Sans, Helvetica, Arial, sans-serif'; fill: #9a8872"> </tspan>
+     <tspan x="326.235718" y="-0.921875" style="font-size: 8.3px; font-family: 'Public Sans, Helvetica, Arial, sans-serif'; fill: #9a8872">g</tspan>
+     <tspan x="331.472534" y="-0.921875" style="font-size: 8.3px; font-family: 'Public Sans, Helvetica, Arial, sans-serif'; fill: #9a8872"> </tspan>
+     <tspan x="334.094971" y="-0.921875" style="font-size: 8.3px; font-family: 'Public Sans, Helvetica, Arial, sans-serif'; fill: #9a8872">O</tspan>
+     <tspan x="340.588623" y="-0.921875" style="font-size: 8.3px; font-family: 'Public Sans, Helvetica, Arial, sans-serif'; fill: #9a8872">₂</tspan>
+     <tspan x="343.895874" y="-0.921875" style="font-size: 8.3px; font-family: 'Public Sans, Helvetica, Arial, sans-serif'; fill: #9a8872"> </tspan>
+     <tspan x="346.518311" y="-0.921875" style="font-size: 8.3px; font-family: 'Public Sans, Helvetica, Arial, sans-serif'; fill: #9a8872">a</tspan>
+     <tspan x="351.573853" y="-0.921875" style="font-size: 8.3px; font-family: 'Public Sans, Helvetica, Arial, sans-serif'; fill: #9a8872">n</tspan>
+     <tspan x="356.802612" y="-0.921875" style="font-size: 8.3px; font-family: 'Public Sans, Helvetica, Arial, sans-serif'; fill: #9a8872">d</tspan>
+     <tspan x="362.039429" y="-0.921875" style="font-size: 8.3px; font-family: 'Public Sans, Helvetica, Arial, sans-serif'; fill: #9a8872"> </tspan>
+     <tspan x="364.661865" y="-0.921875" style="font-size: 8.3px; font-family: 'Public Sans, Helvetica, Arial, sans-serif'; fill: #9a8872">m</tspan>
+     <tspan x="377.539233" y="-0.921875" style="font-size: 8.3px; font-family: 'Public Sans, Helvetica, Arial, sans-serif'; fill: #9a8872"> </tspan>
+     <tspan x="380.16167" y="-0.921875" style="font-size: 8.3px; font-family: 'Public Sans, Helvetica, Arial, sans-serif'; fill: #9a8872">0</tspan>
+     <tspan x="385.410571" y="-0.921875" style="font-size: 8.3px; font-family: 'Public Sans, Helvetica, Arial, sans-serif'; fill: #9a8872">.</tspan>
+     <tspan x="388.033008" y="-0.921875" style="font-size: 8.3px; font-family: 'Public Sans, Helvetica, Arial, sans-serif'; fill: #9a8872">0</tspan>
+     <tspan x="393.281909" y="-0.921875" style="font-size: 8.3px; font-family: 'Public Sans, Helvetica, Arial, sans-serif'; fill: #9a8872">1</tspan>
+     <tspan x="398.530811" y="-0.921875" style="font-size: 8.3px; font-family: 'Public Sans, Helvetica, Arial, sans-serif'; fill: #9a8872"> </tspan>
+     <tspan x="401.153247" y="-0.921875" style="font-size: 8.3px; font-family: 'Public Sans, Helvetica, Arial, sans-serif'; fill: #9a8872">g</tspan>
+     <tspan x="406.390063" y="-0.921875" style="font-size: 8.3px; font-family: 'Public Sans, Helvetica, Arial, sans-serif'; fill: #9a8872"> </tspan>
+     <tspan x="409.0125" y="-0.921875" style="font-size: 8.3px; font-family: 'Public Sans, Helvetica, Arial, sans-serif'; fill: #9a8872">g</tspan>
+     <tspan x="414.249316" y="-0.921875" style="font-size: 8.3px; font-family: 'Public Sans, Helvetica, Arial, sans-serif'; fill: #9a8872">⁻</tspan>
+     <tspan x="418.603931" y="-0.921875" style="font-size: 8.3px; font-family: 'Public Sans, Helvetica, Arial, sans-serif'; fill: #9a8872">¹</tspan>
+     <tspan x="421.911182" y="-0.921875" style="font-size: 8.3px; font-family: 'Public Sans, Helvetica, Arial, sans-serif'; fill: #9a8872"> </tspan>
+     <tspan x="424.533618" y="-0.921875" style="font-size: 8.3px; font-family: 'Public Sans, Helvetica, Arial, sans-serif'; fill: #9a8872">h</tspan>
+     <tspan x="429.762378" y="-0.921875" style="font-size: 8.3px; font-family: 'Public Sans, Helvetica, Arial, sans-serif'; fill: #9a8872">⁻</tspan>
+     <tspan x="434.116992" y="-0.921875" style="font-size: 8.3px; font-family: 'Public Sans, Helvetica, Arial, sans-serif'; fill: #9a8872">¹</tspan>
+     <tspan x="437.424243" y="-0.921875" style="font-size: 8.3px; font-family: 'Public Sans, Helvetica, Arial, sans-serif'; fill: #9a8872">,</tspan>
+     <tspan x="440.04668" y="-0.921875" style="font-size: 8.3px; font-family: 'Public Sans, Helvetica, Arial, sans-serif'; fill: #9a8872"> </tspan>
+     <tspan x="442.669116" y="-0.921875" style="font-size: 8.3px; font-family: 'Public Sans, Helvetica, Arial, sans-serif'; fill: #9a8872">O</tspan>
+     <tspan x="449.162769" y="-0.921875" style="font-size: 8.3px; font-family: 'Public Sans, Helvetica, Arial, sans-serif'; fill: #9a8872">T</tspan>
+     <tspan x="454.202197" y="-0.921875" style="font-size: 8.3px; font-family: 'Public Sans, Helvetica, Arial, sans-serif'; fill: #9a8872">R</tspan>
+     <tspan x="459.934497" y="-0.921875" style="font-size: 8.3px; font-family: 'Public Sans, Helvetica, Arial, sans-serif'; fill: #9a8872"> </tspan>
+     <tspan x="462.556934" y="-0.921875" style="font-size: 8.3px; font-family: 'Public Sans, Helvetica, Arial, sans-serif'; fill: #9a8872">c</tspan>
+     <tspan x="467.092822" y="-0.921875" style="font-size: 8.3px; font-family: 'Public Sans, Helvetica, Arial, sans-serif'; fill: #9a8872">a</tspan>
+     <tspan x="472.148364" y="-0.921875" style="font-size: 8.3px; font-family: 'Public Sans, Helvetica, Arial, sans-serif'; fill: #9a8872">p</tspan>
+     <tspan x="477.385181" y="-0.921875" style="font-size: 8.3px; font-family: 'Public Sans, Helvetica, Arial, sans-serif'; fill: #9a8872">a</tspan>
+     <tspan x="482.440723" y="-0.921875" style="font-size: 8.3px; font-family: 'Public Sans, Helvetica, Arial, sans-serif'; fill: #9a8872">c</tspan>
+     <tspan x="486.976611" y="-0.921875" style="font-size: 8.3px; font-family: 'Public Sans, Helvetica, Arial, sans-serif'; fill: #9a8872">i</tspan>
+     <tspan x="489.268726" y="-0.921875" style="font-size: 8.3px; font-family: 'Public Sans, Helvetica, Arial, sans-serif'; fill: #9a8872">t</tspan>
+     <tspan x="492.503467" y="-0.921875" style="font-size: 8.3px; font-family: 'Public Sans, Helvetica, Arial, sans-serif'; fill: #9a8872">y</tspan>
+     <tspan x="497.385791" y="-0.921875" style="font-size: 8.3px; font-family: 'Public Sans, Helvetica, Arial, sans-serif'; fill: #9a8872"> </tspan>
+     <tspan x="500.008228" y="-0.921875" style="font-size: 8.3px; font-family: 'Public Sans, Helvetica, Arial, sans-serif'; fill: #9a8872">5</tspan>
+     <tspan x="505.257129" y="-0.921875" style="font-size: 8.3px; font-family: 'Public Sans, Helvetica, Arial, sans-serif'; fill: #9a8872">.</tspan>
+     <tspan x="507.879565" y="-0.921875" style="font-size: 8.3px; font-family: 'Public Sans, Helvetica, Arial, sans-serif'; fill: #9a8872">9</tspan>
+     <tspan x="513.128467" y="-0.921875" style="font-size: 8.3px; font-family: 'Public Sans, Helvetica, Arial, sans-serif'; fill: #9a8872">5</tspan>
+     <tspan x="518.377368" y="-0.921875" style="font-size: 8.3px; font-family: 'Public Sans, Helvetica, Arial, sans-serif'; fill: #9a8872"> </tspan>
+     <tspan x="520.999805" y="-0.921875" style="font-size: 8.3px; font-family: 'Public Sans, Helvetica, Arial, sans-serif'; fill: #9a8872">k</tspan>
+     <tspan x="525.777393" y="-0.921875" style="font-size: 8.3px; font-family: 'Public Sans, Helvetica, Arial, sans-serif'; fill: #9a8872">g</tspan>
+     <tspan x="531.014209" y="-0.921875" style="font-size: 8.3px; font-family: 'Public Sans, Helvetica, Arial, sans-serif'; fill: #9a8872"> </tspan>
+     <tspan x="533.636646" y="-0.921875" style="font-size: 8.3px; font-family: 'Public Sans, Helvetica, Arial, sans-serif'; fill: #9a8872">m</tspan>
+     <tspan x="541.673145" y="-0.921875" style="font-size: 8.3px; font-family: 'Public Sans, Helvetica, Arial, sans-serif'; fill: #9a8872">⁻</tspan>
+     <tspan x="546.027759" y="-0.921875" style="font-size: 8.3px; font-family: 'Public Sans, Helvetica, Arial, sans-serif'; fill: #9a8872">³</tspan>
+     <tspan x="549.33501" y="-0.921875" style="font-size: 8.3px; font-family: 'Public Sans, Helvetica, Arial, sans-serif'; fill: #9a8872"> </tspan>
+     <tspan x="551.957446" y="-0.921875" style="font-size: 8.3px; font-family: 'Public Sans, Helvetica, Arial, sans-serif'; fill: #9a8872">h</tspan>
+     <tspan x="557.186206" y="-0.921875" style="font-size: 8.3px; font-family: 'Public Sans, Helvetica, Arial, sans-serif'; fill: #9a8872">⁻</tspan>
+     <tspan x="561.54082" y="-0.921875" style="font-size: 8.3px; font-family: 'Public Sans, Helvetica, Arial, sans-serif'; fill: #9a8872">¹</tspan>
+     <tspan x="564.848071" y="-0.921875" style="font-size: 8.3px; font-family: 'Public Sans, Helvetica, Arial, sans-serif'; fill: #9a8872">.</tspan>
+     <tspan x="99.700952" y="0.390625" style="font-style: oblique; font-size: 5.81px; font-family: 'Public Sans, Helvetica, Arial, sans-serif'; fill: #9a8872">X</tspan>
+     <tspan x="103.657166" y="0.390625" style="font-style: oblique; font-size: 5.81px; font-family: 'Public Sans, Helvetica, Arial, sans-serif'; fill: #9a8872">S</tspan>
+     <tspan x="162.471887" y="0.390625" style="font-style: oblique; font-size: 5.81px; font-family: 'Public Sans, Helvetica, Arial, sans-serif'; fill: #9a8872">O</tspan>
+     <tspan x="196.212329" y="0.390625" style="font-style: oblique; font-size: 5.81px; font-family: 'Public Sans, Helvetica, Arial, sans-serif'; fill: #9a8872">X</tspan>
+     <tspan x="200.168542" y="0.390625" style="font-style: oblique; font-size: 5.81px; font-family: 'Public Sans, Helvetica, Arial, sans-serif'; fill: #9a8872">O</tspan>
+     <tspan x="225.203381" y="0.390625" style="font-style: oblique; font-size: 5.81px; font-family: 'Public Sans, Helvetica, Arial, sans-serif'; fill: #9a8872">O</tspan>
+     <tspan x="257.831604" y="0.390625" style="font-style: oblique; font-size: 5.81px; font-family: 'Public Sans, Helvetica, Arial, sans-serif'; fill: #9a8872">X</tspan>
+     <tspan x="261.787817" y="0.390625" style="font-style: oblique; font-size: 5.81px; font-family: 'Public Sans, Helvetica, Arial, sans-serif'; fill: #9a8872">O</tspan>
+     <tspan x="372.774927" y="0.390625" style="font-style: oblique; font-size: 5.81px; font-family: 'Public Sans, Helvetica, Arial, sans-serif'; fill: #9a8872">O</tspan>
+     <tspan x="167.017444" y="0.390625" style="font-size: 5.81px; font-family: 'Public Sans, Helvetica, Arial, sans-serif'; fill: #9a8872">2</tspan>
+    </text>
+   </g>
+  </g>
+ </g>
+ <defs>
+  <clipPath id="p99e071abc1">
+   <rect x="65.9664" y="5.76" width="167.853659" height="160.776"/>
+  </clipPath>
+  <clipPath id="pa9da7753cd">
+   <rect x="302.640059" y="5.76" width="176.246341" height="160.776"/>
+  </clipPath>
+ </defs>
+</svg>
+</div><figcaption>Left: biomass under a constant-μ feed at 0.12 h⁻¹, with the exponential valid only to the point where oxygen demand meets the vessel's transfer capacity, here just under nine hours and 46 g L⁻¹. Right: past that point the growth rate is a fixed oxygen supply divided by a rising biomass, so it falls as 1/X and the acetate threshold stops being the active constraint.</figcaption></figure>
+<p>Fed-batch at constant specific growth rate is the one control strategy in biology that has a closed-form answer, and it is worth deriving because every term in it is a decision. If the feed is the only source of the limiting substrate and the substrate concentration in the vessel is negligible — the defining assumption of a fed-batch, and the one that fails first — then the substrate consumed equals the substrate fed, so F·S_F = (µ/Y_XS)·X·V. With X·V = X₀V₀e^(µt) the feed rate is F(t) = (µ/Y_XS)·(X₀V₀/S_F)·e^(µt), which is an exponential ramp with the same exponent as the growth it is driving. The cumulative volume added is F(0)(e^(µt) − 1)/µ, which is why the vessel&#x27;s headspace sets the run length as firmly as the strain does. Stanbury Ch 2&#x27;s named section on fed-batch culture gives the taxonomy around it — variable volume, fixed volume, cyclic fed-batch, applications and examples — and the distinction that matters for control is variable against fixed volume, because a fixed-volume fed-batch with a concentrated feed keeps the vessel constant and therefore keeps k_L a constant, which the variable-volume version does not. Shuler §9.3.3 is the quantitative treatment of fed-batch operation and §9.3.1 the chemostat-with-recycle case that is its continuous cousin.</p>
+<p><strong>4. The setpoint comes from physiology, and there are two candidate ceilings</strong></p>
+<p>Having derived the profile, the only free parameter is µ, and there are two different arguments for where it goes. The overflow argument, from week 40: acetate excretion is threshold-linear in growth rate, so the setpoint should sit below the threshold with a margin, and the threshold is a strain measurement from phase 3 rather than a literature value. The oxygen argument, from week 49: q_O2 = µ/Y_XO + m_O, so the oxygen demand per gram rises linearly with µ and the total demand rises as X·q_O2, which means the vessel&#x27;s transfer capacity sets a combined ceiling on the product of biomass and growth rate rather than on either alone. These two ceilings are not the same and they bind at different times in the run. Early, when X is low, oxygen is abundant and the overflow threshold binds. Later, when X is high, the oxygen ceiling binds at a growth rate well below the overflow threshold, so the overflow constraint stops being active and the strain&#x27;s own metabolic preference stops being the issue. The anchor computes where the crossover is. The practical consequence is that a feed profile set once, at the start, from the overflow threshold, will violate the oxygen ceiling in the second half of every high-density run — which is exactly what a DO crash at hour ten is.</p>
+<p><strong>5. DO-stat and pH-stat: feedback on a consequence rather than on a model</strong></p>
+<p>The exponential profile is open-loop: it assumes Y_XS, X₀ and µ and corrects for none of them, so an error in any of the three compounds over the run. The alternative is to feed on a signal that the substrate&#x27;s exhaustion produces. DO-stat exploits the fact that when the carbon source runs out, respiration stops and dissolved oxygen spikes; the controller adds feed on a rising-DO event. Its advantage is that it is self-correcting with respect to every parameter in the open-loop model. Its instability risk is specific and worth stating: the loop has a dead time set by the circulation time plus the probe response, and the plant gain changes through the run as biomass rises, so a controller tuned at 10 g L⁻¹ oscillates at 50 g L⁻¹, and the oscillation is in substrate concentration, which means the culture is cycling between starvation and excess — the exact condition the strategy was adopted to avoid. pH-stat works the same way on a different consequence: with ammonia as both nitrogen source and base, consumption of the carbon source acidifies and the base addition tracks growth, so base flow is a feed signal. Its failure mode is that anything else which changes pH — acetate excretion above all — corrupts the signal, so pH-stat is least reliable exactly in the overflow condition it would be most useful for.</p>
+<p><strong>6. The off-gas soft sensor, which is the best instrument on the vessel</strong></p>
+<p>From inlet and exit gas composition and the gas flow rate, a nitrogen balance gives the exit flow, and the oxygen and carbon dioxide balances then give OUR and CER directly, with no assumption about the culture at all. That makes OUR and CER the only two rates on a production fermenter that are measured rather than inferred, and their ratio RQ = CER/OUR is the single most informative number available in real time. RQ has a value for each metabolic state and the table is the deliverable: on glucose with full respiration, RQ ≈ 1.0; growing on glycerol or another more-reduced substrate, below 1; producing a reduced product such as a lipid or an alcohol, below 1; oxidising a partially-oxidised substrate such as an organic acid, above 1; fermenting — ethanol or acetate overflow — distinctly above 1, because CO₂ is produced without a matching oxygen consumption; and consuming a previously-excreted acid after the carbon source is exhausted, below 1 and falling with OUR. The diagnostic value is in the deviations rather than the value: RQ rising from 1.0 to 1.3 mid-fermentation means fermentative metabolism has started, which means either the feed has outrun the oxygen supply or the oxygen supply has fallen, and the two are distinguished by whether OUR rose or fell at the same moment. Doran §13.4&#x27;s monitoring-and-control section covers this under state estimation and indirect metabolic control, which is where the soft-sensor idea is treated as a control architecture rather than an instrument.</p>
+<p><strong>7. The mass balance as an observer, and what it can and cannot reconstruct</strong></p>
+<p>Doran §13.4.5 state estimation and §13.4.4 process modelling are the formal version of what the off-gas sensor does informally: with a stoichiometric model and a subset of measured rates, the unmeasured rates can be reconstructed, and the reconciliation machinery from week 17 is exactly the tool. The useful framing is degrees of freedom. A carbon, nitrogen, oxygen and electron balance over the vessel gives four equations; the measured quantities on a production fermenter are typically OUR, CER, base addition, feed rate and weight, which is five; the unknowns are biomass, product, each by-product and the residual substrate. Count them and the system is usually underdetermined by one or two, which is why on-line biomass estimation by capacitance or optical probe is worth its drift problems — it closes the system. When the system is overdetermined, the redundancy is a consistency check rather than a bonus, and the week 17 habit applies: an inconsistency is information about which measurement is wrong, and the usual answer is the one nobody calibrated. What the observer cannot reconstruct is anything with no elemental signature distinct from biomass, which includes most intracellular product — so for an intracellular product the soft sensor tracks the process but not the thing you are selling.</p>
+<p><strong>8. The scale-down experiment, which is the only honest test of a scale-up decision</strong></p>
+<p>Shuler §10.2.5 is the scale-down section and its logic is the inverse of §10.2.4&#x27;s: since the large vessel cannot reproduce the small one, reproduce the large vessel&#x27;s heterogeneity in a small one and see what the strain does. The standard construction is two compartments — a stirred vessel representing the well-mixed bulk, connected to a plug-flow loop representing the poorly-mixed zone, with the loop&#x27;s residence time set to the large vessel&#x27;s circulation time from week 49 and the feed introduced into the loop so that the cells see the same concentration excursion they would see at the feed point. The design parameters are therefore not free: the cycling timescale comes from the circulation time, the amplitude from the feed concentration and the loop&#x27;s residence time, and the only genuine choices are what to measure and for how long. What to measure is the thing the gradients are supposed to cost — by-product formation, yield, and the plasmid or construct stability from week 33 — and the comparison is against the same strain in a single well-mixed vessel at the same average conditions. A strain that performs identically in both is a strain whose scale-up is a transport problem only. A strain that loses 20% of yield in the two-compartment system has told you the number to put in week 52&#x27;s model, and that number cannot be obtained any other way.</p>
+<p><strong>9. The control philosophy document, which is the week&#x27;s actual deliverable</strong></p>
+<p>Every loop, setpoint, alarm and the response to each alarm, which sounds like documentation and is actually a design review. Three things make it worth writing. It forces the handover points in the DO cascade to be numbers, which they otherwise never are. It forces an alarm to have a response, which exposes the alarms that exist because the signal exists rather than because anything would be done — and an alarm with no response trains operators to ignore alarms, which is the mechanism by which real failures are missed. And it forces the distinction between a control variable and a diagnostic: RQ is a diagnostic, because closing a loop on a quantity with the off-gas dead time produces oscillation, whereas dissolved oxygen is a control variable despite being the less informative of the two. Writing which is which, and why, is the part of this week that transfers directly into the capstone dossier, because it is the part a reviewer can check without rerunning anything.</p>
+<h3>Worked anchor</h3>
+<p>Where the exponential feed has to stop, and what replaces it.</p>
+<p>Basis. The week 49 vessel: 50 m³ working volume, starting the feed at V₀ = 30 m³ and X₀ = 20 g L⁻¹, so X₀V₀ = 600 kg dry weight. Feed of 600 g L⁻¹ glucose. Biomass yield Y_XS = 0.45 g g⁻¹. Oxygen demand q_O2 = µ/Y_XO + m_O with Y_XO = 1.0 g DW per g O₂ and m_O = 0.01 g O₂ g⁻¹ h⁻¹.</p>
+<p>Step 1 — the open-loop profile at the overflow-based setpoint. Phase 3 put the acetate threshold at about 0.2 h⁻¹; take µ = 0.12 h⁻¹, a 40% margin below it. F(0) = (µ/Y_XS)(X₀V₀/S_F) = (0.12/0.45)(600,000 g)/(600 g L⁻¹) = 267 L h⁻¹.</p>
+<p>The profile: at 4 h, 431 L h⁻¹ with 1.37 m³ added and 970 kg of biomass; at 8 h, 696 L h⁻¹ with 3.58 m³ added and 1,567 kg; at 12 h, 1,126 L h⁻¹ with 7.16 m³ added and 2,532 kg. At 12 h the volume is 37.2 m³ and the cell density 68 g L⁻¹. The vessel has headspace for about 20 more hours at this rate before it reaches 50 m³, so volume is not the binding constraint.</p>
+<p>Step 2 — the oxygen ceiling, which is. At 12 h, q_O2 = 0.12 + 0.01 = 0.13 g O₂ g⁻¹ h⁻¹ and X = 68 g L⁻¹, so OUR = 8.8 kg O₂ m⁻³ h⁻¹.</p>
+<p>Week 49&#x27;s vessel delivers, at 2 bar absolute and k_L a = 500 h⁻¹ with C_L held at 2.1 g m⁻³, an OTR of 500 × (14.0 − 2.1) = 5,950 g m⁻³ h⁻¹ = 5.95 kg m⁻³ h⁻¹.</p>
+<p>So the demand at 12 h is 1.5 times the supply. The run does not reach 12 hours at µ = 0.12.</p>
+<p>Step 3 — where it actually stops. The ceiling is X(µ + 0.01) ≤ 5,950 g m⁻³ h⁻¹ with X in g m⁻³, i.e. X ≤ 5,950/(µ + m_O) in g m⁻³. At µ = 0.12 that is X ≤ 45.8 g L⁻¹. Working back through X·V = 600e^(0.12t) and V = 30 + 0.267(e^(0.12t) − 1)/0.12: solving X(t) = 45.8 gives t ≈ 8.9 h, with V = 34.2 m³ and X·V = 1,750 kg. So the exponential phase lasts just under nine hours and delivers 46 g L⁻¹, not the 68 g L⁻¹ the profile would reach at twelve.</p>
+<p>Step 4 — what replaces it. Past the ceiling the correct policy is constant OUR: feed at whatever rate holds OTR = OUR, which means the total oxygen consumption is pinned at 5.95 kg m⁻³ h⁻¹ × V and the growth rate falls as biomass rises. Explicitly, µ(t) = OTR_max/X(t) − m_O, so at 60 g L⁻¹, µ = 5,950/60,000 − 0.01 = 0.089 h⁻¹; at 80 g L⁻¹, 0.064 h⁻¹; at 100 g L⁻¹, 0.0495 h⁻¹. Biomass then grows almost linearly rather than exponentially, because X·µ is constant, which is the signature of an oxygen-transfer-limited fed-batch and is what the biomass curve of nearly every high-density process actually looks like.</p>
+<p>Time to 80 g L⁻¹: integrating dX·V/dt = (OTR_max/Y_XO)·V with V rising slowly, the biomass increment from 46 to 80 g L⁻¹ in roughly 36 m³ is about 1,200 kg, at a production rate of about 5.95 × 36 = 214 kg O₂ h⁻¹ and therefore about 214 kg DW h⁻¹, giving about 5.6 h. So 80 g L⁻¹ is reached at roughly 14.5 h against the 11 h the pure exponential would have predicted — a 30% longer run for the same endpoint, and the difference is entirely oxygen.</p>
+<p>Step 5 — the three ways to implement constant OUR, costed. (i) Compute it open-loop from the model above and program the pump. Free, and wrong by however much Y_XO, m_O and X₀ are wrong, with the errors compounding. (ii) Close the loop on dissolved oxygen: feed down when DO falls below setpoint. Self-correcting with respect to every parameter, and this is the only version that is actually robust, because DO is the variable the ceiling is expressed in. Its instability risk is the dead time — circulation time plus probe response, tens of seconds at this scale — against a plant gain that rises with biomass, so the loop must be retuned or gain-scheduled through the run. (iii) Close the loop on off-gas OUR directly, which is the physically correct variable. Rejected: the off-gas dead time includes headspace residence, which at this scale is minutes, so a feed loop closed on OUR will oscillate. Use OUR as the diagnostic that tells you whether the DO loop is doing what you think.</p>
+<p>Step 6 — the arithmetic that chooses the setpoint, stated once. Before the ceiling, µ is chosen from overflow: as high as the acetate threshold allows, because a higher µ gets to the ceiling sooner and the time before the ceiling is the only time the vessel is not oxygen-limited. After the ceiling, µ is not chosen at all — it is the quotient of a fixed oxygen supply and a rising biomass, and the only lever is the oxygen supply. Which means the single most valuable control action in a high-density fed-batch is not in the feed loop. It is the head pressure and the enrichment valve, which is to say it is week 49&#x27;s design decision, exercised. A control philosophy that treats the feed as the primary manipulated variable and enrichment as a last resort has the hierarchy upside down for the second half of the run.</p>
+<p>What this leaves out, and it matters: the whole calculation treats the vessel as well mixed, and week 49 put the circulation time at 20-60 s. The cells near the feed point see glucose at far above the vessel average for a few seconds per pass, and that is precisely the condition that triggers overflow regardless of the average growth rate. So the margin below the acetate threshold in step 1 is not conservatism about µ, it is an allowance for a gradient the model does not contain, and the only way to size it is the two-compartment scale-down experiment.</p>
+<p><strong>Assumptions behind this calculation</strong></p>
+<ul>
+<li>the week 49 vessel and its oxygen supply carried forward unchanged, including the 2 bar absolute decision</li>
+<li>feed is the only source of the limiting substrate and its concentration in the vessel is negligible, which is what makes the exponential profile exact</li>
+<li>Y_XS = 0.45 g g⁻¹ and Y_XO = 1.0 g DW per g O₂ both constant through the run, when maintenance makes both fall at low μ</li>
+<li>feed glucose at 600 g L⁻¹ and no volume change on mixing</li>
+<li>the acetate overflow threshold at about 0.2 h⁻¹, from phase 3 for this strain, with μ set 40% below it</li>
+<li>k_L a held at 500 h⁻¹ through the run, which a variable-volume fed-batch does not do as the liquid height rises</li>
+<li>the vessel treated as well mixed, so the computed μ ceiling ignores the local excursion at the feed point — the margin below the overflow threshold is the allowance for it and is not derived</li>
+<li>product formation neglected in the biomass and oxygen balances, so the figures are for a growth phase rather than a production phase</li>
+<li>no evaporative loss and no change in broth density as cell density rises</li>
+</ul>
+<h3>Reading map</h3>
+<table><thead><tr><th>Source</th><th>Treatment</th><th>Why</th></tr></thead><tbody><tr><td>Stanbury Ch 8 — Instrumentation and Control (printed p215), in full</td><td>Read closely</td><td>The week&#x27;s catalogue. Named sections: introduction; methods of measuring process variables (216) — temperature with its four subsections, flow measurement and control for gases and liquids, pressure measurement and control, safety valves, agitator shaft power, rate of stirring, foam sensing and control, weight, microbial biomass, measurement and control of dissolved oxygen (222), inlet and exit-gas analysis (224), pH measurement and control (225), redox, carbon dioxide electrodes; on-line analysis of other chemical factors (227); control systems (228), from manual and two-position through proportional, integral and derivative and their combinations to controllers and more complex systems; computer applications in fermentation technology (234) with data logging, data analysis and process control. Read the sensor sections closely and write a failure mode beside each — the book does not supply that column and the control philosophy document needs it. The control-systems section is standard PID material and can be skimmed by anyone with a controls course behind them. This book numbers no sections.</td></tr><tr><td>Doran Ch 13 §13.4 — Monitoring and Control of Bioreactors (printed p344)</td><td>Read closely</td><td>This resolves the curriculum&#x27;s unnumbered &#x27;Doran Ch 13&#x27; pointer for this week — see the README. §13.4.1 onward covers the measurement side and then, more usefully, §13.4.3 fault analysis, §13.4.4 process modelling, §13.4.5 state estimation, §13.4.6 feedback control, §13.4.7 indirect metabolic control, §13.4.8 programmed control, §13.4.9 artificial intelligence in bioprocess control. Read §13.4.5 and §13.4.7 closely: state estimation is the formal version of the off-gas soft sensor and indirect metabolic control is the formal version of DO-stat and pH-stat, and having the architecture named makes the distinction between control variable and diagnostic easy to write down. §13.5 ideal reactor operation is the quantitative comparison of batch, fed-batch and continuous operation that the week&#x27;s reading list wants from this chapter.</td></tr><tr><td>Shuler Ch 10 §10.3 — Bioreactor Instrumentation and Control (printed p307)</td><td>Read closely</td><td>Substituted for the curriculum&#x27;s §10.2, which is Scale-up and Its Difficulties — the search-verified numbering for this chapter was off by one throughout; see the README. §10.3.1 introduction, §10.3.2 instrumentation for measurements of active fermentation (307), §10.3.3 using the information obtained (311). §10.3.3 is short and is the best statement in any of these texts of the difference between having a measurement and having a control action, which is the week&#x27;s deliverable.</td></tr><tr><td>Shuler Ch 10 §10.2.4 and §10.2.5 — Scale-up (printed p297) and Scale-down (p301)</td><td>Read closely</td><td>Substituted for the curriculum&#x27;s &#x27;Shuler §10.1 on scale-up and scale-down&#x27;, which points at the chapter Introduction. §10.2.5 is the scale-down section this week&#x27;s eighth session is built on, and §10.2.4 with Table 10.2 is the week 49 material it depends on — read the table again here, because the cycling timescale for the two-compartment experiment is the circulation time that Table 10.2&#x27;s column for your chosen criterion implies.</td></tr><tr><td>Stanbury Ch 2, named section &#x27;fed-batch culture&#x27; (printed p27)</td><td>Read closely</td><td>Revisited, as the curriculum says. Subsections: variable volume fed-batch culture (27), fixed volume fed-batch culture (28), cyclic fed-batch culture (29), application of fed-batch culture (29), examples of the use of fed-batch culture (30). The variable-against-fixed-volume distinction is the one that matters for this week, because a fixed-volume fed-batch with a concentrated feed holds k_L a constant through the run while a variable-volume one does not, which changes where the oxygen ceiling of the anchor bites. Note that Ch 2&#x27;s named sections are batch culture, continuous culture, the two batch-against-continuous comparisons, and fed-batch culture — there is no section on environmental effects on growth anywhere in it, a pointer corrected in an earlier pass and recorded in the README.</td></tr><tr><td>Shuler Ch 9 §9.3.3 — Fed-batch Operation (printed p256), with §9.3.1 and §9.3.2</td><td>Read closely</td><td>Not in the curriculum&#x27;s reading list for this week and the natural numbered companion to Stanbury&#x27;s named treatment. §9.3.1 chemostat with recycle (248), §9.3.2 multistage chemostat systems (250), §9.3.3 fed-batch operation (256), §9.3.4 perfusion systems (262). §9.3.3 is the quantitative fed-batch derivation; §9.3.1 is worth reading beside it because cell recycle is the continuous-culture way of achieving what fed-batch achieves in batch, and comparing the two is the cleanest way to see that both are devices for decoupling cell density from dilution rate.</td></tr><tr><td>Lee Ch 11 §11.2.1 — fermentative pathways</td><td>Skim</td><td>The curriculum&#x27;s entry, with its own parenthetical warning attached: Ch 11 has no fermentation-strategies section and is organised by product class throughout — §11.2 fuels, §11.3 chemicals, §11.4 materials. §11.2.1 resolves and is worth a skim for which products are made under which oxygen regime, but nothing in Ch 11 bears on feeding strategy, control loops or scale-down. The week&#x27;s strategy content comes from Stanbury Ch 2, Shuler §9.3.3 and Doran §13.4-13.5.</td></tr><tr><td>Doran Ch 7 §7.9-7.13 — mixing and circulation time</td><td>Skip</td><td>Read in week 49. Noted here only because the two-compartment scale-down design takes its one non-arbitrary parameter — the loop residence time — from the circulation time computed there, so if week 49&#x27;s calculation was not done, this week&#x27;s eighth session cannot be.</td></tr></tbody></table>
+<h3>Common misconceptions</h3>
+<ul>
+<li>That the feed profile is set by the strain. It is set by the strain only until the oxygen ceiling binds, which in a high-density aerobic process happens in the first half of the run. After that, growth rate is the quotient of a fixed oxygen supply and a rising biomass, falling as 1/X, and no feed-controller tuning changes it — only pressure or enrichment does. A DO crash at hour ten is this arithmetic arriving on schedule, not a control fault.</li>
+<li>That RQ is a control variable. It is the most informative number on the vessel and the worst one to close a loop on, because the off-gas measurement carries a dead time that includes headspace residence — minutes at production scale. Close the feed loop on dissolved oxygen, which has a dead time of tens of seconds, and use RQ to check that the DO loop is doing what you intended.</li>
+<li>That DO-stat is self-correcting and therefore safe. It is self-correcting with respect to the parameters of the open-loop model, which is its real advantage, and it is not safe, because its plant gain rises with biomass through the run while its dead time stays fixed. A loop tuned at 10 g L⁻¹ oscillates at 50, and the oscillation is in substrate concentration — cycling the culture between starvation and excess, which is the condition the strategy was adopted to avoid.</li>
+</ul>
+<h3>Check yourself before moving on</h3>
+<p><strong>Q.</strong> Your RQ rises from 1.0 to 1.3 mid-fermentation. What happened, and what is your control response?</p>
+<p><strong>A.</strong> CO₂ is being produced without a matching oxygen consumption, which means fermentative metabolism has started — on glucose that is acetate or ethanol overflow. Two causes produce the same RQ signature and the discriminator is what OUR did at the same moment. If OUR fell while CER held or rose, the oxygen supply failed: a blocked sparger, impeller flooding, a foam-over onto the exhaust filter, or a drop in head pressure. If OUR held at its ceiling while CER rose, the demand outran the supply: the feed is now driving a growth rate the vessel cannot oxygenate, which is the anchor&#x27;s step 3 arriving. Response differs accordingly. For a supply failure, restore the supply and do not touch the feed until you know why it fell, because cutting the feed masks the fault. For a demand overrun, cut the feed to the rate that holds OUR at the transfer ceiling and, if the product phase needs the biomass, buy supply with head pressure and then enrichment in that order. In both cases check the dissolved oxygen trace against the RQ trace: if DO fell before RQ rose, it is supply; if RQ rose while DO was already at setpoint and the controller was saturated, it is demand. And record the acetate, because overflow carbon does not come back and the yield loss goes into week 52&#x27;s model as a number rather than a worry.</p>
+<p><strong>Q.</strong> Derive the exponential feed rate for a target specific growth rate, and state the assumption that fails first.</p>
+<p><strong>A.</strong> Take the limiting substrate as supplied only by the feed and consumed with a constant biomass yield, and take its concentration in the vessel as negligible, which is what makes the culture substrate-limited rather than substrate-sufficient. Then the substrate fed equals the substrate consumed: F·S_F = (µ/Y_XS)·X·V. Biomass at constant µ is X·V = X₀V₀e^(µt), so F(t) = (µ/Y_XS)(X₀V₀/S_F)e^(µt), with cumulative volume F(0)(e^(µt) − 1)/µ. For the worked basis — X₀V₀ = 600 kg, S_F = 600 g L⁻¹, Y_XS = 0.45, µ = 0.12 h⁻¹ — F(0) = 267 L h⁻¹, doubling every 5.8 h. The assumption that fails first is not the yield and not the negligible residual substrate; it is that the vessel is well mixed. The derivation prices the feed against the vessel average, while the cells passing the feed point see a concentration far above it for a few seconds per circulation, and overflow responds to the local concentration rather than the average. That is why the µ setpoint carries a margin below the measured acetate threshold and why the margin can only be sized by a two-compartment scale-down experiment. The second assumption to fail is constancy of Y_XS, which falls as maintenance becomes a larger fraction at low µ — so the open-loop profile systematically over-feeds late in the run, which is a second reason to close the loop on dissolved oxygen rather than trust the ramp.</p>
+<p><strong>Q.</strong> Design the two-compartment scale-down experiment for this process, and say what result would change your scale-up decision.</p>
+<p><strong>A.</strong> A well-mixed stirred vessel representing the bulk, connected to a plug-flow loop representing the feed zone, with the feed introduced into the loop. Set the loop residence time to the large vessel&#x27;s circulation time from week 49 — 20 to 60 s for 50 m³ — and set the loop&#x27;s glucose concentration from the feed rate and loop volume so the excursion amplitude matches what a cell passing the feed point would see. Run the same strain in a single well-mixed vessel at the same average dilution, temperature, pH and dissolved oxygen as the control. Measure three things over a full fed-batch: acetate or by-product accumulation, biomass and product yield on substrate, and construct stability by the week 33 assay. The result that changes the decision is a yield or stability gap between the two vessels. If the two-compartment system matches the control, the scale-up is a transport problem only and constant P/V with its degraded mixing time is acceptable. If it loses yield, the choice between Shuler&#x27;s four criteria changes — constant impeller speed protects mixing time at a 25-fold cost in P/V, which then has to be weighed against the measured yield loss rather than guessed at — and the feed point itself becomes a design variable, since multiple feed points or a feed into the impeller discharge reduce the amplitude of the excursion without touching the criterion. If it loses construct stability, the answer is upstream of the vessel entirely and is week 33&#x27;s: integrate the construct, because no mixing regime fixes segregational loss.</p>
+<hr>
+
+<section class="study-transfer" aria-label="Week 50 application and teach-back">
+<h3>Apply it to your fermentation experience</h3>
+<p><strong>Transfer prompt.</strong> Choose a feeding or control strategy for a substrate-limited fermentation. What signal would trigger the control action, and how could sensor lag or model error cause a poor feed?</p>
+<p class="meta">Use your actual thesis methods and results where you remember them. Mark missing information as unknown; do not assume the organisms were co-cultured, that a metabolite was measured, or that a proposed mechanism was demonstrated.</p>
+<h3>Teach it back</h3>
+<p>Explain the week's concept from memory, work one number, and name one boundary. Then use the <a href="teach-back.html">five-minute teach-back protocol</a> and log it in the tracker.</p>
+</section>
+<nav class="weeknav" aria-label="Week navigation"><a href="week-49.html">&#8592; Week 49</a><a class="idx" href="index.html">Lecture index</a><a class="idx" href="case-study.html">Case study</a><a href="week-51.html">Week 51 &#8594;</a></nav>
+</main>
+<footer class="docfoot"><a href="../metabolic-engineering-tracker.html">&#8592; Course tracker</a><span>Metabolic engineering &middot; 55 weeks</span></footer>
+<script>
+(function(){var root=document.documentElement,key="me.theme";var bs=Array.prototype.slice.call(document.querySelectorAll(".appearance button"));
+function paint(v){bs.forEach(function(b){b.setAttribute("aria-pressed",b.getAttribute("data-appearance")===v?"true":"false");});if(v==="auto")root.removeAttribute("data-theme");else root.setAttribute("data-theme",v);}
+var saved="auto";try{saved=localStorage.getItem(key)||"auto";}catch(e){}
+bs.forEach(function(b){b.addEventListener("click",function(){var v=b.getAttribute("data-appearance");paint(v);try{localStorage.setItem(key,v);}catch(e){}});});paint(saved);})();
+</script>
+</body>
+</html>

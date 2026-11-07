@@ -1,0 +1,1983 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="utf-8"><title>Week 52 — Techno-economics and life-cycle assessment — Metabolic engineering</title>
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+
+
+<style>:root{color-scheme:light;--paper:#FAF6EF;--ink:#211A12;--ink-2:#4A3C2C;--ink-3:#8A7458;
+--line:#DFD2BE;--line-2:#EDE4D5;--broth:#9A6B1F;--broth-soft:#F6ECD9;
+--serif:"Newsreader",Georgia,serif;--sans:"Public Sans",system-ui,sans-serif}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--paper:#15120D;--ink:#F1E9DC;--ink-2:#CBBCA6;
+--ink-3:#948872;--line:#352C22;--line-2:#2A231B;--broth:#D7A95C;--broth-soft:#241D14}}
+*{box-sizing:border-box}
+body{margin:0;background:var(--paper);color:var(--ink);font-family:var(--sans);font-size:15.5px;line-height:1.6;
+padding:env(safe-area-inset-top,0) 0 env(safe-area-inset-bottom,0)}
+.wrap{max-width:840px;margin:0 auto;padding:40px 22px 90px}
+h1{font-family:var(--serif);font-size:clamp(28px,5vw,42px);line-height:1.1;font-weight:600;margin:0 0 6px;letter-spacing:-.02em}
+h2{font-family:var(--serif);font-size:26px;font-weight:600;margin:46px 0 10px;letter-spacing:-.01em;padding-bottom:7px;border-bottom:1px solid var(--line)}
+h3{font-family:var(--serif);font-size:20px;font-weight:600;margin:30px 0 4px;color:var(--broth)}
+h4{font-size:14px;font-weight:650;margin:18px 0 4px;color:var(--ink-3);letter-spacing:.02em;text-transform:uppercase}
+p{margin:0 0 12px;max-width:74ch}
+em{color:var(--ink-2)}
+ul{margin:0 0 14px;padding-left:1.15em;max-width:74ch}
+li{margin:.3em 0}li::marker{color:var(--ink-3)}
+hr{border:0;border-top:1px solid var(--line);margin:40px 0}
+strong{font-weight:650}
+table{border-collapse:collapse;width:100%;margin:14px 0 20px;font-size:14px}
+th{text-align:left;font-weight:600;color:var(--ink-3);font-size:12.5px;padding:7px 9px;border-bottom:1.5px solid var(--line)}
+td{padding:8px 9px;border-bottom:1px solid var(--line-2);vertical-align:top}
+tr:nth-child(even) td{background:var(--broth-soft)}
+
+figure.fig{margin:22px 0 26px;padding:0;max-width:100%}
+figure.fig svg{width:100%;height:auto;display:block;background:var(--card);
+  border:1px solid var(--line-2);border-radius:10px;padding:8px 10px}
+figure.fig figcaption{font-size:13px;color:var(--ink-3);margin-top:8px;max-width:74ch;line-height:1.5}
+figure.fig .figtitle{font-family:var(--serif);font-size:15px;color:var(--ink-2);margin-bottom:6px}
+figure.fig .fig-dark{display:none}
+@media (prefers-color-scheme: dark){
+  figure.fig .fig-light{display:none}
+  figure.fig .fig-dark{display:block}
+}
+@media print{figure.fig{break-inside:avoid;page-break-inside:avoid}
+  figure.fig .fig-dark{display:none !important}
+  figure.fig .fig-light{display:block !important}}
+
+@media print{body{background:#fff}.wrap{padding:0;max-width:none}h2,h3{page-break-after:avoid}}</style><script>try{var t=localStorage.getItem("me.theme");if(t&&t!=="auto")document.documentElement.setAttribute("data-theme",t);}catch(e){}</script>
+<meta name="color-scheme" content="light dark">
+<meta name="theme-color" content="#ffffff" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#000000" media="(prefers-color-scheme: dark)">
+<style>
+/* ============================================================
+   COURSE LIBRARY — Apple document shell
+   ============================================================ */
+:root{
+  color-scheme:light;
+  --paper:#FFFFFF;--surface:#F5F5F7;--card:#FFFFFF;--fill:#F5F5F7;
+  --ink:#1D1D1F;--ink-2:#6E6E73;--ink-3:#6E6E73;
+  --line:rgba(0,0,0,.14);--line-2:rgba(0,0,0,.08);
+  --broth:#0071E3;--broth-soft:rgba(0,113,227,.10);
+  --nav-bg:rgba(255,255,255,.84);
+  --sans:-apple-system,BlinkMacSystemFont,"SF Pro Text","SF Pro Display","Helvetica Neue",Arial,sans-serif;
+  --mono:ui-monospace,"SF Mono",Menlo,Consolas,monospace;
+  --serif:var(--sans);
+}
+@media (prefers-color-scheme:dark){
+  :root:not([data-theme="light"]){
+    color-scheme:dark;
+    --paper:#000000;--surface:#1C1C1E;--card:#2C2C2E;--fill:#2C2C2E;
+    --ink:#F5F5F7;--ink-2:#A1A1A6;--ink-3:#8E8E93;
+    --line:rgba(255,255,255,.16);--line-2:rgba(255,255,255,.09);
+    --broth:#5AA9FF;--broth-soft:rgba(10,132,255,.18);
+    --nav-bg:rgba(0,0,0,.74);
+  }
+}
+:root[data-theme="dark"]{
+  color-scheme:dark;
+  --paper:#000000;--surface:#1C1C1E;--card:#2C2C2E;--fill:#2C2C2E;
+  --ink:#F5F5F7;--ink-2:#A1A1A6;--ink-3:#8E8E93;
+  --line:rgba(255,255,255,.16);--line-2:rgba(255,255,255,.09);
+  --broth:#5AA9FF;--broth-soft:rgba(10,132,255,.18);
+  --nav-bg:rgba(0,0,0,.74);
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth;scroll-padding-top:72px;-webkit-text-size-adjust:100%}
+body{
+  margin:0;background:var(--paper);color:var(--ink);
+  font-family:var(--sans);font-size:17px;line-height:1.62;letter-spacing:-.011em;
+  padding:0;
+}
+.docbar{
+  position:sticky;top:0;z-index:80;display:flex;align-items:center;justify-content:space-between;gap:12px;
+  padding:8px max(24px,calc((100vw - 1180px)/2));
+  background:var(--nav-bg);
+  -webkit-backdrop-filter:saturate(180%) blur(20px);backdrop-filter:saturate(180%) blur(20px);
+  border-bottom:1px solid var(--line-2);
+}
+.docback{display:inline-flex;align-items:center;gap:6px;color:var(--ink-2);font-size:13px;font-weight:500;text-decoration:none;white-space:nowrap}
+.docback:hover{color:var(--broth)}
+.appearance{display:inline-flex;gap:2px;padding:2px;background:var(--fill);border-radius:980px}
+.appearance button{border:0;background:none;color:var(--ink-2);font:inherit;font-size:12px;font-weight:500;line-height:1;padding:6px 11px;border-radius:980px;cursor:pointer}
+.appearance button[aria-pressed="true"]{background:var(--card);color:var(--ink);box-shadow:0 1px 2px rgba(0,0,0,.08)}
+.wrap{max-width:900px;margin:0 auto;padding:64px 24px 96px}
+body h1{
+  font-family:var(--sans);font-size:clamp(42px,6.2vw,64px);line-height:1.04;letter-spacing:-.04em;
+  font-weight:700;margin:0 0 16px;max-width:18ch;color:var(--ink);
+}
+.doc-kicker{font-size:13px;font-weight:500;letter-spacing:0;color:var(--ink-2);margin:0 0 12px}
+body h1 + p{font-size:20px;line-height:1.55;color:var(--ink-2);max-width:68ch;margin:0 0 18px}
+body h1 + p strong{color:var(--ink);font-weight:600}
+body h2{
+  font-family:var(--sans);font-size:32px;line-height:1.15;letter-spacing:-.03em;font-weight:600;
+  color:var(--ink);margin:64px 0 14px;padding:0;border:0;
+}
+body h3{font-family:var(--sans);font-size:22px;line-height:1.25;letter-spacing:-.02em;font-weight:600;color:var(--ink);margin:36px 0 8px}
+body h4{font-size:14px;line-height:1.4;font-weight:600;letter-spacing:0;text-transform:none;color:var(--ink-2);margin:24px 0 6px}
+body p{margin:0 0 14px;max-width:72ch}
+body ul,body ol{margin:0 0 16px;padding-left:1.25em;max-width:72ch}
+body li{margin:.32em 0}
+body li::marker{color:var(--ink-3)}
+body strong{font-weight:600;color:var(--ink)}
+body em{color:var(--ink)}
+body a{color:var(--broth);text-decoration:underline;text-underline-offset:2px}
+body a:hover{text-decoration:underline}
+body hr{border:0;border-top:1px solid var(--line-2);margin:56px 0}
+body table{border-collapse:collapse;width:100%;margin:22px 0 30px;font-size:15px;line-height:1.45}
+body th{text-align:left;font-weight:600;font-size:12.5px;color:var(--ink-2);padding:10px 12px;background:var(--surface);border-bottom:1px solid var(--line)}
+body td{padding:11px 12px;border-bottom:1px solid var(--line-2);vertical-align:top}
+body tr:nth-child(even) td{background:transparent}
+body figure.fig{margin:32px 0 36px;padding:0;max-width:100%}
+body figure.fig svg{width:100%;height:auto;display:block;background:var(--surface);border:0;border-radius:20px;padding:18px}
+body figure.fig figcaption{font-size:13px;color:var(--ink-2);margin-top:10px;max-width:72ch;line-height:1.5}
+body figure.fig .figtitle{font-family:var(--sans);font-size:14px;font-weight:600;color:var(--ink);margin-bottom:6px}
+body pre{background:var(--surface);border:1px solid var(--line-2);border-radius:16px;padding:18px;overflow:auto;font-family:var(--mono);font-size:13.5px;line-height:1.55;margin:20px 0 24px}
+body code{font-family:var(--mono);font-size:.88em;background:var(--surface);border-radius:6px;padding:.12em .35em}
+body pre code{background:none;padding:0;font-size:inherit}
+body blockquote{margin:24px 0;padding:2px 0 2px 18px;border-left:3px solid var(--broth);color:var(--ink-2)}
+:root[data-theme="dark"] .fig-light{display:none!important}
+:root[data-theme="dark"] .fig-dark{display:block!important}
+:root[data-theme="light"] .fig-dark{display:none!important}
+:root[data-theme="light"] .fig-light{display:block!important}
+.docfoot{max-width:900px;margin:0 auto;padding:24px 24px 64px;border-top:1px solid var(--line-2);display:flex;justify-content:space-between;gap:12px;font-size:12.5px;color:var(--ink-3)}
+.docfoot a{color:var(--ink-2);text-decoration:none}
+.docfoot a:hover{color:var(--broth)}
+@media (max-width:700px){
+  .docbar{padding:8px 16px}
+  .wrap{padding:40px 18px 80px}
+  body h1{font-size:clamp(38px,11vw,48px)}
+  body h1 + p{font-size:18px}
+  body h2{font-size:28px;margin-top:52px}
+  body h3{font-size:20px}
+  body p,body li{font-size:16.5px}
+  body table{font-size:14px}
+  body th,body td{padding:9px 9px}
+  .docfoot{padding:20px 18px 50px;flex-direction:column;gap:6px}
+}
+@media print{
+  .docbar,.appearance,.docfoot{display:none!important}
+  body{background:#fff;color:#000;font-size:11pt}
+  .wrap{max-width:none;padding:0}
+  body h1{font-size:28pt;max-width:none}
+  body h2{font-size:16pt;page-break-after:avoid}
+  body h3{font-size:13pt;page-break-after:avoid}
+  body a{color:#000;text-decoration:none}
+  body table,body figure{break-inside:avoid}
+}
+
+
+.index-actions{margin:18px 0 36px;display:flex;flex-wrap:wrap;gap:16px;align-items:center}
+.index-actions a{font-size:14px;font-weight:500;color:var(--broth);text-decoration:none}
+.index-actions a:hover{text-decoration:underline}
+.phaseh{display:flex;align-items:baseline;justify-content:space-between;gap:14px;font-size:24px!important;margin:52px 0 2px!important;letter-spacing:-.02em}
+.phaseh span{font-size:12px;font-weight:400;color:var(--ink-3);letter-spacing:0;white-space:nowrap}
+.weeklist{border-top:1px solid var(--line-2);margin-bottom:8px}
+.weekrow{display:flex;align-items:center;gap:14px;min-height:50px;padding:10px 4px;border-bottom:1px solid var(--line-2);text-decoration:none;color:var(--ink)}
+.weekrow:hover{background:var(--surface)}
+.wnum{width:28px;flex:none;font-size:12px;font-weight:600;color:var(--broth);font-variant-numeric:tabular-nums}
+.wtitle{flex:1;font-size:16.5px;font-weight:500;line-height:1.35}
+.warrow{flex:none;color:var(--ink-3);font-size:16px}
+.weeknav{display:flex;align-items:center;justify-content:space-between;gap:14px;margin:52px 0 0;padding-top:22px;border-top:1px solid var(--line-2);font-size:14px}
+.weeknav a{color:var(--broth);text-decoration:none;font-weight:500}
+.weeknav a:hover{text-decoration:underline}
+.weeknav .idx{color:var(--ink-2);font-weight:400}
+.weeknav .empty{visibility:hidden}
+.case-h{max-width:22ch}
+.protocol{max-width:72ch}
+.protocol li{margin:.55em 0}
+.protocol h2{margin-top:38px}
+@media (max-width:700px){.phaseh{font-size:21px!important;margin-top:42px!important}.wtitle{font-size:15.5px}.weeknav{font-size:13px;gap:8px}}
+@media print{.weeknav,.index-actions{display:none!important}}
+</style>
+<style>.sr-only{position:absolute!important;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap;border:0}</style>
+</head><body>
+<header class="docbar"><a class="docback" href="index.html">&#8592; Lecture index</a><div class="appearance" role="group" aria-label="Appearance">
+<button type="button" data-appearance="auto" aria-pressed="true">Auto</button>
+<button type="button" data-appearance="light" aria-pressed="false">Light</button>
+<button type="button" data-appearance="dark" aria-pressed="false">Dark</button>
+</div></header>
+<main class="wrap">
+<p class="doc-kicker">Week 52 of 55 &middot; Process, economics and the application &middot; <strong class="tier-badge">Useful next</strong></p>
+<h1>Techno-economics and life-cycle assessment</h1>
+<h2 class="sr-only">Week content</h2>
+<p class="meta" style="border-left:3px solid var(--broth);padding-left:14px"><strong>Case thread:</strong> Which cost or impact is driven by the process rather than the cell? <a href="../CASE-THREAD.md">Open the case thread</a>.</p>
+<p>The week where the previous fifty-one get audited. A techno-economic model is not a summary of the design; it is an independent calculation that the design has to survive, and the usual outcome of doing it properly for the first time is that something upstream turns out to be incoherent. That happens here: the anchor carries the 50 m³ vessel from week 49 and the 67.3% recovery train from week 51 through a proper factored capital estimate, and the cost of goods comes out at about $61 per kilogram against the $12 per kilogram the week 51 anchor assumed the product sells for. Nothing in the arithmetic is wrong. What is wrong is the pairing of a pilot-scale vessel with a commodity price, and no amount of strain engineering fixes it — the same calculation says the titre would have to reach about 300 g L⁻¹, or the plant would have to reach about 50,000 m³, which is within a factor of two of the fermentation volume in the NREL cellulosic ethanol design. The organising result of the week is the one that makes that diagnosis repeatable: <strong>the elasticity of cost to a parameter is the cost share of the lines that parameter moves</strong>. Titre moves every line that scales with annual output, which here is 96.8% of cost, so its elasticity is −0.97; yield moves only the raw-material line, 3.2% of cost, so its elasticity is −0.03. The ranking is not a property of biology. It is a property of where the money is, and it is computed, not argued.</p>
+<h3>Core ideas</h3>
+<p><strong>1. What a techno-economic model produces, and what that number is not</strong></p>
+<p>One number, and it is a price rather than a cost: the plant-gate selling price at which the discounted cash flow has a net present value of zero for a stated internal rate of return. NREL&#x27;s corn-stover design report — cite the edition, since the financial assumptions differ between the 2002 design, the 2011 report used throughout this week (NREL/TP-5100-47764, Humbird et al., May 2011) and the later updates — calls it the minimum ethanol selling price and defines it exactly that way, as the price needed for NPV zero at a 10% after-tax IRR, and the report is unusually direct about what the number is worth — without a detailed understanding of the basis behind it the absolute figure has limited relevance, and it is best suited to comparing technological variations against one another and to finding where improvements are needed. That is the right attitude to carry into the capstone. A cost of goods quoted without its basis is a claim; quoted with its basis it is an argument, and the basis is the equipment list, the factors, the financing and the uptime. Stanbury Ch 12 opens from the same place with Nyiri and Charles&#x27;s ranking of cost components in decreasing order — raw materials, fixed costs, utilities, labour — and draws the conclusion that matters for a development programme: work on the components that contribute to the cost, and do not justify work on the ones that do not. The whole of this week is a way of finding out which is which for one specific process rather than for processes in general.</p>
+<p><strong>2. Capital cost by the factorial method, which is the gap this reading list had</strong></p>
+<p>The reading list has no source for installation factors, accuracy classes or discounted cash flow, so the method comes from outside it and is named in the reading map: Towler and Sinnott, <em>Chemical Engineering Design</em>, 3rd edn 2021, Ch 7 Capital Cost Estimating, with Ch 8 on revenues and production costs and Ch 9 on economic evaluation. In the second edition, which is the one whose section numbering is confirmed here, Ch 7 runs §7.1 introduction, §7.2 components of capital cost, §7.3 accuracy and purpose of capital cost estimates, §7.4 order-of-magnitude estimates, §7.5 estimating purchased equipment costs, §7.6 estimating installed costs: the factorial method, §7.7 cost escalation, §7.8 location factors, §7.9 offsite capital costs, §7.10 computer tools, §7.11 validity of cost estimates. Peters, Timmerhaus and West is the fallback and covers the same ground — equipment cost estimating, size factoring exponents, inflation cost indexes, installation factor, and a plant-cost-estimating factor table running through installation, instrumentation, piping, insulation, electrical and buildings to a total multiplier. The method itself is three steps and is worth stating in one place because every bioprocess paper that quotes a capital number has done some version of it: size each item from the mass and energy balance, price it (vendor quote, correlation, or a scaled previous price), then multiply the purchased cost by a factor to get the installed cost, and the installed total by further factors for offsites, engineering and contingency. The factor is where the estimate&#x27;s honesty lives, and the numeric factors have to be read from the book rather than remembered — the anchor uses 4.0 as a stated assumption and flags it as one, because an installation factor taken from memory is the single most common unmarked assumption in a student TEA.</p>
+<p><strong>3. The six-tenths rule, which Stanbury does have, and which the curriculum undersells</strong></p>
+<p>The flag on this week&#x27;s reading list says Stanbury Ch 12 is a chapter of ratios rather than a method. That is mostly right and one-sixth wrong, and the exception is worth having. Under <em>plant and equipment</em> (printed p336) the chapter states the empirical relationship between the cost and the size of an item, C₂ = C₁(Q₂/Q₁)ⁿ, and gives measured exponents by sector: 0.6 for brewing (Pratten), 0.7–0.8 for a single-cell protein plant (Humphrey; MacLennan), 0.6 for antibody production (Birch et al.), 0.75 for fermentation processes generally (Bartholomew and Reisman), and 0.6 for waste-water treatment. That is the capacity-factored method, which is exactly what AACE&#x27;s classification system names as the typical methodology for a Class 5 estimate, so the chapter does supply one costing method — the coarsest one. Table 12.4 then gives relative cost per unit of output against scale: 30.0 at one unit of volume, 10.0 at ten, 1.0 at a hundred, 0.6 at two hundred and 0.3 at a thousand, which is the same exponent expressed as a table and is the single most useful thing in the chapter for this week, because it prices the scale decision that the anchor ends up making. What the chapter genuinely lacks is the factorial method, the accuracy classes and any discounted cash flow at all, and those come from Towler and Sinnott.</p>
+<p><strong>4. Accuracy classes, and why effort does not improve them</strong></p>
+<p>AACE International&#x27;s Recommended Practice 18R-97 classifies an estimate for the process industries into five classes by the maturity of the project definition, Class 5 least defined to Class 1 most, and publishes the methodology and expected accuracy range of each. Class 5 sits at 0–2% definition, uses capacity-factored or parametric models or judgement, and ranges from −20 to −50% on the low side and +30 to +100% on the high. Class 4 is 1–15% definition, equipment-factored, −15 to −30% and +20 to +50%. Class 3 is 10–40%, semi-detailed unit costs with assembly-level line items, −10 to −20% and +10 to +30%. Class 2 is 30–70%, detailed unit cost with forced detailed take-off, −5 to −15% and +5 to +20%. Class 1 is 65–100%, detailed take-off, −3 to −10% and +3 to +15%. Two things in that table are load-bearing. First, the class is determined by how well the project is defined and by nothing else, so a beautifully detailed spreadsheet built on a block flow diagram is still a Class 5 estimate — the effort column in the same table makes the point from the other direction, running from a relative effort of 1 for Class 5 to 5–100 for Class 1, which is to say that the hundred-fold extra work buys the accuracy only when the definition is there to support it. Second, the ranges are asymmetric and the asymmetry always points the same way: the high side is roughly twice the low side at every class, because a project can overrun without limit and can only underrun down to its own scope. A TEA in a thesis or a proposal should name its class in a sentence, and for anything built from a published flowsheet and a handful of vendor prices the honest answer is Class 4 at best.</p>
+<p><strong>5. Operating cost, and the capital charge week 51 left as a placeholder</strong></p>
+<p>Three groups, and the third is the one that catches people out. Variable costs scale with production: raw materials, chemicals, utilities, waste disposal, and any co-product credit — NREL&#x27;s design carries a negative electricity line because the plant exports power, which is a reminder that a credit is a cost line with a sign. Fixed costs do not scale with production: labour, supervision, overhead, maintenance (taken as a percentage of fixed capital), insurance and property tax. The capital charge is neither: it is the annual payment that recovers the capital investment at the required return, and it belongs in the cost of goods even though no money leaves the plant on that line in a given year. The simplest defensible form is the annuity, i(1+i)ⁿ/((1+i)ⁿ−1) on the total capital investment, which at 10% over fifteen years is 0.1315 per year — within a rounding error of the 0.131 capital charge factor that NREL computes from a quite different structure, 40% equity with a 10% after-tax IRR against an 8% loan over ten years. Week 51&#x27;s anchor allocated $900 per tonne for this line and said week 52 would compute it properly. It has been computed properly, and it is $43,600 per tonne, which is a factor of forty-eight. That is not a small correction to a minor line; it is the discovery that the capital charge is the process, and it is the reason this week exists in the course at all.</p>
+<p><strong>6. The worked example to imitate, and the two numbers to steal from it</strong></p>
+<p>NREL/TP-5100-47764 (Humbird et al., 2011) is the right model for what a bioprocess TEA document looks like: a full process design in nine areas, Aspen mass and energy balances, equipment costs from vendor quotes and a contractor&#x27;s database, a factored capital model, a discounted cash flow, and a sensitivity analysis — all published, with the model files public. The headline numbers are worth carrying because they calibrate intuition: 2,205 dry ton per day of corn stover, 96% uptime giving 8,410 operating hours, total installed equipment cost $232 million, added direct and indirect costs $190.5 million or 45% of the total, total capital investment $422.5 million, and a minimum ethanol selling price of $2.15 per gallon in 2007 dollars, split as $0.74 feedstock, $0.34 enzymes and $1.08 non-enzyme conversion. Two of those are the ones to steal. The first is the ratio printed as total capital investment per annual gallon, $6.92, which is capital intensity per unit of annual capacity and is the fastest available check on whether a design is sanely scaled — in mass terms it is about $2,320 per annual tonne of ethanol. The second is the ethanol titre, 5.4 wt%, against a <em>Zymomonas</em> ethanol tolerance of about 60 g L⁻¹ that the report names as the binding limit on xylose conversion: the most-studied industrial bioprocess in the world runs at a titre a tenth of what the anchor in week 51 assumed, and it is economic anyway, because its capital per unit of output is two orders of magnitude lower. Titre is not a virtue on its own. It is a lever on capital intensity, and its value depends entirely on how much capital there is to lever.</p>
+<p><strong>7. The nth-plant assumption, and what it quietly removes</strong></p>
+<p>NREL is explicit that its economics are <em>nth-plant</em>: the analysis assumes several plants using the same technology have already been built, and therefore deliberately excludes the risk financing, longer start-ups, equipment overdesign and other first-of-a-kind costs that a pioneer plant actually carries, on the reasoning that those would swamp the economic signal from research advances. That is a defensible choice for the purpose, and it is also the single largest reason published bioprocess TEAs disagree with built plants. Anyone quoting a TEA in a proposal should say which world it is in, and a capstone that reports an nth-plant cost of goods and then argues for building the first plant has a gap in it that a reviewer will find. The report&#x27;s own survey makes the scale of inter-study variation concrete: published minimum ethanol selling prices in its Table 2 run from $0.63 to $4.58 per gallon for nominally the same product, and the differences resolve mostly into feedstock price, yield, co-product credit and capital-cost factors rather than into anything biological. Normalising two TEAs for a few inputs usually explains most of the gap between them, which is both reassuring about the method and devastating about the practice of quoting a single number from someone else&#x27;s paper.</p>
+<p><strong>8. Indexing 1999 money forward, and what an index cannot repair</strong></p>
+<p>Stanbury&#x27;s cost figures are from 1999 and the chapter says so about itself — costs are quoted from the source at the time of publication and are applicable only to that time — and then points at the tool, noting that Atkinson and Mavituna have discussed the use of cost indices to update historical data. The tool is the Chemical Engineering Plant Cost Index, base 1957–59 = 100, published monthly, built from Bureau of Labor Statistics producer price indices and labour cost indices and composed of four sub-indices: equipment, construction labour, buildings, and engineering and supervision. The 1999 annual average was 390.6, with equipment at 435.5 and construction labour at 292.5. Recent annual averages have been of order 800 — 607.5 in 2019, 816.0 in 2022, 797.9 in 2023, with the 2025 annual average reported 1.6% above 2024 and monthly values through 2026 at record highs — so a 1999 capital figure roughly doubles, a factor of about 2.05 on the composite. Three cautions, and the third is the one that matters most here. The sub-indices have moved apart, so an equipment-heavy cost and a labour-heavy cost do not index by the same factor. Cost professionals recommend not reaching back more than about five years with the index at all, because the technology, construction practice and the index&#x27;s own composition change underneath it — so a 27-year reach is an order-of-magnitude statement, not a price. And an index cannot repair a change in technology: cellulase enzyme costs fell by orders of magnitude over the period the index was doubling, and no amount of indexing Stanbury&#x27;s media figures would have found that. Index the ratios, state the vintage, and get a current quote for anything the answer turns on.</p>
+<p><strong>9. Elasticity is a cost share, which is the week&#x27;s one generalisable result</strong></p>
+<figure class="fig"><div class="figtitle">Figure 52.9 — The elasticity of cost is the cost share, and the scale that a commodity price needs</div><div class="fig-light"><svg role="img" aria-label="Left: elasticities re-run from the cost model sit on top of the cost shares of the lines each parameter moves — titre and cycle time at 0.96, equipment cost at 0.71, yield at 0.03 — so the ranking can be read off a cost breakdown before a single case is re-run. Right: the same model up the scale axis crosses the product's $12,000 per tonne price near 50,000 m³, within a factor of 1.2 of the fermentation volume in the NREL 2011 design, which is the week's independent check that the method works." xmlns:xlink="http://www.w3.org/1999/xlink" width="894.719109pt" height="239.885313pt" viewBox="0 0 894.719109 239.885313" xmlns="http://www.w3.org/2000/svg" version="1.1">
+ <metadata>
+  <rdf:RDF xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:cc="http://creativecommons.org/ns#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+   <cc:Work>
+    <dc:type rdf:resource="http://purl.org/dc/dcmitype/StillImage"/>
+    <dc:date>2026-11-02T23:57:55.381683</dc:date>
+    <dc:format>image/svg+xml</dc:format>
+    <dc:creator>
+     <cc:Agent>
+      <dc:title>Matplotlib v3.10.8, https://matplotlib.org/</dc:title>
+     </cc:Agent>
+    </dc:creator>
+   </cc:Work>
+  </rdf:RDF>
+ </metadata>
+ <defs>
+  <style type="text/css">*{stroke-linejoin: round; stroke-linecap: butt}</style>
+ </defs>
+ <g id="figure_1">
+  <g id="patch_1">
+   <path d="M 0 239.885313 
+L 894.719109 239.885313 
+L 894.719109 -0 
+L 0 -0 
+L 0 239.885313 
+z
+" style="fill: none"/>
+  </g>
+  <g id="axes_1">
+   <g id="patch_2">
+    <path d="M 65.9664 181.423173 
+L 240.75616 181.423173 
+L 240.75616 17.875173 
+L 65.9664 17.875173 
+L 65.9664 181.423173 
+z
+" style="fill: none"/>
+   </g>
+   <g id="patch_3">
+    <path d="M 65.9664 38.678219 
+L 211.794232 38.678219 
+L 211.794232 25.309173 
+L 65.9664 25.309173 
+z
+" clip-path="url(#p4f6279da02)" style="fill: #1f6f62; opacity: 0.32; stroke: #1f6f62; stroke-width: 1.1; stroke-linejoin: miter"/>
+   </g>
+   <g id="patch_4">
+    <path d="M 65.9664 79.19048 
+L 211.794232 79.19048 
+L 211.794232 65.821434 
+L 65.9664 65.821434 
+z
+" clip-path="url(#p4f6279da02)" style="fill: #1f6f62; opacity: 0.32; stroke: #1f6f62; stroke-width: 1.1; stroke-linejoin: miter"/>
+   </g>
+   <g id="patch_5">
+    <path d="M 65.9664 119.702742 
+L 172.813572 119.702742 
+L 172.813572 106.333696 
+L 65.9664 106.333696 
+z
+" clip-path="url(#p4f6279da02)" style="fill: #1f6f62; opacity: 0.32; stroke: #1f6f62; stroke-width: 1.1; stroke-linejoin: miter"/>
+   </g>
+   <g id="patch_6">
+    <path d="M 65.9664 160.215004 
+L 70.8194 160.215004 
+L 70.8194 146.845957 
+L 65.9664 146.845957 
+z
+" clip-path="url(#p4f6279da02)" style="fill: #1f6f62; opacity: 0.32; stroke: #1f6f62; stroke-width: 1.1; stroke-linejoin: miter"/>
+   </g>
+   <g id="patch_7">
+    <path d="M 65.9664 52.452388 
+L 211.794231 52.452388 
+L 211.794231 39.083341 
+L 65.9664 39.083341 
+z
+" clip-path="url(#p4f6279da02)" style="fill: #8a5f1b; opacity: 0.32; stroke: #8a5f1b; stroke-width: 1.1; stroke-linejoin: miter"/>
+   </g>
+   <g id="patch_8">
+    <path d="M 65.9664 92.964649 
+L 211.794231 92.964649 
+L 211.794231 79.595603 
+L 65.9664 79.595603 
+z
+" clip-path="url(#p4f6279da02)" style="fill: #8a5f1b; opacity: 0.32; stroke: #8a5f1b; stroke-width: 1.1; stroke-linejoin: miter"/>
+   </g>
+   <g id="patch_9">
+    <path d="M 65.9664 133.476911 
+L 172.81359 133.476911 
+L 172.81359 120.107865 
+L 65.9664 120.107865 
+z
+" clip-path="url(#p4f6279da02)" style="fill: #8a5f1b; opacity: 0.32; stroke: #8a5f1b; stroke-width: 1.1; stroke-linejoin: miter"/>
+   </g>
+   <g id="patch_10">
+    <path d="M 65.9664 173.989173 
+L 70.819397 173.989173 
+L 70.819397 160.620126 
+L 65.9664 160.620126 
+z
+" clip-path="url(#p4f6279da02)" style="fill: #8a5f1b; opacity: 0.32; stroke: #8a5f1b; stroke-width: 1.1; stroke-linejoin: miter"/>
+   </g>
+   <g id="matplotlib.axis_1">
+    <g id="xtick_1">
+     <g id="line2d_1">
+      <path d="M 65.9664 181.423173 
+L 65.9664 17.875173 
+" clip-path="url(#p4f6279da02)" style="fill: none; stroke: #e6dccb; stroke-opacity: 0.7; stroke-width: 0.6; stroke-linecap: square"/>
+     </g>
+     <g id="line2d_2">
+      <defs>
+       <path id="m35e0cead58" d="M 0 0 
+L 0 3.5 
+" style="stroke: #8a7458; stroke-width: 0.9"/>
+      </defs>
+      <g>
+       <use xlink:href="#m35e0cead58" x="65.9664" y="181.423173" style="fill: #8a7458; stroke: #8a7458; stroke-width: 0.9"/>
+      </g>
+     </g>
+     <g id="text_1">
+      <text style="font-size: 9.5px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: middle; fill: #8a7458" x="65.9664" y="195.641688" transform="rotate(-0 65.9664 195.641688)">0.0</text>
+     </g>
+    </g>
+    <g id="xtick_2">
+     <g id="line2d_3">
+      <path d="M 96.102566 181.423173 
+L 96.102566 17.875173 
+" clip-path="url(#p4f6279da02)" style="fill: none; stroke: #e6dccb; stroke-opacity: 0.7; stroke-width: 0.6; stroke-linecap: square"/>
+     </g>
+     <g id="line2d_4">
+      <g>
+       <use xlink:href="#m35e0cead58" x="96.102566" y="181.423173" style="fill: #8a7458; stroke: #8a7458; stroke-width: 0.9"/>
+      </g>
+     </g>
+     <g id="text_2">
+      <text style="font-size: 9.5px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: middle; fill: #8a7458" x="96.102566" y="195.641688" transform="rotate(-0 96.102566 195.641688)">0.2</text>
+     </g>
+    </g>
+    <g id="xtick_3">
+     <g id="line2d_5">
+      <path d="M 126.238731 181.423173 
+L 126.238731 17.875173 
+" clip-path="url(#p4f6279da02)" style="fill: none; stroke: #e6dccb; stroke-opacity: 0.7; stroke-width: 0.6; stroke-linecap: square"/>
+     </g>
+     <g id="line2d_6">
+      <g>
+       <use xlink:href="#m35e0cead58" x="126.238731" y="181.423173" style="fill: #8a7458; stroke: #8a7458; stroke-width: 0.9"/>
+      </g>
+     </g>
+     <g id="text_3">
+      <text style="font-size: 9.5px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: middle; fill: #8a7458" x="126.238731" y="195.641688" transform="rotate(-0 126.238731 195.641688)">0.4</text>
+     </g>
+    </g>
+    <g id="xtick_4">
+     <g id="line2d_7">
+      <path d="M 156.374897 181.423173 
+L 156.374897 17.875173 
+" clip-path="url(#p4f6279da02)" style="fill: none; stroke: #e6dccb; stroke-opacity: 0.7; stroke-width: 0.6; stroke-linecap: square"/>
+     </g>
+     <g id="line2d_8">
+      <g>
+       <use xlink:href="#m35e0cead58" x="156.374897" y="181.423173" style="fill: #8a7458; stroke: #8a7458; stroke-width: 0.9"/>
+      </g>
+     </g>
+     <g id="text_4">
+      <text style="font-size: 9.5px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: middle; fill: #8a7458" x="156.374897" y="195.641688" transform="rotate(-0 156.374897 195.641688)">0.6</text>
+     </g>
+    </g>
+    <g id="xtick_5">
+     <g id="line2d_9">
+      <path d="M 186.511062 181.423173 
+L 186.511062 17.875173 
+" clip-path="url(#p4f6279da02)" style="fill: none; stroke: #e6dccb; stroke-opacity: 0.7; stroke-width: 0.6; stroke-linecap: square"/>
+     </g>
+     <g id="line2d_10">
+      <g>
+       <use xlink:href="#m35e0cead58" x="186.511062" y="181.423173" style="fill: #8a7458; stroke: #8a7458; stroke-width: 0.9"/>
+      </g>
+     </g>
+     <g id="text_5">
+      <text style="font-size: 9.5px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: middle; fill: #8a7458" x="186.511062" y="195.641688" transform="rotate(-0 186.511062 195.641688)">0.8</text>
+     </g>
+    </g>
+    <g id="xtick_6">
+     <g id="line2d_11">
+      <path d="M 216.647228 181.423173 
+L 216.647228 17.875173 
+" clip-path="url(#p4f6279da02)" style="fill: none; stroke: #e6dccb; stroke-opacity: 0.7; stroke-width: 0.6; stroke-linecap: square"/>
+     </g>
+     <g id="line2d_12">
+      <g>
+       <use xlink:href="#m35e0cead58" x="216.647228" y="181.423173" style="fill: #8a7458; stroke: #8a7458; stroke-width: 0.9"/>
+      </g>
+     </g>
+     <g id="text_6">
+      <text style="font-size: 9.5px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: middle; fill: #8a7458" x="216.647228" y="195.641688" transform="rotate(-0 216.647228 195.641688)">1.0</text>
+     </g>
+    </g>
+    <g id="text_7">
+     <text style="font-size: 9.5px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: middle; fill: #4a3c2c" x="153.36128" y="208.877469" transform="rotate(-0 153.36128 208.877469)">|elasticity| of cost of goods</text>
+    </g>
+   </g>
+   <g id="matplotlib.axis_2">
+    <g id="ytick_1">
+     <g id="line2d_13">
+      <defs>
+       <path id="m58aa4617bc" d="M 0 0 
+L -3.5 0 
+" style="stroke: #8a7458; stroke-width: 0.9"/>
+      </defs>
+      <g>
+       <use xlink:href="#m58aa4617bc" x="65.9664" y="38.88078" style="fill: #8a7458; stroke: #8a7458; stroke-width: 0.9"/>
+      </g>
+     </g>
+     <g id="text_8">
+      <text style="font-size: 8.6px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: end; fill: #8a7458" x="58.9664" y="42.148108" transform="rotate(-0 58.9664 42.148108)">titre</text>
+     </g>
+    </g>
+    <g id="ytick_2">
+     <g id="line2d_14">
+      <g>
+       <use xlink:href="#m58aa4617bc" x="65.9664" y="79.393042" style="fill: #8a7458; stroke: #8a7458; stroke-width: 0.9"/>
+      </g>
+     </g>
+     <g id="text_9">
+      <text style="font-size: 8.6px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: end; fill: #8a7458" x="58.9664" y="82.66037" transform="rotate(-0 58.9664 82.66037)">cycle time</text>
+     </g>
+    </g>
+    <g id="ytick_3">
+     <g id="line2d_15">
+      <g>
+       <use xlink:href="#m58aa4617bc" x="65.9664" y="119.905303" style="fill: #8a7458; stroke: #8a7458; stroke-width: 0.9"/>
+      </g>
+     </g>
+     <g id="text_10">
+      <text style="font-size: 8.6px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; fill: #8a7458" transform="translate(12.425619 119.011038)">equipment</text>
+      <text style="font-size: 8.6px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; fill: #8a7458" transform="translate(41.124088 128.641156)">cost</text>
+     </g>
+    </g>
+    <g id="ytick_4">
+     <g id="line2d_16">
+      <g>
+       <use xlink:href="#m58aa4617bc" x="65.9664" y="160.417565" style="fill: #8a7458; stroke: #8a7458; stroke-width: 0.9"/>
+      </g>
+     </g>
+     <g id="text_11">
+      <text style="font-size: 8.6px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: end; fill: #8a7458" x="58.9664" y="163.684893" transform="rotate(-0 58.9664 163.684893)">yield</text>
+     </g>
+    </g>
+   </g>
+   <g id="patch_11">
+    <path d="M 65.9664 181.423173 
+L 65.9664 17.875173 
+" style="fill: none; stroke: #dfd2be; stroke-width: 0.9; stroke-linejoin: miter; stroke-linecap: square"/>
+   </g>
+   <g id="patch_12">
+    <path d="M 65.9664 181.423173 
+L 240.75616 181.423173 
+" style="fill: none; stroke: #dfd2be; stroke-width: 0.9; stroke-linejoin: miter; stroke-linecap: square"/>
+   </g>
+   <g id="text_12">
+    <text style="font-size: 8.4px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: start; fill: #4a3c2c" x="215.561253" y="41.198655" transform="rotate(-0 215.561253 41.198655)">0.97</text>
+   </g>
+   <g id="text_13">
+    <text style="font-size: 8.4px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: start; fill: #4a3c2c" x="215.561253" y="81.710917" transform="rotate(-0 215.561253 81.710917)">0.97</text>
+   </g>
+   <g id="text_14">
+    <text style="font-size: 8.4px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: start; fill: #4a3c2c" x="176.580593" y="122.223178" transform="rotate(-0 176.580593 122.223178)">0.71</text>
+   </g>
+   <g id="text_15">
+    <text style="font-size: 8.4px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: start; fill: #4a3c2c" x="74.586421" y="162.73544" transform="rotate(-0 74.586421 162.73544)">0.03</text>
+   </g>
+   <g id="text_16">
+    <text style="font-size: 8.4px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: start; fill: #1f6f62" x="68.980017" y="12.142687" transform="rotate(-0 68.980017 12.142687)">■ model re-run</text>
+   </g>
+   <g id="text_17">
+    <text style="font-size: 8.4px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: start; fill: #8a5f1b" x="159.388513" y="12.142687" transform="rotate(-0 159.388513 12.142687)">■ cost share</text>
+   </g>
+  </g>
+  <g id="axes_2">
+   <g id="patch_13">
+    <path d="M 312.419962 181.423173 
+L 478.8864 181.423173 
+L 478.8864 17.875173 
+L 312.419962 17.875173 
+L 312.419962 181.423173 
+z
+" style="fill: none"/>
+   </g>
+   <g id="matplotlib.axis_3">
+    <g id="xtick_7">
+     <g id="line2d_17">
+      <path d="M 330.130452 181.423173 
+L 330.130452 17.875173 
+" clip-path="url(#pd2e93356e7)" style="fill: none; stroke: #e6dccb; stroke-opacity: 0.7; stroke-width: 0.6; stroke-linecap: square"/>
+     </g>
+     <g id="line2d_18">
+      <g>
+       <use xlink:href="#m35e0cead58" x="330.130452" y="181.423173" style="fill: #8a7458; stroke: #8a7458; stroke-width: 0.9"/>
+      </g>
+     </g>
+     <g id="text_18">
+      <!-- $\mathdefault{10^{2}}$ -->
+      <g style="fill: #8a7458" transform="translate(321.770452 195.641688)">
+       <text>
+        <tspan x="0" y="-0.976562" style="font-size: 9.5px; font-family: 'Public Sans, Helvetica, Arial, sans-serif'; fill: #8a7458">1</tspan>
+        <tspan x="6.044189" y="-0.976562" style="font-size: 9.5px; font-family: 'Public Sans, Helvetica, Arial, sans-serif'; fill: #8a7458">0</tspan>
+        <tspan x="12.184082" y="-4.804688" style="font-size: 6.65px; font-family: 'Public Sans, Helvetica, Arial, sans-serif'; fill: #8a7458">2</tspan>
+       </text>
+      </g>
+     </g>
+    </g>
+    <g id="xtick_8">
+     <g id="line2d_19">
+      <path d="M 374.635879 181.423173 
+L 374.635879 17.875173 
+" clip-path="url(#pd2e93356e7)" style="fill: none; stroke: #e6dccb; stroke-opacity: 0.7; stroke-width: 0.6; stroke-linecap: square"/>
+     </g>
+     <g id="line2d_20">
+      <g>
+       <use xlink:href="#m35e0cead58" x="374.635879" y="181.423173" style="fill: #8a7458; stroke: #8a7458; stroke-width: 0.9"/>
+      </g>
+     </g>
+     <g id="text_19">
+      <!-- $\mathdefault{10^{3}}$ -->
+      <g style="fill: #8a7458" transform="translate(366.275879 195.641688)">
+       <text>
+        <tspan x="0" y="-0.976562" style="font-size: 9.5px; font-family: 'Public Sans, Helvetica, Arial, sans-serif'; fill: #8a7458">1</tspan>
+        <tspan x="6.044189" y="-0.976562" style="font-size: 9.5px; font-family: 'Public Sans, Helvetica, Arial, sans-serif'; fill: #8a7458">0</tspan>
+        <tspan x="12.184082" y="-4.804688" style="font-size: 6.65px; font-family: 'Public Sans, Helvetica, Arial, sans-serif'; fill: #8a7458">3</tspan>
+       </text>
+      </g>
+     </g>
+    </g>
+    <g id="xtick_9">
+     <g id="line2d_21">
+      <path d="M 419.141306 181.423173 
+L 419.141306 17.875173 
+" clip-path="url(#pd2e93356e7)" style="fill: none; stroke: #e6dccb; stroke-opacity: 0.7; stroke-width: 0.6; stroke-linecap: square"/>
+     </g>
+     <g id="line2d_22">
+      <g>
+       <use xlink:href="#m35e0cead58" x="419.141306" y="181.423173" style="fill: #8a7458; stroke: #8a7458; stroke-width: 0.9"/>
+      </g>
+     </g>
+     <g id="text_20">
+      <!-- $\mathdefault{10^{4}}$ -->
+      <g style="fill: #8a7458" transform="translate(410.781306 195.641688)">
+       <text>
+        <tspan x="0" y="-0.064063" style="font-size: 9.5px; font-family: 'Public Sans, Helvetica, Arial, sans-serif'; fill: #8a7458">1</tspan>
+        <tspan x="6.044189" y="-0.064063" style="font-size: 9.5px; font-family: 'Public Sans, Helvetica, Arial, sans-serif'; fill: #8a7458">0</tspan>
+        <tspan x="12.184082" y="-3.892188" style="font-size: 6.65px; font-family: 'Public Sans, Helvetica, Arial, sans-serif'; fill: #8a7458">4</tspan>
+       </text>
+      </g>
+     </g>
+    </g>
+    <g id="xtick_10">
+     <g id="line2d_23">
+      <path d="M 463.646732 181.423173 
+L 463.646732 17.875173 
+" clip-path="url(#pd2e93356e7)" style="fill: none; stroke: #e6dccb; stroke-opacity: 0.7; stroke-width: 0.6; stroke-linecap: square"/>
+     </g>
+     <g id="line2d_24">
+      <g>
+       <use xlink:href="#m35e0cead58" x="463.646732" y="181.423173" style="fill: #8a7458; stroke: #8a7458; stroke-width: 0.9"/>
+      </g>
+     </g>
+     <g id="text_21">
+      <!-- $\mathdefault{10^{5}}$ -->
+      <g style="fill: #8a7458" transform="translate(455.286732 195.641688)">
+       <text>
+        <tspan x="0" y="-0.064063" style="font-size: 9.5px; font-family: 'Public Sans, Helvetica, Arial, sans-serif'; fill: #8a7458">1</tspan>
+        <tspan x="6.044189" y="-0.064063" style="font-size: 9.5px; font-family: 'Public Sans, Helvetica, Arial, sans-serif'; fill: #8a7458">0</tspan>
+        <tspan x="12.184082" y="-3.892188" style="font-size: 6.65px; font-family: 'Public Sans, Helvetica, Arial, sans-serif'; fill: #8a7458">5</tspan>
+       </text>
+      </g>
+     </g>
+    </g>
+    <g id="xtick_11">
+     <g id="line2d_25">
+      <defs>
+       <path id="md8d1b6e00b" d="M 0 0 
+L 0 2 
+" style="stroke: #8a7458; stroke-width: 0.6"/>
+      </defs>
+      <g>
+       <use xlink:href="#md8d1b6e00b" x="312.419962" y="181.423173" style="fill: #8a7458; stroke: #8a7458; stroke-width: 0.6"/>
+      </g>
+     </g>
+    </g>
+    <g id="xtick_12">
+     <g id="line2d_26">
+      <g>
+       <use xlink:href="#md8d1b6e00b" x="316.732983" y="181.423173" style="fill: #8a7458; stroke: #8a7458; stroke-width: 0.6"/>
+      </g>
+     </g>
+    </g>
+    <g id="xtick_13">
+     <g id="line2d_27">
+      <g>
+       <use xlink:href="#md8d1b6e00b" x="320.256978" y="181.423173" style="fill: #8a7458; stroke: #8a7458; stroke-width: 0.6"/>
+      </g>
+     </g>
+    </g>
+    <g id="xtick_14">
+     <g id="line2d_28">
+      <g>
+       <use xlink:href="#md8d1b6e00b" x="323.236474" y="181.423173" style="fill: #8a7458; stroke: #8a7458; stroke-width: 0.6"/>
+      </g>
+     </g>
+    </g>
+    <g id="xtick_15">
+     <g id="line2d_29">
+      <g>
+       <use xlink:href="#md8d1b6e00b" x="325.81743" y="181.423173" style="fill: #8a7458; stroke: #8a7458; stroke-width: 0.6"/>
+      </g>
+     </g>
+    </g>
+    <g id="xtick_16">
+     <g id="line2d_30">
+      <g>
+       <use xlink:href="#md8d1b6e00b" x="328.093995" y="181.423173" style="fill: #8a7458; stroke: #8a7458; stroke-width: 0.6"/>
+      </g>
+     </g>
+    </g>
+    <g id="xtick_17">
+     <g id="line2d_31">
+      <g>
+       <use xlink:href="#md8d1b6e00b" x="343.52792" y="181.423173" style="fill: #8a7458; stroke: #8a7458; stroke-width: 0.6"/>
+      </g>
+     </g>
+    </g>
+    <g id="xtick_18">
+     <g id="line2d_32">
+      <g>
+       <use xlink:href="#md8d1b6e00b" x="351.364937" y="181.423173" style="fill: #8a7458; stroke: #8a7458; stroke-width: 0.6"/>
+      </g>
+     </g>
+    </g>
+    <g id="xtick_19">
+     <g id="line2d_33">
+      <g>
+       <use xlink:href="#md8d1b6e00b" x="356.925389" y="181.423173" style="fill: #8a7458; stroke: #8a7458; stroke-width: 0.6"/>
+      </g>
+     </g>
+    </g>
+    <g id="xtick_20">
+     <g id="line2d_34">
+      <g>
+       <use xlink:href="#md8d1b6e00b" x="361.23841" y="181.423173" style="fill: #8a7458; stroke: #8a7458; stroke-width: 0.6"/>
+      </g>
+     </g>
+    </g>
+    <g id="xtick_21">
+     <g id="line2d_35">
+      <g>
+       <use xlink:href="#md8d1b6e00b" x="364.762405" y="181.423173" style="fill: #8a7458; stroke: #8a7458; stroke-width: 0.6"/>
+      </g>
+     </g>
+    </g>
+    <g id="xtick_22">
+     <g id="line2d_36">
+      <g>
+       <use xlink:href="#md8d1b6e00b" x="367.741901" y="181.423173" style="fill: #8a7458; stroke: #8a7458; stroke-width: 0.6"/>
+      </g>
+     </g>
+    </g>
+    <g id="xtick_23">
+     <g id="line2d_37">
+      <g>
+       <use xlink:href="#md8d1b6e00b" x="370.322857" y="181.423173" style="fill: #8a7458; stroke: #8a7458; stroke-width: 0.6"/>
+      </g>
+     </g>
+    </g>
+    <g id="xtick_24">
+     <g id="line2d_38">
+      <g>
+       <use xlink:href="#md8d1b6e00b" x="372.599422" y="181.423173" style="fill: #8a7458; stroke: #8a7458; stroke-width: 0.6"/>
+      </g>
+     </g>
+    </g>
+    <g id="xtick_25">
+     <g id="line2d_39">
+      <g>
+       <use xlink:href="#md8d1b6e00b" x="388.033347" y="181.423173" style="fill: #8a7458; stroke: #8a7458; stroke-width: 0.6"/>
+      </g>
+     </g>
+    </g>
+    <g id="xtick_26">
+     <g id="line2d_40">
+      <g>
+       <use xlink:href="#md8d1b6e00b" x="395.870364" y="181.423173" style="fill: #8a7458; stroke: #8a7458; stroke-width: 0.6"/>
+      </g>
+     </g>
+    </g>
+    <g id="xtick_27">
+     <g id="line2d_41">
+      <g>
+       <use xlink:href="#md8d1b6e00b" x="401.430816" y="181.423173" style="fill: #8a7458; stroke: #8a7458; stroke-width: 0.6"/>
+      </g>
+     </g>
+    </g>
+    <g id="xtick_28">
+     <g id="line2d_42">
+      <g>
+       <use xlink:href="#md8d1b6e00b" x="405.743837" y="181.423173" style="fill: #8a7458; stroke: #8a7458; stroke-width: 0.6"/>
+      </g>
+     </g>
+    </g>
+    <g id="xtick_29">
+     <g id="line2d_43">
+      <g>
+       <use xlink:href="#md8d1b6e00b" x="409.267832" y="181.423173" style="fill: #8a7458; stroke: #8a7458; stroke-width: 0.6"/>
+      </g>
+     </g>
+    </g>
+    <g id="xtick_30">
+     <g id="line2d_44">
+      <g>
+       <use xlink:href="#md8d1b6e00b" x="412.247328" y="181.423173" style="fill: #8a7458; stroke: #8a7458; stroke-width: 0.6"/>
+      </g>
+     </g>
+    </g>
+    <g id="xtick_31">
+     <g id="line2d_45">
+      <g>
+       <use xlink:href="#md8d1b6e00b" x="414.828284" y="181.423173" style="fill: #8a7458; stroke: #8a7458; stroke-width: 0.6"/>
+      </g>
+     </g>
+    </g>
+    <g id="xtick_32">
+     <g id="line2d_46">
+      <g>
+       <use xlink:href="#md8d1b6e00b" x="417.104849" y="181.423173" style="fill: #8a7458; stroke: #8a7458; stroke-width: 0.6"/>
+      </g>
+     </g>
+    </g>
+    <g id="xtick_33">
+     <g id="line2d_47">
+      <g>
+       <use xlink:href="#md8d1b6e00b" x="432.538774" y="181.423173" style="fill: #8a7458; stroke: #8a7458; stroke-width: 0.6"/>
+      </g>
+     </g>
+    </g>
+    <g id="xtick_34">
+     <g id="line2d_48">
+      <g>
+       <use xlink:href="#md8d1b6e00b" x="440.375791" y="181.423173" style="fill: #8a7458; stroke: #8a7458; stroke-width: 0.6"/>
+      </g>
+     </g>
+    </g>
+    <g id="xtick_35">
+     <g id="line2d_49">
+      <g>
+       <use xlink:href="#md8d1b6e00b" x="445.936242" y="181.423173" style="fill: #8a7458; stroke: #8a7458; stroke-width: 0.6"/>
+      </g>
+     </g>
+    </g>
+    <g id="xtick_36">
+     <g id="line2d_50">
+      <g>
+       <use xlink:href="#md8d1b6e00b" x="450.249264" y="181.423173" style="fill: #8a7458; stroke: #8a7458; stroke-width: 0.6"/>
+      </g>
+     </g>
+    </g>
+    <g id="xtick_37">
+     <g id="line2d_51">
+      <g>
+       <use xlink:href="#md8d1b6e00b" x="453.773259" y="181.423173" style="fill: #8a7458; stroke: #8a7458; stroke-width: 0.6"/>
+      </g>
+     </g>
+    </g>
+    <g id="xtick_38">
+     <g id="line2d_52">
+      <g>
+       <use xlink:href="#md8d1b6e00b" x="456.752755" y="181.423173" style="fill: #8a7458; stroke: #8a7458; stroke-width: 0.6"/>
+      </g>
+     </g>
+    </g>
+    <g id="xtick_39">
+     <g id="line2d_53">
+      <g>
+       <use xlink:href="#md8d1b6e00b" x="459.333711" y="181.423173" style="fill: #8a7458; stroke: #8a7458; stroke-width: 0.6"/>
+      </g>
+     </g>
+    </g>
+    <g id="xtick_40">
+     <g id="line2d_54">
+      <g>
+       <use xlink:href="#md8d1b6e00b" x="461.610276" y="181.423173" style="fill: #8a7458; stroke: #8a7458; stroke-width: 0.6"/>
+      </g>
+     </g>
+    </g>
+    <g id="xtick_41">
+     <g id="line2d_55">
+      <g>
+       <use xlink:href="#md8d1b6e00b" x="477.044201" y="181.423173" style="fill: #8a7458; stroke: #8a7458; stroke-width: 0.6"/>
+      </g>
+     </g>
+    </g>
+    <g id="text_22">
+     <!-- fermentation volume  (m$^{3}$) -->
+     <g style="fill: #4a3c2c" transform="translate(331.908181 209.616688)">
+      <text>
+       <tspan x="0" y="-0.976562" style="font-size: 9.5px; font-family: 'Public Sans, Helvetica, Arial, sans-serif'; fill: #4a3c2c">f</tspan>
+       <tspan x="3.344482" y="-0.976562" style="font-size: 9.5px; font-family: 'Public Sans, Helvetica, Arial, sans-serif'; fill: #4a3c2c">e</tspan>
+       <tspan x="9.189209" y="-0.976562" style="font-size: 9.5px; font-family: 'Public Sans, Helvetica, Arial, sans-serif'; fill: #4a3c2c">r</tspan>
+       <tspan x="13.094971" y="-0.976562" style="font-size: 9.5px; font-family: 'Public Sans, Helvetica, Arial, sans-serif'; fill: #4a3c2c">m</tspan>
+       <tspan x="22.349121" y="-0.976562" style="font-size: 9.5px; font-family: 'Public Sans, Helvetica, Arial, sans-serif'; fill: #4a3c2c">e</tspan>
+       <tspan x="28.193848" y="-0.976562" style="font-size: 9.5px; font-family: 'Public Sans, Helvetica, Arial, sans-serif'; fill: #4a3c2c">n</tspan>
+       <tspan x="34.214844" y="-0.976562" style="font-size: 9.5px; font-family: 'Public Sans, Helvetica, Arial, sans-serif'; fill: #4a3c2c">t</tspan>
+       <tspan x="37.939697" y="-0.976562" style="font-size: 9.5px; font-family: 'Public Sans, Helvetica, Arial, sans-serif'; fill: #4a3c2c">a</tspan>
+       <tspan x="43.76123" y="-0.976562" style="font-size: 9.5px; font-family: 'Public Sans, Helvetica, Arial, sans-serif'; fill: #4a3c2c">t</tspan>
+       <tspan x="47.486084" y="-0.976562" style="font-size: 9.5px; font-family: 'Public Sans, Helvetica, Arial, sans-serif'; fill: #4a3c2c">i</tspan>
+       <tspan x="50.125488" y="-0.976562" style="font-size: 9.5px; font-family: 'Public Sans, Helvetica, Arial, sans-serif'; fill: #4a3c2c">o</tspan>
+       <tspan x="55.937744" y="-0.976562" style="font-size: 9.5px; font-family: 'Public Sans, Helvetica, Arial, sans-serif'; fill: #4a3c2c">n</tspan>
+       <tspan x="61.95874" y="-0.976562" style="font-size: 9.5px; font-family: 'Public Sans, Helvetica, Arial, sans-serif'; fill: #4a3c2c"> </tspan>
+       <tspan x="64.978516" y="-0.976562" style="font-size: 9.5px; font-family: 'Public Sans, Helvetica, Arial, sans-serif'; fill: #4a3c2c">v</tspan>
+       <tspan x="70.600586" y="-0.976562" style="font-size: 9.5px; font-family: 'Public Sans, Helvetica, Arial, sans-serif'; fill: #4a3c2c">o</tspan>
+       <tspan x="76.412842" y="-0.976562" style="font-size: 9.5px; font-family: 'Public Sans, Helvetica, Arial, sans-serif'; fill: #4a3c2c">l</tspan>
+       <tspan x="79.052246" y="-0.976562" style="font-size: 9.5px; font-family: 'Public Sans, Helvetica, Arial, sans-serif'; fill: #4a3c2c">u</tspan>
+       <tspan x="85.073242" y="-0.976562" style="font-size: 9.5px; font-family: 'Public Sans, Helvetica, Arial, sans-serif'; fill: #4a3c2c">m</tspan>
+       <tspan x="94.327393" y="-0.976562" style="font-size: 9.5px; font-family: 'Public Sans, Helvetica, Arial, sans-serif'; fill: #4a3c2c">e</tspan>
+       <tspan x="100.172119" y="-0.976562" style="font-size: 9.5px; font-family: 'Public Sans, Helvetica, Arial, sans-serif'; fill: #4a3c2c"> </tspan>
+       <tspan x="103.191895" y="-0.976562" style="font-size: 9.5px; font-family: 'Public Sans, Helvetica, Arial, sans-serif'; fill: #4a3c2c"> </tspan>
+       <tspan x="106.21167" y="-0.976562" style="font-size: 9.5px; font-family: 'Public Sans, Helvetica, Arial, sans-serif'; fill: #4a3c2c">(</tspan>
+       <tspan x="109.917969" y="-0.976562" style="font-size: 9.5px; font-family: 'Public Sans, Helvetica, Arial, sans-serif'; fill: #4a3c2c">m</tspan>
+       <tspan x="123.772192" y="-0.976562" style="font-size: 9.5px; font-family: 'Public Sans, Helvetica, Arial, sans-serif'; fill: #4a3c2c">)</tspan>
+       <tspan x="119.267822" y="-4.804688" style="font-size: 6.65px; font-family: 'Public Sans, Helvetica, Arial, sans-serif'; fill: #4a3c2c">3</tspan>
+      </text>
+     </g>
+    </g>
+   </g>
+   <g id="matplotlib.axis_4">
+    <g id="ytick_5">
+     <g id="line2d_56">
+      <path d="M 312.419962 142.202323 
+L 478.8864 142.202323 
+" clip-path="url(#pd2e93356e7)" style="fill: none; stroke: #e6dccb; stroke-opacity: 0.7; stroke-width: 0.6; stroke-linecap: square"/>
+     </g>
+     <g id="line2d_57">
+      <g>
+       <use xlink:href="#m58aa4617bc" x="312.419962" y="142.202323" style="fill: #8a7458; stroke: #8a7458; stroke-width: 0.9"/>
+      </g>
+     </g>
+     <g id="text_23">
+      <!-- $\mathdefault{10^{4}}$ -->
+      <g style="fill: #8a7458" transform="translate(288.699962 145.811581)">
+       <text>
+        <tspan x="0" y="-0.064063" style="font-size: 9.5px; font-family: 'Public Sans, Helvetica, Arial, sans-serif'; fill: #8a7458">1</tspan>
+        <tspan x="6.044189" y="-0.064063" style="font-size: 9.5px; font-family: 'Public Sans, Helvetica, Arial, sans-serif'; fill: #8a7458">0</tspan>
+        <tspan x="12.184082" y="-3.892188" style="font-size: 6.65px; font-family: 'Public Sans, Helvetica, Arial, sans-serif'; fill: #8a7458">4</tspan>
+       </text>
+      </g>
+     </g>
+    </g>
+    <g id="ytick_6">
+     <g id="line2d_58">
+      <defs>
+       <path id="md50af7844e" d="M 0 0 
+L -2 0 
+" style="stroke: #8a7458; stroke-width: 0.6"/>
+      </defs>
+      <g>
+       <use xlink:href="#md50af7844e" x="312.419962" y="181.423173" style="fill: #8a7458; stroke: #8a7458; stroke-width: 0.6"/>
+      </g>
+     </g>
+    </g>
+    <g id="ytick_7">
+     <g id="line2d_59">
+      <g>
+       <use xlink:href="#md50af7844e" x="312.419962" y="171.10674" style="fill: #8a7458; stroke: #8a7458; stroke-width: 0.6"/>
+      </g>
+     </g>
+    </g>
+    <g id="ytick_8">
+     <g id="line2d_60">
+      <g>
+       <use xlink:href="#md50af7844e" x="312.419962" y="162.38432" style="fill: #8a7458; stroke: #8a7458; stroke-width: 0.6"/>
+      </g>
+     </g>
+    </g>
+    <g id="ytick_9">
+     <g id="line2d_61">
+      <g>
+       <use xlink:href="#md50af7844e" x="312.419962" y="154.828617" style="fill: #8a7458; stroke: #8a7458; stroke-width: 0.6"/>
+      </g>
+     </g>
+    </g>
+    <g id="ytick_10">
+     <g id="line2d_62">
+      <g>
+       <use xlink:href="#md50af7844e" x="312.419962" y="148.164014" style="fill: #8a7458; stroke: #8a7458; stroke-width: 0.6"/>
+      </g>
+     </g>
+    </g>
+    <g id="ytick_11">
+     <g id="line2d_63">
+      <g>
+       <use xlink:href="#md50af7844e" x="312.419962" y="102.981474" style="fill: #8a7458; stroke: #8a7458; stroke-width: 0.6"/>
+      </g>
+     </g>
+    </g>
+    <g id="ytick_12">
+     <g id="line2d_64">
+      <g>
+       <use xlink:href="#md50af7844e" x="312.419962" y="80.038748" style="fill: #8a7458; stroke: #8a7458; stroke-width: 0.6"/>
+      </g>
+     </g>
+    </g>
+    <g id="ytick_13">
+     <g id="line2d_65">
+      <g>
+       <use xlink:href="#md50af7844e" x="312.419962" y="63.760625" style="fill: #8a7458; stroke: #8a7458; stroke-width: 0.6"/>
+      </g>
+     </g>
+    </g>
+    <g id="ytick_14">
+     <g id="line2d_66">
+      <g>
+       <use xlink:href="#md50af7844e" x="312.419962" y="51.134331" style="fill: #8a7458; stroke: #8a7458; stroke-width: 0.6"/>
+      </g>
+     </g>
+    </g>
+    <g id="ytick_15">
+     <g id="line2d_67">
+      <g>
+       <use xlink:href="#md50af7844e" x="312.419962" y="40.817899" style="fill: #8a7458; stroke: #8a7458; stroke-width: 0.6"/>
+      </g>
+     </g>
+    </g>
+    <g id="ytick_16">
+     <g id="line2d_68">
+      <g>
+       <use xlink:href="#md50af7844e" x="312.419962" y="32.095479" style="fill: #8a7458; stroke: #8a7458; stroke-width: 0.6"/>
+      </g>
+     </g>
+    </g>
+    <g id="ytick_17">
+     <g id="line2d_69">
+      <g>
+       <use xlink:href="#md50af7844e" x="312.419962" y="24.539775" style="fill: #8a7458; stroke: #8a7458; stroke-width: 0.6"/>
+      </g>
+     </g>
+    </g>
+    <g id="ytick_18">
+     <g id="line2d_70">
+      <g>
+       <use xlink:href="#md50af7844e" x="312.419962" y="17.875173" style="fill: #8a7458; stroke: #8a7458; stroke-width: 0.6"/>
+      </g>
+     </g>
+    </g>
+    <g id="text_24">
+     <text style="font-size: 9.5px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: middle; fill: #4a3c2c" x="282.724259" y="99.649173" transform="rotate(-90 282.724259 99.649173)">cost of goods  ($ per tonne)</text>
+    </g>
+   </g>
+   <g id="line2d_71">
+    <path d="M 316.732983 39.441801 
+L 331.008309 50.415424 
+L 345.283634 61.116736 
+L 359.55896 71.550742 
+L 373.834286 81.717171 
+L 388.109611 91.610481 
+L 401.433249 100.588506 
+L 414.756886 109.306981 
+L 428.080523 117.750261 
+L 440.452472 125.32802 
+L 452.824421 132.636381 
+L 464.244681 139.128553 
+L 468.051435 141.235952 
+L 468.051435 141.235952 
+" clip-path="url(#pd2e93356e7)" style="fill: none; stroke: #1f6f62; stroke-width: 1.9; stroke-linecap: square"/>
+   </g>
+   <g id="line2d_72">
+    <path d="M 312.419962 131.88589 
+L 478.8864 131.88589 
+" clip-path="url(#pd2e93356e7)" style="fill: none; stroke-dasharray: 4.4,3.3; stroke-dashoffset: 0; stroke: #a4503a; stroke-width: 1.1"/>
+   </g>
+   <g id="line2d_73">
+    <path d="M 447.400949 181.423173 
+L 447.400949 17.875173 
+" clip-path="url(#pd2e93356e7)" style="fill: none; stroke-dasharray: 1.8,2.7; stroke-dashoffset: 0; stroke: #dfd2be; stroke-width: 0.9"/>
+   </g>
+   <g id="line2d_74">
+    <path d="M 316.732983 39.441801 
+" clip-path="url(#pd2e93356e7)" style="fill: none; stroke: #1f6f62; stroke-width: 1.9; stroke-linecap: square"/>
+    <defs>
+     <path id="ma86869e83a" d="M 0 2.5 
+C 0.663008 2.5 1.29895 2.236584 1.767767 1.767767 
+C 2.236584 1.29895 2.5 0.663008 2.5 0 
+C 2.5 -0.663008 2.236584 -1.29895 1.767767 -1.767767 
+C 1.29895 -2.236584 0.663008 -2.5 0 -2.5 
+C -0.663008 -2.5 -1.29895 -2.236584 -1.767767 -1.767767 
+C -2.236584 -1.29895 -2.5 -0.663008 -2.5 0 
+C -2.5 0.663008 -2.236584 1.29895 -1.767767 1.767767 
+C -1.29895 2.236584 -0.663008 2.5 0 2.5 
+z
+" style="stroke: #1f6f62"/>
+    </defs>
+    <g clip-path="url(#pd2e93356e7)">
+     <use xlink:href="#ma86869e83a" x="316.732983" y="39.441801" style="fill: #1f6f62; stroke: #1f6f62"/>
+    </g>
+   </g>
+   <g id="patch_14">
+    <path d="M 312.419962 181.423173 
+L 312.419962 17.875173 
+" style="fill: none; stroke: #dfd2be; stroke-width: 0.9; stroke-linejoin: miter; stroke-linecap: square"/>
+   </g>
+   <g id="patch_15">
+    <path d="M 312.419962 181.423173 
+L 478.8864 181.423173 
+" style="fill: none; stroke: #dfd2be; stroke-width: 0.9; stroke-linejoin: miter; stroke-linecap: square"/>
+   </g>
+   <g id="text_25">
+    <text style="font-size: 8.3px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; fill: #1f6f62" transform="translate(335.201549 33.748844)">weeks 47-51</text>
+    <text style="font-size: 8.3px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; fill: #1f6f62" transform="translate(335.201549 43.043029)">50 m³, $61,500/t</text>
+   </g>
+   <g id="text_26">
+    <text style="font-size: 8.3px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: start; fill: #a4503a" x="331.972651" y="146.289772" transform="rotate(-0 331.972651 146.289772)">product price $12,000/t</text>
+   </g>
+   <g id="text_27">
+    <text style="font-size: 8.3px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; fill: #8a7458" transform="translate(398.822163 166.048105)">NREL 2011</text>
+    <text style="font-size: 8.3px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; fill: #8a7458" transform="translate(401.336803 175.34229)">43,000 m³</text>
+   </g>
+  </g>
+  <g id="text_28">
+   <text style="font-size: 8.3px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: start; fill: #8a7458" x="5.76" y="232.399173" transform="rotate(-0 5.76 232.399173)">Left: elasticities re-run from the model agree with the cost shares to within 0.02, which is the week's rule. Right: TCI scaling as V⁰·⁷⁵ from the 50 m³ basis; assumed prices and an assumed installation factor of 4.0.</text>
+  </g>
+ </g>
+ <defs>
+  <clipPath id="p4f6279da02">
+   <rect x="65.9664" y="17.875173" width="174.78976" height="163.548"/>
+  </clipPath>
+  <clipPath id="pd2e93356e7">
+   <rect x="312.419962" y="17.875173" width="166.466438" height="163.548"/>
+  </clipPath>
+ </defs>
+</svg>
+</div><div class="fig-dark"><svg role="img" aria-label="Left: elasticities re-run from the cost model sit on top of the cost shares of the lines each parameter moves — titre and cycle time at 0.96, equipment cost at 0.71, yield at 0.03 — so the ranking can be read off a cost breakdown before a single case is re-run. Right: the same model up the scale axis crosses the product's $12,000 per tonne price near 50,000 m³, within a factor of 1.2 of the fermentation volume in the NREL 2011 design, which is the week's independent check that the method works." xmlns:xlink="http://www.w3.org/1999/xlink" width="894.719109pt" height="239.885313pt" viewBox="0 0 894.719109 239.885313" xmlns="http://www.w3.org/2000/svg" version="1.1">
+ <metadata>
+  <rdf:RDF xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:cc="http://creativecommons.org/ns#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+   <cc:Work>
+    <dc:type rdf:resource="http://purl.org/dc/dcmitype/StillImage"/>
+    <dc:date>2026-11-02T23:57:55.605088</dc:date>
+    <dc:format>image/svg+xml</dc:format>
+    <dc:creator>
+     <cc:Agent>
+      <dc:title>Matplotlib v3.10.8, https://matplotlib.org/</dc:title>
+     </cc:Agent>
+    </dc:creator>
+   </cc:Work>
+  </rdf:RDF>
+ </metadata>
+ <defs>
+  <style type="text/css">*{stroke-linejoin: round; stroke-linecap: butt}</style>
+ </defs>
+ <g id="figure_1">
+  <g id="patch_1">
+   <path d="M 0 239.885313 
+L 894.719109 239.885313 
+L 894.719109 -0 
+L 0 -0 
+L 0 239.885313 
+z
+" style="fill: none"/>
+  </g>
+  <g id="axes_1">
+   <g id="patch_2">
+    <path d="M 65.9664 181.423173 
+L 240.75616 181.423173 
+L 240.75616 17.875173 
+L 65.9664 17.875173 
+L 65.9664 181.423173 
+z
+" style="fill: none"/>
+   </g>
+   <g id="patch_3">
+    <path d="M 65.9664 38.678219 
+L 211.794232 38.678219 
+L 211.794232 25.309173 
+L 65.9664 25.309173 
+z
+" clip-path="url(#p8ff1cad5a2)" style="fill: #6dbdac; opacity: 0.32; stroke: #6dbdac; stroke-width: 1.1; stroke-linejoin: miter"/>
+   </g>
+   <g id="patch_4">
+    <path d="M 65.9664 79.19048 
+L 211.794232 79.19048 
+L 211.794232 65.821434 
+L 65.9664 65.821434 
+z
+" clip-path="url(#p8ff1cad5a2)" style="fill: #6dbdac; opacity: 0.32; stroke: #6dbdac; stroke-width: 1.1; stroke-linejoin: miter"/>
+   </g>
+   <g id="patch_5">
+    <path d="M 65.9664 119.702742 
+L 172.813572 119.702742 
+L 172.813572 106.333696 
+L 65.9664 106.333696 
+z
+" clip-path="url(#p8ff1cad5a2)" style="fill: #6dbdac; opacity: 0.32; stroke: #6dbdac; stroke-width: 1.1; stroke-linejoin: miter"/>
+   </g>
+   <g id="patch_6">
+    <path d="M 65.9664 160.215004 
+L 70.8194 160.215004 
+L 70.8194 146.845957 
+L 65.9664 146.845957 
+z
+" clip-path="url(#p8ff1cad5a2)" style="fill: #6dbdac; opacity: 0.32; stroke: #6dbdac; stroke-width: 1.1; stroke-linejoin: miter"/>
+   </g>
+   <g id="patch_7">
+    <path d="M 65.9664 52.452388 
+L 211.794231 52.452388 
+L 211.794231 39.083341 
+L 65.9664 39.083341 
+z
+" clip-path="url(#p8ff1cad5a2)" style="fill: #d7a95c; opacity: 0.32; stroke: #d7a95c; stroke-width: 1.1; stroke-linejoin: miter"/>
+   </g>
+   <g id="patch_8">
+    <path d="M 65.9664 92.964649 
+L 211.794231 92.964649 
+L 211.794231 79.595603 
+L 65.9664 79.595603 
+z
+" clip-path="url(#p8ff1cad5a2)" style="fill: #d7a95c; opacity: 0.32; stroke: #d7a95c; stroke-width: 1.1; stroke-linejoin: miter"/>
+   </g>
+   <g id="patch_9">
+    <path d="M 65.9664 133.476911 
+L 172.81359 133.476911 
+L 172.81359 120.107865 
+L 65.9664 120.107865 
+z
+" clip-path="url(#p8ff1cad5a2)" style="fill: #d7a95c; opacity: 0.32; stroke: #d7a95c; stroke-width: 1.1; stroke-linejoin: miter"/>
+   </g>
+   <g id="patch_10">
+    <path d="M 65.9664 173.989173 
+L 70.819397 173.989173 
+L 70.819397 160.620126 
+L 65.9664 160.620126 
+z
+" clip-path="url(#p8ff1cad5a2)" style="fill: #d7a95c; opacity: 0.32; stroke: #d7a95c; stroke-width: 1.1; stroke-linejoin: miter"/>
+   </g>
+   <g id="matplotlib.axis_1">
+    <g id="xtick_1">
+     <g id="line2d_1">
+      <path d="M 65.9664 181.423173 
+L 65.9664 17.875173 
+" clip-path="url(#p8ff1cad5a2)" style="fill: none; stroke: #2e251c; stroke-opacity: 0.7; stroke-width: 0.6; stroke-linecap: square"/>
+     </g>
+     <g id="line2d_2">
+      <defs>
+       <path id="me97fc8f6fc" d="M 0 0 
+L 0 3.5 
+" style="stroke: #9a8872; stroke-width: 0.9"/>
+      </defs>
+      <g>
+       <use xlink:href="#me97fc8f6fc" x="65.9664" y="181.423173" style="fill: #9a8872; stroke: #9a8872; stroke-width: 0.9"/>
+      </g>
+     </g>
+     <g id="text_1">
+      <text style="font-size: 9.5px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: middle; fill: #9a8872" x="65.9664" y="195.641688" transform="rotate(-0 65.9664 195.641688)">0.0</text>
+     </g>
+    </g>
+    <g id="xtick_2">
+     <g id="line2d_3">
+      <path d="M 96.102566 181.423173 
+L 96.102566 17.875173 
+" clip-path="url(#p8ff1cad5a2)" style="fill: none; stroke: #2e251c; stroke-opacity: 0.7; stroke-width: 0.6; stroke-linecap: square"/>
+     </g>
+     <g id="line2d_4">
+      <g>
+       <use xlink:href="#me97fc8f6fc" x="96.102566" y="181.423173" style="fill: #9a8872; stroke: #9a8872; stroke-width: 0.9"/>
+      </g>
+     </g>
+     <g id="text_2">
+      <text style="font-size: 9.5px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: middle; fill: #9a8872" x="96.102566" y="195.641688" transform="rotate(-0 96.102566 195.641688)">0.2</text>
+     </g>
+    </g>
+    <g id="xtick_3">
+     <g id="line2d_5">
+      <path d="M 126.238731 181.423173 
+L 126.238731 17.875173 
+" clip-path="url(#p8ff1cad5a2)" style="fill: none; stroke: #2e251c; stroke-opacity: 0.7; stroke-width: 0.6; stroke-linecap: square"/>
+     </g>
+     <g id="line2d_6">
+      <g>
+       <use xlink:href="#me97fc8f6fc" x="126.238731" y="181.423173" style="fill: #9a8872; stroke: #9a8872; stroke-width: 0.9"/>
+      </g>
+     </g>
+     <g id="text_3">
+      <text style="font-size: 9.5px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: middle; fill: #9a8872" x="126.238731" y="195.641688" transform="rotate(-0 126.238731 195.641688)">0.4</text>
+     </g>
+    </g>
+    <g id="xtick_4">
+     <g id="line2d_7">
+      <path d="M 156.374897 181.423173 
+L 156.374897 17.875173 
+" clip-path="url(#p8ff1cad5a2)" style="fill: none; stroke: #2e251c; stroke-opacity: 0.7; stroke-width: 0.6; stroke-linecap: square"/>
+     </g>
+     <g id="line2d_8">
+      <g>
+       <use xlink:href="#me97fc8f6fc" x="156.374897" y="181.423173" style="fill: #9a8872; stroke: #9a8872; stroke-width: 0.9"/>
+      </g>
+     </g>
+     <g id="text_4">
+      <text style="font-size: 9.5px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: middle; fill: #9a8872" x="156.374897" y="195.641688" transform="rotate(-0 156.374897 195.641688)">0.6</text>
+     </g>
+    </g>
+    <g id="xtick_5">
+     <g id="line2d_9">
+      <path d="M 186.511062 181.423173 
+L 186.511062 17.875173 
+" clip-path="url(#p8ff1cad5a2)" style="fill: none; stroke: #2e251c; stroke-opacity: 0.7; stroke-width: 0.6; stroke-linecap: square"/>
+     </g>
+     <g id="line2d_10">
+      <g>
+       <use xlink:href="#me97fc8f6fc" x="186.511062" y="181.423173" style="fill: #9a8872; stroke: #9a8872; stroke-width: 0.9"/>
+      </g>
+     </g>
+     <g id="text_5">
+      <text style="font-size: 9.5px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: middle; fill: #9a8872" x="186.511062" y="195.641688" transform="rotate(-0 186.511062 195.641688)">0.8</text>
+     </g>
+    </g>
+    <g id="xtick_6">
+     <g id="line2d_11">
+      <path d="M 216.647228 181.423173 
+L 216.647228 17.875173 
+" clip-path="url(#p8ff1cad5a2)" style="fill: none; stroke: #2e251c; stroke-opacity: 0.7; stroke-width: 0.6; stroke-linecap: square"/>
+     </g>
+     <g id="line2d_12">
+      <g>
+       <use xlink:href="#me97fc8f6fc" x="216.647228" y="181.423173" style="fill: #9a8872; stroke: #9a8872; stroke-width: 0.9"/>
+      </g>
+     </g>
+     <g id="text_6">
+      <text style="font-size: 9.5px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: middle; fill: #9a8872" x="216.647228" y="195.641688" transform="rotate(-0 216.647228 195.641688)">1.0</text>
+     </g>
+    </g>
+    <g id="text_7">
+     <text style="font-size: 9.5px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: middle; fill: #cbbca6" x="153.36128" y="208.877469" transform="rotate(-0 153.36128 208.877469)">|elasticity| of cost of goods</text>
+    </g>
+   </g>
+   <g id="matplotlib.axis_2">
+    <g id="ytick_1">
+     <g id="line2d_13">
+      <defs>
+       <path id="m232db62e3b" d="M 0 0 
+L -3.5 0 
+" style="stroke: #9a8872; stroke-width: 0.9"/>
+      </defs>
+      <g>
+       <use xlink:href="#m232db62e3b" x="65.9664" y="38.88078" style="fill: #9a8872; stroke: #9a8872; stroke-width: 0.9"/>
+      </g>
+     </g>
+     <g id="text_8">
+      <text style="font-size: 8.6px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: end; fill: #9a8872" x="58.9664" y="42.148108" transform="rotate(-0 58.9664 42.148108)">titre</text>
+     </g>
+    </g>
+    <g id="ytick_2">
+     <g id="line2d_14">
+      <g>
+       <use xlink:href="#m232db62e3b" x="65.9664" y="79.393042" style="fill: #9a8872; stroke: #9a8872; stroke-width: 0.9"/>
+      </g>
+     </g>
+     <g id="text_9">
+      <text style="font-size: 8.6px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: end; fill: #9a8872" x="58.9664" y="82.66037" transform="rotate(-0 58.9664 82.66037)">cycle time</text>
+     </g>
+    </g>
+    <g id="ytick_3">
+     <g id="line2d_15">
+      <g>
+       <use xlink:href="#m232db62e3b" x="65.9664" y="119.905303" style="fill: #9a8872; stroke: #9a8872; stroke-width: 0.9"/>
+      </g>
+     </g>
+     <g id="text_10">
+      <text style="font-size: 8.6px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; fill: #9a8872" transform="translate(12.425619 119.011038)">equipment</text>
+      <text style="font-size: 8.6px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; fill: #9a8872" transform="translate(41.124088 128.641156)">cost</text>
+     </g>
+    </g>
+    <g id="ytick_4">
+     <g id="line2d_16">
+      <g>
+       <use xlink:href="#m232db62e3b" x="65.9664" y="160.417565" style="fill: #9a8872; stroke: #9a8872; stroke-width: 0.9"/>
+      </g>
+     </g>
+     <g id="text_11">
+      <text style="font-size: 8.6px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: end; fill: #9a8872" x="58.9664" y="163.684893" transform="rotate(-0 58.9664 163.684893)">yield</text>
+     </g>
+    </g>
+   </g>
+   <g id="patch_11">
+    <path d="M 65.9664 181.423173 
+L 65.9664 17.875173 
+" style="fill: none; stroke: #3a3026; stroke-width: 0.9; stroke-linejoin: miter; stroke-linecap: square"/>
+   </g>
+   <g id="patch_12">
+    <path d="M 65.9664 181.423173 
+L 240.75616 181.423173 
+" style="fill: none; stroke: #3a3026; stroke-width: 0.9; stroke-linejoin: miter; stroke-linecap: square"/>
+   </g>
+   <g id="text_12">
+    <text style="font-size: 8.4px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: start; fill: #cbbca6" x="215.561253" y="41.198655" transform="rotate(-0 215.561253 41.198655)">0.97</text>
+   </g>
+   <g id="text_13">
+    <text style="font-size: 8.4px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: start; fill: #cbbca6" x="215.561253" y="81.710917" transform="rotate(-0 215.561253 81.710917)">0.97</text>
+   </g>
+   <g id="text_14">
+    <text style="font-size: 8.4px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: start; fill: #cbbca6" x="176.580593" y="122.223178" transform="rotate(-0 176.580593 122.223178)">0.71</text>
+   </g>
+   <g id="text_15">
+    <text style="font-size: 8.4px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: start; fill: #cbbca6" x="74.586421" y="162.73544" transform="rotate(-0 74.586421 162.73544)">0.03</text>
+   </g>
+   <g id="text_16">
+    <text style="font-size: 8.4px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: start; fill: #6dbdac" x="68.980017" y="12.142687" transform="rotate(-0 68.980017 12.142687)">■ model re-run</text>
+   </g>
+   <g id="text_17">
+    <text style="font-size: 8.4px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: start; fill: #d7a95c" x="159.388513" y="12.142687" transform="rotate(-0 159.388513 12.142687)">■ cost share</text>
+   </g>
+  </g>
+  <g id="axes_2">
+   <g id="patch_13">
+    <path d="M 312.419962 181.423173 
+L 478.8864 181.423173 
+L 478.8864 17.875173 
+L 312.419962 17.875173 
+L 312.419962 181.423173 
+z
+" style="fill: none"/>
+   </g>
+   <g id="matplotlib.axis_3">
+    <g id="xtick_7">
+     <g id="line2d_17">
+      <path d="M 330.130452 181.423173 
+L 330.130452 17.875173 
+" clip-path="url(#p88a809bc03)" style="fill: none; stroke: #2e251c; stroke-opacity: 0.7; stroke-width: 0.6; stroke-linecap: square"/>
+     </g>
+     <g id="line2d_18">
+      <g>
+       <use xlink:href="#me97fc8f6fc" x="330.130452" y="181.423173" style="fill: #9a8872; stroke: #9a8872; stroke-width: 0.9"/>
+      </g>
+     </g>
+     <g id="text_18">
+      <!-- $\mathdefault{10^{2}}$ -->
+      <g style="fill: #9a8872" transform="translate(321.770452 195.641688)">
+       <text>
+        <tspan x="0" y="-0.976562" style="font-size: 9.5px; font-family: 'Public Sans, Helvetica, Arial, sans-serif'; fill: #9a8872">1</tspan>
+        <tspan x="6.044189" y="-0.976562" style="font-size: 9.5px; font-family: 'Public Sans, Helvetica, Arial, sans-serif'; fill: #9a8872">0</tspan>
+        <tspan x="12.184082" y="-4.804688" style="font-size: 6.65px; font-family: 'Public Sans, Helvetica, Arial, sans-serif'; fill: #9a8872">2</tspan>
+       </text>
+      </g>
+     </g>
+    </g>
+    <g id="xtick_8">
+     <g id="line2d_19">
+      <path d="M 374.635879 181.423173 
+L 374.635879 17.875173 
+" clip-path="url(#p88a809bc03)" style="fill: none; stroke: #2e251c; stroke-opacity: 0.7; stroke-width: 0.6; stroke-linecap: square"/>
+     </g>
+     <g id="line2d_20">
+      <g>
+       <use xlink:href="#me97fc8f6fc" x="374.635879" y="181.423173" style="fill: #9a8872; stroke: #9a8872; stroke-width: 0.9"/>
+      </g>
+     </g>
+     <g id="text_19">
+      <!-- $\mathdefault{10^{3}}$ -->
+      <g style="fill: #9a8872" transform="translate(366.275879 195.641688)">
+       <text>
+        <tspan x="0" y="-0.976562" style="font-size: 9.5px; font-family: 'Public Sans, Helvetica, Arial, sans-serif'; fill: #9a8872">1</tspan>
+        <tspan x="6.044189" y="-0.976562" style="font-size: 9.5px; font-family: 'Public Sans, Helvetica, Arial, sans-serif'; fill: #9a8872">0</tspan>
+        <tspan x="12.184082" y="-4.804688" style="font-size: 6.65px; font-family: 'Public Sans, Helvetica, Arial, sans-serif'; fill: #9a8872">3</tspan>
+       </text>
+      </g>
+     </g>
+    </g>
+    <g id="xtick_9">
+     <g id="line2d_21">
+      <path d="M 419.141306 181.423173 
+L 419.141306 17.875173 
+" clip-path="url(#p88a809bc03)" style="fill: none; stroke: #2e251c; stroke-opacity: 0.7; stroke-width: 0.6; stroke-linecap: square"/>
+     </g>
+     <g id="line2d_22">
+      <g>
+       <use xlink:href="#me97fc8f6fc" x="419.141306" y="181.423173" style="fill: #9a8872; stroke: #9a8872; stroke-width: 0.9"/>
+      </g>
+     </g>
+     <g id="text_20">
+      <!-- $\mathdefault{10^{4}}$ -->
+      <g style="fill: #9a8872" transform="translate(410.781306 195.641688)">
+       <text>
+        <tspan x="0" y="-0.064063" style="font-size: 9.5px; font-family: 'Public Sans, Helvetica, Arial, sans-serif'; fill: #9a8872">1</tspan>
+        <tspan x="6.044189" y="-0.064063" style="font-size: 9.5px; font-family: 'Public Sans, Helvetica, Arial, sans-serif'; fill: #9a8872">0</tspan>
+        <tspan x="12.184082" y="-3.892188" style="font-size: 6.65px; font-family: 'Public Sans, Helvetica, Arial, sans-serif'; fill: #9a8872">4</tspan>
+       </text>
+      </g>
+     </g>
+    </g>
+    <g id="xtick_10">
+     <g id="line2d_23">
+      <path d="M 463.646732 181.423173 
+L 463.646732 17.875173 
+" clip-path="url(#p88a809bc03)" style="fill: none; stroke: #2e251c; stroke-opacity: 0.7; stroke-width: 0.6; stroke-linecap: square"/>
+     </g>
+     <g id="line2d_24">
+      <g>
+       <use xlink:href="#me97fc8f6fc" x="463.646732" y="181.423173" style="fill: #9a8872; stroke: #9a8872; stroke-width: 0.9"/>
+      </g>
+     </g>
+     <g id="text_21">
+      <!-- $\mathdefault{10^{5}}$ -->
+      <g style="fill: #9a8872" transform="translate(455.286732 195.641688)">
+       <text>
+        <tspan x="0" y="-0.064063" style="font-size: 9.5px; font-family: 'Public Sans, Helvetica, Arial, sans-serif'; fill: #9a8872">1</tspan>
+        <tspan x="6.044189" y="-0.064063" style="font-size: 9.5px; font-family: 'Public Sans, Helvetica, Arial, sans-serif'; fill: #9a8872">0</tspan>
+        <tspan x="12.184082" y="-3.892188" style="font-size: 6.65px; font-family: 'Public Sans, Helvetica, Arial, sans-serif'; fill: #9a8872">5</tspan>
+       </text>
+      </g>
+     </g>
+    </g>
+    <g id="xtick_11">
+     <g id="line2d_25">
+      <defs>
+       <path id="m280124e32e" d="M 0 0 
+L 0 2 
+" style="stroke: #9a8872; stroke-width: 0.6"/>
+      </defs>
+      <g>
+       <use xlink:href="#m280124e32e" x="312.419962" y="181.423173" style="fill: #9a8872; stroke: #9a8872; stroke-width: 0.6"/>
+      </g>
+     </g>
+    </g>
+    <g id="xtick_12">
+     <g id="line2d_26">
+      <g>
+       <use xlink:href="#m280124e32e" x="316.732983" y="181.423173" style="fill: #9a8872; stroke: #9a8872; stroke-width: 0.6"/>
+      </g>
+     </g>
+    </g>
+    <g id="xtick_13">
+     <g id="line2d_27">
+      <g>
+       <use xlink:href="#m280124e32e" x="320.256978" y="181.423173" style="fill: #9a8872; stroke: #9a8872; stroke-width: 0.6"/>
+      </g>
+     </g>
+    </g>
+    <g id="xtick_14">
+     <g id="line2d_28">
+      <g>
+       <use xlink:href="#m280124e32e" x="323.236474" y="181.423173" style="fill: #9a8872; stroke: #9a8872; stroke-width: 0.6"/>
+      </g>
+     </g>
+    </g>
+    <g id="xtick_15">
+     <g id="line2d_29">
+      <g>
+       <use xlink:href="#m280124e32e" x="325.81743" y="181.423173" style="fill: #9a8872; stroke: #9a8872; stroke-width: 0.6"/>
+      </g>
+     </g>
+    </g>
+    <g id="xtick_16">
+     <g id="line2d_30">
+      <g>
+       <use xlink:href="#m280124e32e" x="328.093995" y="181.423173" style="fill: #9a8872; stroke: #9a8872; stroke-width: 0.6"/>
+      </g>
+     </g>
+    </g>
+    <g id="xtick_17">
+     <g id="line2d_31">
+      <g>
+       <use xlink:href="#m280124e32e" x="343.52792" y="181.423173" style="fill: #9a8872; stroke: #9a8872; stroke-width: 0.6"/>
+      </g>
+     </g>
+    </g>
+    <g id="xtick_18">
+     <g id="line2d_32">
+      <g>
+       <use xlink:href="#m280124e32e" x="351.364937" y="181.423173" style="fill: #9a8872; stroke: #9a8872; stroke-width: 0.6"/>
+      </g>
+     </g>
+    </g>
+    <g id="xtick_19">
+     <g id="line2d_33">
+      <g>
+       <use xlink:href="#m280124e32e" x="356.925389" y="181.423173" style="fill: #9a8872; stroke: #9a8872; stroke-width: 0.6"/>
+      </g>
+     </g>
+    </g>
+    <g id="xtick_20">
+     <g id="line2d_34">
+      <g>
+       <use xlink:href="#m280124e32e" x="361.23841" y="181.423173" style="fill: #9a8872; stroke: #9a8872; stroke-width: 0.6"/>
+      </g>
+     </g>
+    </g>
+    <g id="xtick_21">
+     <g id="line2d_35">
+      <g>
+       <use xlink:href="#m280124e32e" x="364.762405" y="181.423173" style="fill: #9a8872; stroke: #9a8872; stroke-width: 0.6"/>
+      </g>
+     </g>
+    </g>
+    <g id="xtick_22">
+     <g id="line2d_36">
+      <g>
+       <use xlink:href="#m280124e32e" x="367.741901" y="181.423173" style="fill: #9a8872; stroke: #9a8872; stroke-width: 0.6"/>
+      </g>
+     </g>
+    </g>
+    <g id="xtick_23">
+     <g id="line2d_37">
+      <g>
+       <use xlink:href="#m280124e32e" x="370.322857" y="181.423173" style="fill: #9a8872; stroke: #9a8872; stroke-width: 0.6"/>
+      </g>
+     </g>
+    </g>
+    <g id="xtick_24">
+     <g id="line2d_38">
+      <g>
+       <use xlink:href="#m280124e32e" x="372.599422" y="181.423173" style="fill: #9a8872; stroke: #9a8872; stroke-width: 0.6"/>
+      </g>
+     </g>
+    </g>
+    <g id="xtick_25">
+     <g id="line2d_39">
+      <g>
+       <use xlink:href="#m280124e32e" x="388.033347" y="181.423173" style="fill: #9a8872; stroke: #9a8872; stroke-width: 0.6"/>
+      </g>
+     </g>
+    </g>
+    <g id="xtick_26">
+     <g id="line2d_40">
+      <g>
+       <use xlink:href="#m280124e32e" x="395.870364" y="181.423173" style="fill: #9a8872; stroke: #9a8872; stroke-width: 0.6"/>
+      </g>
+     </g>
+    </g>
+    <g id="xtick_27">
+     <g id="line2d_41">
+      <g>
+       <use xlink:href="#m280124e32e" x="401.430816" y="181.423173" style="fill: #9a8872; stroke: #9a8872; stroke-width: 0.6"/>
+      </g>
+     </g>
+    </g>
+    <g id="xtick_28">
+     <g id="line2d_42">
+      <g>
+       <use xlink:href="#m280124e32e" x="405.743837" y="181.423173" style="fill: #9a8872; stroke: #9a8872; stroke-width: 0.6"/>
+      </g>
+     </g>
+    </g>
+    <g id="xtick_29">
+     <g id="line2d_43">
+      <g>
+       <use xlink:href="#m280124e32e" x="409.267832" y="181.423173" style="fill: #9a8872; stroke: #9a8872; stroke-width: 0.6"/>
+      </g>
+     </g>
+    </g>
+    <g id="xtick_30">
+     <g id="line2d_44">
+      <g>
+       <use xlink:href="#m280124e32e" x="412.247328" y="181.423173" style="fill: #9a8872; stroke: #9a8872; stroke-width: 0.6"/>
+      </g>
+     </g>
+    </g>
+    <g id="xtick_31">
+     <g id="line2d_45">
+      <g>
+       <use xlink:href="#m280124e32e" x="414.828284" y="181.423173" style="fill: #9a8872; stroke: #9a8872; stroke-width: 0.6"/>
+      </g>
+     </g>
+    </g>
+    <g id="xtick_32">
+     <g id="line2d_46">
+      <g>
+       <use xlink:href="#m280124e32e" x="417.104849" y="181.423173" style="fill: #9a8872; stroke: #9a8872; stroke-width: 0.6"/>
+      </g>
+     </g>
+    </g>
+    <g id="xtick_33">
+     <g id="line2d_47">
+      <g>
+       <use xlink:href="#m280124e32e" x="432.538774" y="181.423173" style="fill: #9a8872; stroke: #9a8872; stroke-width: 0.6"/>
+      </g>
+     </g>
+    </g>
+    <g id="xtick_34">
+     <g id="line2d_48">
+      <g>
+       <use xlink:href="#m280124e32e" x="440.375791" y="181.423173" style="fill: #9a8872; stroke: #9a8872; stroke-width: 0.6"/>
+      </g>
+     </g>
+    </g>
+    <g id="xtick_35">
+     <g id="line2d_49">
+      <g>
+       <use xlink:href="#m280124e32e" x="445.936242" y="181.423173" style="fill: #9a8872; stroke: #9a8872; stroke-width: 0.6"/>
+      </g>
+     </g>
+    </g>
+    <g id="xtick_36">
+     <g id="line2d_50">
+      <g>
+       <use xlink:href="#m280124e32e" x="450.249264" y="181.423173" style="fill: #9a8872; stroke: #9a8872; stroke-width: 0.6"/>
+      </g>
+     </g>
+    </g>
+    <g id="xtick_37">
+     <g id="line2d_51">
+      <g>
+       <use xlink:href="#m280124e32e" x="453.773259" y="181.423173" style="fill: #9a8872; stroke: #9a8872; stroke-width: 0.6"/>
+      </g>
+     </g>
+    </g>
+    <g id="xtick_38">
+     <g id="line2d_52">
+      <g>
+       <use xlink:href="#m280124e32e" x="456.752755" y="181.423173" style="fill: #9a8872; stroke: #9a8872; stroke-width: 0.6"/>
+      </g>
+     </g>
+    </g>
+    <g id="xtick_39">
+     <g id="line2d_53">
+      <g>
+       <use xlink:href="#m280124e32e" x="459.333711" y="181.423173" style="fill: #9a8872; stroke: #9a8872; stroke-width: 0.6"/>
+      </g>
+     </g>
+    </g>
+    <g id="xtick_40">
+     <g id="line2d_54">
+      <g>
+       <use xlink:href="#m280124e32e" x="461.610276" y="181.423173" style="fill: #9a8872; stroke: #9a8872; stroke-width: 0.6"/>
+      </g>
+     </g>
+    </g>
+    <g id="xtick_41">
+     <g id="line2d_55">
+      <g>
+       <use xlink:href="#m280124e32e" x="477.044201" y="181.423173" style="fill: #9a8872; stroke: #9a8872; stroke-width: 0.6"/>
+      </g>
+     </g>
+    </g>
+    <g id="text_22">
+     <!-- fermentation volume  (m$^{3}$) -->
+     <g style="fill: #cbbca6" transform="translate(331.908181 209.616688)">
+      <text>
+       <tspan x="0" y="-0.976562" style="font-size: 9.5px; font-family: 'Public Sans, Helvetica, Arial, sans-serif'; fill: #cbbca6">f</tspan>
+       <tspan x="3.344482" y="-0.976562" style="font-size: 9.5px; font-family: 'Public Sans, Helvetica, Arial, sans-serif'; fill: #cbbca6">e</tspan>
+       <tspan x="9.189209" y="-0.976562" style="font-size: 9.5px; font-family: 'Public Sans, Helvetica, Arial, sans-serif'; fill: #cbbca6">r</tspan>
+       <tspan x="13.094971" y="-0.976562" style="font-size: 9.5px; font-family: 'Public Sans, Helvetica, Arial, sans-serif'; fill: #cbbca6">m</tspan>
+       <tspan x="22.349121" y="-0.976562" style="font-size: 9.5px; font-family: 'Public Sans, Helvetica, Arial, sans-serif'; fill: #cbbca6">e</tspan>
+       <tspan x="28.193848" y="-0.976562" style="font-size: 9.5px; font-family: 'Public Sans, Helvetica, Arial, sans-serif'; fill: #cbbca6">n</tspan>
+       <tspan x="34.214844" y="-0.976562" style="font-size: 9.5px; font-family: 'Public Sans, Helvetica, Arial, sans-serif'; fill: #cbbca6">t</tspan>
+       <tspan x="37.939697" y="-0.976562" style="font-size: 9.5px; font-family: 'Public Sans, Helvetica, Arial, sans-serif'; fill: #cbbca6">a</tspan>
+       <tspan x="43.76123" y="-0.976562" style="font-size: 9.5px; font-family: 'Public Sans, Helvetica, Arial, sans-serif'; fill: #cbbca6">t</tspan>
+       <tspan x="47.486084" y="-0.976562" style="font-size: 9.5px; font-family: 'Public Sans, Helvetica, Arial, sans-serif'; fill: #cbbca6">i</tspan>
+       <tspan x="50.125488" y="-0.976562" style="font-size: 9.5px; font-family: 'Public Sans, Helvetica, Arial, sans-serif'; fill: #cbbca6">o</tspan>
+       <tspan x="55.937744" y="-0.976562" style="font-size: 9.5px; font-family: 'Public Sans, Helvetica, Arial, sans-serif'; fill: #cbbca6">n</tspan>
+       <tspan x="61.95874" y="-0.976562" style="font-size: 9.5px; font-family: 'Public Sans, Helvetica, Arial, sans-serif'; fill: #cbbca6"> </tspan>
+       <tspan x="64.978516" y="-0.976562" style="font-size: 9.5px; font-family: 'Public Sans, Helvetica, Arial, sans-serif'; fill: #cbbca6">v</tspan>
+       <tspan x="70.600586" y="-0.976562" style="font-size: 9.5px; font-family: 'Public Sans, Helvetica, Arial, sans-serif'; fill: #cbbca6">o</tspan>
+       <tspan x="76.412842" y="-0.976562" style="font-size: 9.5px; font-family: 'Public Sans, Helvetica, Arial, sans-serif'; fill: #cbbca6">l</tspan>
+       <tspan x="79.052246" y="-0.976562" style="font-size: 9.5px; font-family: 'Public Sans, Helvetica, Arial, sans-serif'; fill: #cbbca6">u</tspan>
+       <tspan x="85.073242" y="-0.976562" style="font-size: 9.5px; font-family: 'Public Sans, Helvetica, Arial, sans-serif'; fill: #cbbca6">m</tspan>
+       <tspan x="94.327393" y="-0.976562" style="font-size: 9.5px; font-family: 'Public Sans, Helvetica, Arial, sans-serif'; fill: #cbbca6">e</tspan>
+       <tspan x="100.172119" y="-0.976562" style="font-size: 9.5px; font-family: 'Public Sans, Helvetica, Arial, sans-serif'; fill: #cbbca6"> </tspan>
+       <tspan x="103.191895" y="-0.976562" style="font-size: 9.5px; font-family: 'Public Sans, Helvetica, Arial, sans-serif'; fill: #cbbca6"> </tspan>
+       <tspan x="106.21167" y="-0.976562" style="font-size: 9.5px; font-family: 'Public Sans, Helvetica, Arial, sans-serif'; fill: #cbbca6">(</tspan>
+       <tspan x="109.917969" y="-0.976562" style="font-size: 9.5px; font-family: 'Public Sans, Helvetica, Arial, sans-serif'; fill: #cbbca6">m</tspan>
+       <tspan x="123.772192" y="-0.976562" style="font-size: 9.5px; font-family: 'Public Sans, Helvetica, Arial, sans-serif'; fill: #cbbca6">)</tspan>
+       <tspan x="119.267822" y="-4.804688" style="font-size: 6.65px; font-family: 'Public Sans, Helvetica, Arial, sans-serif'; fill: #cbbca6">3</tspan>
+      </text>
+     </g>
+    </g>
+   </g>
+   <g id="matplotlib.axis_4">
+    <g id="ytick_5">
+     <g id="line2d_56">
+      <path d="M 312.419962 142.202323 
+L 478.8864 142.202323 
+" clip-path="url(#p88a809bc03)" style="fill: none; stroke: #2e251c; stroke-opacity: 0.7; stroke-width: 0.6; stroke-linecap: square"/>
+     </g>
+     <g id="line2d_57">
+      <g>
+       <use xlink:href="#m232db62e3b" x="312.419962" y="142.202323" style="fill: #9a8872; stroke: #9a8872; stroke-width: 0.9"/>
+      </g>
+     </g>
+     <g id="text_23">
+      <!-- $\mathdefault{10^{4}}$ -->
+      <g style="fill: #9a8872" transform="translate(288.699962 145.811581)">
+       <text>
+        <tspan x="0" y="-0.064063" style="font-size: 9.5px; font-family: 'Public Sans, Helvetica, Arial, sans-serif'; fill: #9a8872">1</tspan>
+        <tspan x="6.044189" y="-0.064063" style="font-size: 9.5px; font-family: 'Public Sans, Helvetica, Arial, sans-serif'; fill: #9a8872">0</tspan>
+        <tspan x="12.184082" y="-3.892188" style="font-size: 6.65px; font-family: 'Public Sans, Helvetica, Arial, sans-serif'; fill: #9a8872">4</tspan>
+       </text>
+      </g>
+     </g>
+    </g>
+    <g id="ytick_6">
+     <g id="line2d_58">
+      <defs>
+       <path id="m1d5a18a991" d="M 0 0 
+L -2 0 
+" style="stroke: #9a8872; stroke-width: 0.6"/>
+      </defs>
+      <g>
+       <use xlink:href="#m1d5a18a991" x="312.419962" y="181.423173" style="fill: #9a8872; stroke: #9a8872; stroke-width: 0.6"/>
+      </g>
+     </g>
+    </g>
+    <g id="ytick_7">
+     <g id="line2d_59">
+      <g>
+       <use xlink:href="#m1d5a18a991" x="312.419962" y="171.10674" style="fill: #9a8872; stroke: #9a8872; stroke-width: 0.6"/>
+      </g>
+     </g>
+    </g>
+    <g id="ytick_8">
+     <g id="line2d_60">
+      <g>
+       <use xlink:href="#m1d5a18a991" x="312.419962" y="162.38432" style="fill: #9a8872; stroke: #9a8872; stroke-width: 0.6"/>
+      </g>
+     </g>
+    </g>
+    <g id="ytick_9">
+     <g id="line2d_61">
+      <g>
+       <use xlink:href="#m1d5a18a991" x="312.419962" y="154.828617" style="fill: #9a8872; stroke: #9a8872; stroke-width: 0.6"/>
+      </g>
+     </g>
+    </g>
+    <g id="ytick_10">
+     <g id="line2d_62">
+      <g>
+       <use xlink:href="#m1d5a18a991" x="312.419962" y="148.164014" style="fill: #9a8872; stroke: #9a8872; stroke-width: 0.6"/>
+      </g>
+     </g>
+    </g>
+    <g id="ytick_11">
+     <g id="line2d_63">
+      <g>
+       <use xlink:href="#m1d5a18a991" x="312.419962" y="102.981474" style="fill: #9a8872; stroke: #9a8872; stroke-width: 0.6"/>
+      </g>
+     </g>
+    </g>
+    <g id="ytick_12">
+     <g id="line2d_64">
+      <g>
+       <use xlink:href="#m1d5a18a991" x="312.419962" y="80.038748" style="fill: #9a8872; stroke: #9a8872; stroke-width: 0.6"/>
+      </g>
+     </g>
+    </g>
+    <g id="ytick_13">
+     <g id="line2d_65">
+      <g>
+       <use xlink:href="#m1d5a18a991" x="312.419962" y="63.760625" style="fill: #9a8872; stroke: #9a8872; stroke-width: 0.6"/>
+      </g>
+     </g>
+    </g>
+    <g id="ytick_14">
+     <g id="line2d_66">
+      <g>
+       <use xlink:href="#m1d5a18a991" x="312.419962" y="51.134331" style="fill: #9a8872; stroke: #9a8872; stroke-width: 0.6"/>
+      </g>
+     </g>
+    </g>
+    <g id="ytick_15">
+     <g id="line2d_67">
+      <g>
+       <use xlink:href="#m1d5a18a991" x="312.419962" y="40.817899" style="fill: #9a8872; stroke: #9a8872; stroke-width: 0.6"/>
+      </g>
+     </g>
+    </g>
+    <g id="ytick_16">
+     <g id="line2d_68">
+      <g>
+       <use xlink:href="#m1d5a18a991" x="312.419962" y="32.095479" style="fill: #9a8872; stroke: #9a8872; stroke-width: 0.6"/>
+      </g>
+     </g>
+    </g>
+    <g id="ytick_17">
+     <g id="line2d_69">
+      <g>
+       <use xlink:href="#m1d5a18a991" x="312.419962" y="24.539775" style="fill: #9a8872; stroke: #9a8872; stroke-width: 0.6"/>
+      </g>
+     </g>
+    </g>
+    <g id="ytick_18">
+     <g id="line2d_70">
+      <g>
+       <use xlink:href="#m1d5a18a991" x="312.419962" y="17.875173" style="fill: #9a8872; stroke: #9a8872; stroke-width: 0.6"/>
+      </g>
+     </g>
+    </g>
+    <g id="text_24">
+     <text style="font-size: 9.5px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: middle; fill: #cbbca6" x="282.724259" y="99.649173" transform="rotate(-90 282.724259 99.649173)">cost of goods  ($ per tonne)</text>
+    </g>
+   </g>
+   <g id="line2d_71">
+    <path d="M 316.732983 39.441801 
+L 331.008309 50.415424 
+L 345.283634 61.116736 
+L 359.55896 71.550742 
+L 373.834286 81.717171 
+L 388.109611 91.610481 
+L 401.433249 100.588506 
+L 414.756886 109.306981 
+L 428.080523 117.750261 
+L 440.452472 125.32802 
+L 452.824421 132.636381 
+L 464.244681 139.128553 
+L 468.051435 141.235952 
+L 468.051435 141.235952 
+" clip-path="url(#p88a809bc03)" style="fill: none; stroke: #6dbdac; stroke-width: 1.9; stroke-linecap: square"/>
+   </g>
+   <g id="line2d_72">
+    <path d="M 312.419962 131.88589 
+L 478.8864 131.88589 
+" clip-path="url(#p88a809bc03)" style="fill: none; stroke-dasharray: 4.4,3.3; stroke-dashoffset: 0; stroke: #d98c72; stroke-width: 1.1"/>
+   </g>
+   <g id="line2d_73">
+    <path d="M 447.400949 181.423173 
+L 447.400949 17.875173 
+" clip-path="url(#p88a809bc03)" style="fill: none; stroke-dasharray: 1.8,2.7; stroke-dashoffset: 0; stroke: #3a3026; stroke-width: 0.9"/>
+   </g>
+   <g id="line2d_74">
+    <path d="M 316.732983 39.441801 
+" clip-path="url(#p88a809bc03)" style="fill: none; stroke: #6dbdac; stroke-width: 1.9; stroke-linecap: square"/>
+    <defs>
+     <path id="m34aec42fe1" d="M 0 2.5 
+C 0.663008 2.5 1.29895 2.236584 1.767767 1.767767 
+C 2.236584 1.29895 2.5 0.663008 2.5 0 
+C 2.5 -0.663008 2.236584 -1.29895 1.767767 -1.767767 
+C 1.29895 -2.236584 0.663008 -2.5 0 -2.5 
+C -0.663008 -2.5 -1.29895 -2.236584 -1.767767 -1.767767 
+C -2.236584 -1.29895 -2.5 -0.663008 -2.5 0 
+C -2.5 0.663008 -2.236584 1.29895 -1.767767 1.767767 
+C -1.29895 2.236584 -0.663008 2.5 0 2.5 
+z
+" style="stroke: #6dbdac"/>
+    </defs>
+    <g clip-path="url(#p88a809bc03)">
+     <use xlink:href="#m34aec42fe1" x="316.732983" y="39.441801" style="fill: #6dbdac; stroke: #6dbdac"/>
+    </g>
+   </g>
+   <g id="patch_14">
+    <path d="M 312.419962 181.423173 
+L 312.419962 17.875173 
+" style="fill: none; stroke: #3a3026; stroke-width: 0.9; stroke-linejoin: miter; stroke-linecap: square"/>
+   </g>
+   <g id="patch_15">
+    <path d="M 312.419962 181.423173 
+L 478.8864 181.423173 
+" style="fill: none; stroke: #3a3026; stroke-width: 0.9; stroke-linejoin: miter; stroke-linecap: square"/>
+   </g>
+   <g id="text_25">
+    <text style="font-size: 8.3px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; fill: #6dbdac" transform="translate(335.201549 33.748844)">weeks 47-51</text>
+    <text style="font-size: 8.3px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; fill: #6dbdac" transform="translate(335.201549 43.043029)">50 m³, $61,500/t</text>
+   </g>
+   <g id="text_26">
+    <text style="font-size: 8.3px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: start; fill: #d98c72" x="331.972651" y="146.289772" transform="rotate(-0 331.972651 146.289772)">product price $12,000/t</text>
+   </g>
+   <g id="text_27">
+    <text style="font-size: 8.3px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; fill: #9a8872" transform="translate(398.822163 166.048105)">NREL 2011</text>
+    <text style="font-size: 8.3px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; fill: #9a8872" transform="translate(401.336803 175.34229)">43,000 m³</text>
+   </g>
+  </g>
+  <g id="text_28">
+   <text style="font-size: 8.3px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: start; fill: #9a8872" x="5.76" y="232.399173" transform="rotate(-0 5.76 232.399173)">Left: elasticities re-run from the model agree with the cost shares to within 0.02, which is the week's rule. Right: TCI scaling as V⁰·⁷⁵ from the 50 m³ basis; assumed prices and an assumed installation factor of 4.0.</text>
+  </g>
+ </g>
+ <defs>
+  <clipPath id="p8ff1cad5a2">
+   <rect x="65.9664" y="17.875173" width="174.78976" height="163.548"/>
+  </clipPath>
+  <clipPath id="p88a809bc03">
+   <rect x="312.419962" y="17.875173" width="166.466438" height="163.548"/>
+  </clipPath>
+ </defs>
+</svg>
+</div><figcaption>Left: elasticities re-run from the cost model sit on top of the cost shares of the lines each parameter moves — titre and cycle time at 0.96, equipment cost at 0.71, yield at 0.03 — so the ranking can be read off a cost breakdown before a single case is re-run. Right: the same model up the scale axis crosses the product's $12,000 per tonne price near 50,000 m³, within a factor of 1.2 of the fermentation volume in the NREL 2011 design, which is the week's independent check that the method works.</figcaption></figure>
+<p>Define it properly as the logarithmic derivative, d ln C / d ln p, the fractional change in cost of goods per fractional change in a parameter, because that is the only form in which parameters with different units can be ranked against each other. Then notice what it evaluates to. If the cost of goods is a sum of lines, and a parameter scales a subset of those lines, the elasticity with respect to that parameter is the sum of those lines&#x27; shares of total cost, with the sign of the scaling. Titre sets the annual output of a plant of fixed volume and fixed cycle time, so it scales the capital charge, the fixed costs and every volume-dependent consumable — in the anchor, 96.8% of the total — hence an elasticity of about −0.97. Fermentation yield on substrate scales only the raw-material line, 3.2% of cost, hence −0.03. Cycle time scales exactly what titre scales, through the same annual-output term, so its elasticity matches titre&#x27;s in magnitude; equipment cost scales the capital charge alone, 71%, hence −0.71 at constant everything else. The practical consequence is that the ranking can be read off a cost breakdown without running a single sensitivity case, and the sensitivity table becomes a check on the arithmetic rather than a discovery. The consequence for strain engineering is harder: the economically justified work is whatever moves the largest cost share per unit of effort, and that is a question about where the plant sits on the titre axis and how capital-intensive it is, not a question about the pathway.</p>
+<p><strong>10. Inverting the model to get a strain specification, and why it is a surface</strong></p>
+<p>The model runs forward from strain performance to cost; the specification is the same model solved backwards, with a target cost fixed and a performance variable free. In the anchor that gives the minimum titre at which this plant can make this product at a given price, and the answer, about 297 g L⁻¹ for $12 per kilogram at 50 m³, is useful precisely because it is absurd — a specification that cannot be met is a statement that the configuration is wrong, which is what a specification is for. Two refinements keep it honest. The requirement is a surface rather than a point: titre, cycle time, recovery and scale trade against each other along iso-cost contours, and any (titre, cycle) pair on the contour meets the spec, so the right output is a contour plus a judgement about which axis is cheapest to move. And the spec has to be stated against a price with a date on it, because the market price identified in phase 7 is itself a moving number and the whole inversion is conditional on it. The deliverable sentence has the form: to reach a cost of goods of X dollars per kilogram at this scale and this recovery, the strain must deliver titre T, productivity P and yield Y, of which the binding one is T — and the gap between that and what week 26&#x27;s design predicts is the thing to write down in the capstone.</p>
+<p><strong>11. Monte Carlo on uncertain inputs, and the convexity nobody mentions</strong></p>
+<p>A point estimate built from uncertain inputs is not the expected cost, and the reason is Jensen&#x27;s inequality rather than anything statistical. Cost of goods depends on titre as 1/titre, which is convex, so symmetric uncertainty in titre produces asymmetric uncertainty in cost with a mean above the point estimate. In the anchor, ±30% on titre gives +41.5% and −22.3% on cost, and the average of the two cases is 9.6% above the base case. The asymmetry is slightly smaller than a pure reciprocal would give — a cost depending on titre alone would move +42.9% and −23.1% — because the raw-material line, 3.2% of cost, does not depend on titre at all, and saying so in the assumptions block is worth a sentence, since a reader who checks the arithmetic against 1/titre will otherwise think it is wrong — which is why the output of a Monte Carlo is a distribution and the headline should be a percentile rather than a mean, and why a deterministic cost of goods quoted to three significant figures is misleading in a specific, predictable direction. Three practical rules follow. Put the distribution on the inputs you actually know something about, which for a strain at the design stage means titre and cycle time, not the price of ammonium sulfate. Correlate the inputs that are correlated — titre and cycle time are not independent, since pushing titre usually lengthens the batch, and treating them as independent understates the spread. And report the inputs&#x27; distributions alongside the output&#x27;s, because the shape of the answer is mostly inherited from the shape of the assumptions, which a reviewer is entitled to check.</p>
+<p><strong>12. LCA in outline: the four phases, and the three choices that decide the answer</strong></p>
+<p>ISO 14040:2006 gives the principles and framework and ISO 14044:2006 the requirements and guidelines, both maintained by ISO/TC 207/SC 5 and both amended in 2020 (14044 also in 2017); 14040 is a twenty-page framework document that deliberately does not specify methodology for the individual phases, which is why it has to be read with 14044 and with a practical guide. The framework is four phases: goal and scope definition, inventory analysis, impact assessment, and interpretation, with reporting and critical review around them. Three choices inside the first phase decide most of the answer. The <strong>functional unit</strong> is the quantified service the comparison is about, and getting it wrong is the commonest way to produce a meaningless comparison — a kilogram of bio-based polymer is not a functional unit, because the mass needed to do a job depends on the material&#x27;s properties, so the comparison has to be per unit of function delivered. The <strong>system boundary</strong> decides what is in: cradle-to-gate stops at the factory, which is the right boundary for comparing production routes and the wrong one for claiming a product is better, since the use and end-of-life phases are exactly where a bio-based material usually wins. <strong>Allocation</strong> divides burdens between a process&#x27;s co-products, and ISO 14044 sets a hierarchy — avoid allocation where possible by subdividing the process or expanding the system, then allocate on an underlying physical relationship, and only then on some other relationship such as economic value — which matters enormously for a fermentation, since the usual bioprocess has a co-product stream and the allocation choice can move the result by more than any process improvement. The European Commission&#x27;s ILCD Handbook (General guide for Life Cycle Assessment — Detailed guidance, first edition March 2010, EUR 24708 EN) is the practical companion that works through these in line with the ISO series and also sets out the attributional-versus-consequential distinction, which is the question of whether the study describes a product&#x27;s share of existing flows or the change in flows caused by a decision. A screening LCA answers the first and a strain-design decision needs the second, and saying which one has been done is part of the honest paragraph.</p>
+<p><strong>13. Bio-based is not automatically better, with the primary evidence and its own rebuttals</strong></p>
+<p>The claim needs a citation rather than an attitude, and the usual one is Tabone, Cregg, Beckman and Landis, <em>Sustainability metrics: life cycle assessment and green design in polymers</em>, Environ. Sci. Technol. 2010, 44(21), 8264–8269. It compares twelve polymers — seven petroleum-derived, four bio-derived and one hybrid — on a cradle-to-gate basis against both life-cycle impacts and green-design principles, and finds a disparity: the biopolymers rank highly on green design and poorly on production impacts. The specific non-carbon categories are the point. The two polylactides, including the main commercial grade, showed the largest contribution to eutrophication, which is fertiliser nitrogen and phosphorus reaching water; one corn-derived polyhydroxyalkanoate topped acidification; all four biopolymers were the largest contributors to ozone depletion; and the biopolymers exceeded most of the petroleum polymers on ecotoxicity and carcinogenic emissions. The mechanism is agricultural rather than microbial, which is why it is invisible to a flux model and why it belongs in this week rather than in a strain-design week: the burden is in the field and the fertiliser, upstream of the fermenter. The second half of the citation is as important as the first. The paper drew published Comments in the same journal — Murphy, Detzel, Guo and Krüger, Environ. Sci. Technol. 2011, 45(11), 5055–5056, and Dale, same volume, p5057 — challenging the data vintage, the handling of the use and end-of-life phases, and above all the compression of multiple impact categories into a single ranking. Both criticisms are substantially about method rather than politics, and the right way to cite this work is as a demonstration that bio-based routes can lose on non-carbon categories <em>and</em> as a demonstration of what a screening LCA cannot bear: collapsing several incommensurable impact categories into one score, comparing on mass rather than function, and stopping the boundary at the gate while drawing a conclusion about the product. Carry both halves into the capstone, because a reviewer who knows this literature knows about the Comments.</p>
+<p><strong>14. The honest paragraph, which is a deliverable rather than a disclaimer</strong></p>
+<p>The week&#x27;s eleventh session asks for what the analysis cannot tell you and what data would be needed, and it should be written as a numbered list of specific ignorances with the experiment or quote that would close each, not as a paragraph of hedging. For the anchor, the list is: every stage recovery is assumed rather than measured, and the first downstream experiment is a material balance across each stage on real broth; the installation factor is assumed rather than taken from Towler&#x27;s table, and a single afternoon with the book fixes it; the equipment prices are correlations rather than quotes, which is the difference between a Class 5 and a Class 4 estimate; the product price has a date and no source; the capital charge rests on a required return that is a policy choice rather than a measurement, and the cost of goods moves roughly in proportion to it; the nth-plant question is not addressed at all; and the screening LCA has no characterised inventory behind it, so its two dominant contributors are a hypothesis about where to look rather than a result. The discipline of writing that list is what converts the model from an assertion into an argument, and it is also, practically, the section of a capstone that a reviewer reads first to find out whether the rest can be trusted.</p>
+<h3>Worked anchor</h3>
+<p>Build the techno-economic model for the process designed across weeks 47-51, find the cost of goods, and let the arithmetic audit the design.</p>
+<p>Basis, all carried forward unchanged so the audit is of the design rather than of a new set of numbers. 50 m³ working volume from week 49. Secreted extracellular product, titre 50 g L⁻¹, so 2,500 kg in the broth per batch. Product yield 0.30 g g⁻¹ on glucose and biomass 40 g L⁻¹ at Y_XS 0.45 g g⁻¹, from weeks 49-50. Overall downstream recovery 67.3% from the seven-stage train of week 51. Glucose $400 per tonne, steam $20 per tonne, product $12 per kg, all as assumed in week 51. Required return 10% over a fifteen-year life. Uptime 8,410 h per year, which is NREL&#x27;s 96%.</p>
+<p>Step 1 — purchased equipment, sized from the design and priced by correlation. Figures are order-of-magnitude and are the weakest link in the estimate:</p>
+<p>seed train, three stages                        $0.45 M production fermenter 50 m³ with agitator         $1.60 M air compressor and inlet filtration              $0.38 M sterilisers, batch and continuous                $0.32 M disc-stack centrifuges, two                      $0.90 M depth filtration skid                            $0.18 M triple-effect evaporator                         $1.10 M extraction / adsorption                          $0.70 M ion exchange skid                                $0.42 M crystalliser                                     $0.55 M dryer                                            $0.30 M tanks, pumps, CIP, utilities                     $1.10 M -------- total purchased equipment cost                   $8.00 M</p>
+<p>Step 2 — the factorial build-up to total capital investment. The installation factor of 4.0 is <strong>assumed</strong>, not taken from Towler&#x27;s table, and is flagged as the estimate&#x27;s largest single unverified input:</p>
+<p>installed (ISBL) = 8.00 × 4.0                   $32.0 M offsites at 30% of ISBL                          $9.6 M design and engineering at 10% of (ISBL+OSBL)     $4.2 M contingency at 15% of the above                  $6.9 M -------- fixed capital investment (FCI)                  $52.6 M working capital at 15% of FCI                    $7.9 M -------- total capital investment (TCI)                  $60.5 M</p>
+<p>By AACE 18R-97 this is a Class 5 estimate on methodology (correlations and factors) and Class 4 at best on definition, so the honest range on it is roughly −20 to −50% and +30 to +100%. Every conclusion below has to survive a capital number twice as large, and most of them do, because the direction of the finding is set by the structure rather than by the value.</p>
+<p>Step 3 — annual output, which is where titre and cycle time enter. Growth from 0.5 to 40 g L⁻¹ at µ = 0.25 h⁻¹ takes (1/0.25)·ln(40/0.5) = 17.5 h; production phase 40 h; turnaround 20 h, inside Stanbury&#x27;s 15-25 h range. Cycle 77.5 h, so 8,410/77.5 = 108.5 batches per year. At 2,500 kg in the broth and 67.3% recovery that is 1,682 kg per batch and <strong>182.5 tonnes per year</strong>.</p>
+<p>Step 4 — the capital charge, which week 51 deferred to here. The annuity factor at 10% over fifteen years is 0.10 × 1.10¹⁵/(1.10¹⁵ − 1) = 0.1315 per year, essentially NREL&#x27;s computed capital charge factor of 0.131. So $60.5 M × 0.1315 = $7.96 M per year, over 182.5 tonnes:</p>
+<p>capital charge = $43,600 per tonne of product.</p>
+<p>Week 51 allocated $900 per tonne for this line. The placeholder was wrong by a factor of 48, and everything that follows is the consequence.</p>
+<p>Step 5 — cost of goods, per tonne of product leaving the plant:</p>
+<p>capital charge                                 $43,600    70.9% fixed costs (maintenance at 3% of FCI, plus $1.2 M labour and overhead)             $15,220    24.8% raw material (glucose, grossed up by 1/0.673)   $1,980     3.2% consumables (filter aid, resin, solvent)          $400     0.7% utilities (steam, power, cooling)                 $282     0.5% ------- cost of goods                                  $61,480   = $61.5 per kg</p>
+<p>Against a selling price of $12 per kg. The process loses $49.50 on every kilogram it makes, and 95.7% of its cost is in two lines that have nothing to do with the strain.</p>
+<p>Step 6 — the diagnosis, which is a single ratio. Capital intensity per unit of annual capacity: $60.5 M / 182.5 t yr⁻¹ = <strong>$331,500 per annual tonne</strong>. NREL prints the same ratio for its cellulosic ethanol plant as $6.92 of total capital investment per annual gallon, which is about <strong>$2,320 per annual tonne</strong>. This design is 143 times more capital-intensive per unit of output than a built-scale commodity bioprocess. That is the finding, and it is not a finding about biology: the volumetric productivity of the two plants is almost identical, 3,650 kg m⁻³ yr⁻¹ here against about 4,200 for NREL&#x27;s twelve 950,000-gallon fermenters. The entire difference is capital per cubic metre — about $1.2 M per m³ here against about $9,800 per m³ there.</p>
+<p>Step 7 — can scale close it? TCI scales as V⁰·⁷⁵ (Stanbury&#x27;s exponent for fermentation processes) while output scales as V, so cost per annual tonne falls only as V⁻⁰·²⁵. Running the model up the scale axis at fixed titre, cycle time and recovery:</p>
+<p>50 m³      182 t yr⁻¹     cost of goods  $61,480 /t 500 m³    1,825 t yr⁻¹                    $34,120 /t 5,000 m³   18,250 t yr⁻¹                   $19,840 /t 50,000 m³ 182,500 t yr⁻¹                   $12,160 /t</p>
+<p>So yes, but only at 50,000 m³ — which is within a factor of 1.2 of the 43,000 m³ of fermentation volume in the NREL design, and three orders of magnitude above the vessel weeks 47-51 designed. Two independent routes, a cost exponent run up from our own pilot basis and a published commodity design, land on the same scale for a $12 per kg product. That agreement is the strongest evidence in the week that the method works.</p>
+<p>Step 8 — or can the strain close it? Invert the model with scale fixed at 50 m³ and titre free. Cost of goods reaches $12,000 per tonne at a titre of <strong>297 g L⁻¹</strong>, $20,000 at 165 g L⁻¹ and $30,000 at 106 g L⁻¹. For almost any product class from phase 7, 297 g L⁻¹ is not available, so the inversion has done its job: it has proved that no achievable strain performance rescues this configuration, and the decision is a scale decision or a product decision rather than a strain decision.</p>
+<p>Step 9 — the sensitivity, ±30% on each input, and its agreement with the elasticity rule:</p>
+<p>titre      −30% → +41.5%   +30% → −22.3%     elasticity −0.97 cycle time +30% → +28.7%   −30% → −28.7%     elasticity −0.97 (through output) equipment  +30% → +21.3%   −30% → −21.3%     elasticity −0.71 yield      −30% →  +1.4%   +30% →  −0.7%     elasticity −0.03</p>
+<p>Each elasticity equals the cost share of the lines the parameter moves: 96.8% for titre and cycle time, 70.9% for equipment cost, 3.2% for yield. The table was computed by re-running the model and the elasticities by reading the cost breakdown, and they agree, which is the arithmetic check. The ratio of titre elasticity to yield elasticity is 30:1 at this scale — so the four weeks of flux modelling in phase 4 that pinned the yield to two decimal places bought, economically, almost nothing at this configuration, and the one number that matters is the one phase 4 could not predict.</p>
+<p>Step 10 — what a Monte Carlo would add, and why the point estimate is biased low. Cost depends on titre as 1/titre in every line except raw material, so the ±30% titre cases are asymmetric: +41.5% against −22.3%, against the +42.9% and −23.1% a pure reciprocal would give, the difference being the 3.2% raw-material share that titre does not move. Their average is $67,360 per tonne, 9.6% above the $61,480 point estimate, and a full distribution on titre would push the median further. Reporting a point estimate here understates the expected cost by of order 10% before any other uncertainty is considered. Titre and cycle time should be drawn correlated, not independently, since pushing titre generally lengthens the batch; treating them as independent would understate the spread again.</p>
+<p>Step 11 — the screening LCA, cradle-to-gate, to the ISO 14040 framework. Functional unit: 1 kg of product at 98% purity at the factory gate — not 1 kg of broth and not 1 kg of any competing material, since a comparison would need a unit of function. Boundary: glucose cultivation and refining, utilities generation, the fermentation and the recovery train, excluding use and end-of-life, which is the boundary that <em>cannot</em> support a claim that the product is better than an incumbent. Allocation: none needed inside the plant, since there is one product, but the glucose stream carries an agricultural allocation that is inherited rather than chosen. The two dominant contributors, by inspection of the mass and energy balance rather than by a characterised inventory: the glucose feedstock, at 3.33 kg per kg of product grossed up to 4.95 kg by the 67.3% recovery, carrying the field&#x27;s fertiliser burden; and electricity for aeration and agitation, which week 49&#x27;s oxygen demand put at 1.12 MW of heat load and the power to match. The non-carbon category to check first is eutrophication, for the reason Tabone et al. found for polylactide: the nitrogen and phosphorus are applied in the field and reach water, and nothing in the fermenter changes that. A screening LCA can say which two contributors to measure. It cannot rank this product against an incumbent, and saying so is the deliverable.</p>
+<p>What this leaves out, as a list rather than a hedge. The installation factor of 4.0 is assumed and is the largest unverified input; Towler&#x27;s Ch 7 table would replace it in an afternoon and would move the capital charge, which is 71% of cost, roughly in proportion. The equipment prices are correlations, not quotes, which is what holds this at Class 5 on methodology. All seven stage recoveries are inherited from week 51 and all seven are assumed. The $12 per kg price has no source and no date. The required return of 10% is a policy choice and the cost of goods is close to proportional to it, so a reviewer who prefers 15% gets $88,000 per tonne. And the LCA has no inventory behind it at all. None of that changes the finding, which is structural: at 50 m³ this is a specialty plant with a floor of about $60 per kg, and the product it was designed for is a commodity. One of the two has to change, and the capstone should say which.</p>
+<p><strong>Assumptions behind this calculation</strong></p>
+<ul>
+<li>the cost of goods is proportional to 1/titre in every line except raw material, which is 3.2% of cost and titre-independent, so the ±30% titre cases are +41.5%/−22.3% rather than the +42.9%/−23.1% a pure reciprocal gives</li>
+<li>purchased equipment costed by correlation rather than by vendor quote, which is what holds the estimate at AACE Class 5 on methodology</li>
+<li>an installation factor of 4.0 on purchased equipment, assumed rather than taken from Towler &amp; Sinnott Ch 7 — the single largest unverified input, and it scales 71% of the cost of goods</li>
+<li>offsites at 30% of ISBL, design and engineering at 10%, contingency at 15% and working capital at 15% of FCI, all conventional rather than sourced</li>
+<li>a required return of 10% over a 15-year life, giving the annuity capital charge factor of 0.1315; the cost of goods is close to proportional to this policy choice</li>
+<li>8,410 operating hours a year, which is NREL&#x27;s 96% uptime assumption carried over</li>
+<li>μ = 0.25 h⁻¹ to 40 g L⁻¹, a 40 h production phase and a 20 h turnaround, inside Stanbury&#x27;s 15-25 h range</li>
+<li>the seven stage recoveries and the 67.3% overall figure inherited unchanged from week 51, where every one of them is assumed</li>
+<li>glucose $400 per tonne, steam $20 per tonne, electricity $0.08 per kWh and product $12 per kg, assumed and undated</li>
+<li>maintenance at 3% of FCI and $1.2 M a year of labour and overhead, conventional allowances rather than a staffing calculation</li>
+<li>TCI scaling as V⁰·⁷⁵ in the scale sweep, from Stanbury&#x27;s exponent for fermentation processes, extrapolated three orders of magnitude beyond the basis — which is exactly the extrapolation Towler §7.11 warns against, and the agreement with NREL&#x27;s volume is a check rather than a proof</li>
+<li>product carbon and the LCA&#x27;s two dominant contributors identified by inspection of the mass and energy balance, with no characterised inventory behind them</li>
+</ul>
+<h3>Reading map</h3>
+<table><thead><tr><th>Source</th><th>Treatment</th><th>Why</th></tr></thead><tbody><tr><td>Stanbury Ch 12 — Fermentation Economics (printed p331), in full</td><td>Read closely</td><td>The week&#x27;s only assigned costing source and still worth reading closely, with its own caveat applied throughout: costs are quoted from the source at the time of publication, so this is 1999 money and the ratios travel while the absolute figures do not. Named sections, in order: introduction; isolation of micro-organisms of potential industrial interest; strain improvement (333); market potential (334); some effects of legislation on production of antibiotics and recombinant proteins in the U.S.A. (336); plant and equipment (336); media; air sterilization (340); heating and cooling (340); aeration and agitation (341); batch-process cycle times (342); continuous culture (343); recovery costs (343); water usage and recycling (344); effluent treatment (345). This book numbers no sections. Read <em>plant and equipment</em> closely — it is the one place on this reading list that contains a costing method, the capacity-factored exponent C₂ = C₁(Q₂/Q₁)ⁿ with measured values of n by sector — and Table 12.4&#x27;s relative cost against scale, which is the same relationship tabulated and is what prices the anchor&#x27;s scale decision. The chapter also points at its own successor: it notes that Atkinson and Mavituna discussed using cost indices to update historical data, which is the licence for the CEPCI entry below. Note what is genuinely absent: no factorial method, no accuracy classes, no discounted cash flow, no capital charge.</td></tr><tr><td><a href="https://shop.elsevier.com/books/chemical-engineering-design/towler/978-0-12-821179-3" target="_blank" rel="noopener">Towler &amp; Sinnott, Chemical Engineering Design, 3rd edn, Butterworth-Heinemann 2021 — Ch 7 Capital Cost Estimating, Ch 8 Estimating Revenues and Production Costs, Ch 9 Economic Evaluation of Projects</a></td><td>Read closely</td><td><strong>Not on the curriculum&#x27;s reading list; added here to close the gap the README flagged</strong>, and verified by search against the publisher&#x27;s own contents listing: the 3rd edition was published 14 July 2021 and Chs 7, 8 and 9 carry those titles. The section numbering quoted in core idea 2 (§7.3 accuracy and purpose, §7.6 the factorial method, §7.7 cost escalation, §7.11 validity) is confirmed for the <strong>second</strong> edition; the third edition&#x27;s internal numbering was not verified, so cite it at chapter level or check the numbers in the copy you have. This is the source for installation factors, the factorial build-up from purchased to installed to total capital investment, location factors and cost escalation — everything week 52&#x27;s second session asks for and nothing on the assigned list supplies. The numeric factors must be read from the book: the anchor&#x27;s 4.0 is an assumption and says so.</td></tr><tr><td>Peters, Timmerhaus &amp; West, Plant Design and Economics for Chemical Engineers — equipment cost estimating, size factoring exponents, inflation cost indexes, installation factor, and the plant-cost-estimating factor table</td><td>Skim</td><td>The fallback if Towler is not to hand, and it covers the same ground in the same order: manufacturers&#x27; quotations, estimating charts, size factoring exponents, inflation cost indexes, installation factor, then the plant-cost factors broken out as equipment installation, instrumentation, piping, insulation, electrical, buildings and environmental control to a total multiplier. Skim rather than read closely only because Towler is the better-maintained of the two; promote it to close reading if it is the copy available. Verified by search at contents level only.</td></tr><tr><td><a href="https://library.aacei.org/pgd01/pgd01.shtml" target="_blank" rel="noopener">AACE International Recommended Practice 18R-97 — Cost Estimate Classification System as applied in engineering, procurement and construction for the process industries</a></td><td>Read closely</td><td><strong>Not on the curriculum&#x27;s list; added to close the accuracy-class half of the same gap.</strong> Verified by search against multiple independent reproductions of its Table 1, including copies of the Recommended Practice itself: five classes, Class 5 to Class 1 from least to most defined, with maturity of project definition as the sole determining characteristic, and the expected accuracy ranges quoted in core idea 4. Read the table and the two paragraphs around it; that is the whole of what this week needs from it, and it is what lets a capstone name its estimate&#x27;s class in one defensible sentence. The companion generic practice is 17R-97 and the accuracy ranges are tied to quantitative risk analysis rather than to effort.</td></tr><tr><td><a href="https://www.nrel.gov/docs/fy11osti/47764.pdf" target="_blank" rel="noopener">Humbird et al., Process Design and Economics for Biochemical Conversion of Lignocellulosic Biomass to Ethanol, NREL/TP-5100-47764, May 2011</a></td><td>Read closely</td><td><strong>Not on the curriculum&#x27;s list; added as the worked bioprocess TEA to imitate</strong>, which is what the week needs more than it needs another method chapter. Verified by fetching the report. Read the executive summary table in full and §4 Process Economics (§4.1 cost-year indices, §4.2 total capital investment, §4.3 variable operating costs, §4.4 fixed operating costs, §4.5 discounted cash flow and the minimum selling price), then §1.3 on the TEA approach and §1.4 on nth-plant assumptions, then Table 25 installation factors, Table 26 scaling exponents, Table 27 additional costs for TCI, Table 28 the project cost worksheet and Table 33 the discounted cash flow parameters. §5.1&#x27;s carbon and energy balance is the model for week 54 and §5.4&#x27;s sensitivity tornado for this week&#x27;s. The numbers to carry: TCI $422.5 M, installed equipment $232 M, added direct and indirect 45% of TCI, MESP $2.15/gal in 2007$, capital charge factor 0.131, 8,410 operating hours, 5.4 wt% ethanol titre. Its survey of eleven other studies, with MESPs from $0.63 to $4.58 per gallon, is the best available argument against quoting anyone&#x27;s single TEA number.</td></tr><tr><td>Chemical Engineering Plant Cost Index (CEPCI), base 1957-59 = 100 — the 1999 annual average of 390.6 and current values of order 800</td><td>Skim</td><td><strong>Not on the curriculum&#x27;s list; added because every number in Stanbury Ch 12 is 1999 money and the chapter itself points at cost indices as the remedy.</strong> Verified by search: the 1999 annual average was 390.6 with the equipment sub-index at 435.5 and construction labour at 292.5, taken from Chemical Engineering&#x27;s own 2002 article on the index&#x27;s structure and revision; recent annual averages are 607.5 in 2019, 816.0 in 2022 and 797.9 in 2023, with the 2025 annual average reported 1.6% above 2024 and 2026 monthly values at record highs. So the composite factor from 1999 to now is about 2.05. Skim rather than study: the index is a single multiplication, and the three cautions in core idea 8 are the content — sub-indices diverge, cost professionals advise against reaching back more than about five years, and an index cannot represent a technology change.</td></tr><tr><td><a href="https://committee.iso.org/standard/37456.html" target="_blank" rel="noopener">ISO 14040:2006 Environmental management — Life cycle assessment — Principles and framework, and ISO 14044:2006 Requirements and guidelines</a></td><td>Read closely</td><td><strong>Not on the curriculum&#x27;s list; added because the LCA session had no source at all.</strong> Verified by search: both are 2006 second editions from ISO/TC 207/SC 5, 14040 reviewed and confirmed in 2022, with Amendment 1:2020 to 14040 and Amendments 1:2017 and 2:2020 to 14044. 14040 is twenty pages and gives the four phases, the reporting and critical-review requirements and the explicit statement that it does not specify methodology for the individual phases; 14044 carries the requirements, including the allocation hierarchy. Read 14040 whole — it is short — and 14044&#x27;s clauses on functional unit, system boundary and allocation. These are paid standards; if no copy is available, the ILCD Handbook below reproduces the framework in line with them and is free.</td></tr><tr><td><a href="https://eplca.jrc.ec.europa.eu/uploads/ILCD-Handbook-General-guide-for-LCA-DETAILED-GUIDANCE-12March2010-ISBN-fin-v1.0-EN.pdf" target="_blank" rel="noopener">European Commission JRC, ILCD Handbook — General guide for Life Cycle Assessment: Detailed guidance, first edition March 2010, EUR 24708 EN</a></td><td>Read closely</td><td><strong>Not on the curriculum&#x27;s list; added as the free, practical companion to the ISO pair.</strong> Verified by search, including the JRC publications repository: first edition March 2010, EUR 24708 EN, JRC48157, with sister documents <em>Provisions and action steps</em> (EUR 24378 EN) and <em>Framework and requirements for LCIA models and indicators</em> (EUR 24586 EN), and an umbrella JRC Reference Report (EUR 24982 EN, 2012). It is explicitly in line with the ISO 14040 series and developed through peer review and public consultation, which makes it the right thing to cite in a proposal that cannot assume the reader has bought the standards. Read its treatment of goal and scope, functional unit and allocation, and its account of attributional versus consequential modelling — the distinction the week&#x27;s LCA session needs and that ISO 14040 itself leaves implicit.</td></tr><tr><td><a href="https://doi.org/10.1021/es101640n" target="_blank" rel="noopener">Tabone, Cregg, Beckman &amp; Landis, Sustainability metrics: life cycle assessment and green design in polymers, Environ. Sci. Technol. 2010, 44(21), 8264-8269 — read with the two published Comments, Murphy et al. 45(11), 5055-5056 and Dale 45, 5057</a></td><td>Read closely</td><td><strong>Not on the curriculum&#x27;s list; added as the primary study behind the claim that bio-based is not automatically better</strong>, which the topic list asserts and nothing on the reading list supports. Verified by search, including the paper itself and the Comments&#x27; bibliographic records. Twelve polymers, cradle-to-gate: the polylactides showed the maximum contribution to eutrophication, a corn-derived PHA topped acidification, all four biopolymers were the largest contributors to ozone depletion, and the biopolymers exceeded most petroleum polymers on ecotoxicity and carcinogens, while ranking best on green design. Read the Comments with it and not afterwards — they attack the data vintage, the omission of use and end-of-life, and the collapsing of multiple impact categories into a single rank, and a proposal that cites the paper without them will be corrected by anyone who knows the field. The pair together is a better teaching object than either alone.</td></tr><tr><td>Doran Ch 1 §1.1-1.2 — bioprocess development: an interdisciplinary challenge, and the quantitative approach</td><td>Skim</td><td>The curriculum&#x27;s entry, and two pages of orientation rather than a method, as the README&#x27;s flag says. Skim it for the steps-in-development figure, which is a useful frame for the capstone&#x27;s first page, and move on. It contributes nothing to the costing.</td></tr><tr><td>Lee Ch 22 §22.5 bottlenecks in the development of environmental biocatalysts (printed p870) and §22.10 conclusions and future prospects (p879)</td><td>Skim</td><td>Both confirmed present in the PDF with those titles. The curriculum assigns them for the LCA session and they are not method — §22.5 is about portability of constructs and the gap between laboratory and field performance, §22.10 is a forward look. Read §22.5 for one specific purpose: it is the best short statement on this reading list of why a construct that works in the laboratory fails in a real environment, which is the same gap the capstone&#x27;s risk register has to populate. Do not expect a system boundary, a functional unit or an allocation rule from either; those come from ISO 14040/14044 and the ILCD Handbook above.</td></tr><tr><td>Lee Ch 1 §1.7 The Future of Metabolic Engineering (printed p17)</td><td>Skim</td><td>Confirmed present. Assigned here to be read against your own cost numbers, which is the right instruction: the section&#x27;s forward look is a list of ambitions, and the exercise is to mark each one with the cost line it would move. Most of them move yield, which this week&#x27;s elasticity calculation says is the smallest line in a capital-intensive process — that tension is worth a paragraph in the capstone rather than a complaint about the chapter.</td></tr><tr><td>Shuler Ch 10 — no economics section, as the curriculum&#x27;s own entry states</td><td>Skip</td><td>Correctly flagged in `c8.js` and correctly corrected there in phase 8: the chapter&#x27;s sections are §10.1 introduction, §10.2 scale-up and its difficulties, §10.3 bioreactor instrumentation and control, §10.4 sterilization of process fluids, §10.5 summary, and none of them is economics. Skipped here. It returns in week 54, where §10.2&#x27;s scale-up material is the right reading for the integration view.</td></tr></tbody></table>
+<h3>Common misconceptions</h3>
+<ul>
+<li>That a techno-economic model is a write-up of the design. It is an independent check on it, and the first honest TEA of a student process usually fails: here it priced a 50 m³ vessel against a $12 per kg commodity and returned a cost of goods of $61 per kg, 96% of it in capital charge and fixed costs. The model earns its place by contradicting the design, so run it early enough that the design can still change, and treat a comfortable first answer as a reason to check the capital line rather than as a result.</li>
+<li>That a sensitivity analysis discovers which parameter matters. It confirms it: the elasticity of cost to a parameter is the cost share of the lines that parameter moves, so the ranking can be read off the cost breakdown before a single case is re-run. Titre and cycle time move annual output and therefore the capital and fixed lines; yield moves only raw materials. If a re-run sensitivity disagrees with the cost shares, the model has an error in it — which is the useful way to use the table.</li>
+<li>That more Monte Carlo makes an estimate more accurate. Accuracy comes from the maturity of the project definition and nothing else, which is what AACE 18R-97 classifies on: an elaborate stochastic treatment of a Class 5 estimate is still a Class 5 estimate, with a −20 to −50% and +30 to +100% range around it. What the Monte Carlo does buy is the shape of the distribution, and that is worth having for a specific reason — cost goes as the reciprocal of titre, which is convex, so symmetric uncertainty in titre gives a mean cost about 10% above the point estimate in the anchor&#x27;s case.</li>
+</ul>
+<h3>Check yourself before moving on</h3>
+<p><strong>Q.</strong> Your model says yield elasticity is three times that of rate. What does that tell you to work on, and when would it reverse?</p>
+<p><strong>A.</strong> First, read it as a statement about the cost breakdown rather than about the strain, because the elasticity of cost to a parameter is the share of the cost lines that parameter moves. Yield elasticity three times rate elasticity means the raw-material line is three times the size of the lines that scale with annual output — capital charge, fixed costs and volume-dependent consumables. That is a raw-material-dominated process: a high-volume commodity at low value where the plant is cheap relative to the sugar it eats, which is exactly the NREL cellulosic ethanol case, where feedstock is $0.74 of a $2.15 per gallon selling price. So work on yield: strain work that converts more of the carbon to product, by-product deletion, maintenance reduction, anything that raises g product per g substrate. Second, name what would reverse it, because the reversal is common and fast. Capital intensity rising relative to output reverses it — a smaller plant, a more expensive vessel, containment, a sterile-fill finishing train, or simply a shorter plant life or a higher required return, all of which inflate the capital charge without touching the sugar bill. Low titre reverses it, because every volume-dependent line scales as the reciprocal of titre while the raw-material line does not. A long batch cycle reverses it, including long turnarounds and long sterilisation holds. And a cheap or free feedstock reverses it completely, since a waste stream with a gate fee can make the raw-material elasticity negative. The anchor in this week is the reversed case in its extreme form: capital charge and fixed costs are 95.7% of the cost of goods and raw material is 3.2%, so titre elasticity is −0.97 against yield&#x27;s −0.03, a ratio of 30:1 the other way. The general rule to carry is that the ranking is a property of where the process sits on the titre and scale axes, not a property of the organism, and it should be recomputed whenever the configuration changes rather than inherited from the last analysis.</p>
+<p><strong>Q.</strong> A proposal reports a cost of goods of $4.37 per kilogram for a new bio-based route and concludes it beats the $5.10 per kilogram petrochemical incumbent. What do you ask for before believing it?</p>
+<p><strong>A.</strong> Six things, in order of how much they usually move the answer. The estimate&#x27;s accuracy class and basis: by AACE 18R-97 an equipment-factored estimate is Class 4 with a range of −15 to −30% and +20 to +50%, so $4.37 is really $3.1 to $6.6 per kg and does not separate from $5.10 at all — a two-significant-figure cost of goods from a conceptual design is the clearest single sign that the classes have not been read. The capital basis next: purchased equipment prices, the installation factor and where it came from, and what is inside total capital investment, since a factorial estimate&#x27;s whole character is in a multiplier that can defensibly be 3 or 5. Then the financing: the required return, the plant life and whether a capital charge is in the cost of goods at all, because omitting it is the most common way to produce a low number, and because the cost moves roughly in proportion to the return — 10% against 15% is a 50% change in the largest line of a capital-intensive process. Then the cost year and the indexing: whether the two figures are in the same year&#x27;s money, and if historical data has been brought forward, whether the CEPCI reach is a few years or a few decades, remembering the advice not to reach back more than about five. Then the nth-plant question, which NREL names explicitly — if the new route&#x27;s cost excludes first-of-a-kind financing, longer start-up and overdesign while the incumbent&#x27;s price is a real market price from an operating plant, the comparison is between a mature cost and a hoped-for one. Finally the scale and the capacity basis, checked with capital per annual tonne against a published benchmark such as NREL&#x27;s $6.92 per annual gallon: a route that is 143 times more capital-intensive per unit of output than a built commodity plant, as the anchor&#x27;s design is, cannot reach a commodity price at any titre. If all six hold up, the remaining question is the one the proposal should have asked itself: at what price of the incumbent&#x27;s feedstock does the ranking flip, since that is usually a smaller move than the uncertainty in either cost.</p>
+<p><strong>Q.</strong> Your screening LCA finds the bio-based route has 40% lower greenhouse gas emissions than the incumbent. Can you say it is more sustainable, and what would make the claim defensible?</p>
+<p><strong>A.</strong> No, and for three reasons that are about method rather than about caution. The functional unit: if the comparison is per kilogram of material it is not a comparison of function, and the honest unit is the service delivered — the amount of each material needed to do the job, over the life it lasts. The boundary: a screening study is normally cradle-to-gate, and the use and end-of-life phases are exactly where bio-based materials usually gain, so a gate boundary understates them and also cannot support a claim about the product as opposed to its production. And the category coverage, which is the one this week&#x27;s reading is pointed at: greenhouse gas is one impact category among many, and Tabone et al.&#x27;s cradle-to-gate comparison of twelve polymers found the biopolymers ranking worst on eutrophication for the polylactides, worst on acidification for one corn-derived PHA, and largest on ozone depletion for all four, with ecotoxicity and carcinogen emissions above most of the petroleum polymers — the burdens sitting in the field and the fertiliser rather than in the fermenter, which is why no flux model sees them. A 40% carbon improvement bought with a tripled eutrophication burden is a trade, not an improvement, and an LCA that reports only the category it wins on has chosen its answer. What makes the claim defensible: state the functional unit and defend it; extend the boundary to cradle-to-grave or say plainly that the claim is about production only; report a full set of characterised categories and show the ones where the route loses, which is also what ISO 14044&#x27;s reporting requirements are for; state the allocation rule for every co-product and test the result against an alternative rule, since in a fermentation that choice can outweigh any process improvement; say whether the study is attributional or consequential, since a decision about building a plant needs the second; and resist the single score — the published Comments on Tabone et al. make exactly that criticism of exactly that paper, and collapsing incommensurable categories into one rank is the error they identify. The defensible sentence has the form: per unit of function, cradle-to-grave, with co-products allocated by X, the route reduces category A by 40% and increases categories B and C by Y and Z, and here is the sensitivity to the allocation rule.</p>
+<hr>
+
+<section class="study-transfer" aria-label="Week 52 application and teach-back">
+<h3>Apply it to your fermentation experience</h3>
+<p><strong>Transfer prompt.</strong> Use a rough mass and energy balance to compare a microbial route with a process route relevant to your renewable-energy background. Which uncertain assumption dominates the conclusion?</p>
+<p class="meta">Use your actual thesis methods and results where you remember them. Mark missing information as unknown; do not assume the organisms were co-cultured, that a metabolite was measured, or that a proposed mechanism was demonstrated.</p>
+<h3>Teach it back</h3>
+<p>Explain the week's concept from memory, work one number, and name one boundary. Then use the <a href="teach-back.html">five-minute teach-back protocol</a> and log it in the tracker.</p>
+</section>
+<nav class="weeknav" aria-label="Week navigation"><a href="week-51.html">&#8592; Week 51</a><a class="idx" href="index.html">Lecture index</a><a class="idx" href="case-study.html">Case study</a><a href="week-53.html">Week 53 &#8594;</a></nav>
+</main>
+<footer class="docfoot"><a href="../metabolic-engineering-tracker.html">&#8592; Course tracker</a><span>Metabolic engineering &middot; 55 weeks</span></footer>
+<script>
+(function(){var root=document.documentElement,key="me.theme";var bs=Array.prototype.slice.call(document.querySelectorAll(".appearance button"));
+function paint(v){bs.forEach(function(b){b.setAttribute("aria-pressed",b.getAttribute("data-appearance")===v?"true":"false");});if(v==="auto")root.removeAttribute("data-theme");else root.setAttribute("data-theme",v);}
+var saved="auto";try{saved=localStorage.getItem(key)||"auto";}catch(e){}
+bs.forEach(function(b){b.addEventListener("click",function(){var v=b.getAttribute("data-appearance");paint(v);try{localStorage.setItem(key,v);}catch(e){}});});paint(saved);})();
+</script>
+</body>
+</html>

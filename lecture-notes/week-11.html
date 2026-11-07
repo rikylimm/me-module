@@ -1,0 +1,2630 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="utf-8"><title>Week 11 — TCA cycle, anaplerosis and the glyoxylate shunt — Metabolic engineering</title>
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+
+
+<style>:root{color-scheme:light;--paper:#FAF6EF;--ink:#211A12;--ink-2:#4A3C2C;--ink-3:#8A7458;
+--line:#DFD2BE;--line-2:#EDE4D5;--broth:#9A6B1F;--broth-soft:#F6ECD9;
+--serif:"Newsreader",Georgia,serif;--sans:"Public Sans",system-ui,sans-serif}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--paper:#15120D;--ink:#F1E9DC;--ink-2:#CBBCA6;
+--ink-3:#948872;--line:#352C22;--line-2:#2A231B;--broth:#D7A95C;--broth-soft:#241D14}}
+*{box-sizing:border-box}
+body{margin:0;background:var(--paper);color:var(--ink);font-family:var(--sans);font-size:15.5px;line-height:1.6;
+padding:env(safe-area-inset-top,0) 0 env(safe-area-inset-bottom,0)}
+.wrap{max-width:840px;margin:0 auto;padding:40px 22px 90px}
+h1{font-family:var(--serif);font-size:clamp(28px,5vw,42px);line-height:1.1;font-weight:600;margin:0 0 6px;letter-spacing:-.02em}
+h2{font-family:var(--serif);font-size:26px;font-weight:600;margin:46px 0 10px;letter-spacing:-.01em;padding-bottom:7px;border-bottom:1px solid var(--line)}
+h3{font-family:var(--serif);font-size:20px;font-weight:600;margin:30px 0 4px;color:var(--broth)}
+h4{font-size:14px;font-weight:650;margin:18px 0 4px;color:var(--ink-3);letter-spacing:.02em;text-transform:uppercase}
+p{margin:0 0 12px;max-width:74ch}
+em{color:var(--ink-2)}
+ul{margin:0 0 14px;padding-left:1.15em;max-width:74ch}
+li{margin:.3em 0}li::marker{color:var(--ink-3)}
+hr{border:0;border-top:1px solid var(--line);margin:40px 0}
+strong{font-weight:650}
+table{border-collapse:collapse;width:100%;margin:14px 0 20px;font-size:14px}
+th{text-align:left;font-weight:600;color:var(--ink-3);font-size:12.5px;padding:7px 9px;border-bottom:1.5px solid var(--line)}
+td{padding:8px 9px;border-bottom:1px solid var(--line-2);vertical-align:top}
+tr:nth-child(even) td{background:var(--broth-soft)}
+
+figure.fig{margin:22px 0 26px;padding:0;max-width:100%}
+figure.fig svg{width:100%;height:auto;display:block;background:var(--card);
+  border:1px solid var(--line-2);border-radius:10px;padding:8px 10px}
+figure.fig figcaption{font-size:13px;color:var(--ink-3);margin-top:8px;max-width:74ch;line-height:1.5}
+figure.fig .figtitle{font-family:var(--serif);font-size:15px;color:var(--ink-2);margin-bottom:6px}
+figure.fig .fig-dark{display:none}
+@media (prefers-color-scheme: dark){
+  figure.fig .fig-light{display:none}
+  figure.fig .fig-dark{display:block}
+}
+@media print{figure.fig{break-inside:avoid;page-break-inside:avoid}
+  figure.fig .fig-dark{display:none !important}
+  figure.fig .fig-light{display:block !important}}
+
+@media print{body{background:#fff}.wrap{padding:0;max-width:none}h2,h3{page-break-after:avoid}}</style><script>try{var t=localStorage.getItem("me.theme");if(t&&t!=="auto")document.documentElement.setAttribute("data-theme",t);}catch(e){}</script>
+<meta name="color-scheme" content="light dark">
+<meta name="theme-color" content="#ffffff" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#000000" media="(prefers-color-scheme: dark)">
+<style>
+/* ============================================================
+   COURSE LIBRARY — Apple document shell
+   ============================================================ */
+:root{
+  color-scheme:light;
+  --paper:#FFFFFF;--surface:#F5F5F7;--card:#FFFFFF;--fill:#F5F5F7;
+  --ink:#1D1D1F;--ink-2:#6E6E73;--ink-3:#6E6E73;
+  --line:rgba(0,0,0,.14);--line-2:rgba(0,0,0,.08);
+  --broth:#0071E3;--broth-soft:rgba(0,113,227,.10);
+  --nav-bg:rgba(255,255,255,.84);
+  --sans:-apple-system,BlinkMacSystemFont,"SF Pro Text","SF Pro Display","Helvetica Neue",Arial,sans-serif;
+  --mono:ui-monospace,"SF Mono",Menlo,Consolas,monospace;
+  --serif:var(--sans);
+}
+@media (prefers-color-scheme:dark){
+  :root:not([data-theme="light"]){
+    color-scheme:dark;
+    --paper:#000000;--surface:#1C1C1E;--card:#2C2C2E;--fill:#2C2C2E;
+    --ink:#F5F5F7;--ink-2:#A1A1A6;--ink-3:#8E8E93;
+    --line:rgba(255,255,255,.16);--line-2:rgba(255,255,255,.09);
+    --broth:#5AA9FF;--broth-soft:rgba(10,132,255,.18);
+    --nav-bg:rgba(0,0,0,.74);
+  }
+}
+:root[data-theme="dark"]{
+  color-scheme:dark;
+  --paper:#000000;--surface:#1C1C1E;--card:#2C2C2E;--fill:#2C2C2E;
+  --ink:#F5F5F7;--ink-2:#A1A1A6;--ink-3:#8E8E93;
+  --line:rgba(255,255,255,.16);--line-2:rgba(255,255,255,.09);
+  --broth:#5AA9FF;--broth-soft:rgba(10,132,255,.18);
+  --nav-bg:rgba(0,0,0,.74);
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth;scroll-padding-top:72px;-webkit-text-size-adjust:100%}
+body{
+  margin:0;background:var(--paper);color:var(--ink);
+  font-family:var(--sans);font-size:17px;line-height:1.62;letter-spacing:-.011em;
+  padding:0;
+}
+.docbar{
+  position:sticky;top:0;z-index:80;display:flex;align-items:center;justify-content:space-between;gap:12px;
+  padding:8px max(24px,calc((100vw - 1180px)/2));
+  background:var(--nav-bg);
+  -webkit-backdrop-filter:saturate(180%) blur(20px);backdrop-filter:saturate(180%) blur(20px);
+  border-bottom:1px solid var(--line-2);
+}
+.docback{display:inline-flex;align-items:center;gap:6px;color:var(--ink-2);font-size:13px;font-weight:500;text-decoration:none;white-space:nowrap}
+.docback:hover{color:var(--broth)}
+.appearance{display:inline-flex;gap:2px;padding:2px;background:var(--fill);border-radius:980px}
+.appearance button{border:0;background:none;color:var(--ink-2);font:inherit;font-size:12px;font-weight:500;line-height:1;padding:6px 11px;border-radius:980px;cursor:pointer}
+.appearance button[aria-pressed="true"]{background:var(--card);color:var(--ink);box-shadow:0 1px 2px rgba(0,0,0,.08)}
+.wrap{max-width:900px;margin:0 auto;padding:64px 24px 96px}
+body h1{
+  font-family:var(--sans);font-size:clamp(42px,6.2vw,64px);line-height:1.04;letter-spacing:-.04em;
+  font-weight:700;margin:0 0 16px;max-width:18ch;color:var(--ink);
+}
+.doc-kicker{font-size:13px;font-weight:500;letter-spacing:0;color:var(--ink-2);margin:0 0 12px}
+body h1 + p{font-size:20px;line-height:1.55;color:var(--ink-2);max-width:68ch;margin:0 0 18px}
+body h1 + p strong{color:var(--ink);font-weight:600}
+body h2{
+  font-family:var(--sans);font-size:32px;line-height:1.15;letter-spacing:-.03em;font-weight:600;
+  color:var(--ink);margin:64px 0 14px;padding:0;border:0;
+}
+body h3{font-family:var(--sans);font-size:22px;line-height:1.25;letter-spacing:-.02em;font-weight:600;color:var(--ink);margin:36px 0 8px}
+body h4{font-size:14px;line-height:1.4;font-weight:600;letter-spacing:0;text-transform:none;color:var(--ink-2);margin:24px 0 6px}
+body p{margin:0 0 14px;max-width:72ch}
+body ul,body ol{margin:0 0 16px;padding-left:1.25em;max-width:72ch}
+body li{margin:.32em 0}
+body li::marker{color:var(--ink-3)}
+body strong{font-weight:600;color:var(--ink)}
+body em{color:var(--ink)}
+body a{color:var(--broth);text-decoration:underline;text-underline-offset:2px}
+body a:hover{text-decoration:underline}
+body hr{border:0;border-top:1px solid var(--line-2);margin:56px 0}
+body table{border-collapse:collapse;width:100%;margin:22px 0 30px;font-size:15px;line-height:1.45}
+body th{text-align:left;font-weight:600;font-size:12.5px;color:var(--ink-2);padding:10px 12px;background:var(--surface);border-bottom:1px solid var(--line)}
+body td{padding:11px 12px;border-bottom:1px solid var(--line-2);vertical-align:top}
+body tr:nth-child(even) td{background:transparent}
+body figure.fig{margin:32px 0 36px;padding:0;max-width:100%}
+body figure.fig svg{width:100%;height:auto;display:block;background:var(--surface);border:0;border-radius:20px;padding:18px}
+body figure.fig figcaption{font-size:13px;color:var(--ink-2);margin-top:10px;max-width:72ch;line-height:1.5}
+body figure.fig .figtitle{font-family:var(--sans);font-size:14px;font-weight:600;color:var(--ink);margin-bottom:6px}
+body pre{background:var(--surface);border:1px solid var(--line-2);border-radius:16px;padding:18px;overflow:auto;font-family:var(--mono);font-size:13.5px;line-height:1.55;margin:20px 0 24px}
+body code{font-family:var(--mono);font-size:.88em;background:var(--surface);border-radius:6px;padding:.12em .35em}
+body pre code{background:none;padding:0;font-size:inherit}
+body blockquote{margin:24px 0;padding:2px 0 2px 18px;border-left:3px solid var(--broth);color:var(--ink-2)}
+:root[data-theme="dark"] .fig-light{display:none!important}
+:root[data-theme="dark"] .fig-dark{display:block!important}
+:root[data-theme="light"] .fig-dark{display:none!important}
+:root[data-theme="light"] .fig-light{display:block!important}
+.docfoot{max-width:900px;margin:0 auto;padding:24px 24px 64px;border-top:1px solid var(--line-2);display:flex;justify-content:space-between;gap:12px;font-size:12.5px;color:var(--ink-3)}
+.docfoot a{color:var(--ink-2);text-decoration:none}
+.docfoot a:hover{color:var(--broth)}
+@media (max-width:700px){
+  .docbar{padding:8px 16px}
+  .wrap{padding:40px 18px 80px}
+  body h1{font-size:clamp(38px,11vw,48px)}
+  body h1 + p{font-size:18px}
+  body h2{font-size:28px;margin-top:52px}
+  body h3{font-size:20px}
+  body p,body li{font-size:16.5px}
+  body table{font-size:14px}
+  body th,body td{padding:9px 9px}
+  .docfoot{padding:20px 18px 50px;flex-direction:column;gap:6px}
+}
+@media print{
+  .docbar,.appearance,.docfoot{display:none!important}
+  body{background:#fff;color:#000;font-size:11pt}
+  .wrap{max-width:none;padding:0}
+  body h1{font-size:28pt;max-width:none}
+  body h2{font-size:16pt;page-break-after:avoid}
+  body h3{font-size:13pt;page-break-after:avoid}
+  body a{color:#000;text-decoration:none}
+  body table,body figure{break-inside:avoid}
+}
+
+
+.index-actions{margin:18px 0 36px;display:flex;flex-wrap:wrap;gap:16px;align-items:center}
+.index-actions a{font-size:14px;font-weight:500;color:var(--broth);text-decoration:none}
+.index-actions a:hover{text-decoration:underline}
+.phaseh{display:flex;align-items:baseline;justify-content:space-between;gap:14px;font-size:24px!important;margin:52px 0 2px!important;letter-spacing:-.02em}
+.phaseh span{font-size:12px;font-weight:400;color:var(--ink-3);letter-spacing:0;white-space:nowrap}
+.weeklist{border-top:1px solid var(--line-2);margin-bottom:8px}
+.weekrow{display:flex;align-items:center;gap:14px;min-height:50px;padding:10px 4px;border-bottom:1px solid var(--line-2);text-decoration:none;color:var(--ink)}
+.weekrow:hover{background:var(--surface)}
+.wnum{width:28px;flex:none;font-size:12px;font-weight:600;color:var(--broth);font-variant-numeric:tabular-nums}
+.wtitle{flex:1;font-size:16.5px;font-weight:500;line-height:1.35}
+.warrow{flex:none;color:var(--ink-3);font-size:16px}
+.weeknav{display:flex;align-items:center;justify-content:space-between;gap:14px;margin:52px 0 0;padding-top:22px;border-top:1px solid var(--line-2);font-size:14px}
+.weeknav a{color:var(--broth);text-decoration:none;font-weight:500}
+.weeknav a:hover{text-decoration:underline}
+.weeknav .idx{color:var(--ink-2);font-weight:400}
+.weeknav .empty{visibility:hidden}
+.case-h{max-width:22ch}
+.protocol{max-width:72ch}
+.protocol li{margin:.55em 0}
+.protocol h2{margin-top:38px}
+@media (max-width:700px){.phaseh{font-size:21px!important;margin-top:42px!important}.wtitle{font-size:15.5px}.weeknav{font-size:13px;gap:8px}}
+@media print{.weeknav,.index-actions{display:none!important}}
+</style>
+<style>.sr-only{position:absolute!important;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap;border:0}</style>
+</head><body>
+<header class="docbar"><a class="docback" href="index.html">&#8592; Lecture index</a><div class="appearance" role="group" aria-label="Appearance">
+<button type="button" data-appearance="auto" aria-pressed="true">Auto</button>
+<button type="button" data-appearance="light" aria-pressed="false">Light</button>
+<button type="button" data-appearance="dark" aria-pressed="false">Dark</button>
+</div></header>
+<main class="wrap">
+<p class="doc-kicker">Week 11 of 55 &middot; Metabolism in depth &middot; <strong class="tier-badge">Useful next</strong></p>
+<h1>TCA cycle, anaplerosis and the glyoxylate shunt</h1>
+<h2 class="sr-only">Week content</h2>
+<p>The branch point that decides whether carbon becomes product, biomass or CO₂. Most C4 product designs live or die on the anaplerotic reactions studied this week, and the host differences at that node are the single clearest case in the course of biology dictating a host choice.</p>
+<h3>Core ideas</h3>
+<p><strong>1. Pyruvate dehydrogenase: the committed, irreversible gateway</strong></p>
+<p>Three enzymes in one complex: E1 decarboxylates pyruvate onto thiamine pyrophosphate, E2 transfers the acetyl group to lipoamide and then to coenzyme A, E3 reoxidises the lipoamide using FAD and then NAD⁺. The result is acetyl-CoA, CO₂ and NADH, and it is effectively irreversible — which is why acetyl-CoA cannot be converted back to pyruvate and why the carbon lost here cannot be recovered without a carboxylation elsewhere. The complex is inhibited by its own products, acetyl-CoA and NADH, so a cell with high reducing power throttles entry to the cycle. Note the oxygen sensitivity of the anaerobic alternative, pyruvate formate lyase, which produces formate rather than CO₂ and NADH — a different carbon and redox outcome from the same node, and the basis of week 13.</p>
+<p><strong>2. Eight reactions, two decarboxylations, and the real yield</strong></p>
+<figure class="fig"><div class="figtitle">Figure 11.2 — The TCA cycle as a recycle loop with withdrawals</div><div class="fig-light"><svg role="img" aria-label="Per turn: 3 NADH, 1 FADH₂, 1 NTP and two carbons as CO₂. Every intermediate withdrawn must be replaced by anaplerosis, and the overflow outlet opens when the feed outruns respiration." xmlns:xlink="http://www.w3.org/1999/xlink" width="657.717797pt" height="290.338141pt" viewBox="0 0 657.717797 290.338141" xmlns="http://www.w3.org/2000/svg" version="1.1">
+ <metadata>
+  <rdf:RDF xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:cc="http://creativecommons.org/ns#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+   <cc:Work>
+    <dc:type rdf:resource="http://purl.org/dc/dcmitype/StillImage"/>
+    <dc:date>2026-11-02T23:57:45.387476</dc:date>
+    <dc:format>image/svg+xml</dc:format>
+    <dc:creator>
+     <cc:Agent>
+      <dc:title>Matplotlib v3.10.8, https://matplotlib.org/</dc:title>
+     </cc:Agent>
+    </dc:creator>
+   </cc:Work>
+  </rdf:RDF>
+ </metadata>
+ <defs>
+  <style type="text/css">*{stroke-linejoin: round; stroke-linecap: butt}</style>
+ </defs>
+ <g id="figure_1">
+  <g id="patch_1">
+   <path d="M 0 290.338141 
+L 657.717797 290.338141 
+L 657.717797 0 
+L 0 0 
+L 0 290.338141 
+z
+" style="fill: none"/>
+  </g>
+  <g id="axes_1">
+   <g id="line2d_1">
+    <path d="M 268.2972 144.02736 
+L 268.188779 140.895203 
+L 267.863816 137.771703 
+L 267.323208 134.665493 
+L 266.568451 131.585158 
+L 265.601629 128.539213 
+L 264.425416 125.536075 
+L 263.043063 122.584046 
+L 261.458389 119.691284 
+L 259.675775 116.865785 
+L 257.700148 114.115358 
+L 255.536968 111.447604 
+L 253.192214 108.869899 
+L 250.672368 106.389365 
+L 247.984392 104.01286 
+L 245.135718 101.746951 
+L 242.134217 99.597901 
+L 238.988187 97.57165 
+L 235.706323 95.673799 
+L 232.297694 93.909593 
+L 228.771723 92.283907 
+L 225.138155 90.801236 
+L 221.407032 89.465677 
+L 217.588668 88.280921 
+L 213.693616 87.250244 
+L 209.73264 86.376494 
+L 205.716691 85.662085 
+L 201.656866 85.108993 
+L 197.564386 84.718745 
+L 193.450564 84.492422 
+L 189.32677 84.430647 
+L 185.2044 84.533593 
+L 181.09485 84.800974 
+L 177.009477 85.232051 
+L 172.959573 85.825633 
+L 168.956331 86.58008 
+L 165.010817 87.493305 
+L 161.133935 88.562786 
+L 157.336401 89.785566 
+L 153.62871 91.158265 
+L 150.021111 92.67709 
+L 146.523574 94.337842 
+L 143.145767 96.135931 
+L 139.897024 98.066389 
+L 136.786327 100.123878 
+L 133.822271 102.302712 
+L 131.01305 104.596869 
+L 128.366428 107.000009 
+L 125.889721 109.505489 
+L 123.589772 112.106385 
+L 121.47294 114.795507 
+L 119.545075 117.565423 
+L 117.811505 120.408478 
+L 116.277023 123.316813 
+L 114.945868 126.28239 
+L 113.82172 129.297013 
+L 112.907687 132.352349 
+L 112.206295 135.439954 
+L 111.719482 138.551294 
+L 111.448593 141.677769 
+L 111.394378 144.810738 
+L 111.556986 147.941541 
+L 111.935968 151.061527 
+L 112.530276 154.16207 
+L 113.338268 157.234603 
+L 114.357711 160.270631 
+L 115.585786 163.261765 
+L 117.0191 166.199736 
+L 118.653691 169.076425 
+L 120.485041 171.883881 
+L 122.508089 174.614344 
+L 124.717242 177.260267 
+L 127.106396 179.814337 
+L 129.668947 182.269495 
+L 132.397811 184.618956 
+L 135.285447 186.856225 
+L 138.323873 188.975119 
+L 141.504693 190.969781 
+L 144.819113 192.834699 
+L 148.257973 194.564717 
+L 151.811769 196.155055 
+L 155.470679 197.601317 
+L 159.224588 198.899505 
+L 163.063123 200.046031 
+L 166.975673 201.037727 
+L 170.951424 201.871852 
+L 174.979389 202.546099 
+L 179.048433 203.058606 
+L 183.147312 203.407956 
+L 187.264694 203.593183 
+L 191.389202 203.613776 
+L 195.509434 203.469677 
+L 199.614003 203.161285 
+L 203.691564 202.689452 
+L 207.730847 202.055482 
+L 211.720688 201.261128 
+L 215.65006 200.308585 
+L 219.508101 199.200486 
+L 223.284149 197.939893 
+L 226.967768 196.530291 
+L 230.548775 194.975575 
+L 234.017273 193.280043 
+L 237.363676 191.448381 
+L 240.578734 189.485652 
+L 243.653562 187.39728 
+L 246.579661 185.189038 
+L 249.348942 182.867028 
+L 251.953754 180.437669 
+L 254.386895 177.907676 
+L 256.64164 175.28404 
+L 258.711759 172.574013 
+L 260.591529 169.785086 
+L 262.275755 166.924967 
+L 263.759782 164.001561 
+L 265.039507 161.022949 
+L 266.111395 157.997362 
+L 266.972482 154.933163 
+L 267.620388 151.838821 
+L 268.053323 148.72289 
+L 268.27009 145.59398 
+L 268.2972 144.02736 
+L 268.2972 144.02736 
+" clip-path="url(#p1168e06e01)" style="fill: none; stroke: #dfd2be; stroke-linecap: square"/>
+   </g>
+   <g id="patch_2">
+    <path d="M 164.65428 93.488256 
+L 215.03052 93.488256 
+Q 220.8114 93.488256 220.8114 90.150768 
+L 220.8114 78.707952 
+Q 220.8114 75.370464 215.03052 75.370464 
+L 164.65428 75.370464 
+Q 158.8734 75.370464 158.8734 78.707952 
+L 158.8734 90.150768 
+Q 158.8734 93.488256 164.65428 93.488256 
+z
+" clip-path="url(#p1168e06e01)" style="fill: #f1e9da; stroke: #dfd2be; stroke-width: 0.8; stroke-linejoin: miter"/>
+   </g>
+   <g id="patch_3">
+    <path d="M 209.126828 86.257839 
+Q 214.338461 87.562557 218.465531 88.595757 
+" clip-path="url(#p1168e06e01)" style="fill: none; stroke: #8a7458; stroke-linecap: round"/>
+    <path d="M 215.410438 85.975374 
+L 218.465531 88.595757 
+L 214.536169 89.467601 
+z
+" clip-path="url(#p1168e06e01)" style="fill: #8a7458; stroke: #8a7458; stroke-linecap: round"/>
+   </g>
+   <g id="patch_4">
+    <path d="M 223.925847 90.347228 
+Q 228.689484 92.416315 232.427644 94.039986 
+" clip-path="url(#p1168e06e01)" style="fill: none; stroke: #8a7458; stroke-linecap: round"/>
+    <path d="M 229.842777 90.954786 
+L 232.427644 94.039986 
+L 228.408563 94.25676 
+z
+" clip-path="url(#p1168e06e01)" style="fill: #8a7458; stroke: #8a7458; stroke-linecap: round"/>
+   </g>
+   <g id="patch_5">
+    <path d="M 210.569959 113.20741 
+L 285.721399 113.20741 
+Q 291.502279 113.20741 291.502279 109.869922 
+L 291.502279 98.427106 
+Q 291.502279 95.089618 285.721399 95.089618 
+L 210.569959 95.089618 
+Q 204.789079 95.089618 204.789079 98.427106 
+L 204.789079 109.869922 
+Q 204.789079 113.20741 210.569959 113.20741 
+z
+" clip-path="url(#p1168e06e01)" style="fill: #f1e9da; stroke: #dfd2be; stroke-width: 0.8; stroke-linejoin: miter"/>
+   </g>
+   <g id="patch_6">
+    <path d="M 259.739483 116.960514 
+Q 261.883562 120.797596 263.482274 123.658678 
+" clip-path="url(#p1168e06e01)" style="fill: none; stroke: #8a7458; stroke-linecap: round"/>
+    <path d="M 263.297553 119.637997 
+L 263.482274 123.658678 
+L 260.154896 121.394046 
+z
+" clip-path="url(#p1168e06e01)" style="fill: #8a7458; stroke: #8a7458; stroke-linecap: round"/>
+   </g>
+   <g id="patch_7">
+    <path d="M 265.620123 128.591508 
+Q 266.667159 132.683375 267.437039 135.692106 
+" clip-path="url(#p1168e06e01)" style="fill: none; stroke: #8a7458; stroke-linecap: round"/>
+    <path d="M 268.288433 131.758262 
+L 267.437039 135.692106 
+L 264.8008 132.650685 
+z
+" clip-path="url(#p1168e06e01)" style="fill: #8a7458; stroke: #8a7458; stroke-linecap: round"/>
+   </g>
+   <g id="patch_8">
+    <path d="M 229.957963 161.380694 
+L 305.109403 161.380694 
+Q 310.890283 161.380694 310.890283 158.043206 
+L 310.890283 146.60039 
+Q 310.890283 143.262902 305.109403 143.262902 
+L 229.957963 143.262902 
+Q 224.177083 143.262902 224.177083 146.60039 
+L 224.177083 158.043206 
+Q 224.177083 161.380694 229.957963 161.380694 
+z
+" clip-path="url(#p1168e06e01)" style="fill: #f1e9da; stroke: #8a5f1b; stroke-width: 1.2; stroke-linejoin: miter"/>
+   </g>
+   <g id="patch_9">
+    <path d="M 263.227974 165.102798 
+Q 260.93325 168.889264 259.217986 171.719579 
+" clip-path="url(#p1168e06e01)" style="fill: none; stroke: #8a7458; stroke-linecap: round"/>
+    <path d="M 262.623185 169.573741 
+L 259.217986 171.719579 
+L 259.544436 167.707917 
+z
+" clip-path="url(#p1168e06e01)" style="fill: #8a7458; stroke: #8a7458; stroke-linecap: round"/>
+   </g>
+   <g id="patch_10">
+    <path d="M 256.900629 174.962366 
+Q 253.731285 178.365238 251.323937 180.949966 
+" clip-path="url(#p1168e06e01)" style="fill: none; stroke: #8a7458; stroke-linecap: round"/>
+    <path d="M 255.094709 179.542386 
+L 251.323937 180.949966 
+L 252.460336 177.088801 
+z
+" clip-path="url(#p1168e06e01)" style="fill: #8a7458; stroke: #8a7458; stroke-linecap: round"/>
+   </g>
+   <g id="patch_11">
+    <path d="M 200.568278 200.050121 
+L 275.719718 200.050121 
+Q 281.500598 200.050121 281.500598 196.712633 
+L 281.500598 185.269817 
+Q 281.500598 181.932329 275.719718 181.932329 
+L 200.568278 181.932329 
+Q 194.787398 181.932329 194.787398 185.269817 
+L 194.787398 196.712633 
+Q 194.787398 200.050121 200.568278 200.050121 
+z
+" clip-path="url(#p1168e06e01)" style="fill: #f1e9da; stroke: #8a5f1b; stroke-width: 1.2; stroke-linejoin: miter"/>
+   </g>
+   <g id="patch_12">
+    <path d="M 225.22899 197.218668 
+Q 220.170402 198.834009 216.176865 200.109251 
+" clip-path="url(#p1168e06e01)" style="fill: none; stroke: #8a7458; stroke-linecap: round"/>
+    <path d="M 220.15381 200.728852 
+L 216.176865 200.109251 
+L 219.058713 197.299456 
+z
+" clip-path="url(#p1168e06e01)" style="fill: #8a7458; stroke: #8a7458; stroke-linecap: round"/>
+   </g>
+   <g id="patch_13">
+    <path d="M 213.056118 200.956746 
+Q 207.713747 201.908616 203.472076 202.664371 
+" clip-path="url(#p1168e06e01)" style="fill: none; stroke: #8a7458; stroke-linecap: round"/>
+    <path d="M 207.331999 203.804982 
+L 203.472076 202.664371 
+L 206.700519 200.260799 
+z
+" clip-path="url(#p1168e06e01)" style="fill: #8a7458; stroke: #8a7458; stroke-linecap: round"/>
+   </g>
+   <g id="patch_14">
+    <path d="M 161.916247 212.647951 
+L 212.292487 212.647951 
+Q 218.073367 212.647951 218.073367 209.310463 
+L 218.073367 197.867647 
+Q 218.073367 194.530159 212.292487 194.530159 
+L 161.916247 194.530159 
+Q 156.135367 194.530159 156.135367 197.867647 
+L 156.135367 209.310463 
+Q 156.135367 212.647951 161.916247 212.647951 
+z
+" clip-path="url(#p1168e06e01)" style="fill: #f1e9da; stroke: #dfd2be; stroke-width: 0.8; stroke-linejoin: miter"/>
+   </g>
+   <g id="patch_15">
+    <path d="M 167.91569 201.250434 
+Q 162.767173 199.808344 158.695254 198.667807 
+" clip-path="url(#p1168e06e01)" style="fill: none; stroke: #8a7458; stroke-linecap: round"/>
+    <path d="M 161.676344 201.372081 
+L 158.695254 198.667807 
+L 162.647328 197.905499 
+z
+" clip-path="url(#p1168e06e01)" style="fill: #8a7458; stroke: #8a7458; stroke-linecap: round"/>
+   </g>
+   <g id="patch_16">
+    <path d="M 153.31356 196.771194 
+Q 148.647882 194.577077 144.993947 192.85875 
+" clip-path="url(#p1168e06e01)" style="fill: none; stroke: #8a7458; stroke-linecap: round"/>
+    <path d="M 147.485689 196.019639 
+L 144.993947 192.85875 
+L 149.017703 192.761889 
+z
+" clip-path="url(#p1168e06e01)" style="fill: #8a7458; stroke: #8a7458; stroke-linecap: round"/>
+   </g>
+   <g id="patch_17">
+    <path d="M 104.554416 191.395112 
+L 154.930656 191.395112 
+Q 160.711536 191.395112 160.711536 188.057624 
+L 160.711536 176.614808 
+Q 160.711536 173.27732 154.930656 173.27732 
+L 104.554416 173.27732 
+Q 98.773536 173.27732 98.773536 176.614808 
+L 98.773536 188.057624 
+Q 98.773536 191.395112 104.554416 191.395112 
+z
+" clip-path="url(#p1168e06e01)" style="fill: #f1e9da; stroke: #dfd2be; stroke-width: 0.8; stroke-linejoin: miter"/>
+   </g>
+   <g id="patch_18">
+    <path d="M 120.603545 172.053484 
+Q 118.368139 168.246596 116.698857 165.403816 
+" clip-path="url(#p1168e06e01)" style="fill: none; stroke: #8a7458; stroke-linecap: round"/>
+    <path d="M 116.96956 169.419625 
+L 116.698857 165.403816 
+L 120.073926 167.59674 
+z
+" clip-path="url(#p1168e06e01)" style="fill: #8a7458; stroke: #8a7458; stroke-linecap: round"/>
+   </g>
+   <g id="patch_19">
+    <path d="M 115.215065 162.415171 
+Q 113.891272 158.369835 112.915199 155.387086 
+" clip-path="url(#p1168e06e01)" style="fill: none; stroke: #8a7458; stroke-linecap: round"/>
+    <path d="M 112.324105 159.368368 
+L 112.915199 155.387086 
+L 115.745568 158.248731 
+z
+" clip-path="url(#p1168e06e01)" style="fill: #8a7458; stroke: #8a7458; stroke-linecap: round"/>
+   </g>
+   <g id="patch_20">
+    <path d="M 86.247273 151.006316 
+L 136.623513 151.006316 
+Q 142.404393 151.006316 142.404393 147.668828 
+L 142.404393 136.226012 
+Q 142.404393 132.888524 136.623513 132.888524 
+L 86.247273 132.888524 
+Q 80.466393 132.888524 80.466393 136.226012 
+L 80.466393 147.668828 
+Q 80.466393 151.006316 86.247273 151.006316 
+z
+" clip-path="url(#p1168e06e01)" style="fill: #f1e9da; stroke: #dfd2be; stroke-width: 0.8; stroke-linejoin: miter"/>
+   </g>
+   <g id="patch_21">
+    <path d="M 114.229741 128.131266 
+Q 116.059651 124.201423 117.417611 121.28512 
+" clip-path="url(#p1168e06e01)" style="fill: none; stroke: #8a7458; stroke-linecap: round"/>
+    <path d="M 114.266195 123.788833 
+L 117.417611 121.28512 
+L 117.529732 125.308481 
+z
+" clip-path="url(#p1168e06e01)" style="fill: #8a7458; stroke: #8a7458; stroke-linecap: round"/>
+   </g>
+   <g id="patch_22">
+    <path d="M 119.636184 117.42621 
+Q 122.422876 113.835287 124.524119 111.127632 
+" clip-path="url(#p1168e06e01)" style="fill: none; stroke: #8a7458; stroke-linecap: round"/>
+    <path d="M 120.894985 112.868145 
+L 124.524119 111.127632 
+L 123.73905 115.075247 
+z
+" clip-path="url(#p1168e06e01)" style="fill: #8a7458; stroke: #8a7458; stroke-linecap: round"/>
+   </g>
+   <g id="patch_23">
+    <path d="M 99.770172 108.796311 
+L 174.921612 108.796311 
+Q 180.702492 108.796311 180.702492 105.458823 
+L 180.702492 94.016007 
+Q 180.702492 90.678519 174.921612 90.678519 
+L 99.770172 90.678519 
+Q 93.989292 90.678519 93.989292 94.016007 
+L 93.989292 105.458823 
+Q 93.989292 108.796311 99.770172 108.796311 
+z
+" clip-path="url(#p1168e06e01)" style="fill: #f1e9da; stroke: #8a5f1b; stroke-width: 1.2; stroke-linejoin: miter"/>
+   </g>
+   <g id="patch_24">
+    <path d="M 150.554888 92.440369 
+Q 155.485207 90.610424 159.367361 89.169518 
+" clip-path="url(#p1168e06e01)" style="fill: none; stroke: #8a7458; stroke-linecap: round"/>
+    <path d="M 155.365996 88.734685 
+L 159.367361 89.169518 
+L 156.618676 92.10971 
+z
+" clip-path="url(#p1168e06e01)" style="fill: #8a7458; stroke: #8a7458; stroke-linecap: round"/>
+   </g>
+   <g id="patch_25">
+    <path d="M 163.046976 88.013144 
+Q 168.322813 86.86696 172.5061 85.958134 
+" clip-path="url(#p1168e06e01)" style="fill: none; stroke: #8a7458; stroke-linecap: round"/>
+    <path d="M 168.606025 84.963443 
+L 172.5061 85.958134 
+L 169.370302 88.48138 
+z
+" clip-path="url(#p1168e06e01)" style="fill: #8a7458; stroke: #8a7458; stroke-linecap: round"/>
+   </g>
+   <g id="patch_26">
+    <path d="M 327.75768 234.61632 
+L 456.58872 234.61632 
+Q 462.3696 234.61632 462.3696 231.278832 
+L 462.3696 197.427168 
+Q 462.3696 194.08968 456.58872 194.08968 
+L 327.75768 194.08968 
+Q 321.9768 194.08968 321.9768 197.427168 
+L 321.9768 231.278832 
+Q 321.9768 234.61632 327.75768 234.61632 
+z
+" clip-path="url(#p1168e06e01)" style="fill: #f1e9da; stroke: #dfd2be; stroke-width: 0.8; stroke-linejoin: miter"/>
+   </g>
+   <g id="patch_27">
+    <path d="M 80.00568 34.36704 
+L 130.38192 34.36704 
+Q 136.1628 34.36704 136.1628 31.029552 
+L 136.1628 19.586736 
+Q 136.1628 16.249248 130.38192 16.249248 
+L 80.00568 16.249248 
+Q 74.2248 16.249248 74.2248 19.586736 
+L 74.2248 31.029552 
+Q 74.2248 34.36704 80.00568 34.36704 
+z
+" clip-path="url(#p1168e06e01)" style="fill: #f1e9da; stroke: #dfd2be; stroke-width: 0.8; stroke-linejoin: miter"/>
+   </g>
+   <g id="patch_28">
+    <path d="M 138.2274 25.308144 
+Q 146.4858 25.308144 153.626166 25.308144 
+" clip-path="url(#p1168e06e01)" style="fill: none; stroke: #8a5f1b; stroke-linecap: round"/>
+    <path d="M 150.026166 23.508144 
+L 153.626166 25.308144 
+L 150.026166 27.108144 
+z
+" clip-path="url(#p1168e06e01)" style="fill: #8a5f1b; stroke: #8a5f1b; stroke-linecap: round"/>
+   </g>
+   <g id="patch_29">
+    <path d="M 162.58968 34.36704 
+L 221.22432 34.36704 
+Q 227.0052 34.36704 227.0052 31.029552 
+L 227.0052 19.586736 
+Q 227.0052 16.249248 221.22432 16.249248 
+L 162.58968 16.249248 
+Q 156.8088 16.249248 156.8088 19.586736 
+L 156.8088 31.029552 
+Q 156.8088 34.36704 162.58968 34.36704 
+z
+" clip-path="url(#p1168e06e01)" style="fill: #f1e9da; stroke: #8a5f1b; stroke-width: 1.2; stroke-linejoin: miter"/>
+   </g>
+   <g id="patch_30">
+    <path d="M 189.8424 35.559 
+Q 189.8424 54.987948 189.8424 73.298862 
+" clip-path="url(#p1168e06e01)" style="fill: none; stroke: #8a5f1b; stroke-linecap: round"/>
+    <path d="M 191.6424 69.698862 
+L 189.8424 73.298862 
+L 188.0424 69.698862 
+z
+" clip-path="url(#p1168e06e01)" style="fill: #8a5f1b; stroke: #8a5f1b; stroke-linecap: round"/>
+   </g>
+   <g id="patch_31">
+    <path d="M 229.0698 25.308144 
+Q 238.3605 25.308144 246.533166 25.308144 
+" clip-path="url(#p1168e06e01)" style="fill: none; stroke: #a4503a; stroke-linecap: round"/>
+    <path d="M 242.933166 23.508144 
+L 246.533166 25.308144 
+L 242.933166 27.108144 
+z
+" clip-path="url(#p1168e06e01)" style="fill: #a4503a; stroke: #a4503a; stroke-linecap: round"/>
+   </g>
+   <g id="patch_32">
+    <path d="M 310.890283 152.321798 
+Q 307.259305 134.886111 297.832988 121.110846 
+" clip-path="url(#p1168e06e01)" style="fill: none; stroke-dasharray: 3.5,2.5; stroke-dashoffset: 0; stroke: #8a5f1b; stroke-linecap: round"/>
+    <path d="M 298.380521 125.098353 
+L 297.832988 121.110846 
+L 301.351513 123.065323 
+z
+" clip-path="url(#p1168e06e01)" style="fill: #8a5f1b; stroke-dasharray: 3.5,2.5; stroke-dashoffset: 0; stroke: #8a5f1b; stroke-linecap: round"/>
+   </g>
+   <g id="patch_33">
+    <path d="M 281.500598 190.991225 
+Q 291.186781 183.382913 296.655625 173.61006 
+" clip-path="url(#p1168e06e01)" style="fill: none; stroke-dasharray: 3.5,2.5; stroke-dashoffset: 0; stroke: #8a5f1b; stroke-linecap: round"/>
+    <path d="M 293.326839 175.872621 
+L 296.655625 173.61006 
+L 296.468403 177.630625 
+z
+" clip-path="url(#p1168e06e01)" style="fill: #8a5f1b; stroke-dasharray: 3.5,2.5; stroke-dashoffset: 0; stroke: #8a5f1b; stroke-linecap: round"/>
+   </g>
+   <g id="patch_34">
+    <path d="M 129.087492 89.724951 
+Q 120.524839 77.305904 108.241662 70.658001 
+" clip-path="url(#p1168e06e01)" style="fill: none; stroke-dasharray: 3.5,2.5; stroke-dashoffset: 0; stroke: #8a5f1b; stroke-linecap: round"/>
+    <path d="M 110.550942 73.954549 
+L 108.241662 70.658001 
+L 112.264468 70.788506 
+z
+" clip-path="url(#p1168e06e01)" style="fill: #8a5f1b; stroke-dasharray: 3.5,2.5; stroke-dashoffset: 0; stroke: #8a5f1b; stroke-linecap: round"/>
+   </g>
+   <g id="patch_35">
+    <path d="M 80.00568 234.61632 
+L 155.15712 234.61632 
+Q 160.938 234.61632 160.938 231.278832 
+L 160.938 219.836016 
+Q 160.938 216.498528 155.15712 216.498528 
+L 80.00568 216.498528 
+Q 74.2248 216.498528 74.2248 219.836016 
+L 74.2248 231.278832 
+Q 74.2248 234.61632 80.00568 234.61632 
+z
+" clip-path="url(#p1168e06e01)" style="fill: #f1e9da; stroke: #dfd2be; stroke-width: 0.8; stroke-linejoin: miter"/>
+   </g>
+   <g id="patch_36">
+    <path d="M 117.5814 215.54496 
+Q 91.903731 165.035859 104.067448 110.840773 
+" clip-path="url(#p1168e06e01)" style="fill: none; stroke: #1f6f62; stroke-linecap: round"/>
+    <path d="M 101.522759 113.959196 
+L 104.067448 110.840773 
+L 105.035373 114.747578 
+z
+" clip-path="url(#p1168e06e01)" style="fill: #1f6f62; stroke: #1f6f62; stroke-linecap: round"/>
+   </g>
+   <g id="text_1">
+    <text style="font-size: 7.6px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: middle; fill: #211a12" x="189.8424" y="86.526485" transform="rotate(-0 189.8424 86.526485)">citrate</text>
+   </g>
+   <g id="text_2">
+    <text style="font-size: 7.6px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: middle; fill: #211a12" x="248.145679" y="106.245639" transform="rotate(-0 248.145679 106.245639)">isocitrate</text>
+   </g>
+   <g id="text_3">
+    <text style="font-weight: 700; font-size: 7.6px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: middle; fill: #211a12" x="267.533683" y="154.389236" transform="rotate(-0 267.533683 154.389236)">2-oxoglutarate</text>
+   </g>
+   <g id="text_4">
+    <text style="font-weight: 700; font-size: 7.6px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: middle; fill: #211a12" x="238.143998" y="193.058662" transform="rotate(-0 238.143998 193.058662)">succinyl-CoA</text>
+   </g>
+   <g id="text_5">
+    <text style="font-size: 7.6px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: middle; fill: #211a12" x="187.104367" y="205.68618" transform="rotate(-0 187.104367 205.68618)">succinate</text>
+   </g>
+   <g id="text_6">
+    <text style="font-size: 7.6px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: middle; fill: #211a12" x="129.742536" y="184.433341" transform="rotate(-0 129.742536 184.433341)">fumarate</text>
+   </g>
+   <g id="text_7">
+    <text style="font-size: 7.6px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: middle; fill: #211a12" x="111.435393" y="144.044545" transform="rotate(-0 111.435393 144.044545)">malate</text>
+   </g>
+   <g id="text_8">
+    <text style="font-weight: 700; font-size: 7.6px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: middle; fill: #211a12" x="137.345892" y="101.83454" transform="rotate(-0 137.345892 101.83454)">oxaloacetate</text>
+   </g>
+   <g id="text_9">
+    <text style="font-size: 7.6px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: middle; fill: #211a12" x="105.1938" y="27.405269" transform="rotate(-0 105.1938 27.405269)">pyruvate</text>
+   </g>
+   <g id="text_10">
+    <text style="font-weight: 700; font-size: 7.6px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: middle; fill: #211a12" x="191.907" y="27.375581" transform="rotate(-0 191.907 27.375581)">acetyl-CoA</text>
+   </g>
+   <g id="text_11">
+    <text style="font-size: 7.6px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: middle; fill: #211a12" x="117.5814" y="227.654549" transform="rotate(-0 117.5814 227.654549)">PEP / pyruvate</text>
+   </g>
+   <g id="text_12">
+    <text style="font-weight: 700; font-size: 7.8px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: middle; fill: #211a12" x="392.1732" y="206.939164" transform="rotate(-0 392.1732 206.939164)">per turn of the cycle</text>
+   </g>
+   <g id="text_13">
+    <text style="font-weight: 700; font-size: 7.6px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: middle; fill: #1f6f62" x="392.1732" y="221.217965" transform="rotate(-0 392.1732 221.217965)">3 NADH · 1 FADH₂ · 1 NTP</text>
+   </g>
+   <g id="text_14">
+    <text style="font-weight: 700; font-size: 7.6px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: middle; fill: #a4503a" x="392.1732" y="233.137565" transform="rotate(-0 392.1732 233.137565)">2 CO₂</text>
+   </g>
+   <g id="text_15">
+    <text style="font-size: 7.2px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: start; fill: #a4503a" x="139.46616" y="12.51459" transform="rotate(-0 139.46616 12.51459)">− CO₂  + NADH</text>
+   </g>
+   <g id="text_16">
+    <text style="font-size: 7.6px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: start; fill: #a4503a" x="251.7804" y="27.405269" transform="rotate(-0 251.7804 27.405269)">overflow: acetate, ethanol, lactate</text>
+   </g>
+   <g id="text_17">
+    <text style="font-style: italic; font-size: 7px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: start; fill: #8a7458" x="251.7804" y="41.066442" transform="rotate(-0 251.7804 41.066442)">when glycolytic flux exceeds respiratory capacity</text>
+   </g>
+   <g id="text_18">
+    <text style="font-size: 7.6px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: start; fill: #8a5f1b" x="301.3308" y="122.285285" transform="rotate(-0 301.3308 122.285285)">glutamate family, nitrogen entry</text>
+   </g>
+   <g id="text_19">
+    <text style="font-size: 7.6px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: start; fill: #8a5f1b" x="301.3308" y="174.731525" transform="rotate(-0 301.3308 174.731525)">porphyrins, methionine</text>
+   </g>
+   <g id="text_20">
+    <text style="font-weight: 700; font-size: 8px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: start; fill: #211a12" x="301.3308" y="79.45385" transform="rotate(-0 301.3308 79.45385)">drawn off for biosynthesis</text>
+   </g>
+   <g id="text_21">
+    <text style="font-size: 7.6px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: start; fill: #8a5f1b" x="74.2248" y="62.687285" transform="rotate(-0 74.2248 62.687285)">aspartate family, C4 acids</text>
+   </g>
+   <g id="text_22">
+    <text style="font-size: 7.6px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: start; fill: #1f6f62" x="169.1964" y="227.177765" transform="rotate(-0 169.1964 227.177765)">anaplerosis: carboxylation, costs ATP</text>
+   </g>
+  </g>
+  <g id="text_23">
+   <text style="font-size: 8.3px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: start; fill: #8a7458" x="5.76" y="282.852" transform="rotate(-0 5.76 282.852)">The cycle is a recycle loop with a purge: every intermediate withdrawn must be replaced, or the loop runs down. Full map: Berg Ch 17 or KEGG map00020.</text>
+  </g>
+ </g>
+ <defs>
+  <clipPath id="p1168e06e01">
+   <rect x="65.9664" y="5.76" width="412.92" height="238.392"/>
+  </clipPath>
+ </defs>
+</svg>
+</div><div class="fig-dark"><svg role="img" aria-label="Per turn: 3 NADH, 1 FADH₂, 1 NTP and two carbons as CO₂. Every intermediate withdrawn must be replaced by anaplerosis, and the overflow outlet opens when the feed outruns respiration." xmlns:xlink="http://www.w3.org/1999/xlink" width="657.717797pt" height="290.338141pt" viewBox="0 0 657.717797 290.338141" xmlns="http://www.w3.org/2000/svg" version="1.1">
+ <metadata>
+  <rdf:RDF xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:cc="http://creativecommons.org/ns#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+   <cc:Work>
+    <dc:type rdf:resource="http://purl.org/dc/dcmitype/StillImage"/>
+    <dc:date>2026-11-02T23:57:45.453296</dc:date>
+    <dc:format>image/svg+xml</dc:format>
+    <dc:creator>
+     <cc:Agent>
+      <dc:title>Matplotlib v3.10.8, https://matplotlib.org/</dc:title>
+     </cc:Agent>
+    </dc:creator>
+   </cc:Work>
+  </rdf:RDF>
+ </metadata>
+ <defs>
+  <style type="text/css">*{stroke-linejoin: round; stroke-linecap: butt}</style>
+ </defs>
+ <g id="figure_1">
+  <g id="patch_1">
+   <path d="M 0 290.338141 
+L 657.717797 290.338141 
+L 657.717797 0 
+L 0 0 
+L 0 290.338141 
+z
+" style="fill: none"/>
+  </g>
+  <g id="axes_1">
+   <g id="line2d_1">
+    <path d="M 268.2972 144.02736 
+L 268.188779 140.895203 
+L 267.863816 137.771703 
+L 267.323208 134.665493 
+L 266.568451 131.585158 
+L 265.601629 128.539213 
+L 264.425416 125.536075 
+L 263.043063 122.584046 
+L 261.458389 119.691284 
+L 259.675775 116.865785 
+L 257.700148 114.115358 
+L 255.536968 111.447604 
+L 253.192214 108.869899 
+L 250.672368 106.389365 
+L 247.984392 104.01286 
+L 245.135718 101.746951 
+L 242.134217 99.597901 
+L 238.988187 97.57165 
+L 235.706323 95.673799 
+L 232.297694 93.909593 
+L 228.771723 92.283907 
+L 225.138155 90.801236 
+L 221.407032 89.465677 
+L 217.588668 88.280921 
+L 213.693616 87.250244 
+L 209.73264 86.376494 
+L 205.716691 85.662085 
+L 201.656866 85.108993 
+L 197.564386 84.718745 
+L 193.450564 84.492422 
+L 189.32677 84.430647 
+L 185.2044 84.533593 
+L 181.09485 84.800974 
+L 177.009477 85.232051 
+L 172.959573 85.825633 
+L 168.956331 86.58008 
+L 165.010817 87.493305 
+L 161.133935 88.562786 
+L 157.336401 89.785566 
+L 153.62871 91.158265 
+L 150.021111 92.67709 
+L 146.523574 94.337842 
+L 143.145767 96.135931 
+L 139.897024 98.066389 
+L 136.786327 100.123878 
+L 133.822271 102.302712 
+L 131.01305 104.596869 
+L 128.366428 107.000009 
+L 125.889721 109.505489 
+L 123.589772 112.106385 
+L 121.47294 114.795507 
+L 119.545075 117.565423 
+L 117.811505 120.408478 
+L 116.277023 123.316813 
+L 114.945868 126.28239 
+L 113.82172 129.297013 
+L 112.907687 132.352349 
+L 112.206295 135.439954 
+L 111.719482 138.551294 
+L 111.448593 141.677769 
+L 111.394378 144.810738 
+L 111.556986 147.941541 
+L 111.935968 151.061527 
+L 112.530276 154.16207 
+L 113.338268 157.234603 
+L 114.357711 160.270631 
+L 115.585786 163.261765 
+L 117.0191 166.199736 
+L 118.653691 169.076425 
+L 120.485041 171.883881 
+L 122.508089 174.614344 
+L 124.717242 177.260267 
+L 127.106396 179.814337 
+L 129.668947 182.269495 
+L 132.397811 184.618956 
+L 135.285447 186.856225 
+L 138.323873 188.975119 
+L 141.504693 190.969781 
+L 144.819113 192.834699 
+L 148.257973 194.564717 
+L 151.811769 196.155055 
+L 155.470679 197.601317 
+L 159.224588 198.899505 
+L 163.063123 200.046031 
+L 166.975673 201.037727 
+L 170.951424 201.871852 
+L 174.979389 202.546099 
+L 179.048433 203.058606 
+L 183.147312 203.407956 
+L 187.264694 203.593183 
+L 191.389202 203.613776 
+L 195.509434 203.469677 
+L 199.614003 203.161285 
+L 203.691564 202.689452 
+L 207.730847 202.055482 
+L 211.720688 201.261128 
+L 215.65006 200.308585 
+L 219.508101 199.200486 
+L 223.284149 197.939893 
+L 226.967768 196.530291 
+L 230.548775 194.975575 
+L 234.017273 193.280043 
+L 237.363676 191.448381 
+L 240.578734 189.485652 
+L 243.653562 187.39728 
+L 246.579661 185.189038 
+L 249.348942 182.867028 
+L 251.953754 180.437669 
+L 254.386895 177.907676 
+L 256.64164 175.28404 
+L 258.711759 172.574013 
+L 260.591529 169.785086 
+L 262.275755 166.924967 
+L 263.759782 164.001561 
+L 265.039507 161.022949 
+L 266.111395 157.997362 
+L 266.972482 154.933163 
+L 267.620388 151.838821 
+L 268.053323 148.72289 
+L 268.27009 145.59398 
+L 268.2972 144.02736 
+L 268.2972 144.02736 
+" clip-path="url(#p4950d75d8e)" style="fill: none; stroke: #3a3026; stroke-linecap: square"/>
+   </g>
+   <g id="patch_2">
+    <path d="M 164.65428 93.488256 
+L 215.03052 93.488256 
+Q 220.8114 93.488256 220.8114 90.150768 
+L 220.8114 78.707952 
+Q 220.8114 75.370464 215.03052 75.370464 
+L 164.65428 75.370464 
+Q 158.8734 75.370464 158.8734 78.707952 
+L 158.8734 90.150768 
+Q 158.8734 93.488256 164.65428 93.488256 
+z
+" clip-path="url(#p4950d75d8e)" style="fill: #241c12; stroke: #3a3026; stroke-width: 0.8; stroke-linejoin: miter"/>
+   </g>
+   <g id="patch_3">
+    <path d="M 209.126828 86.257839 
+Q 214.338461 87.562557 218.465531 88.595757 
+" clip-path="url(#p4950d75d8e)" style="fill: none; stroke: #9a8872; stroke-linecap: round"/>
+    <path d="M 215.410438 85.975374 
+L 218.465531 88.595757 
+L 214.536169 89.467601 
+z
+" clip-path="url(#p4950d75d8e)" style="fill: #9a8872; stroke: #9a8872; stroke-linecap: round"/>
+   </g>
+   <g id="patch_4">
+    <path d="M 223.925847 90.347228 
+Q 228.689484 92.416315 232.427644 94.039986 
+" clip-path="url(#p4950d75d8e)" style="fill: none; stroke: #9a8872; stroke-linecap: round"/>
+    <path d="M 229.842777 90.954786 
+L 232.427644 94.039986 
+L 228.408563 94.25676 
+z
+" clip-path="url(#p4950d75d8e)" style="fill: #9a8872; stroke: #9a8872; stroke-linecap: round"/>
+   </g>
+   <g id="patch_5">
+    <path d="M 210.569959 113.20741 
+L 285.721399 113.20741 
+Q 291.502279 113.20741 291.502279 109.869922 
+L 291.502279 98.427106 
+Q 291.502279 95.089618 285.721399 95.089618 
+L 210.569959 95.089618 
+Q 204.789079 95.089618 204.789079 98.427106 
+L 204.789079 109.869922 
+Q 204.789079 113.20741 210.569959 113.20741 
+z
+" clip-path="url(#p4950d75d8e)" style="fill: #241c12; stroke: #3a3026; stroke-width: 0.8; stroke-linejoin: miter"/>
+   </g>
+   <g id="patch_6">
+    <path d="M 259.739483 116.960514 
+Q 261.883562 120.797596 263.482274 123.658678 
+" clip-path="url(#p4950d75d8e)" style="fill: none; stroke: #9a8872; stroke-linecap: round"/>
+    <path d="M 263.297553 119.637997 
+L 263.482274 123.658678 
+L 260.154896 121.394046 
+z
+" clip-path="url(#p4950d75d8e)" style="fill: #9a8872; stroke: #9a8872; stroke-linecap: round"/>
+   </g>
+   <g id="patch_7">
+    <path d="M 265.620123 128.591508 
+Q 266.667159 132.683375 267.437039 135.692106 
+" clip-path="url(#p4950d75d8e)" style="fill: none; stroke: #9a8872; stroke-linecap: round"/>
+    <path d="M 268.288433 131.758262 
+L 267.437039 135.692106 
+L 264.8008 132.650685 
+z
+" clip-path="url(#p4950d75d8e)" style="fill: #9a8872; stroke: #9a8872; stroke-linecap: round"/>
+   </g>
+   <g id="patch_8">
+    <path d="M 229.957963 161.380694 
+L 305.109403 161.380694 
+Q 310.890283 161.380694 310.890283 158.043206 
+L 310.890283 146.60039 
+Q 310.890283 143.262902 305.109403 143.262902 
+L 229.957963 143.262902 
+Q 224.177083 143.262902 224.177083 146.60039 
+L 224.177083 158.043206 
+Q 224.177083 161.380694 229.957963 161.380694 
+z
+" clip-path="url(#p4950d75d8e)" style="fill: #241c12; stroke: #d7a95c; stroke-width: 1.2; stroke-linejoin: miter"/>
+   </g>
+   <g id="patch_9">
+    <path d="M 263.227974 165.102798 
+Q 260.93325 168.889264 259.217986 171.719579 
+" clip-path="url(#p4950d75d8e)" style="fill: none; stroke: #9a8872; stroke-linecap: round"/>
+    <path d="M 262.623185 169.573741 
+L 259.217986 171.719579 
+L 259.544436 167.707917 
+z
+" clip-path="url(#p4950d75d8e)" style="fill: #9a8872; stroke: #9a8872; stroke-linecap: round"/>
+   </g>
+   <g id="patch_10">
+    <path d="M 256.900629 174.962366 
+Q 253.731285 178.365238 251.323937 180.949966 
+" clip-path="url(#p4950d75d8e)" style="fill: none; stroke: #9a8872; stroke-linecap: round"/>
+    <path d="M 255.094709 179.542386 
+L 251.323937 180.949966 
+L 252.460336 177.088801 
+z
+" clip-path="url(#p4950d75d8e)" style="fill: #9a8872; stroke: #9a8872; stroke-linecap: round"/>
+   </g>
+   <g id="patch_11">
+    <path d="M 200.568278 200.050121 
+L 275.719718 200.050121 
+Q 281.500598 200.050121 281.500598 196.712633 
+L 281.500598 185.269817 
+Q 281.500598 181.932329 275.719718 181.932329 
+L 200.568278 181.932329 
+Q 194.787398 181.932329 194.787398 185.269817 
+L 194.787398 196.712633 
+Q 194.787398 200.050121 200.568278 200.050121 
+z
+" clip-path="url(#p4950d75d8e)" style="fill: #241c12; stroke: #d7a95c; stroke-width: 1.2; stroke-linejoin: miter"/>
+   </g>
+   <g id="patch_12">
+    <path d="M 225.22899 197.218668 
+Q 220.170402 198.834009 216.176865 200.109251 
+" clip-path="url(#p4950d75d8e)" style="fill: none; stroke: #9a8872; stroke-linecap: round"/>
+    <path d="M 220.15381 200.728852 
+L 216.176865 200.109251 
+L 219.058713 197.299456 
+z
+" clip-path="url(#p4950d75d8e)" style="fill: #9a8872; stroke: #9a8872; stroke-linecap: round"/>
+   </g>
+   <g id="patch_13">
+    <path d="M 213.056118 200.956746 
+Q 207.713747 201.908616 203.472076 202.664371 
+" clip-path="url(#p4950d75d8e)" style="fill: none; stroke: #9a8872; stroke-linecap: round"/>
+    <path d="M 207.331999 203.804982 
+L 203.472076 202.664371 
+L 206.700519 200.260799 
+z
+" clip-path="url(#p4950d75d8e)" style="fill: #9a8872; stroke: #9a8872; stroke-linecap: round"/>
+   </g>
+   <g id="patch_14">
+    <path d="M 161.916247 212.647951 
+L 212.292487 212.647951 
+Q 218.073367 212.647951 218.073367 209.310463 
+L 218.073367 197.867647 
+Q 218.073367 194.530159 212.292487 194.530159 
+L 161.916247 194.530159 
+Q 156.135367 194.530159 156.135367 197.867647 
+L 156.135367 209.310463 
+Q 156.135367 212.647951 161.916247 212.647951 
+z
+" clip-path="url(#p4950d75d8e)" style="fill: #241c12; stroke: #3a3026; stroke-width: 0.8; stroke-linejoin: miter"/>
+   </g>
+   <g id="patch_15">
+    <path d="M 167.91569 201.250434 
+Q 162.767173 199.808344 158.695254 198.667807 
+" clip-path="url(#p4950d75d8e)" style="fill: none; stroke: #9a8872; stroke-linecap: round"/>
+    <path d="M 161.676344 201.372081 
+L 158.695254 198.667807 
+L 162.647328 197.905499 
+z
+" clip-path="url(#p4950d75d8e)" style="fill: #9a8872; stroke: #9a8872; stroke-linecap: round"/>
+   </g>
+   <g id="patch_16">
+    <path d="M 153.31356 196.771194 
+Q 148.647882 194.577077 144.993947 192.85875 
+" clip-path="url(#p4950d75d8e)" style="fill: none; stroke: #9a8872; stroke-linecap: round"/>
+    <path d="M 147.485689 196.019639 
+L 144.993947 192.85875 
+L 149.017703 192.761889 
+z
+" clip-path="url(#p4950d75d8e)" style="fill: #9a8872; stroke: #9a8872; stroke-linecap: round"/>
+   </g>
+   <g id="patch_17">
+    <path d="M 104.554416 191.395112 
+L 154.930656 191.395112 
+Q 160.711536 191.395112 160.711536 188.057624 
+L 160.711536 176.614808 
+Q 160.711536 173.27732 154.930656 173.27732 
+L 104.554416 173.27732 
+Q 98.773536 173.27732 98.773536 176.614808 
+L 98.773536 188.057624 
+Q 98.773536 191.395112 104.554416 191.395112 
+z
+" clip-path="url(#p4950d75d8e)" style="fill: #241c12; stroke: #3a3026; stroke-width: 0.8; stroke-linejoin: miter"/>
+   </g>
+   <g id="patch_18">
+    <path d="M 120.603545 172.053484 
+Q 118.368139 168.246596 116.698857 165.403816 
+" clip-path="url(#p4950d75d8e)" style="fill: none; stroke: #9a8872; stroke-linecap: round"/>
+    <path d="M 116.96956 169.419625 
+L 116.698857 165.403816 
+L 120.073926 167.59674 
+z
+" clip-path="url(#p4950d75d8e)" style="fill: #9a8872; stroke: #9a8872; stroke-linecap: round"/>
+   </g>
+   <g id="patch_19">
+    <path d="M 115.215065 162.415171 
+Q 113.891272 158.369835 112.915199 155.387086 
+" clip-path="url(#p4950d75d8e)" style="fill: none; stroke: #9a8872; stroke-linecap: round"/>
+    <path d="M 112.324105 159.368368 
+L 112.915199 155.387086 
+L 115.745568 158.248731 
+z
+" clip-path="url(#p4950d75d8e)" style="fill: #9a8872; stroke: #9a8872; stroke-linecap: round"/>
+   </g>
+   <g id="patch_20">
+    <path d="M 86.247273 151.006316 
+L 136.623513 151.006316 
+Q 142.404393 151.006316 142.404393 147.668828 
+L 142.404393 136.226012 
+Q 142.404393 132.888524 136.623513 132.888524 
+L 86.247273 132.888524 
+Q 80.466393 132.888524 80.466393 136.226012 
+L 80.466393 147.668828 
+Q 80.466393 151.006316 86.247273 151.006316 
+z
+" clip-path="url(#p4950d75d8e)" style="fill: #241c12; stroke: #3a3026; stroke-width: 0.8; stroke-linejoin: miter"/>
+   </g>
+   <g id="patch_21">
+    <path d="M 114.229741 128.131266 
+Q 116.059651 124.201423 117.417611 121.28512 
+" clip-path="url(#p4950d75d8e)" style="fill: none; stroke: #9a8872; stroke-linecap: round"/>
+    <path d="M 114.266195 123.788833 
+L 117.417611 121.28512 
+L 117.529732 125.308481 
+z
+" clip-path="url(#p4950d75d8e)" style="fill: #9a8872; stroke: #9a8872; stroke-linecap: round"/>
+   </g>
+   <g id="patch_22">
+    <path d="M 119.636184 117.42621 
+Q 122.422876 113.835287 124.524119 111.127632 
+" clip-path="url(#p4950d75d8e)" style="fill: none; stroke: #9a8872; stroke-linecap: round"/>
+    <path d="M 120.894985 112.868145 
+L 124.524119 111.127632 
+L 123.73905 115.075247 
+z
+" clip-path="url(#p4950d75d8e)" style="fill: #9a8872; stroke: #9a8872; stroke-linecap: round"/>
+   </g>
+   <g id="patch_23">
+    <path d="M 99.770172 108.796311 
+L 174.921612 108.796311 
+Q 180.702492 108.796311 180.702492 105.458823 
+L 180.702492 94.016007 
+Q 180.702492 90.678519 174.921612 90.678519 
+L 99.770172 90.678519 
+Q 93.989292 90.678519 93.989292 94.016007 
+L 93.989292 105.458823 
+Q 93.989292 108.796311 99.770172 108.796311 
+z
+" clip-path="url(#p4950d75d8e)" style="fill: #241c12; stroke: #d7a95c; stroke-width: 1.2; stroke-linejoin: miter"/>
+   </g>
+   <g id="patch_24">
+    <path d="M 150.554888 92.440369 
+Q 155.485207 90.610424 159.367361 89.169518 
+" clip-path="url(#p4950d75d8e)" style="fill: none; stroke: #9a8872; stroke-linecap: round"/>
+    <path d="M 155.365996 88.734685 
+L 159.367361 89.169518 
+L 156.618676 92.10971 
+z
+" clip-path="url(#p4950d75d8e)" style="fill: #9a8872; stroke: #9a8872; stroke-linecap: round"/>
+   </g>
+   <g id="patch_25">
+    <path d="M 163.046976 88.013144 
+Q 168.322813 86.86696 172.5061 85.958134 
+" clip-path="url(#p4950d75d8e)" style="fill: none; stroke: #9a8872; stroke-linecap: round"/>
+    <path d="M 168.606025 84.963443 
+L 172.5061 85.958134 
+L 169.370302 88.48138 
+z
+" clip-path="url(#p4950d75d8e)" style="fill: #9a8872; stroke: #9a8872; stroke-linecap: round"/>
+   </g>
+   <g id="patch_26">
+    <path d="M 327.75768 234.61632 
+L 456.58872 234.61632 
+Q 462.3696 234.61632 462.3696 231.278832 
+L 462.3696 197.427168 
+Q 462.3696 194.08968 456.58872 194.08968 
+L 327.75768 194.08968 
+Q 321.9768 194.08968 321.9768 197.427168 
+L 321.9768 231.278832 
+Q 321.9768 234.61632 327.75768 234.61632 
+z
+" clip-path="url(#p4950d75d8e)" style="fill: #241c12; stroke: #3a3026; stroke-width: 0.8; stroke-linejoin: miter"/>
+   </g>
+   <g id="patch_27">
+    <path d="M 80.00568 34.36704 
+L 130.38192 34.36704 
+Q 136.1628 34.36704 136.1628 31.029552 
+L 136.1628 19.586736 
+Q 136.1628 16.249248 130.38192 16.249248 
+L 80.00568 16.249248 
+Q 74.2248 16.249248 74.2248 19.586736 
+L 74.2248 31.029552 
+Q 74.2248 34.36704 80.00568 34.36704 
+z
+" clip-path="url(#p4950d75d8e)" style="fill: #241c12; stroke: #3a3026; stroke-width: 0.8; stroke-linejoin: miter"/>
+   </g>
+   <g id="patch_28">
+    <path d="M 138.2274 25.308144 
+Q 146.4858 25.308144 153.626166 25.308144 
+" clip-path="url(#p4950d75d8e)" style="fill: none; stroke: #d7a95c; stroke-linecap: round"/>
+    <path d="M 150.026166 23.508144 
+L 153.626166 25.308144 
+L 150.026166 27.108144 
+z
+" clip-path="url(#p4950d75d8e)" style="fill: #d7a95c; stroke: #d7a95c; stroke-linecap: round"/>
+   </g>
+   <g id="patch_29">
+    <path d="M 162.58968 34.36704 
+L 221.22432 34.36704 
+Q 227.0052 34.36704 227.0052 31.029552 
+L 227.0052 19.586736 
+Q 227.0052 16.249248 221.22432 16.249248 
+L 162.58968 16.249248 
+Q 156.8088 16.249248 156.8088 19.586736 
+L 156.8088 31.029552 
+Q 156.8088 34.36704 162.58968 34.36704 
+z
+" clip-path="url(#p4950d75d8e)" style="fill: #241c12; stroke: #d7a95c; stroke-width: 1.2; stroke-linejoin: miter"/>
+   </g>
+   <g id="patch_30">
+    <path d="M 189.8424 35.559 
+Q 189.8424 54.987948 189.8424 73.298862 
+" clip-path="url(#p4950d75d8e)" style="fill: none; stroke: #d7a95c; stroke-linecap: round"/>
+    <path d="M 191.6424 69.698862 
+L 189.8424 73.298862 
+L 188.0424 69.698862 
+z
+" clip-path="url(#p4950d75d8e)" style="fill: #d7a95c; stroke: #d7a95c; stroke-linecap: round"/>
+   </g>
+   <g id="patch_31">
+    <path d="M 229.0698 25.308144 
+Q 238.3605 25.308144 246.533166 25.308144 
+" clip-path="url(#p4950d75d8e)" style="fill: none; stroke: #d98c72; stroke-linecap: round"/>
+    <path d="M 242.933166 23.508144 
+L 246.533166 25.308144 
+L 242.933166 27.108144 
+z
+" clip-path="url(#p4950d75d8e)" style="fill: #d98c72; stroke: #d98c72; stroke-linecap: round"/>
+   </g>
+   <g id="patch_32">
+    <path d="M 310.890283 152.321798 
+Q 307.259305 134.886111 297.832988 121.110846 
+" clip-path="url(#p4950d75d8e)" style="fill: none; stroke-dasharray: 3.5,2.5; stroke-dashoffset: 0; stroke: #d7a95c; stroke-linecap: round"/>
+    <path d="M 298.380521 125.098353 
+L 297.832988 121.110846 
+L 301.351513 123.065323 
+z
+" clip-path="url(#p4950d75d8e)" style="fill: #d7a95c; stroke-dasharray: 3.5,2.5; stroke-dashoffset: 0; stroke: #d7a95c; stroke-linecap: round"/>
+   </g>
+   <g id="patch_33">
+    <path d="M 281.500598 190.991225 
+Q 291.186781 183.382913 296.655625 173.61006 
+" clip-path="url(#p4950d75d8e)" style="fill: none; stroke-dasharray: 3.5,2.5; stroke-dashoffset: 0; stroke: #d7a95c; stroke-linecap: round"/>
+    <path d="M 293.326839 175.872621 
+L 296.655625 173.61006 
+L 296.468403 177.630625 
+z
+" clip-path="url(#p4950d75d8e)" style="fill: #d7a95c; stroke-dasharray: 3.5,2.5; stroke-dashoffset: 0; stroke: #d7a95c; stroke-linecap: round"/>
+   </g>
+   <g id="patch_34">
+    <path d="M 129.087492 89.724951 
+Q 120.524839 77.305904 108.241662 70.658001 
+" clip-path="url(#p4950d75d8e)" style="fill: none; stroke-dasharray: 3.5,2.5; stroke-dashoffset: 0; stroke: #d7a95c; stroke-linecap: round"/>
+    <path d="M 110.550942 73.954549 
+L 108.241662 70.658001 
+L 112.264468 70.788506 
+z
+" clip-path="url(#p4950d75d8e)" style="fill: #d7a95c; stroke-dasharray: 3.5,2.5; stroke-dashoffset: 0; stroke: #d7a95c; stroke-linecap: round"/>
+   </g>
+   <g id="patch_35">
+    <path d="M 80.00568 234.61632 
+L 155.15712 234.61632 
+Q 160.938 234.61632 160.938 231.278832 
+L 160.938 219.836016 
+Q 160.938 216.498528 155.15712 216.498528 
+L 80.00568 216.498528 
+Q 74.2248 216.498528 74.2248 219.836016 
+L 74.2248 231.278832 
+Q 74.2248 234.61632 80.00568 234.61632 
+z
+" clip-path="url(#p4950d75d8e)" style="fill: #241c12; stroke: #3a3026; stroke-width: 0.8; stroke-linejoin: miter"/>
+   </g>
+   <g id="patch_36">
+    <path d="M 117.5814 215.54496 
+Q 91.903731 165.035859 104.067448 110.840773 
+" clip-path="url(#p4950d75d8e)" style="fill: none; stroke: #6dbdac; stroke-linecap: round"/>
+    <path d="M 101.522759 113.959196 
+L 104.067448 110.840773 
+L 105.035373 114.747578 
+z
+" clip-path="url(#p4950d75d8e)" style="fill: #6dbdac; stroke: #6dbdac; stroke-linecap: round"/>
+   </g>
+   <g id="text_1">
+    <text style="font-size: 7.6px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: middle; fill: #f1e9dc" x="189.8424" y="86.526485" transform="rotate(-0 189.8424 86.526485)">citrate</text>
+   </g>
+   <g id="text_2">
+    <text style="font-size: 7.6px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: middle; fill: #f1e9dc" x="248.145679" y="106.245639" transform="rotate(-0 248.145679 106.245639)">isocitrate</text>
+   </g>
+   <g id="text_3">
+    <text style="font-weight: 700; font-size: 7.6px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: middle; fill: #f1e9dc" x="267.533683" y="154.389236" transform="rotate(-0 267.533683 154.389236)">2-oxoglutarate</text>
+   </g>
+   <g id="text_4">
+    <text style="font-weight: 700; font-size: 7.6px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: middle; fill: #f1e9dc" x="238.143998" y="193.058662" transform="rotate(-0 238.143998 193.058662)">succinyl-CoA</text>
+   </g>
+   <g id="text_5">
+    <text style="font-size: 7.6px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: middle; fill: #f1e9dc" x="187.104367" y="205.68618" transform="rotate(-0 187.104367 205.68618)">succinate</text>
+   </g>
+   <g id="text_6">
+    <text style="font-size: 7.6px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: middle; fill: #f1e9dc" x="129.742536" y="184.433341" transform="rotate(-0 129.742536 184.433341)">fumarate</text>
+   </g>
+   <g id="text_7">
+    <text style="font-size: 7.6px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: middle; fill: #f1e9dc" x="111.435393" y="144.044545" transform="rotate(-0 111.435393 144.044545)">malate</text>
+   </g>
+   <g id="text_8">
+    <text style="font-weight: 700; font-size: 7.6px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: middle; fill: #f1e9dc" x="137.345892" y="101.83454" transform="rotate(-0 137.345892 101.83454)">oxaloacetate</text>
+   </g>
+   <g id="text_9">
+    <text style="font-size: 7.6px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: middle; fill: #f1e9dc" x="105.1938" y="27.405269" transform="rotate(-0 105.1938 27.405269)">pyruvate</text>
+   </g>
+   <g id="text_10">
+    <text style="font-weight: 700; font-size: 7.6px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: middle; fill: #f1e9dc" x="191.907" y="27.375581" transform="rotate(-0 191.907 27.375581)">acetyl-CoA</text>
+   </g>
+   <g id="text_11">
+    <text style="font-size: 7.6px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: middle; fill: #f1e9dc" x="117.5814" y="227.654549" transform="rotate(-0 117.5814 227.654549)">PEP / pyruvate</text>
+   </g>
+   <g id="text_12">
+    <text style="font-weight: 700; font-size: 7.8px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: middle; fill: #f1e9dc" x="392.1732" y="206.939164" transform="rotate(-0 392.1732 206.939164)">per turn of the cycle</text>
+   </g>
+   <g id="text_13">
+    <text style="font-weight: 700; font-size: 7.6px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: middle; fill: #6dbdac" x="392.1732" y="221.217965" transform="rotate(-0 392.1732 221.217965)">3 NADH · 1 FADH₂ · 1 NTP</text>
+   </g>
+   <g id="text_14">
+    <text style="font-weight: 700; font-size: 7.6px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: middle; fill: #d98c72" x="392.1732" y="233.137565" transform="rotate(-0 392.1732 233.137565)">2 CO₂</text>
+   </g>
+   <g id="text_15">
+    <text style="font-size: 7.2px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: start; fill: #d98c72" x="139.46616" y="12.51459" transform="rotate(-0 139.46616 12.51459)">− CO₂  + NADH</text>
+   </g>
+   <g id="text_16">
+    <text style="font-size: 7.6px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: start; fill: #d98c72" x="251.7804" y="27.405269" transform="rotate(-0 251.7804 27.405269)">overflow: acetate, ethanol, lactate</text>
+   </g>
+   <g id="text_17">
+    <text style="font-style: italic; font-size: 7px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: start; fill: #9a8872" x="251.7804" y="41.066442" transform="rotate(-0 251.7804 41.066442)">when glycolytic flux exceeds respiratory capacity</text>
+   </g>
+   <g id="text_18">
+    <text style="font-size: 7.6px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: start; fill: #d7a95c" x="301.3308" y="122.285285" transform="rotate(-0 301.3308 122.285285)">glutamate family, nitrogen entry</text>
+   </g>
+   <g id="text_19">
+    <text style="font-size: 7.6px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: start; fill: #d7a95c" x="301.3308" y="174.731525" transform="rotate(-0 301.3308 174.731525)">porphyrins, methionine</text>
+   </g>
+   <g id="text_20">
+    <text style="font-weight: 700; font-size: 8px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: start; fill: #f1e9dc" x="301.3308" y="79.45385" transform="rotate(-0 301.3308 79.45385)">drawn off for biosynthesis</text>
+   </g>
+   <g id="text_21">
+    <text style="font-size: 7.6px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: start; fill: #d7a95c" x="74.2248" y="62.687285" transform="rotate(-0 74.2248 62.687285)">aspartate family, C4 acids</text>
+   </g>
+   <g id="text_22">
+    <text style="font-size: 7.6px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: start; fill: #6dbdac" x="169.1964" y="227.177765" transform="rotate(-0 169.1964 227.177765)">anaplerosis: carboxylation, costs ATP</text>
+   </g>
+  </g>
+  <g id="text_23">
+   <text style="font-size: 8.3px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: start; fill: #9a8872" x="5.76" y="282.852" transform="rotate(-0 5.76 282.852)">The cycle is a recycle loop with a purge: every intermediate withdrawn must be replaced, or the loop runs down. Full map: Berg Ch 17 or KEGG map00020.</text>
+  </g>
+ </g>
+ <defs>
+  <clipPath id="p4950d75d8e">
+   <rect x="65.9664" y="5.76" width="412.92" height="238.392"/>
+  </clipPath>
+ </defs>
+</svg>
+</div><figcaption>Per turn: 3 NADH, 1 FADH₂, 1 NTP and two carbons as CO₂. Every intermediate withdrawn must be replaced by anaplerosis, and the overflow outlet opens when the feed outruns respiration.</figcaption></figure>
+<p>Per acetyl-CoA entering: 3 NADH, 1 FADH₂, 1 GTP and 2 CO₂. The two decarboxylations are at isocitrate dehydrogenase and 2-oxoglutarate dehydrogenase, and they are what make the cycle a carbon-destroying machine in the service of energy production. Regulation sits at citrate synthase, isocitrate dehydrogenase and 2-oxoglutarate dehydrogenase, all responding to energy charge and NADH. For engineering, learn which intermediates are drawn off for biosynthesis — oxaloacetate for aspartate and the aspartate family, 2-oxoglutarate for glutamate and the glutamate family, succinyl-CoA for porphyrins and for lysine via one route — because every carbon drawn off must be replaced.</p>
+<p><strong>3. Anaplerosis is replacement, and the node is where host choice is decided</strong></p>
+<figure class="fig"><div class="figtitle">Figure 11.3 — The PEP–pyruvate–oxaloacetate node, annotated by host</div><div class="fig-light"><svg role="img" aria-label="Dashed is the reaction E. coli lacks. Pyruvate carboxylase carboxylates pyruvate rather than PEP, so it does not compete with sugar uptake — part of why C. glutamicum wins lysine and C4 diacids." xmlns:xlink="http://www.w3.org/1999/xlink" width="570.422547pt" height="213.010141pt" viewBox="0 0 570.422547 213.010141" xmlns="http://www.w3.org/2000/svg" version="1.1">
+ <metadata>
+  <rdf:RDF xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:cc="http://creativecommons.org/ns#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+   <cc:Work>
+    <dc:type rdf:resource="http://purl.org/dc/dcmitype/StillImage"/>
+    <dc:date>2026-11-02T23:57:45.503311</dc:date>
+    <dc:format>image/svg+xml</dc:format>
+    <dc:creator>
+     <cc:Agent>
+      <dc:title>Matplotlib v3.10.8, https://matplotlib.org/</dc:title>
+     </cc:Agent>
+    </dc:creator>
+   </cc:Work>
+  </rdf:RDF>
+ </metadata>
+ <defs>
+  <style type="text/css">*{stroke-linejoin: round; stroke-linecap: butt}</style>
+ </defs>
+ <g id="figure_1">
+  <g id="patch_1">
+   <path d="M 0 213.010141 
+L 570.422547 213.010141 
+L 570.422547 0 
+L 0 0 
+L 0 213.010141 
+z
+" style="fill: none"/>
+  </g>
+  <g id="axes_1">
+   <g id="patch_2">
+    <path d="M 84.13488 64.19376 
+L 155.15712 64.19376 
+Q 160.938 64.19376 160.938 61.787664 
+L 160.938 47.694816 
+Q 160.938 45.28872 155.15712 45.28872 
+L 84.13488 45.28872 
+Q 78.354 45.28872 78.354 47.694816 
+L 78.354 61.787664 
+Q 78.354 64.19376 84.13488 64.19376 
+z
+" clip-path="url(#p0cbc770627)" style="fill: #f1e9da; stroke: #8a5f1b; stroke-width: 1.2; stroke-linejoin: miter"/>
+   </g>
+   <g id="patch_3">
+    <path d="M 84.13488 143.2512 
+L 155.15712 143.2512 
+Q 160.938 143.2512 160.938 140.845104 
+L 160.938 126.752256 
+Q 160.938 124.34616 155.15712 124.34616 
+L 84.13488 124.34616 
+Q 78.354 124.34616 78.354 126.752256 
+L 78.354 140.845104 
+Q 78.354 143.2512 84.13488 143.2512 
+z
+" clip-path="url(#p0cbc770627)" style="fill: #f1e9da; stroke: #8a5f1b; stroke-width: 1.2; stroke-linejoin: miter"/>
+   </g>
+   <g id="patch_4">
+    <path d="M 195.62328 103.72248 
+L 283.16232 103.72248 
+Q 288.9432 103.72248 288.9432 101.316384 
+L 288.9432 87.223536 
+Q 288.9432 84.81744 283.16232 84.81744 
+L 195.62328 84.81744 
+Q 189.8424 84.81744 189.8424 87.223536 
+L 189.8424 101.316384 
+Q 189.8424 103.72248 195.62328 103.72248 
+z
+" clip-path="url(#p0cbc770627)" style="fill: #f1e9da; stroke: #1f6f62; stroke-width: 1.2; stroke-linejoin: miter"/>
+   </g>
+   <g id="patch_5">
+    <path d="M 163.0026 53.88192 
+Q 175.3902 68.92002 187.066945 83.095168 
+" clip-path="url(#p0cbc770627)" style="fill: none; stroke: #1f6f62; stroke-linecap: round"/>
+    <path d="M 186.167364 79.172063 
+L 187.066945 83.095168 
+L 183.388712 81.460971 
+z
+" clip-path="url(#p0cbc770627)" style="fill: #1f6f62; stroke: #1f6f62; stroke-linecap: round"/>
+   </g>
+   <g id="patch_6">
+    <path d="M 187.7778 89.97336 
+Q 175.3902 74.5056 163.701491 59.910509 
+" clip-path="url(#p0cbc770627)" style="fill: none; stroke: #8a7458; stroke-linecap: round"/>
+    <path d="M 164.546906 63.845642 
+L 163.701491 59.910509 
+L 167.356846 61.595257 
+z
+" clip-path="url(#p0cbc770627)" style="fill: #8a7458; stroke: #8a7458; stroke-linecap: round"/>
+   </g>
+   <g id="patch_7">
+    <path d="M 119.646 65.05308 
+Q 119.646 94.26996 119.646 122.368806 
+" clip-path="url(#p0cbc770627)" style="fill: none; stroke: #8a5f1b; stroke-linecap: round"/>
+    <path d="M 121.446 118.768806 
+L 119.646 122.368806 
+L 117.846 118.768806 
+z
+" clip-path="url(#p0cbc770627)" style="fill: #8a5f1b; stroke: #8a5f1b; stroke-linecap: round"/>
+   </g>
+   <g id="patch_8">
+    <path d="M 187.7778 95.12928 
+Q 175.3902 110.59704 163.701491 125.192131 
+" clip-path="url(#p0cbc770627)" style="fill: none; stroke: #8a7458; stroke-linecap: round"/>
+    <path d="M 167.356846 123.507383 
+L 163.701491 125.192131 
+L 164.546906 121.256998 
+z
+" clip-path="url(#p0cbc770627)" style="fill: #8a7458; stroke: #8a7458; stroke-linecap: round"/>
+   </g>
+   <g id="patch_9">
+    <path d="M 163.0026 132.93936 
+Q 175.3902 117.4716 187.078909 102.876509 
+" clip-path="url(#p0cbc770627)" style="fill: none; stroke-dasharray: 3.5,2.5; stroke-dashoffset: 0; stroke: #a4503a; stroke-linecap: round"/>
+    <path d="M 183.423554 104.561257 
+L 187.078909 102.876509 
+L 186.233494 106.811642 
+z
+" clip-path="url(#p0cbc770627)" style="fill: #a4503a; stroke-dasharray: 3.5,2.5; stroke-dashoffset: 0; stroke: #a4503a; stroke-linecap: round"/>
+   </g>
+   <g id="text_1">
+    <text style="font-weight: 700; font-size: 9.6px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: middle; fill: #211a12" x="119.646" y="57.39024" transform="rotate(-0 119.646 57.39024)">PEP</text>
+   </g>
+   <g id="text_2">
+    <text style="font-weight: 700; font-size: 9.6px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: middle; fill: #211a12" x="119.646" y="136.37268" transform="rotate(-0 119.646 136.37268)">pyruvate</text>
+   </g>
+   <g id="text_3">
+    <text style="font-weight: 700; font-size: 9.6px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: middle; fill: #211a12" x="239.3928" y="96.91896" transform="rotate(-0 239.3928 96.91896)">oxaloacetate</text>
+   </g>
+   <g id="text_4">
+    <text style="font-weight: 700; font-size: 9.6px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: start; fill: #211a12" x="74.2248" y="18.68334" transform="rotate(-0 74.2248 18.68334)">The PEP–pyruvate–oxaloacetate node</text>
+   </g>
+   <g id="text_5">
+    <text style="font-weight: 700; font-size: 8.2px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: start; fill: #1f6f62" x="326.106" y="27.92688" transform="rotate(-0 326.106 27.92688)">PEP carboxylase</text>
+   </g>
+   <g id="text_6">
+    <text style="font-size: 7.4px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: start; fill: #8a7458" x="326.106" y="37.362545" transform="rotate(-0 326.106 37.362545)">PEP + CO₂ → oxaloacetate · no ATP, no biotin</text>
+   </g>
+   <g id="text_7">
+    <text style="font-weight: 700; font-size: 8.2px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: start; fill: #8a7458" x="326.106" y="46.83192" transform="rotate(-0 326.106 46.83192)">PEP carboxykinase</text>
+   </g>
+   <g id="text_8">
+    <text style="font-size: 7.4px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: start; fill: #8a7458" x="326.106" y="56.267585" transform="rotate(-0 326.106 56.267585)">oxaloacetate + ATP → PEP + CO₂ · gluconeogenic</text>
+   </g>
+   <g id="text_9">
+    <text style="font-weight: 700; font-size: 8.2px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: start; fill: #8a5f1b" x="326.106" y="65.73696" transform="rotate(-0 326.106 65.73696)">pyruvate kinase</text>
+   </g>
+   <g id="text_10">
+    <text style="font-size: 7.4px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: start; fill: #8a7458" x="326.106" y="75.172625" transform="rotate(-0 326.106 75.172625)">PEP → pyruvate + ATP</text>
+   </g>
+   <g id="text_11">
+    <text style="font-weight: 700; font-size: 8.2px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: start; fill: #8a7458" x="326.106" y="84.642" transform="rotate(-0 326.106 84.642)">malic enzyme</text>
+   </g>
+   <g id="text_12">
+    <text style="font-size: 7.4px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: start; fill: #8a7458" x="326.106" y="94.077666" transform="rotate(-0 326.106 94.077666)">via malate · malate → pyruvate + CO₂</text>
+   </g>
+   <g id="text_13">
+    <text style="font-weight: 700; font-size: 8.2px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: start; fill: #a4503a" x="326.106" y="103.54704" transform="rotate(-0 326.106 103.54704)">pyruvate carboxylase</text>
+   </g>
+   <g id="text_14">
+    <text style="font-size: 7.4px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: start; fill: #8a7458" x="326.106" y="112.982706" transform="rotate(-0 326.106 112.982706)">pyruvate + CO₂ + ATP → oxaloacetate · biotin</text>
+   </g>
+   <g id="text_15">
+    <text style="font-size: 8px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: start; fill: #4a3c2c" x="74.2248" y="162.6451" transform="rotate(-0 74.2248 162.6451)">E. coli has 1–4 and lacks 5 (dashed). C. glutamicum and S. cerevisiae have 5.</text>
+   </g>
+   <g id="text_16">
+    <text style="font-size: 7.8px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: start; fill: #8a7458" x="74.2248" y="174.620393" transform="rotate(-0 74.2248 174.620393)">Reaction 5 carboxylates pyruvate rather than PEP, so it does not compete with sugar uptake for PEP.</text>
+   </g>
+   <g id="text_17">
+    <g id="patch_10">
+     <path d="M 173.408184 71.72283 
+C 174.789602 71.72283 176.114627 71.173987 177.091437 70.197177 
+C 178.068247 69.220367 178.61709 67.895342 178.61709 66.513924 
+C 178.61709 65.132506 178.068247 63.807481 177.091437 62.830671 
+C 176.114627 61.853861 174.789602 61.305018 173.408184 61.305018 
+C 172.026766 61.305018 170.701741 61.853861 169.724931 62.830671 
+C 168.748121 63.807481 168.199278 65.132506 168.199278 66.513924 
+C 168.199278 67.895342 168.748121 69.220367 169.724931 70.197177 
+C 170.701741 71.173987 172.026766 71.72283 173.408184 71.72283 
+z
+" style="fill: #f1e9da; stroke: #1f6f62; stroke-width: 0.9; stroke-linejoin: miter"/>
+    </g>
+    <text style="font-weight: 700; font-size: 7.4px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: middle; fill: #1f6f62" x="173.408184" y="68.555861" transform="rotate(-0 173.408184 68.555861)">1</text>
+   </g>
+   <g id="text_18">
+    <g id="patch_11">
+     <path d="M 170.43516 73.527402 
+C 171.816578 73.527402 173.141603 72.978559 174.118413 72.001749 
+C 175.095223 71.024939 175.644066 69.699914 175.644066 68.318496 
+C 175.644066 66.937078 175.095223 65.612053 174.118413 64.635243 
+C 173.141603 63.658433 171.816578 63.10959 170.43516 63.10959 
+C 169.053742 63.10959 167.728717 63.658433 166.751907 64.635243 
+C 165.775097 65.612053 165.226254 66.937078 165.226254 68.318496 
+C 165.226254 69.699914 165.775097 71.024939 166.751907 72.001749 
+C 167.728717 72.978559 169.053742 73.527402 170.43516 73.527402 
+z
+" style="fill: #f1e9da; stroke: #8a7458; stroke-width: 0.9; stroke-linejoin: miter"/>
+    </g>
+    <text style="font-weight: 700; font-size: 7.4px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: middle; fill: #8a7458" x="170.43516" y="70.360433" transform="rotate(-0 170.43516 70.360433)">2</text>
+   </g>
+   <g id="text_19">
+    <g id="patch_12">
+     <path d="M 119.646 99.478866 
+C 121.027418 99.478866 122.352443 98.930023 123.329253 97.953213 
+C 124.306063 96.976403 124.854906 95.651378 124.854906 94.26996 
+C 124.854906 92.888542 124.306063 91.563517 123.329253 90.586707 
+C 122.352443 89.609897 121.027418 89.061054 119.646 89.061054 
+C 118.264582 89.061054 116.939557 89.609897 115.962747 90.586707 
+C 114.985937 91.563517 114.437094 92.888542 114.437094 94.26996 
+C 114.437094 95.651378 114.985937 96.976403 115.962747 97.953213 
+C 116.939557 98.930023 118.264582 99.478866 119.646 99.478866 
+z
+" style="fill: #f1e9da; stroke: #8a5f1b; stroke-width: 0.9; stroke-linejoin: miter"/>
+    </g>
+    <text style="font-weight: 700; font-size: 7.4px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: middle; fill: #8a5f1b" x="119.646" y="96.311898" transform="rotate(-0 119.646 96.311898)">3</text>
+   </g>
+   <g id="text_20">
+    <g id="patch_13">
+     <path d="M 170.43516 121.99305 
+C 171.816578 121.99305 173.141603 121.444207 174.118413 120.467397 
+C 175.095223 119.490587 175.644066 118.165562 175.644066 116.784144 
+C 175.644066 115.402726 175.095223 114.077701 174.118413 113.100891 
+C 173.141603 112.124081 171.816578 111.575238 170.43516 111.575238 
+C 169.053742 111.575238 167.728717 112.124081 166.751907 113.100891 
+C 165.775097 114.077701 165.226254 115.402726 165.226254 116.784144 
+C 165.226254 118.165562 165.775097 119.490587 166.751907 120.467397 
+C 167.728717 121.444207 169.053742 121.99305 170.43516 121.99305 
+z
+" style="fill: #f1e9da; stroke: #8a7458; stroke-width: 0.9; stroke-linejoin: miter"/>
+    </g>
+    <text style="font-weight: 700; font-size: 7.4px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: middle; fill: #8a7458" x="170.43516" y="118.826082" transform="rotate(-0 170.43516 118.826082)">4</text>
+   </g>
+   <g id="text_21">
+    <g id="patch_14">
+     <path d="M 170.43516 128.86761 
+C 171.816578 128.86761 173.141603 128.318767 174.118413 127.341957 
+C 175.095223 126.365147 175.644066 125.040122 175.644066 123.658704 
+C 175.644066 122.277286 175.095223 120.952261 174.118413 119.975451 
+C 173.141603 118.998641 171.816578 118.449798 170.43516 118.449798 
+C 169.053742 118.449798 167.728717 118.998641 166.751907 119.975451 
+C 165.775097 120.952261 165.226254 122.277286 165.226254 123.658704 
+C 165.226254 125.040122 165.775097 126.365147 166.751907 127.341957 
+C 167.728717 128.318767 169.053742 128.86761 170.43516 128.86761 
+z
+" style="fill: #f1e9da; stroke: #a4503a; stroke-width: 0.9; stroke-linejoin: miter"/>
+    </g>
+    <text style="font-weight: 700; font-size: 7.4px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: middle; fill: #a4503a" x="170.43516" y="125.700642" transform="rotate(-0 170.43516 125.700642)">5</text>
+   </g>
+   <g id="text_22">
+    <g id="patch_15">
+     <path d="M 309.5892 35.029866 
+C 310.970618 35.029866 312.295643 34.481023 313.272453 33.504213 
+C 314.249263 32.527403 314.798106 31.202378 314.798106 29.82096 
+C 314.798106 28.439542 314.249263 27.114517 313.272453 26.137707 
+C 312.295643 25.160897 310.970618 24.612054 309.5892 24.612054 
+C 308.207782 24.612054 306.882757 25.160897 305.905947 26.137707 
+C 304.929137 27.114517 304.380294 28.439542 304.380294 29.82096 
+C 304.380294 31.202378 304.929137 32.527403 305.905947 33.504213 
+C 306.882757 34.481023 308.207782 35.029866 309.5892 35.029866 
+z
+" style="fill: #f1e9da; stroke: #1f6f62; stroke-width: 0.9; stroke-linejoin: miter"/>
+    </g>
+    <text style="font-weight: 700; font-size: 7.4px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: middle; fill: #1f6f62" x="309.5892" y="31.862897" transform="rotate(-0 309.5892 31.862897)">1</text>
+   </g>
+   <g id="text_23">
+    <g id="patch_16">
+     <path d="M 309.5892 53.934906 
+C 310.970618 53.934906 312.295643 53.386063 313.272453 52.409253 
+C 314.249263 51.432443 314.798106 50.107418 314.798106 48.726 
+C 314.798106 47.344582 314.249263 46.019557 313.272453 45.042747 
+C 312.295643 44.065937 310.970618 43.517094 309.5892 43.517094 
+C 308.207782 43.517094 306.882757 44.065937 305.905947 45.042747 
+C 304.929137 46.019557 304.380294 47.344582 304.380294 48.726 
+C 304.380294 50.107418 304.929137 51.432443 305.905947 52.409253 
+C 306.882757 53.386063 308.207782 53.934906 309.5892 53.934906 
+z
+" style="fill: #f1e9da; stroke: #8a7458; stroke-width: 0.9; stroke-linejoin: miter"/>
+    </g>
+    <text style="font-weight: 700; font-size: 7.4px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: middle; fill: #8a7458" x="309.5892" y="50.767937" transform="rotate(-0 309.5892 50.767937)">2</text>
+   </g>
+   <g id="text_24">
+    <g id="patch_17">
+     <path d="M 309.5892 72.839946 
+C 310.970618 72.839946 312.295643 72.291103 313.272453 71.314293 
+C 314.249263 70.337483 314.798106 69.012458 314.798106 67.63104 
+C 314.798106 66.249622 314.249263 64.924597 313.272453 63.947787 
+C 312.295643 62.970977 310.970618 62.422134 309.5892 62.422134 
+C 308.207782 62.422134 306.882757 62.970977 305.905947 63.947787 
+C 304.929137 64.924597 304.380294 66.249622 304.380294 67.63104 
+C 304.380294 69.012458 304.929137 70.337483 305.905947 71.314293 
+C 306.882757 72.291103 308.207782 72.839946 309.5892 72.839946 
+z
+" style="fill: #f1e9da; stroke: #8a5f1b; stroke-width: 0.9; stroke-linejoin: miter"/>
+    </g>
+    <text style="font-weight: 700; font-size: 7.4px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: middle; fill: #8a5f1b" x="309.5892" y="69.672977" transform="rotate(-0 309.5892 69.672977)">3</text>
+   </g>
+   <g id="text_25">
+    <g id="patch_18">
+     <path d="M 309.5892 91.744986 
+C 310.970618 91.744986 312.295643 91.196143 313.272453 90.219333 
+C 314.249263 89.242523 314.798106 87.917498 314.798106 86.53608 
+C 314.798106 85.154662 314.249263 83.829637 313.272453 82.852827 
+C 312.295643 81.876017 310.970618 81.327174 309.5892 81.327174 
+C 308.207782 81.327174 306.882757 81.876017 305.905947 82.852827 
+C 304.929137 83.829637 304.380294 85.154662 304.380294 86.53608 
+C 304.380294 87.917498 304.929137 89.242523 305.905947 90.219333 
+C 306.882757 91.196143 308.207782 91.744986 309.5892 91.744986 
+z
+" style="fill: #f1e9da; stroke: #8a7458; stroke-width: 0.9; stroke-linejoin: miter"/>
+    </g>
+    <text style="font-weight: 700; font-size: 7.4px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: middle; fill: #8a7458" x="309.5892" y="88.578018" transform="rotate(-0 309.5892 88.578018)">4</text>
+   </g>
+   <g id="text_26">
+    <g id="patch_19">
+     <path d="M 309.5892 110.650026 
+C 310.970618 110.650026 312.295643 110.101183 313.272453 109.124373 
+C 314.249263 108.147563 314.798106 106.822538 314.798106 105.44112 
+C 314.798106 104.059702 314.249263 102.734677 313.272453 101.757867 
+C 312.295643 100.781057 310.970618 100.232214 309.5892 100.232214 
+C 308.207782 100.232214 306.882757 100.781057 305.905947 101.757867 
+C 304.929137 102.734677 304.380294 104.059702 304.380294 105.44112 
+C 304.380294 106.822538 304.929137 108.147563 305.905947 109.124373 
+C 306.882757 110.101183 308.207782 110.650026 309.5892 110.650026 
+z
+" style="fill: #f1e9da; stroke: #a4503a; stroke-width: 0.9; stroke-linejoin: miter"/>
+    </g>
+    <text style="font-weight: 700; font-size: 7.4px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: middle; fill: #a4503a" x="309.5892" y="107.483058" transform="rotate(-0 309.5892 107.483058)">5</text>
+   </g>
+  </g>
+  <g id="text_27">
+   <text style="font-size: 8.3px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: start; fill: #8a7458" x="5.76" y="205.524" transform="rotate(-0 5.76 205.524)">Which carboxylase a host has decides whether a C4 product competes with the phosphotransferase system for phosphoenolpyruvate.</text>
+  </g>
+ </g>
+ <defs>
+  <clipPath id="p0cbc770627">
+   <rect x="65.9664" y="5.76" width="412.92" height="171.864"/>
+  </clipPath>
+ </defs>
+</svg>
+</div><div class="fig-dark"><svg role="img" aria-label="Dashed is the reaction E. coli lacks. Pyruvate carboxylase carboxylates pyruvate rather than PEP, so it does not compete with sugar uptake — part of why C. glutamicum wins lysine and C4 diacids." xmlns:xlink="http://www.w3.org/1999/xlink" width="570.422547pt" height="213.010141pt" viewBox="0 0 570.422547 213.010141" xmlns="http://www.w3.org/2000/svg" version="1.1">
+ <metadata>
+  <rdf:RDF xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:cc="http://creativecommons.org/ns#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+   <cc:Work>
+    <dc:type rdf:resource="http://purl.org/dc/dcmitype/StillImage"/>
+    <dc:date>2026-11-02T23:57:45.548533</dc:date>
+    <dc:format>image/svg+xml</dc:format>
+    <dc:creator>
+     <cc:Agent>
+      <dc:title>Matplotlib v3.10.8, https://matplotlib.org/</dc:title>
+     </cc:Agent>
+    </dc:creator>
+   </cc:Work>
+  </rdf:RDF>
+ </metadata>
+ <defs>
+  <style type="text/css">*{stroke-linejoin: round; stroke-linecap: butt}</style>
+ </defs>
+ <g id="figure_1">
+  <g id="patch_1">
+   <path d="M 0 213.010141 
+L 570.422547 213.010141 
+L 570.422547 0 
+L 0 0 
+L 0 213.010141 
+z
+" style="fill: none"/>
+  </g>
+  <g id="axes_1">
+   <g id="patch_2">
+    <path d="M 84.13488 64.19376 
+L 155.15712 64.19376 
+Q 160.938 64.19376 160.938 61.787664 
+L 160.938 47.694816 
+Q 160.938 45.28872 155.15712 45.28872 
+L 84.13488 45.28872 
+Q 78.354 45.28872 78.354 47.694816 
+L 78.354 61.787664 
+Q 78.354 64.19376 84.13488 64.19376 
+z
+" clip-path="url(#p6c14e970fe)" style="fill: #241c12; stroke: #d7a95c; stroke-width: 1.2; stroke-linejoin: miter"/>
+   </g>
+   <g id="patch_3">
+    <path d="M 84.13488 143.2512 
+L 155.15712 143.2512 
+Q 160.938 143.2512 160.938 140.845104 
+L 160.938 126.752256 
+Q 160.938 124.34616 155.15712 124.34616 
+L 84.13488 124.34616 
+Q 78.354 124.34616 78.354 126.752256 
+L 78.354 140.845104 
+Q 78.354 143.2512 84.13488 143.2512 
+z
+" clip-path="url(#p6c14e970fe)" style="fill: #241c12; stroke: #d7a95c; stroke-width: 1.2; stroke-linejoin: miter"/>
+   </g>
+   <g id="patch_4">
+    <path d="M 195.62328 103.72248 
+L 283.16232 103.72248 
+Q 288.9432 103.72248 288.9432 101.316384 
+L 288.9432 87.223536 
+Q 288.9432 84.81744 283.16232 84.81744 
+L 195.62328 84.81744 
+Q 189.8424 84.81744 189.8424 87.223536 
+L 189.8424 101.316384 
+Q 189.8424 103.72248 195.62328 103.72248 
+z
+" clip-path="url(#p6c14e970fe)" style="fill: #241c12; stroke: #6dbdac; stroke-width: 1.2; stroke-linejoin: miter"/>
+   </g>
+   <g id="patch_5">
+    <path d="M 163.0026 53.88192 
+Q 175.3902 68.92002 187.066945 83.095168 
+" clip-path="url(#p6c14e970fe)" style="fill: none; stroke: #6dbdac; stroke-linecap: round"/>
+    <path d="M 186.167364 79.172063 
+L 187.066945 83.095168 
+L 183.388712 81.460971 
+z
+" clip-path="url(#p6c14e970fe)" style="fill: #6dbdac; stroke: #6dbdac; stroke-linecap: round"/>
+   </g>
+   <g id="patch_6">
+    <path d="M 187.7778 89.97336 
+Q 175.3902 74.5056 163.701491 59.910509 
+" clip-path="url(#p6c14e970fe)" style="fill: none; stroke: #9a8872; stroke-linecap: round"/>
+    <path d="M 164.546906 63.845642 
+L 163.701491 59.910509 
+L 167.356846 61.595257 
+z
+" clip-path="url(#p6c14e970fe)" style="fill: #9a8872; stroke: #9a8872; stroke-linecap: round"/>
+   </g>
+   <g id="patch_7">
+    <path d="M 119.646 65.05308 
+Q 119.646 94.26996 119.646 122.368806 
+" clip-path="url(#p6c14e970fe)" style="fill: none; stroke: #d7a95c; stroke-linecap: round"/>
+    <path d="M 121.446 118.768806 
+L 119.646 122.368806 
+L 117.846 118.768806 
+z
+" clip-path="url(#p6c14e970fe)" style="fill: #d7a95c; stroke: #d7a95c; stroke-linecap: round"/>
+   </g>
+   <g id="patch_8">
+    <path d="M 187.7778 95.12928 
+Q 175.3902 110.59704 163.701491 125.192131 
+" clip-path="url(#p6c14e970fe)" style="fill: none; stroke: #9a8872; stroke-linecap: round"/>
+    <path d="M 167.356846 123.507383 
+L 163.701491 125.192131 
+L 164.546906 121.256998 
+z
+" clip-path="url(#p6c14e970fe)" style="fill: #9a8872; stroke: #9a8872; stroke-linecap: round"/>
+   </g>
+   <g id="patch_9">
+    <path d="M 163.0026 132.93936 
+Q 175.3902 117.4716 187.078909 102.876509 
+" clip-path="url(#p6c14e970fe)" style="fill: none; stroke-dasharray: 3.5,2.5; stroke-dashoffset: 0; stroke: #d98c72; stroke-linecap: round"/>
+    <path d="M 183.423554 104.561257 
+L 187.078909 102.876509 
+L 186.233494 106.811642 
+z
+" clip-path="url(#p6c14e970fe)" style="fill: #d98c72; stroke-dasharray: 3.5,2.5; stroke-dashoffset: 0; stroke: #d98c72; stroke-linecap: round"/>
+   </g>
+   <g id="text_1">
+    <text style="font-weight: 700; font-size: 9.6px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: middle; fill: #f1e9dc" x="119.646" y="57.39024" transform="rotate(-0 119.646 57.39024)">PEP</text>
+   </g>
+   <g id="text_2">
+    <text style="font-weight: 700; font-size: 9.6px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: middle; fill: #f1e9dc" x="119.646" y="136.37268" transform="rotate(-0 119.646 136.37268)">pyruvate</text>
+   </g>
+   <g id="text_3">
+    <text style="font-weight: 700; font-size: 9.6px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: middle; fill: #f1e9dc" x="239.3928" y="96.91896" transform="rotate(-0 239.3928 96.91896)">oxaloacetate</text>
+   </g>
+   <g id="text_4">
+    <text style="font-weight: 700; font-size: 9.6px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: start; fill: #f1e9dc" x="74.2248" y="18.68334" transform="rotate(-0 74.2248 18.68334)">The PEP–pyruvate–oxaloacetate node</text>
+   </g>
+   <g id="text_5">
+    <text style="font-weight: 700; font-size: 8.2px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: start; fill: #6dbdac" x="326.106" y="27.92688" transform="rotate(-0 326.106 27.92688)">PEP carboxylase</text>
+   </g>
+   <g id="text_6">
+    <text style="font-size: 7.4px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: start; fill: #9a8872" x="326.106" y="37.362545" transform="rotate(-0 326.106 37.362545)">PEP + CO₂ → oxaloacetate · no ATP, no biotin</text>
+   </g>
+   <g id="text_7">
+    <text style="font-weight: 700; font-size: 8.2px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: start; fill: #9a8872" x="326.106" y="46.83192" transform="rotate(-0 326.106 46.83192)">PEP carboxykinase</text>
+   </g>
+   <g id="text_8">
+    <text style="font-size: 7.4px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: start; fill: #9a8872" x="326.106" y="56.267585" transform="rotate(-0 326.106 56.267585)">oxaloacetate + ATP → PEP + CO₂ · gluconeogenic</text>
+   </g>
+   <g id="text_9">
+    <text style="font-weight: 700; font-size: 8.2px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: start; fill: #d7a95c" x="326.106" y="65.73696" transform="rotate(-0 326.106 65.73696)">pyruvate kinase</text>
+   </g>
+   <g id="text_10">
+    <text style="font-size: 7.4px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: start; fill: #9a8872" x="326.106" y="75.172625" transform="rotate(-0 326.106 75.172625)">PEP → pyruvate + ATP</text>
+   </g>
+   <g id="text_11">
+    <text style="font-weight: 700; font-size: 8.2px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: start; fill: #9a8872" x="326.106" y="84.642" transform="rotate(-0 326.106 84.642)">malic enzyme</text>
+   </g>
+   <g id="text_12">
+    <text style="font-size: 7.4px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: start; fill: #9a8872" x="326.106" y="94.077666" transform="rotate(-0 326.106 94.077666)">via malate · malate → pyruvate + CO₂</text>
+   </g>
+   <g id="text_13">
+    <text style="font-weight: 700; font-size: 8.2px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: start; fill: #d98c72" x="326.106" y="103.54704" transform="rotate(-0 326.106 103.54704)">pyruvate carboxylase</text>
+   </g>
+   <g id="text_14">
+    <text style="font-size: 7.4px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: start; fill: #9a8872" x="326.106" y="112.982706" transform="rotate(-0 326.106 112.982706)">pyruvate + CO₂ + ATP → oxaloacetate · biotin</text>
+   </g>
+   <g id="text_15">
+    <text style="font-size: 8px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: start; fill: #cbbca6" x="74.2248" y="162.6451" transform="rotate(-0 74.2248 162.6451)">E. coli has 1–4 and lacks 5 (dashed). C. glutamicum and S. cerevisiae have 5.</text>
+   </g>
+   <g id="text_16">
+    <text style="font-size: 7.8px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: start; fill: #9a8872" x="74.2248" y="174.620393" transform="rotate(-0 74.2248 174.620393)">Reaction 5 carboxylates pyruvate rather than PEP, so it does not compete with sugar uptake for PEP.</text>
+   </g>
+   <g id="text_17">
+    <g id="patch_10">
+     <path d="M 173.408184 71.72283 
+C 174.789602 71.72283 176.114627 71.173987 177.091437 70.197177 
+C 178.068247 69.220367 178.61709 67.895342 178.61709 66.513924 
+C 178.61709 65.132506 178.068247 63.807481 177.091437 62.830671 
+C 176.114627 61.853861 174.789602 61.305018 173.408184 61.305018 
+C 172.026766 61.305018 170.701741 61.853861 169.724931 62.830671 
+C 168.748121 63.807481 168.199278 65.132506 168.199278 66.513924 
+C 168.199278 67.895342 168.748121 69.220367 169.724931 70.197177 
+C 170.701741 71.173987 172.026766 71.72283 173.408184 71.72283 
+z
+" style="fill: #241c12; stroke: #6dbdac; stroke-width: 0.9; stroke-linejoin: miter"/>
+    </g>
+    <text style="font-weight: 700; font-size: 7.4px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: middle; fill: #6dbdac" x="173.408184" y="68.555861" transform="rotate(-0 173.408184 68.555861)">1</text>
+   </g>
+   <g id="text_18">
+    <g id="patch_11">
+     <path d="M 170.43516 73.527402 
+C 171.816578 73.527402 173.141603 72.978559 174.118413 72.001749 
+C 175.095223 71.024939 175.644066 69.699914 175.644066 68.318496 
+C 175.644066 66.937078 175.095223 65.612053 174.118413 64.635243 
+C 173.141603 63.658433 171.816578 63.10959 170.43516 63.10959 
+C 169.053742 63.10959 167.728717 63.658433 166.751907 64.635243 
+C 165.775097 65.612053 165.226254 66.937078 165.226254 68.318496 
+C 165.226254 69.699914 165.775097 71.024939 166.751907 72.001749 
+C 167.728717 72.978559 169.053742 73.527402 170.43516 73.527402 
+z
+" style="fill: #241c12; stroke: #9a8872; stroke-width: 0.9; stroke-linejoin: miter"/>
+    </g>
+    <text style="font-weight: 700; font-size: 7.4px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: middle; fill: #9a8872" x="170.43516" y="70.360433" transform="rotate(-0 170.43516 70.360433)">2</text>
+   </g>
+   <g id="text_19">
+    <g id="patch_12">
+     <path d="M 119.646 99.478866 
+C 121.027418 99.478866 122.352443 98.930023 123.329253 97.953213 
+C 124.306063 96.976403 124.854906 95.651378 124.854906 94.26996 
+C 124.854906 92.888542 124.306063 91.563517 123.329253 90.586707 
+C 122.352443 89.609897 121.027418 89.061054 119.646 89.061054 
+C 118.264582 89.061054 116.939557 89.609897 115.962747 90.586707 
+C 114.985937 91.563517 114.437094 92.888542 114.437094 94.26996 
+C 114.437094 95.651378 114.985937 96.976403 115.962747 97.953213 
+C 116.939557 98.930023 118.264582 99.478866 119.646 99.478866 
+z
+" style="fill: #241c12; stroke: #d7a95c; stroke-width: 0.9; stroke-linejoin: miter"/>
+    </g>
+    <text style="font-weight: 700; font-size: 7.4px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: middle; fill: #d7a95c" x="119.646" y="96.311898" transform="rotate(-0 119.646 96.311898)">3</text>
+   </g>
+   <g id="text_20">
+    <g id="patch_13">
+     <path d="M 170.43516 121.99305 
+C 171.816578 121.99305 173.141603 121.444207 174.118413 120.467397 
+C 175.095223 119.490587 175.644066 118.165562 175.644066 116.784144 
+C 175.644066 115.402726 175.095223 114.077701 174.118413 113.100891 
+C 173.141603 112.124081 171.816578 111.575238 170.43516 111.575238 
+C 169.053742 111.575238 167.728717 112.124081 166.751907 113.100891 
+C 165.775097 114.077701 165.226254 115.402726 165.226254 116.784144 
+C 165.226254 118.165562 165.775097 119.490587 166.751907 120.467397 
+C 167.728717 121.444207 169.053742 121.99305 170.43516 121.99305 
+z
+" style="fill: #241c12; stroke: #9a8872; stroke-width: 0.9; stroke-linejoin: miter"/>
+    </g>
+    <text style="font-weight: 700; font-size: 7.4px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: middle; fill: #9a8872" x="170.43516" y="118.826082" transform="rotate(-0 170.43516 118.826082)">4</text>
+   </g>
+   <g id="text_21">
+    <g id="patch_14">
+     <path d="M 170.43516 128.86761 
+C 171.816578 128.86761 173.141603 128.318767 174.118413 127.341957 
+C 175.095223 126.365147 175.644066 125.040122 175.644066 123.658704 
+C 175.644066 122.277286 175.095223 120.952261 174.118413 119.975451 
+C 173.141603 118.998641 171.816578 118.449798 170.43516 118.449798 
+C 169.053742 118.449798 167.728717 118.998641 166.751907 119.975451 
+C 165.775097 120.952261 165.226254 122.277286 165.226254 123.658704 
+C 165.226254 125.040122 165.775097 126.365147 166.751907 127.341957 
+C 167.728717 128.318767 169.053742 128.86761 170.43516 128.86761 
+z
+" style="fill: #241c12; stroke: #d98c72; stroke-width: 0.9; stroke-linejoin: miter"/>
+    </g>
+    <text style="font-weight: 700; font-size: 7.4px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: middle; fill: #d98c72" x="170.43516" y="125.700642" transform="rotate(-0 170.43516 125.700642)">5</text>
+   </g>
+   <g id="text_22">
+    <g id="patch_15">
+     <path d="M 309.5892 35.029866 
+C 310.970618 35.029866 312.295643 34.481023 313.272453 33.504213 
+C 314.249263 32.527403 314.798106 31.202378 314.798106 29.82096 
+C 314.798106 28.439542 314.249263 27.114517 313.272453 26.137707 
+C 312.295643 25.160897 310.970618 24.612054 309.5892 24.612054 
+C 308.207782 24.612054 306.882757 25.160897 305.905947 26.137707 
+C 304.929137 27.114517 304.380294 28.439542 304.380294 29.82096 
+C 304.380294 31.202378 304.929137 32.527403 305.905947 33.504213 
+C 306.882757 34.481023 308.207782 35.029866 309.5892 35.029866 
+z
+" style="fill: #241c12; stroke: #6dbdac; stroke-width: 0.9; stroke-linejoin: miter"/>
+    </g>
+    <text style="font-weight: 700; font-size: 7.4px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: middle; fill: #6dbdac" x="309.5892" y="31.862897" transform="rotate(-0 309.5892 31.862897)">1</text>
+   </g>
+   <g id="text_23">
+    <g id="patch_16">
+     <path d="M 309.5892 53.934906 
+C 310.970618 53.934906 312.295643 53.386063 313.272453 52.409253 
+C 314.249263 51.432443 314.798106 50.107418 314.798106 48.726 
+C 314.798106 47.344582 314.249263 46.019557 313.272453 45.042747 
+C 312.295643 44.065937 310.970618 43.517094 309.5892 43.517094 
+C 308.207782 43.517094 306.882757 44.065937 305.905947 45.042747 
+C 304.929137 46.019557 304.380294 47.344582 304.380294 48.726 
+C 304.380294 50.107418 304.929137 51.432443 305.905947 52.409253 
+C 306.882757 53.386063 308.207782 53.934906 309.5892 53.934906 
+z
+" style="fill: #241c12; stroke: #9a8872; stroke-width: 0.9; stroke-linejoin: miter"/>
+    </g>
+    <text style="font-weight: 700; font-size: 7.4px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: middle; fill: #9a8872" x="309.5892" y="50.767937" transform="rotate(-0 309.5892 50.767937)">2</text>
+   </g>
+   <g id="text_24">
+    <g id="patch_17">
+     <path d="M 309.5892 72.839946 
+C 310.970618 72.839946 312.295643 72.291103 313.272453 71.314293 
+C 314.249263 70.337483 314.798106 69.012458 314.798106 67.63104 
+C 314.798106 66.249622 314.249263 64.924597 313.272453 63.947787 
+C 312.295643 62.970977 310.970618 62.422134 309.5892 62.422134 
+C 308.207782 62.422134 306.882757 62.970977 305.905947 63.947787 
+C 304.929137 64.924597 304.380294 66.249622 304.380294 67.63104 
+C 304.380294 69.012458 304.929137 70.337483 305.905947 71.314293 
+C 306.882757 72.291103 308.207782 72.839946 309.5892 72.839946 
+z
+" style="fill: #241c12; stroke: #d7a95c; stroke-width: 0.9; stroke-linejoin: miter"/>
+    </g>
+    <text style="font-weight: 700; font-size: 7.4px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: middle; fill: #d7a95c" x="309.5892" y="69.672977" transform="rotate(-0 309.5892 69.672977)">3</text>
+   </g>
+   <g id="text_25">
+    <g id="patch_18">
+     <path d="M 309.5892 91.744986 
+C 310.970618 91.744986 312.295643 91.196143 313.272453 90.219333 
+C 314.249263 89.242523 314.798106 87.917498 314.798106 86.53608 
+C 314.798106 85.154662 314.249263 83.829637 313.272453 82.852827 
+C 312.295643 81.876017 310.970618 81.327174 309.5892 81.327174 
+C 308.207782 81.327174 306.882757 81.876017 305.905947 82.852827 
+C 304.929137 83.829637 304.380294 85.154662 304.380294 86.53608 
+C 304.380294 87.917498 304.929137 89.242523 305.905947 90.219333 
+C 306.882757 91.196143 308.207782 91.744986 309.5892 91.744986 
+z
+" style="fill: #241c12; stroke: #9a8872; stroke-width: 0.9; stroke-linejoin: miter"/>
+    </g>
+    <text style="font-weight: 700; font-size: 7.4px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: middle; fill: #9a8872" x="309.5892" y="88.578018" transform="rotate(-0 309.5892 88.578018)">4</text>
+   </g>
+   <g id="text_26">
+    <g id="patch_19">
+     <path d="M 309.5892 110.650026 
+C 310.970618 110.650026 312.295643 110.101183 313.272453 109.124373 
+C 314.249263 108.147563 314.798106 106.822538 314.798106 105.44112 
+C 314.798106 104.059702 314.249263 102.734677 313.272453 101.757867 
+C 312.295643 100.781057 310.970618 100.232214 309.5892 100.232214 
+C 308.207782 100.232214 306.882757 100.781057 305.905947 101.757867 
+C 304.929137 102.734677 304.380294 104.059702 304.380294 105.44112 
+C 304.380294 106.822538 304.929137 108.147563 305.905947 109.124373 
+C 306.882757 110.101183 308.207782 110.650026 309.5892 110.650026 
+z
+" style="fill: #241c12; stroke: #d98c72; stroke-width: 0.9; stroke-linejoin: miter"/>
+    </g>
+    <text style="font-weight: 700; font-size: 7.4px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: middle; fill: #d98c72" x="309.5892" y="107.483058" transform="rotate(-0 309.5892 107.483058)">5</text>
+   </g>
+  </g>
+  <g id="text_27">
+   <text style="font-size: 8.3px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: start; fill: #9a8872" x="5.76" y="205.524" transform="rotate(-0 5.76 205.524)">Which carboxylase a host has decides whether a C4 product competes with the phosphotransferase system for phosphoenolpyruvate.</text>
+  </g>
+ </g>
+ <defs>
+  <clipPath id="p6c14e970fe">
+   <rect x="65.9664" y="5.76" width="412.92" height="171.864"/>
+  </clipPath>
+ </defs>
+</svg>
+</div><figcaption>Dashed is the reaction E. coli lacks. Pyruvate carboxylase carboxylates pyruvate rather than PEP, so it does not compete with sugar uptake — part of why C. glutamicum wins lysine and C4 diacids.</figcaption></figure>
+<p>Drawing intermediates off the cycle depletes it, so carbon must be put back: that is anaplerosis. The PEP-pyruvate-oxaloacetate node in E. coli has four reactions. PEP carboxylase fixes CO₂ onto PEP to give oxaloacetate, using PEP&#x27;s own phosphate potential and needing no ATP or biotin. PEP carboxykinase runs the reverse, consuming oxaloacetate and making ATP, and is gluconeogenic. Malic enzyme decarboxylates malate to pyruvate with NAD or NADP reduction, and is cataplerotic. Pyruvate kinase connects PEP to pyruvate. Now the crucial difference: E. coli lacks pyruvate carboxylase, while C. glutamicum and S. cerevisiae have it. Since pyruvate carboxylase fixes CO₂ onto pyruvate rather than PEP, it does not compete with the PTS or with aromatic pathways for PEP — which is a substantial part of why C. glutamicum dominates lysine and why it is attractive for C4 diacids.</p>
+<p><strong>4. The glyoxylate shunt: the bypass that conserves carbon</strong></p>
+<p>Isocitrate lyase cleaves isocitrate to succinate and glyoxylate; malate synthase condenses glyoxylate with a second acetyl-CoA to give malate. The net effect is to convert two acetyl-CoA into one C4 without either decarboxylation, which is what makes net biosynthesis from acetate or fatty acids possible — without it, growth on acetate is impossible, because every acetyl-CoA entering the cycle would be fully oxidised. For engineering, it is a recurring target for C4 products precisely because it conserves the carbon the cycle would release. It is tightly regulated, typically by phosphorylation of isocitrate dehydrogenase to divert flux, and derepressing it is a standard intervention.</p>
+<p><strong>5. Two routes to succinate, and why the reductive one wins</strong></p>
+<figure class="fig"><div class="figtitle">Figure 11.5 — Two routes to succinate</div><div class="fig-light"><svg role="img" aria-label="The oxidative route loses two carbons before reaching succinate; the reductive route fixes one instead, raising the ceiling from about 1.0 to 1.71 mol per mol glucose." xmlns:xlink="http://www.w3.org/1999/xlink" width="633.467531pt" height="200.122141pt" viewBox="0 0 633.467531 200.122141" xmlns="http://www.w3.org/2000/svg" version="1.1">
+ <metadata>
+  <rdf:RDF xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:cc="http://creativecommons.org/ns#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+   <cc:Work>
+    <dc:type rdf:resource="http://purl.org/dc/dcmitype/StillImage"/>
+    <dc:date>2026-11-02T23:57:45.589912</dc:date>
+    <dc:format>image/svg+xml</dc:format>
+    <dc:creator>
+     <cc:Agent>
+      <dc:title>Matplotlib v3.10.8, https://matplotlib.org/</dc:title>
+     </cc:Agent>
+    </dc:creator>
+   </cc:Work>
+  </rdf:RDF>
+ </metadata>
+ <defs>
+  <style type="text/css">*{stroke-linejoin: round; stroke-linecap: butt}</style>
+ </defs>
+ <g id="figure_1">
+  <g id="patch_1">
+   <path d="M 0 200.122141 
+L 633.467531 200.122141 
+L 633.467531 0 
+L 0 0 
+L 0 200.122141 
+z
+" style="fill: none"/>
+  </g>
+  <g id="axes_1">
+   <g id="patch_2">
+    <path d="M 401.67036 75.215232 
+L 448.74324 75.215232 
+Q 454.52412 75.215232 454.52412 72.964368 
+L 454.52412 60.745392 
+Q 454.52412 58.494528 448.74324 58.494528 
+L 401.67036 58.494528 
+Q 395.88948 58.494528 395.88948 60.745392 
+L 395.88948 72.964368 
+Q 395.88948 75.215232 401.67036 75.215232 
+z
+" clip-path="url(#p1ea7bd080f)" style="fill: #f1e9da; stroke: #a4503a; stroke-width: 1.2; stroke-linejoin: miter"/>
+   </g>
+   <g id="patch_3">
+    <path d="M 401.67036 136.310112 
+L 448.74324 136.310112 
+Q 454.52412 136.310112 454.52412 134.059248 
+L 454.52412 121.840272 
+Q 454.52412 119.589408 448.74324 119.589408 
+L 401.67036 119.589408 
+Q 395.88948 119.589408 395.88948 121.840272 
+L 395.88948 134.059248 
+Q 395.88948 136.310112 401.67036 136.310112 
+z
+" clip-path="url(#p1ea7bd080f)" style="fill: #f1e9da; stroke: #1f6f62; stroke-width: 1.2; stroke-linejoin: miter"/>
+   </g>
+   <g id="patch_4">
+    <path d="M 104.78088 66.85488 
+Q 116.75556 66.85488 127.612206 66.85488 
+" clip-path="url(#p1ea7bd080f)" style="fill: none; stroke: #a4503a; stroke-linecap: round"/>
+    <path d="M 124.012206 65.05488 
+L 127.612206 66.85488 
+L 124.012206 68.65488 
+z
+" clip-path="url(#p1ea7bd080f)" style="fill: #a4503a; stroke: #a4503a; stroke-linecap: round"/>
+   </g>
+   <g id="patch_5">
+    <path d="M 168.37056 66.85488 
+Q 180.5517 66.85488 191.614806 66.85488 
+" clip-path="url(#p1ea7bd080f)" style="fill: none; stroke: #a4503a; stroke-linecap: round"/>
+    <path d="M 188.014806 65.05488 
+L 191.614806 66.85488 
+L 188.014806 68.65488 
+z
+" clip-path="url(#p1ea7bd080f)" style="fill: #a4503a; stroke: #a4503a; stroke-linecap: round"/>
+   </g>
+   <g id="patch_6">
+    <path d="M 244.76076 66.85488 
+Q 253.63854 66.85488 261.398286 66.85488 
+" clip-path="url(#p1ea7bd080f)" style="fill: none; stroke: #a4503a; stroke-linecap: round"/>
+    <path d="M 257.798286 65.05488 
+L 261.398286 66.85488 
+L 257.798286 68.65488 
+z
+" clip-path="url(#p1ea7bd080f)" style="fill: #a4503a; stroke: #a4503a; stroke-linecap: round"/>
+   </g>
+   <g id="patch_7">
+    <path d="M 307.11168 66.85488 
+Q 317.64114 66.85488 327.052566 66.85488 
+" clip-path="url(#p1ea7bd080f)" style="fill: none; stroke: #a4503a; stroke-linecap: round"/>
+    <path d="M 323.452566 65.05488 
+L 327.052566 66.85488 
+L 323.452566 68.65488 
+z
+" clip-path="url(#p1ea7bd080f)" style="fill: #a4503a; stroke: #a4503a; stroke-linecap: round"/>
+   </g>
+   <g id="patch_8">
+    <path d="M 365.3334 66.85488 
+Q 377.721 66.85488 388.990566 66.85488 
+" clip-path="url(#p1ea7bd080f)" style="fill: none; stroke: #a4503a; stroke-linecap: round"/>
+    <path d="M 385.390566 65.05488 
+L 388.990566 66.85488 
+L 385.390566 68.65488 
+z
+" clip-path="url(#p1ea7bd080f)" style="fill: #a4503a; stroke: #a4503a; stroke-linecap: round"/>
+   </g>
+   <g id="patch_9">
+    <path d="M 104.78088 127.94976 
+Q 116.75556 127.94976 127.612206 127.94976 
+" clip-path="url(#p1ea7bd080f)" style="fill: none; stroke: #1f6f62; stroke-linecap: round"/>
+    <path d="M 124.012206 126.14976 
+L 127.612206 127.94976 
+L 124.012206 129.74976 
+z
+" clip-path="url(#p1ea7bd080f)" style="fill: #1f6f62; stroke: #1f6f62; stroke-linecap: round"/>
+   </g>
+   <g id="patch_10">
+    <path d="M 168.37056 127.94976 
+Q 179.31294 127.94976 189.137286 127.94976 
+" clip-path="url(#p1ea7bd080f)" style="fill: none; stroke: #1f6f62; stroke-linecap: round"/>
+    <path d="M 185.537286 126.14976 
+L 189.137286 127.94976 
+L 185.537286 129.74976 
+z
+" clip-path="url(#p1ea7bd080f)" style="fill: #1f6f62; stroke: #1f6f62; stroke-linecap: round"/>
+   </g>
+   <g id="patch_11">
+    <path d="M 247.23828 127.94976 
+Q 255.49668 127.94976 262.637046 127.94976 
+" clip-path="url(#p1ea7bd080f)" style="fill: none; stroke: #1f6f62; stroke-linecap: round"/>
+    <path d="M 259.037046 126.14976 
+L 262.637046 127.94976 
+L 259.037046 129.74976 
+z
+" clip-path="url(#p1ea7bd080f)" style="fill: #1f6f62; stroke: #1f6f62; stroke-linecap: round"/>
+   </g>
+   <g id="patch_12">
+    <path d="M 305.87292 127.94976 
+Q 314.54424 127.94976 322.097526 127.94976 
+" clip-path="url(#p1ea7bd080f)" style="fill: none; stroke: #1f6f62; stroke-linecap: round"/>
+    <path d="M 318.497526 126.14976 
+L 322.097526 127.94976 
+L 318.497526 129.74976 
+z
+" clip-path="url(#p1ea7bd080f)" style="fill: #1f6f62; stroke: #1f6f62; stroke-linecap: round"/>
+   </g>
+   <g id="patch_13">
+    <path d="M 370.28844 127.94976 
+Q 380.19852 127.94976 388.990566 127.94976 
+" clip-path="url(#p1ea7bd080f)" style="fill: none; stroke: #1f6f62; stroke-linecap: round"/>
+    <path d="M 385.390566 126.14976 
+L 388.990566 127.94976 
+L 385.390566 129.74976 
+z
+" clip-path="url(#p1ea7bd080f)" style="fill: #1f6f62; stroke: #1f6f62; stroke-linecap: round"/>
+   </g>
+   <g id="text_1">
+    <text style="font-weight: 700; font-size: 9.6px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: start; fill: #211a12" x="74.2248" y="18.05556" transform="rotate(-0 74.2248 18.05556)">Two routes to succinate</text>
+   </g>
+   <g id="text_2">
+    <text style="font-weight: 700; font-size: 8.8px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: start; fill: #a4503a" x="74.2248" y="40.309075" transform="rotate(-0 74.2248 40.309075)">Oxidative, through the cycle</text>
+   </g>
+   <g id="text_3">
+    <text style="font-size: 8px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: middle; fill: #4a3c2c" x="82.4832" y="69.06238" transform="rotate(-0 82.4832 69.06238)">glucose</text>
+   </g>
+   <g id="text_4">
+    <text style="font-size: 8px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: middle; fill: #4a3c2c" x="148.5504" y="69.06238" transform="rotate(-0 148.5504 69.06238)">2 PEP</text>
+   </g>
+   <g id="text_5">
+    <text style="font-weight: 700; font-size: 7.6px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: middle; fill: #a4503a" x="183.6486" y="85.029605" transform="rotate(-0 183.6486 85.029605)">− CO₂</text>
+   </g>
+   <g id="text_6">
+    <text style="font-size: 8px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: middle; fill: #4a3c2c" x="218.7468" y="69.06238" transform="rotate(-0 218.7468 69.06238)">acetyl-CoA</text>
+   </g>
+   <g id="text_7">
+    <text style="font-size: 8px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: middle; fill: #4a3c2c" x="284.814" y="69.06238" transform="rotate(-0 284.814 69.06238)">citrate</text>
+   </g>
+   <g id="text_8">
+    <text style="font-weight: 700; font-size: 7.6px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: middle; fill: #a4503a" x="315.783" y="85.029605" transform="rotate(-0 315.783 85.029605)">− CO₂</text>
+   </g>
+   <g id="text_9">
+    <text style="font-size: 8px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: middle; fill: #4a3c2c" x="346.752" y="69.06238" transform="rotate(-0 346.752 69.06238)">2-OG</text>
+   </g>
+   <g id="text_10">
+    <text style="font-weight: 700; font-size: 8px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: middle; fill: #211a12" x="425.2068" y="69.06238" transform="rotate(-0 425.2068 69.06238)">succinate</text>
+   </g>
+   <g id="text_11">
+    <text style="font-weight: 700; font-size: 8.6px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: end; fill: #a4503a" x="470.628" y="40.254669" transform="rotate(-0 470.628 40.254669)">≤ 1.0 mol per mol glucose</text>
+   </g>
+   <g id="text_12">
+    <text style="font-weight: 700; font-size: 8.8px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: start; fill: #1f6f62" x="74.2248" y="101.403955" transform="rotate(-0 74.2248 101.403955)">Reductive, fixing CO₂ at the node</text>
+   </g>
+   <g id="text_13">
+    <text style="font-size: 8px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: middle; fill: #4a3c2c" x="82.4832" y="130.15726" transform="rotate(-0 82.4832 130.15726)">glucose</text>
+   </g>
+   <g id="text_14">
+    <text style="font-size: 8px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: middle; fill: #4a3c2c" x="148.5504" y="130.15726" transform="rotate(-0 148.5504 130.15726)">2 PEP</text>
+   </g>
+   <g id="text_15">
+    <text style="font-weight: 700; font-size: 7.6px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: middle; fill: #1f6f62" x="183.6486" y="146.124485" transform="rotate(-0 183.6486 146.124485)">+ CO₂</text>
+   </g>
+   <g id="text_16">
+    <text style="font-size: 8px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: middle; fill: #4a3c2c" x="218.7468" y="130.15726" transform="rotate(-0 218.7468 130.15726)">oxaloacetate</text>
+   </g>
+   <g id="text_17">
+    <text style="font-size: 8px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: middle; fill: #4a3c2c" x="284.814" y="130.15726" transform="rotate(-0 284.814 130.15726)">malate</text>
+   </g>
+   <g id="text_18">
+    <text style="font-weight: 700; font-size: 7.6px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: middle; fill: #a4503a" x="315.783" y="146.124485" transform="rotate(-0 315.783 146.124485)">− NADH</text>
+   </g>
+   <g id="text_19">
+    <text style="font-size: 8px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: middle; fill: #4a3c2c" x="346.752" y="130.15726" transform="rotate(-0 346.752 130.15726)">fumarate</text>
+   </g>
+   <g id="text_20">
+    <text style="font-weight: 700; font-size: 8px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: middle; fill: #211a12" x="425.2068" y="130.15726" transform="rotate(-0 425.2068 130.15726)">succinate</text>
+   </g>
+   <g id="text_21">
+    <text style="font-weight: 700; font-size: 8.6px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: end; fill: #1f6f62" x="470.628" y="101.349549" transform="rotate(-0 470.628 101.349549)">≤ 1.71 mol per mol glucose</text>
+   </g>
+  </g>
+  <g id="text_22">
+   <text style="font-size: 8.3px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: start; fill: #8a7458" x="5.76" y="192.636" transform="rotate(-0 5.76 192.636)">Succinate (γ = 3.50 per C-mol) is more oxidised than glucose (4.00), so electrons are in surplus and can pay for fixing an extra carbon: 24/14 = 1.71.</text>
+  </g>
+ </g>
+ <defs>
+  <clipPath id="p1ea7bd080f">
+   <rect x="65.9664" y="5.76" width="412.92" height="160.776"/>
+  </clipPath>
+ </defs>
+</svg>
+</div><div class="fig-dark"><svg role="img" aria-label="The oxidative route loses two carbons before reaching succinate; the reductive route fixes one instead, raising the ceiling from about 1.0 to 1.71 mol per mol glucose." xmlns:xlink="http://www.w3.org/1999/xlink" width="633.467531pt" height="200.122141pt" viewBox="0 0 633.467531 200.122141" xmlns="http://www.w3.org/2000/svg" version="1.1">
+ <metadata>
+  <rdf:RDF xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:cc="http://creativecommons.org/ns#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+   <cc:Work>
+    <dc:type rdf:resource="http://purl.org/dc/dcmitype/StillImage"/>
+    <dc:date>2026-11-02T23:57:45.627980</dc:date>
+    <dc:format>image/svg+xml</dc:format>
+    <dc:creator>
+     <cc:Agent>
+      <dc:title>Matplotlib v3.10.8, https://matplotlib.org/</dc:title>
+     </cc:Agent>
+    </dc:creator>
+   </cc:Work>
+  </rdf:RDF>
+ </metadata>
+ <defs>
+  <style type="text/css">*{stroke-linejoin: round; stroke-linecap: butt}</style>
+ </defs>
+ <g id="figure_1">
+  <g id="patch_1">
+   <path d="M 0 200.122141 
+L 633.467531 200.122141 
+L 633.467531 0 
+L 0 0 
+L 0 200.122141 
+z
+" style="fill: none"/>
+  </g>
+  <g id="axes_1">
+   <g id="patch_2">
+    <path d="M 401.67036 75.215232 
+L 448.74324 75.215232 
+Q 454.52412 75.215232 454.52412 72.964368 
+L 454.52412 60.745392 
+Q 454.52412 58.494528 448.74324 58.494528 
+L 401.67036 58.494528 
+Q 395.88948 58.494528 395.88948 60.745392 
+L 395.88948 72.964368 
+Q 395.88948 75.215232 401.67036 75.215232 
+z
+" clip-path="url(#paec66f1159)" style="fill: #241c12; stroke: #d98c72; stroke-width: 1.2; stroke-linejoin: miter"/>
+   </g>
+   <g id="patch_3">
+    <path d="M 401.67036 136.310112 
+L 448.74324 136.310112 
+Q 454.52412 136.310112 454.52412 134.059248 
+L 454.52412 121.840272 
+Q 454.52412 119.589408 448.74324 119.589408 
+L 401.67036 119.589408 
+Q 395.88948 119.589408 395.88948 121.840272 
+L 395.88948 134.059248 
+Q 395.88948 136.310112 401.67036 136.310112 
+z
+" clip-path="url(#paec66f1159)" style="fill: #241c12; stroke: #6dbdac; stroke-width: 1.2; stroke-linejoin: miter"/>
+   </g>
+   <g id="patch_4">
+    <path d="M 104.78088 66.85488 
+Q 116.75556 66.85488 127.612206 66.85488 
+" clip-path="url(#paec66f1159)" style="fill: none; stroke: #d98c72; stroke-linecap: round"/>
+    <path d="M 124.012206 65.05488 
+L 127.612206 66.85488 
+L 124.012206 68.65488 
+z
+" clip-path="url(#paec66f1159)" style="fill: #d98c72; stroke: #d98c72; stroke-linecap: round"/>
+   </g>
+   <g id="patch_5">
+    <path d="M 168.37056 66.85488 
+Q 180.5517 66.85488 191.614806 66.85488 
+" clip-path="url(#paec66f1159)" style="fill: none; stroke: #d98c72; stroke-linecap: round"/>
+    <path d="M 188.014806 65.05488 
+L 191.614806 66.85488 
+L 188.014806 68.65488 
+z
+" clip-path="url(#paec66f1159)" style="fill: #d98c72; stroke: #d98c72; stroke-linecap: round"/>
+   </g>
+   <g id="patch_6">
+    <path d="M 244.76076 66.85488 
+Q 253.63854 66.85488 261.398286 66.85488 
+" clip-path="url(#paec66f1159)" style="fill: none; stroke: #d98c72; stroke-linecap: round"/>
+    <path d="M 257.798286 65.05488 
+L 261.398286 66.85488 
+L 257.798286 68.65488 
+z
+" clip-path="url(#paec66f1159)" style="fill: #d98c72; stroke: #d98c72; stroke-linecap: round"/>
+   </g>
+   <g id="patch_7">
+    <path d="M 307.11168 66.85488 
+Q 317.64114 66.85488 327.052566 66.85488 
+" clip-path="url(#paec66f1159)" style="fill: none; stroke: #d98c72; stroke-linecap: round"/>
+    <path d="M 323.452566 65.05488 
+L 327.052566 66.85488 
+L 323.452566 68.65488 
+z
+" clip-path="url(#paec66f1159)" style="fill: #d98c72; stroke: #d98c72; stroke-linecap: round"/>
+   </g>
+   <g id="patch_8">
+    <path d="M 365.3334 66.85488 
+Q 377.721 66.85488 388.990566 66.85488 
+" clip-path="url(#paec66f1159)" style="fill: none; stroke: #d98c72; stroke-linecap: round"/>
+    <path d="M 385.390566 65.05488 
+L 388.990566 66.85488 
+L 385.390566 68.65488 
+z
+" clip-path="url(#paec66f1159)" style="fill: #d98c72; stroke: #d98c72; stroke-linecap: round"/>
+   </g>
+   <g id="patch_9">
+    <path d="M 104.78088 127.94976 
+Q 116.75556 127.94976 127.612206 127.94976 
+" clip-path="url(#paec66f1159)" style="fill: none; stroke: #6dbdac; stroke-linecap: round"/>
+    <path d="M 124.012206 126.14976 
+L 127.612206 127.94976 
+L 124.012206 129.74976 
+z
+" clip-path="url(#paec66f1159)" style="fill: #6dbdac; stroke: #6dbdac; stroke-linecap: round"/>
+   </g>
+   <g id="patch_10">
+    <path d="M 168.37056 127.94976 
+Q 179.31294 127.94976 189.137286 127.94976 
+" clip-path="url(#paec66f1159)" style="fill: none; stroke: #6dbdac; stroke-linecap: round"/>
+    <path d="M 185.537286 126.14976 
+L 189.137286 127.94976 
+L 185.537286 129.74976 
+z
+" clip-path="url(#paec66f1159)" style="fill: #6dbdac; stroke: #6dbdac; stroke-linecap: round"/>
+   </g>
+   <g id="patch_11">
+    <path d="M 247.23828 127.94976 
+Q 255.49668 127.94976 262.637046 127.94976 
+" clip-path="url(#paec66f1159)" style="fill: none; stroke: #6dbdac; stroke-linecap: round"/>
+    <path d="M 259.037046 126.14976 
+L 262.637046 127.94976 
+L 259.037046 129.74976 
+z
+" clip-path="url(#paec66f1159)" style="fill: #6dbdac; stroke: #6dbdac; stroke-linecap: round"/>
+   </g>
+   <g id="patch_12">
+    <path d="M 305.87292 127.94976 
+Q 314.54424 127.94976 322.097526 127.94976 
+" clip-path="url(#paec66f1159)" style="fill: none; stroke: #6dbdac; stroke-linecap: round"/>
+    <path d="M 318.497526 126.14976 
+L 322.097526 127.94976 
+L 318.497526 129.74976 
+z
+" clip-path="url(#paec66f1159)" style="fill: #6dbdac; stroke: #6dbdac; stroke-linecap: round"/>
+   </g>
+   <g id="patch_13">
+    <path d="M 370.28844 127.94976 
+Q 380.19852 127.94976 388.990566 127.94976 
+" clip-path="url(#paec66f1159)" style="fill: none; stroke: #6dbdac; stroke-linecap: round"/>
+    <path d="M 385.390566 126.14976 
+L 388.990566 127.94976 
+L 385.390566 129.74976 
+z
+" clip-path="url(#paec66f1159)" style="fill: #6dbdac; stroke: #6dbdac; stroke-linecap: round"/>
+   </g>
+   <g id="text_1">
+    <text style="font-weight: 700; font-size: 9.6px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: start; fill: #f1e9dc" x="74.2248" y="18.05556" transform="rotate(-0 74.2248 18.05556)">Two routes to succinate</text>
+   </g>
+   <g id="text_2">
+    <text style="font-weight: 700; font-size: 8.8px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: start; fill: #d98c72" x="74.2248" y="40.309075" transform="rotate(-0 74.2248 40.309075)">Oxidative, through the cycle</text>
+   </g>
+   <g id="text_3">
+    <text style="font-size: 8px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: middle; fill: #cbbca6" x="82.4832" y="69.06238" transform="rotate(-0 82.4832 69.06238)">glucose</text>
+   </g>
+   <g id="text_4">
+    <text style="font-size: 8px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: middle; fill: #cbbca6" x="148.5504" y="69.06238" transform="rotate(-0 148.5504 69.06238)">2 PEP</text>
+   </g>
+   <g id="text_5">
+    <text style="font-weight: 700; font-size: 7.6px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: middle; fill: #d98c72" x="183.6486" y="85.029605" transform="rotate(-0 183.6486 85.029605)">− CO₂</text>
+   </g>
+   <g id="text_6">
+    <text style="font-size: 8px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: middle; fill: #cbbca6" x="218.7468" y="69.06238" transform="rotate(-0 218.7468 69.06238)">acetyl-CoA</text>
+   </g>
+   <g id="text_7">
+    <text style="font-size: 8px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: middle; fill: #cbbca6" x="284.814" y="69.06238" transform="rotate(-0 284.814 69.06238)">citrate</text>
+   </g>
+   <g id="text_8">
+    <text style="font-weight: 700; font-size: 7.6px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: middle; fill: #d98c72" x="315.783" y="85.029605" transform="rotate(-0 315.783 85.029605)">− CO₂</text>
+   </g>
+   <g id="text_9">
+    <text style="font-size: 8px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: middle; fill: #cbbca6" x="346.752" y="69.06238" transform="rotate(-0 346.752 69.06238)">2-OG</text>
+   </g>
+   <g id="text_10">
+    <text style="font-weight: 700; font-size: 8px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: middle; fill: #f1e9dc" x="425.2068" y="69.06238" transform="rotate(-0 425.2068 69.06238)">succinate</text>
+   </g>
+   <g id="text_11">
+    <text style="font-weight: 700; font-size: 8.6px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: end; fill: #d98c72" x="470.628" y="40.254669" transform="rotate(-0 470.628 40.254669)">≤ 1.0 mol per mol glucose</text>
+   </g>
+   <g id="text_12">
+    <text style="font-weight: 700; font-size: 8.8px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: start; fill: #6dbdac" x="74.2248" y="101.403955" transform="rotate(-0 74.2248 101.403955)">Reductive, fixing CO₂ at the node</text>
+   </g>
+   <g id="text_13">
+    <text style="font-size: 8px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: middle; fill: #cbbca6" x="82.4832" y="130.15726" transform="rotate(-0 82.4832 130.15726)">glucose</text>
+   </g>
+   <g id="text_14">
+    <text style="font-size: 8px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: middle; fill: #cbbca6" x="148.5504" y="130.15726" transform="rotate(-0 148.5504 130.15726)">2 PEP</text>
+   </g>
+   <g id="text_15">
+    <text style="font-weight: 700; font-size: 7.6px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: middle; fill: #6dbdac" x="183.6486" y="146.124485" transform="rotate(-0 183.6486 146.124485)">+ CO₂</text>
+   </g>
+   <g id="text_16">
+    <text style="font-size: 8px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: middle; fill: #cbbca6" x="218.7468" y="130.15726" transform="rotate(-0 218.7468 130.15726)">oxaloacetate</text>
+   </g>
+   <g id="text_17">
+    <text style="font-size: 8px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: middle; fill: #cbbca6" x="284.814" y="130.15726" transform="rotate(-0 284.814 130.15726)">malate</text>
+   </g>
+   <g id="text_18">
+    <text style="font-weight: 700; font-size: 7.6px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: middle; fill: #d98c72" x="315.783" y="146.124485" transform="rotate(-0 315.783 146.124485)">− NADH</text>
+   </g>
+   <g id="text_19">
+    <text style="font-size: 8px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: middle; fill: #cbbca6" x="346.752" y="130.15726" transform="rotate(-0 346.752 130.15726)">fumarate</text>
+   </g>
+   <g id="text_20">
+    <text style="font-weight: 700; font-size: 8px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: middle; fill: #f1e9dc" x="425.2068" y="130.15726" transform="rotate(-0 425.2068 130.15726)">succinate</text>
+   </g>
+   <g id="text_21">
+    <text style="font-weight: 700; font-size: 8.6px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: end; fill: #6dbdac" x="470.628" y="101.349549" transform="rotate(-0 470.628 101.349549)">≤ 1.71 mol per mol glucose</text>
+   </g>
+  </g>
+  <g id="text_22">
+   <text style="font-size: 8.3px; font-family: 'Public Sans, Helvetica, Arial, sans-serif', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: start; fill: #9a8872" x="5.76" y="192.636" transform="rotate(-0 5.76 192.636)">Succinate (γ = 3.50 per C-mol) is more oxidised than glucose (4.00), so electrons are in surplus and can pay for fixing an extra carbon: 24/14 = 1.71.</text>
+  </g>
+ </g>
+ <defs>
+  <clipPath id="paec66f1159">
+   <rect x="65.9664" y="5.76" width="412.92" height="160.776"/>
+  </clipPath>
+ </defs>
+</svg>
+</div><figcaption>The oxidative route loses two carbons before reaching succinate; the reductive route fixes one instead, raising the ceiling from about 1.0 to 1.71 mol per mol glucose.</figcaption></figure>
+<p>Oxidatively, succinate is four steps from citrate through two decarboxylations, so carbon is lost and the yield is poor. Reductively, oxaloacetate is reduced through malate and fumarate to succinate, fixing CO₂ at the carboxylation step and consuming NADH rather than producing it. Since succinate (γ = 3.50 per C-mol) is more oxidised than glucose (4.00), electrons are in surplus and can pay for fixing an extra fully oxidised carbon — which is why the reductive route has a stoichiometric ceiling of 1.71 mol/mol against roughly 1.0 for the oxidative, and why every serious succinate strain uses carboxylation. The general lesson, which recurs in week 17: for products more oxidised than the substrate, CO₂ fixation is the yield mechanism rather than an environmental talking point.</p>
+<p><strong>6. Where the cycle is not a cycle</strong></p>
+<p>Under anaerobic or strongly fermentative conditions, many bacteria run the TCA as two branches rather than a cycle: an oxidative arm from citrate to 2-oxoglutarate supplying glutamate, and a reductive arm from oxaloacetate to succinate acting as an electron sink. 2-Oxoglutarate dehydrogenase is often repressed, breaking the ring. This matters because a model with a closed cycle will predict fluxes an anaerobic cell cannot carry, and because the reductive arm is exactly the route a succinate strain exploits. When reading a flux map, check first whether the cycle is closed under the condition reported.</p>
+<h3>Worked anchor</h3>
+<p>Compute the maximum anaerobic succinate yield from glucose, with and without CO₂ fixation, and explain the difference.</p>
+<p>Without fixation, through the oxidative route: glycolysis gives 2 PEP and 2 NADH; reducing oxaloacetate to succinate needs 2 NADH per succinate, so 2 succinate would need 4 NADH while glycolysis supplies 2. The redox balance caps the route near 1.0 mol/mol, with an oxidised co-product such as acetate acting as the electron sink for the shortfall.</p>
+<p>With PEP carboxylase fixing one CO₂ per succinate and the reductive arm carrying the flux, the classical ceiling is 1.71 mol succinate per mol glucose, equal to 1.12 g/g.</p>
+<p>Why the surplus exists: glucose carries 24 available electrons per mole; succinate carries 14 per mole. 24/14 = 1.71. Succinate being more oxidised than glucose means the electron budget permits more product than the carbon budget of glucose alone would allow — provided the extra carbon comes from CO₂.</p>
+<p>Real strains reach 1.3–1.6 mol/mol, because reaching the ceiling needs either a supplementary reductant, a dual-phase aerobic-anaerobic process, or a hydrogen-rich co-substrate, and because the carboxylase must compete kinetically with pyruvate kinase for PEP. That competition is why PEP carboxylase overexpression and pyruvate kinase attenuation appear together in so many designs.</p>
+<p><strong>Assumptions behind this calculation</strong></p>
+<ul>
+<li>anaerobic, with no external electron acceptor</li>
+<li>redox balance closed on the stated products only</li>
+<li>CO₂ freely available for fixation</li>
+<li>no maintenance or biomass demand</li>
+</ul>
+<h3>Reading map</h3>
+<table><thead><tr><th>Source</th><th>Treatment</th><th>Why</th></tr></thead><tbody><tr><td><a href="https://www.kegg.jp/pathway/map00020" target="_blank" rel="noopener">KEGG map00020 — citrate cycle, and the EcoCyc TCA page</a></td><td>Read closely</td><td>The reference map. Check it against your host and condition: the cycle is frequently open rather than closed, and KEGG shows which steps are present.</td></tr><tr><td>Berg Ch 17 §17.1–17.2</td><td>Read closely</td><td>Pyruvate dehydrogenase and the eight cycle reactions. Write the cycle with cofactors and both CO₂ release points marked, from memory.</td></tr><tr><td>Berg Ch 17 §17.3–17.4</td><td>Read closely</td><td>Regulation and the cycle&#x27;s biosynthetic role. The list of intermediates drawn off is what makes anaplerosis necessary; learn it as a list.</td></tr><tr><td>Berg Ch 17 §17.5</td><td>Read closely</td><td>Short and load-bearing: it is the carbon-conserving bypass and a recurring engineering target.</td></tr><tr><td>Lee Ch 12 §12.4.1.2</td><td>Read closely</td><td>C. glutamicum&#x27;s node compared with E. coli&#x27;s, in the context of real lysine and diacid strains. The clearest published treatment of why the node decides host choice.</td></tr><tr><td>Shuler Ch 5 §5.3–5.5</td><td>Skim</td><td>An engineer&#x27;s overall accounting. Use it to check your own ledger rather than to learn the pathway.</td></tr></tbody></table>
+<h3>Common misconceptions</h3>
+<ul>
+<li>That the TCA cycle is always a cycle. Under anaerobic conditions it frequently runs as two branches with 2-oxoglutarate dehydrogenase repressed, and a model assuming closure will overpredict.</li>
+<li>That anaplerosis is a detail of cofactor bookkeeping. It is the specific reaction set that decides whether a C4 product is feasible in a host, and E. coli&#x27;s lack of pyruvate carboxylase is a genuine disadvantage for that product class.</li>
+<li>That the glyoxylate shunt makes energy. It conserves carbon at the cost of the NADH and FADH₂ the bypassed steps would have made, which is exactly the trade you want for a product and exactly the wrong trade for growth.</li>
+</ul>
+<h3>Check yourself before moving on</h3>
+<p><strong>Q.</strong> Name the four reactions of the PEP-pyruvate-oxaloacetate node in E. coli, their directions, and the host difference that matters.</p>
+<p><strong>A.</strong> PEP carboxylase: PEP + CO₂ → oxaloacetate, anaplerotic, no ATP or biotin needed. PEP carboxykinase: oxaloacetate + ATP → PEP + CO₂, gluconeogenic. Malic enzyme: malate → pyruvate + CO₂ with NAD or NADP reduction, cataplerotic. Pyruvate kinase: PEP → pyruvate + ATP. The difference: E. coli lacks pyruvate carboxylase, which C. glutamicum and S. cerevisiae possess, and which carboxylates pyruvate rather than PEP — so it does not compete with the PTS or with aromatic biosynthesis for PEP.</p>
+<p><strong>Q.</strong> Why is growth on acetate impossible without the glyoxylate shunt?</p>
+<p><strong>A.</strong> Acetate enters metabolism only as acetyl-CoA, which in the ordinary cycle is fully oxidised to two CO₂ per turn, so no net carbon is available for biosynthesis — every carbon that enters leaves as CO₂. The glyoxylate shunt bypasses both decarboxylations, converting two acetyl-CoA into one C4 compound and so permitting net synthesis of the precursors the cell needs. Growth on fatty acids has the same requirement for the same reason.</p>
+<p><strong>Q.</strong> Why does an E. coli succinate strain need a carboxylating reaction, and which carboxylase would you pick in each host?</p>
+<p><strong>A.</strong> Because succinate is more oxidised than glucose, the electron budget allows more product than glucose&#x27;s carbon alone supports — but only if the extra carbon comes from CO₂, raising the ceiling from about 1.0 to 1.71 mol/mol. In E. coli the available option is PEP carboxylase, usually overexpressed and often paired with pyruvate kinase attenuation so the carboxylase wins the competition for PEP; a heterologous pyruvate carboxylase is an alternative that avoids that competition. In C. glutamicum or yeast, use the native pyruvate carboxylase for exactly that reason.</p>
+<hr>
+
+<section class="study-transfer" aria-label="Week 11 application and teach-back">
+<h3>Apply it to your fermentation experience</h3>
+<p><strong>Transfer prompt.</strong> Locate the TCA cycle and anaplerotic routes in the organism you studied. What would change in your interpretation if carbon were diverted from oxidation to biosynthesis?</p>
+<p class="meta">Use your actual thesis methods and results where you remember them. Mark missing information as unknown; do not assume the organisms were co-cultured, that a metabolite was measured, or that a proposed mechanism was demonstrated.</p>
+<h3>Teach it back</h3>
+<p>Explain the week's concept from memory, work one number, and name one boundary. Then use the <a href="teach-back.html">five-minute teach-back protocol</a> and log it in the tracker.</p>
+</section>
+<nav class="weeknav" aria-label="Week navigation"><a href="week-10.html">&#8592; Week 10</a><a class="idx" href="index.html">Lecture index</a><a class="idx" href="case-study.html">Case study</a><a href="week-12.html">Week 12 &#8594;</a></nav>
+</main>
+<footer class="docfoot"><a href="../metabolic-engineering-tracker.html">&#8592; Course tracker</a><span>Metabolic engineering &middot; 55 weeks</span></footer>
+<script>
+(function(){var root=document.documentElement,key="me.theme";var bs=Array.prototype.slice.call(document.querySelectorAll(".appearance button"));
+function paint(v){bs.forEach(function(b){b.setAttribute("aria-pressed",b.getAttribute("data-appearance")===v?"true":"false");});if(v==="auto")root.removeAttribute("data-theme");else root.setAttribute("data-theme",v);}
+var saved="auto";try{saved=localStorage.getItem(key)||"auto";}catch(e){}
+bs.forEach(function(b){b.addEventListener("click",function(){var v=b.getAttribute("data-appearance");paint(v);try{localStorage.setItem(key,v);}catch(e){}});});paint(saved);})();
+</script>
+</body>
+</html>

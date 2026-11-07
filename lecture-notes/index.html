@@ -1,0 +1,216 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="utf-8"><title>Lecture notes — Metabolic engineering</title>
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+
+
+<style>:root{color-scheme:light;--paper:#FAF6EF;--ink:#211A12;--ink-2:#4A3C2C;--ink-3:#8A7458;
+--line:#DFD2BE;--line-2:#EDE4D5;--broth:#9A6B1F;--broth-soft:#F6ECD9;
+--serif:"Newsreader",Georgia,serif;--sans:"Public Sans",system-ui,sans-serif}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--paper:#15120D;--ink:#F1E9DC;--ink-2:#CBBCA6;
+--ink-3:#948872;--line:#352C22;--line-2:#2A231B;--broth:#D7A95C;--broth-soft:#241D14}}
+*{box-sizing:border-box}
+body{margin:0;background:var(--paper);color:var(--ink);font-family:var(--sans);font-size:15.5px;line-height:1.6;
+padding:env(safe-area-inset-top,0) 0 env(safe-area-inset-bottom,0)}
+.wrap{max-width:840px;margin:0 auto;padding:40px 22px 90px}
+h1{font-family:var(--serif);font-size:clamp(28px,5vw,42px);line-height:1.1;font-weight:600;margin:0 0 6px;letter-spacing:-.02em}
+h2{font-family:var(--serif);font-size:26px;font-weight:600;margin:46px 0 10px;letter-spacing:-.01em;padding-bottom:7px;border-bottom:1px solid var(--line)}
+h3{font-family:var(--serif);font-size:20px;font-weight:600;margin:30px 0 4px;color:var(--broth)}
+h4{font-size:14px;font-weight:650;margin:18px 0 4px;color:var(--ink-3);letter-spacing:.02em;text-transform:uppercase}
+p{margin:0 0 12px;max-width:74ch}
+em{color:var(--ink-2)}
+ul{margin:0 0 14px;padding-left:1.15em;max-width:74ch}
+li{margin:.3em 0}li::marker{color:var(--ink-3)}
+hr{border:0;border-top:1px solid var(--line);margin:40px 0}
+strong{font-weight:650}
+table{border-collapse:collapse;width:100%;margin:14px 0 20px;font-size:14px}
+th{text-align:left;font-weight:600;color:var(--ink-3);font-size:12.5px;padding:7px 9px;border-bottom:1.5px solid var(--line)}
+td{padding:8px 9px;border-bottom:1px solid var(--line-2);vertical-align:top}
+tr:nth-child(even) td{background:var(--broth-soft)}
+
+figure.fig{margin:22px 0 26px;padding:0;max-width:100%}
+figure.fig svg{width:100%;height:auto;display:block;background:var(--card);
+  border:1px solid var(--line-2);border-radius:10px;padding:8px 10px}
+figure.fig figcaption{font-size:13px;color:var(--ink-3);margin-top:8px;max-width:74ch;line-height:1.5}
+figure.fig .figtitle{font-family:var(--serif);font-size:15px;color:var(--ink-2);margin-bottom:6px}
+figure.fig .fig-dark{display:none}
+@media (prefers-color-scheme: dark){
+  figure.fig .fig-light{display:none}
+  figure.fig .fig-dark{display:block}
+}
+@media print{figure.fig{break-inside:avoid;page-break-inside:avoid}
+  figure.fig .fig-dark{display:none !important}
+  figure.fig .fig-light{display:block !important}}
+
+@media print{body{background:#fff}.wrap{padding:0;max-width:none}h2,h3{page-break-after:avoid}}</style><script>try{var t=localStorage.getItem("me.theme");if(t&&t!=="auto")document.documentElement.setAttribute("data-theme",t);}catch(e){}</script>
+<meta name="color-scheme" content="light dark">
+<meta name="theme-color" content="#ffffff" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#000000" media="(prefers-color-scheme: dark)">
+<style>
+/* ============================================================
+   COURSE LIBRARY — Apple document shell
+   ============================================================ */
+:root{
+  color-scheme:light;
+  --paper:#FFFFFF;--surface:#F5F5F7;--card:#FFFFFF;--fill:#F5F5F7;
+  --ink:#1D1D1F;--ink-2:#6E6E73;--ink-3:#6E6E73;
+  --line:rgba(0,0,0,.14);--line-2:rgba(0,0,0,.08);
+  --broth:#0071E3;--broth-soft:rgba(0,113,227,.10);
+  --nav-bg:rgba(255,255,255,.84);
+  --sans:-apple-system,BlinkMacSystemFont,"SF Pro Text","SF Pro Display","Helvetica Neue",Arial,sans-serif;
+  --mono:ui-monospace,"SF Mono",Menlo,Consolas,monospace;
+  --serif:var(--sans);
+}
+@media (prefers-color-scheme:dark){
+  :root:not([data-theme="light"]){
+    color-scheme:dark;
+    --paper:#000000;--surface:#1C1C1E;--card:#2C2C2E;--fill:#2C2C2E;
+    --ink:#F5F5F7;--ink-2:#A1A1A6;--ink-3:#8E8E93;
+    --line:rgba(255,255,255,.16);--line-2:rgba(255,255,255,.09);
+    --broth:#5AA9FF;--broth-soft:rgba(10,132,255,.18);
+    --nav-bg:rgba(0,0,0,.74);
+  }
+}
+:root[data-theme="dark"]{
+  color-scheme:dark;
+  --paper:#000000;--surface:#1C1C1E;--card:#2C2C2E;--fill:#2C2C2E;
+  --ink:#F5F5F7;--ink-2:#A1A1A6;--ink-3:#8E8E93;
+  --line:rgba(255,255,255,.16);--line-2:rgba(255,255,255,.09);
+  --broth:#5AA9FF;--broth-soft:rgba(10,132,255,.18);
+  --nav-bg:rgba(0,0,0,.74);
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth;scroll-padding-top:72px;-webkit-text-size-adjust:100%}
+body{
+  margin:0;background:var(--paper);color:var(--ink);
+  font-family:var(--sans);font-size:17px;line-height:1.62;letter-spacing:-.011em;
+  padding:0;
+}
+.docbar{
+  position:sticky;top:0;z-index:80;display:flex;align-items:center;justify-content:space-between;gap:12px;
+  padding:8px max(24px,calc((100vw - 1180px)/2));
+  background:var(--nav-bg);
+  -webkit-backdrop-filter:saturate(180%) blur(20px);backdrop-filter:saturate(180%) blur(20px);
+  border-bottom:1px solid var(--line-2);
+}
+.docback{display:inline-flex;align-items:center;gap:6px;color:var(--ink-2);font-size:13px;font-weight:500;text-decoration:none;white-space:nowrap}
+.docback:hover{color:var(--broth)}
+.appearance{display:inline-flex;gap:2px;padding:2px;background:var(--fill);border-radius:980px}
+.appearance button{border:0;background:none;color:var(--ink-2);font:inherit;font-size:12px;font-weight:500;line-height:1;padding:6px 11px;border-radius:980px;cursor:pointer}
+.appearance button[aria-pressed="true"]{background:var(--card);color:var(--ink);box-shadow:0 1px 2px rgba(0,0,0,.08)}
+.wrap{max-width:900px;margin:0 auto;padding:64px 24px 96px}
+body h1{
+  font-family:var(--sans);font-size:clamp(42px,6.2vw,64px);line-height:1.04;letter-spacing:-.04em;
+  font-weight:700;margin:0 0 16px;max-width:18ch;color:var(--ink);
+}
+.doc-kicker{font-size:13px;font-weight:500;letter-spacing:0;color:var(--ink-2);margin:0 0 12px}
+body h1 + p{font-size:20px;line-height:1.55;color:var(--ink-2);max-width:68ch;margin:0 0 18px}
+body h1 + p strong{color:var(--ink);font-weight:600}
+body h2{
+  font-family:var(--sans);font-size:32px;line-height:1.15;letter-spacing:-.03em;font-weight:600;
+  color:var(--ink);margin:64px 0 14px;padding:0;border:0;
+}
+body h3{font-family:var(--sans);font-size:22px;line-height:1.25;letter-spacing:-.02em;font-weight:600;color:var(--ink);margin:36px 0 8px}
+body h4{font-size:14px;line-height:1.4;font-weight:600;letter-spacing:0;text-transform:none;color:var(--ink-2);margin:24px 0 6px}
+body p{margin:0 0 14px;max-width:72ch}
+body ul,body ol{margin:0 0 16px;padding-left:1.25em;max-width:72ch}
+body li{margin:.32em 0}
+body li::marker{color:var(--ink-3)}
+body strong{font-weight:600;color:var(--ink)}
+body em{color:var(--ink)}
+body a{color:var(--broth);text-decoration:none}
+body a:hover{text-decoration:underline}
+body hr{border:0;border-top:1px solid var(--line-2);margin:56px 0}
+body table{border-collapse:collapse;width:100%;margin:22px 0 30px;font-size:15px;line-height:1.45}
+body th{text-align:left;font-weight:600;font-size:12.5px;color:var(--ink-2);padding:10px 12px;background:var(--surface);border-bottom:1px solid var(--line)}
+body td{padding:11px 12px;border-bottom:1px solid var(--line-2);vertical-align:top}
+body tr:nth-child(even) td{background:transparent}
+body figure.fig{margin:32px 0 36px;padding:0;max-width:100%}
+body figure.fig svg{width:100%;height:auto;display:block;background:var(--surface);border:0;border-radius:20px;padding:18px}
+body figure.fig figcaption{font-size:13px;color:var(--ink-2);margin-top:10px;max-width:72ch;line-height:1.5}
+body figure.fig .figtitle{font-family:var(--sans);font-size:14px;font-weight:600;color:var(--ink);margin-bottom:6px}
+body pre{background:var(--surface);border:1px solid var(--line-2);border-radius:16px;padding:18px;overflow:auto;font-family:var(--mono);font-size:13.5px;line-height:1.55;margin:20px 0 24px}
+body code{font-family:var(--mono);font-size:.88em;background:var(--surface);border-radius:6px;padding:.12em .35em}
+body pre code{background:none;padding:0;font-size:inherit}
+body blockquote{margin:24px 0;padding:2px 0 2px 18px;border-left:3px solid var(--broth);color:var(--ink-2)}
+:root[data-theme="dark"] .fig-light{display:none!important}
+:root[data-theme="dark"] .fig-dark{display:block!important}
+:root[data-theme="light"] .fig-dark{display:none!important}
+:root[data-theme="light"] .fig-light{display:block!important}
+.docfoot{max-width:900px;margin:0 auto;padding:24px 24px 64px;border-top:1px solid var(--line-2);display:flex;justify-content:space-between;gap:12px;font-size:12.5px;color:var(--ink-3)}
+.docfoot a{color:var(--ink-2);text-decoration:none}
+.docfoot a:hover{color:var(--broth)}
+@media (max-width:700px){
+  .docbar{padding:8px 16px}
+  .wrap{padding:40px 18px 80px}
+  body h1{font-size:clamp(38px,11vw,48px)}
+  body h1 + p{font-size:18px}
+  body h2{font-size:28px;margin-top:52px}
+  body h3{font-size:20px}
+  body p,body li{font-size:16.5px}
+  body table{font-size:14px}
+  body th,body td{padding:9px 9px}
+  .docfoot{padding:20px 18px 50px;flex-direction:column;gap:6px}
+}
+@media print{
+  .docbar,.appearance,.docfoot{display:none!important}
+  body{background:#fff;color:#000;font-size:11pt}
+  .wrap{max-width:none;padding:0}
+  body h1{font-size:28pt;max-width:none}
+  body h2{font-size:16pt;page-break-after:avoid}
+  body h3{font-size:13pt;page-break-after:avoid}
+  body a{color:#000;text-decoration:none}
+  body table,body figure{break-inside:avoid}
+}
+
+
+.index-actions{margin:18px 0 36px;display:flex;flex-wrap:wrap;gap:16px;align-items:center}
+.index-actions a{font-size:14px;font-weight:500;color:var(--broth);text-decoration:none}
+.index-actions a:hover{text-decoration:underline}
+.phaseh{display:flex;align-items:baseline;justify-content:space-between;gap:14px;font-size:24px!important;margin:52px 0 2px!important;letter-spacing:-.02em}
+.phaseh span{font-size:12px;font-weight:400;color:var(--ink-3);letter-spacing:0;white-space:nowrap}
+.weeklist{border-top:1px solid var(--line-2);margin-bottom:8px}
+.weekrow{display:flex;align-items:center;gap:14px;min-height:50px;padding:10px 4px;border-bottom:1px solid var(--line-2);text-decoration:none;color:var(--ink)}
+.weekrow:hover{background:var(--surface)}
+.wnum{width:28px;flex:none;font-size:12px;font-weight:600;color:var(--broth);font-variant-numeric:tabular-nums}
+.wtitle{flex:1;font-size:16.5px;font-weight:500;line-height:1.35}
+.warrow{flex:none;color:var(--ink-3);font-size:16px}
+.weeknav{display:flex;align-items:center;justify-content:space-between;gap:14px;margin:52px 0 0;padding-top:22px;border-top:1px solid var(--line-2);font-size:14px}
+.weeknav a{color:var(--broth);text-decoration:none;font-weight:500}
+.weeknav a:hover{text-decoration:underline}
+.weeknav .idx{color:var(--ink-2);font-weight:400}
+.weeknav .empty{visibility:hidden}
+.case-h{max-width:22ch}
+.protocol{max-width:72ch}
+.protocol li{margin:.55em 0}
+.protocol h2{margin-top:38px}
+@media (max-width:700px){.phaseh{font-size:21px!important;margin-top:42px!important}.wtitle{font-size:15.5px}.weeknav{font-size:13px;gap:8px}}
+@media print{.weeknav,.index-actions{display:none!important}}
+</style>
+</head><body>
+<header class="docbar"><a class="docback" href="../metabolic-engineering-tracker.html">&#8592; Course tracker</a><div class="appearance" role="group" aria-label="Appearance">
+<button type="button" data-appearance="auto" aria-pressed="true">Auto</button>
+<button type="button" data-appearance="light" aria-pressed="false">Light</button>
+<button type="button" data-appearance="dark" aria-pressed="false">Dark</button>
+</div></header>
+<div class="wrap">
+<p class="doc-kicker">Metabolic engineering &middot; 55 weeks</p>
+<h1>Lecture notes</h1>
+<p>The distilled modules for every week: a framing paragraph, the core ideas, a worked anchor with its assumptions, a read-closely / skim / skip reading map, common misconceptions, a self-test, a prompt that transfers the idea to your fermentation experience, and a closed-book teach-back with a calculation and assumption check. All 64 figures are injected at the core idea each belongs to.</p>
+
+<p><strong>Phases 1-3: Molecular foundations, metabolism in depth, and quantitative physiology (weeks 1-18).</strong></p>
+<p>Distilled modules: the content you need, a worked anchor, a reading map that tells you what to read closely and what to skip, misconceptions, and a self-test. Written to replace cover-to-cover reading, not to replace reading.</p>
+<p><strong>On the numbers before you read any of them.</strong> Every number in these modules — ribosome counts, pool sizes, half-lives, turnover times — is written from working knowledge and is an order-of-magnitude figure. Before any of them enters a notebook, a figure or a proposal, check it against BioNumbers or the primary source and cite that, not these notes. Treat the modules as a map of what matters and a scaffold for reasoning; treat the textbooks and the databases as the authority for values.</p>
+<p>Every worked anchor states the assumptions it rests on, and every figure built from simulated rather than measured values says so in its title. Treat a calculation here as a conditional inference, not a result.</p>
+<hr>
+<div class="index-actions"><a href="case-study.html">Fercaf case study &#8594;</a><a href="teach-back.html">Teach-back protocol &#8594;</a><a href="../lecture-notes-all-55-weeks.html">Complete single-file edition &#8594;</a></div>
+<h2 class="phaseh">Phase 1 &middot; Molecular foundations<span>Weeks 1&ndash;7</span></h2><div class="weeklist"><a class="weekrow" href="week-01.html"><span class="wnum">01</span><span class="wtitle">The cell as a chemical plant</span><span class="warrow">&#8594;</span></a><a class="weekrow" href="week-02.html"><span class="wnum">02</span><span class="wtitle">Water, bonds and the chemistry of the cytosol</span><span class="warrow">&#8594;</span></a><a class="weekrow" href="week-03.html"><span class="wnum">03</span><span class="wtitle">Protein structure and folding</span><span class="warrow">&#8594;</span></a><a class="weekrow" href="week-04.html"><span class="wnum">04</span><span class="wtitle">Enzyme catalysis</span><span class="warrow">&#8594;</span></a><a class="weekrow" href="week-05.html"><span class="wnum">05</span><span class="wtitle">Enzyme kinetics I</span><span class="warrow">&#8594;</span></a><a class="weekrow" href="week-06.html"><span class="wnum">06</span><span class="wtitle">Enzyme kinetics II: allostery and regulation</span><span class="warrow">&#8594;</span></a><a class="weekrow" href="week-07.html"><span class="wnum">07</span><span class="wtitle">Nucleic acids and the central dogma</span><span class="warrow">&#8594;</span></a></div><h2 class="phaseh">Phase 2 &middot; Metabolism in depth<span>Weeks 8&ndash;13</span></h2><div class="weeklist"><a class="weekrow" href="week-08.html"><span class="wnum">08</span><span class="wtitle">Bioenergetics</span><span class="warrow">&#8594;</span></a><a class="weekrow" href="week-09.html"><span class="wnum">09</span><span class="wtitle">Glycolysis and gluconeogenesis</span><span class="warrow">&#8594;</span></a><a class="weekrow" href="week-10.html"><span class="wnum">10</span><span class="wtitle">The pentose phosphate pathway and the NADPH economy</span><span class="warrow">&#8594;</span></a><a class="weekrow" href="week-11.html"><span class="wnum">11</span><span class="wtitle">TCA cycle, anaplerosis and the glyoxylate shunt</span><span class="warrow">&#8594;</span></a><a class="weekrow" href="week-12.html"><span class="wnum">12</span><span class="wtitle">Respiration, electron transport and aeration</span><span class="warrow">&#8594;</span></a><a class="weekrow" href="week-13.html"><span class="wnum">13</span><span class="wtitle">Fermentation routes and redox balancing</span><span class="warrow">&#8594;</span></a></div><h2 class="phaseh">Phase 3 &middot; Quantitative physiology<span>Weeks 14&ndash;18</span></h2><div class="weeklist"><a class="weekrow" href="week-14.html"><span class="wnum">14</span><span class="wtitle">Biosynthesis and the precursor tree</span><span class="warrow">&#8594;</span></a><a class="weekrow" href="week-15.html"><span class="wnum">15</span><span class="wtitle">Lipids, membranes, transport and uptake</span><span class="warrow">&#8594;</span></a><a class="weekrow" href="week-16.html"><span class="wnum">16</span><span class="wtitle">Biomass composition and the biomass equation</span><span class="warrow">&#8594;</span></a><a class="weekrow" href="week-17.html"><span class="wnum">17</span><span class="wtitle">Stoichiometry, yields and data reconciliation</span><span class="warrow">&#8594;</span></a><a class="weekrow" href="week-18.html"><span class="wnum">18</span><span class="wtitle">Growth kinetics and physiological states</span><span class="warrow">&#8594;</span></a></div><h2 class="phaseh">Phase 4 &middot; Constraint-based modelling<span>Weeks 19&ndash;26</span></h2><div class="weeklist"><a class="weekrow" href="week-19.html"><span class="wnum">19</span><span class="wtitle">Genome annotation and what it is worth</span><span class="warrow">&#8594;</span></a><a class="weekrow" href="week-20.html"><span class="wnum">20</span><span class="wtitle">Network reconstruction and the stoichiometric matrix</span><span class="warrow">&#8594;</span></a><a class="weekrow" href="week-21.html"><span class="wnum">21</span><span class="wtitle">Curation, GPRs and gap filling</span><span class="warrow">&#8594;</span></a><a class="weekrow" href="week-22.html"><span class="wnum">22</span><span class="wtitle">The four subspaces of S</span><span class="warrow">&#8594;</span></a><a class="weekrow" href="week-23.html"><span class="wnum">23</span><span class="wtitle">Flux balance analysis</span><span class="warrow">&#8594;</span></a><a class="weekrow" href="week-24.html"><span class="wnum">24</span><span class="wtitle">FBA extensions: variability, loops and alternatives</span><span class="warrow">&#8594;</span></a><a class="weekrow" href="week-25.html"><span class="wnum">25</span><span class="wtitle">Gene deletions, essentiality and phase planes</span><span class="warrow">&#8594;</span></a><a class="weekrow" href="week-26.html"><span class="wnum">26</span><span class="wtitle">Strain design and growth coupling</span><span class="warrow">&#8594;</span></a></div><h2 class="phaseh">Phase 5 &middot; Measurement and control of flux<span>Weeks 27&ndash;31</span></h2><div class="weeklist"><a class="weekrow" href="week-27.html"><span class="wnum">27</span><span class="wtitle">Metabolomics and intracellular measurement</span><span class="warrow">&#8594;</span></a><a class="weekrow" href="week-28.html"><span class="wnum">28</span><span class="wtitle">13C metabolic flux analysis I: principles and atom mapping</span><span class="warrow">&#8594;</span></a><a class="weekrow" href="week-29.html"><span class="wnum">29</span><span class="wtitle">13C metabolic flux analysis II: estimation, statistics and design</span><span class="warrow">&#8594;</span></a><a class="weekrow" href="week-30.html"><span class="wnum">30</span><span class="wtitle">Kinetic models of metabolism</span><span class="warrow">&#8594;</span></a><a class="weekrow" href="week-31.html"><span class="wnum">31</span><span class="wtitle">Metabolic control analysis and proteome-constrained models</span><span class="warrow">&#8594;</span></a></div><h2 class="phaseh">Phase 6 &middot; The molecular toolbox<span>Weeks 32&ndash;39</span></h2><div class="weeklist"><a class="weekrow" href="week-32.html"><span class="wnum">32</span><span class="wtitle">DNA manipulation: PCR, cloning and assembly</span><span class="warrow">&#8594;</span></a><a class="weekrow" href="week-33.html"><span class="wnum">33</span><span class="wtitle">Vectors, expression systems and chassis preparation</span><span class="warrow">&#8594;</span></a><a class="weekrow" href="week-34.html"><span class="wnum">34</span><span class="wtitle">Tuning expression: promoters, RBS, copy number and burden</span><span class="warrow">&#8594;</span></a><a class="weekrow" href="week-35.html"><span class="wnum">35</span><span class="wtitle">Genome editing: recombineering, CRISPR and multiplexing</span><span class="warrow">&#8594;</span></a><a class="weekrow" href="week-36.html"><span class="wnum">36</span><span class="wtitle">Dynamic regulation and biosensors</span><span class="warrow">&#8594;</span></a><a class="weekrow" href="week-37.html"><span class="wnum">37</span><span class="wtitle">Enzyme engineering: rational design and directed evolution</span><span class="warrow">&#8594;</span></a><a class="weekrow" href="week-38.html"><span class="wnum">38</span><span class="wtitle">Data-driven protein design and high-throughput screening</span><span class="warrow">&#8594;</span></a><a class="weekrow" href="week-39.html"><span class="wnum">39</span><span class="wtitle">Omics, the design-build-test-learn cycle and adaptive evolution</span><span class="warrow">&#8594;</span></a></div><h2 class="phaseh">Phase 7 &middot; Hosts, products and the literature<span>Weeks 40&ndash;46</span></h2><div class="weeklist"><a class="weekrow" href="week-40.html"><span class="wnum">40</span><span class="wtitle">Escherichia coli as a platform</span><span class="warrow">&#8594;</span></a><a class="weekrow" href="week-41.html"><span class="wnum">41</span><span class="wtitle">Yeasts: Saccharomyces and the non-conventional species</span><span class="warrow">&#8594;</span></a><a class="weekrow" href="week-42.html"><span class="wnum">42</span><span class="wtitle">Corynebacterium, Bacillus and Pseudomonas</span><span class="warrow">&#8594;</span></a><a class="weekrow" href="week-43.html"><span class="wnum">43</span><span class="wtitle">Lactic acid bacteria and food-grade hosts</span><span class="warrow">&#8594;</span></a><a class="weekrow" href="week-44.html"><span class="wnum">44</span><span class="wtitle">Clostridia, actinomycetes, fungi and photosynthetic hosts</span><span class="warrow">&#8594;</span></a><a class="weekrow" href="week-45.html"><span class="wnum">45</span><span class="wtitle">Product classes I: bulk chemicals, organic acids and alcohols</span><span class="warrow">&#8594;</span></a><a class="weekrow" href="week-46.html"><span class="wnum">46</span><span class="wtitle">Product classes II: amino acids, natural products and proteins</span><span class="warrow">&#8594;</span></a></div><h2 class="phaseh">Phase 8 &middot; Process, economics and the application<span>Weeks 47&ndash;55</span></h2><div class="weeklist"><a class="weekrow" href="week-47.html"><span class="wnum">47</span><span class="wtitle">Media, sterilisation and inoculum development</span><span class="warrow">&#8594;</span></a><a class="weekrow" href="week-48.html"><span class="wnum">48</span><span class="wtitle">Heterogeneous reaction, immobilisation and reactor choice</span><span class="warrow">&#8594;</span></a><a class="weekrow" href="week-49.html"><span class="wnum">49</span><span class="wtitle">Fermenter design, aeration and mixing</span><span class="warrow">&#8594;</span></a><a class="weekrow" href="week-50.html"><span class="wnum">50</span><span class="wtitle">Instrumentation, control and feeding strategies</span><span class="warrow">&#8594;</span></a><a class="weekrow" href="week-51.html"><span class="wnum">51</span><span class="wtitle">Downstream processing</span><span class="warrow">&#8594;</span></a><a class="weekrow" href="week-52.html"><span class="wnum">52</span><span class="wtitle">Techno-economics and life-cycle assessment</span><span class="warrow">&#8594;</span></a><a class="weekrow" href="week-53.html"><span class="wnum">53</span><span class="wtitle">Capstone I: the strain</span><span class="warrow">&#8594;</span></a><a class="weekrow" href="week-54.html"><span class="wnum">54</span><span class="wtitle">Capstone II: the process and the economics</span><span class="warrow">&#8594;</span></a><a class="weekrow" href="week-55.html"><span class="wnum">55</span><span class="wtitle">The application: proposal, portfolio and supervisors</span><span class="warrow">&#8594;</span></a></div>
+</div>
+<footer class="docfoot"><a href="../metabolic-engineering-tracker.html">&#8592; Course tracker</a><span>Metabolic engineering &middot; 55 weeks</span></footer>
+<script>
+(function(){var root=document.documentElement,key="me.theme";var bs=Array.prototype.slice.call(document.querySelectorAll(".appearance button"));
+function paint(v){bs.forEach(function(b){b.setAttribute("aria-pressed",b.getAttribute("data-appearance")===v?"true":"false");});if(v==="auto")root.removeAttribute("data-theme");else root.setAttribute("data-theme",v);}
+var saved="auto";try{saved=localStorage.getItem(key)||"auto";}catch(e){}
+bs.forEach(function(b){b.addEventListener("click",function(){var v=b.getAttribute("data-appearance");paint(v);try{localStorage.setItem(key,v);}catch(e){}});});paint(saved);})();
+</script>
+</body>
+</html>
