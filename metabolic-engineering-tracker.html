@@ -1021,9 +1021,10 @@ h1{text-align:left;font-size:clamp(44px,6vw,76px);line-height:1;letter-spacing:-
 
 </style>
 <link rel="manifest" href="manifest.webmanifest">
+<link rel="stylesheet" href="course-ui.css">
 </head>
 <body>
-<a class="skip" href="#main">Skip to content</a>
+<nav class="skip-nav" aria-label="Skip links"><a class="skip" href="#main">Skip to content</a></nav>
 <div class="wrap">
 
 <header class="mast">
@@ -5251,5 +5252,7 @@ renderQuiz();
 })();
 </script>
 <script>if("serviceWorker" in navigator){addEventListener("load",function(){navigator.serviceWorker.register("./sw.js").catch(function(){})})}</script>
+<script src="course-data.js"></script>
+<script src="course-ui.js"></script>
 </body>
 </html>

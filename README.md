@@ -1,6 +1,6 @@
 # Metabolic engineering — 55-week HTML module
 
-A self-contained 55-week curriculum: tracker, full lecture notes, 55 weekly lecture files, design briefs, methods, machine learning, statistics, and a source-audited Fercaf thesis case study. Current release: v23, with a 30-week core path, entry diagnostic, catch-up modules, a six-stage guided project, case-thread callouts, teach-back examples, and all v22 assurance artifacts. No build step, no server, no install.
+A self-contained 55-week curriculum: tracker, full lecture notes, 55 weekly lecture files, design briefs, methods, machine learning, statistics, and a source-audited Fercaf thesis case study. Current release: v24, with a 30-week core path, entry diagnostic, catch-up modules, a six-stage guided project, case-thread callouts, teach-back examples, and all v22 assurance artifacts. No build step, no server, no install.
 
 ## Start here
 
@@ -12,6 +12,7 @@ A self-contained 55-week curriculum: tracker, full lecture notes, 55 weekly lect
 - `lecture-notes-all-55-weeks.html` — complete notes in one file.
 - `start-here.html`, `CORE-PATH.csv`, `diagnostic.html`, `CATCH-UP.md` — paths, placement and catch-up.
 - `GUIDED-PROJECT.md`, `project/` — six-stage applied project.
+- `course-ui.css`, `course-ui.js`, `course-data.js` — shared rail and dashboard shell.
 - `CASE-THREAD.md`, `TEACH-BACK-EXAMPLES.md` — recurring case and worked assessment examples.
 - `AUDIT.md` — assurance summary, open conflicts and 10/10 blockers.
 - `CLAIMS.csv` — claim register with source, locator and status.

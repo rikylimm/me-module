@@ -1,6 +1,6 @@
 # External review packet
 
-**Release:** v23
+**Release:** v24
 **Date:** 7 November 2026
 **Status:** packet ready; no reviewer has signed.
 **Rule:** the author cannot award the final score.

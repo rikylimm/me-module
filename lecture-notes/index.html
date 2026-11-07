@@ -186,6 +186,7 @@ body blockquote{margin:24px 0;padding:2px 0 2px 18px;border-left:3px solid var(-
 @media (max-width:700px){.phaseh{font-size:21px!important;margin-top:42px!important}.wtitle{font-size:15.5px}.weeknav{font-size:13px;gap:8px}}
 @media print{.weeknav,.index-actions{display:none!important}}
 </style>
+<link rel="stylesheet" href="../course-ui.css">
 </head><body>
 <header class="docbar"><a class="docback" href="../metabolic-engineering-tracker.html">&#8592; Course tracker</a><div class="appearance" role="group" aria-label="Appearance">
 <button type="button" data-appearance="auto" aria-pressed="true">Auto</button>
@@ -212,5 +213,7 @@ function paint(v){bs.forEach(function(b){b.setAttribute("aria-pressed",b.getAttr
 var saved="auto";try{saved=localStorage.getItem(key)||"auto";}catch(e){}
 bs.forEach(function(b){b.addEventListener("click",function(){var v=b.getAttribute("data-appearance");paint(v);try{localStorage.setItem(key,v);}catch(e){}});});paint(saved);})();
 </script>
+<script src="../course-data.js"></script>
+<script src="../course-ui.js"></script>
 </body>
 </html>
