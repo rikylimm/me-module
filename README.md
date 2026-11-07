@@ -1,6 +1,6 @@
 # Metabolic engineering — 55-week HTML module
 
-A self-contained 55-week curriculum: tracker, full lecture notes, 55 weekly lecture files, design briefs, methods, machine learning, statistics, and a source-audited Fercaf thesis case study. Current release: v24, with a 30-week core path, entry diagnostic, catch-up modules, a six-stage guided project, case-thread callouts, teach-back examples, and all v22 assurance artifacts. No build step, no server, no install.
+A self-contained 55-week curriculum: tracker, full lecture notes, 55 weekly lecture files, design briefs, methods, machine learning, statistics, and a source-audited Fercaf thesis case study. Current release: v25, with a 30-week core path, entry diagnostic, catch-up modules, a six-stage guided project, case-thread callouts, teach-back examples, and all v22 assurance artifacts. No build step, no server, no install.
 
 ## Start here
 
