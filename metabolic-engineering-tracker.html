@@ -1019,6 +1019,10 @@ h1{text-align:left;font-size:clamp(44px,6vw,76px);line-height:1;letter-spacing:-
   .cal-foot b{font-size:13px;margin-bottom:2px}.cal-today{font-size:12px;padding:6px 0}
 }
 
+#synccard table{width:100%;max-width:620px;margin:8px 0 18px;border-collapse:collapse}
+#synccard table th,#synccard table td{text-align:left!important;vertical-align:top;padding:8px 0;border-bottom:1px solid var(--line-2)}
+#synccard table th{width:44%;font-weight:500;color:var(--ink-2)}
+#synccard table td{color:var(--ink)}
 </style>
 <link rel="manifest" href="manifest.webmanifest">
 <style>
@@ -5218,8 +5222,10 @@ async function pushSync(){
     if(sha)body.sha=sha;
     const r=await fetch("https://api.github.com/repos/rikylimm/me-sync/contents/progress.json",{method:"PUT",headers:syncHeaders({"Content-Type":"application/json"}),body:JSON.stringify(body)});
     if(!r.ok){const j=await r.json().catch(()=>({}));throw new Error(j.message||("Push failed HTTP "+r.status));}
+    const j=await r.json();
+    if(j&&j.commit){SYNC_CACHE={commit:{sha:j.commit.sha,date:j.commit.author.date,message:j.commit.message.split("\n")[0]},version:(SYNC_CACHE&&SYNC_CACHE.version)||""};paintSyncStatus();}
+    else{SYNC_CACHE=null;await loadSyncStatus();}
     syncMsg("Pushed progress.json to me-sync.");
-    SYNC_CACHE=null;await loadSyncStatus();
   }catch(err){syncMsg(err.message||"Push failed.");}
   if(btn)btn.disabled=false;
 }
