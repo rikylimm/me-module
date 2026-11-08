@@ -1,6 +1,6 @@
 # Accessibility status
 
-**Release:** v26
+**Release:** v27
 **Scope:** landing page, start page, diagnostic, tracker, search, 55 weekly pages, handbooks, audit files.
 
 ## Automated checks
@@ -30,7 +30,7 @@ The initial failures were color contrast on primary buttons and dark footer text
 
 Before fixes: landing 0 violations; tracker 1 region violation; week 1 five violations (missing main, heading order, in-text link, region, two unlabeled SVGs); statistics handbook two violations.
 
-Fixes applied: main landmarks, hidden h2, underlined in-text links, SVG labels, tablist navigation landmark. Rerun on v26: **0 violations** on landing, tracker, search, week 1 and statistics handbook.
+Fixes applied: main landmarks, hidden h2, underlined in-text links, SVG labels, tablist navigation landmark. Rerun on v27: **0 violations** on landing, tracker, search, week 1 and statistics handbook.
 
 ## Manual checklist
 

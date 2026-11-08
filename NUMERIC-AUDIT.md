@@ -1,6 +1,6 @@
 # Numeric audit
 
-**Release:** v26
+**Release:** v27
 **Purpose:** make the unverified-number problem visible and reviewable.
 
 ## What is done

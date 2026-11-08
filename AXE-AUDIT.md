@@ -1,7 +1,7 @@
 # Axe audit
 
 **Tool:** axe-core 4.13.0 via `@axe-core/cli`
-**Target:** v26 source pages
+**Target:** v27 source pages
 **Date:** 7 November 2026
 
 ## Results before fixes
@@ -22,7 +22,7 @@
 
 ## After fixes
 
-Rerun on v26 source:
+Rerun on v27 source:
 
 - Landing: **0 violations**.
 - Tracker: **0 violations**.
