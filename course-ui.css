@@ -166,3 +166,7 @@ body.course-shell{background:var(--ui-bg);color:var(--ui-ink);padding-left:var(-
 .course-shell .q .qtext{font-size:18px;line-height:1.4}
 .course-shell .exp,.course-shell .model{background:#f0fdf4;border:1px solid #bbf7d0;color:#166534;border-radius:10px;padding:12px 14px;margin-top:10px;font-size:13px}
 @media (prefers-color-scheme: dark){:root:not([data-theme="light"]) .course-shell .opt{background:#15181d}.course-shell .opt.pick-right{background:#052e16;color:#bbf7d0;border-color:#16a34a}.course-shell .opt.pick-wrong{background:#3f0d12;color:#fecaca;border-color:#b91c1c}.course-shell .exp,.course-shell .model{background:#052e16;color:#bbf7d0;border-color:#166534}}
+
+/* Calendar intentionally removed from tracker */
+.course-shell .cal,.course-shell #calcard{display:none!important}
+.course-shell .hero-grid{grid-template-columns:minmax(0,1fr)!important;gap:0!important}

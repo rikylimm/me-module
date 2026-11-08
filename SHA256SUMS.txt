@@ -37,7 +37,7 @@ e24e171b3a6a7b19c664b9c3b0ef63adefba5f42e4ea7c996b495e7b53a1a235  ./TEACH-BACK-E
 ed7184c2c44df69f762899c1e5dfdaf9f64c35f45ac3c384280f534aa43093e1  ./VERSION.txt
 ddb40aaab2357c6473b0a68634dec2ae2c0f6b97bc98beea7cefad1cc5ad1677  ./ci/verify.yml
 d31b2c81d8e03f0a7210c8d105d74509cb0d964ad23f727832f9075f2cc7c4e7  ./course-data.js
-aa4747ca01fb81bcf1460015f1aa1375b2b74b48794cc7b2584eff3ec85c90eb  ./course-ui.css
+2353ce941fff82de62a30c409e11eb0b18416871be77ae38c15ce8c9e303d8d9  ./course-ui.css
 b67a446a8f5794f9e8640031adfcd296b4e4e3ec392765281bdb9079151e91b5  ./course-ui.js
 6fb545fa913061a2b4e07bf47355a4c317eb5923be2e151584705f461481f5ce  ./design-briefs.html
 642bffb57007d2e30294bbe8623c47fb72b628ea1506a3b2b4b047f4c3bf879e  ./diagnostic.html
@@ -105,7 +105,7 @@ d8d3c75c23f3f3732bb06db64911677966e3529e225e94ea9807f7e5a55fa168  ./lecture-note
 fcfc026e3e937cedcf77a3423a321e4396836e2d5d707fd382ae963ccccdfbf9  ./lecture-notes/week-54.html
 a5b47367c9017b2bd6da64395b7c1ed315ddb245326c04486b655901a5fde421  ./lecture-notes/week-55.html
 622f7d4e6610d4c151cf67614a6226250615b1a14bb07211b1f8516d8d657afa  ./manifest.webmanifest
-70ab76991bb58bdda5aadae3254441ad0aa8d82a81d14a1409fc1fb03a9b04ad  ./metabolic-engineering-tracker.html
+156c00c741b20c1be6f4a14000915c61c47914fc0d0bfb22345718bcb03d1ba9  ./metabolic-engineering-tracker.html
 c5086bc782d888555cc6a00d76ba530c5a23d47ee0453f63f303198218ac03ff  ./methods-handbook.html
 9f02f85f308681cf65507e14b9315e772192c4cce2dbd6dbe2ebe85f2a8ad5e7  ./ml-handbook.html
 5c4644f4bee9deb2c66ed5acc59b1e67d88d61377ddff765d052aecd50609abe  ./portfolio/README.md
