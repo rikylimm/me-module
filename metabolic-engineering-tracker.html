@@ -5118,7 +5118,7 @@ function dl(blob,name){
   setTimeout(()=>URL.revokeObjectURL(a.href),2000);
 }
 
-function syncToken(){try{return sessionStorage.getItem("me.sync.token")||"";}catch(e){return "";}}
+function syncToken(){try{return (sessionStorage.getItem("me.sync.token")||"").trim().replace(/^Bearer\s+/i,"").replace(/^token\s+/i,"");}catch(e){return "";}}
 function syncHeaders(extra){const h=Object.assign({"Accept":"application/vnd.github+json"},extra||{});const t=syncToken();if(t)h.Authorization="Bearer "+t;return h;}
 function syncB64(s){return btoa(unescape(encodeURIComponent(s)));}
 function syncUnb64(s){return decodeURIComponent(escape(atob((s||"").replace(/\n/g,""))));}
@@ -5158,11 +5158,17 @@ function renderSync(){
     try{await navigator.clipboard.writeText(txt);syncMsg("Backup JSON copied");}
     catch(e){const t=document.createElement("textarea");t.value=txt;document.body.appendChild(t);t.select();document.execCommand("copy");t.remove();syncMsg("Backup JSON copied");}
   };
-  const saveT=document.getElementById("sync-token-save");if(saveT)saveT.onclick=function(){
-    const v=(document.getElementById("sync-token").value||"").trim();
+  const saveT=document.getElementById("sync-token-save");if(saveT)saveT.onclick=async function(){
+    const v=(document.getElementById("sync-token").value||"").trim().replace(/^Bearer\s+/i,"").replace(/^token\s+/i,"");
     if(!v){syncMsg("Paste a token first.");return;}
-    try{sessionStorage.setItem("me.sync.token",v);}catch(e){syncMsg("Could not store token in this browser.");return;}
-    SYNC_CACHE=null;renderSync();
+    syncMsg("Checking token against me-sync…");
+    try{
+      const r=await fetch("https://api.github.com/repos/rikylimm/me-sync",{headers:{"Accept":"application/vnd.github+json","Authorization":"Bearer "+v}});
+      if(r.status===401)throw new Error("Token rejected (401): expired, revoked, or not a valid fine-grained token.");
+      if(r.status===404)throw new Error("Token cannot see me-sync (404): select repository me-sync and grant Metadata: read.");
+      if(!r.ok)throw new Error("Token check failed (HTTP "+r.status+").");
+      sessionStorage.setItem("me.sync.token",v);SYNC_CACHE=null;renderSync();syncMsg("Token accepted for me-sync.");
+    }catch(err){syncMsg(err.message||"Token check failed.");}
   };
   const clearT=document.getElementById("sync-token-clear");if(clearT)clearT.onclick=function(){
     try{sessionStorage.removeItem("me.sync.token");}catch(e){}
@@ -5183,7 +5189,8 @@ async function loadSyncStatus(){
       fetch("https://api.github.com/repos/rikylimm/me-sync/commits/main",{headers:syncHeaders()}),
       fetch("./VERSION.txt",{cache:"no-store"})
     ]);
-    if(r.status===401||r.status===403)throw new Error("Token cannot read me-sync. Check Contents: read and write.");
+    if(r.status===401)throw new Error("Token rejected (401). Regenerate a fine-grained token for me-sync with Contents: read and write and Metadata: read.");
+    if(r.status===403)throw new Error("Token cannot read me-sync (403). Check Contents: read and write.");
     if(!r.ok)throw new Error("GitHub API "+r.status);
     const j=await r.json();const vt=await v.text();const vm=vt.match(/Version:\s*(v[\w.]+)/);
     SYNC_CACHE={commit:{sha:j.sha,date:j.commit.author.date,message:j.commit.message.split("\n")[0]},version:vm?vm[1]:""};
@@ -5205,6 +5212,7 @@ async function pushSync(){
     const cur=await fetch("https://api.github.com/repos/rikylimm/me-sync/contents/progress.json",{headers:syncHeaders()});
     let sha=null;
     if(cur.ok){sha=(await cur.json()).sha;}
+    else if(cur.status===401){throw new Error("Token rejected (401). Regenerate the me-sync fine-grained token.");}
     else if(cur.status!==404){throw new Error("Could not read progress.json (HTTP "+cur.status+")");}
     const body={message:"Update tracker progress "+new Date().toISOString(),content:syncB64(JSON.stringify(S,null,2)),branch:"main"};
     if(sha)body.sha=sha;
@@ -5222,7 +5230,7 @@ async function pullSync(){
   try{
     const r=await fetch("https://api.github.com/repos/rikylimm/me-sync/contents/progress.json",{headers:syncHeaders()});
     if(r.status===404){throw new Error("No progress.json in me-sync yet. Push first.");}
-    if(!r.ok){const j=await r.json().catch(()=>({}));throw new Error(j.message||("Pull failed HTTP "+r.status));}
+    if(!r.ok){const j=await r.json().catch(()=>({}));throw new Error(r.status===401?"Token rejected (401). Recreate the me-sync token.":(j.message||("Pull failed HTTP "+r.status)));}
     const j=await r.json();const d=JSON.parse(syncUnb64(j.content));
     if(!d||!d.v)throw new Error("progress.json is not a tracker backup.");
     S=Object.assign(DEF(),d);save();renderAll();syncMsg("Pulled progress.json from me-sync.");

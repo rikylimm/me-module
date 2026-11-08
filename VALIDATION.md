@@ -1,6 +1,6 @@
 # Validation status
 
-**Release:** v28
+**Release:** v29
 **Status:** learning-path build complete; learner and external validation not complete.
 
 ## Learning path
@@ -22,7 +22,7 @@
 - Static checks pass on 66 HTML files.
 - Lighthouse: landing **1.00**, tracker **1.00** after contrast fixes (`#0066CC` buttons; `#A1A1A6` dark secondary text).
 - Axe-core before fixes: landing 0; tracker 1; week 1 5; statistics handbook 2.
-- Axe-core after v28 fixes: 0 violations on landing, tracker, search, week 1 and statistics handbook.
+- Axe-core after v29 fixes: 0 violations on landing, tracker, search, week 1 and statistics handbook.
 - Numeric inventory triaged into 7,816 quantities, 1,560 references, 207 enumerators, 6 candidates, 4 years. Still requires review.
 - Manual screen-reader and 200% zoom checks are still required.
 
