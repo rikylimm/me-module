@@ -1,9 +1,8 @@
-Metabolic engineering module — v25
+Metabolic engineering module — v26
 Updated 7 November 2026
 
 WHAT IS HERE
 - index.html — landing page, installable PWA entry.
-- course-ui.css, course-ui.js, course-data.js — shared rail, dashboard and module shell.
 - start-here.html — three paths, core weeks, diagnostic and project links.
 - diagnostic.html — 15-question entry diagnostic; no data saved.
 - CORE-PATH.csv — 30 core weeks; 22 useful next; 3 optional depth.

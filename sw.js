@@ -1,12 +1,9 @@
 /* Metabolic engineering module service worker — offline shell */
-const CACHE = "me-55-v25";
+const CACHE = "me-55-v26";
 const CORE = [
   "./",
   "./index.html",
   "./start-here.html",
-  "./course-ui.css",
-  "./course-ui.js",
-  "./course-data.js",
   "./diagnostic.html",
   "./metabolic-engineering-tracker.html",
   "./search.html",

@@ -1,6 +1,6 @@
 Metabolic engineering — 55-week HTML module
-Version: v25
+Version: v26
 Date: 2026-11-08
-Release phase: 8 — course shell and dashboard UI
+Release phase: 9 — reverted to v21 visual design
 Base: 55-week HTML edition
 Case study source: [TK4092] Kelompok C2.1516.B.02 (ITB, 2017)
