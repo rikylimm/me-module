@@ -1,5 +1,5 @@
 /* Metabolic engineering module service worker — offline shell */
-const CACHE = "me-55-v29";
+const CACHE = "me-55-v30";
 const CORE = [
   "./",
   "./index.html",
@@ -9,6 +9,7 @@ const CORE = [
   "./search.html",
   "./search-index.json",
   "./manifest.webmanifest",
+  "./manifest-tracker.webmanifest",
   "./favicon.svg",
   "./AUDIT.md",
   "./MASTERY.md",

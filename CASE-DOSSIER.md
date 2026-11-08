@@ -1,6 +1,6 @@
 # Fercaf case dossier
 
-**Release:** v29
+**Release:** v30
 **Date:** 7 November 2026
 **Source:** [TK4092] Kelompok C2.1516.B.02, *Pengembangan Reaktor untuk Produksi Tepung Fercaf*, Institut Teknologi Bandung, 2017.
 **Use:** evidence audit for the running case study.

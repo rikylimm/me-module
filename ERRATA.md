@@ -1,11 +1,11 @@
 # Errata and corrections
 
 **Module:** Metabolic engineering — 55-week HTML edition
-**Current release:** v29
+**Current release:** v30
 **Last updated:** 7 November 2026
 **Case-study source:** [TK4092] Kelompok C2.1516.B.02, *Pengembangan Reaktor untuk Produksi Tepung Fercaf* (ITB, 2017)
 
-## v29 — audit spine added
+## v30 — audit spine added
 
 - Added `CLAIMS.csv`, `OUTCOMES.csv`, `COMPETENCIES.csv`, this errata file, `CASE-DOSSIER.md`, and `AUDIT.md`.
 - Added `VERSION.txt` and `SHA256SUMS.txt`.

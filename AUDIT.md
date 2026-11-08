@@ -1,4 +1,4 @@
-# Course assurance — v29 Phase 12
+# Course assurance — v30 Phase 13
 
 This is the audit spine, not a claim that the module is already 10/10.
 
@@ -50,6 +50,12 @@ This is the audit spine, not a claim that the module is already 10/10.
 
 The ledger covers the case study, structural counts and a first tranche of lecture, statistics and ML claims. It does **not** yet cover every number in all 55 weeks. Those are registered as `pending` where sampled; the rest still need a full numeric audit.
 
+## Phase 13 status
+
+- Added `manifest-tracker.webmanifest`; start URL is the tracker, not the module home.
+- Tracker links to the tracker manifest for iPad/iPhone Home Screen and desktop PWA installs.
+- Service worker cache bumped; tracker page still network-first.
+
 ## Phase 12 status
 
 - Sync token is validated against `me-sync` before it is stored.
@@ -96,7 +102,7 @@ The ledger covers the case study, structural counts and a first tranche of lectu
 - Six-stage guided project with synthetic teaching data and templates.
 - Fercaf/biodiesel case thread and 11 week callouts.
 - Six worked teach-back examples.
-- Release labels aligned at v29.
+- Release labels aligned at v30.
 - These are design changes, not learner validation.
 
 ## Phase 6 status
@@ -104,7 +110,7 @@ The ledger covers the case study, structural counts and a first tranche of lectu
 - Axe-core found missing main landmarks, heading-order skips, in-text link contrast and unlabeled SVGs. Fixes applied: `<main>` landmarks, hidden `h2`, underlined in-text links, SVG labels and a navigation landmark around the tablist.
 - Numeric inventory triaged into 7,816 quantities, 1,560 references, 207 enumerators, 6 candidates and 4 years. Still a review queue, not a completed audit.
 - Pilot analysis command added.
-- Axe rerun on v29: 0 violations on landing, tracker, search, week 1 and statistics handbook. CI activation remains.
+- Axe rerun on v30: 0 violations on landing, tracker, search, week 1 and statistics handbook. CI activation remains.
 
 ## Phase 5 status
 
@@ -147,6 +153,6 @@ These are design artifacts, not validation. Thresholds require external examiner
 4. Run the 3–5 learner pilot and report results.
 5. Activate `ci/verify.yml` under `.github/workflows/` with a workflow-scoped token and confirm green on GitHub.
 6. Ratify pass thresholds, rubric levels and bench risk levels with the external examiner.
-7. Rerun axe after the v29 deploy and close any remaining violations.
+7. Rerun axe after the v30 deploy and close any remaining violations.
 
 A self-awarded 10 would repeat the error this audit exists to prevent. This page records what is proven and what is not.

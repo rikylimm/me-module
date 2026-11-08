@@ -1,4 +1,4 @@
-Metabolic engineering module — v29
+Metabolic engineering module — v30
 Updated 7 November 2026
 
 WHAT IS HERE

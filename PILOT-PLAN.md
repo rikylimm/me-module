@@ -1,6 +1,6 @@
 # Pilot plan
 
-**Release:** v29
+**Release:** v30
 **Date:** 7 November 2026
 **Status:** designed, not run.
 **Goal:** test whether 3–5 learners can use the module, reach the week-1–2 outcomes, and calibrate confidence.
