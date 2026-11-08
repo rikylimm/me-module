@@ -1,9 +1,9 @@
-Metabolic engineering module — v27
+Metabolic engineering module — v28
 Updated 7 November 2026
 
 WHAT IS HERE
 - index.html — landing page, installable PWA entry.
-- Tracker Sync tab — GitHub repo/commit status and manual backup controls.
+- Tracker Sync tab — private `me-sync` push/pull, GitHub status and manual backup controls.
 - start-here.html — three paths, core weeks, diagnostic and project links.
 - diagnostic.html — 15-question entry diagnostic; no data saved.
 - CORE-PATH.csv — 30 core weeks; 22 useful next; 3 optional depth.

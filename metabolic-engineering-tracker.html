@@ -1021,6 +1021,13 @@ h1{text-align:left;font-size:clamp(44px,6vw,76px);line-height:1;letter-spacing:-
 
 </style>
 <link rel="manifest" href="manifest.webmanifest">
+<style>
+.sync-token{min-width:min(330px,100%);padding:10px 12px;border:1px solid var(--line);border-radius:10px;background:var(--card);color:var(--ink);font:inherit;font-size:13px}
+.sync-token:focus{outline:2px solid var(--broth);outline-offset:1px}
+.sync-help{margin:12px 0 14px;padding:10px 12px;border:1px solid var(--line-2);border-radius:10px;background:var(--card)}
+.sync-help summary{cursor:pointer;font-size:12.5px;font-weight:600;color:var(--broth)}
+.sync-help p{margin:8px 0 0}
+</style>
 </head>
 <body>
 <nav class="skip-nav" aria-label="Skip links"><a class="skip" href="#main">Skip to content</a></nav>
@@ -5111,64 +5118,116 @@ function dl(blob,name){
   setTimeout(()=>URL.revokeObjectURL(a.href),2000);
 }
 
+function syncToken(){try{return sessionStorage.getItem("me.sync.token")||"";}catch(e){return "";}}
+function syncHeaders(extra){const h=Object.assign({"Accept":"application/vnd.github+json"},extra||{});const t=syncToken();if(t)h.Authorization="Bearer "+t;return h;}
+function syncB64(s){return btoa(unescape(encodeURIComponent(s)));}
+function syncUnb64(s){return decodeURIComponent(escape(atob((s||"").replace(/\n/g,""))));}
 function renderSync(){
   const c=document.getElementById("synccard");if(!c)return;
   const doneN=Object.keys(S.done||{}).length;
   const localSize=(function(){try{return new Blob([JSON.stringify(S)]).size;}catch(e){return 0;}})();
-  c.innerHTML='<h2><small>GitHub</small>Sync and backup</h2>'+
-    '<p>Repository: <a href="https://github.com/rikylimm/me-module" target="_blank" rel="noopener">rikylimm/me-module</a> · '+
+  const hasToken=!!syncToken();
+  c.innerHTML='<h2><small>Private sync</small>Sync and backup</h2>'+
+    '<p>Sync repository: <a href="https://github.com/rikylimm/me-sync" target="_blank" rel="noopener">rikylimm/me-sync</a> · '+
     '<a href="https://rikylimm.github.io/me-module/" target="_blank" rel="noopener">live site</a></p>'+
-    '<p class="meta">Tracker data stays in this browser. Nothing is pushed to GitHub automatically. Export the JSON backup and commit it yourself.</p>'+
-    '<div class="row"><button class="btn quiet small" type="button" id="sync-export">Export backup</button>'+
-    '<button class="btn quiet small" type="button" id="sync-import">Import backup</button>'+
-    '<button class="btn quiet small" type="button" id="sync-copy">Copy JSON</button>'+
-    '<button class="btn quiet small" type="button" id="sync-refresh">Refresh GitHub status</button></div>'+
-    '<h3>Repository status</h3><p class="meta" id="sync-status">Checking GitHub…</p>'+
+    '<p class="meta">Tracker data stays in this browser until you push. This repository is private; a GitHub token is required for status, push and pull.</p>'+
+    '<details class="sync-help"><summary>How to create the token</summary><p class="meta">Create a fine-grained token for repository <code>me-sync</code> with <strong>Contents: read and write</strong> and <strong>Metadata: read</strong>. Paste it below. It is kept in this tab\'s sessionStorage only and is cleared when the tab closes. Do not use a broad classic token.</p><p class="meta"><a href="https://github.com/settings/personal-access-tokens/new" target="_blank" rel="noopener">Create fine-grained token</a></p></details>'+
+    '<div class="row"><input type="password" id="sync-token" class="sync-token" autocomplete="off" spellcheck="false" placeholder="Fine-grained token for me-sync">'+
+    '<button class="btn quiet small" type="button" id="sync-token-save">Use token</button>'+
+    '<button class="btn quiet small" type="button" id="sync-token-clear">Forget token</button></div>'+
+    '<p class="meta" id="sync-token-state">'+(hasToken?'Token loaded for this tab.':'No token loaded.')+'</p>'+
+    '<div class="row"><button class="btn" type="button" id="sync-push">Push to me-sync</button>'+
+    '<button class="btn quiet small" type="button" id="sync-pull">Pull from me-sync</button>'+
+    '<button class="btn quiet small" type="button" id="sync-refresh">Refresh status</button></div>'+
+    '<p class="meta" id="sync-msg"></p>'+
+    '<h3>Repository status</h3><p class="meta" id="sync-status">Checking sync repository…</p>'+
     '<h3>Local data</h3><table><tbody>'+
     '<tr><th>Release</th><td id="sync-version">—</td></tr>'+
     '<tr><th>Sessions marked done</th><td>'+doneN+' of 660</td></tr>'+
     '<tr><th>Notes</th><td>'+Object.keys(S.notes||{}).length+'</td></tr>'+
     '<tr><th>Hours logged</th><td>'+((S.hours||[]).reduce((a,x)=>a+(parseFloat(x.h)||0),0).toFixed(1))+'</td></tr>'+
     '<tr><th>Backup size</th><td>'+(localSize/1024).toFixed(1)+' KB</td></tr></tbody></table>'+
-    '<p class="meta">GitHub sync is manual by design. A browser-only page cannot write to a repository without a token, and storing a token in localStorage would expose it to every script on this origin.</p>';
+    '<h3>Manual backup</h3><div class="row"><button class="btn quiet small" type="button" id="sync-export">Export JSON</button>'+
+    '<button class="btn quiet small" type="button" id="sync-import">Import JSON</button>'+
+    '<button class="btn quiet small" type="button" id="sync-copy">Copy JSON</button></div>'+
+    '<p class="meta">A browser-only page cannot write to GitHub without a token. Never commit the token to the repository.</p>';
   const exp=document.getElementById("sync-export");if(exp)exp.onclick=function(){document.getElementById("exp").click();};
   const imp=document.getElementById("sync-import");if(imp)imp.onclick=function(){document.getElementById("imp").click();};
   const cp=document.getElementById("sync-copy");if(cp)cp.onclick=async function(){
     const txt=JSON.stringify(S,null,2);
-    try{await navigator.clipboard.writeText(txt);flag("Backup JSON copied");}
-    catch(e){const t=document.createElement("textarea");t.value=txt;document.body.appendChild(t);t.select();document.execCommand("copy");t.remove();flag("Backup JSON copied");}
+    try{await navigator.clipboard.writeText(txt);syncMsg("Backup JSON copied");}
+    catch(e){const t=document.createElement("textarea");t.value=txt;document.body.appendChild(t);t.select();document.execCommand("copy");t.remove();syncMsg("Backup JSON copied");}
   };
+  const saveT=document.getElementById("sync-token-save");if(saveT)saveT.onclick=function(){
+    const v=(document.getElementById("sync-token").value||"").trim();
+    if(!v){syncMsg("Paste a token first.");return;}
+    try{sessionStorage.setItem("me.sync.token",v);}catch(e){syncMsg("Could not store token in this browser.");return;}
+    SYNC_CACHE=null;renderSync();
+  };
+  const clearT=document.getElementById("sync-token-clear");if(clearT)clearT.onclick=function(){
+    try{sessionStorage.removeItem("me.sync.token");}catch(e){}
+    SYNC_CACHE=null;renderSync();
+  };
+  const push=document.getElementById("sync-push");if(push)push.onclick=pushSync;
+  const pull=document.getElementById("sync-pull");if(pull)pull.onclick=pullSync;
   const rf=document.getElementById("sync-refresh");if(rf)rf.onclick=function(){SYNC_CACHE=null;renderSync();};
-  if(!SYNC_CACHE){SYNC_CACHE={};loadSyncStatus();}
-  else{paintSyncStatus();}
+  if(!SYNC_CACHE)loadSyncStatus();else paintSyncStatus();
 }
 let SYNC_CACHE=null;
-function paintSyncStatus(){
-  const e=document.getElementById("sync-status");if(!e||!SYNC_CACHE)return;
-  if(SYNC_CACHE.error){e.textContent=SYNC_CACHE.error;return;}
-  const c=SYNC_CACHE.commit, v=SYNC_CACHE.version;
-  e.innerHTML=(v?'Release <strong>'+v+'</strong> · ':'')+
-    'Latest commit <a href="https://github.com/rikylimm/me-module/commit/'+c.sha+'" target="_blank" rel="noopener"><code>'+c.sha.slice(0,7)+'</code></a> · '+
-    new Date(c.date).toLocaleString()+'<br>'+c.message;
-  const ve=document.getElementById("sync-version");if(ve)ve.textContent=v||"—";
-}
+function syncMsg(t){const e=document.getElementById("sync-msg");if(e)e.textContent=t||"";flag(t||"");}
 async function loadSyncStatus(){
-  const e=document.getElementById("sync-status");
+  const token=syncToken();
+  if(!token){SYNC_CACHE={noToken:true};paintSyncStatus();return;}
   try{
     const [r,v]=await Promise.all([
-      fetch("https://api.github.com/repos/rikylimm/me-module/commits/main",{headers:{"Accept":"application/vnd.github+json"}}),
+      fetch("https://api.github.com/repos/rikylimm/me-sync/commits/main",{headers:syncHeaders()}),
       fetch("./VERSION.txt",{cache:"no-store"})
     ]);
+    if(r.status===401||r.status===403)throw new Error("Token cannot read me-sync. Check Contents: read and write.");
     if(!r.ok)throw new Error("GitHub API "+r.status);
-    const j=await r.json();
-    const vt=await v.text();
-    const vm=vt.match(/Version:\s*(v[\w.]+)/);
+    const j=await r.json();const vt=await v.text();const vm=vt.match(/Version:\s*(v[\w.]+)/);
     SYNC_CACHE={commit:{sha:j.sha,date:j.commit.author.date,message:j.commit.message.split("\n")[0]},version:vm?vm[1]:""};
     paintSyncStatus();
-  }catch(err){
-    SYNC_CACHE={error:"Could not read GitHub status in this browser. Open the repository directly."};
-    if(e)e.textContent=SYNC_CACHE.error;
-  }
+  }catch(err){SYNC_CACHE={error:err.message||"Could not read me-sync."};paintSyncStatus();}
+}
+function paintSyncStatus(){
+  const e=document.getElementById("sync-status");if(!e||!SYNC_CACHE)return;
+  if(SYNC_CACHE.noToken){e.textContent="Private repository. Add a fine-grained token to check status, push or pull.";return;}
+  if(SYNC_CACHE.error){e.textContent=SYNC_CACHE.error;return;}
+  const c=SYNC_CACHE.commit,v=SYNC_CACHE.version;
+  e.innerHTML=(v?'Release <strong>'+v+'</strong> · ':'')+'Latest commit <a href="https://github.com/rikylimm/me-sync/commit/'+c.sha+'" target="_blank" rel="noopener"><code>'+c.sha.slice(0,7)+'</code></a> · '+new Date(c.date).toLocaleString()+'<br>'+c.message;
+  const ve=document.getElementById("sync-version");if(ve)ve.textContent=v||"—";
+}
+async function pushSync(){
+  if(!syncToken()){syncMsg("Add a token first.");return;}
+  const btn=document.getElementById("sync-push");if(btn)btn.disabled=true;
+  try{
+    const cur=await fetch("https://api.github.com/repos/rikylimm/me-sync/contents/progress.json",{headers:syncHeaders()});
+    let sha=null;
+    if(cur.ok){sha=(await cur.json()).sha;}
+    else if(cur.status!==404){throw new Error("Could not read progress.json (HTTP "+cur.status+")");}
+    const body={message:"Update tracker progress "+new Date().toISOString(),content:syncB64(JSON.stringify(S,null,2)),branch:"main"};
+    if(sha)body.sha=sha;
+    const r=await fetch("https://api.github.com/repos/rikylimm/me-sync/contents/progress.json",{method:"PUT",headers:syncHeaders({"Content-Type":"application/json"}),body:JSON.stringify(body)});
+    if(!r.ok){const j=await r.json().catch(()=>({}));throw new Error(j.message||("Push failed HTTP "+r.status));}
+    syncMsg("Pushed progress.json to me-sync.");
+    SYNC_CACHE=null;await loadSyncStatus();
+  }catch(err){syncMsg(err.message||"Push failed.");}
+  if(btn)btn.disabled=false;
+}
+async function pullSync(){
+  if(!syncToken()){syncMsg("Add a token first.");return;}
+  if(!confirm("Replace the local tracker with the version in me-sync? Export a local backup first if unsure."))return;
+  const btn=document.getElementById("sync-pull");if(btn)btn.disabled=true;
+  try{
+    const r=await fetch("https://api.github.com/repos/rikylimm/me-sync/contents/progress.json",{headers:syncHeaders()});
+    if(r.status===404){throw new Error("No progress.json in me-sync yet. Push first.");}
+    if(!r.ok){const j=await r.json().catch(()=>({}));throw new Error(j.message||("Pull failed HTTP "+r.status));}
+    const j=await r.json();const d=JSON.parse(syncUnb64(j.content));
+    if(!d||!d.v)throw new Error("progress.json is not a tracker backup.");
+    S=Object.assign(DEF(),d);save();renderAll();syncMsg("Pulled progress.json from me-sync.");
+  }catch(err){syncMsg(err.message||"Pull failed.");}
+  if(btn)btn.disabled=false;
 }
 
 function renderAll(){

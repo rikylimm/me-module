@@ -1,6 +1,6 @@
 Metabolic engineering — 55-week HTML module
-Version: v27
+Version: v28
 Date: 2026-11-08
-Release phase: 10 — tracker Sync tab
+Release phase: 11 — private me-sync integration
 Base: 55-week HTML edition
 Case study source: [TK4092] Kelompok C2.1516.B.02 (ITB, 2017)
